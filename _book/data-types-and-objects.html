@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2018-11-11">
+<meta name="date" content="2018-11-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -170,7 +170,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-list-class"><i class="fa fa-check"></i><b>3.6</b> The <code>list</code> class</a></li>
 <li class="chapter" data-level="3.7" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-data.frame-and-tibble-classes"><i class="fa fa-check"></i><b>3.7</b> The <code>data.frame</code> and <code>tibble</code> classes</a></li>
 <li class="chapter" data-level="3.8" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#formulas"><i class="fa fa-check"></i><b>3.8</b> Formulas</a></li>
-<li class="chapter" data-level="3.9" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a><ul>
+<li class="chapter" data-level="3.9" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#models"><i class="fa fa-check"></i><b>3.9</b> Models</a></li>
+<li class="chapter" data-level="3.10" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercises-1"><i class="fa fa-check"></i><b>3.10</b> Exercises</a><ul>
 <li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-1-1"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-3"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -178,10 +179,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-5"><i class="fa fa-check"></i>Exercise 5</a></li>
 <li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-6"><i class="fa fa-check"></i>Exercise 6</a></li>
 <li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-7"><i class="fa fa-check"></i>Exercise 7</a></li>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-8"><i class="fa fa-check"></i>Exercise 8</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a><ul>
-<li class="chapter" data-level="4.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>4.1</b> The swiss army knife of data import and export: <code>rio</code></a></li>
+<li class="chapter" data-level="4.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>4.1</b> The swiss army knife of data import and export: <code>{rio}</code></a></li>
 <li class="chapter" data-level="4.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>4.2</b> Writing any object to disk</a></li>
 <li class="chapter" data-level="4.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>4.3</b> Using RStudio projects to manage paths</a></li>
 </ul></li>
@@ -195,33 +197,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-summary-statistics-with-summarise"><i class="fa fa-check"></i><b>5.2.5</b> Get summary statistics with <code>summarise()</code></a></li>
 <li class="chapter" data-level="5.2.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#adding-columns-with-mutate-and-transmute"><i class="fa fa-check"></i><b>5.2.6</b> Adding columns with <code>mutate()</code> and <code>transmute()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.3</b> Reshaping data with <code>tidyr</code></a></li>
-<li class="chapter" data-level="5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#getting-to-know-factor-variables"><i class="fa fa-check"></i><b>5.4</b> Getting to know <code>factor</code> variables</a></li>
-<li class="chapter" data-level="5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>5.5</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter_"><i class="fa fa-check"></i><b>5.5.1</b> filter_()</a></li>
-<li class="chapter" data-level="5.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select_"><i class="fa fa-check"></i><b>5.5.2</b> select_()</a></li>
-<li class="chapter" data-level="5.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group_by_"><i class="fa fa-check"></i><b>5.5.3</b> group_by_()</a></li>
-<li class="chapter" data-level="5.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise_"><i class="fa fa-check"></i><b>5.5.4</b> summarise_()</a></li>
-<li class="chapter" data-level="5.5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#mutate_"><i class="fa fa-check"></i><b>5.5.5</b> mutate_()</a></li>
+<li class="chapter" data-level="5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.3</b> Reshaping data with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="5.3.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>5.3.1</b> <code>spread()</code> and <code>gather()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-extract-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>5.3.2</b> Put order in your columns with <code>separate()</code>, extract(), <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#go-from-implicit-to-explicit-missing-values-with-complete-expand-crossing-and-nesting"><i class="fa fa-check"></i><b>5.3.3</b> Go from implicit to explicit missing values with <code>complete()</code>, <code>expand()</code>, <code>crossing()</code> and <code>nesting()</code></a></li>
+<li class="chapter" data-level="5.3.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>5.3.4</b> <code>fill()</code> and <code>full_seq()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>5.6</b> Other useful <code>{tidyverse}</code> functions</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#if_else-case_when-and-recode"><i class="fa fa-check"></i><b>5.6.1</b> <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code></a></li>
-<li class="chapter" data-level="5.6.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#lead-and-lag"><i class="fa fa-check"></i><b>5.6.2</b> <code>lead()</code> and <code>lag()</code></a></li>
-<li class="chapter" data-level="5.6.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#ntile"><i class="fa fa-check"></i><b>5.6.3</b> <code>ntile()</code></a></li>
-<li class="chapter" data-level="5.6.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#arrange"><i class="fa fa-check"></i><b>5.6.4</b> <code>arrange()</code></a></li>
-<li class="chapter" data-level="5.6.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tally-and-count"><i class="fa fa-check"></i><b>5.6.5</b> <code>tally()</code> and <code>count()</code></a></li>
+<li class="chapter" data-level="5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>5.4</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter_"><i class="fa fa-check"></i><b>5.4.1</b> filter_()</a></li>
+<li class="chapter" data-level="5.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select_"><i class="fa fa-check"></i><b>5.4.2</b> select_()</a></li>
+<li class="chapter" data-level="5.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group_by_"><i class="fa fa-check"></i><b>5.4.3</b> group_by_()</a></li>
+<li class="chapter" data-level="5.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise_"><i class="fa fa-check"></i><b>5.4.4</b> summarise_()</a></li>
+<li class="chapter" data-level="5.4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#mutate_"><i class="fa fa-check"></i><b>5.4.5</b> mutate_()</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>5.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
-<li class="chapter" data-level="5.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>5.8</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a><ul>
-<li class="chapter" data-level="5.8.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#section"><i class="fa fa-check"></i><b>5.8.1</b> 🐈🐈🐈🐈</a></li>
+<li class="chapter" data-level="5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>5.5</b> Other useful <code>{tidyverse}</code> functions</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#if_else-case_when-and-recode"><i class="fa fa-check"></i><b>5.5.1</b> <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code></a></li>
+<li class="chapter" data-level="5.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#lead-and-lag"><i class="fa fa-check"></i><b>5.5.2</b> <code>lead()</code> and <code>lag()</code></a></li>
+<li class="chapter" data-level="5.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#ntile"><i class="fa fa-check"></i><b>5.5.3</b> <code>ntile()</code></a></li>
+<li class="chapter" data-level="5.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#arrange"><i class="fa fa-check"></i><b>5.5.4</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="5.5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tally-and-count"><i class="fa fa-check"></i><b>5.5.5</b> <code>tally()</code> and <code>count()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#wor-get-your-dates-right-with-lubridate"><i class="fa fa-check"></i><b>5.9</b> Wor# Get your dates right with <code>{lubridate}</code></a><ul>
-<li class="chapter" data-level="5.9.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>5.9.1</b> Manipulate strings with <code>{stringr}</code></a></li>
-<li class="chapter" data-level="5.9.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.9.2</b> Getting to know <code>map()</code></a></li>
-<li class="chapter" data-level="5.9.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.9.3</b> Getting to know <code>reduce()</code></a></li>
+<li class="chapter" data-level="5.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>5.6</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
+<li class="chapter" data-level="5.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>5.7</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a><ul>
+<li class="chapter" data-level="5.7.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#section"><i class="fa fa-check"></i><b>5.7.1</b> 🐈🐈🐈🐈</a></li>
+<li class="chapter" data-level="5.7.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-your-dates-right-with-lubridate"><i class="fa fa-check"></i><b>5.7.2</b> Get your dates right with <code>{lubridate}</code></a></li>
+<li class="chapter" data-level="5.7.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>5.7.3</b> Manipulate strings with <code>{stringr}</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>5.10</b> List-columns</a></li>
-<li class="chapter" data-level="5.11" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>5.11</b> Exercises</a><ul>
+<li class="chapter" data-level="5.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.8</b> Working with a list of datasets</a><ul>
+<li class="chapter" data-level="5.8.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.8.1</b> Getting to know <code>map()</code></a></li>
+<li class="chapter" data-level="5.8.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.8.2</b> Getting to know <code>reduce()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>5.9</b> List-columns</a></li>
+<li class="chapter" data-level="5.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -300,10 +307,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10" data-path="other-niceties.html"><a href="other-niceties.html"><i class="fa fa-check"></i><b>10</b> Other niceties</a><ul>
 <li class="chapter" data-level="10.1" data-path="other-niceties.html"><a href="other-niceties.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>10.1</b> Generating Pdf or Word reports with R</a></li>
 <li class="chapter" data-level="10.2" data-path="other-niceties.html"><a href="other-niceties.html#scraping-the-internet"><i class="fa fa-check"></i><b>10.2</b> Scraping the internet</a></li>
-<li class="chapter" data-level="10.3" data-path="other-niceties.html"><a href="other-niceties.html#writing-your-own-package"><i class="fa fa-check"></i><b>10.3</b> Writing your own package</a></li>
-<li class="chapter" data-level="10.4" data-path="other-niceties.html"><a href="other-niceties.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>10.4</b> Random tips and tricks</a><ul>
-<li class="chapter" data-level="10.4.1" data-path="other-niceties.html"><a href="other-niceties.html#creating-a-log-fil"><i class="fa fa-check"></i><b>10.4.1</b> Creating a log fil</a></li>
+<li class="chapter" data-level="10.3" data-path="other-niceties.html"><a href="other-niceties.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>10.3</b> Random tips and tricks</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="other-niceties.html"><a href="other-niceties.html#creating-a-log-file"><i class="fa fa-check"></i><b>10.3.1</b> Creating a log file</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>11</b> Package development</a><ul>
+<li class="chapter" data-level="11.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>11.1</b> Why you need to write your own package</a></li>
+<li class="chapter" data-level="11.2" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>11.2</b> Unit testing your package</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -334,7 +344,7 @@ lot of other programming languages) that you need to become familiar with. But f
 learn how to assign a value to a variable. This can be done in two ways:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">a &lt;-<span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <p>or</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">a =<span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">a &lt;-<span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <p>there is almost no difference between these two approaches. You would need to pay attention to
 this, and use <code>&lt;-</code> in very specific situations to which you will very likely never be confronted
 to.</p>
@@ -347,17 +357,17 @@ remember them!</p>
 <div id="the-numeric-class" class="section level2">
 <h2><span class="header-section-number">3.1</span> The <code>numeric</code> class</h2>
 <p>To define single numbers, you can do the following:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">a =<span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">a &lt;-<span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <p>The <code>class()</code> function allows you to check the class of an object:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">class</span>(a)</a></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>Decimals are defined with the character <code>.</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">a =<span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">a &lt;-<span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 </div>
 <div id="the-character-class" class="section level2">
 <h2><span class="header-section-number">3.2</span> The <code>character</code> class</h2>
 <p>Use <code>&quot; &quot;</code> to define characters (called strings in other programming languages):</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">a =<span class="st"> &quot;this is a string&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">a &lt;-<span class="st"> &quot;this is a string&quot;</span></a></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">class</span>(a)</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>A very nice package to work with characters is <code>stringr</code>, which is also part of the <code>tidyverse</code>.</p>
@@ -377,7 +387,7 @@ numbers (either integers or floats), strings, or even other vectors.</p>
 <div id="the-c-function" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> The <code>c()</code> function</h3>
 <p>A very important function that allows you to build a vector is <code>c()</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">a =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</a></code></pre></div>
 <p>This creates a vector with elements 1, 2, 3, 4, 5. If you check its class:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">class</span>(a)</a></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
@@ -394,7 +404,7 @@ use <code>cbind()</code> or <code>rbind()</code>.</p>
 <div id="cbind-and-rbind" class="section level3">
 <h3><span class="header-section-number">3.4.2</span> <code>cbind()</code> and <code>rbind()</code></h3>
 <p>You can create a <em>true</em> vector with <code>cbind()</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">a =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">a &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</a></code></pre></div>
 <p>Check its class now:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">class</span>(a)</a></code></pre></div>
 <pre><code>## [1] &quot;matrix&quot;</code></pre>
@@ -403,10 +413,10 @@ use <code>cbind()</code> or <code>rbind()</code>.</p>
 <pre><code>## [1] 1 5</code></pre>
 <p>This returns the dimension of <code>a</code> using the LICO notation (number of LInes first, the number of COlumns).</p>
 <p>It is also possible to bind vectors together to create a matrix.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">b =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">b &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</a></code></pre></div>
 <p>Now let’s put vector <code>a</code> and <code>b</code> into a matrix called <code>matrix_c</code> using <code>rbind()</code>.
 <code>rbind()</code> functions the same way as <code>cbind()</code> but glues the vectors together by rows and not by columns.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">matrix_c =<span class="st"> </span><span class="kw">rbind</span>(a,b)</a>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">matrix_c &lt;-<span class="st"> </span><span class="kw">rbind</span>(a,b)</a>
 <a class="sourceLine" id="cb27-2" title="2"><span class="kw">print</span>(matrix_c)</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    1    2    3    4    5
@@ -416,23 +426,23 @@ use <code>cbind()</code> or <code>rbind()</code>.</p>
 <h3><span class="header-section-number">3.4.3</span> The <code>matrix</code> class</h3>
 <p>R also has support for matrices. For example, you can create a matrix of dimension (5,5) filled
 with 0’s with the <code>matrix()</code> function:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">matrix_a =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">matrix_a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, nrow &lt;-<span class="st"> </span><span class="dv">5</span>, ncol &lt;-<span class="st"> </span><span class="dv">5</span>)</a></code></pre></div>
 <p>If you want to create the following matrix:</p>
 <p><span class="math display">\[
-B = \left(
+B &lt;- \left(
 \begin{array}{ccc}
  2 &amp; 4 &amp; 3 \\
  1 &amp; 5 &amp; 7
 \end{array} \right)
 \]</span></p>
 <p>you would do it like this:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">B =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p>The option <code>byrow = TRUE</code> means that the rows of the matrix will be filled first.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), nrow &lt;-<span class="st"> </span><span class="dv">2</span>, byrow &lt;-<span class="st"> </span><span class="ot">TRUE</span>)</a></code></pre></div>
+<p>The option <code>byrow &lt;- TRUE</code> means that the rows of the matrix will be filled first.</p>
 <p>You can access individual elements of <code>matrix_a</code> like so:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">matrix_a[<span class="dv">2</span>, <span class="dv">3</span>]</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>and R returns its value, 0. We can assign a new value to this element if we want. Try:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">matrix_a[<span class="dv">2</span>, <span class="dv">3</span>] =<span class="st"> </span><span class="dv">7</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">matrix_a[<span class="dv">2</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">7</span></a></code></pre></div>
 <p>and now take a look at <code>matrix_a</code> again.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">print</span>(matrix_a)</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
@@ -442,7 +452,7 @@ B = \left(
 ## [4,]    0    0    0    0    0
 ## [5,]    0    0    0    0    0</code></pre>
 <p>Recall our vector <code>b</code>:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">b =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">b &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</a></code></pre></div>
 <p>To access its third element, you can simply write:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">b[<span class="dv">3</span>]</a></code></pre></div>
 <pre><code>## [1] 8</code></pre>
@@ -454,7 +464,7 @@ B = \left(
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="dv">4</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>R returns true. If we save this in a variable <code>k</code>:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">k =<span class="st"> </span><span class="dv">4</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">k &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <p>and check <code>k</code>’s class:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">class</span>(k)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
@@ -465,13 +475,13 @@ B = \left(
 <h2><span class="header-section-number">3.6</span> The <code>list</code> class</h2>
 <p>The <code>list</code> class is a very flexible class, and thus, very useful. You can put anything inside a list,
 such as numbers:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">list1 =<span class="st"> </span><span class="kw">list</span>(<span class="dv">3</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">list1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">3</span>, <span class="dv">2</span>)</a></code></pre></div>
 <p>or other lists constructed with <code>c()</code>:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">list2 =<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">list2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</a></code></pre></div>
 <p>you can also put objects of different classes in the same list:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">list3 =<span class="st"> </span><span class="kw">list</span>(<span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="st">&quot;lists are amazing!&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">list3 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="st">&quot;lists are amazing!&quot;</span>)</a></code></pre></div>
 <p>and of course create list of lists:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">my_lists =<span class="st"> </span><span class="kw">list</span>(list1, list2, list3)</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">my_lists &lt;-<span class="st"> </span><span class="kw">list</span>(list1, list2, list3)</a></code></pre></div>
 <p>To check the contents of a list, you can use the structure function <code>str()</code>:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="kw">str</span>(my_lists)</a></code></pre></div>
 <pre><code>## List of 3
@@ -488,13 +498,13 @@ such as numbers:</p>
 <p>or you can use RStudio’s <em>Environment</em> pane:</p>
 <p><img src="pics/rstudio_environment_list.gif" /><!-- --></p>
 <p>You can also create named lists:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">list4 =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;a&quot;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;b&quot;</span> =<span class="st"> </span><span class="dv">8</span>, <span class="st">&quot;c&quot;</span> =<span class="st"> &quot;this is a named list&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">list4 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;a&quot;</span> &lt;-<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;b&quot;</span> &lt;-<span class="st"> </span><span class="dv">8</span>, <span class="st">&quot;c&quot;</span> &lt;-<span class="st"> &quot;this is a named list&quot;</span>)</a></code></pre></div>
 <p>and you can access the elements in two ways:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">list4[[<span class="dv">1</span>]]</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>or, for named lists:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">list4<span class="op">$</span>c</a></code></pre></div>
-<pre><code>## [1] &quot;this is a named list&quot;</code></pre>
+<pre><code>## NULL</code></pre>
 <p>Lists are used extensively because they are so flexible. You can build lists of datasets and apply
 functions to all the datasets at once, build lists of models, lists of plots, etc… In the later
 chapters we are going to learn all about them. Actually, I use lists very often, but never vectors
@@ -523,7 +533,7 @@ are different ways to print a <code>data.frame</code> or a <code>tibble</code> i
 <h2><span class="header-section-number">3.8</span> Formulas</h2>
 <p>We will learn more about formulas later, but because it is an important object, it is useful if you
 already know about them early on. A formula is defined in the following way:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">my_formula =<span class="st"> </span><span class="er">~</span>x</a>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">my_formula &lt;-<span class="st"> </span><span class="er">~</span>x</a>
 <a class="sourceLine" id="cb57-2" title="2"></a>
 <a class="sourceLine" id="cb57-3" title="3"><span class="kw">class</span>(my_formula)</a></code></pre></div>
 <pre><code>## [1] &quot;formula&quot;</code></pre>
@@ -532,8 +542,39 @@ for example for a linear regression:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</a></code></pre></div>
 <p>or also to define anonymous functions, but more on this later.</p>
 </div>
+<div id="models" class="section level2">
+<h2><span class="header-section-number">3.9</span> Models</h2>
+<p>A statistical model is an object like any other in R:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="kw">data</span>(mtcars)</a>
+<a class="sourceLine" id="cb60-2" title="2"></a>
+<a class="sourceLine" id="cb60-3" title="3">my_model &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>hp, mtcars)</a>
+<a class="sourceLine" id="cb60-4" title="4"></a>
+<a class="sourceLine" id="cb60-5" title="5"><span class="kw">class</span>(my_model)</a></code></pre></div>
+<pre><code>## [1] &quot;lm&quot;</code></pre>
+<p><code>my_model</code> is an object of class <code>lm</code>. You can apply different functions to a model object:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="kw">summary</span>(my_model)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ hp, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.7121 -2.1122 -0.8854  1.5819  8.2360 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 30.09886    1.63392  18.421  &lt; 2e-16 ***
+## hp          -0.06823    0.01012  -6.742 1.79e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.863 on 30 degrees of freedom
+## Multiple R-squared:  0.6024, Adjusted R-squared:  0.5892 
+## F-statistic: 45.46 on 1 and 30 DF,  p-value: 1.788e-07</code></pre>
+<p>This class will be explored in later chapters.</p>
+</div>
 <div id="exercises-1" class="section level2">
-<h2><span class="header-section-number">3.9</span> Exercises</h2>
+<h2><span class="header-section-number">3.10</span> Exercises</h2>
 <div id="exercise-1-1" class="section level3 unnumbered">
 <h3>Exercise 1</h3>
 <p>Try to create the following vector:</p>
@@ -555,21 +596,21 @@ Try to find the right function to get the dot product. Don’t hesitate to googl
 <div id="exercise-4" class="section level3 unnumbered">
 <h3>Exercise 4</h3>
 <p>Save your first name in a variable <code>a</code> and your surname in a variable <code>b</code>. What does the function:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="kw">paste</span>(a,b)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw">paste</span>(a, b)</a></code></pre></div>
 <p>do? Look at the help for <code>paste()</code> with <code>?paste</code> or using the <em>Help</em> pane in RStudio. What does the
 optional argument <code>sep</code> do?</p>
 </div>
 <div id="exercise-5" class="section level3 unnumbered">
 <h3>Exercise 5</h3>
-<p>Define the following variables: <code>a = 8</code>, <code>b = 3</code>, <code>c = 19</code>. What do the following lines check?
+<p>Define the following variables: <code>a &lt;- 8</code>, <code>b &lt;- 3</code>, <code>c &lt;- 19</code>. What do the following lines check?
 What do they return?</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">a <span class="op">&gt;</span><span class="st"> </span>b</a>
-<a class="sourceLine" id="cb61-2" title="2">a <span class="op">==</span><span class="st"> </span>b</a>
-<a class="sourceLine" id="cb61-3" title="3">a <span class="op">!=</span><span class="st"> </span>b</a>
-<a class="sourceLine" id="cb61-4" title="4">a <span class="op">&lt;</span><span class="st"> </span>b</a>
-<a class="sourceLine" id="cb61-5" title="5">(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">&amp;&amp;</span><span class="st"> </span>(a <span class="op">&lt;</span><span class="st"> </span>c)</a>
-<a class="sourceLine" id="cb61-6" title="6">(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">&amp;&amp;</span><span class="st"> </span>(a <span class="op">&gt;</span><span class="st"> </span>c)</a>
-<a class="sourceLine" id="cb61-7" title="7">(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">||</span><span class="st"> </span>(a <span class="op">&lt;</span><span class="st"> </span>b)</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">a <span class="op">&gt;</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb65-2" title="2">a <span class="op">==</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb65-3" title="3">a <span class="op">!=</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb65-4" title="4">a <span class="op">&lt;</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb65-5" title="5">(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">&amp;&amp;</span><span class="st"> </span>(a <span class="op">&lt;</span><span class="st"> </span>c)</a>
+<a class="sourceLine" id="cb65-6" title="6">(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">&amp;&amp;</span><span class="st"> </span>(a <span class="op">&gt;</span><span class="st"> </span>c)</a>
+<a class="sourceLine" id="cb65-7" title="7">(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">||</span><span class="st"> </span>(a <span class="op">&lt;</span><span class="st"> </span>b)</a></code></pre></div>
 </div>
 <div id="exercise-6" class="section level3 unnumbered">
 <h3>Exercise 6</h3>
@@ -615,6 +656,33 @@ What do they return?</p>
 \end{array}
 \right)
 \]</span></p>
+</div>
+<div id="exercise-8" class="section level3 unnumbered">
+<h3>Exercise 8</h3>
+<p>Load the <code>mtcars</code> data (<code>mtcars</code> is include in R, so you only need to use the <code>data()</code> function to
+load the data):</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="kw">data</span>(mtcars)</a></code></pre></div>
+<p>if you run <code>class(mtcars)</code>, you get “data.frame”. Try now with <code>typeof(mtcars)</code>. The answer is now
+“list”! This is because the class of an object is an attribute of that object, which can even
+be assigned by the user:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">class</span>(mtcars) &lt;-<span class="st"> &quot;don&#39;t do this&quot;</span></a>
+<a class="sourceLine" id="cb67-2" title="2"></a>
+<a class="sourceLine" id="cb67-3" title="3"><span class="kw">class</span>(mtcars)</a></code></pre></div>
+<pre><code>## [1] &quot;don&#39;t do this&quot;</code></pre>
+<p>The type of an object is R’s internal type of that object, which cannot be manipulated by the user.
+It is always useful to know the type of an object (not just its class). For example, in the particular
+case of data frames, because the type of a data frame is a list, you can use all that you learned
+about lists to manipulate data frames! Recall that <code>$</code> allowed you to select the element of a list
+for instance:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">my_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;one&quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;two&quot;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;three&quot;</span> =<span class="st"> </span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb69-2" title="2"></a>
+<a class="sourceLine" id="cb69-3" title="3">my_list<span class="op">$</span>one</a></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>Because data frames are nothing but fancy lists, this is why you can access columns the same way:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">mtcars<span class="op">$</span>mpg</a></code></pre></div>
+<pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+## [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
+## [29] 15.8 19.7 15.0 21.4</code></pre>
 
 </div>
 </div>

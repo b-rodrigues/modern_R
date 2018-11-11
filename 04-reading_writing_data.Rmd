@@ -2,28 +2,29 @@
 
 In this chapter, we are going to import example datasets that are available in R, `mtcars` and
 `iris`. I have converted these datasets into several formats. Download those datasets
-[here](https://brodriguesco.ocloud.de/index.php/s/5gPpzGpYgYr9X2w) if you want to follow the
+[here](https://github.com/b-rodrigues/modern_R/tree/master/datasets) if you want to follow the
 examples below. R can import some formats without the need of external packages, such as the `.csv`
 format. However, for other formats, you will need to use different packages. Because there are a
-lot of different formats available I suggest you use `rio`. `rio` is a wrapper around different
-packages that import/export data in different formats. This package is nice because you don't need to
-remember which package to use to import, say, STATA datasets and then you need to remember which
-one for SAS datasets, and so on. Read `rio`'s
+lot of different formats available I suggest you use the `{rio}` package. 
+`{rio}` is a wrapper around different packages that import/export data in different formats. 
+This package is nice because you don't need to remember which package to use to import, say, 
+STATA datasets and then you need to remember which one for SAS datasets, and so on. Read `{rio}`'s
 [vignette](https://cran.r-project.org/web/packages/rio/vignettes/rio.html) for more details. Below
-I show some of `rio`'s functions presented in the vignette. It is also possible to import data from
+I show some of `{rio}`'s functions presented in the vignette. It is also possible to import data from
 other, less "traditional" sources, such as your clipboard. Also note that it is possible to import
-more than one dataset at once, it is enough to save each dataset in a distinct variable. However,
-depending on what you want to do, it might be better to save each of these datasets into a list. We
-are going to learn how to work with lists of datasets in a later chapter.
+more than one dataset at once. There are two ways of doing that, either by importing all the 
+datasets, binding their rows together and add a new variable with the name of the data, or import
+all the datasets into a list, where each element of that list is a data frame. We are going to 
+explore this second option later.
 
-## The swiss army knife of data import and export: `rio`
+## The swiss army knife of data import and export: `{rio}`
 
-To import data with `rio`, `import()` is all you need:
+To import data with `{rio}`, `import()` is all you need:
 
 ```{r}
 library(rio)
 
-mtcars = import("datasets/mtcars.csv")
+mtcars <- import("datasets/mtcars.csv")
 ```
 
 ```{r}
@@ -36,10 +37,10 @@ paths in Windows use the `\` symbol whereas R uses `/` (just like on Linux or ma
 Importing a STATA or a SAS file is done just the same:
 
 ```{r}
-mtcars_stata = import("datasets/mtcars.dta")
+mtcars_stata <- import("datasets/mtcars.dta")
 head(mtcars_stata)
 
-mtcars_sas = import("datasets/mtcars.sas7bdat")
+mtcars_sas <- import("datasets/mtcars.sas7bdat")
 head(mtcars_sas)
 ```
 
@@ -47,7 +48,7 @@ It is also possible to import Excel files where each sheet is a single table, bu
 `import_list()` for that. The file `multi.xlsx` has two sheets, each with a table in it:
 
 ```{r}
-multi = import_list("datasets/multi.xlsx")
+multi <- import_list("datasets/multi.xlsx")
 str(multi)
 ```
 
@@ -55,14 +56,14 @@ As you can see `multi` is a list of datasets. Told you lists were very flexible!
 to import all the datasets in a single directory at once. For this, you first need a vector of paths:
 
 ```{r}
-paths = Sys.glob("datasets/unemployment/*.csv")
+paths <- Sys.glob("datasets/unemployment/*.csv")
 ```
 
 `Sys.glob()` allows you to find files using a regular expression. "datasets/unemployment/*.csv"
-matches all the `.csv` files inside "datasets/unemployment".
+matches all the `.csv` files inside the "datasets/unemployment/" folder.
 
 ```{r}
-all_data = import_list(paths)
+all_data <- import_list(paths)
 
 str(all_data)
 ```
@@ -73,18 +74,18 @@ If you know that each dataset in each file has the same colmuns, you can also im
 into a single dataset by binding each dataset together using `rbind = TRUE`:
 
 ```{r}
-bind_data = import_list(paths, rbind = TRUE)
+bind_data <- import_list(paths, rbind = TRUE)
 str(bind_data)
 ```
 
 This also add a further column called `_file` indicating the name of the file that contained the
 original data.
 
-If something goes wrong, you might need to take a look at the underlying function `rio` is
+If something goes wrong, you might need to take a look at the underlying function `{rio}` is
 actually using to import the file. Let's look at the following example:
 
 ```{r}
-testdata = import("datasets/problems/mtcars.csv")
+testdata <- import("datasets/problems/mtcars.csv")
 
 head(testdata)
 ```
@@ -94,10 +95,10 @@ some reason. Because we are trying to read a `.csv` file, `rio::import()` is usi
 `data.table::fread()` under the hood (you can read this in `import()`'s help). If you then read
 `data.table::fread()`'s help, you see that the `fread()` function has an optional `sep = ` argument
 that you can use to specify the separator. You can use this argument in `import()` too, and it will
-be passed down to `fread()`:
+be passed down to `data.table::fread()`:
 
 ```{r}
-testdata = import("datasets/problems/mtcars.csv", sep = "&")
+testdata <- import("datasets/problems/mtcars.csv", sep = "&")
 
 head(testdata)
 ```
@@ -112,19 +113,30 @@ export(testdata, "path/where/to/save/testdata.csv")
 If you end the name with `.csv` the file is exported to the csv format, if instead you write `.dta`
 the data will be exported to the STATA format, and so on.
 
-If you wish to export to Excel, this is possible, but requires that you change a file on your
-computer (you only have to do this once). Run the following lines in Rstudio:
+If you wish to export to Excel, this is possible, but it may require that you change a file on your
+computer (you only have to do this once). Try running:
+
+```{r, eval=FALSE}
+export(testdata, "path/where/to/save/testdata.xlsx")
+```
+
+if this results in an error, try the following:
+
+* Run the following lines in Rstudio:
 
 ```{r, eval=FALSE}
 if(!file.exists("~/.Rprofile")) # only create if not already there
     file.create("~/.Rprofile")    # (don't overwrite it)
 file.edit("~/.Rprofile")
 ```
+
 These lines, taken shamelessly from [Efficient R
 programming](https://csgillespie.github.io/efficientR/3-3-r-startup.html#rprofile) (go read it,
 it's a very great resource) look for and open the `.Rprofile` file which is a file that is run
 every time you open Rstudio. This means that you can put any line of code there that will always be
-executed whenever you launch Rstudio. The line you need to add is this:
+executed whenever you launch Rstudio. 
+
+* Add this line to the file:
 
 ```{r, eval=FALSE}
 Sys.setenv("R_ZIPCMD" = "C:/Program Files (x86)/Rtools/zip.exe")
@@ -141,31 +153,30 @@ data(mtcars)
 export(mtcars, "mtcars.xlsx")
 ```
 
-You should find the `mtcars.xlsx` inside your working directory (it should be your Documents
-folder. You can use `getwd()` to check where you are).
+You should find the `mtcars.xlsx` inside your working directory. You can check what is your working
+directory with `getwd()`.
 
-`rio` should cover all your needs, but if not, there is very likely a package out there that will
+`{rio}` should cover all your needs, but if not, there is very likely a package out there that will
 import the data you need.
-
 
 ## Writing any object to disk
 
-`rio` is an amazing package, but is only able to write tabular representations of data. What if you
+`{rio}` is an amazing package, but is only able to write tabular representations of data. What if you
 would like to save, say, a list containing any arbitrary object? This is possible with the
 `saveRDS()` function. Literally anything can be saved with `saveRDS()`:
 
 ```{r}
-my_list = list("this is a list", list("which contains a list", 12), c(1, 2, 3, 4), matrix(c(2, 4,
+my_list <- list("this is a list", list("which contains a list", 12), c(1, 2, 3, 4), matrix(c(2, 4,
 3, 1, 5, 7), nrow = 2))
 
 str(my_list)
 ```
 
 `my_list` is a list containing a string, a list which contains a string and a number, a vector and
-a matrix... Now suppose that computing this list takes a very long time (for example, imagine that
-each element of the list is the result of estimating a very complex model on a particular simulated
-dataset for instance) and you would like to save this list to disk. This is possible with
-`saveRDS()`:
+a matrix... Now suppose that computing this list takes a very long time. For example, imagine that
+each element of the list is the result of estimating a very complex model on a simulated
+dataset, which takes hours to simulate. Because this takes so long to compute, you'd want to save
+it to disk. This is possible with `saveRDS()`:
 
 ```{r}
 saveRDS(my_list, "my_list.RDS")
@@ -175,7 +186,7 @@ The next day, after having freshly started your computer and launched RStudio, i
 retrieve the object exactly like it was using `readRDS()`:
 
 ```{r}
-my_list = readRDS("my_list.RDS")
+my_list <- readRDS("my_list.RDS")
 
 str(my_list)
 ```
@@ -185,13 +196,11 @@ gets compressed if you add the option `compress = TRUE` to `saveRDS()`. However 
 this will only be readable by R, so if you need to share this data with colleagues that use another
 tool, save it in another format.
 
-
 ## Using RStudio projects to manage paths
 
 Managing paths can be painful, especially if you're collaborating with a colleague and both of you
 saved the data in paths that are different. Whenever one of you wants to work on the script, the
 path will need to be adapted first. The best way to avoid that is to use projects with RStudio.
-
 
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_projects.gif")
@@ -205,20 +214,20 @@ you are inside an RStudio project, granted that you chose your "housing" folder 
 host the project, you can read the data by simply specifying the path like so:
 
 ```{r, eval=FALSE}
-my_data = import("/data/data.csv")
+my_data <- import("/data/data.csv")
 ```
 
 Constrast this to what you would need to write if you were not using a project:
 
 ```{r, eval=FALSE}
-my_data = import("C:/My Documents/Trevor/Work/Projects/Housing/data/data.csv")
+my_data <- import("C:/My Documents/Castor/Work/Projects/Housing/data/data.csv")
 ```
 
-Not only is that longer, but if Trevor is working on this project with Pollux, Pollux would need
+Not only is that longer, but if Castor is working on this project with Pollux, Pollux would need
 to change the above line to this:
 
 ```{r, eval=FALSE}
-my_data = import("C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv")
+my_data <- import("C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv")
 ```
 
 whenever Pollux needs to work on it. Another, similar issue, is that if you need to write something
@@ -269,5 +278,5 @@ import("the/path/I/want/data/my_data.csv")
 export(processed_data, "the/path/I/want/processed_data.xlsx")
 ```
 
-However this does not solve the issue of collaboration. Using projects saves a lot of pain in the
-long term.
+However, I really, really, really urge you never to use `setwd()`. Use projects instead!
+Using projects saves a lot of pain in the long run.

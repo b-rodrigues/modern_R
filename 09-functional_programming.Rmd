@@ -1,7 +1,7 @@
 # Functional programming
 
 By now, you are pretty familiar with functions in R. Now, let's introduce the functional programming
-paradigm, but first, let's go over some definitions.
+paradigm, but first, let's go over some formal definitions.
 
 ## Functions definition
 
@@ -24,10 +24,11 @@ sqrt_newton(16, 2)
 ```
 
 We are using a `while` loop inside the body. The *body* of a function are the instructions that
-define the function. You can get the body of a function with `body(some_func)`] of the function.
+define the function. You can get the body of a function with `body(some_func)` of the function.
 In *pure* functional programming languages, like Haskell, you don't have loops. How can you
-program without loops, you may ask? In functional programming, loops are replaced by recursion.
-Let's rewrite our little example above with recursion:
+program without loops, you may ask? In functional programming, loops are replaced by recursion,
+which we already discussed in the previous chapter. Let's rewrite our little example above 
+with recursion:
 
 ```{r square_root_recur}
 sqrt_newton_recur <- function(a, init, eps = 0.01){
@@ -46,15 +47,15 @@ sqrt_newton_recur(16, 2)
 ```
 
 R is not a pure functional programming language though, so we can still use loops (be it `while` or
-`for` loops) in the bodies of our functions. Actually, for R specifically, it is better,
-performance-wise, to use loops instead of recursion, because R is not tail-call optimized. I won't
-got into the details of what tail-call optimization is but just remember that if performance is
-important a loop will be faster. However, sometimes, it is easier to write a function using
-recursion. I personally tend to avoid loops if performance is not important, because I find that
-code that avoids loops is easier to read and debug. However, knowing that you have can use loops
-is reassuring. In the coming sections I will show you some built-in function that make it
-possible to avoid writing loops and that don't rely on recursion, so performance won't be
-penalized.
+`for` loops) in the bodies of our functions. As discussed in the previous chapter, it is actually 
+better, performance-wise, to use loops instead of recursion, because R is not tail-call optimized.
+I won't got into the details of what tail-call optimization is but just remember that if 
+performance is important a loop will be faster. However, sometimes, it is easier to write a 
+function using recursion. I personally tend to avoid loops if performance is not important, 
+because I find that code that avoids loops is easier to read and debug. However, knowing that 
+you can use loops is reassuring. In the coming sections I will show you some built-in functions
+that make it possible to avoid writing loops and that don't rely on recursion, so performance
+won't be penalized.
 
 ## Properties of functions
 
@@ -152,7 +153,7 @@ print(count_iter)
 ```
 
 If you check the value of `count_iter` now, you will see that it increased! This is a side effect,
-because the function changed something outside its scope. It changed a value in the global
+because the function changed something outside of its scope. It changed a value in the global
 environment. In general, it is good practice to avoid side-effects. For example, we could make the
 above function not have any side effects like this:
 
@@ -174,16 +175,16 @@ sqrt_newton_count(16000, 2)
 ```
 
 Writing to disk is also considered a side effect, because the function changes something (a file)
-outside its scope. But this cannot be avoided (and it's actually a good thing to have, functions
-that can write to disk) so just remember: try to avoid having functions changing variables in the
-global environment unless you have a very good reason of doing so.
+outside its scope. But this cannot be avoided since you *want* to write to disk. 
+Just remember: try to avoid having functions changing variables in the global environment unless 
+you have a very good reason of doing so.
 
 Finally, another property of mathematical functions, is that they do one single thing. Functional
 programming purists also program their functions to do one single task. This has benefits, but
 can complicate things. The function we wrote previously does two things: it computes the square
 root of a number and also returns the number of iterations it took to compute the result. However,
 this is not a bad thing; the function is doing two tasks, but these tasks are related to each other
-and it makes sense to have them together. My piece of advice: avoid having functions that do too
+and it makes sense to have them together. My piece of advice: avoid having functions that do 
 many *unrelated* things. This makes debugging harder.
 
 In conclusion: you should strive for referential transparency, try to avoid side effects unless you
@@ -192,10 +193,7 @@ possible. This makes testing and debugging easier, as you will see.
 
 ## Functional programming with `{purrr}`
 
-Hadley Wickham developed a package called `purrr` which contains a lot of very useful functions. I
-will show some of them here, but in the next chapter, we are going to study `purrr` in greater
-depth. Also, take the time to read `purrr`'s documentation, and of course you can read more about
-`purrr` in @wickham2016.
+Hadley Wickham developed a package called `purrr` which contains a lot of very useful functions. 
 
 ### The `map*()` family of functions
 
@@ -217,8 +215,26 @@ library("purrr")
 map(numbers, sqrt_newton, init = 1)
 ```
 
-Compared to `Map()`, the function and the list are given in the reverse order, but the result is
-the same, of course.
+
+If you want print "hello" using a function from `purrr` you would need to use `rerun()`:
+
+```{r}
+rerun(10, "hello")
+```
+
+`rerun()` simply runs an expression (which can be arbitrarily complex) `n` times, whereas `map()`
+maps a function to a list of inputs, so to achieve the same with `map()`, you need to map the `print()`
+function to a vector of characters:
+
+```{r}
+map(rep("hello", 10), print)
+```
+
+`rep()` is a function that creates a vector by repeating something, in this case the string "hello",
+as many times as needed, here 10. The output here is a bit different that before though, because first
+you will see "hello" printed 10 times, but `map()` always returns a list, this means that you will also
+get a list where each element is the string "hello".
+
 
 ### Reducing with `purrr`
 
@@ -243,4 +259,72 @@ accumulate(a, `-`)
 accumulate_right(a, `-`)
 ```
 These two functions keep the intermediary results.
+
+In the previous chapter, we wrote a loop to compute the sum of the 100 first integers. We can do
+the same with `purrr::reduce()`:
+
+```{r}
+result = reduce(seq(1,100), `+`)
+
+print(result)
+```
+
+You certainly agree with me that is simpler to understand. You can even see what happens in more
+detail using `accumulate`:
+
+```{r}
+accumulate(seq(1, 100), `+`)
+```
+
+
+
+
+## Using your functions inside `mutate()`
+
+Once you wrote a function, you can easily use it inside a pipe workflow:
+
+```{r}
+double_number <- function(x){
+  x+x
+}
+```
+
+```{r}
+mtcars %>%
+  mutate(double_mpg = double_number(mpg))
+```
+
+Granted this example is stupid, but it shows you, again, that functions you define are nothing
+special. You can use them just as any other.
+
+You can also avoid to define a function altogether, especially if you need an operation only once,
+by using the `.` like this:
+
+```{r}
+mtcars %>%
+  mutate(double_mpg = .$mpg + .$mpg)
+```
+
+## Mapping your homebrewed functions to lists of datasets
+
+Before merging these datasets together, we would need them to have a `year` column indicating the
+year. It would also be helpful if gave names to these datasets. For this task, we can use
+`purrr::set_names()`:
+
+```{r}
+all_datasets = set_names(all_datasets, as.character(seq(2013, 2016)))
+```
+
+Let's take a look at the list now:
+
+```{r}
+str(all_datasets)
+```
+
+As you can see, each `data.frame` object contained in the list has been renamed. You can thus
+access them with the `$` operator:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/all_datasets_names.png")
+```
 

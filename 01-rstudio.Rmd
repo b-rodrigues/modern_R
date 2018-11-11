@@ -137,6 +137,9 @@ knitr::include_graphics("pics/rstudio_addins.png")
 
 This addins make it easier to use some functions and you can read more about them [here](https://rstudio.github.io/rstudioaddins/#overview).
 
+My favorite addins are the ones you get when installing the `{datapasta}` package. Read more about
+it [here](https://github.com/MilesMcBain/datapasta).
+
 ## Exercises
 
 ### Exercise 1 {-}

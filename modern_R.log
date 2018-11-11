@@ -1,0 +1,30 @@
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.5.4)  12 NOV 2018 00:05
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**modern_R.tex
+(./modern_R.tex
+LaTeX2e <2018-04-01> patch level 3
+Babel <3.20> and hyphenation patterns for 3 language(s) loaded.
+
+! LaTeX Error: File `gitbook.cls' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: cls)
+
+Enter file name: 
+! Emergency stop.
+<read *> 
+         
+l.2 \usepackage
+               {lmodern}^^M 
+Here is how much of TeX's memory you used:
+ 9 strings out of 494951
+ 103 string characters out of 6178368
+ 55388 words of memory out of 5000000
+ 3985 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 10i,0n,8p,52b,8s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+No pages of output.

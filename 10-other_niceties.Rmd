@@ -4,8 +4,6 @@
 
 ## Scraping the internet
 
-## Writing your own package
-
 ## Random tips and tricks
 
-### Creating a log fil
+### Creating a log file
