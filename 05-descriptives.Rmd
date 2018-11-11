@@ -15,11 +15,67 @@ data and computing descriptive statistics very easy. To make things easier for n
 use example data included with `dplyr`. So no need to import an external dataset; this does not
 change anything to the example that we are going to study here; the source of the data does not
 matter for this. `tidyr` is very useful to reshape data. We are going to focus on two functions
-from `tidyr`, `gather()` and `spread()`.
+from `tidyr`, `gather()` and `spread()`. But first, let's learn about pipes.
 
-## Working with a single dataset
+## Smoking is bad for you, but pipes are your friend
 
-### Manipulating and creating columns with `dplyr`
+The title of this section might sound weird at first, but by the end of it, you'll get this
+(terrible) pun.
+
+You probably know the following painting by René Magritte, *La trahison des images*:
+
+```{r}
+knitr::include_graphics("assets/pas_une_pipe.png")
+```
+
+It turns out there's an R package from the `tidyverse` that is called `magrittr`. What does this
+package do? It brings *pipes* to R. Pipes are a concept from the Unix operating system; if you're
+using a GNU+Linux distribution or macOS, you're basically using a *modern* unix (that's an
+oversimplification, but I'm an economist by training, and outrageously oversimplifying things is
+what we do, deal with it).
+
+The idea of pipes is to take the output of a command, and *feed* it as the input of another
+command. The `magrittr` package brings pipes to R, by using the weird looking `%>%`. Try the
+following:
+
+```{r, include = FALSE}
+library(magrittr)
+```
+
+```{r, eval = FALSE}
+library(magrittr)
+```
+
+```{r}
+16 %>% sqrt
+```
+
+Super weird right? But you probably understand what happened; `16` got *fed* as the first argument of
+the function `sqrt()`. You can chain multiple functions:
+
+```{r}
+16 %>% sqrt %>% `+`(18)
+```
+
+The output of `16` (`16`) got fed to `sqrt()`, and the output of `sqrt(16)` (4) got fed to `+(18)`
+(22). Without `%>%` you'd write the line just above like this:
+
+```{r}
+sqrt(16) + 18
+```
+
+It might not be very clear right now why this is useful, but the `%>%` is probably one of the infix
+operators, because when using packages from the `tidyverse`, you will naturally want to
+chain a lot of functions together. Without the `%>%` it would become messy very fast.
+
+`%>%` is not the only pipe operator in `magrittr`. There's `%T%`, `%<>%` and `%$%`. All have their
+uses, but are basically shortcuts to some common tasks with `%>%` plus another function. Which
+means that you can live without them, and because of this, I will only discuss them briefly once
+we'll have learned about the other `tidyverse` packages.
+
+## The `{tidyverse}`'s *enfant prodige*: `{dplyr}`
+
+### A first taste of data manipulation with `{dplyr}`
 
 First, let's load `dplyr` and the included `starwars` dataset. Let's also take a look at the first 5
 lines of the dataset:
@@ -37,9 +93,9 @@ As I said earlier, this is just an example; you could have loaded an external da
 `.csv` file for instance. This does not matter for what comes next.
 
 R includes a lot of functions for descriptive statistics, such as `mean()`, `sd()`, `cov()`, and many
-more. What `dplyr` brings to the table is the possibility to apply these functions to the dataset
-easily. For example, imagine you want the average height of everyone in the dataset. Using the basic
-R functions, you could write this:
+more. What `dplyr` brings to the table (among other niceties) is the possibility to apply these 
+functions to the dataset easily. For example, imagine you want the average height of everyone in 
+the dataset. Using the basic R functions, you could write this:
 
 ```{r, cache=TRUE}
 mean(starwars$height)
@@ -57,18 +113,8 @@ starwars %>%
   summarise(mean(height))
 ```
 
-Ok, I know what you're thinking. *What the hell is this weird `%>%` thing?* That weird thing is
-called the pipe operator. What it does is take the left-hand side argument and pipe it as the first
-argument of the function on the right-hand side. Try the following in the command line:
-
-```{r, cache=TRUE}
-4 %>% sqrt()
-```
-
-It is equivalent to `sqrt(4)`. Why use that though? You will see in the next examples that using
-`%>%` makes writing and reading code, much, much easier. For example, the previous manipulation I
-did could be read as "Take the starwars data, give it to the `group_by()` function and then
-compute the mean of height". Without the `%>%`, one would need to write:
+The usefulness of the `%>%` (pipe operator) becomes apparent now. Without it, one would write 
+instead:
 
 ```{r, cache=TRUE}
 summarise(group_by(starwars, species), mean(height))
@@ -137,7 +183,7 @@ print(summary_table2)
 ```
 
 There's a lot of `NA`s; this is because by default, `mean()` and `var()` return `NA` if even one
-single observation is `NA` (unlike STATA). This is good, because it forces you to look at the data
+single observation is `NA`. This is good, because it forces you to look at the data
 to see what is going on. If you would get a number, even if there were `NA`s you could very easily
 miss these missing values. It is better for functions to fail early and often than the opposite.
 `mean()` and `var()` have a `na.rm` option that the user can set to `TRUE` to get the result by
@@ -188,57 +234,265 @@ starwars %>%
   filter(n_obs > 1)
 ```
 
-`mutate()` is the next `dplyr` function that we are going to discover. It allows you to
-create new columns and add them to the original dataset. For instance, suppose you need a column of
-the height of the individuals in meters, and not in centimeters:
+Ok, that's it for a first taste. We have already discovered some very useful `{dplyr}` functions,
+`filter()`, `group_by()` and summarise `summarise()`.
 
-```{r, cache=TRUE}
-starwars = starwars %>%
-  mutate(height_m = height/100)
+Now, we are going to learn more about these functions in more detail.
 
-glimpse(starwars)
+### Filter the rows of a dataset with `filter()`
+
+We're going to use the `Gasoline` dataset from the `plm` package, so install that first:
+
+```{r, eval = FALSE}
+install.packages("plm")
 ```
 
-I have used `mutate()` to add the column I need, which contains the height of the individuals in
-meters. Then I use `glimpse()`, an alternative to `print()` that I find very useful because it
-shows all the columns with as many observations that fit on your screen. We can see the column we
-created at the very bottom. It might be interesting to reorder the columns; this is possible with
-`select()` another `dplyr` function:
+Then load the required data:
 
-```{r, cache=TRUE}
-starwars = starwars %>%
-  select(name, height, height_m, everything())
-
-glimpse(starwars)
+```{r}
+data(Gasoline, package = "plm")
 ```
 
-`select()` allows you to reorder columns by writing the order of the columns you want, and then you
-can use `everything()` (another `dplyr` function) to just tell `select()` that you want everything
-else in there. But `select()` also allows you to only select a subset of columns, if needed:
+and load dplyr:
 
-```{r, cache=TRUE}
-starwars %>%
-  select(name, height, height_m, gender) %>%
-  glimpse()
+```{r}
+library(dplyr)
 ```
 
-This returns a `tibble` with only the `name`, `height`, `height_m` and the `gender` variables.
+This dataset gives the consumption of gasoline for 18 countries from 1960 to 1978. When
+you load the data like this, it is a standard `data.frame`. `dplyr` functions can be used on
+standard `data.frame` objects, but just because we learned about `tibble`'s, let's convert the data
+to a `tibble` and change its name:
 
-The last thing I want to show you are the so-called *scoped* version of these functions. For
-example, what if I am only interested in columns that contains text? Is there a way to select them
-automatically? For this type of tasks, you can use `select_if()`:
-
-```{r, cache=TRUE}
-starwars %>%
-  select_if(is.character)
+```{r}
+gasoline <- as_tibble(Gasoline)
 ```
 
-`select_if()` selects every column that is of type character. There is also `select_all()` and
-`select_at()`, each with their own use. I will not go into more detail here. If you are
-interested, I advise you read `dplyr`'s help and also the section I wrote in my other
-[book](https://b-rodrigues.github.io/fput/tidyverse.html) which goes into much more detail.
+`filter()` is pretty straightforward. What if you would like to subset the data to focus on the
+year 1969? Simple:
 
-### Reshaping data with `tidyr`
+```{r}
+filter(gasoline, year == 1969)
+```
+
+Remember the pipe operator, `%>%` from the start of this chapter? Here's how this would work with
+it:
+
+```{r}
+gasoline %>% filter(year == 1969)
+```
+
+So `gasoline`, which is a `tibble` object, is passed as the first argument of the `filter()`
+function. Starting now, we're only going to use these pipes. You will see why soon enough, so bear
+with me.
+
+You can also filter more than just one year, by using the `%in%` operator:
+
+```{r}
+gasoline %>% filter(year %in% seq(1969, 1973))
+```
+
+or even non-consecutive years:
+
+```{r}
+gasoline %>% filter(year %in% c(1969, 1973, 1977))
+```
+
+`%in%` tests if an object is part of a set.
+
+### Select columns with `select()`
+
+While `filter()` and its scoped versions allow you to keep or discard rows of data, `select()` (and
+its scoped versions) allow you to keep or discard entire columns. To keep columns:
+
+```{r}
+gasoline %>% select(country, year, lrpmg)
+```
+
+To discard them:
+
+```{r}
+gasoline %>% select(-country, -year, -lrpmg)
+```
+
+To rename them:
+
+```{r}
+gasoline %>% select(country, date = year, lrpmg)
+```
+
+There's also `rename()`, but it works a bit differently:
+
+```{r}
+gasoline %>% rename(date = year)
+```
+
+`rename()` does not do any kind of selection, but just renames.
+
+To re-order them:
+
+```{r}
+gasoline %>% select(year, country, lrpmg, everything())
+```
+
+`everything()` is another of those helper functions (like `starts_with()`, and `ends_with()`).
+
+
+### Group the observations of your dataset with `group_by()`
+
+`group_by()` is a very useful verb; as the name implies, it allows you to create groups and then,
+for example, compute descriptive statistics by groups. For example, let's group our data by
+country:
+
+```{r}
+gasoline %>% group_by(country)
+```
+
+It looks like nothing much happened, but if you look at the second line of the output you can read
+the following:
+
+```{r}
+## # Groups:   country [18]
+```
+
+this means that the data is grouped, and every computation you will do now will take these groups
+into account. This will be clearer in the next subsection.
+
+It is also possible to group according to various variables:
+
+```{r}
+gasoline %>% group_by(country, year)
+```
+
+and so on. You can then also ungroup:
+
+```{r}
+gasoline %>% group_by(country, year) %>% ungroup()
+```
+
+### Get summary statistics with `summarise()`
+
+Ok, now that we have learned the basic verbs, we can start to do more interesting stuff. For
+example, one might want to compute the average gasoline consumption in each country, for
+the whole period:
+
+```{r}
+gasoline %>%
+  group_by(country) %>%
+  summarise(mean(lgaspcar))
+```
+
+`mean()` was given as an argument to `summarise()`, which is a `dplyr` verb. What we get is another
+tibble, that contains the variable we used to group, as well as the average per country. We can
+also rename this column:
+
+```{r}
+gasoline %>%
+  group_by(country) %>%
+  summarise(mean_gaspcar = mean(lgaspcar))
+```
+
+and because the output is a `tibble`, we can continue to use `dplyr` verbs on it:
+
+```{r}
+gasoline %>%
+  group_by(country) %>%
+  summarise(mean_gaspcar = mean(lgaspcar)) %>%
+  filter(country == "FRANCE")
+```
+
+Ok, let's pause here. See what I did in the last example? I chained 3 `dplyr` verbs together with
+`%>%`. Without using `%>%` I would have written:
+
+```{r}
+filter(
+  summarise(
+    group_by(gasoline, country),
+    mean_gaspcar = mean(lgaspcar)),
+  country == "FRANCE")
+```
+
+I don't know about you, but this is much more difficult to read than the version with `%>%`. It is
+possible to work like that, of course, but personally, I would advise you bite the bullet and learn
+to love the pipe. It won't give you cancer.
+
+Ok, back to `summarise()`. We can really do a lot of stuff with this verb. For example, we can
+compute several descriptive statistics at once:
+
+```{r}
+gasoline %>%
+  group_by(country) %>%
+  summarise(mean_gaspcar = mean(lgaspcar),
+            sd_gaspcar = sd(lgaspcar),
+            max_gaspcar = max(lgaspcar),
+            min_gaspcar = min(lgaspcar))
+```
+
+Because the output is a `tibble`, you can save it in a variable of course:
+
+```{r}
+desc_gasoline <- gasoline %>%
+  group_by(country) %>%
+  summarise(mean_gaspcar = mean(lgaspcar),
+            sd_gaspcar = sd(lgaspcar),
+            max_gaspcar = max(lgaspcar),
+            min_gaspcar = min(lgaspcar))
+```
+
+And then you can answer questions such as, *which country has the maximum average gasoline
+consumption?*:
+
+```{r}
+desc_gasoline %>%
+  filter(max(mean_gaspcar) == mean_gaspcar)
+```
+
+Turns out it's Turkey. What about the minimum consumption?
+
+```{r}
+desc_gasoline %>%
+  filter(min(mean_gaspcar) == mean_gaspcar)
+```
+
+### Adding columns with `mutate()` and `transmute()`
+
+`mutate()` adds a column to the `tibble`, which can contain any transformation of any other
+variable:
+
+```{r}
+gasoline %>%
+  group_by(country) %>%
+  mutate(n())
+```
+
+Using `mutate()` I've added a column that counts how many times the country appears in the `tibble`,
+using `n()`, another `dplyr` function. There's also `count()` and `tally()`, which we are going to
+see further down. It is also possible to rename the column on the fly:
+
+```{r}
+gasoline %>%
+  group_by(country) %>%
+  mutate(freq = n())
+```
+
+It is possible to do any arbitrary operation:
+
+```{r}
+gasoline %>%
+  group_by(country) %>%
+  mutate(spam = exp(lgaspcar + lincomep))
+```
+
+`transmute()` is the same as `mutate()`, but only returns the created variable:
+
+````{r}
+gasoline %>%
+  group_by(country) %>%
+  transmute(spam = exp(lgaspcar + lincomep))
+```
+
+
+## Reshaping data with `tidyr`
 
 Another important package from the `tidyverse` that goes hand in hand with `dplyr` is `tidyr`. `tidyr`
 is the package you need when it's time to reshape data. The basic functions from `tidyr`, `spread()`
@@ -296,7 +550,8 @@ powerful functions work.
 The last function from `tidyr` that we are going to discuss is `nest()`, but we will keep it for
 later, in the section about so-called *list-columns*.
 
-### Getting to know `factor` variables
+
+## Getting to know `factor` variables
 
 Remember in chapter 3 when I very quickly explained what were `factor` variables? In this section,
 we are going to work a little bit with these type of variable. `factor`s are very useful, and the
@@ -360,9 +615,24 @@ gss_cat %>%
 
 I suggest you read `forcats`' help page and discover the other functions it contains.
 
+
+## Scoped `{tidyverse}` verbs
+
+### filter_()
+
+### select_()
+
+### group_by_()
+
+### summarise_()
+
+### mutate_()
+
 ## Working with a list of datasets
 
 ### Getting to know `map()`
+
+This is our first encouter with a typical functional programming function, `map()`.
 
 Let's read the list of datasets from the previous chapter:
 
