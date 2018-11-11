@@ -1,0 +1,725 @@
+# Data manipulation and descriptive statistics
+
+Now that we are familiar with some R objects and know how to import data, it is time to write some
+code. In this chapter, we are going to compute descriptive statistics for a single dataset, but
+also for a list of datasets. However, I will not give a list of functions to compute descriptive
+statistics; if you need a specific function you can find easily in the *Help* pane in Rstudio or
+using any modern internet search engine. What I will do is show you a workflow that allows you to
+compute the statisics you need fast.
+R has a lot of built-in functions for descriptive statistics; however, if you want to compute
+statistics by, say, gender, some more complex manipulations are needed. At least this was true in
+the past. Nowadays, thanks to the packages from the `tidyverse`, it is very easy and fast to
+compute descriptive statistics by any stratifying variable(s). The packages we are going to use for
+this are called `dplyr` and `tidyr`. `dplyr` contains a lot of functions that make manipulating
+data and computing descriptive statistics very easy. To make things easier for now, we are going to
+use example data included with `dplyr`. So no need to import an external dataset; this does not
+change anything to the example that we are going to study here; the source of the data does not
+matter for this. `tidyr` is very useful to reshape data. We are going to focus on two functions
+from `tidyr`, `gather()` and `spread()`.
+
+## Working with a single dataset
+
+### Manipulating and creating columns with `dplyr`
+
+First, let's load `dplyr` and the included `starwars` dataset. Let's also take a look at the first 5
+lines of the dataset:
+
+```{r, cache=TRUE}
+library(dplyr)
+
+data(starwars)
+
+head(starwars)
+```
+
+`data(starwars)` loads the example dataset called `starwars` that is included in the package `dplyr`.
+As I said earlier, this is just an example; you could have loaded an external dataset, from a
+`.csv` file for instance. This does not matter for what comes next.
+
+R includes a lot of functions for descriptive statistics, such as `mean()`, `sd()`, `cov()`, and many
+more. What `dplyr` brings to the table is the possibility to apply these functions to the dataset
+easily. For example, imagine you want the average height of everyone in the dataset. Using the basic
+R functions, you could write this:
+
+```{r, cache=TRUE}
+mean(starwars$height)
+```
+
+`starwars$height` means that the user wants to access the column called `height` from the dataset
+`starwars`. Remember that the `$` symbol is how you access elements of a named list. This is the
+same for columns of datasets as you can see. This is then given as an argument to the function
+`mean()`. But what if the user wants the average height by species? Before `dplyr`, a solution to
+this simple problem would have required more than a single command. Now this is as easy as:
+
+```{r, cache=TRUE}
+starwars %>%
+  group_by(species) %>%
+  summarise(mean(height))
+```
+
+Ok, I know what you're thinking. *What the hell is this weird `%>%` thing?* That weird thing is
+called the pipe operator. What it does is take the left-hand side argument and pipe it as the first
+argument of the function on the right-hand side. Try the following in the command line:
+
+```{r, cache=TRUE}
+4 %>% sqrt()
+```
+
+It is equivalent to `sqrt(4)`. Why use that though? You will see in the next examples that using
+`%>%` makes writing and reading code, much, much easier. For example, the previous manipulation I
+did could be read as "Take the starwars data, give it to the `group_by()` function and then
+compute the mean of height". Without the `%>%`, one would need to write:
+
+```{r, cache=TRUE}
+summarise(group_by(starwars, species), mean(height))
+```
+
+as you can clearly see, it is much more difficult to read. Imagine now that I want the average height
+by species, but only for males. Again, this is very easy using `%>%`:
+
+```{r, cache=TRUE}
+starwars %>%
+  filter(gender == "male") %>%
+  group_by(species) %>%
+  summarise(mean(height))
+```
+
+Again, the `%>%` makes the above lines of code very easy to read. Without it, one would need to write:
+
+```{r, cache=TRUE}
+summarise(group_by(filter(starwars, gender == "male"), species), mean(height))
+```
+
+I think you agree with me that this is not very readable. Once you're used to `%>%`, you won't go
+back to not use it.
+
+To make things clearer; `filter()`, `group_by()` and `summarise()` are functions that are included
+in `dplyr`. `%>%` is actually a function from `magrittr`, but this package gets loaded on the fly
+when you load `dplyr`, so you do not need to worry about it. `mean()` is a function *native*
+to R.
+
+The result of all these operations that use `dplyr` functions are actually other datasets, or
+`tibbles`. This means that you can save them in variable, and then work with these as any other
+datasets.
+
+```{r, cache=TRUE}
+mean_height = starwars %>%
+  group_by(species) %>%
+  summarise(mean(height))
+
+class(mean_height)
+
+head(mean_height)
+```
+
+You could then write this data to disk using `rio::export()` for instance. If you need more than the
+mean of the height, you can keep adding as many functions as needed:
+
+```{r, cache=TRUE}
+summary_table = starwars %>%
+  group_by(species) %>%
+  summarise(ave_height = mean(height), var_height = var(height), n_obs = n())
+
+print(summary_table)
+```
+
+I've added more functions, namely `var()`, to get the variance of height, and `n()`, which
+is a function from `dplyr`, not base R, to get the number of observations. This is quite useful,
+because we see that for a lot of species we only have one single individual! Let's focus on the
+species for which we have more than 1 individual. Since we save all the previous operations (which
+produce a `tibble`) in a variable, we can keep going from there:
+
+```{r, cache=TRUE}
+summary_table2 = summary_table %>%
+  filter(n_obs > 1)
+
+print(summary_table2)
+```
+
+There's a lot of `NA`s; this is because by default, `mean()` and `var()` return `NA` if even one
+single observation is `NA` (unlike STATA). This is good, because it forces you to look at the data
+to see what is going on. If you would get a number, even if there were `NA`s you could very easily
+miss these missing values. It is better for functions to fail early and often than the opposite.
+`mean()` and `var()` have a `na.rm` option that the user can set to `TRUE` to get the result by
+ignoring the `NA`s:
+
+```{r, cache=TRUE}
+starwars %>%
+  group_by(species) %>%
+  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
+  filter(n_obs > 1)
+```
+
+In the code above, I have combined the two previous steps to get the result I'm interested in. There's
+a line in the final output that says `NA` for the species. Let's go back to the raw data and find
+these lines:
+
+```{r, cache=TRUE}
+starwars %>%
+  filter(is.na(species))
+```
+
+To test for `NA`, one uses the function `is.na()` not something like `species == "NA"` or anything
+like that.`!is.na()` does the opposite:
+
+```{r, cache=TRUE}
+starwars %>%
+  filter(!is.na(species))
+```
+
+The `!` function negates a predicate function (a predicate function is a function that returns
+`TRUE` or `FALSE`). We can then rerun our analysis from before:
+
+```{r, cache=TRUE}
+starwars %>%
+  filter(!is.na(species)) %>%
+  group_by(species) %>%
+  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
+  filter(n_obs > 1)
+```
+
+And why not compute the same table, but first add another stratifying variable?
+
+```{r, cache=TRUE}
+starwars %>%
+  filter(!is.na(species)) %>%
+  group_by(species, gender) %>%
+  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
+  filter(n_obs > 1)
+```
+
+`mutate()` is the next `dplyr` function that we are going to discover. It allows you to
+create new columns and add them to the original dataset. For instance, suppose you need a column of
+the height of the individuals in meters, and not in centimeters:
+
+```{r, cache=TRUE}
+starwars = starwars %>%
+  mutate(height_m = height/100)
+
+glimpse(starwars)
+```
+
+I have used `mutate()` to add the column I need, which contains the height of the individuals in
+meters. Then I use `glimpse()`, an alternative to `print()` that I find very useful because it
+shows all the columns with as many observations that fit on your screen. We can see the column we
+created at the very bottom. It might be interesting to reorder the columns; this is possible with
+`select()` another `dplyr` function:
+
+```{r, cache=TRUE}
+starwars = starwars %>%
+  select(name, height, height_m, everything())
+
+glimpse(starwars)
+```
+
+`select()` allows you to reorder columns by writing the order of the columns you want, and then you
+can use `everything()` (another `dplyr` function) to just tell `select()` that you want everything
+else in there. But `select()` also allows you to only select a subset of columns, if needed:
+
+```{r, cache=TRUE}
+starwars %>%
+  select(name, height, height_m, gender) %>%
+  glimpse()
+```
+
+This returns a `tibble` with only the `name`, `height`, `height_m` and the `gender` variables.
+
+The last thing I want to show you are the so-called *scoped* version of these functions. For
+example, what if I am only interested in columns that contains text? Is there a way to select them
+automatically? For this type of tasks, you can use `select_if()`:
+
+```{r, cache=TRUE}
+starwars %>%
+  select_if(is.character)
+```
+
+`select_if()` selects every column that is of type character. There is also `select_all()` and
+`select_at()`, each with their own use. I will not go into more detail here. If you are
+interested, I advise you read `dplyr`'s help and also the section I wrote in my other
+[book](https://b-rodrigues.github.io/fput/tidyverse.html) which goes into much more detail.
+
+### Reshaping data with `tidyr`
+
+Another important package from the `tidyverse` that goes hand in hand with `dplyr` is `tidyr`. `tidyr`
+is the package you need when it's time to reshape data. The basic functions from `tidyr`, `spread()`
+and `gather()` make it possible to go from long to wide datasets respectively.
+
+```{r, cache=TRUE}
+library(tidyr)
+```
+
+```{r, cache=TRUE}
+survey_data = tribble(
+  ~id, ~variable, ~value,
+  1, "var1", 1,
+  1, "var2", 0.2,
+  2, "var1", 1.4,
+  2, "var2", 1.9,
+  3, "var1", 0.1,
+  3, "var2", 2.8,
+  4, "var1", 1.7,
+  4, "var2", 1.9
+)
+
+head(survey_data)
+```
+
+This above is a long dataset. We can reshape it to be wide using the `spread()` function:
+
+```{r, cache=TRUE}
+wide_data = survey_data %>%
+  spread(variable, value)
+
+head(wide_data)
+```
+
+This means that we spread the column called "variable", which will produce one column per category
+of "variable". Then we fill in the rows with the data contained in the column "value".
+
+To go from a wide dataset to a long one, we use `gather()`:
+
+```{r, cache=TRUE}
+long_data = wide_data %>%
+  gather(variable, value, var1, var2)
+
+print(long_data)
+```
+
+`long_data` and `survey_data` are the same datasets, but in a different order.
+
+In the `wide_data` `tibble`, we had 3 columns: `id`, `var1` and `var2`. We want to stack 'var1' and
+'var2' in a new column, that we chose to call "variable". This is the "key". For the value, we are
+using the values contained in `var1` and `var2`. Sometimes using `spread()` or `gather()` requires
+some trial and error. I advise you play around with the examples above to really grasp how these
+powerful functions work.
+
+The last function from `tidyr` that we are going to discuss is `nest()`, but we will keep it for
+later, in the section about so-called *list-columns*.
+
+### Getting to know `factor` variables
+
+Remember in chapter 3 when I very quickly explained what were `factor` variables? In this section,
+we are going to work a little bit with these type of variable. `factor`s are very useful, and the
+`forcats` package includes some handy functions to work with them. First, let's load the `forcats` package:
+
+```{r}
+library(forcats)
+```
+
+as an example, we are going to work with the `gss_cat` dataset that is included in `forcats`. Let's
+load that:
+
+```{r}
+data(gss_cat)
+
+head(gss_cat)
+```
+
+as you can see, `marital`, `race`, `rincome` and `partyid` are all factor variables. Let's take a closer
+look at `marital`:
+
+```{r}
+str(gss_cat$marital)
+```
+
+and let's see `rincome`:
+
+```{r}
+str(gss_cat$rincome)
+```
+
+`factor` variables have different levels and the `forcats` package includes functions that allow
+you to recode, collapse and do all sorts of things on these levels. For example , using
+`forcats::fct_recode()` you can recode levels:
+
+```{r}
+gss_cat = gss_cat %>%
+  mutate(marital = fct_recode(marital,
+                              refuse = "No answer",
+                              never_married = "Never married",
+                              divorced = "Separated",
+                              divorced = "Divorced",
+                              widowed = "Widowed",
+                              married = "Married"))
+
+gss_cat %>%
+  tabyl(marital)
+```
+
+Using `fct_recode()`, I was able to recode the levels and collapse `Separated` and `Divorced` to
+a single category called `divorced`. As you can see, `refuse` and `widowed` are less than 10%, so
+maybe you'd want to lump these categories together:
+
+```{r}
+gss_cat = gss_cat %>%
+  mutate(marital = fct_lump(marital, prop = 0.10, other_level = "other"))
+
+gss_cat %>%
+  tabyl(marital)
+```
+
+I suggest you read `forcats`' help page and discover the other functions it contains.
+
+## Working with a list of datasets
+
+### Getting to know `map()`
+
+Let's read the list of datasets from the previous chapter:
+
+
+```{r, cache=TRUE}
+paths = Sys.glob("datasets/unemployment/*.csv")
+
+all_datasets = import_list(paths)
+
+str(all_datasets)
+```
+
+For working with lists, another package from the `tidyverse` is very useful, and that would be
+`purrr`. `purrr` has functions to work with lists, and we are going to focus on two of them,
+`map()` and `reduce()`. `map()`... maps a function to each element of a list. `reduce()` is a bit
+more complicated so we'll leave that for later. `map()` and `reduce()` are also called functionals;
+functions that use functions as arguments.
+
+The first thing we are going to do is use a function to clean the names of the datasets. These
+names are not very easy to work with; there are spaces, and it would be better if the names of the
+columns would be all lowercase. For this we are going to use the function `clean_names()` from the
+`janitor` package. For a single dataset, I would write this:
+
+```{r, include=FALSE}
+library(janitor)
+```
+
+```{r, eval = FALSE}
+library(janitor)
+
+one_dataset = one_dataset %>%
+  clean_names()
+```
+
+and I would get a dataset with column names in lowercase and spaces replaced by `_` (and other
+corrections). How can I apply, or map, this function to each dataset in the list? To do this I need
+to use `purrr::map()`:
+
+```{r, cache=TRUE}
+library(purrr)
+
+all_datasets = all_datasets %>%
+  map(clean_names)
+
+all_datasets %>%
+  glimpse()
+```
+
+So now, what if I want to know, for each dataset, which *communes* have an unemployment rate that is
+less than, say, 3%? For a single dataset I would do something like this:
+
+```{r, eval=FALSE}
+one_dataset %>%
+  filter(unemployment_rate_in_percent < 3)
+```
+
+But for a list of datasets, `map()` is needed (and as you will see, that is not all that is needed):
+
+```{r, cache=TRUE}
+all_datasets %>%
+  map(~filter(., unemployment_rate_in_percent < 3))
+```
+
+I know what you're thinking... *what the hell?*. Let me explain: `map()` needs a function to map to
+each element of the list. `all_datasets` is the list to which I want to map the function. But what
+function? `filter()` is the function I need, so why doesn't:
+
+```{r, eval = FALSE}
+all_datasets %>%
+  map(filter(unemployment_rate_in_percent < 3))
+```
+work? This is a bit complicated, and has to do with what is called environments. If you try to run
+the code above, you will get this error message:
+
+```
+Error in filter(unemployment_rate_in_percent < 3) :
+  object 'unemployment_rate_in_percent' not found
+```
+
+I won't go into details, but by writing `~filter(., unemployment_rate_in_percent < 3)`, which is a
+formula (`~` is the symbol to define formulas, more on this in the later chapters), `map()`
+converts it to a function that it can use. If you want to know more about this, you can read it in
+[Advanced R](http://adv-r.had.co.nz/Functional-programming.html#closures) by Hadley Wickham, but it
+is an advanced topic.
+
+
+### Getting to know `reduce()`
+
+Using `map()` we now know how to apply a function to each dataset of a list. But maybe it would be
+easier to merge all the datasets first, and then manipulate them? Before that though, I am going to
+teach you how to use `purrr::reduce()`, another very powerful function that works on lists. This is
+a function that you can find in other programming languages, but sometimes it is called fold.
+
+I think that the following example illustrates the power of `reduce()` well:
+
+```{r, cache=TRUE}
+numbers = seq(1, 5) # Create a vector with the numbers 1 to 5
+
+reduce(numbers, `+`, .init = 0)
+```
+
+`reduce()` takes a function as an argument, here the function `+`^[This is simply the `+` operator
+you're used to. Try this out: `` `+`(1, 5) `` and you'll see `+` is a function like any other. You
+just have to write backticks around the plus symbol to make it work.] and then does the following
+computation:
+
+```
+0 + numbers[1] + numbers[2] + numbers[3]...
+```
+
+It applies the user supplied function successively but has to start with something, so we give it
+the argument `init` also. This argument is actually optional, but I show it here because in some
+cases it might be useful to start the computations at another value than `0`.`reduce()`
+generalizes functions that only take two arguments. If you were to write a function that returns
+the minimum between two numbers:
+
+```{r, cache=TRUE}
+my_min = function(a, b){
+    if(a < b){
+        return(a)
+    } else {
+        return(b)
+    }
+}
+```
+
+You could use `reduce()` to get the minimum of a list of numbers:
+
+```{r, cache=TRUE}
+numbers2 = c(3, 1, -8, 9)
+
+reduce(numbers2, my_min)
+```
+
+As long as you provide a function and a list of elements to `reduce()`, you will get a single
+output. So how could `reduce()` help us with merging all the datasets that are in the list? `dplyr`
+comes with a lot of function to merge *two* datasets. Remember that I said before that `reduce()`
+allows you to generalize a function of two arguments? Let's try it with our list of datasets:
+
+
+```{r, cache=TRUE}
+unemp_lux = reduce(all_datasets, full_join)
+
+glimpse(unemp_lux)
+```
+
+`full_join()` is one of the `dplyr` function that merges data. There are others that might be
+useful depending on the kind of join operation you need. Let's write this data to disk as we're
+going to keep using it for the next chapters:
+
+```{r, cache=TRUE}
+export(unemp_lux, "datasets/unemp_lux.csv")
+```
+
+## List-columns
+
+To learn about list-columns, let's first focus on a single character of the `starwars` dataset:
+
+```{r, cache=TRUE}
+data(starwars)
+```
+
+```{r, cache=TRUE}
+starwars %>%
+  filter(name == "Luke Skywalker") %>%
+  glimpse()
+```
+
+We see that the columns `films`, `vehicles` and `starships` are all lists, and in the case of
+`films`, it lists all the films where Luke Skywalker has appeared. What if you want to take a closer look at this list?
+
+```{r, cache=TRUE}
+starwars %>%
+  filter(name == "Luke Skywalker") %>%
+  pull(films)
+```
+
+`pull()` is a `dplyr` function that extract (pulls) the column you're interested in. It is quite
+useful when you want to inspect a column.
+
+Suppose we want to create a categorical variable which counts the number of movies in which the
+characters have appeared. For this we need to compute the length of the list, or count the number
+of elements this list has. Let's try with `length()` a base R function:
+
+```{r, cache=TRUE}
+starwars %>%
+  filter(name == "Luke Skywalker") %>%
+  pull(films) %>%
+  length()
+```
+
+This might be surprising at first, because we know that Luke Skywalker has appeared in more than 1
+movie... the problem here is that for each individual, `films` is a list, whose single element is
+a vector of characters. This means that `length(films)` computes the length of the list, which is
+one, and not the length of the vector contained in the list! How can we get the length of the
+vector of characters contained in the list and for each character? For this we need to use
+`dplyr::rowwise()` and remove the `filter()` function and use `mutate()` to add this column to the
+dataset:
+
+
+```{r, cache=TRUE}
+starwars = starwars %>%
+  rowwise() %>%
+  mutate(n_films = length(films))
+```
+
+`dplyr::rowwise()` is useful when working with list-columns: columns that have lists as elements.
+
+Let's take a look at the characters and the number of films they have appeared in:
+
+```{r, cache=TRUE}
+starwars %>%
+  select(name, n_films)
+```
+
+Now we can create a factor variable that groups characters by asking whether they appeared only in
+1 movie, or more:
+
+```{r, cache=TRUE}
+starwars = starwars %>%
+  mutate(more_1 = case_when(n_films == 1 ~ "Exactly one movie",
+                            n_films != 1 ~ "More than 1 movie"))
+```
+
+`case_when()` is a `dplyr` function that works similarly to the standard `if..else..` construct of
+many programming languages (R also has this, we are going to learn about it in later chapters).
+
+You can also create list columns with your own datasets, by using `tidyr::nest()`. Remember the
+fake `survey_data` I created to illustrate `spread()` and `gather()`? Let's go back to that dataset
+again:
+
+```{r, cache=TRUE}
+print(survey_data)
+
+nested_data = survey_data %>%
+  nest(variable, value)
+
+print(nested_data)
+```
+
+This creates a new tibble, with columns `id` and `data`. `data` is a list-column that contains
+tibbles; each tibble is the `variable` and `value` for each individual:
+
+```{r, cache=TRUE}
+nested_data %>%
+  filter(id == "1") %>%
+  pull(data)
+```
+
+As you can see, for individual 1, the column data contains a 2x2 tibble with columns `variable` and
+`value`. You might be wondering why this is useful, because this seems to introduce an unnecessary
+layer of complexity. The usefulness of list-columns will become apparent in the next chapters,
+where we are going to learn how to repeat actions over, say, individuals.
+
+
+## Exercises
+
+### Exercise 1 {-}
+
+Load the `LaborSupply` dataset from the `Ecdat` package and answer the following questions:
+
+* Compute the average annual hours worked by year (plus standard deviation)
+* What age group worked the most hours in the year 1982?
+* Create a variable, `n_years` that equals the number of years an  individual stays in the panel. Is the panel balanced?
+* Which are the individuals that do not have any kids during the whole period? Create a variable, `no_kids`, that flags these individuals (1 = no kids, 0 = kids)
+* Using the `no_kids` variable from before compute the average wage, standard deviation and number of observations in each group for the year 1980 (no kids group vs kids group).
+* Create the lagged logarithm of hours worked and wages. Remember that this is a panel.
+
+```{r, eval=FALSE, include=FALSE}
+library(Ecdat)
+library(dplyr)
+
+data("LaborSupply")
+
+# Compute the average annual hours worked by year (plus standard deviation)
+
+LaborSupply %>%
+  group_by(year) %>%
+  summarise(mean(lnhr), sd(lnhr))
+
+# What age group worked the most hours in the year 1982?
+
+LaborSupply %>%
+  filter(year == 1982) %>%
+  group_by(age) %>%
+  mutate(total_lnhr_age = sum(lnhr)) %>%
+  ungroup() %>%
+  filter(total_lnhr_age == max(total_lnhr_age))
+
+# Create a variable, `n_years` that equals the number of years an
+# individual stays in the panel. Is the panel balanced?
+
+LaborSupply %>%
+  group_by(id) %>%
+  mutate(n_years = n()) %>%
+  ungroup() %>%
+  summarise(mean(10))
+
+# Which are the individuals that do not have any kids during the whole period?
+# Create a variable, `no_kids`, that flags these individuals (1 = no kids, 0 = kids)
+
+LaborSupply = LaborSupply %>%
+  group_by(id) %>%
+  mutate(n_kids = max(kids)) %>%
+  mutate(no_kids = ifelse(n_kids == 0, 1, 0))
+
+# Using the `no_kids` variable from before compute the average wage in 1980 for these two groups (no kids group vs kids group).
+LaborSupply %>%
+  filter(year == 1980) %>%
+  group_by(no_kids) %>%
+  summarise(mean(lnwg), sd(lnwg), n())
+
+```
+
+### Exercise 2 {-}
+
+* What does the following code do? Copy and paste it in an R interpreter to find out!
+
+```{r, eval=FALSE}
+LaborSupply %>%
+  group_by(id) %>%
+  mutate_at(vars(starts_with("l")), funs(lag, lead))
+```
+
+`mutate_at()` is a scoped version of `mutate()` which allows you to specify a number of columns and
+functions in one go. This also exists for `summarise()`.
+
+* Using `summarise_at()`, compute the mean, standard deviation and number of individuals of `lnhr` and `lnwg` for each individual.
+
+```{r, eval=FALSE, include = FALSE}
+LaborSupply %>%
+  group_by(id) %>%
+  summarise_at(vars(starts_with("l"), funs(mean, sd)))
+```
+
+### Exercise 3 {-}
+
+* In the dataset folder you downloaded at the beginning of the chapter, there is a folder called
+"unemployment". I used the data in the section about working with lists of datasets. Using
+`rio::import_list()`, read the 4 datasets into R.
+
+```{r, eval=FALSE, echo=FALSE}
+paths = Sys.glob("datasets/unemployment/*.csv")
+
+all_datasets = import_list(paths)
+```
+
+* Using `map()`, map the `janitor::clean_names()` function to each dataset (just like in the example
+in the section on working with lists of datasets). Then, still with `map()` and `mutate()` convert
+all commune names in the `commune` column with the function `tolower()`, in a new column called `lcommune`.
+This is not an easy exercise; so here are some hints:
+
+    * Remember that `all_datasets` is a list of datasets. Which function do you use when you want to map a function to each element of a list?
+    * Each element of `all_datasets` are `data.frame` objects. Which function do you use to add a column to a `data.frame`?
+    * What symbol can you use to access a column of a `data.frame`?
+
+```{r, eval=FALSE, echo=FALSE}
+all_datasets %>%
+  map(~mutate(., lcommune = tolower(.$commune)))
+```

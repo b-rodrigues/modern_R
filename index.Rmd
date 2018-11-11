@@ -1,34 +1,163 @@
---- 
-title: "A Minimal Book Example"
-author: "Yihui Xie"
+---
+title: "Modern R with the tidyverse"
+author: "Bruno Rodrigues"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-documentclass: book
+documentclass: gitbook
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+description: "This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed."
 ---
 
-# Prerequisites
+# Preface {-}
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
-
-The **bookdown** package can be installed from CRAN or Github:
-
-```{r eval=FALSE}
-install.packages("bookdown")
-# or the development version
-# devtools::install_github("rstudio/bookdown")
+```{r, include=FALSE}
+library(tidyverse)
+library(broom)
+library(ggthemes)
+library(janitor)
 ```
 
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
+## What is R? {-}
 
-To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.name/tinytex/>.
+Read R's official answer to this question
+[here](https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-is-R_003f). To make it short: R is a
+multi-paradigm (procedural, imperative, object-oriented and functional)^[In this book we are going
+to focus on R's functional programming capabilities] programming language that
+focuses on applications in *statistics*. By *statistics* I mean any field that uses statistics such
+as official statistics, economics, finance, data science, machine learning, etc. For the sake of
+simplicity, I will use the word "statistics" as a general term that encompasses all these fields and
+disciplines for the remaineder of this book.
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+## Why *modern* R? {-}
+
+*Modern* R instead of "just"" R because we are going to learn how to use modern packages (mostly
+those from the [tidyverse](https://www.tidyverse.org/)) and concepts, such as functional
+programming (which is quite an old concept actually, but one that came into fashion recently). R is
+derived from S, which is a programming language that has roots in FORTRAN and other languages too.
+If you learned R at university, you've probably learned to use it as you would have used FORTRAN;
+very long scripts where data are represented as matrices and where row-wise (or column-wise)
+operations are implemented with `for` loops. There's nothing wrong with that, mind you, but R
+was also influenced by Scheme and Common Lisp, which are functional programming languages.
+In my opinion, functional programming is a programming paradigm that works really well when dealing
+with statistical problems. This is because programming in a functional style is just like
+writing math. For instance, suppose you want to sum all the elements of a vector. In mathematical
+notation, you would write something like:
+
+\[
+\sum_{i = 1}^{100} x_{i}
+\]
+
+where $x$ is a vector of length $i$. Solving this using a loop would look something like this:
+
+```{r, eval=FALSE}
+res <- 0
+for(i in 1:length(x)){
+  res <- x[i] + res
+}
 ```
+
+This does not look like the math notation at all! You have to define a variable that will hold
+the result outside of the loop, and then you have to define `res` as something plus `res` inside
+the body of the loop. This is really unnatural. The functional programming approach is much
+easier:
+
+```{r, eval=FALSE}
+Reduce(`+`, x)
+```
+
+We will learn about `Reduce()` later, but already you see that the notation looks a lot more
+like the mathematical notation.
+
+At its core, functional programming uses functions, and functions are so-called *first
+class*  objects in R, which means that there is nothing special about them... you can pass them to
+other functions, create functions that return functions and do any kind of operation on them just as
+with any other object. This means that functions in R are extremely powerful and flexible tools.
+In the first part of the book, we are going to use functions that are already available in R, and
+then use those available in packages, mostly those from the `tidyverse`. The `tidyverse` is a
+collection of packages developed by [Hadley Wickham](http://hadley.nz/), and several of his colleagues
+at RStudio, Inc. By using the packages from the `tidyverse` and R's built-in functional programming
+capabilities, we can write code that is faster and easier to explain to colleagues, and also easier
+to maintain. This also means that you might have to change your expectations and what you know
+already from R, if you learned it at University but haven't touched it in a long time. For example
+for and while loops, are relegated to chapter 8. This does not mean that you will have to wait for
+8 chapter to know how to repeat instructions *N* times, but that for and while loops are tools that
+are very useful for very specific kinds of situations that will be discussed at that point.
+
+In the second part of the book, we are going to move from using R to solve statistical problems to
+develop with R. We are going to learn about creating one's own package. If you do not know what
+packages R, don't worry, this will be discussed just below.
+
+## What is RStudio? {-}
+
+RStudio is a modern IDE that makes writing R code easier. The first thing we are going to learn is
+how to use it.
+R and RStudio are both open source: this means that the source code is freely available on the internet
+and contributions by anyone are welcome and integrated; provided they are meaningful and useful.
+
+## What to expect from this book? {-}
+
+You can't write "programming language" without "language". And just as you wouldn't expect to learn
+French, Portuguese or Icelandic by reading a single book, you shouldn't expect to become fluent in R
+by reading a single book, not even by reading 10 books. Programming is an art which requires a lot of
+practice. [Teach yourself programming in 10 years](http://www.norvig.com/21-days.html) is a blog
+post written by Peter Norvig which explains that just as with any craft, mastering programming
+takes time. And even if you don't need or want to become an expert in R, if you wish to use R
+effectively and in a way that ultimately saves you time, you need to have some fluency in it, and
+this only comes by continuing to learn about the language, and most importantly practicing. If you
+keep using R every day, you'll definitely become very fluent. To stay informed about developments of
+the language, and the latest news, I advise you read blogs, especially
+[R-bloggers](https://www.r-bloggers.com/) which aggregates blog posts by more than 750 blogs
+discussing R.
+
+So what you can expect from this book is to learn enough R to make you start using it, but you'd
+need to keep on reading and using R for some time to be fluent.
+
+## Prerequisites {-}
+
+R and RStudio are the two main pieces of software that we are going to use. R is the programming
+language and RStudio is a modern IDE for it. You can use R without RStudio; but you cannot use
+RStudio without R.
+
+If you wish to install R and RStudio at home to follow the examples in this book you can do it as
+both pieces of software are available free of charge (paid options for RStudio exist, for companies
+that need technical support). Installation is simple, but operating system dependent. To download
+and install R for Windows, follow [this link](https://cloud.r-project.org/bin/windows/base/).
+For macOS, follow [this one](https://cloud.r-project.org/bin/macosx/). If you run a GNU+Linux
+distribution, you can install R using the system's package manager. On Ubuntu, install `r-base`.
+
+For RStudio, look for your operating system [here](https://www.rstudio.com/products/rstudio/download/#download).
+
+## What are packages? {-}
+
+There is one more step; we are going to install some packages. Packages are additional pieces of
+code that can be installed from within R with the following function: `install.packages()`. These
+packages extend R's capabilities significantly, and are probably one of the main reasons R is so
+popular. As of November 2018, R has over 13000 packages.
+
+To install the packages we need, first open RStudio and then copy and paste this line in the console:
+
+```{r, eval=FALSE}
+install.packages(c("tidyverse", "checkpoint", "Ecdat", "ggthemes", "janitor", "rio", "colourpicker"))
+```
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/install_packages.png")
+```
+
+or go to the **Packages** pane and then click on *Install*:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_install_packages.gif")
+```
+
+### The author {-}
+
+My name is Bruno Rodrigues and I program almost exclusively in R and have been teaching some R
+courses for a few years now (first started teaching for students at the Université of Strasbourg).
+These notes are an update of those I used at the time, plus a lot of things I've learned about R
+In my free time I like cooking, working out and [blogging](https://www.brodrigues.co), while listening to
+[Fip](http://www.fipradio.fr/player). You can follow me on
+[twitter](https://www.twitter.com/brodriguesco), I tweet mostly about R or what's happening in
+Luxembourg.

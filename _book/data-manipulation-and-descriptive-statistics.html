@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Modern R with the tidyverse</title>
+  <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Modern R with the tidyverse" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Modern R with the tidyverse" />
+  
+  <meta name="twitter:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
+  
+
+<meta name="author" content="Bruno Rodrigues">
+
+
+<meta name="date" content="2018-11-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="reading-and-writing-data.html">
+<link rel="next" href="graphs.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Learn modern R with the tidyverse</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
+<li><a href="index.html#why-modern-r">Why <em>modern</em> R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is RStudio?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-to-expect-from-this-book"><i class="fa fa-check"></i>What to expect from this book?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
+<li class="chapter" data-level="1.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>1.2</b> Console</a></li>
+<li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.1</b> The help pane</a></li>
+<li class="chapter" data-level="1.3.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.2</b> The Environment pane</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#options"><i class="fa fa-check"></i><b>1.4</b> Options</a></li>
+<li class="chapter" data-level="1.5" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>1.5</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="1.6" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#projects"><i class="fa fa-check"></i><b>1.6</b> Projects</a></li>
+<li class="chapter" data-level="1.7" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#history"><i class="fa fa-check"></i><b>1.7</b> History</a></li>
+<li class="chapter" data-level="1.8" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#plots"><i class="fa fa-check"></i><b>1.8</b> Plots</a></li>
+<li class="chapter" data-level="1.9" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#addins"><i class="fa fa-check"></i><b>1.9</b> Addins</a></li>
+<li class="chapter" data-level="1.10" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#exercises"><i class="fa fa-check"></i><b>1.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#exercise-1"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>2</b> Packages</a></li>
+<li class="chapter" data-level="3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html"><i class="fa fa-check"></i><b>3</b> Data types and objects</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-numeric-class"><i class="fa fa-check"></i><b>3.1</b> The <code>numeric</code> class</a></li>
+<li class="chapter" data-level="3.2" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-character-class"><i class="fa fa-check"></i><b>3.2</b> The <code>character</code> class</a></li>
+<li class="chapter" data-level="3.3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-factor-class"><i class="fa fa-check"></i><b>3.3</b> The <code>factor</code> class</a></li>
+<li class="chapter" data-level="3.4" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.4</b> Vectors and matrices</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-c-function"><i class="fa fa-check"></i><b>3.4.1</b> The <code>c()</code> function</a></li>
+<li class="chapter" data-level="3.4.2" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#cbind-and-rbind"><i class="fa fa-check"></i><b>3.4.2</b> <code>cbind()</code> and <code>rbind()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-matrix-class"><i class="fa fa-check"></i><b>3.4.3</b> The <code>matrix</code> class</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-logical-class"><i class="fa fa-check"></i><b>3.5</b> The <code>logical</code> class</a></li>
+<li class="chapter" data-level="3.6" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-list-class"><i class="fa fa-check"></i><b>3.6</b> The <code>list</code> class</a></li>
+<li class="chapter" data-level="3.7" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-data.frame-and-tibble-classes"><i class="fa fa-check"></i><b>3.7</b> The <code>data.frame</code> and <code>tibble</code> classes</a></li>
+<li class="chapter" data-level="3.8" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#formulas"><i class="fa fa-check"></i><b>3.8</b> Formulas</a></li>
+<li class="chapter" data-level="3.9" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-1-1"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-4"><i class="fa fa-check"></i>Exercise 4</a></li>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-5"><i class="fa fa-check"></i>Exercise 5</a></li>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-6"><i class="fa fa-check"></i>Exercise 6</a></li>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-7"><i class="fa fa-check"></i>Exercise 7</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a><ul>
+<li class="chapter" data-level="4.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>4.1</b> The swiss army knife of data import and export: <code>rio</code></a></li>
+<li class="chapter" data-level="4.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>4.2</b> Writing any object to disk</a></li>
+<li class="chapter" data-level="4.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>4.3</b> Using RStudio projects to manage paths</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#manipulating-and-creating-columns-with-dplyr"><i class="fa fa-check"></i><b>5.1.1</b> Manipulating and creating columns with <code>dplyr</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.1.2</b> Reshaping data with <code>tidyr</code></a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-factor-variables"><i class="fa fa-check"></i><b>5.1.3</b> Getting to know <code>factor</code> variables</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.2.1</b> Getting to know <code>map()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.2.2</b> Getting to know <code>reduce()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#list-columns"><i class="fa fa-check"></i><b>5.3</b> List-columns</a></li>
+<li class="chapter" data-level="5.4" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#exercises-2"><i class="fa fa-check"></i><b>5.4</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#resources"><i class="fa fa-check"></i><b>6.1</b> Resources</a></li>
+<li class="chapter" data-level="6.2" data-path="graphs.html"><a href="graphs.html#examples"><i class="fa fa-check"></i><b>6.2</b> Examples</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="graphs.html"><a href="graphs.html#barplots"><i class="fa fa-check"></i><b>6.2.1</b> Barplots</a></li>
+<li class="chapter" data-level="6.2.2" data-path="graphs.html"><a href="graphs.html#density"><i class="fa fa-check"></i><b>6.2.2</b> Density</a></li>
+<li class="chapter" data-level="6.2.3" data-path="graphs.html"><a href="graphs.html#line-plots"><i class="fa fa-check"></i><b>6.2.3</b> Line plots</a></li>
+<li class="chapter" data-level="6.2.4" data-path="graphs.html"><a href="graphs.html#facets"><i class="fa fa-check"></i><b>6.2.4</b> Facets</a></li>
+<li class="chapter" data-level="6.2.5" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>6.2.5</b> Pie Charts</a></li>
+<li class="chapter" data-level="6.2.6" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>6.2.6</b> Adding text to plots</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>6.3</b> Customization</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="graphs.html"><a href="graphs.html#titles-axes-names-and-more"><i class="fa fa-check"></i><b>6.3.1</b> Titles, axes names and more</a></li>
+<li class="chapter" data-level="6.3.2" data-path="graphs.html"><a href="graphs.html#themes"><i class="fa fa-check"></i><b>6.3.2</b> Themes</a></li>
+<li class="chapter" data-level="6.3.3" data-path="graphs.html"><a href="graphs.html#colour-schemes-from-ggthemes"><i class="fa fa-check"></i><b>6.3.3</b> Colour schemes from <code>ggthemes</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="graphs.html"><a href="graphs.html#using-your-own-colours"><i class="fa fa-check"></i><b>6.3.4</b> Using your own colours</a></li>
+<li class="chapter" data-level="6.3.5" data-path="graphs.html"><a href="graphs.html#saving-plots-on-disk"><i class="fa fa-check"></i><b>6.3.5</b> Saving plots on disk</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="graphs.html"><a href="graphs.html#many-plots"><i class="fa fa-check"></i><b>6.4</b> Many plots</a></li>
+<li class="chapter" data-level="6.5" data-path="graphs.html"><a href="graphs.html#exercises-3"><i class="fa fa-check"></i><b>6.5</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphs.html"><a href="graphs.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a><ul>
+<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#fitting-a-model-to-data"><i class="fa fa-check"></i><b>7.1</b> Fitting a model to data</a></li>
+<li class="chapter" data-level="7.2" data-path="statistical-models.html"><a href="statistical-models.html#diagnostics"><i class="fa fa-check"></i><b>7.2</b> Diagnostics</a></li>
+<li class="chapter" data-level="7.3" data-path="statistical-models.html"><a href="statistical-models.html#interpreting-models"><i class="fa fa-check"></i><b>7.3</b> Interpreting models</a></li>
+<li class="chapter" data-level="7.4" data-path="statistical-models.html"><a href="statistical-models.html#comparing-models"><i class="fa fa-check"></i><b>7.4</b> Comparing models</a></li>
+<li class="chapter" data-level="7.5" data-path="statistical-models.html"><a href="statistical-models.html#using-a-model-for-prediction"><i class="fa fa-check"></i><b>7.5</b> Using a model for prediction</a></li>
+<li class="chapter" data-level="7.6" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>7.6</b> Beyond linear regression</a></li>
+<li class="chapter" data-level="7.7" data-path="statistical-models.html"><a href="statistical-models.html#advanced-topics"><i class="fa fa-check"></i><b>7.7</b> Advanced topics</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="statistical-models.html"><a href="statistical-models.html#bootstrapping"><i class="fa fa-check"></i><b>7.7.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="7.7.2" data-path="statistical-models.html"><a href="statistical-models.html#cross-validation"><i class="fa fa-check"></i><b>7.7.2</b> Cross-validation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html"><i class="fa fa-check"></i><b>8</b> Advanced topics</a><ul>
+<li class="chapter" data-level="8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#control-flow"><i class="fa fa-check"></i><b>8.1</b> Control flow</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#if-else"><i class="fa fa-check"></i><b>8.1.1</b> If-else</a></li>
+<li class="chapter" data-level="8.1.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#for-loops"><i class="fa fa-check"></i><b>8.1.2</b> For loops</a></li>
+<li class="chapter" data-level="8.1.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#while-loops"><i class="fa fa-check"></i><b>8.1.3</b> While loops</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#programming-your-own-functions"><i class="fa fa-check"></i><b>8.2</b> Programming your own functions</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>8.2.1</b> Declaring functions in R</a></li>
+<li class="chapter" data-level="8.2.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#fibonacci-numbers"><i class="fa fa-check"></i><b>8.2.2</b> Fibonacci numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-4"><i class="fa fa-check"></i><b>8.3</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-take-functions-as-arguments"><i class="fa fa-check"></i><b>8.4</b> Functions that take functions as arguments</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>8.5</b> Functions that take columns of data as arguments</a></li>
+<li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-use-loops"><i class="fa fa-check"></i><b>8.6</b> Functions that use loops</a></li>
+<li class="chapter" data-level="8.7" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#anonymous-functions"><i class="fa fa-check"></i><b>8.7</b> Anonymous functions</a></li>
+<li class="chapter" data-level="8.8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#using-your-functions-inside-mutate"><i class="fa fa-check"></i><b>8.8</b> Using your functions inside <code>mutate()</code></a></li>
+<li class="chapter" data-level="8.9" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#mapping-your-homebrewed-functions-to-lists-of-datasets"><i class="fa fa-check"></i><b>8.9</b> Mapping your homebrewed functions to lists of datasets</a></li>
+<li class="chapter" data-level="8.10" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.10</b> Generating Pdf or Word reports with R</a></li>
+<li class="chapter" data-level="8.11" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.11</b> Scraping the internet</a></li>
+<li class="chapter" data-level="8.12" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.12</b> Writing your own package</a></li>
+<li class="chapter" data-level="8.13" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.13</b> Random tips and tricks</a><ul>
+<li class="chapter" data-level="8.13.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.13.1</b> Creating a log file</a></li>
+</ul></li>
+<li class="chapter" data-level="8.14" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-5"><i class="fa fa-check"></i><b>8.14</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modern R with the tidyverse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-manipulation-and-descriptive-statistics" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Data manipulation and descriptive statistics</h1>
+<p>Now that we are familiar with some R objects and know how to import data, it is time to write some
+code. In this chapter, we are going to compute descriptive statistics for a single dataset, but
+also for a list of datasets. However, I will not give a list of functions to compute descriptive
+statistics; if you need a specific function you can find easily in the <em>Help</em> pane in Rstudio or
+using any modern internet search engine. What I will do is show you a workflow that allows you to
+compute the statisics you need fast.
+R has a lot of built-in functions for descriptive statistics; however, if you want to compute
+statistics by, say, gender, some more complex manipulations are needed. At least this was true in
+the past. Nowadays, thanks to the packages from the <code>tidyverse</code>, it is very easy and fast to
+compute descriptive statistics by any stratifying variable(s). The packages we are going to use for
+this are called <code>dplyr</code> and <code>tidyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating
+data and computing descriptive statistics very easy. To make things easier for now, we are going to
+use example data included with <code>dplyr</code>. So no need to import an external dataset; this does not
+change anything to the example that we are going to study here; the source of the data does not
+matter for this. <code>tidyr</code> is very useful to reshape data. We are going to focus on two functions
+from <code>tidyr</code>, <code>gather()</code> and <code>spread()</code>.</p>
+<div id="working-with-a-single-dataset" class="section level2">
+<h2><span class="header-section-number">5.1</span> Working with a single dataset</h2>
+<div id="manipulating-and-creating-columns-with-dplyr" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Manipulating and creating columns with <code>dplyr</code></h3>
+<p>First, let’s load <code>dplyr</code> and the included <code>starwars</code> dataset. Let’s also take a look at the first 5
+lines of the dataset:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb96-2" title="2"></a>
+<a class="sourceLine" id="cb96-3" title="3"><span class="kw">data</span>(starwars)</a>
+<a class="sourceLine" id="cb96-4" title="4"></a>
+<a class="sourceLine" id="cb96-5" title="5"><span class="kw">head</span>(starwars)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 13
+##   name  height  mass hair_color skin_color eye_color birth_year gender
+##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+## 1 Luke…    172    77 blond      fair       blue            19   male  
+## 2 C-3PO    167    75 &lt;NA&gt;       gold       yellow         112   &lt;NA&gt;  
+## 3 R2-D2     96    32 &lt;NA&gt;       white, bl… red             33   &lt;NA&gt;  
+## 4 Dart…    202   136 none       white      yellow          41.9 male  
+## 5 Leia…    150    49 brown      light      brown           19   female
+## 6 Owen…    178   120 brown, gr… light      blue            52   male  
+## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p><code>data(starwars)</code> loads the example dataset called <code>starwars</code> that is included in the package <code>dplyr</code>.
+As I said earlier, this is just an example; you could have loaded an external dataset, from a
+<code>.csv</code> file for instance. This does not matter for what comes next.</p>
+<p>R includes a lot of functions for descriptive statistics, such as <code>mean()</code>, <code>sd()</code>, <code>cov()</code>, and many
+more. What <code>dplyr</code> brings to the table is the possibility to apply these functions to the dataset
+easily. For example, imagine you want the average height of everyone in the dataset. Using the basic
+R functions, you could write this:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="kw">mean</span>(starwars<span class="op">$</span>height)</a></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p><code>starwars$height</code> means that the user wants to access the column called <code>height</code> from the dataset
+<code>starwars</code>. Remember that the <code>$</code> symbol is how you access elements of a named list. This is the
+same for columns of datasets as you can see. This is then given as an argument to the function
+<code>mean()</code>. But what if the user wants the average height by species? Before <code>dplyr</code>, a solution to
+this simple problem would have required more than a single command. Now this is as easy as:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb100-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb100-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">mean</span>(height))</a></code></pre></div>
+<pre><code>## # A tibble: 38 x 2
+##    species   `mean(height)`
+##    &lt;chr&gt;              &lt;dbl&gt;
+##  1 Aleena               79 
+##  2 Besalisk            198 
+##  3 Cerean              198 
+##  4 Chagrian            196 
+##  5 Clawdite            168 
+##  6 Droid                NA 
+##  7 Dug                 112 
+##  8 Ewok                 88 
+##  9 Geonosian           183 
+## 10 Gungan              209.
+## # ... with 28 more rows</code></pre>
+<p>Ok, I know what you’re thinking. <em>What the hell is this weird <code>%&gt;%</code> thing?</em> That weird thing is
+called the pipe operator. What it does is take the left-hand side argument and pipe it as the first
+argument of the function on the right-hand side. Try the following in the command line:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1"><span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sqrt</span>()</a></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>It is equivalent to <code>sqrt(4)</code>. Why use that though? You will see in the next examples that using
+<code>%&gt;%</code> makes writing and reading code, much, much easier. For example, the previous manipulation I
+did could be read as “Take the starwars data, give it to the <code>group_by()</code> function and then
+compute the mean of height”. Without the <code>%&gt;%</code>, one would need to write:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="kw">summarise</span>(<span class="kw">group_by</span>(starwars, species), <span class="kw">mean</span>(height))</a></code></pre></div>
+<pre><code>## # A tibble: 38 x 2
+##    species   `mean(height)`
+##    &lt;chr&gt;              &lt;dbl&gt;
+##  1 Aleena               79 
+##  2 Besalisk            198 
+##  3 Cerean              198 
+##  4 Chagrian            196 
+##  5 Clawdite            168 
+##  6 Droid                NA 
+##  7 Dug                 112 
+##  8 Ewok                 88 
+##  9 Geonosian           183 
+## 10 Gungan              209.
+## # ... with 28 more rows</code></pre>
+<p>as you can clearly see, it is much more difficult to read. Imagine now that I want the average height
+by species, but only for males. Again, this is very easy using <code>%&gt;%</code>:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb106-2" title="2"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">==</span><span class="st"> &quot;male&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb106-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb106-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">mean</span>(height))</a></code></pre></div>
+<pre><code>## # A tibble: 32 x 2
+##    species   `mean(height)`
+##    &lt;chr&gt;              &lt;dbl&gt;
+##  1 Aleena               79 
+##  2 Besalisk            198 
+##  3 Cerean              198 
+##  4 Chagrian            196 
+##  5 Dug                 112 
+##  6 Ewok                 88 
+##  7 Geonosian           183 
+##  8 Gungan              209.
+##  9 Human                NA 
+## 10 Iktotchi            188 
+## # ... with 22 more rows</code></pre>
+<p>Again, the <code>%&gt;%</code> makes the above lines of code very easy to read. Without it, one would need to write:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1"><span class="kw">summarise</span>(<span class="kw">group_by</span>(<span class="kw">filter</span>(starwars, gender <span class="op">==</span><span class="st"> &quot;male&quot;</span>), species), <span class="kw">mean</span>(height))</a></code></pre></div>
+<pre><code>## # A tibble: 32 x 2
+##    species   `mean(height)`
+##    &lt;chr&gt;              &lt;dbl&gt;
+##  1 Aleena               79 
+##  2 Besalisk            198 
+##  3 Cerean              198 
+##  4 Chagrian            196 
+##  5 Dug                 112 
+##  6 Ewok                 88 
+##  7 Geonosian           183 
+##  8 Gungan              209.
+##  9 Human                NA 
+## 10 Iktotchi            188 
+## # ... with 22 more rows</code></pre>
+<p>I think you agree with me that this is not very readable. Once you’re used to <code>%&gt;%</code>, you won’t go
+back to not use it.</p>
+<p>To make things clearer; <code>filter()</code>, <code>group_by()</code> and <code>summarise()</code> are functions that are included
+in <code>dplyr</code>. <code>%&gt;%</code> is actually a function from <code>magrittr</code>, but this package gets loaded on the fly
+when you load <code>dplyr</code>, so you do not need to worry about it. <code>mean()</code> is a function <em>native</em>
+to R.</p>
+<p>The result of all these operations that use <code>dplyr</code> functions are actually other datasets, or
+<code>tibbles</code>. This means that you can save them in variable, and then work with these as any other
+datasets.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1">mean_height =<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb110-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb110-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">mean</span>(height))</a>
+<a class="sourceLine" id="cb110-4" title="4"></a>
+<a class="sourceLine" id="cb110-5" title="5"><span class="kw">class</span>(mean_height)</a></code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="kw">head</span>(mean_height)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   species  `mean(height)`
+##   &lt;chr&gt;             &lt;dbl&gt;
+## 1 Aleena               79
+## 2 Besalisk            198
+## 3 Cerean              198
+## 4 Chagrian            196
+## 5 Clawdite            168
+## 6 Droid                NA</code></pre>
+<p>You could then write this data to disk using <code>rio::export()</code> for instance. If you need more than the
+mean of the height, you can keep adding as many functions as needed:</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">summary_table =<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb114-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb114-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">ave_height =</span> <span class="kw">mean</span>(height), <span class="dt">var_height =</span> <span class="kw">var</span>(height), <span class="dt">n_obs =</span> <span class="kw">n</span>())</a>
+<a class="sourceLine" id="cb114-4" title="4"></a>
+<a class="sourceLine" id="cb114-5" title="5"><span class="kw">print</span>(summary_table)</a></code></pre></div>
+<pre><code>## # A tibble: 38 x 4
+##    species   ave_height var_height n_obs
+##    &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+##  1 Aleena           79         NA      1
+##  2 Besalisk        198         NA      1
+##  3 Cerean          198         NA      1
+##  4 Chagrian        196         NA      1
+##  5 Clawdite        168         NA      1
+##  6 Droid            NA         NA      5
+##  7 Dug             112         NA      1
+##  8 Ewok             88         NA      1
+##  9 Geonosian       183         NA      1
+## 10 Gungan          209.       201.     3
+## # ... with 28 more rows</code></pre>
+<p>I’ve added more functions, namely <code>var()</code>, to get the variance of height, and <code>n()</code>, which
+is a function from <code>dplyr</code>, not base R, to get the number of observations. This is quite useful,
+because we see that for a lot of species we only have one single individual! Let’s focus on the
+species for which we have more than 1 individual. Since we save all the previous operations (which
+produce a <code>tibble</code>) in a variable, we can keep going from there:</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1">summary_table2 =<span class="st"> </span>summary_table <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb116-2" title="2"><span class="st">  </span><span class="kw">filter</span>(n_obs <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb116-3" title="3"></a>
+<a class="sourceLine" id="cb116-4" title="4"><span class="kw">print</span>(summary_table2)</a></code></pre></div>
+<pre><code>## # A tibble: 9 x 4
+##   species  ave_height var_height n_obs
+##   &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+## 1 Droid           NA         NA      5
+## 2 Gungan         209.       201.     3
+## 3 Human           NA         NA     35
+## 4 Kaminoan       221        128      2
+## 5 Mirialan       168          8      2
+## 6 Twi&#39;lek        179          2      2
+## 7 Wookiee        231         18      2
+## 8 Zabrak         173          8      2
+## 9 &lt;NA&gt;            NA         NA      5</code></pre>
+<p>There’s a lot of <code>NA</code>s; this is because by default, <code>mean()</code> and <code>var()</code> return <code>NA</code> if even one
+single observation is <code>NA</code> (unlike STATA). This is good, because it forces you to look at the data
+to see what is going on. If you would get a number, even if there were <code>NA</code>s you could very easily
+miss these missing values. It is better for functions to fail early and often than the opposite.
+<code>mean()</code> and <code>var()</code> have a <code>na.rm</code> option that the user can set to <code>TRUE</code> to get the result by
+ignoring the <code>NA</code>s:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb118-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb118-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">ave_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">var_height =</span> <span class="kw">var</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_obs =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb118-4" title="4"><span class="st">  </span><span class="kw">filter</span>(n_obs <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 9 x 4
+##   species  ave_height var_height n_obs
+##   &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+## 1 Droid          140       2705.     5
+## 2 Gungan         209.       201.     3
+## 3 Human          177.       157.    35
+## 4 Kaminoan       221        128      2
+## 5 Mirialan       168          8      2
+## 6 Twi&#39;lek        179          2      2
+## 7 Wookiee        231         18      2
+## 8 Zabrak         173          8      2
+## 9 &lt;NA&gt;           160       1826      5</code></pre>
+<p>In the code above, I have combined the two previous steps to get the result I’m interested in. There’s
+a line in the final output that says <code>NA</code> for the species. Let’s go back to the raw data and find
+these lines:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb120-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">is.na</span>(species))</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 13
+##   name  height  mass hair_color skin_color eye_color birth_year gender
+##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+## 1 Ric …    183    NA brown      fair       blue              NA male  
+## 2 Quar…    183    NA black      dark       brown             62 male  
+## 3 R4-P…     96    NA none       silver, r… red, blue         NA female
+## 4 Sly …    178    48 none       pale       white             NA female
+## 5 Capt…     NA    NA unknown    unknown    unknown           NA female
+## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p>To test for <code>NA</code>, one uses the function <code>is.na()</code> not something like <code>species == &quot;NA&quot;</code> or anything
+like that.<code>!is.na()</code> does the opposite:</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb122-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(species))</a></code></pre></div>
+<pre><code>## # A tibble: 82 x 13
+##    name  height  mass hair_color skin_color eye_color birth_year gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+##  1 Luke…    172    77 blond      fair       blue            19   male  
+##  2 C-3PO    167    75 &lt;NA&gt;       gold       yellow         112   &lt;NA&gt;  
+##  3 R2-D2     96    32 &lt;NA&gt;       white, bl… red             33   &lt;NA&gt;  
+##  4 Dart…    202   136 none       white      yellow          41.9 male  
+##  5 Leia…    150    49 brown      light      brown           19   female
+##  6 Owen…    178   120 brown, gr… light      blue            52   male  
+##  7 Beru…    165    75 brown      light      blue            47   female
+##  8 R5-D4     97    32 &lt;NA&gt;       white, red red             NA   &lt;NA&gt;  
+##  9 Bigg…    183    84 black      light      brown           24   male  
+## 10 Obi-…    182    77 auburn, w… fair       blue-gray       57   male  
+## # ... with 72 more rows, and 5 more variables: homeworld &lt;chr&gt;,
+## #   species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<p>The <code>!</code> function negates a predicate function (a predicate function is a function that returns
+<code>TRUE</code> or <code>FALSE</code>). We can then rerun our analysis from before:</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb124-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(species)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb124-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb124-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">ave_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">var_height =</span> <span class="kw">var</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_obs =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb124-5" title="5"><span class="st">  </span><span class="kw">filter</span>(n_obs <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 8 x 4
+##   species  ave_height var_height n_obs
+##   &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+## 1 Droid          140       2705.     5
+## 2 Gungan         209.       201.     3
+## 3 Human          177.       157.    35
+## 4 Kaminoan       221        128      2
+## 5 Mirialan       168          8      2
+## 6 Twi&#39;lek        179          2      2
+## 7 Wookiee        231         18      2
+## 8 Zabrak         173          8      2</code></pre>
+<p>And why not compute the same table, but first add another stratifying variable?</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(species)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(species, gender) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">ave_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">var_height =</span> <span class="kw">var</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_obs =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-5" title="5"><span class="st">  </span><span class="kw">filter</span>(n_obs <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 8 x 5
+## # Groups:   species [6]
+##   species  gender ave_height var_height n_obs
+##   &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+## 1 Droid    none         200        NA       2
+## 2 Droid    &lt;NA&gt;         120      1657       3
+## 3 Gungan   male         209.      201.      3
+## 4 Human    female       160.       48.8     9
+## 5 Human    male         182.       67.1    26
+## 6 Mirialan female       168         8       2
+## 7 Wookiee  male         231        18       2
+## 8 Zabrak   male         173         8       2</code></pre>
+<p><code>mutate()</code> is the next <code>dplyr</code> function that we are going to discover. It allows you to
+create new columns and add them to the original dataset. For instance, suppose you need a column of
+the height of the individuals in meters, and not in centimeters:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb128-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">height_m =</span> height<span class="op">/</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb128-3" title="3"></a>
+<a class="sourceLine" id="cb128-4" title="4"><span class="kw">glimpse</span>(starwars)</a></code></pre></div>
+<pre><code>## Observations: 87
+## Variables: 14
+## $ name       &lt;chr&gt; &quot;Luke Skywalker&quot;, &quot;C-3PO&quot;, &quot;R2-D2&quot;, &quot;Darth Vader&quot;, ...
+## $ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188...
+## $ mass       &lt;dbl&gt; 77.0, 75.0, 32.0, 136.0, 49.0, 120.0, 75.0, 32.0, 8...
+## $ hair_color &lt;chr&gt; &quot;blond&quot;, NA, NA, &quot;none&quot;, &quot;brown&quot;, &quot;brown, grey&quot;, &quot;b...
+## $ skin_color &lt;chr&gt; &quot;fair&quot;, &quot;gold&quot;, &quot;white, blue&quot;, &quot;white&quot;, &quot;light&quot;, &quot;l...
+## $ eye_color  &lt;chr&gt; &quot;blue&quot;, &quot;yellow&quot;, &quot;red&quot;, &quot;yellow&quot;, &quot;brown&quot;, &quot;blue&quot;,...
+## $ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0, NA, 24.0...
+## $ gender     &lt;chr&gt; &quot;male&quot;, NA, NA, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;female&quot;,...
+## $ homeworld  &lt;chr&gt; &quot;Tatooine&quot;, &quot;Tatooine&quot;, &quot;Naboo&quot;, &quot;Tatooine&quot;, &quot;Alder...
+## $ species    &lt;chr&gt; &quot;Human&quot;, &quot;Droid&quot;, &quot;Droid&quot;, &quot;Human&quot;, &quot;Human&quot;, &quot;Human...
+## $ films      &lt;list&gt; [&lt;&quot;Revenge of the Sith&quot;, &quot;Return of the Jedi&quot;, &quot;Th...
+## $ vehicles   &lt;list&gt; [&lt;&quot;Snowspeeder&quot;, &quot;Imperial Speeder Bike&quot;&gt;, &lt;&gt;, &lt;&gt;,...
+## $ starships  &lt;list&gt; [&lt;&quot;X-wing&quot;, &quot;Imperial shuttle&quot;&gt;, &lt;&gt;, &lt;&gt;, &quot;TIE Adva...
+## $ height_m   &lt;dbl&gt; 1.72, 1.67, 0.96, 2.02, 1.50, 1.78, 1.65, 0.97, 1.8...</code></pre>
+<p>I have used <code>mutate()</code> to add the column I need, which contains the height of the individuals in
+meters. Then I use <code>glimpse()</code>, an alternative to <code>print()</code> that I find very useful because it
+shows all the columns with as many observations that fit on your screen. We can see the column we
+created at the very bottom. It might be interesting to reorder the columns; this is possible with
+<code>select()</code> another <code>dplyr</code> function:</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb130-2" title="2"><span class="st">  </span><span class="kw">select</span>(name, height, height_m, <span class="kw">everything</span>())</a>
+<a class="sourceLine" id="cb130-3" title="3"></a>
+<a class="sourceLine" id="cb130-4" title="4"><span class="kw">glimpse</span>(starwars)</a></code></pre></div>
+<pre><code>## Observations: 87
+## Variables: 14
+## $ name       &lt;chr&gt; &quot;Luke Skywalker&quot;, &quot;C-3PO&quot;, &quot;R2-D2&quot;, &quot;Darth Vader&quot;, ...
+## $ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188...
+## $ height_m   &lt;dbl&gt; 1.72, 1.67, 0.96, 2.02, 1.50, 1.78, 1.65, 0.97, 1.8...
+## $ mass       &lt;dbl&gt; 77.0, 75.0, 32.0, 136.0, 49.0, 120.0, 75.0, 32.0, 8...
+## $ hair_color &lt;chr&gt; &quot;blond&quot;, NA, NA, &quot;none&quot;, &quot;brown&quot;, &quot;brown, grey&quot;, &quot;b...
+## $ skin_color &lt;chr&gt; &quot;fair&quot;, &quot;gold&quot;, &quot;white, blue&quot;, &quot;white&quot;, &quot;light&quot;, &quot;l...
+## $ eye_color  &lt;chr&gt; &quot;blue&quot;, &quot;yellow&quot;, &quot;red&quot;, &quot;yellow&quot;, &quot;brown&quot;, &quot;blue&quot;,...
+## $ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0, NA, 24.0...
+## $ gender     &lt;chr&gt; &quot;male&quot;, NA, NA, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;female&quot;,...
+## $ homeworld  &lt;chr&gt; &quot;Tatooine&quot;, &quot;Tatooine&quot;, &quot;Naboo&quot;, &quot;Tatooine&quot;, &quot;Alder...
+## $ species    &lt;chr&gt; &quot;Human&quot;, &quot;Droid&quot;, &quot;Droid&quot;, &quot;Human&quot;, &quot;Human&quot;, &quot;Human...
+## $ films      &lt;list&gt; [&lt;&quot;Revenge of the Sith&quot;, &quot;Return of the Jedi&quot;, &quot;Th...
+## $ vehicles   &lt;list&gt; [&lt;&quot;Snowspeeder&quot;, &quot;Imperial Speeder Bike&quot;&gt;, &lt;&gt;, &lt;&gt;,...
+## $ starships  &lt;list&gt; [&lt;&quot;X-wing&quot;, &quot;Imperial shuttle&quot;&gt;, &lt;&gt;, &lt;&gt;, &quot;TIE Adva...</code></pre>
+<p><code>select()</code> allows you to reorder columns by writing the order of the columns you want, and then you
+can use <code>everything()</code> (another <code>dplyr</code> function) to just tell <code>select()</code> that you want everything
+else in there. But <code>select()</code> also allows you to only select a subset of columns, if needed:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb132-2" title="2"><span class="st">  </span><span class="kw">select</span>(name, height, height_m, gender) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb132-3" title="3"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<pre><code>## Observations: 87
+## Variables: 4
+## $ name     &lt;chr&gt; &quot;Luke Skywalker&quot;, &quot;C-3PO&quot;, &quot;R2-D2&quot;, &quot;Darth Vader&quot;, &quot;L...
+## $ height   &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188, ...
+## $ height_m &lt;dbl&gt; 1.72, 1.67, 0.96, 2.02, 1.50, 1.78, 1.65, 0.97, 1.83,...
+## $ gender   &lt;chr&gt; &quot;male&quot;, NA, NA, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;female&quot;, N...</code></pre>
+<p>This returns a <code>tibble</code> with only the <code>name</code>, <code>height</code>, <code>height_m</code> and the <code>gender</code> variables.</p>
+<p>The last thing I want to show you are the so-called <em>scoped</em> version of these functions. For
+example, what if I am only interested in columns that contains text? Is there a way to select them
+automatically? For this type of tasks, you can use <code>select_if()</code>:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb134-2" title="2"><span class="st">  </span><span class="kw">select_if</span>(is.character)</a></code></pre></div>
+<pre><code>## # A tibble: 87 x 7
+##    name         hair_color   skin_color eye_color gender homeworld species
+##    &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;  
+##  1 Luke Skywal… blond        fair       blue      male   Tatooine  Human  
+##  2 C-3PO        &lt;NA&gt;         gold       yellow    &lt;NA&gt;   Tatooine  Droid  
+##  3 R2-D2        &lt;NA&gt;         white, bl… red       &lt;NA&gt;   Naboo     Droid  
+##  4 Darth Vader  none         white      yellow    male   Tatooine  Human  
+##  5 Leia Organa  brown        light      brown     female Alderaan  Human  
+##  6 Owen Lars    brown, grey  light      blue      male   Tatooine  Human  
+##  7 Beru Whites… brown        light      blue      female Tatooine  Human  
+##  8 R5-D4        &lt;NA&gt;         white, red red       &lt;NA&gt;   Tatooine  Droid  
+##  9 Biggs Darkl… black        light      brown     male   Tatooine  Human  
+## 10 Obi-Wan Ken… auburn, whi… fair       blue-gray male   Stewjon   Human  
+## # ... with 77 more rows</code></pre>
+<p><code>select_if()</code> selects every column that is of type character. There is also <code>select_all()</code> and
+<code>select_at()</code>, each with their own use. I will not go into more detail here. If you are
+interested, I advise you read <code>dplyr</code>’s help and also the section I wrote in my other
+<a href="https://b-rodrigues.github.io/fput/tidyverse.html">book</a> which goes into much more detail.</p>
+</div>
+<div id="reshaping-data-with-tidyr" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> Reshaping data with <code>tidyr</code></h3>
+<p>Another important package from the <code>tidyverse</code> that goes hand in hand with <code>dplyr</code> is <code>tidyr</code>. <code>tidyr</code>
+is the package you need when it’s time to reshape data. The basic functions from <code>tidyr</code>, <code>spread()</code>
+and <code>gather()</code> make it possible to go from long to wide datasets respectively.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1"><span class="kw">library</span>(tidyr)</a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" title="1">survey_data =<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb137-2" title="2">  <span class="op">~</span>id, <span class="op">~</span>variable, <span class="op">~</span>value,</a>
+<a class="sourceLine" id="cb137-3" title="3">  <span class="dv">1</span>, <span class="st">&quot;var1&quot;</span>, <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb137-4" title="4">  <span class="dv">1</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">0.2</span>,</a>
+<a class="sourceLine" id="cb137-5" title="5">  <span class="dv">2</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">1.4</span>,</a>
+<a class="sourceLine" id="cb137-6" title="6">  <span class="dv">2</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">1.9</span>,</a>
+<a class="sourceLine" id="cb137-7" title="7">  <span class="dv">3</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">0.1</span>,</a>
+<a class="sourceLine" id="cb137-8" title="8">  <span class="dv">3</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">2.8</span>,</a>
+<a class="sourceLine" id="cb137-9" title="9">  <span class="dv">4</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">1.7</span>,</a>
+<a class="sourceLine" id="cb137-10" title="10">  <span class="dv">4</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">1.9</span></a>
+<a class="sourceLine" id="cb137-11" title="11">)</a>
+<a class="sourceLine" id="cb137-12" title="12"></a>
+<a class="sourceLine" id="cb137-13" title="13"><span class="kw">head</span>(survey_data)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##      id variable value
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+## 1     1 var1       1  
+## 2     1 var2       0.2
+## 3     2 var1       1.4
+## 4     2 var2       1.9
+## 5     3 var1       0.1
+## 6     3 var2       2.8</code></pre>
+<p>This above is a long dataset. We can reshape it to be wide using the <code>spread()</code> function:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1">wide_data =<span class="st"> </span>survey_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb139-2" title="2"><span class="st">  </span><span class="kw">spread</span>(variable, value)</a>
+<a class="sourceLine" id="cb139-3" title="3"></a>
+<a class="sourceLine" id="cb139-4" title="4"><span class="kw">head</span>(wide_data)</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##      id  var1  var2
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1   1     0.2
+## 2     2   1.4   1.9
+## 3     3   0.1   2.8
+## 4     4   1.7   1.9</code></pre>
+<p>This means that we spread the column called “variable”, which will produce one column per category
+of “variable”. Then we fill in the rows with the data contained in the column “value”.</p>
+<p>To go from a wide dataset to a long one, we use <code>gather()</code>:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1">long_data =<span class="st"> </span>wide_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb141-2" title="2"><span class="st">  </span><span class="kw">gather</span>(variable, value, var1, var2)</a>
+<a class="sourceLine" id="cb141-3" title="3"></a>
+<a class="sourceLine" id="cb141-4" title="4"><span class="kw">print</span>(long_data)</a></code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##      id variable value
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+## 1     1 var1       1  
+## 2     2 var1       1.4
+## 3     3 var1       0.1
+## 4     4 var1       1.7
+## 5     1 var2       0.2
+## 6     2 var2       1.9
+## 7     3 var2       2.8
+## 8     4 var2       1.9</code></pre>
+<p><code>long_data</code> and <code>survey_data</code> are the same datasets, but in a different order.</p>
+<p>In the <code>wide_data</code> <code>tibble</code>, we had 3 columns: <code>id</code>, <code>var1</code> and <code>var2</code>. We want to stack ‘var1’ and
+‘var2’ in a new column, that we chose to call “variable”. This is the “key”. For the value, we are
+using the values contained in <code>var1</code> and <code>var2</code>. Sometimes using <code>spread()</code> or <code>gather()</code> requires
+some trial and error. I advise you play around with the examples above to really grasp how these
+powerful functions work.</p>
+<p>The last function from <code>tidyr</code> that we are going to discuss is <code>nest()</code>, but we will keep it for
+later, in the section about so-called <em>list-columns</em>.</p>
+</div>
+<div id="getting-to-know-factor-variables" class="section level3">
+<h3><span class="header-section-number">5.1.3</span> Getting to know <code>factor</code> variables</h3>
+<p>Remember in chapter 3 when I very quickly explained what were <code>factor</code> variables? In this section,
+we are going to work a little bit with these type of variable. <code>factor</code>s are very useful, and the
+<code>forcats</code> package includes some handy functions to work with them. First, let’s load the <code>forcats</code> package:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1"><span class="kw">library</span>(forcats)</a></code></pre></div>
+<p>as an example, we are going to work with the <code>gss_cat</code> dataset that is included in <code>forcats</code>. Let’s
+load that:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">data</span>(gss_cat)</a>
+<a class="sourceLine" id="cb144-2" title="2"></a>
+<a class="sourceLine" id="cb144-3" title="3"><span class="kw">head</span>(gss_cat)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 9
+##    year marital     age race  rincome   partyid    relig   denom   tvhours
+##   &lt;int&gt; &lt;fct&gt;     &lt;int&gt; &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;      &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;
+## 1  2000 Never ma…    26 White $8000 to… Ind,near … Protes… Southe…      12
+## 2  2000 Divorced     48 White $8000 to… Not str r… Protes… Baptis…      NA
+## 3  2000 Widowed      67 White Not appl… Independe… Protes… No den…       2
+## 4  2000 Never ma…    39 White Not appl… Ind,near … Orthod… Not ap…       4
+## 5  2000 Divorced     25 White Not appl… Not str d… None    Not ap…       1
+## 6  2000 Married      25 White $20000 -… Strong de… Protes… Southe…      NA</code></pre>
+<p>as you can see, <code>marital</code>, <code>race</code>, <code>rincome</code> and <code>partyid</code> are all factor variables. Let’s take a closer
+look at <code>marital</code>:</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1"><span class="kw">str</span>(gss_cat<span class="op">$</span>marital)</a></code></pre></div>
+<pre><code>##  Factor w/ 6 levels &quot;No answer&quot;,&quot;Never married&quot;,..: 2 4 5 2 4 6 2 4 6 6 ...</code></pre>
+<p>and let’s see <code>rincome</code>:</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="kw">str</span>(gss_cat<span class="op">$</span>rincome)</a></code></pre></div>
+<pre><code>##  Factor w/ 16 levels &quot;No answer&quot;,&quot;Don&#39;t know&quot;,..: 8 8 16 16 16 5 4 9 4 4 ...</code></pre>
+<p><code>factor</code> variables have different levels and the <code>forcats</code> package includes functions that allow
+you to recode, collapse and do all sorts of things on these levels. For example , using
+<code>forcats::fct_recode()</code> you can recode levels:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1">gss_cat =<span class="st"> </span>gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb150-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">marital =</span> <span class="kw">fct_recode</span>(marital,</a>
+<a class="sourceLine" id="cb150-3" title="3">                              <span class="dt">refuse =</span> <span class="st">&quot;No answer&quot;</span>,</a>
+<a class="sourceLine" id="cb150-4" title="4">                              <span class="dt">never_married =</span> <span class="st">&quot;Never married&quot;</span>,</a>
+<a class="sourceLine" id="cb150-5" title="5">                              <span class="dt">divorced =</span> <span class="st">&quot;Separated&quot;</span>,</a>
+<a class="sourceLine" id="cb150-6" title="6">                              <span class="dt">divorced =</span> <span class="st">&quot;Divorced&quot;</span>,</a>
+<a class="sourceLine" id="cb150-7" title="7">                              <span class="dt">widowed =</span> <span class="st">&quot;Widowed&quot;</span>,</a>
+<a class="sourceLine" id="cb150-8" title="8">                              <span class="dt">married =</span> <span class="st">&quot;Married&quot;</span>))</a>
+<a class="sourceLine" id="cb150-9" title="9"></a>
+<a class="sourceLine" id="cb150-10" title="10">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb150-11" title="11"><span class="st">  </span><span class="kw">tabyl</span>(marital)</a></code></pre></div>
+<pre><code>##        marital     n      percent
+##         refuse    17 0.0007913234
+##  never_married  5416 0.2521063166
+##       divorced  4126 0.1920588372
+##        widowed  1807 0.0841130196
+##        married 10117 0.4709305032</code></pre>
+<p>Using <code>fct_recode()</code>, I was able to recode the levels and collapse <code>Separated</code> and <code>Divorced</code> to
+a single category called <code>divorced</code>. As you can see, <code>refuse</code> and <code>widowed</code> are less than 10%, so
+maybe you’d want to lump these categories together:</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1">gss_cat =<span class="st"> </span>gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb152-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">marital =</span> <span class="kw">fct_lump</span>(marital, <span class="dt">prop =</span> <span class="fl">0.10</span>, <span class="dt">other_level =</span> <span class="st">&quot;other&quot;</span>))</a>
+<a class="sourceLine" id="cb152-3" title="3"></a>
+<a class="sourceLine" id="cb152-4" title="4">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb152-5" title="5"><span class="st">  </span><span class="kw">tabyl</span>(marital)</a></code></pre></div>
+<pre><code>##        marital     n    percent
+##  never_married  5416 0.25210632
+##       divorced  4126 0.19205884
+##        married 10117 0.47093050
+##          other  1824 0.08490434</code></pre>
+<p>I suggest you read <code>forcats</code>’ help page and discover the other functions it contains.</p>
+</div>
+</div>
+<div id="working-with-a-list-of-datasets" class="section level2">
+<h2><span class="header-section-number">5.2</span> Working with a list of datasets</h2>
+<div id="getting-to-know-map" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Getting to know <code>map()</code></h3>
+<p>Let’s read the list of datasets from the previous chapter:</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1">paths =<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb154-2" title="2"></a>
+<a class="sourceLine" id="cb154-3" title="3">all_datasets =<span class="st"> </span><span class="kw">import_list</span>(paths)</a>
+<a class="sourceLine" id="cb154-4" title="4"></a>
+<a class="sourceLine" id="cb154-5" title="5"><span class="kw">str</span>(all_datasets)</a></code></pre></div>
+<pre><code>## List of 4
+##  $ unemp_2013:&#39;data.frame&#39;:  118 obs. of  8 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 223407 17802 1703 844 1431 4094 2146 971 1218 3002 ...
+##   ..$ of which: Wage-earners    : int [1:118] 203535 15993 1535 750 1315 3800 1874 858 1029 2664 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 19872 1809 168 94 116 294 272 113 189 338 ...
+##   ..$ Unemployed                : int [1:118] 19287 1071 114 25 74 261 98 45 66 207 ...
+##   ..$ Active population         : int [1:118] 242694 18873 1817 869 1505 4355 2244 1016 1284 3209 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.95 5.67 6.27 2.88 4.92 ...
+##   ..$ Year                      : int [1:118] 2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
+##  $ unemp_2014:&#39;data.frame&#39;:  118 obs. of  8 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 228423 18166 1767 845 1505 4129 2172 1007 1268 3124 ...
+##   ..$ of which: Wage-earners    : int [1:118] 208238 16366 1606 757 1390 3840 1897 887 1082 2782 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20185 1800 161 88 115 289 275 120 186 342 ...
+##   ..$ Unemployed                : int [1:118] 19362 1066 122 19 66 287 91 38 61 202 ...
+##   ..$ Active population         : int [1:118] 247785 19232 1889 864 1571 4416 2263 1045 1329 3326 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.81 5.54 6.46 2.2 4.2 ...
+##   ..$ Year                      : int [1:118] 2014 2014 2014 2014 2014 2014 2014 2014 2014 2014 ...
+##  $ unemp_2015:&#39;data.frame&#39;:  118 obs. of  8 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 233130 18310 1780 870 1470 4130 2170 1050 1300 3140 ...
+##   ..$ of which: Wage-earners    : int [1:118] 212530 16430 1620 780 1350 3820 1910 920 1100 2770 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20600 1880 160 90 120 310 260 130 200 370 ...
+##   ..$ Unemployed                : int [1:118] 18806 988 106 29 73 260 80 41 72 169 ...
+##   ..$ Active population         : int [1:118] 251936 19298 1886 899 1543 4390 2250 1091 1372 3309 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.46 5.12 5.62 3.23 4.73 ...
+##   ..$ Year                      : int [1:118] 2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+##  $ unemp_2016:&#39;data.frame&#39;:  118 obs. of  8 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 236100 18380 1790 870 1470 4160 2160 1030 1330 3150 ...
+##   ..$ of which: Wage-earners    : int [1:118] 215430 16500 1640 780 1350 3840 1900 900 1130 2780 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20670 1880 150 90 120 320 260 130 200 370 ...
+##   ..$ Unemployed                : int [1:118] 18185 975 91 27 66 246 76 35 70 206 ...
+##   ..$ Active population         : int [1:118] 254285 19355 1881 897 1536 4406 2236 1065 1400 3356 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.15 5.04 4.84 3.01 4.3 ...
+##   ..$ Year                      : int [1:118] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...</code></pre>
+<p>For working with lists, another package from the <code>tidyverse</code> is very useful, and that would be
+<code>purrr</code>. <code>purrr</code> has functions to work with lists, and we are going to focus on two of them,
+<code>map()</code> and <code>reduce()</code>. <code>map()</code>… maps a function to each element of a list. <code>reduce()</code> is a bit
+more complicated so we’ll leave that for later. <code>map()</code> and <code>reduce()</code> are also called functionals;
+functions that use functions as arguments.</p>
+<p>The first thing we are going to do is use a function to clean the names of the datasets. These
+names are not very easy to work with; there are spaces, and it would be better if the names of the
+columns would be all lowercase. For this we are going to use the function <code>clean_names()</code> from the
+<code>janitor</code> package. For a single dataset, I would write this:</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">library</span>(janitor)</a>
+<a class="sourceLine" id="cb156-2" title="2"></a>
+<a class="sourceLine" id="cb156-3" title="3">one_dataset =<span class="st"> </span>one_dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb156-4" title="4"><span class="st">  </span><span class="kw">clean_names</span>()</a></code></pre></div>
+<p>and I would get a dataset with column names in lowercase and spaces replaced by <code>_</code> (and other
+corrections). How can I apply, or map, this function to each dataset in the list? To do this I need
+to use <code>purrr::map()</code>:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb157-2" title="2"></a>
+<a class="sourceLine" id="cb157-3" title="3">all_datasets =<span class="st"> </span>all_datasets <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb157-4" title="4"><span class="st">  </span><span class="kw">map</span>(clean_names)</a>
+<a class="sourceLine" id="cb157-5" title="5"></a>
+<a class="sourceLine" id="cb157-6" title="6">all_datasets <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb157-7" title="7"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<pre><code>## List of 4
+##  $ unemp_2013:&#39;data.frame&#39;:  118 obs. of  8 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 223407 17802 1703 844 1431 4094 2146 971 1218 3002 ...
+##   ..$ of_which_wage_earners       : int [1:118] 203535 15993 1535 750 1315 3800 1874 858 1029 2664 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 19872 1809 168 94 116 294 272 113 189 338 ...
+##   ..$ unemployed                  : int [1:118] 19287 1071 114 25 74 261 98 45 66 207 ...
+##   ..$ active_population           : int [1:118] 242694 18873 1817 869 1505 4355 2244 1016 1284 3209 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.95 5.67 6.27 2.88 4.92 ...
+##   ..$ year                        : int [1:118] 2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
+##  $ unemp_2014:&#39;data.frame&#39;:  118 obs. of  8 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 228423 18166 1767 845 1505 4129 2172 1007 1268 3124 ...
+##   ..$ of_which_wage_earners       : int [1:118] 208238 16366 1606 757 1390 3840 1897 887 1082 2782 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20185 1800 161 88 115 289 275 120 186 342 ...
+##   ..$ unemployed                  : int [1:118] 19362 1066 122 19 66 287 91 38 61 202 ...
+##   ..$ active_population           : int [1:118] 247785 19232 1889 864 1571 4416 2263 1045 1329 3326 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.81 5.54 6.46 2.2 4.2 ...
+##   ..$ year                        : int [1:118] 2014 2014 2014 2014 2014 2014 2014 2014 2014 2014 ...
+##  $ unemp_2015:&#39;data.frame&#39;:  118 obs. of  8 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 233130 18310 1780 870 1470 4130 2170 1050 1300 3140 ...
+##   ..$ of_which_wage_earners       : int [1:118] 212530 16430 1620 780 1350 3820 1910 920 1100 2770 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20600 1880 160 90 120 310 260 130 200 370 ...
+##   ..$ unemployed                  : int [1:118] 18806 988 106 29 73 260 80 41 72 169 ...
+##   ..$ active_population           : int [1:118] 251936 19298 1886 899 1543 4390 2250 1091 1372 3309 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.46 5.12 5.62 3.23 4.73 ...
+##   ..$ year                        : int [1:118] 2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+##  $ unemp_2016:&#39;data.frame&#39;:  118 obs. of  8 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 236100 18380 1790 870 1470 4160 2160 1030 1330 3150 ...
+##   ..$ of_which_wage_earners       : int [1:118] 215430 16500 1640 780 1350 3840 1900 900 1130 2780 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20670 1880 150 90 120 320 260 130 200 370 ...
+##   ..$ unemployed                  : int [1:118] 18185 975 91 27 66 246 76 35 70 206 ...
+##   ..$ active_population           : int [1:118] 254285 19355 1881 897 1536 4406 2236 1065 1400 3356 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.15 5.04 4.84 3.01 4.3 ...
+##   ..$ year                        : int [1:118] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...</code></pre>
+<p>So now, what if I want to know, for each dataset, which <em>communes</em> have an unemployment rate that is
+less than, say, 3%? For a single dataset I would do something like this:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1">one_dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb159-2" title="2"><span class="st">  </span><span class="kw">filter</span>(unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>)</a></code></pre></div>
+<p>But for a list of datasets, <code>map()</code> is needed (and as you will see, that is not all that is needed):</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1">all_datasets <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb160-2" title="2"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">filter</span>(., unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>))</a></code></pre></div>
+<pre><code>## $unemp_2013
+##      commune total_employed_population of_which_wage_earners
+## 1    Garnich                       844                   750
+## 2 Leudelange                      1064                   937
+## 3       Bech                       526                   463
+##   of_which_non_wage_earners unemployed active_population
+## 1                        94         25               869
+## 2                       127         32              1096
+## 3                        63         16               542
+##   unemployment_rate_in_percent year
+## 1                     2.876870 2013
+## 2                     2.919708 2013
+## 3                     2.952030 2013
+## 
+## $unemp_2014
+##      commune total_employed_population of_which_wage_earners
+## 1    Garnich                       845                   757
+## 2 Leudelange                      1102                   965
+## 3       Bech                       543                   476
+## 4 Flaxweiler                       879                   789
+##   of_which_non_wage_earners unemployed active_population
+## 1                        88         19               864
+## 2                       137         34              1136
+## 3                        67         15               558
+## 4                        90         27               906
+##   unemployment_rate_in_percent year
+## 1                     2.199074 2014
+## 2                     2.992958 2014
+## 3                     2.688172 2014
+## 4                     2.980132 2014
+## 
+## $unemp_2015
+##   commune total_employed_population of_which_wage_earners
+## 1    Bech                       520                   450
+## 2    Bous                       750                   680
+##   of_which_non_wage_earners unemployed active_population
+## 1                        70         14               534
+## 2                        70         22               772
+##   unemployment_rate_in_percent year
+## 1                     2.621723 2015
+## 2                     2.849741 2015
+## 
+## $unemp_2016
+##             commune total_employed_population of_which_wage_earners
+## 1 Reckange-sur-Mess                       980                   850
+## 2              Bech                       520                   450
+## 3          Betzdorf                      1500                  1350
+## 4        Flaxweiler                       910                   820
+##   of_which_non_wage_earners unemployed active_population
+## 1                       130         30              1010
+## 2                        70         11               531
+## 3                       150         45              1545
+## 4                        90         24               934
+##   unemployment_rate_in_percent year
+## 1                     2.970297 2016
+## 2                     2.071563 2016
+## 3                     2.912621 2016
+## 4                     2.569593 2016</code></pre>
+<p>I know what you’re thinking… <em>what the hell?</em>. Let me explain: <code>map()</code> needs a function to map to
+each element of the list. <code>all_datasets</code> is the list to which I want to map the function. But what
+function? <code>filter()</code> is the function I need, so why doesn’t:</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1">all_datasets <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb162-2" title="2"><span class="st">  </span><span class="kw">map</span>(<span class="kw">filter</span>(unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>))</a></code></pre></div>
+<p>work? This is a bit complicated, and has to do with what is called environments. If you try to run
+the code above, you will get this error message:</p>
+<pre><code>Error in filter(unemployment_rate_in_percent &lt; 3) :
+  object &#39;unemployment_rate_in_percent&#39; not found</code></pre>
+<p>I won’t go into details, but by writing <code>~filter(., unemployment_rate_in_percent &lt; 3)</code>, which is a
+formula (<code>~</code> is the symbol to define formulas, more on this in the later chapters), <code>map()</code>
+converts it to a function that it can use. If you want to know more about this, you can read it in
+<a href="http://adv-r.had.co.nz/Functional-programming.html#closures">Advanced R</a> by Hadley Wickham, but it
+is an advanced topic.</p>
+</div>
+<div id="getting-to-know-reduce" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Getting to know <code>reduce()</code></h3>
+<p>Using <code>map()</code> we now know how to apply a function to each dataset of a list. But maybe it would be
+easier to merge all the datasets first, and then manipulate them? Before that though, I am going to
+teach you how to use <code>purrr::reduce()</code>, another very powerful function that works on lists. This is
+a function that you can find in other programming languages, but sometimes it is called fold.</p>
+<p>I think that the following example illustrates the power of <code>reduce()</code> well:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1">numbers =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>) <span class="co"># Create a vector with the numbers 1 to 5</span></a>
+<a class="sourceLine" id="cb164-2" title="2"></a>
+<a class="sourceLine" id="cb164-3" title="3"><span class="kw">reduce</span>(numbers, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>, <span class="dt">.init =</span> <span class="dv">0</span>)</a></code></pre></div>
+<pre><code>## [1] 15</code></pre>
+<p><code>reduce()</code> takes a function as an argument, here the function <code>+</code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and then does the following
+computation:</p>
+<pre><code>0 + numbers[1] + numbers[2] + numbers[3]...</code></pre>
+<p>It applies the user supplied function successively but has to start with something, so we give it
+the argument <code>init</code> also. This argument is actually optional, but I show it here because in some
+cases it might be useful to start the computations at another value than <code>0</code>.<code>reduce()</code>
+generalizes functions that only take two arguments. If you were to write a function that returns
+the minimum between two numbers:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1">my_min =<span class="st"> </span><span class="cf">function</span>(a, b){</a>
+<a class="sourceLine" id="cb167-2" title="2">    <span class="cf">if</span>(a <span class="op">&lt;</span><span class="st"> </span>b){</a>
+<a class="sourceLine" id="cb167-3" title="3">        <span class="kw">return</span>(a)</a>
+<a class="sourceLine" id="cb167-4" title="4">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb167-5" title="5">        <span class="kw">return</span>(b)</a>
+<a class="sourceLine" id="cb167-6" title="6">    }</a>
+<a class="sourceLine" id="cb167-7" title="7">}</a></code></pre></div>
+<p>You could use <code>reduce()</code> to get the minimum of a list of numbers:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1">numbers2 =<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">-8</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb168-2" title="2"></a>
+<a class="sourceLine" id="cb168-3" title="3"><span class="kw">reduce</span>(numbers2, my_min)</a></code></pre></div>
+<pre><code>## [1] -8</code></pre>
+<p>As long as you provide a function and a list of elements to <code>reduce()</code>, you will get a single
+output. So how could <code>reduce()</code> help us with merging all the datasets that are in the list? <code>dplyr</code>
+comes with a lot of function to merge <em>two</em> datasets. Remember that I said before that <code>reduce()</code>
+allows you to generalize a function of two arguments? Let’s try it with our list of datasets:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1">unemp_lux =<span class="st"> </span><span class="kw">reduce</span>(all_datasets, full_join)</a></code></pre></div>
+<pre><code>## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)
+## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)
+## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="kw">glimpse</span>(unemp_lux)</a></code></pre></div>
+<pre><code>## Observations: 472
+## Variables: 8
+## $ commune                      &lt;chr&gt; &quot;Grand-Duche de Luxembourg&quot;, &quot;Can...
+## $ total_employed_population    &lt;int&gt; 223407, 17802, 1703, 844, 1431, 4...
+## $ of_which_wage_earners        &lt;int&gt; 203535, 15993, 1535, 750, 1315, 3...
+## $ of_which_non_wage_earners    &lt;int&gt; 19872, 1809, 168, 94, 116, 294, 2...
+## $ unemployed                   &lt;int&gt; 19287, 1071, 114, 25, 74, 261, 98...
+## $ active_population            &lt;int&gt; 242694, 18873, 1817, 869, 1505, 4...
+## $ unemployment_rate_in_percent &lt;dbl&gt; 7.947044, 5.674773, 6.274078, 2.8...
+## $ year                         &lt;int&gt; 2013, 2013, 2013, 2013, 2013, 201...</code></pre>
+<p><code>full_join()</code> is one of the <code>dplyr</code> function that merges data. There are others that might be
+useful depending on the kind of join operation you need. Let’s write this data to disk as we’re
+going to keep using it for the next chapters:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="kw">export</span>(unemp_lux, <span class="st">&quot;datasets/unemp_lux.csv&quot;</span>)</a></code></pre></div>
+</div>
+</div>
+<div id="list-columns" class="section level2">
+<h2><span class="header-section-number">5.3</span> List-columns</h2>
+<p>To learn about list-columns, let’s first focus on a single character of the <code>starwars</code> dataset:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1"><span class="kw">data</span>(starwars)</a></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb176-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb176-3" title="3"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<pre><code>## Observations: 1
+## Variables: 13
+## $ name       &lt;chr&gt; &quot;Luke Skywalker&quot;
+## $ height     &lt;int&gt; 172
+## $ mass       &lt;dbl&gt; 77
+## $ hair_color &lt;chr&gt; &quot;blond&quot;
+## $ skin_color &lt;chr&gt; &quot;fair&quot;
+## $ eye_color  &lt;chr&gt; &quot;blue&quot;
+## $ birth_year &lt;dbl&gt; 19
+## $ gender     &lt;chr&gt; &quot;male&quot;
+## $ homeworld  &lt;chr&gt; &quot;Tatooine&quot;
+## $ species    &lt;chr&gt; &quot;Human&quot;
+## $ films      &lt;list&gt; [&lt;&quot;Revenge of the Sith&quot;, &quot;Return of the Jedi&quot;, &quot;Th...
+## $ vehicles   &lt;list&gt; [&lt;&quot;Snowspeeder&quot;, &quot;Imperial Speeder Bike&quot;&gt;]
+## $ starships  &lt;list&gt; [&lt;&quot;X-wing&quot;, &quot;Imperial shuttle&quot;&gt;]</code></pre>
+<p>We see that the columns <code>films</code>, <code>vehicles</code> and <code>starships</code> are all lists, and in the case of
+<code>films</code>, it lists all the films where Luke Skywalker has appeared. What if you want to take a closer look at this list?</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb178-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb178-3" title="3"><span class="st">  </span><span class="kw">pull</span>(films)</a></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;Revenge of the Sith&quot;     &quot;Return of the Jedi&quot;     
+## [3] &quot;The Empire Strikes Back&quot; &quot;A New Hope&quot;             
+## [5] &quot;The Force Awakens&quot;</code></pre>
+<p><code>pull()</code> is a <code>dplyr</code> function that extract (pulls) the column you’re interested in. It is quite
+useful when you want to inspect a column.</p>
+<p>Suppose we want to create a categorical variable which counts the number of movies in which the
+characters have appeared. For this we need to compute the length of the list, or count the number
+of elements this list has. Let’s try with <code>length()</code> a base R function:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb180-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb180-3" title="3"><span class="st">  </span><span class="kw">pull</span>(films) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb180-4" title="4"><span class="st">  </span><span class="kw">length</span>()</a></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>This might be surprising at first, because we know that Luke Skywalker has appeared in more than 1
+movie… the problem here is that for each individual, <code>films</code> is a list, whose single element is
+a vector of characters. This means that <code>length(films)</code> computes the length of the list, which is
+one, and not the length of the vector contained in the list! How can we get the length of the
+vector of characters contained in the list and for each character? For this we need to use
+<code>dplyr::rowwise()</code> and remove the <code>filter()</code> function and use <code>mutate()</code> to add this column to the
+dataset:</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb182-2" title="2"><span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb182-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films))</a></code></pre></div>
+<p><code>dplyr::rowwise()</code> is useful when working with list-columns: columns that have lists as elements.</p>
+<p>Let’s take a look at the characters and the number of films they have appeared in:</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb183-2" title="2"><span class="st">  </span><span class="kw">select</span>(name, n_films)</a></code></pre></div>
+<pre><code>## Source: local data frame [87 x 2]
+## Groups: &lt;by row&gt;
+## 
+## # A tibble: 87 x 2
+##    name               n_films
+##    &lt;chr&gt;                &lt;int&gt;
+##  1 Luke Skywalker           5
+##  2 C-3PO                    6
+##  3 R2-D2                    7
+##  4 Darth Vader              4
+##  5 Leia Organa              5
+##  6 Owen Lars                3
+##  7 Beru Whitesun lars       3
+##  8 R5-D4                    1
+##  9 Biggs Darklighter        1
+## 10 Obi-Wan Kenobi           6
+## # ... with 77 more rows</code></pre>
+<p>Now we can create a factor variable that groups characters by asking whether they appeared only in
+1 movie, or more:</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb185-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,</a>
+<a class="sourceLine" id="cb185-3" title="3">                            n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>))</a></code></pre></div>
+<p><code>case_when()</code> is a <code>dplyr</code> function that works similarly to the standard <code>if..else..</code> construct of
+many programming languages (R also has this, we are going to learn about it in later chapters).</p>
+<p>You can also create list columns with your own datasets, by using <code>tidyr::nest()</code>. Remember the
+fake <code>survey_data</code> I created to illustrate <code>spread()</code> and <code>gather()</code>? Let’s go back to that dataset
+again:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1"><span class="kw">print</span>(survey_data)</a></code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##      id variable value
+##   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+## 1     1 var1       1  
+## 2     1 var2       0.2
+## 3     2 var1       1.4
+## 4     2 var2       1.9
+## 5     3 var1       0.1
+## 6     3 var2       2.8
+## 7     4 var1       1.7
+## 8     4 var2       1.9</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">nested_data =<span class="st"> </span>survey_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb188-2" title="2"><span class="st">  </span><span class="kw">nest</span>(variable, value)</a>
+<a class="sourceLine" id="cb188-3" title="3"></a>
+<a class="sourceLine" id="cb188-4" title="4"><span class="kw">print</span>(nested_data)</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##      id data            
+##   &lt;dbl&gt; &lt;list&gt;          
+## 1     1 &lt;tibble [2 × 2]&gt;
+## 2     2 &lt;tibble [2 × 2]&gt;
+## 3     3 &lt;tibble [2 × 2]&gt;
+## 4     4 &lt;tibble [2 × 2]&gt;</code></pre>
+<p>This creates a new tibble, with columns <code>id</code> and <code>data</code>. <code>data</code> is a list-column that contains
+tibbles; each tibble is the <code>variable</code> and <code>value</code> for each individual:</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">nested_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb190-2" title="2"><span class="st">  </span><span class="kw">filter</span>(id <span class="op">==</span><span class="st"> &quot;1&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb190-3" title="3"><span class="st">  </span><span class="kw">pull</span>(data)</a></code></pre></div>
+<pre><code>## [[1]]
+## # A tibble: 2 x 2
+##   variable value
+##   &lt;chr&gt;    &lt;dbl&gt;
+## 1 var1       1  
+## 2 var2       0.2</code></pre>
+<p>As you can see, for individual 1, the column data contains a 2x2 tibble with columns <code>variable</code> and
+<code>value</code>. You might be wondering why this is useful, because this seems to introduce an unnecessary
+layer of complexity. The usefulness of list-columns will become apparent in the next chapters,
+where we are going to learn how to repeat actions over, say, individuals.</p>
+</div>
+<div id="exercises-2" class="section level2">
+<h2><span class="header-section-number">5.4</span> Exercises</h2>
+<div id="exercise-1-2" class="section level3 unnumbered">
+<h3>Exercise 1</h3>
+<p>Load the <code>LaborSupply</code> dataset from the <code>Ecdat</code> package and answer the following questions:</p>
+<ul>
+<li>Compute the average annual hours worked by year (plus standard deviation)</li>
+<li>What age group worked the most hours in the year 1982?</li>
+<li>Create a variable, <code>n_years</code> that equals the number of years an individual stays in the panel. Is the panel balanced?</li>
+<li>Which are the individuals that do not have any kids during the whole period? Create a variable, <code>no_kids</code>, that flags these individuals (1 = no kids, 0 = kids)</li>
+<li>Using the <code>no_kids</code> variable from before compute the average wage, standard deviation and number of observations in each group for the year 1980 (no kids group vs kids group).</li>
+<li>Create the lagged logarithm of hours worked and wages. Remember that this is a panel.</li>
+</ul>
+</div>
+<div id="exercise-2-1" class="section level3 unnumbered">
+<h3>Exercise 2</h3>
+<ul>
+<li>What does the following code do? Copy and paste it in an R interpreter to find out!</li>
+</ul>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">LaborSupply <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-3" title="3"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;l&quot;</span>)), <span class="kw">funs</span>(lag, lead))</a></code></pre></div>
+<p><code>mutate_at()</code> is a scoped version of <code>mutate()</code> which allows you to specify a number of columns and
+functions in one go. This also exists for <code>summarise()</code>.</p>
+<ul>
+<li>Using <code>summarise_at()</code>, compute the mean, standard deviation and number of individuals of <code>lnhr</code> and <code>lnwg</code> for each individual.</li>
+</ul>
+</div>
+<div id="exercise-3-1" class="section level3 unnumbered">
+<h3>Exercise 3</h3>
+<ul>
+<li><p>In the dataset folder you downloaded at the beginning of the chapter, there is a folder called
+“unemployment”. I used the data in the section about working with lists of datasets. Using
+<code>rio::import_list()</code>, read the 4 datasets into R.</p></li>
+<li><p>Using <code>map()</code>, map the <code>janitor::clean_names()</code> function to each dataset (just like in the example
+in the section on working with lists of datasets). Then, still with <code>map()</code> and <code>mutate()</code> convert
+all commune names in the <code>commune</code> column with the function <code>tolower()</code>, in a new column called <code>lcommune</code>.
+This is not an easy exercise; so here are some hints:</p>
+<ul>
+<li>Remember that <code>all_datasets</code> is a list of datasets. Which function do you use when you want to map a function to each element of a list?</li>
+<li>Each element of <code>all_datasets</code> are <code>data.frame</code> objects. Which function do you use to add a column to a <code>data.frame</code>?</li>
+<li>What symbol can you use to access a column of a <code>data.frame</code>?</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>This is simply the <code>+</code> operator
+you’re used to. Try this out: <code>`+`(1, 5)</code> and you’ll see <code>+</code> is a function like any other. You
+just have to write backticks around the plus symbol to make it work.<a href="data-manipulation-and-descriptive-statistics.html#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reading-and-writing-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="graphs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

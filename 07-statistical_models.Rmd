@@ -1,0 +1,745 @@
+# Statistical models
+
+In this chapter, we will not learn about all the models out there that you may or may not need.
+Instead, I will show you how can use what you have learned until now and how you can apply these
+concepts to modeling. Also, as you read in the beginning of the book, R has many many packages. So
+the model you need is most probably already implemented in some package.
+
+## Fitting a model to data
+
+Suppose you have a variable `y` that you wish to explain using a set of other variables `x1`, `x2`,
+`x3`, etc. Let's take a look at the `Housing` dataset from the `Ecdat` package:
+
+```{r, include=FALSE}
+library(Ecdat)
+
+data(Housing)
+```
+
+```{r, eval=FALSE}
+library(Ecdat)
+
+data(Housing)
+```
+
+You can read a description of the dataset by running:
+
+```{r, eval=FALSE}
+?Housing
+```
+
+
+```
+Housing                 package:Ecdat                  R Documentation
+
+Sales Prices of Houses in the City of Windsor
+
+Description:
+
+     a cross-section from 1987
+
+     _number of observations_ : 546
+
+     _observation_ : goods
+
+     _country_ : Canada
+
+Usage:
+
+     data(Housing)
+
+Format:
+
+     A dataframe containing :
+
+     price: sale price of a house
+
+     lotsize: the lot size of a property in square feet
+
+     bedrooms: number of bedrooms
+
+     bathrms: number of full bathrooms
+
+     stories: number of stories excluding basement
+
+     driveway: does the house has a driveway ?
+
+     recroom: does the house has a recreational room ?
+
+     fullbase: does the house has a full finished basement ?
+
+     gashw: does the house uses gas for hot water heating ?
+
+     airco: does the house has central air conditioning ?
+
+     garagepl: number of garage places
+
+     prefarea: is the house located in the preferred neighbourhood of the city ?
+
+Source:
+
+     Anglin, P.M.  and R.  Gencay (1996) “Semiparametric estimation of
+     a hedonic price function”, _Journal of Applied Econometrics_,
+     *11(6)*, 633-648.
+
+References:
+
+     Verbeek, Marno (2004) _A Guide to Modern Econometrics_, John Wiley
+     and Sons, chapter 3.
+
+     Journal of Applied Econometrics data archive : <URL:
+     http://qed.econ.queensu.ca/jae/>.
+
+See Also:
+
+     ‘Index.Source’, ‘Index.Economics’, ‘Index.Econometrics’,
+     ‘Index.Observations’
+```
+
+or by looking for `Housing` in the help pane of RStudio. Usually, you would take a look a the data
+before doing any modeling:
+
+```{r, cache=TRUE}
+glimpse(Housing)
+```
+
+Housing prices depend on a set of variables such as the number of bedrooms, the area it is located
+and so on. If you believe that housing prices depend linearly on a set of explanatory variables,
+you will want to estimate a linear model. To estimate a *linear model*, you will need to use the
+built-in `lm()` function:
+
+```{r, cache=TRUE}
+model1 = lm(price ~ lotsize + bedrooms, data = Housing)
+```
+
+`lm()` takes a formula as an argument, which defines the model you want to estimate. In this case,
+I ran the following regression:
+
+\[
+\text{price} = \alpha + \beta_1 * \text{lotsize} + \beta_2 * \text{bedrooms} + \varepsilon
+\]
+
+where \(alpha, beta_1\) and \(beta_2\) are three parameters to estimate. To take a look at the
+results, you can use the `summary()` method (not to be confused with `dplyr::summarise()`:
+
+```{r, cache=TRUE}
+summary(model1)
+```
+
+if you wish to remove the intercept (\(alpha\)) from your model, you can do so with `-1`:
+
+```{r, cache=TRUE}
+model2 = lm(price ~ -1 + lotsize + bedrooms, data = Housing)
+
+summary(model2)
+```
+
+or if you want to use all the columns inside `Housing`:
+
+```{r, cache=TRUE}
+model3 = lm(price ~ ., data = Housing)
+
+summary(model3)
+```
+
+You can access different elements of `model3` (for example) with `$`, because the result of `lm()`
+is a list:
+
+```{r, cache=TRUE}
+print(model3$coefficients)
+```
+
+but I prefer to use the `broom` package, and more specifically the `tidy()` function, which
+converts `model3` into a neat `data.frame`:
+
+```{r, cache=TRUE}
+results3 = tidy(model3)
+
+glimpse(results3)
+```
+
+this is useful, because you can then work on the results easily, for example if you wish to only
+keep results that are significant at the 5\% level:
+
+```{r, cache=TRUE}
+results3 %>%
+  filter(p.value < 0.05)
+```
+
+You can even add new columns, such as the confidence intervals:
+
+```{r, cache=TRUE}
+results3 = tidy(model3, conf.int = TRUE, conf.level = 0.95)
+
+print(results3)
+```
+
+Going back to model estimation, you can of course use `lm()` in a pipe workflow:
+
+```{r, cache=TRUE}
+Housing %>%
+  select(-driveway, -stories) %>%
+  lm(price ~ ., data = .) %>%
+  tidy()
+```
+
+The first `.` in the `lm()` function is used to indicate that we wish to use all the data from `Housing`
+(minus `driveway` and `stories` which I removed using `select()` and the `-` sign), and the second `.` is
+used to *place* the result from the two `dplyr` instructions that preceded is to be placed there.
+The picture below should help you understand:
+
+```{r, cache=TRUE}
+knitr::include_graphics("pics/pipe_to_second_position.png")
+```
+
+You have to specify this, because by default, when using `%>%` the left hand side argument gets
+passed as the first argument of the function on the right hand side.
+
+## Diagnostics
+
+Diagnostics are useful metrics to assess model fit. You can read some of these diagnostics, such as
+the \(R^2\) at the bottom of the summary (when running `summary(my_model)`), but if you want to do
+more than simply reading these diagnostics from RStudio, you can put those in a `data.frame` too,
+using `broom::glance()`:
+
+```{r, cache=TRUE}
+glance(model3)
+```
+
+You can also plot the usual diagnostics plots using `ggfortify::autoplot()` which uses the
+`ggplot2` package under the hood:
+
+```{r, cache=TRUE}
+library(ggfortify)
+
+autoplot(model3, which = 1:6) + theme_minimal()
+```
+
+`which=1:6` is an additional option that shows you all the diagnostics plot. If you omit this
+option, you will only get 4 of them.
+
+You can also get the residuals of the regression in two ways; either you grab them directly from
+the model fit:
+
+```{r, cache=TRUE}
+resi3 = residuals(model3)
+```
+
+or you can augment the original data with a residuals column, using `broom::augment()`:
+
+```{r, include=FALSE}
+housing_aug = augment(model3)
+```
+
+```{r, eval=FALSE}
+housing_aug = augment(model3)
+```
+
+Let's take a look at `housing_aug`:
+
+```{r, cache=TRUE}
+glimpse(housing_aug)
+```
+
+A few columns have been added to the original data, among them `.resid` which contains the
+residuals. Let's plot them:
+
+```{r, cache=TRUE}
+ggplot(housing_aug) +
+  geom_density(aes(.resid))
+```
+
+Fitted values are also added to the original data, under the variable `.fitted`. It would also have
+been possible to get the fitted values with:
+
+```{r, cache=TRUE}
+fit3 = fitted(model3)
+```
+
+but I prefer using `augment()`, because the columns get merged to the original data, which then
+makes it easier to find specific individuals, for example, you might want to know for which housing
+units the model underestimates the price:
+
+```{r, cache=TRUE}
+total_pos = housing_aug %>%
+  filter(.resid > 0) %>%
+  summarise(total = n()) %>%
+  pull(total)
+```
+
+we find `r total_pos` individuals where the residuals are positive. It is also easier to
+extract outliers:
+
+```{r, cache=TRUE}
+housing_aug %>%
+  mutate(prank = cume_dist(.cooksd)) %>%
+  filter(prank > 0.99) %>%
+  glimpse()
+```
+
+`prank` is a variable I created with `cume_dist()` which is a `dplyr` function that returns the
+proportion of all values less than or equal to the current rank. For example:
+
+```{r, cache=TRUE}
+example = c(5, 4.6, 2, 1, 0.8, 0, -1)
+cume_dist(example)
+```
+
+by filtering `prank > 0.99` we get the top 1% of outliers according to Cook's distance.
+
+## Interpreting models
+
+Model interpretation is essential in the social sciences. If one wants to know the effect of
+variable `x` on the dependent variable `y`, marginal effects have to be computed. This is easily
+done in R with the `margins`  package, which aims to provide the same functionality as the
+`margins` command in STATA:
+
+```{r}
+library(margins)
+
+effects_model3 = margins(model3)
+
+summary(effects_model3)
+```
+
+It is also possible to plot the results:
+
+```{r}
+plot(effects_model3)
+```
+
+This uses the basic R plotting capabilities, which is useful because it is a simple call to the
+function `plot()` but if you've been using `ggplot2` and want this graph to have the same feel as
+the others made with `ggplot2` you first need to save the summary in a variable.
+`summary(effects_model3)` is a `data.frame` with many more details. Let's overwrite this
+`effects_model3` with its summary:
+
+```{r}
+effects_model3 = summary(effects_model3)
+```
+
+And now it is possible to use `ggplot2` to have the same plot:
+
+```{r}
+ggplot(data = effects_model3) +
+  geom_point(aes(factor, AME)) +
+  geom_errorbar(aes(x = factor, ymin = lower, ymax = upper)) +
+  geom_hline(yintercept = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+Of course for `model3`, the marginal effects are the same as the coefficients, so let's estimate a
+logit model and compute the marginal effects. Logit models can be estimated using the `glm()` function.
+As an example, we are going to use the `Participation` data, also from the `Ecdat` package:
+
+```{r}
+data(Participation)
+```
+
+```{r, eval=FALSE}
+?Particpation
+```
+
+```
+Participation              package:Ecdat               R Documentation
+
+Labor Force Participation
+
+Description:
+
+     a cross-section
+
+     _number of observations_ : 872
+
+     _observation_ : individuals
+
+     _country_ : Switzerland
+
+Usage:
+
+     data(Participation)
+
+Format:
+
+     A dataframe containing :
+
+     lfp labour force participation ?
+
+     lnnlinc the log of nonlabour income
+
+     age age in years divided by 10
+
+     educ years of formal education
+
+     nyc the number of young children (younger than 7)
+
+     noc number of older children
+
+     foreign foreigner ?
+
+Source:
+
+     Gerfin, Michael (1996) “Parametric and semiparametric estimation
+     of the binary response”, _Journal of Applied Econometrics_,
+     *11(3)*, 321-340.
+
+References:
+
+     Davidson, R.  and James G.  MacKinnon (2004) _Econometric Theory
+     and Methods_, New York, Oxford University Press, <URL:
+     http://www.econ.queensu.ca/ETM/>, chapter 11.
+
+     Journal of Applied Econometrics data archive : <URL:
+     http://qed.econ.queensu.ca/jae/>.
+
+See Also:
+
+     ‘Index.Source’, ‘Index.Economics’, ‘Index.Econometrics’,
+     ‘Index.Observations’
+```
+
+The variable of interest is lfp: whether the individual participates in the labour force. To know
+which variables are relevant in the decision to participate in the labour force, one could estimate
+a logit model, using glm().
+
+```{r}
+logit_participation = glm(lfp ~ ., data = Participation, family = "binomial")
+
+tidy(logit_participation)
+```
+
+From the results above, one can only interpret the sign of the coefficients. To know how much a
+variable influences the labour force participation, one has to use `margins()`:
+
+```{r}
+effects_logit_participation = margins(logit_participation) %>%
+  summary()
+
+print(effects_logit_participation)
+```
+
+We can use the previous code to plot the marginal effects:
+
+```{r}
+ggplot(data = effects_logit_participation) +
+  geom_point(aes(factor, AME)) +
+  geom_errorbar(aes(x = factor, ymin = lower, ymax = upper)) +
+  geom_hline(yintercept = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+So an infinitesimal increase, in say, non-labour income (lnnlinc) of 0.001 is associated with a
+decrease of the probability of labour force participation by 0.001*17 percentage points.
+
+You can also extract the marginal effects of a single variable:
+
+```{r}
+head(dydx(Participation, logit_participation, "lnnlinc"))
+```
+
+Which makes it possible to extract the effect for a list of individuals that you can create yourself:
+
+```{r}
+my_subjects = tribble(
+    ~lfp,  ~lnnlinc, ~age, ~educ, ~nyc, ~noc, ~foreign,
+    "yes",   10.780,  7.0,     4,    1,   1,     "yes",
+     "no",     1.30,  9.0,     1,    4,   1,     "yes"
+)
+
+dydx(my_subjects, logit_participation, "lnnlinc")
+```
+
+
+I used the `tribble()` function from the tibble package to create this test data set, row by row.
+Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these two individuals.
+
+
+## Comparing models
+
+Let's estimate another model on the same data; prices are only positive, so a linear regression
+might not be the best model, because the model allows for negative prices. Let's look at the
+distribution of prices:
+
+```{r, cache=TRUE}
+ggplot(Housing) +
+  geom_density(aes(price))
+```
+
+it looks like modeling the log of `price` might provide a better fit:
+
+```{r, cache=TRUE}
+model_log = lm(log(price) ~ ., data = Housing)
+
+result_log = tidy(model_log)
+
+print(result_log)
+```
+
+Let's take a look at the diagnostics:
+
+```{r, cache=TRUE}
+glance(model_log)
+```
+
+Let's compare these to the ones from the previous model:
+
+```{r, cache=TRUE}
+diag_lm = glance(model3)
+
+diag_lm = diag_lm %>%
+  mutate(model = "lin-lin model")
+
+diag_log = glance(model_log)
+
+diag_log = diag_log %>%
+  mutate(model = "log-lin model")
+
+diagnostics_models = full_join(diag_lm, diag_log)
+
+print(diagnostics_models)
+```
+
+I saved the diagnostics in two different `data.frame` using the `glance()` function and added a
+`model` column to indicate which model the diagnostics come from. Then I merged both datasets using
+`full_join()`, a `dplyr` function.
+
+As you can see, the model with the logarithm of the prices as the explained variable has a higher
+likelihood (and thus lower AIC and BIC) than the simple linear model. Let's take a look at the diagnostics plots:
+
+```{r, include=FALSE}
+summary(model_log)
+```
+
+```{r, cache=TRUE}
+autoplot(model_log, which = 1:6) + theme_minimal()
+```
+
+## Using a model for prediction
+
+Once you estimated a model, you might want to use it for prediction. This is easily done using the
+`predict()` function that works with most models. Prediction is also useful as a way to test the
+accuracy of your model: split your data into a training set (used for estimation) and a testing
+set (used for the pseudo-prediction) and see if your model overfits the data. We are going to see
+how to do that in a later section; for now, let's just get acquainted with `predict()`.
+
+Let's go back to the models we estimated in the previous section, `model3` and `model_log`. Let's also
+take a subsample of data, which we will be using for prediction:
+
+```{r, cache=TRUE}
+set.seed(1234)
+
+pred_set = Housing %>%
+  sample_n(20)
+```
+
+so that we get always the same `pred_set` I set the random seed first. Let's take a look at the
+data:
+
+```{r, cache=TRUE}
+print(pred_set)
+```
+
+If we wish to use it for prediction, this is easily done with `predict()`:
+
+```{r, cache=TRUE}
+predict(model3, pred_set)
+```
+
+This returns a vector of predicted prices. This can then be used to compute the Root Mean Squared Error
+for instance. Let's do it within a `tidyverse` pipeline:
+
+```{r, cache=TRUE}
+rmse = pred_set %>%
+  mutate(predictions = predict(model3, .)) %>%
+  summarise(sqrt(sum(predictions - price)**2/n()))
+```
+
+The root mean square error of `model3` is `r rmse`.
+
+I also use the `n()` function which returns the number of observations in a group (or all the
+observations, if the data is not grouped). Let's compare `model3` 's RMSE with the one from
+`model_log`:
+
+```{r, cache=TRUE}
+rmse2 = pred_set %>%
+  mutate(predictions = exp(predict(model_log, .))) %>%
+  summarise(sqrt(sum(predictions - price)**2/n()))
+```
+
+Don't forget to exponentiate the predictions, remember you're dealing with a log-linear model! `model_log`'s
+RMSE is `r rmse2` which is lower than `model3`'s. However, keep in mind that the model was estimated
+on the whole data, and then the prediction quality was assessed using a subsample of the data the
+model was estimated on... so actually we can't really say if `model_log`'s predictions are very useful.
+Of course, this is the same for `model3`.
+In a later section we are going to learn how to do cross validation to avoid this issue.
+
+Also another problem of what I did before, unrelated to statistics per se, is that I wanted to compute
+the same quantity for two different models, and did so by copy and pasting 3 lines of code. That's not
+much, but if I wanted to compare 10 models, copy and paste mistakes could have sneaked in. Instead,
+it would have been nice to have a function that computes the RMSE and then use it on my models. We
+are going to learn how to write our own function and use it just like if it was another built-in
+R function.
+
+## Beyond linear regression
+
+R has a lot of other built-in functions for regression, such as `glm()` (for Generalized Linear
+Models) and `nls()` for (for Nonlinear Least Squares). There are also functions and additional
+packages for time series, panel data, machine learning, bayesian and nonparametric methods.
+Presenting everything here would take too much space, and would be pretty useless as you can find
+whatever you need using an internet search engine. What you have learned until now is quite general
+and should work on many type of models. To help you out, here is a list of methods and the
+recommended packages that you can use:
+
+Model                      Package                                                            Quick example
+-----                      -------                                                            -------
+Robust Linear Regression    `MASS`                                                            `rlm(y ~ x, data = mydata)`
+Nonlinear Least Squares     `stats`^[This package gets installed with R, no need to add it]          `nls(y ~ x1 / (1 + x2), data = mydata)`^[The formula in the example is shown for illustration purposes.]
+Logit                       `stats`                                                           `glm(y ~ x, data = mydata, family = "binomial")`
+Probit                      `stats`                                                           `glm(y ~ x, data = mydata, family = binomial(link = "probit"))`
+K-Means                     `stats`                                                           `kmeans(data, n)`^[`data` must only contain numeric values, and `n` is the number of clusters.]
+PCA                         `stats`                                                           `prcomp(data, scale = TRUE, center = TRUE)`^[`data` must only contain numeric values, or a formula can be provided.]
+Multinomial Logit           `mlogit`                                                           Requires several steps of data pre-processing and formula definition, refer to the [Vignette](https://cran.r-project.org/web/packages/mlogit/vignettes/mlogit.pdf) for more details.
+Cox PH                      `survival`                                                         `coxph(Surv(y_time, y_status) ~ x, data = mydata)`^[`Surv(y_time, y_status)` creates a *survival* object, where `y_time` is the time to event `y_status`. It is possible to create more complex survival objects depending on exactly which data you are dealing with.]
+Time series                 Several, depending on your needs.                                 Time series in R is a vast subject that would require a very thick book to cover. You can get started with the following series of blog articles, [Tidy time-series, part 1](http://www.business-science.io/timeseries-analysis/2017/07/02/tidy-timeseries-analysis.html), [Tidy time-series, part 2](http://www.business-science.io/timeseries-analysis/2017/07/23/tidy-timeseries-analysis-pt-2.html), [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/07/30/tidy-timeseries-analysis-pt-3.html) and [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/08/30/tidy-timeseries-analysis-pt-4.html)
+Panel data                  `plm`                                                             `plm(y ~ x, data = mydata, model = "within|random")`
+Neural Networks              Several, depending on your needs.                                 R is a very popular programming language for machine learning. [This blog post](http://ww.rblog.uni-freiburg.de/2017/02/07/deep-learning-in-r) lists and compares some of the most useful packages for Neural nets and deep learning.
+Nonparametric regression     `np`                                                              Several functions and options available, refer to the [Vignette](https://cran.r-project.org/web/packages/np/vignettes/np.pdf) for more details.
+
+
+I put neural networks in the table, but you can also find packages for regression trees, naive
+bayes, and pretty much any machine learning method out there! The same goes for Bayesian methods.
+Popular packages include `rstan`, `rjags` which link R to STAN and JAGS (two other pieces of software
+that do the Gibbs sampling for you) which are tools that allow you to fit very general models. It
+is also possible to estimate models using Bayesian inference without the need of external tools,
+with the `bayesm` package which estimates the usual micro-econometric models.
+There really are a lot of packages available for Bayesian inference, and you can find them all in the
+[related CRAN Task View](https://cran.r-project.org/web/views/Bayesian.html).
+
+## Advanced topics
+
+### Bootstrapping
+
+The `broom` package includes a `bootstrap()` function that allows you to resample your data with
+replacement and estimate your model on each sample. A worked example is available in one of the package's
+[Vignette](https://cran.r-project.org/web/packages/broom/vignettes/bootstrapping.html). R also
+includes a more general `boot()` function, but we are going to learn about this one later, as it
+involves some programming. Let's go back to `model_log`, and try to get bootstrapped confidence
+intervals (as shown in the Vignette I linked above):
+
+```{r, include=FALSE, cache=TRUE}
+boot_result = Housing %>%
+  broom::bootstrap(50) %>%
+  do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
+```
+
+```{r, eval=FALSE}
+boot_result = Housing %>%
+  bootstrap(50) %>%
+  do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
+```
+
+I just use 2 variables to make the output smaller. Let's take a look at `boot_result`:
+
+```{r}
+print(boot_result)
+```
+
+`boot_result` is a `tibble` grouped by the new variable `replicate`. Now it is easy to compute confidence
+intervals for the parameters:
+
+```{r}
+boot_result %>%
+  group_by(term) %>%
+  summarize(low = quantile(estimate, .05/2),
+            high = quantile(estimate, 1 - .05/2))
+```
+
+`quantile()` is a built-in function that returns the quantile at the \(alpha\) level for a given
+vector (in this case the vector of estimates). Of course, we had to group by `term` first, as we
+need to compute the confidence intervals, for each terms (or estimated parameters) separately.
+Plotting the densities of the bootstrapped parameters might also prove interesting:
+
+```{r}
+ggplot(boot_result, aes(estimate)) +
+  geom_density() +
+  facet_wrap(~term, scales = "free")
+```
+
+### Cross-validation
+
+To do cross-validation, we are going to use the `modelr` package, which is also part of the
+`tidyverse`.^[This package is still somewhat young and experimental and might get replaced by two others in the
+future. At some point in the future you might get a warning message telling you that the package is deprecated.
+When this happens, you would need to switch to the new packages, but transition should be fairly easy.]
+
+```{r}
+library(modelr)
+```
+
+`modelr` includes two functions for cross-validation, `crossv_kfold` and `crossv_mc`, which
+do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let's see what
+`cross_mc()` (`cross_kfold()`) returns when applied to data:
+
+```{r}
+cv_Housing = Housing %>%
+  crossv_mc(n = 50)
+
+print(cv_Housing)
+```
+
+This is a `tibble` with 3 colmuns, two of them being list-columns; `train` and `test`. Each element
+of `train` and `test` is a resampled `tibble` of the original data. This means that we can now
+estimate our first model (the simple linear one) on each resampled data using `map()`:
+
+Now if we want to estimate all these models:
+
+```{r}
+cv_models = cv_Housing %>%
+  mutate(model = map(train, ~lm(price ~ ., data = .)))
+
+print(cv_models)
+```
+
+We added a list-column with the 50 models estimated (or trained) on the train data. Now we can compute,
+say, the RMSE from before on each one. `modelr` includes a `rmse()` function, so unlike in the
+previous section where we computed the RMSE manually we are simply going to use this function:
+
+```{r}
+rmse_cv = cv_models %>%
+  mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
+  pull(rmse_all_models)
+
+print(rmse_cv)
+```
+
+We can now compute the mean of this `rmse_cv` variable:
+
+```{r}
+cv_rmse_lin_lin = mean(rmse_cv)
+```
+
+which is equal to `r cv_rmse_lin_lin`.
+
+For the log-lin model, this is a bit more complicated, because we need to exponentiate the
+predictions. However, if we use `rmse()` as before, there is no way to do that. I show you how you
+can do that, but it involves a few more steps than simply using `rmse()`. Try to understand the code
+below that computes the bootstrapped `rmse` for the log-lin model.
+You can see this as an advanced exercise; if you understand these next lines of code, you should
+understand anything that has to do with the `tidyverse`.
+
+```{r}
+cv_rmse_log_lin = cv_Housing %>%
+    mutate(model = map(train, ~lm(log(price) ~ ., data = .))) %>%
+    mutate(log_pred = map2(model, test, ~exp(predict(.x, .y)))) %>%
+    mutate(prices = map(test, ~as.data.frame(.x)$price)) %>%
+    mutate(
+        rmse_all =
+            map2_dbl(log_pred, prices,
+                     ~sqrt(mean((.x - .y)**2, na.rm = TRUE)))) %>%
+    pull(rmse_all) %>%
+    mean()
+```
+
+`cv_rmse_log_lin` is equal to `r cv_rmse_log_lin`, which is lower than in the lin-lin model.

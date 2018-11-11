@@ -1,0 +1,837 @@
+# Advanced topics
+
+In this section we are going to learn some advanced concepts that are going to make you into a
+full-fledged R programmer. Before this chapter you only used whatever R came with, as well as the
+numerous R packages, but now, you will learn to actually build your own functions.
+
+## Control flow
+
+### If-else
+
+Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical
+problem that requires the `if ... else ...` construct. For instance:
+
+```{r, cache=TRUE}
+a = 4
+b = 5
+```
+
+If `a > b` then `f` should be equal to 20, else `f` should be equal to 10. Using ```if ... else
+...``` you can achieve this like so:
+
+```{r, cache=TRUE}
+if (a > b) {
+  f = 20
+    } else {
+  f = 10
+}
+```
+
+Obviously, here `f = 10`. Another way to achieve this is by using the `ifelse()` function:
+
+```{r, cache=TRUE}
+f = ifelse(a > b, 20, 10)
+```
+
+This is exactly equivalent as using the longer `if ... else ...` construct.
+
+Nested ```if ... else ...``` constructs can get messy:
+
+```{r, cache=TRUE}
+if (10 %% 3 == 0) {
+  print("10 is divisible by 3")
+  } else if (10 %% 2 == 0) {
+    print("10 is divisible by 2")
+}
+```
+
+10 being obviously divisible by 2 and not 3, it is the second phrase that will be printed. The
+`%%` operator is the modulus operator, which gives the rest of the division of 10 by 2.
+
+Remember that if you are working on a dataset and wish to create a new column with values
+conditionally on the values of another column, you can use `case_when()`, which is much easier.
+
+### For loops
+
+You are wondering why it took so long for *for loops* to show up. This is because we learned about
+`map()` and `reduce()` which solve a lot of problems that for loops were originally intended to
+tackle. And actually, you should only use for loops in a very specific situation; whenever you have
+a recursive relationship. For all the rest, `map()` and `reduce()` are much easier, and return nice
+objects. However, for the sake of completeness, I will present for loops in the section.
+
+For loops make it possible to repeat a set of instructions `i` times. For example, try the following:
+
+```{r, cache=TRUE}
+for (i in 1:10){
+  print("hello")
+}
+```
+
+If you want print "hello" using a function from `purrr` you would need to use `rerun()`:
+
+```{r}
+rerun(10, "hello")
+```
+
+`rerun()` simply runs an expression (which can be arbitrarily complex) `n` times, whereas `map()`
+maps a function to a list of inputs, so to achieve the same with `map()`, you need to map the `print()`
+function to a vector of characters:
+
+```{r}
+map(rep("hello", 10), print)
+```
+
+`rep()` is a function that creates a vector by repeating something, in this case the string "hello",
+as many times as needed, here 10. The output here is a bit different that before though, because first
+you will see "hello" printed 10 times, but `map()` always returns a list, this means that you will also
+get a list where each element is the string "hello".
+
+It is also possible to do calculations using for loops. Let's compute the sum of the first 100 integers:
+
+```{r, cache=TRUE}
+result = 0
+for (i in 1:100){
+  result = result + i
+}
+
+print(result)
+```
+
+`result` is equal to 5050, the expected result. What happened in that loop? First, we defined a
+variable called `result` and set it to 0. Then, when the loops starts, `i` equals 1, so we add
+`result` to `1`, which is 1. Then, `i` equals 2, and again, we add `result` to `i`. But this time,
+`result` equals 1 and `i` equals 2, so now `result` equals 3, and we repeat this until `i`
+equals 100.
+
+Contrast this to the `purrr` solution using `reduce()`:
+
+```{r}
+result = reduce(seq(1,100), `+`)
+
+print(result)
+```
+
+You certainly agree with me that is simpler to understand. You can even see what happens in more
+detail using `accumulate`:
+
+```{r}
+accumulate(seq(1, 100), `+`)
+```
+
+However this does not mean that loops do not have their place. We are going to this in more detail
+in the next sections, but first, let's learn about while loops.
+
+### While loops
+
+While loops are very similar to for loops. The instructions inside a while loop are repeat while a
+certain condition holds true. Let's consider the sum of the first 100 integers again:
+
+```{r, cache=TRUE}
+result = 0
+i = 1
+while (i<=100){
+  result = result + i
+  i = i + 1
+}
+
+print(result)
+```
+
+Here, we first set `result` and `i` to 0. Then, while `i` is inferior, or equal to 100, we add `i`
+to `result`. Notice that there is one more line than in the for loop: we need to increment the value
+of `i`, if not, `i` would stay equal to 1, and the condition would always be fulfilled, and
+the loop would run forever (not really, only until your computer runs out of memory).
+
+In the next section we are going to learn how to write our own functions; this is when we are going
+to learn about recursive relationships that for and while loops can solve very well.
+
+## Programming your own functions
+
+As you have seen by now, R includes a very large amount of preprogrammed functions, but also much
+more functions are available in packages. However, you will always need to write your own. In this
+section we are going to learn how to write our own functions.
+
+### Declaring functions in R
+
+Suppose you want to create the following function: \(f(x) = \dfrac{1}{\sqrt{x}}\).
+This is the syntax you would use:
+
+```{r, cache=TRUE}
+my_function = function(x){
+return(1/sqrt(x))
+}
+```
+
+While in general, it is a good idea to add comments to your functions to explain what they do, I
+would avoid adding comments to functions that do things that are very obvious, such as with this
+one. Function names should be of the form: `function_name()`. Always give your function very
+explicit names! In mathematics it is standard to give functions just one letter as a name, but I
+would advise against doing that in your code. Functions that you write are not special in any way;
+this means that R will treat them the same way, and they will work in conjunction with any other
+function just as if it was built-in into R. They have one limitation though (which is shared with
+R's native function): just like in math, they can only return one value. However, sometimes, you
+may need to return more than one value. To be able to do this, you must put your values in a list,
+and return the list of values. For example:
+
+```{r, cache=TRUE}
+average_and_sd = function(x){
+  result = c(mean(x), sd(x))
+return(result)
+}
+
+average_and_sd(c(1, 3, 8, 9, 10, 12))
+```
+
+If you need to use a function from a package inside your function, you have two solutions at your
+disposal: if you only need one single function, use `::`:
+
+```{r}
+my_sum = function(a_vector){
+  purrr::reduce(a_vector, `+`)
+}
+```
+
+or, if you need several functions, use `library(package_name)`, inside the function:
+
+```{r}
+my_sum = function(a_vector){
+  library(purrr)
+  reduce(a_vector, `+`)
+}
+```
+
+Loading the library inside the function has the advantage that you will be sure that the package
+upon which your function depends will be loaded. If the package is already loaded, it will not be
+loaded again, thus not impacting performance, but if you forgot to load it at the beginning of your
+script, then, no worries, your function will load it the first time you use it!
+
+You can put a lot of instructions inside a function, such as loops. Let's create the function that
+returns my_fibonacci numbers.
+
+### Fibonacci numbers
+
+The Fibonacci sequence is the following:
+
+$$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...$$
+
+Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the $n^{th}$ my_fibonacci number:
+
+```{r, cache=TRUE}
+my_fibo = function(n){
+ a = 0
+ b = 1
+ for (i in 1:n){
+  temp = b
+  b = a
+  a = a + temp
+ }
+ return(a)
+}
+```
+
+Inside the loop, we defined a variable called `temp`. Defining temporary variables is usually very
+useful inside loops. Let's try to understand what happens inside this loop:
+
+* First, we assign the value 0 to variable `a` and value 1 to variable `b`.
+* We start a loop, that goes from 1 to `n`.
+* We assign the value inside of `b` to a temporary variable, called `temp`.
+* `b` becomes `a`.
+* We assign the sum of `a` and `temp` to `a`.
+* When the loop is finished, we return `a`.
+
+What happens if we want the 3rd my_fibonacci number? At `n = 1` we have first `a = 0` and `b = 1`,
+then `temp = 1`, `b = 0` and `a = 0 + 1`. Then `n = 2`. Now `b = 0` and `temp = 0`. The previous
+result, `a = 0 + 1` is now assigned to `b`, so `b = 1`. Then, `a = 1 + 0`. Finally, `n = 3`. `temp
+= 1` (because `b = 1`), the previous result `a = 1` is assigned to `b` and finally, `a = 1 + 1`. So
+the third my_fibonacci number equals 2. Reading this might be a bit confusing; I strongly advise you
+to run the algorithm on a sheet of paper, step by step.
+
+The above algorithm is called an iterative algorithm, because it uses a loop to compute the result.
+Let's look at another way to think about the problem, with a so-called recursive function:
+
+```{r, cache=TRUE}
+fibo_recur = function(n){
+ if (n == 0 || n == 1){
+   return(n)
+   } else {
+     return(fibo_recur(n-1) + fibo_recur(n-2))
+   }
+}
+```
+
+This algorithm should be easier to understand: if `n = 0` or `n = 1` the function should return `n`
+(0 or 1). If `n` is strictly bigger than `1`, `fibo_recur()` should return the sum of
+`fibo_recur(n-1)` and `fibo_recur(n-2)`. This version of the function is very much the same as the
+mathematical definition of the fibonacci sequence. So why not use only recursive algorithms
+then? Try to run the following:
+
+```{r, cache=TRUE}
+system.time(my_fibo(30))
+```
+
+The result should be printed very fast (the `system.time()` function returns the time that it took
+to execute `my_fibo(30)`). Let's try with the recursive version:
+
+```{r, cache=TRUE}
+system.time(fibo_recur(30))
+```
+
+It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
+critical, it's best to avoid recursive algorithms. Also, in `fibo_recur()` try to remove this line:
+`if (n == 0 || n == 1)` and try to run `fibo_recur(5)` for example and see what happens. You should
+get an error: this is because for recursive algorithms you need a stopping condition, or else, it would
+run forever. This is not the case for iterative algorithms, because the stopping condition is the
+last step of the loop.
+
+So as you can see, for recursive relationships, for or while loops are the way to go in R, whether
+you're writing these loops inside functions or not.
+
+## Exercises
+
+### Exercise 1 {-}
+
+In this exercise, you will write a function to compute the sum of the n first integers. Combine the
+algorithm we saw in section about while loops and what you learned about functions
+in this section.
+
+```{r, include=FALSE}
+MySum = function(n){
+  result = 0
+  i = 1
+  while (i<=n){
+    result = result + i
+    i = i + 1
+  }
+  return(result)
+}
+```
+
+### Exercise 2 {-}
+
+Write a function called `my_fact()` that computes the factorial of a number `n`. Do it using a
+loop, using a recursive function, and using a functional:
+
+```{r, include=FALSE}
+my_fact_iter = function(n){
+  result = 1
+  for(i in 1:n){
+    result = result * i
+    i = i + 1
+  }
+  return(result)
+}
+
+my_fact_recur = function(n){
+  if(n == 0 || n == 1){
+  result = 1
+  } else {
+    return(n * MyFactorialRecur(n-1))
+  }
+}
+
+my_fact_reduce = function(n){
+  return(reduce(seq(1, n), `*`))
+}
+```
+
+### Exercise 3 {-}
+
+Write a function to find the roots of quadratic functions. Your function should take 3 arguments,
+`a`, `b` and `c` and return the two roots. Only consider the case where there are two real roots
+(delta > 0).
+
+```{r, include=FALSE}
+quad_root = function(a, b, c){
+# function that return the root of a quadratic function
+# very basic, doesn't cover the case where delta < 0
+  delta = b**2 - 4 * a * c
+  x1 = (-b + sqrt(delta)) / (2 * a)
+  x2 = (-b - sqrt(delta)) / (2 * a)
+  return(c(x1, x2))
+}
+
+quad_root(1, -4, 3) # should return 3 and 1
+```
+
+## Functions that take functions as arguments
+
+Functions that take functions as arguments are very powerful and useful tools. You already know a
+couple, `purrr::map()` and `purrr::reduce()`. But you can also write your own! A very simple example would be the
+following:
+
+```{r}
+my_func = function(x, func){
+  func(x)
+}
+```
+
+`my_func()` is a very simple function that takes `x` and `func()` as arguments and that simply
+executes `func(x)`. This might seem pretty useful (after all, you could simply use `func(x)!`) but
+this is just for illustration purposes, in practice, your functions would be more useful than that!
+Let's try to use `my_func()`:
+
+```{r}
+my_func(c(1, 8, 1, 0, 8), mean)
+```
+
+As expected, this returns the mean of the given vector. But now suppose the following:
+
+```{r}
+my_func(c(1, 8, 1, NA, 8), mean)
+```
+
+Because one element of the list is `NA`, the whole mean is `NA`. `mean()` has a `na.rm` argument
+that you can set to `TRUE` to ignore the `NA`s in the vector. However, here, there is no way to
+provide this argument to the function `mean()`! Let's see what happens when we try to:
+
+```{r, eval=FALSE}
+my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE)
+```
+
+```
+Error in my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE) :
+  unused argument (na.rm = TRUE)
+```
+
+So what you could do is pass the value `TRUE` to the `na.rm` argument of `mean()` from your own
+function:
+
+```{r}
+my_func = function(x, func, remove_na){
+  func(x, na.rm = remove_na)
+}
+
+my_func(c(1, 8, 1, NA, 8), mean, remove_na = TRUE)
+```
+
+This is one solution, but `mean()` also has another argument called `trim`. What if some other user needs
+this argument? Should you also add it to your function? Surely there's a way to avoid this problem?
+Yes, there is, and it's the *dots*. The `...` simply mean "any other argument as needed", and it's
+very easy to use:
+
+```{r}
+my_func = function(x, func, ...){
+  func(x, ...)
+}
+
+my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE)
+```
+
+or, now, if you need the `trim` argument:
+
+```{r}
+my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE, trim = 0.1)
+```
+
+The `...` very useful when writing wrappers such as `my_func()`.
+
+## Functions that take columns of data as arguments
+
+In many situations, you will want to write functions that look similar to this:
+
+```{r, eval=FALSE}
+my_function(my_data, one_column_inside_data)
+```
+
+Such a function would be useful in situation where you have to apply a certain number of operations
+to columns for different data frames. For example if you need to create tables of descriptive
+statistics or graphs periodically, it might be very interesting to put these operations inside a
+function and then call the function whenever you need it, on the fresh batch of data.
+
+However, if you try to write something like that, something that might seem unexpected, at first,
+will happen:
+
+```{r, eval=FALSE}
+data(mtcars)
+
+simple_function <- function(dataset, col_name){
+  require("dplyr")
+  dataset %>%
+    group_by(col_name) %>%
+    summarise(mean_speed = mean(speed)) -> dataset
+  return(dataset)
+}
+
+
+simple_function(cars, "dist")
+```
+
+```
+Error: unknown variable to group by : col_name
+```
+
+The variable `col_name` is passed to `simple_function()` as a string, but `group_by()` requires a
+variable name. So why not try to convert `col_name` to a name?
+
+```{r, eval=FALSE}
+simple_function <- function(dataset, col_name){
+  library("dplyr")
+  col_name <- as.name(col_name)
+  dataset %>%
+    group_by(col_name) %>%
+    summarise(mean_speed = mean(speed)) -> dataset
+  return(dataset)
+}
+
+
+simple_function(cars, "dist")
+```
+
+```
+Error: unknown variable to group by : col_name
+```
+
+This is because R is literally looking for the variable `"dist"` somewhere in the global
+environment, and not as a column of the data. R does not understand that you are refering to the
+column `"dist"` that is inside the dataset. So how can we make R understand what you mean?
+
+To be able to do that, we need to use a framework that was introduced recently in the `tidyverse`,
+called `tidyeval`. This discussion can get very technical, so I will spare you the details.
+However, you can read about it [here](http://dplyr.tidyverse.org/articles/programming.html) and
+[here](https://cran.r-project.org/web/packages/rlang/vignettes/tidy-evaluation.html). The
+discussion can get complicated, but using `tidyeval` is actually quite easy, and you can get a
+cookbook approach to it. Take a look at the code below:
+
+
+```{r}
+simple_function <- function(dataset, col_name){
+  col_name <- enquo(col_name)
+  dataset %>%
+    group_by(!!col_name) %>%
+    summarise(mean_mpg = mean(mpg)) -> dataset
+  return(dataset)
+}
+
+
+simple_function(mtcars, cyl)
+```
+
+As you can see, the previous idea we had, which was using `as.name()` was not very far away from
+the solution. The solution, with `tidyeval`, consists in using `enquo()`, which for our purposes,
+let's say that this function does something similar to `as.name()` (in truth, it doesn't). Now that
+`col_name` is (R programmers call it) quoted, we need to tell `group_by()` to evaluate the input as
+is. This is done with `!!()`, which is another `tidyeval` function. I say it again;
+don't worry if you don't understand everything. Just remember to use `enquo()` on your column names
+and then `!!()` inside the `dplyr` function you want to use.
+
+Let's see some other examples:
+
+```{r}
+simple_function <- function(dataset, col_name, value){
+  col_name <- enquo(col_name)
+  dataset %>%
+    filter((!!col_name) == value) %>%
+    summarise(mean_cyl = mean(cyl)) -> dataset
+  return(dataset)
+}
+
+
+simple_function(mtcars, am, 1)
+```
+
+Notice that I’ve written:
+
+```{r, eval=FALSE}
+filter((!!col_name) == value)
+```
+and not:
+
+```{r, eval=FALSE}
+filter(!!col_name == value)
+```
+I have enclosed `!!col_name` inside parentheses. This is because operators such as `==` have
+precedence over `!!`, so you have to be explicit. Also, notice that I didn't have to quote `1`.
+This is because it's *standard* variable, not a column inside the dataset. Let’s make this function
+a bit more general. I hard-coded the variable cyl inside the body of the function, but maybe you’d
+like the mean of another variable?
+
+```{r}
+simple_function <- function(dataset, filter_col, mean_col, value){
+  filter_col <- enquo(filter_col)
+  mean_col <- enquo(mean_col)
+  dataset %>%
+    filter((!!filter_col) == value) %>%
+    summarise(mean((!!mean_col))) -> dataset
+  return(dataset)
+}
+
+
+simple_function(mtcars, am, cyl, 1)
+```
+
+Notice that I had to quote `mean_col` too.
+
+Using the `...` that we discovered in the previous section, we can pass more than one column:
+
+```{r}
+simple_function <- function(dataset, ...){
+  col_vars <- quos(...)
+  dataset %>%
+    summarise_at(vars(!!!col_vars), funs(mean, sd))
+}
+```
+
+Because these *dots* contain more than one variable, you have to use `quos()` instead of `enquo()`.
+This will put the arguments provided via the dots in a list. Then, because we have a list of
+columns, we have to use `summarise_at()`, which you should know if you did the exercices of
+chapter 5. So if you didn't do them, go back to them and finish them first. Doing the exercise will
+also teach you what `vars()` and `funs()` are. The last thing you have to pay attention to is to
+use `!!!()` if you used `quos()`. So 3 `!` instead of only 2. This allows you to then do things
+like this:
+
+```{r}
+simple_function(mtcars, am, cyl, mpg)
+```
+
+Using `...` with `!!!()` allows you to write very flexible functions.
+
+If you need to be even more general, you can also provide the summary functions as arguments of
+your function, but you have to rewrite your function a little bit:
+
+```{r}
+simple_function <- function(dataset, cols, funcs){
+  dataset %>%
+    summarise_at(vars(!!!cols), funs(!!!funcs))
+}
+```
+
+You might be wondering where the `quos()` went? Well because now we are passing two lists of, a list
+columns that we have to quote, and a list of functions, that we have to quote, we need to use `quos()`
+when calling the function:
+
+```{r}
+simple_function(mtcars, quos(am, cyl, mpg), quos(mean, sd, sum))
+```
+
+This works, but I don't think you'll need to have that much flexibility; either the columns are variable,
+or the functions, but rarely both at the same time. I guess.
+
+## Functions that use loops
+
+It is entirely possible to put a loop inside a function. For example, consider the following
+function that return the square root of a number using Newton's algorithm:
+
+```{r}
+sqrt_newton <- function(a, init = 1, eps = 0.01){
+    stopifnot(a >= 0)
+    while(abs(init**2 - a) > eps){
+        init <- 1/2 *(init + a/init)
+    }
+    return(init)
+}
+```
+
+This functions contains a while loop inside its body. Let's see if it works:
+
+```{r}
+sqrt_newton(16)
+```
+
+In the definition of the function, I wrote `init = 1` and `eps = 0.01` which means that this
+argument can be omitted and will have the provided value (0.01)  as the default. You can then use
+this function as any other, for example with `map()`:
+
+```{r}
+map(c(16, 7, 8, 9, 12), sqrt_newton)
+```
+
+This is what I meant before with "your functions are nothing special". Once the function is
+defined, you can use it like any other base R function.
+
+Notice the use of `stopifnot()` inside the body of the function. This is a way to return an error
+in case a condition is not fulfilled.
+
+## Anonymous functions
+
+As the name implies, anonymous functions are functions that do not have a name. These are useful inside
+functions that have functions as arguments, such as `purrr::map()` or `purrr::reduce()`:
+
+```{r}
+map(c(1,2,3,4), function(x){1/sqrt(x)})
+```
+
+These anonymous functions get defined in a very similar way to regular functions, you just skip the
+name and that's it. `tidyverse` functions also support formulas; these get converted to anonymous functions:
+
+```{r}
+map(c(1,2,3,4), ~{1/sqrt(.)})
+```
+
+Using a formula instead of an anonymous function is less verbose; you use `~` instead of `function(x)`
+and a single dot `.` instead of `x`. What if you need an anonymous function that requires more than
+one argument? This is not a problem:
+
+```{r}
+map2(c(1, 2, 3, 4, 5), c(9, 8, 7, 6, 5), function(x, y){(x**2)/y})
+```
+
+or, using a formula:
+
+```{r}
+map2(c(1, 2, 3, 4, 5), c(9, 8, 7, 6, 5), ~{(.x**2)/.y})
+```
+
+Because you have now two arguments, a single dot could not work, so instead you use `.x` and `.y` to
+avoid confusion.
+
+## Using your functions inside `mutate()`
+
+Once you wrote a function, you can easily use it inside a pipe workflow:
+
+```{r}
+double_number = function(x){
+  x+x
+}
+```
+
+```{r}
+mtcars %>%
+  mutate(double_mpg = double_number(mpg))
+```
+
+Granted this example is stupid, but it shows you, again, that functions you define are nothing
+special. You can use them just as any other.
+
+You can also avoid to define a function altogether, especially if you need an operation only once,
+by using the `.` like this:
+
+```{r}
+mtcars %>%
+  mutate(double_mpg = .$mpg + .$mpg)
+```
+
+## Mapping your homebrewed functions to lists of datasets
+
+Before merging these datasets together, we would need them to have a `year` column indicating the
+year. It would also be helpful if gave names to these datasets. For this task, we can use
+`purrr::set_names()`:
+
+```{r}
+all_datasets = set_names(all_datasets, as.character(seq(2013, 2016)))
+```
+
+Let's take a look at the list now:
+
+```{r}
+str(all_datasets)
+```
+
+As you can see, each `data.frame` object contained in the list has been renamed. You can thus
+access them with the `$` operator:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/all_datasets_names.png")
+```
+
+## Generating Pdf or Word reports with R
+
+## Scraping the internet
+
+## Writing your own package
+
+## Random tips and tricks
+
+### Creating a log file
+
+
+## Exercises
+
+### Exercise 1 {-}
+
+* Create the following vector:
+
+\[a = (1,6,7,8,8,9,2)\]
+
+Using a for loop and a while loop, compute the sum of its elements. To avoid issues, use `i`
+as the counter inside the for loop, and `j` as the counter for the while loop.
+
+```{r, include=FALSE}
+result = 0
+  for(i in 1:length(a)){
+    result = result + a[i]
+}
+
+result = 0
+  while (i<=length(a)){
+    result = result + a[i]
+    i = i + 1
+}
+```
+
+* How would you achieve that with a functional (a function that takes a function as an argument)?
+
+### Exercise 2 {-}
+
+* Let's use a loop to get the matrix product of a matrix A and B. Follow these steps to create the loop:
+
+1) Create matrix A:
+
+\[A = \left(
+  \begin{array}{ccc}
+   9 & 4 & 12 \\
+   5 & 0 & 7 \\
+   2 & 6 & 8 \\
+   9 & 2 & 9
+  \end{array} \right)
+\]
+
+2) Create matrix B:
+
+\[B = \left(
+\begin{array}{cccc}
+ 5 & 4 & 2 & 5 \\
+ 2 & 7 & 2 & 1 \\
+ 8 & 3 & 2 & 6 \\
+\end{array} \right)
+\]
+
+3) Create a matrix C, with dimension 4x4 that will hold the result. Use this command: `C = matrix(rep(0,16), nrow = 4)}
+
+4) Using a for loop, loop over the rows of A first: `for(i in 1:nrow(A))}
+
+5) Inside this loop, loop over the columns of B: `for(j in 1:ncol(B))}
+
+6) Again, inside this loop, loop over the rows of B: `for(k in 1:nrow(B))}
+
+7) Inside this last loop, compute the result and save it inside C: `C[i,j] = C[i,j] + A[i,k] * B[k,j]}
+
+```{r, include=FALSE}
+A = matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
+
+B = matrix( c(5, 4, 2, 5, 2, 7, 2, 1, 8, 3, 2, 6), nrow = 3, byrow = TRUE)
+
+C = matrix(rep(0,16), nrow = 4)
+
+for(i in 1:nrow(A)){
+  for(j in 1:ncol(B)){
+    for(k in 1:nrow(B)){
+      C[i,j] = C[i,j] + A[i,k] * B[k,j]
+    }
+  }
+}
+```
+
+* R has a built-in function to compute the dot product of 2 matrices. Which is it?
+
+### Exercise 3 {-}
+
+* Fizz Buzz: Print integers from 1 to 100. If a number is divisible by 3, print the word `Fizz` if
+it's divisible by 5, print `Buzz`. Use a for loop and if statements.
+
+### Exercise 4 {-}
+
+* Fizz Buzz 2: Same as above, but now add this third condition: if a number is both divisible by 3 and 5, print `"FizzBuzz"`.
+
+```{r}
+for (i in 1:100){
+if (i %% 15 == 0) {
+  print("FizzBuzz")
+} else if (i %% 3 == 0) {
+  print("Fizz")
+} else if (i %% 5 == 0) {
+  print("Buzz")
+} else {
+  print(i)
+}
+}
+```

@@ -1,0 +1,273 @@
+# Reading and writing data
+
+In this chapter, we are going to import example datasets that are available in R, `mtcars` and
+`iris`. I have converted these datasets into several formats. Download those datasets
+[here](https://brodriguesco.ocloud.de/index.php/s/5gPpzGpYgYr9X2w) if you want to follow the
+examples below. R can import some formats without the need of external packages, such as the `.csv`
+format. However, for other formats, you will need to use different packages. Because there are a
+lot of different formats available I suggest you use `rio`. `rio` is a wrapper around different
+packages that import/export data in different formats. This package is nice because you don't need to
+remember which package to use to import, say, STATA datasets and then you need to remember which
+one for SAS datasets, and so on. Read `rio`'s
+[vignette](https://cran.r-project.org/web/packages/rio/vignettes/rio.html) for more details. Below
+I show some of `rio`'s functions presented in the vignette. It is also possible to import data from
+other, less "traditional" sources, such as your clipboard. Also note that it is possible to import
+more than one dataset at once, it is enough to save each dataset in a distinct variable. However,
+depending on what you want to do, it might be better to save each of these datasets into a list. We
+are going to learn how to work with lists of datasets in a later chapter.
+
+## The swiss army knife of data import and export: `rio`
+
+To import data with `rio`, `import()` is all you need:
+
+```{r}
+library(rio)
+
+mtcars = import("datasets/mtcars.csv")
+```
+
+```{r}
+head(mtcars)
+```
+
+`import()` needs the path to the data, and you can specify additional options if needed. On a
+Windows computer, you have to pay attention to the path; you cannot simply copy and paste it, because
+paths in Windows use the `\` symbol whereas R uses `/` (just like on Linux or macOS).
+Importing a STATA or a SAS file is done just the same:
+
+```{r}
+mtcars_stata = import("datasets/mtcars.dta")
+head(mtcars_stata)
+
+mtcars_sas = import("datasets/mtcars.sas7bdat")
+head(mtcars_sas)
+```
+
+It is also possible to import Excel files where each sheet is a single table, but you will need
+`import_list()` for that. The file `multi.xlsx` has two sheets, each with a table in it:
+
+```{r}
+multi = import_list("datasets/multi.xlsx")
+str(multi)
+```
+
+As you can see `multi` is a list of datasets. Told you lists were very flexible! It is also possible
+to import all the datasets in a single directory at once. For this, you first need a vector of paths:
+
+```{r}
+paths = Sys.glob("datasets/unemployment/*.csv")
+```
+
+`Sys.glob()` allows you to find files using a regular expression. "datasets/unemployment/*.csv"
+matches all the `.csv` files inside "datasets/unemployment".
+
+```{r}
+all_data = import_list(paths)
+
+str(all_data)
+```
+
+in a subsequent chapter we will learn how to actually use these lists of datasets.
+
+If you know that each dataset in each file has the same colmuns, you can also import them directly
+into a single dataset by binding each dataset together using `rbind = TRUE`:
+
+```{r}
+bind_data = import_list(paths, rbind = TRUE)
+str(bind_data)
+```
+
+This also add a further column called `_file` indicating the name of the file that contained the
+original data.
+
+If something goes wrong, you might need to take a look at the underlying function `rio` is
+actually using to import the file. Let's look at the following example:
+
+```{r}
+testdata = import("datasets/problems/mtcars.csv")
+
+head(testdata)
+```
+
+as you can see, the import didn't work quite well! This is because the separator is the `&` for
+some reason. Because we are trying to read a `.csv` file, `rio::import()` is using
+`data.table::fread()` under the hood (you can read this in `import()`'s help). If you then read
+`data.table::fread()`'s help, you see that the `fread()` function has an optional `sep = ` argument
+that you can use to specify the separator. You can use this argument in `import()` too, and it will
+be passed down to `fread()`:
+
+```{r}
+testdata = import("datasets/problems/mtcars.csv", sep = "&")
+
+head(testdata)
+```
+
+`export()` allows you to write data to disk, by simply providing the path and name of the file you
+wish to save.
+
+```{r, eval=FALSE}
+export(testdata, "path/where/to/save/testdata.csv")
+```
+
+If you end the name with `.csv` the file is exported to the csv format, if instead you write `.dta`
+the data will be exported to the STATA format, and so on.
+
+If you wish to export to Excel, this is possible, but requires that you change a file on your
+computer (you only have to do this once). Run the following lines in Rstudio:
+
+```{r, eval=FALSE}
+if(!file.exists("~/.Rprofile")) # only create if not already there
+    file.create("~/.Rprofile")    # (don't overwrite it)
+file.edit("~/.Rprofile")
+```
+These lines, taken shamelessly from [Efficient R
+programming](https://csgillespie.github.io/efficientR/3-3-r-startup.html#rprofile) (go read it,
+it's a very great resource) look for and open the `.Rprofile` file which is a file that is run
+every time you open Rstudio. This means that you can put any line of code there that will always be
+executed whenever you launch Rstudio. The line you need to add is this:
+
+```{r, eval=FALSE}
+Sys.setenv("R_ZIPCMD" = "C:/Program Files (x86)/Rtools/zip.exe")
+```
+
+This tells Rstudio to use `zip.exe` as the default zip tool, which is needed to export files to the
+Excel format. Try it out by restarting Rstudio, and then running the following lines:
+
+```{r, eval=FALSE}
+library(rio)
+
+data(mtcars)
+
+export(mtcars, "mtcars.xlsx")
+```
+
+You should find the `mtcars.xlsx` inside your working directory (it should be your Documents
+folder. You can use `getwd()` to check where you are).
+
+`rio` should cover all your needs, but if not, there is very likely a package out there that will
+import the data you need.
+
+
+## Writing any object to disk
+
+`rio` is an amazing package, but is only able to write tabular representations of data. What if you
+would like to save, say, a list containing any arbitrary object? This is possible with the
+`saveRDS()` function. Literally anything can be saved with `saveRDS()`:
+
+```{r}
+my_list = list("this is a list", list("which contains a list", 12), c(1, 2, 3, 4), matrix(c(2, 4,
+3, 1, 5, 7), nrow = 2))
+
+str(my_list)
+```
+
+`my_list` is a list containing a string, a list which contains a string and a number, a vector and
+a matrix... Now suppose that computing this list takes a very long time (for example, imagine that
+each element of the list is the result of estimating a very complex model on a particular simulated
+dataset for instance) and you would like to save this list to disk. This is possible with
+`saveRDS()`:
+
+```{r}
+saveRDS(my_list, "my_list.RDS")
+```
+
+The next day, after having freshly started your computer and launched RStudio, it is possible to
+retrieve the object exactly like it was using `readRDS()`:
+
+```{r}
+my_list = readRDS("my_list.RDS")
+
+str(my_list)
+```
+
+Even if you want to save a regular dataset, using `saveRDS()` might be a good idea because the data
+gets compressed if you add the option `compress = TRUE` to `saveRDS()`. However keep in mind that
+this will only be readable by R, so if you need to share this data with colleagues that use another
+tool, save it in another format.
+
+
+## Using RStudio projects to manage paths
+
+Managing paths can be painful, especially if you're collaborating with a colleague and both of you
+saved the data in paths that are different. Whenever one of you wants to work on the script, the
+path will need to be adapted first. The best way to avoid that is to use projects with RStudio.
+
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_projects.gif")
+```
+
+Imagine that you are working on a project entitled "housing". You will create a folder called
+"housing" somewhere on your computer and inside this folder have another folder called "data", then
+a bunch of other folders containing different files or the outputs of your analysis. What matters
+here is that you have a folder called "data" which contains the datasets you will ananlyze. When
+you are inside an RStudio project, granted that you chose your "housing" folder as the folder to
+host the project, you can read the data by simply specifying the path like so:
+
+```{r, eval=FALSE}
+my_data = import("/data/data.csv")
+```
+
+Constrast this to what you would need to write if you were not using a project:
+
+```{r, eval=FALSE}
+my_data = import("C:/My Documents/Trevor/Work/Projects/Housing/data/data.csv")
+```
+
+Not only is that longer, but if Trevor is working on this project with Pollux, Pollux would need
+to change the above line to this:
+
+```{r, eval=FALSE}
+my_data = import("C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv")
+```
+
+whenever Pollux needs to work on it. Another, similar issue, is that if you need to write something
+to disk, such as a dataset or a plot, you would also need to specify the whole path:
+
+```{r, eval=FALSE}
+export(my_data, "C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv")
+```
+
+If you forget to write the whole path, then the dataset will be saved in the standard working
+directory, which is your "My Documents" folder on Windows, and "Home" on GNU+Linux or macOS. You
+can check what is the working directory with the `getwd()` function:
+
+```{r, eval=FALSE}
+getwd()
+```
+
+On a fresh session on my computer this returns:
+
+```
+"/home/bruno"
+```
+
+or, on Windows:
+
+```
+"C:/Users/Bruno/Documents"
+```
+
+but if you call this function inside a project, it will return the path to your project. It is also
+possible to set the working directory with `setwd()`, so you don't need to always write the full
+path, meaning that you can this:
+
+```{r, eval=FALSE}
+setwd("the/path/I/want/")
+
+import("data/my_data.csv")
+
+export(processed_data, "processed_data.xlsx")
+```
+
+instead of:
+
+
+```{r, eval=FALSE}
+import("the/path/I/want/data/my_data.csv")
+
+export(processed_data, "the/path/I/want/processed_data.xlsx")
+```
+
+However this does not solve the issue of collaboration. Using projects saves a lot of pain in the
+long term.
