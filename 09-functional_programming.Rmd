@@ -1,0 +1,246 @@
+# Functional programming
+
+By now, you are pretty familiar with functions in R. Now, let's introduce the functional programming
+paradigm, but first, let's go over some definitions.
+
+## Functions definition
+
+You should be familiar with function definitions in R. For example, suppose you want to compute
+the square root of a number and want to do so using Newton's algorithm:
+
+```{r square_root_loop}
+sqrt_newton <- function(a, init, eps = 0.01){
+    while(abs(init**2 - a) > eps){
+        init <- 1/2 *(init + a/init)
+    }
+    return(init)
+}
+```
+
+You can then use this function to get the square root of a number:
+
+```{r}
+sqrt_newton(16, 2)
+```
+
+We are using a `while` loop inside the body. The *body* of a function are the instructions that
+define the function. You can get the body of a function with `body(some_func)`] of the function.
+In *pure* functional programming languages, like Haskell, you don't have loops. How can you
+program without loops, you may ask? In functional programming, loops are replaced by recursion.
+Let's rewrite our little example above with recursion:
+
+```{r square_root_recur}
+sqrt_newton_recur <- function(a, init, eps = 0.01){
+    if(abs(init**2 - a) < eps){
+        result <- init
+    } else {
+        init <- 1/2 * (init + a/init)
+        result <- sqrt_newton_recur(a, init, eps)
+    }
+    return(result)
+}
+```
+
+```{r}
+sqrt_newton_recur(16, 2)
+```
+
+R is not a pure functional programming language though, so we can still use loops (be it `while` or
+`for` loops) in the bodies of our functions. Actually, for R specifically, it is better,
+performance-wise, to use loops instead of recursion, because R is not tail-call optimized. I won't
+got into the details of what tail-call optimization is but just remember that if performance is
+important a loop will be faster. However, sometimes, it is easier to write a function using
+recursion. I personally tend to avoid loops if performance is not important, because I find that
+code that avoids loops is easier to read and debug. However, knowing that you have can use loops
+is reassuring. In the coming sections I will show you some built-in function that make it
+possible to avoid writing loops and that don't rely on recursion, so performance won't be
+penalized.
+
+## Properties of functions
+
+Mathematical functions have a nice property: we always get the same output for a given input. This
+is called referential transparency and we should aim to write our R functions in such a way.
+
+For example, the following function:
+
+```{r}
+increment <- function(x){
+    return(x + 1)
+}
+```
+
+Is a referential transparent function. We always get the same result for any `x` that we give to
+this function.
+
+This:
+
+```{r}
+increment(10)
+```
+
+will always produce `11`.
+
+However, this one:
+
+```{r}
+increment_opaque <- function(x){
+    return(x + spam)
+}
+```
+
+is not a referential transparent function, because its value depends on the global variable `spam`.
+
+```{r}
+spam <- 1
+
+increment_opaque(10)
+```
+
+will only produce `11` if `spam = 1`. But what if `spam = 19`?
+
+
+```{r}
+spam <- 19
+
+increment_opaque(10)
+```
+
+To make `increment_opaque()` a referential transparent function, it is enough to make `spam` an
+argument:
+
+```{r}
+increment_not_opaque <- function(x, spam){
+    return(x + spam)
+}
+```
+
+Now even if there is a global variable called `spam`, this will not influence our function:
+
+```{r}
+spam <- 19
+
+increment_not_opaque(10, 34)
+```
+
+This is because the variable `spam` defined in the body of the function is a local variable. It
+could have been called anything else, really. Avoiding opaque functions makes our life easier.
+
+Another property that adepts of functional programming value is that functions should have no, or
+very limited, side-effects. This means that functions should not change the state of your program.
+
+For example this function (which is not a referential transparent function):
+
+```{r square_root_loop_side_effects}
+count_iter <- 0
+
+sqrt_newton_side_effect <- function(a, init, eps = 0.01){
+    while(abs(init**2 - a) > eps){
+        init <- 1/2 *(init + a/init)
+        count_iter <<- count_iter + 1 # The "<<-" symbol means that we assign the
+    }                                 # RHS value in a variable in the global environment
+    return(init)
+}
+```
+
+If you look in the environment pane, you will see that `count_iter` equals 0. Now call this
+function with the following arguments:
+
+```{r}
+sqrt_newton_side_effect(16000, 2)
+
+print(count_iter)
+```
+
+If you check the value of `count_iter` now, you will see that it increased! This is a side effect,
+because the function changed something outside its scope. It changed a value in the global
+environment. In general, it is good practice to avoid side-effects. For example, we could make the
+above function not have any side effects like this:
+
+```{r square_root_loop_not_more_side_effects}
+sqrt_newton_count <- function(a, init, count_iter = 0, eps = 0.01){
+    while(abs(init**2 - a) > eps){
+        init <- 1/2 *(init + a/init)
+        count_iter <- count_iter + 1
+    }
+    return(c(init, count_iter))
+}
+```
+
+Now, this function returns a list with two elements, the result, and the number of iterations it
+took to get the result:
+
+```{r}
+sqrt_newton_count(16000, 2)
+```
+
+Writing to disk is also considered a side effect, because the function changes something (a file)
+outside its scope. But this cannot be avoided (and it's actually a good thing to have, functions
+that can write to disk) so just remember: try to avoid having functions changing variables in the
+global environment unless you have a very good reason of doing so.
+
+Finally, another property of mathematical functions, is that they do one single thing. Functional
+programming purists also program their functions to do one single task. This has benefits, but
+can complicate things. The function we wrote previously does two things: it computes the square
+root of a number and also returns the number of iterations it took to compute the result. However,
+this is not a bad thing; the function is doing two tasks, but these tasks are related to each other
+and it makes sense to have them together. My piece of advice: avoid having functions that do too
+many *unrelated* things. This makes debugging harder.
+
+In conclusion: you should strive for referential transparency, try to avoid side effects unless you
+have a good reason to have them and try to keep your functions short and do as little tasks as
+possible. This makes testing and debugging easier, as you will see.
+
+## Functional programming with `{purrr}`
+
+Hadley Wickham developed a package called `purrr` which contains a lot of very useful functions. I
+will show some of them here, but in the next chapter, we are going to study `purrr` in greater
+depth. Also, take the time to read `purrr`'s documentation, and of course you can read more about
+`purrr` in @wickham2016.
+
+### The `map*()` family of functions
+
+In the previous section we saw how to map a function to each element of a list. Each version of an
+`*apply()` function has a different purpose, but it is not very easy to remember which one returns
+a list, which other one returns an atomic vector and so on. If you're working on data frames you
+can use `apply()` to sum (for example) over columns or rows, because you can specify which `MARGIN`
+you want to sum over. But you do not get a data frame back. In the `purrr` package, each of the
+functions that do mapping have a similar name. The first part of these functions' names all start
+with `map_` and the second part tells you what this function is going to output. For example, if
+you want `double`s out, you would use `map_dbl()`. If you are working on data frames want a data
+frame back, you would use `map_df()`. These are much more intuitive and easier to remember and we're
+going to learn how to use them in the chapter about [The Tidyverse](#tidyverse). For now, let's just focus on
+the basic functions, `map()` and `reduce()` (and some variants of `reduce()`). To map a function
+to every element of a list, simply use `map()`:
+
+```{r}
+library("purrr")
+map(numbers, sqrt_newton, init = 1)
+```
+
+Compared to `Map()`, the function and the list are given in the reverse order, but the result is
+the same, of course.
+
+### Reducing with `purrr`
+
+In the `purrr` package, you can find two more functions for folding: `reduce()` and
+`reduce_right()`. The difference between `reduce()` and `reduce_right()` is pretty obvious:
+`reduce_right()` starts from the right!
+
+```{r}
+a <- seq(1, 10)
+
+reduce(a, `-`)
+reduce_right(a, `-`)
+```
+
+For operations that are not commutative, this makes a difference. Other interesting folding
+functions are `accumulate()` and `accumulate_right()`:
+
+```{r}
+a <- seq(1, 10)
+
+accumulate(a, `-`)
+accumulate_right(a, `-`)
+```
+These two functions keep the intermediary results.
+

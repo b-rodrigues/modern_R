@@ -10,6 +10,6 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Learn modern R with the tidyverse</a></li>
+        <li><a href="./">Modern R with the tidyverse</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>

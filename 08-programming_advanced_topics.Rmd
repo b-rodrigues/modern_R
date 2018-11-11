@@ -1,4 +1,4 @@
-# Functional programming and other advanced topics
+# Defining your own functions
 
 In this section we are going to learn some advanced concepts that are going to make you into a
 full-fledged R programmer. Before this chapter you only used whatever R came with, as well as the
@@ -158,7 +158,7 @@ Suppose you want to create the following function: \(f(x) = \dfrac{1}{\sqrt{x}}\
 This is the syntax you would use:
 
 ```{r, cache=TRUE}
-my_function = function(x){
+my_function <- function(x){
 return(1/sqrt(x))
 }
 ```
@@ -175,7 +175,7 @@ may need to return more than one value. To be able to do this, you must put your
 and return the list of values. For example:
 
 ```{r, cache=TRUE}
-average_and_sd = function(x){
+average_and_sd <- function(x){
   result = c(mean(x), sd(x))
 return(result)
 }
@@ -187,7 +187,7 @@ If you need to use a function from a package inside your function, you have two 
 disposal: if you only need one single function, use `::`:
 
 ```{r}
-my_sum = function(a_vector){
+my_sum <- function(a_vector){
   purrr::reduce(a_vector, `+`)
 }
 ```
@@ -195,7 +195,7 @@ my_sum = function(a_vector){
 or, if you need several functions, use `library(package_name)`, inside the function:
 
 ```{r}
-my_sum = function(a_vector){
+my_sum <- function(a_vector){
   library(purrr)
   reduce(a_vector, `+`)
 }
@@ -218,7 +218,7 @@ $$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...$$
 Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the $n^{th}$ my_fibonacci number:
 
 ```{r, cache=TRUE}
-my_fibo = function(n){
+my_fibo <- function(n){
  a = 0
  b = 1
  for (i in 1:n){
@@ -251,7 +251,7 @@ The above algorithm is called an iterative algorithm, because it uses a loop to 
 Let's look at another way to think about the problem, with a so-called recursive function:
 
 ```{r, cache=TRUE}
-fibo_recur = function(n){
+fibo_recur <- function(n){
  if (n == 0 || n == 1){
    return(n)
    } else {
@@ -296,7 +296,7 @@ algorithm we saw in section about while loops and what you learned about functio
 in this section.
 
 ```{r, include=FALSE}
-MySum = function(n){
+MySum <- function(n){
   result = 0
   i = 1
   while (i<=n){
@@ -313,7 +313,7 @@ Write a function called `my_fact()` that computes the factorial of a number `n`.
 loop, using a recursive function, and using a functional:
 
 ```{r, include=FALSE}
-my_fact_iter = function(n){
+my_fact_iter <- function(n){
   result = 1
   for(i in 1:n){
     result = result * i
@@ -322,7 +322,7 @@ my_fact_iter = function(n){
   return(result)
 }
 
-my_fact_recur = function(n){
+my_fact_recur <- function(n){
   if(n == 0 || n == 1){
   result = 1
   } else {
@@ -330,7 +330,7 @@ my_fact_recur = function(n){
   }
 }
 
-my_fact_reduce = function(n){
+my_fact_reduce <- function(n){
   return(reduce(seq(1, n), `*`))
 }
 ```
@@ -342,7 +342,7 @@ Write a function to find the roots of quadratic functions. Your function should 
 (delta > 0).
 
 ```{r, include=FALSE}
-quad_root = function(a, b, c){
+quad_root <- function(a, b, c){
 # function that return the root of a quadratic function
 # very basic, doesn't cover the case where delta < 0
   delta = b**2 - 4 * a * c
@@ -361,7 +361,7 @@ couple, `purrr::map()` and `purrr::reduce()`. But you can also write your own! A
 following:
 
 ```{r}
-my_func = function(x, func){
+my_func <- function(x, func){
   func(x)
 }
 ```
@@ -398,7 +398,7 @@ So what you could do is pass the value `TRUE` to the `na.rm` argument of `mean()
 function:
 
 ```{r}
-my_func = function(x, func, remove_na){
+my_func <- function(x, func, remove_na){
   func(x, na.rm = remove_na)
 }
 
@@ -411,7 +411,7 @@ Yes, there is, and it's the *dots*. The `...` simply mean "any other argument as
 very easy to use:
 
 ```{r}
-my_func = function(x, func, ...){
+my_func <- function(x, func, ...){
   func(x, ...)
 }
 
@@ -446,7 +446,6 @@ will happen:
 data(mtcars)
 
 simple_function <- function(dataset, col_name){
-  require("dplyr")
   dataset %>%
     group_by(col_name) %>%
     summarise(mean_speed = mean(speed)) -> dataset
@@ -466,7 +465,6 @@ variable name. So why not try to convert `col_name` to a name?
 
 ```{r, eval=FALSE}
 simple_function <- function(dataset, col_name){
-  library("dplyr")
   col_name <- as.name(col_name)
   dataset %>%
     group_by(col_name) %>%
@@ -680,7 +678,7 @@ avoid confusion.
 Once you wrote a function, you can easily use it inside a pipe workflow:
 
 ```{r}
-double_number = function(x){
+double_number <- function(x){
   x+x
 }
 ```
@@ -724,15 +722,6 @@ access them with the `$` operator:
 knitr::include_graphics("pics/all_datasets_names.png")
 ```
 
-## Generating Pdf or Word reports with R
-
-## Scraping the internet
-
-## Writing your own package
-
-## Random tips and tricks
-
-### Creating a log file
 
 
 ## Exercises
@@ -797,11 +786,11 @@ result = 0
 7) Inside this last loop, compute the result and save it inside C: `C[i,j] = C[i,j] + A[i,k] * B[k,j]}
 
 ```{r, include=FALSE}
-A = matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
+A <- matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
 
-B = matrix( c(5, 4, 2, 5, 2, 7, 2, 1, 8, 3, 2, 6), nrow = 3, byrow = TRUE)
+B <- matrix( c(5, 4, 2, 5, 2, 7, 2, 1, 8, 3, 2, 6), nrow = 3, byrow = TRUE)
 
-C = matrix(rep(0,16), nrow = 4)
+C <- matrix(rep(0,16), nrow = 4)
 
 for(i in 1:nrow(A)){
   for(j in 1:ncol(B)){

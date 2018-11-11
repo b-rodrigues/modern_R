@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Modern R with the tidyverse</title>
-  <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed.">
+  <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed.">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
+  <meta property="og:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Modern R with the tidyverse" />
   
-  <meta name="twitter:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
+  <meta name="twitter:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
   
 
 <meta name="author" content="Bruno Rodrigues">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="data-types-and-objects.html">
-<link rel="next" href="data-manipulation-and-descriptive-statistics.html">
+<link rel="next" href="descriptive-statistics-and-data-manipulation.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -126,7 +126,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Learn modern R with the tidyverse</a></li>
+<li><a href="./">Modern R with the tidyverse</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -185,21 +185,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>4.2</b> Writing any object to disk</a></li>
 <li class="chapter" data-level="4.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>4.3</b> Using RStudio projects to manage paths</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#manipulating-and-creating-columns-with-dplyr"><i class="fa fa-check"></i><b>5.1.1</b> Manipulating and creating columns with <code>dplyr</code></a></li>
-<li class="chapter" data-level="5.1.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.1.2</b> Reshaping data with <code>tidyr</code></a></li>
-<li class="chapter" data-level="5.1.3" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-factor-variables"><i class="fa fa-check"></i><b>5.1.3</b> Getting to know <code>factor</code> variables</a></li>
+<li class="chapter" data-level="5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html"><i class="fa fa-check"></i><b>5</b> Descriptive statistics and data manipulation</a><ul>
+<li class="chapter" data-level="5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#smoking-is-bad-for-you-but-pipes-are-your-friend"><i class="fa fa-check"></i><b>5.1</b> Smoking is bad for you, but pipes are your friend</a></li>
+<li class="chapter" data-level="5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#the-tidyverses-enfant-prodige-dplyr"><i class="fa fa-check"></i><b>5.2</b> The <code>{tidyverse}</code>’s <em>enfant prodige</em>: <code>{dplyr}</code></a><ul>
+<li class="chapter" data-level="5.2.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-first-taste-of-data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>5.2.1</b> A first taste of data manipulation with <code>{dplyr}</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter-the-rows-of-a-dataset-with-filter"><i class="fa fa-check"></i><b>5.2.2</b> Filter the rows of a dataset with <code>filter()</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select-columns-with-select"><i class="fa fa-check"></i><b>5.2.3</b> Select columns with <code>select()</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group-the-observations-of-your-dataset-with-group_by"><i class="fa fa-check"></i><b>5.2.4</b> Group the observations of your dataset with <code>group_by()</code></a></li>
+<li class="chapter" data-level="5.2.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-summary-statistics-with-summarise"><i class="fa fa-check"></i><b>5.2.5</b> Get summary statistics with <code>summarise()</code></a></li>
+<li class="chapter" data-level="5.2.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#adding-columns-with-mutate-and-transmute"><i class="fa fa-check"></i><b>5.2.6</b> Adding columns with <code>mutate()</code> and <code>transmute()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.2.1</b> Getting to know <code>map()</code></a></li>
-<li class="chapter" data-level="5.2.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.2.2</b> Getting to know <code>reduce()</code></a></li>
+<li class="chapter" data-level="5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.3</b> Reshaping data with <code>tidyr</code></a></li>
+<li class="chapter" data-level="5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#getting-to-know-factor-variables"><i class="fa fa-check"></i><b>5.4</b> Getting to know <code>factor</code> variables</a></li>
+<li class="chapter" data-level="5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>5.5</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter_"><i class="fa fa-check"></i><b>5.5.1</b> filter_()</a></li>
+<li class="chapter" data-level="5.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select_"><i class="fa fa-check"></i><b>5.5.2</b> select_()</a></li>
+<li class="chapter" data-level="5.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group_by_"><i class="fa fa-check"></i><b>5.5.3</b> group_by_()</a></li>
+<li class="chapter" data-level="5.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise_"><i class="fa fa-check"></i><b>5.5.4</b> summarise_()</a></li>
+<li class="chapter" data-level="5.5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#mutate_"><i class="fa fa-check"></i><b>5.5.5</b> mutate_()</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#list-columns"><i class="fa fa-check"></i><b>5.3</b> List-columns</a></li>
-<li class="chapter" data-level="5.4" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#exercises-2"><i class="fa fa-check"></i><b>5.4</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="5.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>5.6</b> Other useful <code>{tidyverse}</code> functions</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#if_else-case_when-and-recode"><i class="fa fa-check"></i><b>5.6.1</b> <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code></a></li>
+<li class="chapter" data-level="5.6.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#lead-and-lag"><i class="fa fa-check"></i><b>5.6.2</b> <code>lead()</code> and <code>lag()</code></a></li>
+<li class="chapter" data-level="5.6.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#ntile"><i class="fa fa-check"></i><b>5.6.3</b> <code>ntile()</code></a></li>
+<li class="chapter" data-level="5.6.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#arrange"><i class="fa fa-check"></i><b>5.6.4</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="5.6.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tally-and-count"><i class="fa fa-check"></i><b>5.6.5</b> <code>tally()</code> and <code>count()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>5.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
+<li class="chapter" data-level="5.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>5.8</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a><ul>
+<li class="chapter" data-level="5.8.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#section"><i class="fa fa-check"></i><b>5.8.1</b> 🐈🐈🐈🐈</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#wor-get-your-dates-right-with-lubridate"><i class="fa fa-check"></i><b>5.9</b> Wor# Get your dates right with <code>{lubridate}</code></a><ul>
+<li class="chapter" data-level="5.9.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>5.9.1</b> Manipulate strings with <code>{stringr}</code></a></li>
+<li class="chapter" data-level="5.9.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.9.2</b> Getting to know <code>map()</code></a></li>
+<li class="chapter" data-level="5.9.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.9.3</b> Getting to know <code>reduce()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>5.10</b> List-columns</a></li>
+<li class="chapter" data-level="5.11" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>5.11</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
@@ -236,38 +261,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7.2" data-path="statistical-models.html"><a href="statistical-models.html#cross-validation"><i class="fa fa-check"></i><b>7.7.2</b> Cross-validation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html"><i class="fa fa-check"></i><b>8</b> Advanced topics</a><ul>
-<li class="chapter" data-level="8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#control-flow"><i class="fa fa-check"></i><b>8.1</b> Control flow</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#if-else"><i class="fa fa-check"></i><b>8.1.1</b> If-else</a></li>
-<li class="chapter" data-level="8.1.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#for-loops"><i class="fa fa-check"></i><b>8.1.2</b> For loops</a></li>
-<li class="chapter" data-level="8.1.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#while-loops"><i class="fa fa-check"></i><b>8.1.3</b> While loops</a></li>
+<li class="chapter" data-level="8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html"><i class="fa fa-check"></i><b>8</b> Defining your own functions</a><ul>
+<li class="chapter" data-level="8.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#control-flow"><i class="fa fa-check"></i><b>8.1</b> Control flow</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#if-else"><i class="fa fa-check"></i><b>8.1.1</b> If-else</a></li>
+<li class="chapter" data-level="8.1.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#for-loops"><i class="fa fa-check"></i><b>8.1.2</b> For loops</a></li>
+<li class="chapter" data-level="8.1.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#while-loops"><i class="fa fa-check"></i><b>8.1.3</b> While loops</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#programming-your-own-functions"><i class="fa fa-check"></i><b>8.2</b> Programming your own functions</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>8.2.1</b> Declaring functions in R</a></li>
-<li class="chapter" data-level="8.2.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#fibonacci-numbers"><i class="fa fa-check"></i><b>8.2.2</b> Fibonacci numbers</a></li>
+<li class="chapter" data-level="8.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#programming-your-own-functions"><i class="fa fa-check"></i><b>8.2</b> Programming your own functions</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>8.2.1</b> Declaring functions in R</a></li>
+<li class="chapter" data-level="8.2.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#fibonacci-numbers"><i class="fa fa-check"></i><b>8.2.2</b> Fibonacci numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-4"><i class="fa fa-check"></i><b>8.3</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="8.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>8.3</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-take-functions-as-arguments"><i class="fa fa-check"></i><b>8.4</b> Functions that take functions as arguments</a></li>
-<li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>8.5</b> Functions that take columns of data as arguments</a></li>
-<li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-use-loops"><i class="fa fa-check"></i><b>8.6</b> Functions that use loops</a></li>
-<li class="chapter" data-level="8.7" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#anonymous-functions"><i class="fa fa-check"></i><b>8.7</b> Anonymous functions</a></li>
-<li class="chapter" data-level="8.8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#using-your-functions-inside-mutate"><i class="fa fa-check"></i><b>8.8</b> Using your functions inside <code>mutate()</code></a></li>
-<li class="chapter" data-level="8.9" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#mapping-your-homebrewed-functions-to-lists-of-datasets"><i class="fa fa-check"></i><b>8.9</b> Mapping your homebrewed functions to lists of datasets</a></li>
-<li class="chapter" data-level="8.10" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.10</b> Generating Pdf or Word reports with R</a></li>
-<li class="chapter" data-level="8.11" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.11</b> Scraping the internet</a></li>
-<li class="chapter" data-level="8.12" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.12</b> Writing your own package</a></li>
-<li class="chapter" data-level="8.13" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.13</b> Random tips and tricks</a><ul>
-<li class="chapter" data-level="8.13.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.13.1</b> Creating a log file</a></li>
+<li class="chapter" data-level="8.4" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-functions-as-arguments"><i class="fa fa-check"></i><b>8.4</b> Functions that take functions as arguments</a></li>
+<li class="chapter" data-level="8.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>8.5</b> Functions that take columns of data as arguments</a></li>
+<li class="chapter" data-level="8.6" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-use-loops"><i class="fa fa-check"></i><b>8.6</b> Functions that use loops</a></li>
+<li class="chapter" data-level="8.7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#anonymous-functions"><i class="fa fa-check"></i><b>8.7</b> Anonymous functions</a></li>
+<li class="chapter" data-level="8.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#using-your-functions-inside-mutate"><i class="fa fa-check"></i><b>8.8</b> Using your functions inside <code>mutate()</code></a></li>
+<li class="chapter" data-level="8.9" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#mapping-your-homebrewed-functions-to-lists-of-datasets"><i class="fa fa-check"></i><b>8.9</b> Mapping your homebrewed functions to lists of datasets</a></li>
+<li class="chapter" data-level="8.10" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-5"><i class="fa fa-check"></i><b>8.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
-<li class="chapter" data-level="8.14" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-5"><i class="fa fa-check"></i><b>8.14</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
-<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="functional-programming.html"><a href="functional-programming.html"><i class="fa fa-check"></i><b>9</b> Functional programming</a><ul>
+<li class="chapter" data-level="9.1" data-path="functional-programming.html"><a href="functional-programming.html#functions-definition"><i class="fa fa-check"></i><b>9.1</b> Functions definition</a></li>
+<li class="chapter" data-level="9.2" data-path="functional-programming.html"><a href="functional-programming.html#properties-of-functions"><i class="fa fa-check"></i><b>9.2</b> Properties of functions</a></li>
+<li class="chapter" data-level="9.3" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>9.3</b> Functional programming with <code>{purrr}</code></a><ul>
+<li class="chapter" data-level="9.3.1" data-path="functional-programming.html"><a href="functional-programming.html#the-map-family-of-functions"><i class="fa fa-check"></i><b>9.3.1</b> The <code>map*()</code> family of functions</a></li>
+<li class="chapter" data-level="9.3.2" data-path="functional-programming.html"><a href="functional-programming.html#reducing-with-purrr"><i class="fa fa-check"></i><b>9.3.2</b> Reducing with <code>purrr</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="other-niceties.html"><a href="other-niceties.html"><i class="fa fa-check"></i><b>10</b> Other niceties</a><ul>
+<li class="chapter" data-level="10.1" data-path="other-niceties.html"><a href="other-niceties.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>10.1</b> Generating Pdf or Word reports with R</a></li>
+<li class="chapter" data-level="10.2" data-path="other-niceties.html"><a href="other-niceties.html#scraping-the-internet"><i class="fa fa-check"></i><b>10.2</b> Scraping the internet</a></li>
+<li class="chapter" data-level="10.3" data-path="other-niceties.html"><a href="other-niceties.html#writing-your-own-package"><i class="fa fa-check"></i><b>10.3</b> Writing your own package</a></li>
+<li class="chapter" data-level="10.4" data-path="other-niceties.html"><a href="other-niceties.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>10.4</b> Random tips and tricks</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="other-niceties.html"><a href="other-niceties.html#creating-a-log-fil"><i class="fa fa-check"></i><b>10.4.1</b> Creating a log fil</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -310,10 +345,10 @@ are going to learn how to work with lists of datasets in a later chapter.</p>
 <div id="the-swiss-army-knife-of-data-import-and-export-rio" class="section level2">
 <h2><span class="header-section-number">4.1</span> The swiss army knife of data import and export: <code>rio</code></h2>
 <p>To import data with <code>rio</code>, <code>import()</code> is all you need:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="kw">library</span>(rio)</a>
-<a class="sourceLine" id="cb60-2" title="2"></a>
-<a class="sourceLine" id="cb60-3" title="3">mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.csv&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="kw">head</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="kw">library</span>(rio)</a>
+<a class="sourceLine" id="cb62-2" title="2"></a>
+<a class="sourceLine" id="cb62-3" title="3">mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">head</span>(mtcars)</a></code></pre></div>
 <pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -325,8 +360,8 @@ are going to learn how to work with lists of datasets in a later chapter.</p>
 Windows computer, you have to pay attention to the path; you cannot simply copy and paste it, because
 paths in Windows use the <code>\</code> symbol whereas R uses <code>/</code> (just like on Linux or macOS).
 Importing a STATA or a SAS file is done just the same:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">mtcars_stata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.dta&quot;</span>)</a>
-<a class="sourceLine" id="cb63-2" title="2"><span class="kw">head</span>(mtcars_stata)</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">mtcars_stata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.dta&quot;</span>)</a>
+<a class="sourceLine" id="cb65-2" title="2"><span class="kw">head</span>(mtcars_stata)</a></code></pre></div>
 <pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -334,8 +369,8 @@ Importing a STATA or a SAS file is done just the same:</p>
 ## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 ## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 ## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">mtcars_sas =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.sas7bdat&quot;</span>)</a>
-<a class="sourceLine" id="cb65-2" title="2"><span class="kw">head</span>(mtcars_sas)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1">mtcars_sas =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.sas7bdat&quot;</span>)</a>
+<a class="sourceLine" id="cb67-2" title="2"><span class="kw">head</span>(mtcars_sas)</a></code></pre></div>
 <pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -345,8 +380,8 @@ Importing a STATA or a SAS file is done just the same:</p>
 ## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <p>It is also possible to import Excel files where each sheet is a single table, but you will need
 <code>import_list()</code> for that. The file <code>multi.xlsx</code> has two sheets, each with a table in it:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1">multi =<span class="st"> </span><span class="kw">import_list</span>(<span class="st">&quot;datasets/multi.xlsx&quot;</span>)</a>
-<a class="sourceLine" id="cb67-2" title="2"><span class="kw">str</span>(multi)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">multi =<span class="st"> </span><span class="kw">import_list</span>(<span class="st">&quot;datasets/multi.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb69-2" title="2"><span class="kw">str</span>(multi)</a></code></pre></div>
 <pre><code>## List of 2
 ##  $ mtcars:&#39;data.frame&#39;:  32 obs. of  11 variables:
 ##   ..$ mpg : num [1:32] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
@@ -368,12 +403,12 @@ Importing a STATA or a SAS file is done just the same:</p>
 ##   ..$ Species     : chr [1:150] &quot;setosa&quot; &quot;setosa&quot; &quot;setosa&quot; &quot;setosa&quot; ...</code></pre>
 <p>As you can see <code>multi</code> is a list of datasets. Told you lists were very flexible! It is also possible
 to import all the datasets in a single directory at once. For this, you first need a vector of paths:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">paths =<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">paths =<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</a></code></pre></div>
 <p><code>Sys.glob()</code> allows you to find files using a regular expression. &quot;datasets/unemployment/*.csv&quot;
 matches all the <code>.csv</code> files inside “datasets/unemployment”.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1">all_data =<span class="st"> </span><span class="kw">import_list</span>(paths)</a>
-<a class="sourceLine" id="cb70-2" title="2"></a>
-<a class="sourceLine" id="cb70-3" title="3"><span class="kw">str</span>(all_data)</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1">all_data =<span class="st"> </span><span class="kw">import_list</span>(paths)</a>
+<a class="sourceLine" id="cb72-2" title="2"></a>
+<a class="sourceLine" id="cb72-3" title="3"><span class="kw">str</span>(all_data)</a></code></pre></div>
 <pre><code>## List of 4
 ##  $ unemp_2013:&#39;data.frame&#39;:  118 obs. of  8 variables:
 ##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
@@ -414,8 +449,8 @@ matches all the <code>.csv</code> files inside “datasets/unemployment”.</p>
 <p>in a subsequent chapter we will learn how to actually use these lists of datasets.</p>
 <p>If you know that each dataset in each file has the same colmuns, you can also import them directly
 into a single dataset by binding each dataset together using <code>rbind = TRUE</code>:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1">bind_data =<span class="st"> </span><span class="kw">import_list</span>(paths, <span class="dt">rbind =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb72-2" title="2"><span class="kw">str</span>(bind_data)</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">bind_data =<span class="st"> </span><span class="kw">import_list</span>(paths, <span class="dt">rbind =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb74-2" title="2"><span class="kw">str</span>(bind_data)</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    472 obs. of  9 variables:
 ##  $ Commune                   : chr  &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
 ##  $ Total employed population : int  223407 17802 1703 844 1431 4094 2146 971 1218 3002 ...
@@ -431,9 +466,9 @@ into a single dataset by binding each dataset together using <code>rbind = TRUE<
 original data.</p>
 <p>If something goes wrong, you might need to take a look at the underlying function <code>rio</code> is
 actually using to import the file. Let’s look at the following example:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">testdata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/problems/mtcars.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb74-2" title="2"></a>
-<a class="sourceLine" id="cb74-3" title="3"><span class="kw">head</span>(testdata)</a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1">testdata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/problems/mtcars.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb76-2" title="2"></a>
+<a class="sourceLine" id="cb76-3" title="3"><span class="kw">head</span>(testdata)</a></code></pre></div>
 <pre><code>##   mpg&amp;cyl&amp;disp&amp;hp&amp;drat&amp;wt&amp;qsec&amp;vs&amp;am&amp;gear&amp;carb
 ## 1          21&amp;6&amp;160&amp;110&amp;3.9&amp;2.62&amp;16.46&amp;0&amp;1&amp;4&amp;4
 ## 2         21&amp;6&amp;160&amp;110&amp;3.9&amp;2.875&amp;17.02&amp;0&amp;1&amp;4&amp;4
@@ -447,9 +482,9 @@ some reason. Because we are trying to read a <code>.csv</code> file, <code>rio::
 <code>data.table::fread()</code>’s help, you see that the <code>fread()</code> function has an optional <code>sep =</code> argument
 that you can use to specify the separator. You can use this argument in <code>import()</code> too, and it will
 be passed down to <code>fread()</code>:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1">testdata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/problems/mtcars.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&amp;&quot;</span>)</a>
-<a class="sourceLine" id="cb76-2" title="2"></a>
-<a class="sourceLine" id="cb76-3" title="3"><span class="kw">head</span>(testdata)</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1">testdata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/problems/mtcars.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&amp;&quot;</span>)</a>
+<a class="sourceLine" id="cb78-2" title="2"></a>
+<a class="sourceLine" id="cb78-3" title="3"><span class="kw">head</span>(testdata)</a></code></pre></div>
 <pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -459,27 +494,27 @@ be passed down to <code>fread()</code>:</p>
 ## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <p><code>export()</code> allows you to write data to disk, by simply providing the path and name of the file you
 wish to save.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="kw">export</span>(testdata, <span class="st">&quot;path/where/to/save/testdata.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1"><span class="kw">export</span>(testdata, <span class="st">&quot;path/where/to/save/testdata.csv&quot;</span>)</a></code></pre></div>
 <p>If you end the name with <code>.csv</code> the file is exported to the csv format, if instead you write <code>.dta</code>
 the data will be exported to the STATA format, and so on.</p>
 <p>If you wish to export to Excel, this is possible, but requires that you change a file on your
 computer (you only have to do this once). Run the following lines in Rstudio:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)) <span class="co"># only create if not already there</span></a>
-<a class="sourceLine" id="cb79-2" title="2">    <span class="kw">file.create</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)    <span class="co"># (don&#39;t overwrite it)</span></a>
-<a class="sourceLine" id="cb79-3" title="3"><span class="kw">file.edit</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)) <span class="co"># only create if not already there</span></a>
+<a class="sourceLine" id="cb81-2" title="2">    <span class="kw">file.create</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)    <span class="co"># (don&#39;t overwrite it)</span></a>
+<a class="sourceLine" id="cb81-3" title="3"><span class="kw">file.edit</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)</a></code></pre></div>
 <p>These lines, taken shamelessly from <a href="https://csgillespie.github.io/efficientR/3-3-r-startup.html#rprofile">Efficient R
 programming</a> (go read it,
 it’s a very great resource) look for and open the <code>.Rprofile</code> file which is a file that is run
 every time you open Rstudio. This means that you can put any line of code there that will always be
 executed whenever you launch Rstudio. The line you need to add is this:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1"><span class="kw">Sys.setenv</span>(<span class="st">&quot;R_ZIPCMD&quot;</span> =<span class="st"> &quot;C:/Program Files (x86)/Rtools/zip.exe&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="kw">Sys.setenv</span>(<span class="st">&quot;R_ZIPCMD&quot;</span> =<span class="st"> &quot;C:/Program Files (x86)/Rtools/zip.exe&quot;</span>)</a></code></pre></div>
 <p>This tells Rstudio to use <code>zip.exe</code> as the default zip tool, which is needed to export files to the
 Excel format. Try it out by restarting Rstudio, and then running the following lines:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">library</span>(rio)</a>
-<a class="sourceLine" id="cb81-2" title="2"></a>
-<a class="sourceLine" id="cb81-3" title="3"><span class="kw">data</span>(mtcars)</a>
-<a class="sourceLine" id="cb81-4" title="4"></a>
-<a class="sourceLine" id="cb81-5" title="5"><span class="kw">export</span>(mtcars, <span class="st">&quot;mtcars.xlsx&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="kw">library</span>(rio)</a>
+<a class="sourceLine" id="cb83-2" title="2"></a>
+<a class="sourceLine" id="cb83-3" title="3"><span class="kw">data</span>(mtcars)</a>
+<a class="sourceLine" id="cb83-4" title="4"></a>
+<a class="sourceLine" id="cb83-5" title="5"><span class="kw">export</span>(mtcars, <span class="st">&quot;mtcars.xlsx&quot;</span>)</a></code></pre></div>
 <p>You should find the <code>mtcars.xlsx</code> inside your working directory (it should be your Documents
 folder. You can use <code>getwd()</code> to check where you are).</p>
 <p><code>rio</code> should cover all your needs, but if not, there is very likely a package out there that will
@@ -490,10 +525,10 @@ import the data you need.</p>
 <p><code>rio</code> is an amazing package, but is only able to write tabular representations of data. What if you
 would like to save, say, a list containing any arbitrary object? This is possible with the
 <code>saveRDS()</code> function. Literally anything can be saved with <code>saveRDS()</code>:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1">my_list =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;this is a list&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;which contains a list&quot;</span>, <span class="dv">12</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb82-2" title="2"><span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow =</span> <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb82-3" title="3"></a>
-<a class="sourceLine" id="cb82-4" title="4"><span class="kw">str</span>(my_list)</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1">my_list =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;this is a list&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;which contains a list&quot;</span>, <span class="dv">12</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb84-2" title="2"><span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow =</span> <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb84-3" title="3"></a>
+<a class="sourceLine" id="cb84-4" title="4"><span class="kw">str</span>(my_list)</a></code></pre></div>
 <pre><code>## List of 4
 ##  $ : chr &quot;this is a list&quot;
 ##  $ :List of 2
@@ -506,12 +541,12 @@ a matrix… Now suppose that computing this list takes a very long time (for exa
 each element of the list is the result of estimating a very complex model on a particular simulated
 dataset for instance) and you would like to save this list to disk. This is possible with
 <code>saveRDS()</code>:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1"><span class="kw">saveRDS</span>(my_list, <span class="st">&quot;my_list.RDS&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="kw">saveRDS</span>(my_list, <span class="st">&quot;my_list.RDS&quot;</span>)</a></code></pre></div>
 <p>The next day, after having freshly started your computer and launched RStudio, it is possible to
 retrieve the object exactly like it was using <code>readRDS()</code>:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">my_list =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;my_list.RDS&quot;</span>)</a>
-<a class="sourceLine" id="cb85-2" title="2"></a>
-<a class="sourceLine" id="cb85-3" title="3"><span class="kw">str</span>(my_list)</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">my_list =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;my_list.RDS&quot;</span>)</a>
+<a class="sourceLine" id="cb87-2" title="2"></a>
+<a class="sourceLine" id="cb87-3" title="3"><span class="kw">str</span>(my_list)</a></code></pre></div>
 <pre><code>## List of 4
 ##  $ : chr &quot;this is a list&quot;
 ##  $ :List of 2
@@ -536,19 +571,19 @@ a bunch of other folders containing different files or the outputs of your analy
 here is that you have a folder called “data” which contains the datasets you will ananlyze. When
 you are inside an RStudio project, granted that you chose your “housing” folder as the folder to
 host the project, you can read the data by simply specifying the path like so:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;/data/data.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;/data/data.csv&quot;</span>)</a></code></pre></div>
 <p>Constrast this to what you would need to write if you were not using a project:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;C:/My Documents/Trevor/Work/Projects/Housing/data/data.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;C:/My Documents/Trevor/Work/Projects/Housing/data/data.csv&quot;</span>)</a></code></pre></div>
 <p>Not only is that longer, but if Trevor is working on this project with Pollux, Pollux would need
 to change the above line to this:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv&quot;</span>)</a></code></pre></div>
 <p>whenever Pollux needs to work on it. Another, similar issue, is that if you need to write something
 to disk, such as a dataset or a plot, you would also need to specify the whole path:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">export</span>(my_data, <span class="st">&quot;C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">export</span>(my_data, <span class="st">&quot;C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv&quot;</span>)</a></code></pre></div>
 <p>If you forget to write the whole path, then the dataset will be saved in the standard working
 directory, which is your “My Documents” folder on Windows, and “Home” on GNU+Linux or macOS. You
 can check what is the working directory with the <code>getwd()</code> function:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">getwd</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">getwd</span>()</a></code></pre></div>
 <p>On a fresh session on my computer this returns:</p>
 <pre><code>&quot;/home/bruno&quot;</code></pre>
 <p>or, on Windows:</p>
@@ -556,15 +591,15 @@ can check what is the working directory with the <code>getwd()</code> function:<
 <p>but if you call this function inside a project, it will return the path to your project. It is also
 possible to set the working directory with <code>setwd()</code>, so you don’t need to always write the full
 path, meaning that you can this:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;the/path/I/want/&quot;</span>)</a>
-<a class="sourceLine" id="cb94-2" title="2"></a>
-<a class="sourceLine" id="cb94-3" title="3"><span class="kw">import</span>(<span class="st">&quot;data/my_data.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb94-4" title="4"></a>
-<a class="sourceLine" id="cb94-5" title="5"><span class="kw">export</span>(processed_data, <span class="st">&quot;processed_data.xlsx&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;the/path/I/want/&quot;</span>)</a>
+<a class="sourceLine" id="cb96-2" title="2"></a>
+<a class="sourceLine" id="cb96-3" title="3"><span class="kw">import</span>(<span class="st">&quot;data/my_data.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb96-4" title="4"></a>
+<a class="sourceLine" id="cb96-5" title="5"><span class="kw">export</span>(processed_data, <span class="st">&quot;processed_data.xlsx&quot;</span>)</a></code></pre></div>
 <p>instead of:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1"><span class="kw">import</span>(<span class="st">&quot;the/path/I/want/data/my_data.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb95-2" title="2"></a>
-<a class="sourceLine" id="cb95-3" title="3"><span class="kw">export</span>(processed_data, <span class="st">&quot;the/path/I/want/processed_data.xlsx&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">import</span>(<span class="st">&quot;the/path/I/want/data/my_data.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb97-2" title="2"></a>
+<a class="sourceLine" id="cb97-3" title="3"><span class="kw">export</span>(processed_data, <span class="st">&quot;the/path/I/want/processed_data.xlsx&quot;</span>)</a></code></pre></div>
 <p>However this does not solve the issue of collaboration. Using projects saves a lot of pain in the
 long term.</p>
 
@@ -576,7 +611,7 @@ long term.</p>
         </div>
       </div>
 <a href="data-types-and-objects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-manipulation-and-descriptive-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="descriptive-statistics-and-data-manipulation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
