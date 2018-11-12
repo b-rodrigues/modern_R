@@ -196,7 +196,7 @@ species for which we have more than 1 individual. Since we save all the previous
 produce a `tibble`) in a variable, we can keep going from there:
 
 ```{r, cache=TRUE}
-summary_table2 = summary_table %>%
+summary_table2 <- summary_table %>%
   filter(n_obs > 1)
 
 print(summary_table2)
@@ -526,6 +526,145 @@ gasoline %>%
   transmute(spam = exp(lgaspcar + lincomep))
 ```
 
+
+### Joining `tibble`s with `full_join()`, `left_join()`, `right_join()` and all the others
+
+I will end this section on `dplyr` with the very useful verbs: the `*_join()` verbs. Let's first
+start by loading another dataset from the `plm` package. `SumHes` and let's convert it to `tibble`
+and rename it:
+
+```{r}
+data(SumHes, package = "plm")
+
+pwt <- SumHes %>%
+  as_tibble() %>%
+  mutate(country = tolower(country))
+```
+
+Let's take a quick look at the data:
+
+```{r}
+glimpse(pwt)
+```
+
+We can merge both `gasoline` and `pwt` by country and year, as these two variables are common to
+both datasets. There are more countries and years in the `pwt` dataset, so when merging both, and
+depending on which function you use, you will either have `NA`'s for the variables where there is
+no match, or rows that will be dropped. Let's start with `full_join`:
+
+```{r}
+gas_pwt_full <- gasoline %>%
+  full_join(pwt, by = c("country", "year"))
+```
+
+Let's see which countries and years are included:
+
+```{r}
+gas_pwt_full %>%
+  count(country, year)
+```
+
+As you see, every country and year was included, but what happened for, say, the U.S.S.R? This country
+is in `pwt` but not in `gasoline` at all:
+
+```{r}
+gas_pwt_full %>%
+  filter(country == "u.s.s.r.")
+```
+
+As you probably guessed, the variables from `gasoline` that are not included in `pwt` are filled with
+`NA`s. One could remove all these lines and only keep countries for which these variables are not
+`NA` everywhere with `filter()`, but there is a simpler solution:
+
+```{r}
+gas_pwt_inner <- gasoline %>%
+  inner_join(pwt, by = c("country", "year"))
+```
+Let's use the `tabyl()` from the `janitor` packages which is a very nice alternative to the `table()`
+function from base R:
+
+```{r}
+library(janitor)
+
+gas_pwt_inner %>%
+  tabyl(country)
+```
+
+Only countries with values in both datasets were returned. It's almost every country from `gasoline`,
+apart from Germany (called "germany west" in `pwt` and "germany" in `gasoline`. I left it as is to
+provide an example of a country not in `pwt`). Let's also look at the variables:
+
+```{r}
+glimpse(gas_pwt_inner)
+```
+
+The variables from both datasets are in the joined data.
+
+Contrast this to `semi_join()`:
+
+
+```{r}
+gas_pwt_semi <- gasoline %>%
+  semi_join(pwt, by = c("country", "year"))
+
+glimpse(gas_pwt_semi)
+
+gas_pwt_semi %>%
+  tabyl(country)
+```
+
+Only columns of `gasoline` are returned, and only rows of `gasoline` that were matched with rows
+from `pwt`. `semi_join()` is not a commutative operation:
+
+
+```{r}
+pwt_gas_semi <- pwt %>%
+  semi_join(gasoline, by = c("country", "year"))
+
+glimpse(pwt_gas_semi)
+
+gas_pwt_semi %>%
+  tabyl(country)
+```
+
+The rows are the same, but not the columns.
+
+`left_join()` and `right_join()` return all the rows from either the dataset that is on the 
+"left" (the first argument of the fonction) or on the "right" (the second argument of the 
+function) but all columns from both datasets. So depending on which countries you're interested in,
+you're going to use either one of these functions:
+
+```{r}
+gas_pwt_left <- gasoline %>%
+  left_join(pwt, by = c("country", "year"))
+
+gas_pwt_left %>%
+  tabyl(country)
+```
+
+```{r}
+gas_pwt_right <- gasoline %>%
+  right_join(pwt, by = c("country", "year"))
+
+gas_pwt_right %>%
+  tabyl(country)
+```
+
+The last merge function is `anti_join()`:
+
+```{r}
+gas_pwt_anti <- gasoline %>%
+  anti_join(pwt, by = c("country", "year"))
+
+glimpse(gas_pwt_anti)
+
+gas_pwt_anti %>%
+  tabyl(country)
+```
+
+`gas_pwt_anti` has the columns the `gasoline` dataset as well as the only country from `gasoline`
+that is not in `pwt`: "germany".
+
 That was it for the basic `{dplyr}` verbs. Next, we're going to learn about `{tidyr}`.
 
 ## Reshaping data with `tidyr`
@@ -755,31 +894,123 @@ survey_data_from_hell %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
 ```
 
-I think this is the right moment to introduce the `{ViewPipeSteps}` package. This package is still
-in development, so you need to install it from Github. But it is a very useful package, because
-it allows you to see each step of your tidyverse workflow very easily:
 
+### A sneak peek to Chapter 9; `nest()`
 
+Let's take a look at our clean survey data:
 
-To install the package, use the following command:
-
-```{r, eval=FALSE}
-devtools::install_github("daranzolin/ViewPipeSteps")
+```{r}
+survey_data_clean
 ```
 
+`{tidyr}` has another very useful function, called `nest()`:
 
-### Go from implicit to explicit missing values with `complete()`, `expand()`, `crossing()` and `nesting()`
+```{r}
+survey_data_clean %>%
+    nest(-id)
+```
 
+You can achieve the same result by using `group_by()` first:
 
-That was it for a first introduction to `{tidyr}`. Other useful `{tidyr}` functions are coming, but for
-now, let's learn about *scoped* verbs.
+```{r}
+survey_data_clean %>%
+    group_by(id) %>%
+    nest()
+```
+
+This cerates a new tibble object, whith two columns, one with the `id` column, and a new one called
+`data`. Let's take a look at the first element of this column:
+
+```{r}
+nested_survey_data <- survey_data_clean %>%
+    group_by(id) %>%
+    nest()
+
+nested_survey_data$data[1]
+```
+
+As you can see, the first element of the `data` is also a tibble! You may wonder why this is useful;
+I will give you a small taste of what's waiting in chapter 9. Imagine that you want to create a
+barplot for each `id`. For instance, for the first `id` (we are going to learn about making plots
+with `{ggplot2}` in the next chapter. For now, just follow along, even if you don't understand
+everything I write):
+
+```{r}
+survey_data_id1 <- survey_data_clean %>%
+    filter(id == 1)
+```
+
+Now, let's create the plot:
+
+```{r}
+ggplot(data = survey_data_id1) +
+    geom_bar(aes(y = value, x = date, fill = variable), stat = "identity") +
+    ggtitle("id 1")
+```
+
+Ok great. But now I want to create this plot for each `id`... so I have to copy paste this 3 times.
+But copy-pasting is error prone. So there are two alternatives; I either write a function that
+takes as argument the data and the `id` I want to plot and run it for each `id` (we will learn to
+do this in Chapter 8), or I can use `tidyr::nest()`, combined with `purrr::map()`. `{purrr}` is 
+another very useful `{tidevyrse}` package, and we are going to learn about it in Chapter 9. Again,
+just follow along for now:
+
+```{r}
+my_plots <- nested_survey_data %>%
+    mutate(plot = map2(.x = id, 
+                       .y = data,
+                       ~ggplot(data = .y) +
+                           geom_bar(aes(y = value, x = date, fill = variable), stat = "identity") +
+                           ggtitle(paste0("id", .x))))
+```
+
+This is some very advanced stuff, and again, do not worry if you don't understand everything now.
+We are going to learn about this in detail in Chapter 9. Let's go through each line. 
+In the first line, I have started from my clean data `nested_survey_data` and then, using the `%>%`
+and `mutate()` I create a new column called `plot`. Inside the `mutate()` function, I called `map2`.
+`map2` is a `{purrr}` function that takes three inputs: `.x`, `.y` and a function. `.x` is the `id`
+column from my data, and `.y` is the `data` column from `nested_survey_data`. The function is the
+ggplot I created before. Think of `map2()` has a loop over two lists, all while applying a function.
+
+The following illustration, taken from @vaudor_purrr_2018 by 
+[Lise Vaudor](https://twitter.com/LVaudor), illustrates this perfectly:
+
+```{r, echo=FALSE}
+knitr::include_graphics("assets/purrr3.png")
+```
+
+Two inputs go in at the same type, the factory, your function, does what it has to do, and an
+output comes out. Forget about the factory's chimney, which represents `walk2()` for now. We'll
+learn about it in due time. By the way, you really should read Lise's blog, her posts are really
+great and informative. It's in French, but that's not a problem, you know how to read R code, right?
+Here's a link to [her blog](http://perso.ens-lyon.fr/lise.vaudor/).
+
+Now, let's take a look at the result:
+
+```{r}
+my_plots
+```
+
+`my_plots` is a tibble with three columns: `id`, `data` and.. `plot`! `plot` is a very interesting 
+column. It is a list, where each element is of type `S3: gg`. Yes, you guessed it, each element of 
+that list-column is a ggplot! If you now want to take a look at the plots, it is enough to do this:
+
+```{r}
+my_plots$plot
+```
+
+Ok, that was quite complicated, but again, this was only to introduce `nest()` and give you a taste
+of the power of the `{tidyverse}`. By the end of Chapter 9, you'll be used to this.
+
+That was it for a first introduction to `{tidyr}`. Now, it's time to learn about *scoped* verbs.
 
 ## Scoped `{tidyverse}` verbs
 
 Scoped verbs are special versions of the verbs you are now familiar with.
 
-### filter_()
+### filter_*()
 
+Let's go back to the `gasoline` data from the `{plm}` package.
 
 `filter()` is not the only *filtering* verb there is. Suppose that we have a condition that we want
 to use to filter out a lot of columns at once. For example, for every column that is of type
@@ -790,47 +1021,36 @@ that:
 gasoline %>% filter_if( ~all(is.numeric(.)), all_vars(. > -8))
 ```
 
-It's a bit more complicated than before. `filter_if()` needs 3 arguments to work; the data, a
+This is a bit more complicated than before, but let's go through it, step by step.
+`filter_if()` needs 3 arguments to work; the data, a
 predicate function (a function that returns `TRUE`, or `FALSE`) which will select the columns we
 want to work on, and then the condition. The condition can be applied to *all* the columns that
 were selected by the predicate function (hence the `all_vars()`) or only to at least one (you'd use
 `any_vars()` then). Try to change the condition, or the predicate function, to figure out how
 `filter_if()` works. The dot is a placeholder that stands for whatever columns where selected.
 
-`filter_at()` works differently; it allows the user to filter columns by position:
+Another scoped `filter()` verb is `filter_at()`; it allows the user to filter columns by position:
 
 ```{r}
 gasoline %>% filter_at(vars(ends_with("p")), all_vars(. > -8))
 ```
 
-`end_with()` is a helper function that we are going to use a lot (as well as `starts_with()` and
-some others, you'll see..). So the above line means "for the columns whose name end with a 'p' only
-keep the lines where, for all the selected columns, the values are strictly superior to `-8`".
-Again, this is not very easy the first time you deal with that, so play around with it for a bit.
+we already know about `ends_with()` and `starts_with()`. So the above line means "for the columns
+whose name end with a 'p' only keep the lines where, for all the selected columns, the values are
+strictly superior to `-8`". Again, this is not very easy the first time you deal with that, so 
+play around with it for a bit.
 
-`filter_all()`, as the name implies, considers all variables for the filtering step.
+Finally, there is also `filter_all()` which, as the name implies, uses all the variables for 
+the filtering step.
 
 `filter_if()` and `filter_at()` are very useful when you have very large datasets with a lot of
 variables and you want to apply a filtering function only to a subset of them. `filter_all()` is
 useful if, for example, you only want to keep the positive values for all the columns.
 
-### select_()
+### select_\*() and rename_\*()
 
-The same can be achieved with `select_at()`:
-
-```{r}
-gasoline %>% select_at(vars(starts_with("l")))
-```
-
-`select_at()` can be quite useful if you know the position of the columns you're interested in:
-
-```{r}
-gasoline %>% select_at(vars(c(1,2,5)))
-```
-
-This also works with `filter_at()` by the way.
-
-`select_if()` makes it easy to select columns that satisfy a criterium:
+Just as with `filter()`, `select()` also has scoped versions. `select_if()` makes it easy to 
+select columns that satisfy a criterium:
 
 ```{r}
 gasoline %>% select_if(is.numeric)
@@ -842,12 +1062,97 @@ You can even pass a further function to `select_if()` that will be applied to th
 gasoline %>% select_if(is.numeric, toupper)
 ```
 
-### group_by_()
+`select_at()` makes it easy to select all the variables that start with "l" for example:
+
+```{r}
+gasoline %>% select_at(vars(starts_with("l")))
+```
+
+`select_at()` also works if you specify the position of the columns you're interested in:
+
+```{r}
+gasoline %>% select_at(vars(c(1,2,5)))
+```
+
+Notice that I use a new helper function, `vars()`, which allows me to specify which variables I want
+to select. This is similar to the helper functions we have seen before, `all_vars()` 
+and `any_vars()`. So the way to read the above line would be something like "Start with the 
+gasoline data, then select the variables at position 1, 2, 5". Knowing how to read your code makes
+it even easier to write.
+
+There is also a `select_all()`, and you might be wondering why it is useful:
+
+```{r}
+gasoline %>% select_all()
+```
+
+This simply returns all the columns of the data frame... but wait, `selec_all()` allows you to do
+something very useful, which is rename all the columns in bulk:
+
+```{r}
+gasoline %>% select_all(toupper)
+```
+
+You can apply any arbitrary function:
+
+```{r}
+gasoline %>% select_all(funs(paste0("hello_", .)))
+```
+
+I have passed the `paste0()` function to the `funs()` helper function of `select_all()`. `funs()` is
+used a lot with scoped verbs, just like `vars()`, which we have already seen.
+
+The scoped version of `rename()` work just as you expect. But I'll leave these for the exercices
+down below.
+
+### group_by_*()
+
+To illustrate `group_by_*()` I have to first modify the `gasoline` data a little bit. As you can 
+see below, the data column is of type integer:
+
+```{r}
+gasoline
+```
+
+Let's change that to character:
+
+```{r}
+gasoline <- gasoline %>%
+    mutate(year = as.character(year))
+```
+
+Now, this allows me to do the following:
+
+```{r}
+gasoline %>%
+    group_by_if(is.character) %>%
+    summarise(mean(lincomep))
+```
+
+This is faster than having to write:
+
+```{r}
+gasoline %>%
+    group_by(country, year) %>%
+    summarise(mean(lincomep))
+```
+
+You may think that having two write the name of two variables is not a huge hassle, which is true. 
+But imagine that you have dozens of character columns that you want to group by. This is the kind 
+of situation where `group_by_if()` is very useful. If you prefer, you can specify the position of 
+the columns instead of the name of the columns, with `group_by_at()`:
+
+```{r}
+gasoline %>%
+    group_by_at(vars(1, 2)) %>%
+    summarise(mean(lincomep))
+```
+
+There is also a `group_by_all()`, but I fail to see the use case...
 
 ### summarise_()
 
-
-Just like for `filter()` and `select()`, `summarise()` comes with scoped versions:
+Just like for `filter()`, `select()`, and `group_by()`, summarise()` comes with scoped versions:
 
 ```{r}
 gasoline %>%
@@ -865,6 +1170,9 @@ gasoline %>%
   group_by(country) %>%
   summarise_at(vars(starts_with("l")), funs(mean, sd, max, min))
 ```
+
+Just use `vars()` to specify the variables you want to summarise, and then `funs()` to list all the
+functions you want to use on each of the columns.
 
 But maybe you're just interested in descriptive statistics for some variables, but not all those
 that start with "l"? What if you want to use another pattern? Easy to do with the `contains()`
@@ -888,10 +1196,10 @@ gasoline %>%
   summarise_if(is.double, funs(mean, sd, min, max))
 ```
 
-This allows you to summarise every column that contain real numbers (if you use `is.numeric()`
-instead, `year` will also be summarised, which is not really interesting).
-
-To go faster, you can also use `summarise_all()`:
+This allows you to summarise every column that contain real numbers. The difference between 
+`is.double()` and `is.numeric()` is that `is.numeric()` returns `TRUE` for integers too, whereas
+`is.double()` returns `TRUE` for real numbers only (integers are real numbers too, but you know
+what I mean). To go faster, you can also use `summarise_all()`:
 
 ```{r}
 gasoline %>%
@@ -903,10 +1211,9 @@ gasoline %>%
 I removed the `year` variable because it's not a variable for which we want to have descriptive
 statistics.
 
-### mutate_()
+### mutate_*()
 
-
-`mutate()` and `transmute()` also come with scoped version:
+Of course, `mutate()` and `transmute()` also come with scoped versions:
 
 ```{r}
 gasoline %>%
@@ -923,14 +1230,21 @@ gasoline %>%
   mutate_all(as.character)
 ```
 
+I think that by now, you are able to understand the above lines quite easily. If not, try some other
+functions, or mutating other variables and you'll see that it is not that complicated!
+
 ## Other useful `{tidyverse}` functions
 
+```{r, include=FALSE}
+gasoline %<>%
+    mutate(year = as.numeric(year))
+```
 
 ### `if_else()`, `case_when()` and `recode()`
 
-The two helper functions I use the most are probably `if_else()` and `case_when`. These two
-functions, combined with `mutate()` make it easy to create a new variable conditonally on the
-values of other variables. For instance, we might want to have a dummy that equals `1` if a country
+Some other very useful `{tidyverse}` functions are `if_else()` and `case_when`. These two
+functions, combined with `mutate()` make it easy to create a new variable whose values must 
+respect certain conditions. For instance, we might want to have a dummy that equals `1` if a country
 in the European Union (to simplify, say as of 2017) and `0` if not. First let's create a list of
 countries that are in the EU:
 
@@ -943,7 +1257,7 @@ eu_countries <- c("austria", "belgium", "bulgaria", "croatia", "republic of cypr
 ```
 
 I've had to change "netherlands" to "netherla" because that's how the country is called in the
-data. Now let's create a dummy variable that equals `1` for EU countries, ind `0` for the others:
+`gasoline` data. Now let's create a dummy variable that equals `1` for EU countries, and `0` for the others:
 
 ```{r}
 gasoline %>%
@@ -1007,8 +1321,8 @@ gasoline %>%
   filter(year == 1960)
 ```
 
-If all you want is to recode values, you can use `recode()`. For example, the Netherlands is written as
-"NETHERLA" in the which is quite ugly. Same for Switzerland:
+If all you want is to recode values, you can use `recode()`. For example, the Netherlands is 
+written as "NETHERLA" in the `gasoline` data, which is quite ugly. Same for Switzerland:
 
 ```{r}
 gasoline <- gasoline %>%
@@ -1101,6 +1415,8 @@ gasoline %>%
   arrange(desc(lgaspcar), .by_group = TRUE)
 ```
 
+This is especially useful for plotting. We'll see this in Chapter 6.
+
 ### `tally()` and `count()`
 
 `tally()` and `count()` count the number of observations in your data. I believe `count()` is the
@@ -1128,145 +1444,6 @@ gasoline %>%
 where `n()` is a `dplyr` function that can only be used within `summarise()`, `mutate()` and
 `filter()`.
 
-## Joining `tibble`s with `full_join()`, `left_join()`, `right_join()` and all the others
-
-I will end this section on `dplyr` with the very useful verbs: the `*_join()` verbs. Let's first
-start by loading another dataset from the `plm` package. `SumHes` and let's convert it to `tibble`
-and rename it:
-
-```{r}
-data(SumHes, package = "plm")
-
-pwt <- SumHes %>%
-  as_tibble() %>%
-  mutate(country = tolower(country))
-```
-
-Let's take a quick look at the data:
-
-```{r}
-glimpse(pwt)
-```
-
-We can merge both `gasoline` and `pwt` by country and year, as these two variables are common to
-both datasets. There are more countries and years in the `pwt` dataset, so when merging both, and
-depending on which function you use, you will either have `NA`'s for the variables where there is
-no match, or rows that will be dropped. Let's start with `full_join`:
-
-```{r}
-gas_pwt_full <- gasoline %>%
-  full_join(pwt, by = c("country", "year"))
-```
-
-Let's see which countries and years are included:
-
-```{r}
-gas_pwt_full %>%
-  count(country, year)
-```
-
-As you see, every country and year was included, but what happened for, say, the U.S.S.R? This country
-is in `pwt` but not in `gasoline` at all:
-
-```{r}
-gas_pwt_full %>%
-  filter(country == "u.s.s.r.")
-```
-
-As you probably guessed, the variables from `gasoline` that are not included in `pwt` are filled with
-`NA`s. One could remove all these lines and only keep countries for which these variables are not
-`NA` everywhere with `filter()`, but there is a simpler solution:
-
-```{r}
-gas_pwt_inner <- gasoline %>%
-  inner_join(pwt, by = c("country", "year"))
-```
-Let's use the `tabyl()` from the `janitor` packages which is a very nice alternative to the `table()`
-function from base R:
-
-```{r}
-library(janitor)
-
-gas_pwt_inner %>%
-  tabyl(country)
-```
-
-Only countries with values in both datasets were returned. It's almost every country from `gasoline`,
-apart from Germany (called "germany west" in `pwt` and "germany" in `gasoline`. I left it as is to
-provide an example of a country not in `pwt`). Let's also look at the variables:
-
-```{r}
-glimpse(gas_pwt_inner)
-```
-
-The variables from both datasets are in the joined data.
-
-Contrast this to `semi_join()`:
-
-
-```{r}
-gas_pwt_semi <- gasoline %>%
-  semi_join(pwt, by = c("country", "year"))
-
-glimpse(gas_pwt_semi)
-
-gas_pwt_semi %>%
-  tabyl(country)
-```
-
-Only columns of `gasoline` are returned, and only rows of `gasoline` that were matched with rows
-from `pwt`. `semi_join()` is not a commutative operation:
-
-
-```{r}
-pwt_gas_semi <- pwt %>%
-  semi_join(gasoline, by = c("country", "year"))
-
-glimpse(pwt_gas_semi)
-
-gas_pwt_semi %>%
-  tabyl(country)
-```
-
-The rows are the same, but not the columns.
-
-
-`left_join()` and `right_join()` return
-all the rows from either the dataset that is on the "left" (the first argument of the fonction)
-or on the "right" (the second argument of the function) but all columns from both datasets. So
-depending on which countries you're interested in, you're going to use either one of these functions:
-
-```{r}
-gas_pwt_left <- gasoline %>%
-  left_join(pwt, by = c("country", "year"))
-
-gas_pwt_left %>%
-  tabyl(country)
-```
-
-```{r}
-gas_pwt_right <- gasoline %>%
-  right_join(pwt, by = c("country", "year"))
-
-gas_pwt_right %>%
-  tabyl(country)
-```
-
-The last merge function is `anti_join()`:
-
-
-```{r}
-gas_pwt_anti <- gasoline %>%
-  anti_join(pwt, by = c("country", "year"))
-
-glimpse(gas_pwt_anti)
-
-gas_pwt_anti %>%
-  tabyl(country)
-```
-
-`gas_pwt_anti` has the columns the `gasoline` dataset as well as the only country from `gasoline`
-that is not in `pwt`: "germany".
 
 ## Special packages for special kinds of data: `{forcats}`, `{lubridate}`, and `{stringr}`
 
