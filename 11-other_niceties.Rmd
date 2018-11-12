@@ -1,0 +1,9 @@
+# Further topics
+
+## Generating Pdf or Word reports with R
+
+## Scraping the internet
+
+## Regular expressions
+
+## Setting up a blog with `{blogdown}`

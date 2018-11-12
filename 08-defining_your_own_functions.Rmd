@@ -54,12 +54,6 @@ conditionally on the values of another column, you can use `case_when()`, which 
 
 ### For loops
 
-You are wondering why it took so long for *for loops* to show up. This is because we learned about
-`map()` and `reduce()` which solve a lot of problems that for loops were originally intended to
-tackle. And actually, you should only use for loops in a very specific situation; whenever you have
-a recursive relationship. For all the rest, `map()` and `reduce()` are much easier, and return nice
-objects. However, for the sake of completeness, I will present for loops in the section.
-
 For loops make it possible to repeat a set of instructions `i` times. For example, try the following:
 
 ```{r, cache=TRUE}

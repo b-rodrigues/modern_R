@@ -1,9 +1,0 @@
-# Other niceties
-
-## Generating Pdf or Word reports with R
-
-## Scraping the internet
-
-## Random tips and tricks
-
-### Creating a log file

@@ -212,6 +212,8 @@ to every element of a list, simply use `map()`:
 
 ```{r}
 library("purrr")
+numbers <- c(7, 8, 19, 64)
+
 map(numbers, sqrt_newton, init = 1)
 ```
 
@@ -232,8 +234,78 @@ map(rep("hello", 10), print)
 
 `rep()` is a function that creates a vector by repeating something, in this case the string "hello",
 as many times as needed, here 10. The output here is a bit different that before though, because first
-you will see "hello" printed 10 times, but `map()` always returns a list, this means that you will also
-get a list where each element is the string "hello".
+you will see "hello" printed 10 times, but `map()` always returns a list, this means that you 
+will also get a list where each element is the string "hello".
+
+We know the standard `map()` function, which returns a list, but there are a number of 
+variants of this function. `map_dbl()` returns an atomic vector of doubles:
+
+```{r}
+map_dbl(numbers, sqrt_newton, init = 1)
+```
+
+`map_chr()` returns an atomic vector of strings:
+
+```{r}
+map_chr(numbers, sqrt_newton, init = 1)
+```
+
+`map_lgl()` returns an atomic vector of `TRUE` or `FALSE`:
+
+```{r}
+divisible <- function(x, y){
+  if_else(x %% y == 0, TRUE, FALSE)
+}
+
+map_lgl(seq(1:100), divisible, 3)
+```
+
+There are also other interesting variants, such as `map_if()`:
+
+```{r}
+a <- seq(1,10)
+
+map_if(a, (function(x) divisible(x, 2)), sqrt)
+```
+
+I used `map_if()` to take the square root of only those numbers in vector `a` that are divisble by 2,
+by using an anonymous function that checks if a number is divisible by 2 (by wrapping `divisible()`).
+
+`map_at()` is similar to `map_if()` but maps the function at a position specified by the user:
+
+```{r}
+map_at(numbers, c(1, 3), sqrt)
+```
+
+or if you have a named list:
+
+```{r}
+recipe <- list("spam" = 1, "eggs" = 3, "bacon" = 10)
+
+map_at(recipe, "bacon", `*`, 2)
+```
+
+I used `map_at()` to double the quantity of bacon in the recipe (by using the `*` function, and specifying
+its second argument, `2`. Try the following in the command prompt: `` `*`(3, 4) ``).
+
+`map2()` is the equivalent of `mapply()` and `pmap()` is the generalisation of `map2()` for more
+than 2 arguments:
+
+```{r}
+print(a)
+
+b <- seq(1, 2, length.out = 10)
+
+print(b)
+
+map2(a, b, `*`)
+```
+
+```{r}
+n <- seq(1:10)
+
+pmap(list(a, b, n), rnorm)
+```
 
 
 ### Reducing with `purrr`
@@ -277,7 +349,73 @@ accumulate(seq(1, 100), `+`)
 ```
 
 
+### `safely()` and `possibly()`
 
+`safely()` and `possibly()` are very useful functions. Consider the following situation:
+
+```{r, eval = FALSE}
+
+a <- list("a", 4, 5)
+
+sqrt(a)
+```
+
+```{r, eval = FALSE}
+Error in sqrt(a) : non-numeric argument to mathematical function
+```
+
+Using `map()` or `Map()` will result in a similar error. `safely()` is an higher-order function that
+takes one function as an argument and executes it... *safely*, meaning the execution of the function
+will not stop if there is an error. The error message gets captured alongside valid results.
+
+```{r}
+
+a <- list("a", 4, 5)
+
+safe_sqrt <- safely(sqrt)
+
+map(a, safe_sqrt)
+```
+`possibly()` works similarly, but also allows you to specify a return value in case of an error:
+
+```{r}
+possible_sqrt <- possibly(sqrt, otherwise = NA_real_)
+
+map(a, possible_sqrt)
+```
+
+Of course, in this particular example, the same effect could be obtained way more easily:
+
+```{r}
+sqrt(as.numeric(a))
+```
+
+However, in some situations, this trick does not work as intended (or at all), so `possibly()` and
+`safely()` are the way to go.
+
+### «Transposing lists»
+
+Another interesting function is `transpose()`. It is not an alternative to the function `t()` from
+`base` but, has a similar effect. `transpose()` works on lists. Let's take a look at the example
+from before:
+
+```{r}
+safe_sqrt <- safely(sqrt, otherwise = NA_real_)
+
+map(a, safe_sqrt)
+```
+
+The output is a list with the first element being a list with a result and an error message. One
+might want to have all the results in a single list, and all the error messages in another list.
+This is possible with `transpose()`:
+
+```{r}
+purrr::transpose(map(a, safe_sqrt))
+```
+
+I explicitely call `purrr::transpose()` because there is also a `data.table::transpose()`, which
+is not the same function. You have to be careful about that sort of thing, because it can cause
+errors in your programs and debuging this type of error is a nightmare.
 
 ## Using your functions inside `mutate()`
 
@@ -305,19 +443,108 @@ mtcars %>%
   mutate(double_mpg = .$mpg + .$mpg)
 ```
 
+
+## Working with a list of datasets
+
+### Using `map()` to work on lists of datasets
+
+This is our first encouter with a typical functional programming function, `map()`.
+
+Let's read the list of datasets from the previous chapter:
+
+
+```{r, cache=TRUE}
+paths <- Sys.glob("datasets/unemployment/*.csv")
+
+all_datasets <- import_list(paths)
+
+str(all_datasets)
+```
+
+For working with lists, another package from the `tidyverse` that is very useful, is called
+`purrr`. `purrr` will be presented in-depth in Chapter 9.
+
+The first thing we are going to do is use a function to clean the names of the datasets. These
+names are not very easy to work with; there are spaces, and it would be better if the names of the
+columns would be all lowercase. For this we are going to use the function `clean_names()` from the
+`janitor` package. For a single dataset, I would write this:
+
+```{r, include=FALSE}
+library(janitor)
+```
+
+```{r, eval = FALSE}
+library(janitor)
+
+one_dataset = one_dataset %>%
+  clean_names()
+```
+
+and I would get a dataset with column names in lowercase and spaces replaced by `_` (and other
+corrections). How can I apply, or map, this function to each dataset in the list? To do this I need
+to use `purrr::map()`:
+
+```{r, cache=TRUE}
+library(purrr)
+
+all_datasets = all_datasets %>%
+  map(clean_names)
+
+all_datasets %>%
+  glimpse()
+```
+
+So now, what if I want to know, for each dataset, which *communes* have an unemployment rate that is
+less than, say, 3%? For a single dataset I would do something like this:
+
+```{r, eval=FALSE}
+one_dataset %>%
+  filter(unemployment_rate_in_percent < 3)
+```
+
+But for a list of datasets, `map()` is needed (and as you will see, that is not all that is needed):
+
+```{r, cache=TRUE}
+all_datasets %>%
+  map(~filter(., unemployment_rate_in_percent < 3))
+```
+
+I know what you're thinking... *what the hell?*. Let me explain: `map()` needs a function to map to
+each element of the list. `all_datasets` is the list to which I want to map the function. But what
+function? `filter()` is the function I need, so why doesn't:
+
+```{r, eval = FALSE}
+all_datasets %>%
+  map(filter(unemployment_rate_in_percent < 3))
+```
+work? This is a bit complicated, and has to do with what is called environments. If you try to run
+the code above, you will get this error message:
+
+```
+Error in filter(unemployment_rate_in_percent < 3) :
+  object 'unemployment_rate_in_percent' not found
+```
+
+I won't go into details, but by writing `~filter(., unemployment_rate_in_percent < 3)`, which is a
+formula (`~` is the symbol to define formulas, more on this in the later chapters), `map()`
+converts it to a function that it can use. If you want to know more about this, you can read it in
+[Advanced R](http://adv-r.had.co.nz/Functional-programming.html#closures) by Hadley Wickham, but it
+is an advanced topic.
+
+
 ## Mapping your homebrewed functions to lists of datasets
 
 Before merging these datasets together, we would need them to have a `year` column indicating the
 year. It would also be helpful if gave names to these datasets. For this task, we can use
 `purrr::set_names()`:
 
-```{r}
+```{r, eval=FALSE}
 all_datasets = set_names(all_datasets, as.character(seq(2013, 2016)))
 ```
 
 Let's take a look at the list now:
 
-```{r}
+```{r, eval=FALSE}
 str(all_datasets)
 ```
 
@@ -328,3 +555,393 @@ access them with the `$` operator:
 knitr::include_graphics("pics/all_datasets_names.png")
 ```
 
+### Data frames and `reduce`
+
+Using `map()` we now know how to apply a function to each dataset of a list. But maybe it would be
+easier to merge all the datasets first, and then manipulate them? Before that though, I am going to
+teach you how to use `purrr::reduce()`, another very powerful function that works on lists. This is
+a function that you can find in other programming languages, but sometimes it is called fold.
+
+I think that the following example illustrates the power of `reduce()` well:
+
+```{r, cache=TRUE}
+numbers = seq(1, 5) # Create a vector with the numbers 1 to 5
+
+reduce(numbers, `+`, .init = 0)
+```
+
+`reduce()` takes a function as an argument, here the function `+`^[This is simply the `+` operator
+you're used to. Try this out: `` `+`(1, 5) `` and you'll see `+` is a function like any other. You
+just have to write backticks around the plus symbol to make it work.] and then does the following
+computation:
+
+```
+0 + numbers[1] + numbers[2] + numbers[3]...
+```
+
+It applies the user supplied function successively but has to start with something, so we give it
+the argument `init` also. This argument is actually optional, but I show it here because in some
+cases it might be useful to start the computations at another value than `0`.`reduce()`
+generalizes functions that only take two arguments. If you were to write a function that returns
+the minimum between two numbers:
+
+```{r, cache=TRUE}
+my_min = function(a, b){
+    if(a < b){
+        return(a)
+    } else {
+        return(b)
+    }
+}
+```
+
+You could use `reduce()` to get the minimum of a list of numbers:
+
+```{r, cache=TRUE}
+numbers2 = c(3, 1, -8, 9)
+
+reduce(numbers2, my_min)
+```
+
+As long as you provide a function and a list of elements to `reduce()`, you will get a single
+output. So how could `reduce()` help us with merging all the datasets that are in the list? `dplyr`
+comes with a lot of function to merge *two* datasets. Remember that I said before that `reduce()`
+allows you to generalize a function of two arguments? Let's try it with our list of datasets:
+
+
+```{r, cache=TRUE}
+unemp_lux = reduce(all_datasets, full_join)
+
+glimpse(unemp_lux)
+```
+
+`full_join()` is one of the `dplyr` function that merges data. There are others that might be
+useful depending on the kind of join operation you need. Let's write this data to disk as we're
+going to keep using it for the next chapters:
+
+```{r, cache=TRUE}
+export(unemp_lux, "datasets/unemp_lux.csv")
+```
+
+
+## Functional programming and plotting
+
+In this section, we are going to learn how to use the possibilities offered by the `purrr` package
+and how it can work together with `ggplot2` to generate many plots. This is a more advanced topic,
+but what comes next is also what makes R, and the functional programming paradigm so powerful.
+
+For example, suppose that instead of wanting a single plot with the unemployment rate of each
+commune, you need one unemployment plot, per commune:
+
+```{r, cache=TRUE}
+unemp_lux_data %>%
+  filter(division == "Luxembourg") %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division)) +
+  theme_minimal() +
+  labs(title = "Unemployment in Luxembourg", x = "Year", y = "Rate") +
+  geom_line()
+```
+
+and then you would write the same for "Esch-sur-Alzette" and also for "Wiltz". If you only have to
+make to make these 3 plots, copy and pasting the above lines is no big deal:
+
+```{r, cache=TRUE}
+unemp_lux_data %>%
+  filter(division == "Esch-sur-Alzette") %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division)) +
+  theme_minimal() +
+  labs(title = "Unemployment in Esch-sur-Alzette", x = "Year", y = "Rate") +
+  geom_line()
+
+unemp_lux_data %>%
+  filter(division == "Wiltz") %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division)) +
+  theme_minimal() +
+  labs(title = "Unemployment in Esch-sur-Alzette", x = "Year", y = "Rate") +
+  geom_line()
+```
+
+Put copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
+have to create the above plots for all 108 Luxembourguish communes? That's a lot of copy pasting.
+What if, once you are done copy pasting, you have to change something, for example, the theme? You
+could use the search and replace function of RStudio, true, but sometimes search and replace can
+also introduce bugs and typos. You can avoid all these issues by using `purrr::map()`. What do you
+need to map over? The commune names. So let's create a vector of commune names:
+
+```{r, cache=TRUE}
+communes = list("Luxembourg", "Esch-sur-Alzette", "Wiltz")
+```
+
+Now we can create the graphs using `map()`, or `map2()` to be exact:
+
+```{r, cache=TRUE}
+plots_tibble = unemp_lux_data %>%
+  filter(division %in% communes) %>%
+  group_by(division) %>%
+  nest() %>%
+  mutate(plot = map2(.x = data, .y = division, ~ggplot(data = .x) +
+       theme_minimal() +
+       geom_line(aes(year, unemployment_rate_in_percent, group = 1)) +
+       labs(title = paste("Unemployment in", .y))))
+```
+
+Let's study this line by line: the first line is easy, we simply use `filter()` to keep only the
+communes we are interested in. Then we group by `division` and use `tidyr::nest()`. As a refresher,
+let's take a look at what this does:
+
+```{r, cache=TRUE}
+unemp_lux_data %>%
+  filter(division %in% communes) %>%
+  group_by(division) %>%
+  nest()
+```
+
+This creates a tibble with two columns, `division` and `data`, where each individual (or
+commune in this case) is another tibble with all the original variables. This is very useful,
+because now we can pass these tibbles to `map2()`, to generate the plots. But why `map2()` and
+what's the difference with `map()`? `map2()` works the same way as `map()`, but maps over two
+inputs:
+
+```{r, cache=TRUE}
+numbers1 = list(1, 2, 3, 4, 5)
+
+numbers2 = list(9, 8, 7, 6, 5)
+
+map2(numbers1, numbers2, `*`)
+```
+
+In our example with the graphs, the two inputs are the data, and the names of the communes. This is
+useful to create the title with `labs(title = paste("Unemployment in", .y))))` where `.y` is the
+second input of `map2()`, the commune names contained in variable `division`.
+
+So what happened? We now have a tibble called `plots_tibble` that looks like this:
+
+```{r, cache=TRUE}
+print(plots_tibble)
+```
+
+This tibble contains three columns, `division`, `data` and now a new one called `plot`, that we
+created before using the last line `mutate(plot = ...)` (remember that `mutate()` adds columns to
+tibbles). `plot` is a list-column, with elements... being plots! Yes you read that right, the
+elements of the column `plot` are literally plots. This is what I meant with list columns.
+Let's see what is inside the `data` and the `plot` columns exactly:
+
+```{r, cache=TRUE}
+plots_tibble %>%
+  pull(data)
+```
+
+each element of data is a tibble for the specific country with columns `year`, `active_population`,
+etc, the original columns. But obviously, there is no `division` column. So to plot the data, and
+join all the dots together, we need to add `group = 1` in the call to `ggplot2()` (whereas if you
+plot multiple lines in the same graph, you need to write `group = division`).
+
+But more interestingly, how can you actually see the plots? If you want to simply look at them, it
+is enough to use `pull()`:
+
+```{r, cache=TRUE}
+plots_tibble %>%
+  pull(plot)
+```
+
+And if we want to save these plots, we can do so using `map2()`:
+
+```{r, eval=FALSE}
+map2(paste0(plots_tibble$division, ".pdf"), plots_tibble$plot, ggsave)
+```
+
+
+```
+Saving 7 x 5 in image
+Saving 6.01 x 3.94 in image
+Saving 6.01 x 3.94 in image
+```
+
+This was probably the most advanced topic we have studied yet; but you probably agree with me that
+it is among the most useful ones. This section is a perfect illustration of the power of functional
+programming; you can mix and match functions as long as you give them the correct arguments.
+You can pass data to functions that use data and then pass these functions to other functions that
+use functions as arguments, such as `map()`.^[Functions that have other functions as input are
+called *higher order functions*] `map()` does not care if the functions you pass to it produces tables,
+graphs or even another function. `map()` will simply map this function to a list of inputs, and as
+long as these inputs are correct arguments to the function, `map()` will do its magic. If you
+combine this with list-columns, you can even use `map()` alongside `dplyr` functions and map your
+function by first grouping, filtering, etc...
+
+## Functional programming and modeling
+
+
+### Bootstrapping
+
+The `broom` package includes a `bootstrap()` function that allows you to resample your data with
+replacement and estimate your model on each sample. A worked example is available in one of the package's
+[Vignette](https://cran.r-project.org/web/packages/broom/vignettes/bootstrapping.html). R also
+includes a more general `boot()` function, but we are going to learn about this one later, as it
+involves some programming. Let's go back to `model_log`, and try to get bootstrapped confidence
+intervals (as shown in the Vignette I linked above):
+
+```{r, include=FALSE, cache=TRUE}
+boot_result <- Housing %>%
+  broom::bootstrap(50) %>%
+  do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
+```
+
+```{r, eval=FALSE}
+boot_result <- Housing %>%
+  bootstrap(50) %>%
+  do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
+```
+
+I just use 2 variables to make the output smaller. Let's take a look at `boot_result`:
+
+```{r}
+print(boot_result)
+```
+
+`boot_result` is a `tibble` grouped by the new variable `replicate`. Now it is easy to compute confidence
+intervals for the parameters:
+
+```{r}
+boot_result %>%
+  group_by(term) %>%
+  summarize(low = quantile(estimate, .05/2),
+            high = quantile(estimate, 1 - .05/2))
+```
+
+`quantile()` is a built-in function that returns the quantile at the \(alpha\) level for a given
+vector (in this case the vector of estimates). Of course, we had to group by `term` first, as we
+need to compute the confidence intervals, for each terms (or estimated parameters) separately.
+Plotting the densities of the bootstrapped parameters might also prove interesting:
+
+```{r}
+ggplot(boot_result, aes(estimate)) +
+  geom_density() +
+  facet_wrap(~term, scales = "free")
+```
+
+### Cross-validation
+
+To do cross-validation, we are going to use the `modelr` package, which is also part of the
+`tidyverse`.^[This package is still somewhat young and experimental and might get replaced by two others in the
+future. At some point in the future you might get a warning message telling you that the package is deprecated.
+When this happens, you would need to switch to the new packages, but transition should be fairly easy.]
+
+```{r}
+library(modelr)
+```
+
+`modelr` includes two functions for cross-validation, `crossv_kfold` and `crossv_mc`, which
+do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let's see what
+`cross_mc()` (`cross_kfold()`) returns when applied to data:
+
+```{r}
+cv_Housing = Housing %>%
+  crossv_mc(n = 50)
+
+print(cv_Housing)
+```
+
+This is a `tibble` with 3 colmuns, two of them being list-columns; `train` and `test`. Each element
+of `train` and `test` is a resampled `tibble` of the original data. This means that we can now
+estimate our first model (the simple linear one) on each resampled data using `map()`:
+
+Now if we want to estimate all these models:
+
+```{r}
+cv_models = cv_Housing %>%
+  mutate(model = map(train, ~lm(price ~ ., data = .)))
+
+print(cv_models)
+```
+
+We added a list-column with the 50 models estimated (or trained) on the train data. Now we can compute,
+say, the RMSE from before on each one. `modelr` includes a `rmse()` function, so unlike in the
+previous section where we computed the RMSE manually we are simply going to use this function:
+
+```{r}
+rmse_cv = cv_models %>%
+  mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
+  pull(rmse_all_models)
+
+print(rmse_cv)
+```
+
+We can now compute the mean of this `rmse_cv` variable:
+
+```{r}
+cv_rmse_lin_lin = mean(rmse_cv)
+```
+
+which is equal to `r cv_rmse_lin_lin`.
+
+For the log-lin model, this is a bit more complicated, because we need to exponentiate the
+predictions. However, if we use `rmse()` as before, there is no way to do that. I show you how you
+can do that, but it involves a few more steps than simply using `rmse()`. Try to understand the code
+below that computes the bootstrapped `rmse` for the log-lin model.
+You can see this as an advanced exercise; if you understand these next lines of code, you should
+understand anything that has to do with the `tidyverse`.
+
+```{r}
+cv_rmse_log_lin = cv_Housing %>%
+    mutate(model = map(train, ~lm(log(price) ~ ., data = .))) %>%
+    mutate(log_pred = map2(model, test, ~exp(predict(.x, .y)))) %>%
+    mutate(prices = map(test, ~as.data.frame(.x)$price)) %>%
+    mutate(
+        rmse_all =
+            map2_dbl(log_pred, prices,
+                     ~sqrt(mean((.x - .y)**2, na.rm = TRUE)))) %>%
+    pull(rmse_all) %>%
+    mean()
+```
+
+`cv_rmse_log_lin` is equal to `r cv_rmse_log_lin`, which is lower than in the lin-lin model.
+
+
+
+## Exercises
+
+1. Suppose you have an Excel workbook that contains data on three sheets. Create a function that
+   reads entire workbooks, and that returns a list of tibbles, where each tibble is the data of one
+   sheet (download the example Excel workbook, `example_workbook.xlsx`, from the `assets` folder on
+   the books github).
+
+2. Use one of the `map()` functions to combine two lists into one. Consider the following two lists:
+
+```{r, eval = FALSE}
+mediterranean <- list("starters" = list("humous", "lasagna"), "dishes" = list("sardines", "olives"))
+
+continental <- list("starters" = list("pea soup", "terrine"), "dishes" = list("frikadelle", "sauerkraut"))
+```
+
+The result we'd like to have would look like this:
+<!-- map2(mediterranean, continental, append) -->
+
+
+```{r, eval = FALSE}
+$starters
+$starters[[1]]
+[1] "humous"
+
+$starters[[2]]
+[1] "olives"
+
+$starters[[3]]
+[1] "pea soup"
+
+$starters[[4]]
+[1] "terrine"
+
+
+$dishes
+$dishes[[1]]
+[1] "sardines"
+
+$dishes[[2]]
+[1] "lasagna"
+
+$dishes[[3]]
+[1] "frikadelle"
+
+$dishes[[4]]
+[1] "sauerkraut"
+```
