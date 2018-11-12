@@ -5,18 +5,21 @@ code. In this chapter, we are going to compute descriptive statistics for a sing
 also for a list of datasets. However, I will not give a list of functions to compute descriptive
 statistics; if you need a specific function you can find easily in the *Help* pane in Rstudio or
 using any modern internet search engine. What I will do is show you a workflow that allows you to
-compute the statisics you need fast.
+compute the descripitive statisics you need fast.
 R has a lot of built-in functions for descriptive statistics; however, if you want to compute
 statistics by, say, gender, some more complex manipulations are needed. At least this was true in
 the past. Nowadays, thanks to the packages from the `tidyverse`, it is very easy and fast to
-compute descriptive statistics by any stratifying variable(s). The packages we are going to use for
-this are called `dplyr` and `tidyr`. `dplyr` contains a lot of functions that make manipulating
+compute descriptive statistics by any stratifying variable(s). The package we are going to use for
+this is called `dplyr`. `dplyr` contains a lot of functions that make manipulating
 data and computing descriptive statistics very easy. To make things easier for now, we are going to
 use example data included with `dplyr`. So no need to import an external dataset; this does not
 change anything to the example that we are going to study here; the source of the data does not
-matter for this. `tidyr` is very useful to reshape data and to do advanced cleaning of your data.
-All these tidyverse functions are also called *verbs*. Before learning about these verbs, let's discuss
-about pipes.
+matter for this. Using `dplyr` is possible only if the data you are working with is already in 
+a useful shape. When data is more messy, you will need to first manipulate it to bring it a *tidy*
+format. For this, we will use `tidyr`, which is very useful package to reshape data and to do 
+advanced cleaning of your data.
+All these tidyverse functions are also called *verbs*. Before learning about these verbs though,
+let's discuss about pipes.
 
 ## Smoking is bad for you, but pipes are your friend
 
@@ -51,8 +54,8 @@ library(magrittr)
 16 %>% sqrt
 ```
 
-Super weird right? But you probably understand what happened; `16` got *fed* as the first argument of
-the function `sqrt()`. You can chain multiple functions:
+This looks quite weird, but you probably understand what happened; `16` got *fed* as the first 
+argument of the function `sqrt()`. You can chain multiple functions:
 
 ```{r}
 16 %>% sqrt %>% `+`(18)
@@ -71,8 +74,7 @@ naturally want to chain a lot of functions together. Without the `%>%` it would 
 
 `%>%` is not the only pipe operator in `magrittr`. There's `%T%`, `%<>%` and `%$%`. All have their
 uses, but are basically shortcuts to some common tasks with `%>%` plus another function. Which
-means that you can live without them, and because of this, I will only discuss them briefly once
-we'll have learned about the other `tidyverse` packages.
+means that you can live without them, and because of this, I will not discuss them.
 
 ## The `{tidyverse}`'s *enfant prodige*: `{dplyr}`
 
@@ -144,10 +146,20 @@ Again, the `%>%` makes the above lines of code very easy to read. Without it, on
 summarise(group_by(filter(starwars, gender == "male"), species), mean(height))
 ```
 
-I think you agree with me that this is not very readable. Once you're used to `%>%`, you won't go
-back to not use it.
+I think you agree with me that this is not very readable. One way to make it more readable would
+be to save intermediary variables:
 
-To be a bit more precise: make things clearer; `filter()`, `group_by()` and `summarise()` are
+```{r, cache=TRUE}
+filtered_data <- filter(starwars, gender == "male")
+
+grouped_data <- group_by(filter(starwars, gender == "male"), species)
+
+summarise(grouped_data, mean(height))
+```
+
+But this can get very tedious. Once you're used to `%>%`, you won't go back to not use it.
+
+Before continuing and to make things clearer; `filter()`, `group_by()` and `summarise()` are
 functions that are included in `dplyr`. `%>%` is actually a function from `magrittr`, but this
 package gets loaded on the fly when you load `dplyr`, so you do not need to worry about it.
 `mean()` is a function *native* to R.
@@ -157,7 +169,7 @@ The result of all these operations that use `dplyr` functions are actually other
 datasets.
 
 ```{r, cache=TRUE}
-mean_height = starwars %>%
+mean_height <- starwars %>%
   group_by(species) %>%
   summarise(mean(height))
 
@@ -170,7 +182,7 @@ You could then write this data to disk using `rio::export()` for instance. If yo
 mean of the height, you can keep adding as many functions as needed:
 
 ```{r, cache=TRUE}
-summary_table = starwars %>%
+summary_table <- starwars %>%
   group_by(species) %>%
   summarise(ave_height = mean(height), var_height = var(height), n_obs = n())
 
@@ -267,11 +279,11 @@ and load dplyr:
 library(dplyr)
 ```
 
-This dataset gives the consumption of gasoline for 18 countries from 1960 to 1978. When
-you load the data like this, it is a standard `data.frame`. `dplyr` functions can be used on
-standard `data.frame` objects, but also on `tibble`s. `tibble`s are just like data frame,
-but with a better print method (and other niceties). I'll discuss the `{tibble}` package later,
-but for now, let's convert the data to a `tibble` and change its name:
+This dataset gives the consumption of gasoline for 18 countries from 1960 to 1978. When you load 
+the data like this, it is a standard `data.frame`. `dplyr` functions can be used on standard 
+`data.frame` objects, but also on `tibble`s. `tibble`s are just like data frame, but with a better 
+print method (and other niceties). I'll discuss the `{tibble}` package later, but for now, let's 
+convert the data to a `tibble` and change its name:
 
 ```{r}
 gasoline <- as_tibble(Gasoline)
@@ -296,13 +308,20 @@ You can also filter more than just one year, by using the `%in%` operator:
 gasoline %>% filter(year %in% seq(1969, 1973))
 ```
 
-or even non-consecutive years:
+It is also possible use `between()`, a helper function:
+
+```{r}
+gasoline %>% filter(between(year, 1969, 1973))
+```
+
+To select non-consecutive years:
 
 ```{r}
 gasoline %>% filter(year %in% c(1969, 1973, 1977))
 ```
 
-`%in%` tests if an object is part of a set.
+`%in%` tests if an object is part of a set. 
+
 
 ### Select columns with `select()`
 
@@ -347,8 +366,11 @@ in columns whose name start with "l"?
 gasoline %>% select(starts_with("l"))
 ```
 
-`ends_with()` works in a similar fashion. There is also `contains()`, but I will
-discuss that one later.
+`ends_with()` works in a similar fashion. There is also `contains()`:
+
+```{r}
+gasoline %>% select(country, year, contains("car"))
+```
 
 Another verb, similar to `select()`, is `pull()`. Let's compare the two:
 
@@ -422,7 +444,7 @@ and because the output is a `tibble`, we can continue to use `dplyr` verbs on it
 gasoline %>%
   group_by(country) %>%
   summarise(mean_gaspcar = mean(lgaspcar)) %>%
-  filter(country == "FRANCE")
+  filter(country == "france")
 ```
 
 `summarise()` is a very useful verb. For example, we can compute several descriptive statistics at once:
@@ -465,6 +487,7 @@ desc_gasoline %>%
 Because the output of `dplyr` verbs is a tibble, it is possible to continue working with it. This
 is one shortcoming of using the base `summary()` function. The object returned by that function
 is not very easy to manipulate.
+
 
 ### Adding columns with `mutate()` and `transmute()`
 
@@ -520,28 +543,32 @@ library(tidyr)
 ```
 
 ```{r, cache=TRUE}
-survey_data = tribble(
+survey_data <- tribble(
   ~id, ~variable, ~value,
   1, "var1", 1,
   1, "var2", 0.2,
+  NA, "var3", 0.3,
   2, "var1", 1.4,
   2, "var2", 1.9,
+  2, "var3", 4.1,
   3, "var1", 0.1,
   3, "var2", 2.8,
+  3, "var3", 8.9,
   4, "var1", 1.7,
-  4, "var2", 1.9
+  NA, "var2", 1.9,
+  4, "var3", 7.6
 )
 
 head(survey_data)
 ```
 
-I used the `tribble()` function from the `{tibble}` package. I'll discuss this package later, for now,
-let's focus on `{tidyr}.`
+I used the `tribble()` function from the `{tibble}` package to create this fake dataset. 
+I'll discuss this package later, for now, let's focus on `{tidyr}.`
 
 `survey_data` is a long dataset. We can reshape it to be wide using the `spread()` function:
 
 ```{r, cache=TRUE}
-wide_data = survey_data %>%
+wide_data <- survey_data %>%
   spread(variable, value)
 
 head(wide_data)
@@ -553,7 +580,7 @@ of "variable". Then we fill in the rows with the data contained in the column "v
 To go from a wide dataset to a long one, we use `gather()`:
 
 ```{r, cache=TRUE}
-long_data = wide_data %>%
+long_data <- wide_data %>%
   gather(variable, value, var1, var2)
 
 print(long_data)
@@ -567,15 +594,182 @@ using the values contained in `var1` and `var2`. Sometimes using `spread()` or `
 some trial and error. I advise you play around with the examples above to really grasp how these
 powerful functions work.
 
-### Put order in your columns with `separate()`, extract(), `unite()`, and in your rows with `separate_rows()`
-
-### Go from implicit to explicit missing values with `complete()`, `expand()`, `crossing()` and `nesting()`
 
 ### `fill()` and `full_seq()`
 
+`fill()` is pretty useful to... fill in missing values. For instance, in `survey_data`, some "id"s
+are missing:
+
 ```{r}
-full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-10")), 1)
+survey_data
 ```
+
+It seems pretty obvious that the first `NA` is supposed to be `1` and the second missing is supposed
+to be `4`. With `fill()`, this is pretty easy to achieve:
+
+```{r}
+survey_data %>% 
+    fill(.direction = "down", variable = "id")
+```
+
+`full_seq()` is similar:
+
+```{r}
+full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1)
+```
+
+We can add this as the date column to our survey data:
+
+```{r}
+survey_data %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
+```
+
+I use the base `rep()` function to repeat the date 4 times and then using `mutate()` I have added
+it the data frame.
+
+Putting all these operations together:
+
+
+```{r}
+survey_data %>% 
+    fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
+    spread(variable, value)
+```
+
+As you can see, this creates a lot of explicit `NA` values. The best would be to fill in the missing
+values and add the date column, and then work with that format. For example, to get the average
+of the values by date:
+
+```{r}
+survey_data %>% 
+    fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
+    group_by(date) %>%
+    summarise(mean(value))
+```
+
+Or by `date` and `variable`:
+
+```{r}
+survey_data %>% 
+    fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
+    group_by(date, variable) %>%
+    summarise(mean(value))
+```
+
+As you can see, you can chain any `{tidyverse}` verbs, wether they come from `{dplyr}` or `{tidyr}`.
+
+### Put order in your columns with `separate()`, `unite()`, and in your rows with `separate_rows()`
+
+```{r, include=FALSE}
+survey_data_not_tidy <- survey_data %>% 
+    fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>% 
+    mutate(variable_date = paste(variable, date, sep = "/")) %>% select(id, variable_date, value)
+```
+
+Sometimes, data can be in a format that makes working with it needlessly painful. For example, you
+get this:
+
+```{r}
+survey_data_not_tidy
+```
+
+Dealing with this is simple, thanks to `separate()`:
+
+```{r}
+survey_data_not_tidy %>% 
+    separate(variable_date, into = c("variable", "date"), sep = "/")
+```
+
+The `variable_date` column gets separated into two columns, `variable` and `date`. One also needs
+to specify the separator, in this case "/".
+
+`unite()` is the reverse operation, which can be useful when you are confronted to this situation:
+
+```{r, include=FALSE}
+survey_data2 <- survey_data_not_tidy %>% 
+    separate(variable_date, into = c("variable", "date"), sep = "/") %>%
+    separate(date, into = c("year", "month", "day"), sep = "-")
+```
+
+```{r}
+survey_data2
+```
+
+In some situation, it is better to have the date as a single column:
+
+```{r}
+survey_data2 %>%
+    unite(date, year, month, day, sep = "-")
+```
+
+Another awful situation is the following:
+
+```{r, include=FALSE}
+survey_data_from_hell <- data.frame(
+  id = c(1, 1, NA, 2, 3, 3, 4, NA, 4),
+  variable = c("var1", "var2", "var3", "var1, var2, var3", "var1, var2", "var3", "var1", "var2", "var3"),
+  value = c("1", "0.2", "0.3", "1.4, 1.9, 4.1", "0.1, 2.8", "8.9", "1.7", "1.9", "7.6"),
+  stringsAsFactors = FALSE
+)
+```
+
+```{r}
+survey_data_from_hell
+```
+
+`separate_rows()` saves the day:
+
+```{r}
+survey_data_from_hell %>%
+    separate_rows(variable, value)
+```
+
+So to summarise... you can go from this:
+
+```{r}
+survey_data_from_hell
+```
+
+```{r, include=FALSE}
+survey_data_clean <- survey_data2 %>%
+    unite(date, year, month, day, sep = "-")
+```
+
+to this:
+
+```{r}
+survey_data_clean
+```
+
+quite easily:
+
+```{r}
+survey_data_from_hell %>% 
+    separate_rows(variable, value, convert = TRUE) %>%
+    fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
+```
+
+I think this is the right moment to introduce the `{ViewPipeSteps}` package. This package is still
+in development, so you need to install it from Github. But it is a very useful package, because
+it allows you to see each step of your tidyverse workflow very easily:
+
+
+
+To install the package, use the following command:
+
+```{r, eval=FALSE}
+devtools::install_github("daranzolin/ViewPipeSteps")
+```
+
+
+### Go from implicit to explicit missing values with `complete()`, `expand()`, `crossing()` and `nesting()`
+
 
 That was it for a first introduction to `{tidyr}`. Other useful `{tidyr}` functions are coming, but for
 now, let's learn about *scoped* verbs.
@@ -1196,7 +1390,7 @@ dataset:
 
 
 ```{r, cache=TRUE}
-starwars = starwars %>%
+starwars <- starwars %>%
   rowwise() %>%
   mutate(n_films = length(films))
 ```
@@ -1214,7 +1408,7 @@ Now we can create a factor variable that groups characters by asking whether the
 1 movie, or more:
 
 ```{r, cache=TRUE}
-starwars = starwars %>%
+starwars <- starwars %>%
   mutate(more_1 = case_when(n_films == 1 ~ "Exactly one movie",
                             n_films != 1 ~ "More than 1 movie"))
 ```

@@ -418,7 +418,7 @@ Define the following matrix:
 \]
 
 ```{r, include=FALSE}
-matrix_a <- matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow <- 4, byrow <- TRUE)
+matrix_a <- matrix(c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
 ```
 
 * What does `matrix_a >= 5` do?

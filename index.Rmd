@@ -30,9 +30,42 @@ as official statistics, economics, finance, data science, machine learning, etc.
 simplicity, I will use the word "statistics" as a general term that encompasses all these fields and
 disciplines for the remaineder of this book.
 
+## Who is this book for?
+
+This book can be useful to different audiences. If you have never used R in your life, and what
+to start, start with Chapter 1 of this book. Chapter 1 to 3 are the very basics, and should be 
+easy to follow up to Chapter 9.
+Starting with Chapter 9, it gets more technical, and will be harder to follow. But if I suggest
+you keep on going, and do not hesitate to contact me for help if you struggle! Chapter 9
+is also where you can start if you are already familiar with R **and** the `{tidyverse}`, but not 
+functional programming. If you are familiar with R but not the `{tidyverse}` (or have no clue 
+what the `{tidyverse}` is), then you can start with Chapter 4. If you are familiar with R, the 
+`{tidyverse}` and functional programming, you might still be interested in this book, especially
+Chapter 10 and 11, which deal with package development and further advanced topics respectively.
+
+## Why this book?
+
+This book is first and foremost for myself. This book is the result of years of using and teaching
+R at university and then at my jobs. During my university time, I wrote some notes to help me 
+teach R and which I distributed to my students. These are still the basis of chapter 3. Then, once
+I had left university, and continued using R at my first "real" job, I wrote another book that
+dealt mostly with package development and functional programming. This book is now merged to this
+one and is the basis of Chapters 9 and 11. During these years at my first
+job, I was also tasked with teaching R. By that time, I was already quite familiar with the 
+`{tidyverse}` so I wrote a lot of notes that were internal and adapted for the audience of my
+first job. These are now the basis of Chapters 4 to 8.
+Then, during all these years, I kept blogging about R, and reading blogs and further books. All 
+this knowledge is condensed here, so if you are familiar with my blog, you'll definitely recognize
+a lot of my blog posts in here. So this book is first and foremost for me, because I need to write
+all of this down in a central place. So because my target audience is myself, this book is free. If 
+you find it useful, and are in the mood of buying me a coffee you can, but if this book is not 
+useful to you, no harm done (unless you paid for it before reading it, in which case, I am sorry
+to have wasted your time). But I am quite sure you'll find some of the things written here useful,
+regardless of your current experience level with R.
+
 ## Why *modern* R? {-}
 
-*Modern* R instead of "just"" R because we are going to learn how to use modern packages (mostly
+*Modern* R instead of "just" R because we are going to learn how to use modern packages (mostly
 those from the [tidyverse](https://www.tidyverse.org/)) and concepts, such as functional
 programming (which is quite an old concept actually, but one that came into fashion recently). R is
 derived from S, which is a programming language that has roots in FORTRAN and other languages too.
@@ -67,7 +100,8 @@ easier:
 Reduce(`+`, x)
 ```
 
-We will learn about `Reduce()` later, but already you see that the notation looks a lot more
+We will learn about `Reduce()` later (to be more precise, we will learn about `purrr::reduce()`,
+the "tidy" version of `Reduce()`), but already you see that the notation looks a lot more
 like the mathematical notation.
 
 At its core, functional programming uses functions, and functions are so-called *first
@@ -93,12 +127,16 @@ packages R, don't worry, this will be discussed just below.
 
 RStudio is a modern IDE that makes writing R code easier. The first thing we are going to learn is
 how to use it.
-R and RStudio are both open source: this means that the source code is freely available on the internet
-and contributions by anyone are welcome and integrated; provided they are meaningful and useful.
+R and RStudio are both open source: this means that the source code is freely available on 
+the internet and contributions by anyone are welcome and integrated; provided they are meaningful
+and useful.
 
 ## What to expect from this book? {-}
 
-You can't write "programming language" without "language". And just as you wouldn't expect to learn
+The idea of Chapters 1 to 7 is to make you efficient with R as quickly as possible, especially if 
+you already have prior programming knowledge. Starting with Chapter 8 you will learn more advanced
+topics, especially programming with R. R is a programming language, and you can't write 
+"programming language" without "language". And just as you wouldn't expect to learn
 French, Portuguese or Icelandic by reading a single book, you shouldn't expect to become fluent in R
 by reading a single book, not even by reading 10 books. Programming is an art which requires a lot of
 practice. [Teach yourself programming in 10 years](http://www.norvig.com/21-days.html) is a blog
@@ -111,8 +149,9 @@ the language, and the latest news, I advise you read blogs, especially
 [R-bloggers](https://www.r-bloggers.com/) which aggregates blog posts by more than 750 blogs
 discussing R.
 
-So what you can expect from this book is to learn enough R to make you start using it, but you'd
-need to keep on reading and using R for some time to be fluent.
+So what you can expect from this book is that this book is not the only one you should read (it's 
+definitely not the only one you should read, more talented people than me have written much better
+books. Why are you reading this one, by the way?)
 
 ## Prerequisites {-}
 
@@ -158,6 +197,10 @@ My name is Bruno Rodrigues and I program almost exclusively in R and have been t
 courses for a few years now (first started teaching for students at the Université of Strasbourg).
 These notes are an update of those I used at the time, plus a lot of things I've learned about R
 In my free time I like cooking, working out and [blogging](https://www.brodrigues.co), while listening to
-[Fip](http://www.fipradio.fr/player). You can follow me on
-[twitter](https://www.twitter.com/brodriguesco), I tweet mostly about R or what's happening in
-Luxembourg.
+[Fip](http://www.fipradio.fr/player). I also like to get my butt handed to me by playing roguelikes
+such as [NetHack](http://nethack.wikia.com/wiki/NetHack), for which I wrote a 
+[package](https://github.com/b-rodrigues/nethack) that contains functions to analyze the data that 
+is saved on your computer after you win or lose (it will be lose 99% of the time) the game.
+
+You can follow me on [twitter](https://www.twitter.com/brodriguesco),  I tweet mostly about R or 
+what's happening in Luxembourg.

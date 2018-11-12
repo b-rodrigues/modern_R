@@ -43,4 +43,4 @@ using the `::` operator, you can access functions from packages without having t
 package beforehand.
 
 It is possible and easy to create your own packages. This is useful if you have to write a lot of
-functions that you use daily. We will do just that, in chapter 11.
+functions that you use daily. We will lean about that, in Chapter 11.
