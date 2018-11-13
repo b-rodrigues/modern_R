@@ -24,8 +24,61 @@ which we are going to measure a `{tidyverse}` workflow.
 
 ## An data exploration exercice using *base* R
 
+Let's first load the `starwars` data set, included in the `{dplyr}` package:
 
+```{r}
+library(dplyr)
+data(starwars)
+```
 
+Let's first take a look at the data:
+
+```{r}
+head(starwars)
+```
+
+This data contains information on Star Wars characters. The first question you have to answer is
+to find the average height of the characters:
+
+```{r}
+mean(starwars$height)
+```
+
+Let's also take a look at the standard deviation:
+
+```{r}
+sd(starwars$height)
+```
+
+It might be more informative to compute these two statistics by species, so for this, we are going
+to use `aggregate()`:
+
+```{r}
+aggregate(starwars$height, 
+          by = list(Species = starwars$species), 
+          mean)
+```
+
+Even if you are not familiar with `aggregate()`, I believe the above lines are quite self-explanatory.
+You need to provide `aggregate()` with 3 things; the variable you want to summarize (or only the 
+data frame, if you want to summarize all variables), a list of grouping variables and then the 
+function that will be applied to each subset. You can easily add another grouping variable:
+
+```{r}
+aggregate(starwars$height, 
+          by = list(Species = starwars$species,
+                    Homeworld = starwars$homeworld), 
+          mean)
+```
+
+or use another function:
+
+```{r}
+aggregate(starwars$height, 
+          by = list(Species = starwars$species,
+                    Homeworld = starwars$homeworld), 
+          sd)
+```
 
 Now that we have seen how *base* R works, let's redo the analysis using `{tidyverse}` verbs. 
 Before learning about these verbs though, let's discuss about pipes.
