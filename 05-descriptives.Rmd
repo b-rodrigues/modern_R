@@ -18,8 +18,17 @@ matter for this. Using `dplyr` is possible only if the data you are working with
 a useful shape. When data is more messy, you will need to first manipulate it to bring it a *tidy*
 format. For this, we will use `tidyr`, which is very useful package to reshape data and to do 
 advanced cleaning of your data.
-All these tidyverse functions are also called *verbs*. Before learning about these verbs though,
-let's discuss about pipes.
+All these tidyverse functions are also called *verbs*. However, before getting to know these verbs,
+let's do an analysis using standard, or *base* R functions. This will be the benchmark against 
+which we are going to measure a `{tidyverse}` workflow.
+
+## An data exploration exercice using *base* R
+
+
+
+
+Now that we have seen how *base* R works, let's redo the analysis using `{tidyverse}` verbs. 
+Before learning about these verbs though, let's discuss about pipes.
 
 ## Smoking is bad for you, but pipes are your friend
 
