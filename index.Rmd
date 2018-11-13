@@ -30,7 +30,7 @@ as official statistics, economics, finance, data science, machine learning, etc.
 simplicity, I will use the word "statistics" as a general term that encompasses all these fields and
 disciplines for the remaineder of this book.
 
-## Who is this book for?
+## Who is this book for? {-}
 
 This book can be useful to different audiences. If you have never used R in your life, and what
 to start, start with Chapter 1 of this book. Chapter 1 to 3 are the very basics, and should be 
@@ -43,7 +43,7 @@ what the `{tidyverse}` is), then you can start with Chapter 4. If you are famili
 `{tidyverse}` and functional programming, you might still be interested in this book, especially
 Chapter 10 and 11, which deal with package development and further advanced topics respectively.
 
-## Why this book?
+## Why this book? {-}
 
 This book is first and foremost for myself. This book is the result of years of using and teaching
 R at university and then at my jobs. During my university time, I wrote some notes to help me 
