@@ -244,7 +244,7 @@ will give more details in the next sections.
 First, let's load `dplyr` and the included `starwars` dataset. Let's also take a look at the first 5
 lines of the dataset:
 
-```{r, cache=TRUE}
+```{r}
 library(dplyr)
 
 data(starwars)
@@ -261,7 +261,7 @@ more. What `dplyr` brings to the table (among other niceties) is the possibility
 functions to the dataset easily. For example, imagine you want the average height of everyone in
 the dataset. Using the basic R functions, you could write this:
 
-```{r, cache=TRUE}
+```{r}
 mean(starwars$height)
 ```
 
@@ -271,7 +271,7 @@ same for columns of datasets as you can see. This is then given as an argument t
 `mean()`. But what if the user wants the average height by species? Before `dplyr`, a solution to
 this simple problem would have required more than a single command. Now this is as easy as:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   group_by(species) %>%
   summarise(mean(height))
@@ -280,14 +280,14 @@ starwars %>%
 The usefulness of the `%>%` (pipe operator) becomes apparent now. Without it, one would write
 instead:
 
-```{r, cache=TRUE}
+```{r}
 summarise(group_by(starwars, species), mean(height))
 ```
 
 as you can clearly see, it is much more difficult to read. Imagine now that I want the average height
 by species, but only for males. Again, this is very easy using `%>%`:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(gender == "male") %>%
   group_by(species) %>%
@@ -296,14 +296,14 @@ starwars %>%
 
 Again, the `%>%` makes the above lines of code very easy to read. Without it, one would need to write:
 
-```{r, cache=TRUE}
+```{r}
 summarise(group_by(filter(starwars, gender == "male"), species), mean(height))
 ```
 
 I think you agree with me that this is not very readable. One way to make it more readable would
 be to save intermediary variables:
 
-```{r, cache=TRUE}
+```{r}
 filtered_data <- filter(starwars, gender == "male")
 
 grouped_data <- group_by(filter(starwars, gender == "male"), species)
@@ -322,7 +322,7 @@ The result of all these operations that use `dplyr` functions are actually other
 `tibbles`. This means that you can save them in variable, and then work with these as any other
 datasets.
 
-```{r, cache=TRUE}
+```{r}
 mean_height <- starwars %>%
   group_by(species) %>%
   summarise(mean(height))
@@ -335,7 +335,7 @@ head(mean_height)
 You could then write this data to disk using `rio::export()` for instance. If you need more than the
 mean of the height, you can keep adding as many functions as needed:
 
-```{r, cache=TRUE}
+```{r}
 summary_table <- starwars %>%
   group_by(species) %>%
   summarise(ave_height = mean(height), var_height = var(height), n_obs = n())
@@ -349,7 +349,7 @@ because we see that for a lot of species we only have one single individual! Let
 species for which we have more than 1 individual. Since we save all the previous operations (which
 produce a `tibble`) in a variable, we can keep going from there:
 
-```{r, cache=TRUE}
+```{r}
 summary_table2 <- summary_table %>%
   filter(n_obs > 1)
 
@@ -363,7 +363,7 @@ miss these missing values. It is better for functions to fail early and often th
 `mean()` and `var()` have a `na.rm` option that the user can set to `TRUE` to get the result by
 ignoring the `NA`s:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   group_by(species) %>%
   summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
@@ -374,7 +374,7 @@ In the code above, I have combined the two previous steps to get the result I'm 
 a line in the final output that says `NA` for the species. Let's go back to the raw data and find
 these lines:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(is.na(species))
 ```
@@ -382,7 +382,7 @@ starwars %>%
 To test for `NA`, one uses the function `is.na()` not something like `species == "NA"` or anything
 like that. `!is.na()` does the opposite:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(!is.na(species))
 ```
@@ -390,7 +390,7 @@ starwars %>%
 The `!` function negates a predicate function (a predicate function is a function that returns
 `TRUE` or `FALSE`). We can then rerun our analysis from before:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(!is.na(species)) %>%
   group_by(species) %>%
@@ -400,7 +400,7 @@ starwars %>%
 
 And why not compute the same table, but first add another stratifying variable?
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(!is.na(species)) %>%
   group_by(species, gender) %>%
@@ -831,11 +831,11 @@ and `gather()` make it possible to go from long to wide datasets respectively.
 
 Let's first create a fake dataset:
 
-```{r, cache=TRUE}
+```{r}
 library(tidyr)
 ```
 
-```{r, cache=TRUE}
+```{r}
 survey_data <- tribble(
   ~id, ~variable, ~value,
   1, "var1", 1,
@@ -860,7 +860,7 @@ I'll discuss this package later, for now, let's focus on `{tidyr}.`
 
 `survey_data` is a long dataset. We can reshape it to be wide using the `spread()` function:
 
-```{r, cache=TRUE}
+```{r}
 wide_data <- survey_data %>%
   spread(variable, value)
 
@@ -872,7 +872,7 @@ of "variable". Then we fill in the rows with the data contained in the column "v
 
 To go from a wide dataset to a long one, we use `gather()`:
 
-```{r, cache=TRUE}
+```{r}
 long_data <- wide_data %>%
   gather(variable, value, var1, var2)
 
@@ -1603,9 +1603,9 @@ where `n()` is a `dplyr` function that can only be used within `summarise()`, `m
 
 ### 🐈🐈🐈🐈
 
-Factor variables are very useful but not very easy to manipulate. `forcats` contains very useful functions
-that make working on factor variables painless. I use mainly three functions in my work, `fct_recode()`,
-`fct_relevel()` and `fct_relabel()`, so that's what I'll be showing.
+Factor variables are very useful but not very easy to manipulate. `forcats` contains very useful 
+functions that make working on factor variables painless. In my opinion, the four following functions, `fct_recode()`, `fct_relevel()`, `fct_reorder()` and `fct_relabel()`, are the ones you must 
+know, so that's what I'll be showing.
 
 Remember in chapter 3 when I very quickly explained what were `factor` variables? In this section,
 we are going to work a little bit with these type of variable. `factor`s are very useful, and the
@@ -1616,7 +1616,7 @@ library(forcats)
 ```
 
 as an example, we are going to work with the `gss_cat` dataset that is included in `forcats`. Let's
-load that:
+load the data:
 
 ```{r}
 data(gss_cat)
@@ -1667,8 +1667,51 @@ gss_cat %>%
   tabyl(marital)
 ```
 
-I suggest you read `forcats`' help page and discover the other functions it contains.
+`fct_reorder()` is especially useful for plotting. We will explore plotting in the next chapter,
+but to show you why `fct_reorder()` is so useful, I will create a barplot, first without
+using `fct_reorder()` to re-order the factors, then with reordering. Do not worry if you don't 
+understand all the code for now:
 
+```{r}
+gss_cat %>%
+    tabyl(marital) %>%
+    ggplot() +
+    geom_col(aes(y = n, x = marital)) +
+    coord_flip()
+```
+
+It would be much better if the categories were ordered by frequency. This is easy to do with 
+`fct_reorder()`:
+
+```{r}
+gss_cat %>%
+    
+    tabyl(marital) %>%
+    mutate(marital = fct_reorder(marital, n, .desc = FALSE)) %>%
+    ggplot() +
+    geom_col(aes(y = n, x = marital)) +
+    coord_flip()
+```
+
+Much better! Let's also recode the variables, as before:
+
+```{r}
+gss_cat %>%
+    mutate(marital = fct_recode(marital,
+                                refuse = "No answer",
+                                never_married = "Never married",
+                                divorced = "Separated",
+                                divorced = "Divorced",
+                                widowed = "Widowed",
+                                married = "Married")) %>%
+    tabyl(marital) %>%
+    mutate(marital = fct_reorder(marital, n, .desc = FALSE)) %>%
+    ggplot() +
+    geom_col(aes(y = n, x = marital)) +
+    coord_flip()
+```
+
+`{forcats}` contains other very useful functions, so I urge you to go through the documentation.
 
 ###  Get your dates right with `{lubridate}`
 
@@ -1678,11 +1721,11 @@ I suggest you read `forcats`' help page and discover the other functions it cont
 
 To learn about list-columns, let's first focus on a single character of the `starwars` dataset:
 
-```{r, cache=TRUE}
+```{r}
 data(starwars)
 ```
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(name == "Luke Skywalker") %>%
   glimpse()
@@ -1691,7 +1734,7 @@ starwars %>%
 We see that the columns `films`, `vehicles` and `starships` are all lists, and in the case of
 `films`, it lists all the films where Luke Skywalker has appeared. What if you want to take a closer look at this list?
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(name == "Luke Skywalker") %>%
   pull(films)
@@ -1704,7 +1747,7 @@ Suppose we want to create a categorical variable which counts the number of movi
 characters have appeared. For this we need to compute the length of the list, or count the number
 of elements this list has. Let's try with `length()` a base R function:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(name == "Luke Skywalker") %>%
   pull(films) %>%
@@ -1720,7 +1763,7 @@ vector of characters contained in the list and for each character? For this we n
 dataset:
 
 
-```{r, cache=TRUE}
+```{r}
 starwars <- starwars %>%
   rowwise() %>%
   mutate(n_films = length(films))
@@ -1730,7 +1773,7 @@ starwars <- starwars %>%
 
 Let's take a look at the characters and the number of films they have appeared in:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   select(name, n_films)
 ```
@@ -1738,7 +1781,7 @@ starwars %>%
 Now we can create a factor variable that groups characters by asking whether they appeared only in
 1 movie, or more:
 
-```{r, cache=TRUE}
+```{r}
 starwars <- starwars %>%
   mutate(more_1 = case_when(n_films == 1 ~ "Exactly one movie",
                             n_films != 1 ~ "More than 1 movie"))
@@ -1751,7 +1794,7 @@ You can also create list columns with your own datasets, by using `tidyr::nest()
 fake `survey_data` I created to illustrate `spread()` and `gather()`? Let's go back to that dataset
 again:
 
-```{r, cache=TRUE}
+```{r}
 print(survey_data)
 
 nested_data = survey_data %>%
@@ -1763,7 +1806,7 @@ print(nested_data)
 This creates a new tibble, with columns `id` and `data`. `data` is a list-column that contains
 tibbles; each tibble is the `variable` and `value` for each individual:
 
-```{r, cache=TRUE}
+```{r}
 nested_data %>%
   filter(id == "1") %>%
   pull(data)

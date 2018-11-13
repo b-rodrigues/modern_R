@@ -59,14 +59,27 @@ a <- "this is a string"
 class(a)
 ```
 
-A very nice package to work with characters is `stringr`, which is also part of the `tidyverse`.
+A very nice package to work with characters is `{stringr}`, which is also part of the `{tidyverse}`.
 
 ## The `factor` class
 
 Factors look like characters, but are very different. They are the representation of categorical
-variables. A `tidyverse` package to work with factors is `forcats`. You would rarely use factor variables
-outside of datasets, so for now, it is enough to know that this class exists. We are going to
-manipulate factor variables in the next chatper 5.
+variables. A `{tidyverse}` package to work with factors is `{forcats}`. You would rarely use 
+factor variables outside of datasets, so for now, it is enough to know that this class exists. 
+We are going to manipulate factor variables in the next chatper 5.
+
+## The `Date` class
+
+Dates also look like characters, but are very different too:
+```{r}
+as.Date("2019/03/19")
+
+class(as.Date("2019/03/19"))
+```
+
+Manipulating dates and time can be 
+tricky, but thankfully there's a `{tidyverse}` package for that, called `{lubridate}`. We are going
+to go over this package in Chapter 5.
 
 ## Vectors and matrices
 
@@ -352,6 +365,38 @@ summary(my_model)
 
 This class will be explored in later chapters.
 
+## The `is.*()` and `as.*()` functions
+
+`is.*()` and `as.*()` are very powerful, and this is the right moment to introduce them. `is.*()`
+test the class of an object:
+
+```{r}
+is.integer(5)
+```
+
+```{r}
+is.character(198)
+```
+
+`as.*()` functions convert from one type to another:
+
+```{r}
+as.character(7)
+```
+
+```{r}
+as.numeric("23.12")
+```
+
+but only if it makes sense:
+
+```{r}
+as.numeric("This will return NA")
+```
+
+Keep these in mind, because they are going to be very useful. The `{purrr}` package introduces 
+similar functions, `is_*()` and `as_*()`. We will explore them in Chapter 9.
+
 ## Exercises
 
 ### Exercise 1 {-}
@@ -497,4 +542,8 @@ Because data frames are nothing but fancy lists, this is why you can access colu
 
 ```{r}
 mtcars$mpg
+```
+
+```{r, include=FALSE}
+rm(mtcars)
 ```

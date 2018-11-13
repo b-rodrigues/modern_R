@@ -2441,7 +2441,7 @@ everything I write):</p>
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_data_id1) <span class="op">+</span></a>
 <a class="sourceLine" id="cb218-2" title="2"><span class="st">    </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> value, <span class="dt">x =</span> date, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb218-3" title="3"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;id 1&quot;</span>)</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
 <p>Ok great. But now I want to create this plot for each <code>id</code>… so I have to copy paste this 3 times.
 But copy-pasting is error prone. So there are two alternatives; I either write a function that
 takes as argument the data and the <code>id</code> I want to plot and run it for each <code>id</code> (we will learn to
@@ -2483,16 +2483,16 @@ column. It is a list, where each element is of type <code>S3: gg</code>. Yes, yo
 that list-column is a ggplot! If you now want to take a look at the plots, it is enough to do this:</p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1">my_plots<span class="op">$</span>plot</a></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-117-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-120-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-117-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-120-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-117-4.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-120-4.png" width="672" /></p>
 <p>Ok, that was quite complicated, but again, this was only to introduce <code>nest()</code> and give you a taste
 of the power of the <code>{tidyverse}</code>. By the end of Chapter 9, you’ll be used to this.</p>
 <p>That was it for a first introduction to <code>{tidyr}</code>. Now, it’s time to learn about <em>scoped</em> verbs.</p>
@@ -3342,15 +3342,15 @@ more useful of the two, as it counts the number of observations within a group t
 <h2><span class="header-section-number">5.7</span> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></h2>
 <div id="section" class="section level3">
 <h3><span class="header-section-number">5.7.1</span> 🐈🐈🐈🐈</h3>
-<p>Factor variables are very useful but not very easy to manipulate. <code>forcats</code> contains very useful functions
-that make working on factor variables painless. I use mainly three functions in my work, <code>fct_recode()</code>,
-<code>fct_relevel()</code> and <code>fct_relabel()</code>, so that’s what I’ll be showing.</p>
+<p>Factor variables are very useful but not very easy to manipulate. <code>forcats</code> contains very useful
+functions that make working on factor variables painless. In my opinion, the four following functions, <code>fct_recode()</code>, <code>fct_relevel()</code>, <code>fct_reorder()</code> and <code>fct_relabel()</code>, are the ones you must
+know, so that’s what I’ll be showing.</p>
 <p>Remember in chapter 3 when I very quickly explained what were <code>factor</code> variables? In this section,
 we are going to work a little bit with these type of variable. <code>factor</code>s are very useful, and the
 <code>forcats</code> package includes some handy functions to work with them. First, let’s load the <code>forcats</code> package:</p>
 <div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1"><span class="kw">library</span>(forcats)</a></code></pre></div>
 <p>as an example, we are going to work with the <code>gss_cat</code> dataset that is included in <code>forcats</code>. Let’s
-load that:</p>
+load the data:</p>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1"><span class="kw">data</span>(gss_cat)</a>
 <a class="sourceLine" id="cb309-2" title="2"></a>
 <a class="sourceLine" id="cb309-3" title="3"><span class="kw">head</span>(gss_cat)</a></code></pre></div>
@@ -3403,7 +3403,44 @@ maybe you’d want to lump these categories together:</p>
 ##       divorced  4126 0.19205884
 ##        married 10117 0.47093050
 ##          other  1824 0.08490434</code></pre>
-<p>I suggest you read <code>forcats</code>’ help page and discover the other functions it contains.</p>
+<p><code>fct_reorder()</code> is especially useful for plotting. We will explore plotting in the next chapter,
+but to show you why <code>fct_reorder()</code> is so useful, I will create a barplot, first without
+using <code>fct_reorder()</code> to re-order the factors, then with reordering. Do not worry if you don’t
+understand all the code for now:</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb319-2" title="2"><span class="st">    </span><span class="kw">tabyl</span>(marital) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb319-3" title="3"><span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb319-4" title="4"><span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb319-5" title="5"><span class="st">    </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
+<p>It would be much better if the categories were ordered by frequency. This is easy to do with
+<code>fct_reorder()</code>:</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb320-2" title="2"><span class="st">    </span></a>
+<a class="sourceLine" id="cb320-3" title="3"><span class="st">    </span><span class="kw">tabyl</span>(marital) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb320-4" title="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">marital =</span> <span class="kw">fct_reorder</span>(marital, n, <span class="dt">.desc =</span> <span class="ot">FALSE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb320-5" title="5"><span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb320-6" title="6"><span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb320-7" title="7"><span class="st">    </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
+<p>Much better! Let’s also recode the variables, as before:</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb321-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">marital =</span> <span class="kw">fct_recode</span>(marital,</a>
+<a class="sourceLine" id="cb321-3" title="3">                                <span class="dt">refuse =</span> <span class="st">&quot;No answer&quot;</span>,</a>
+<a class="sourceLine" id="cb321-4" title="4">                                <span class="dt">never_married =</span> <span class="st">&quot;Never married&quot;</span>,</a>
+<a class="sourceLine" id="cb321-5" title="5">                                <span class="dt">divorced =</span> <span class="st">&quot;Separated&quot;</span>,</a>
+<a class="sourceLine" id="cb321-6" title="6">                                <span class="dt">divorced =</span> <span class="st">&quot;Divorced&quot;</span>,</a>
+<a class="sourceLine" id="cb321-7" title="7">                                <span class="dt">widowed =</span> <span class="st">&quot;Widowed&quot;</span>,</a>
+<a class="sourceLine" id="cb321-8" title="8">                                <span class="dt">married =</span> <span class="st">&quot;Married&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb321-9" title="9"><span class="st">    </span><span class="kw">tabyl</span>(marital) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb321-10" title="10"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">marital =</span> <span class="kw">fct_reorder</span>(marital, n, <span class="dt">.desc =</span> <span class="ot">FALSE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb321-11" title="11"><span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb321-12" title="12"><span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb321-13" title="13"><span class="st">    </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<pre><code>## Warning: Unknown levels in `f`: No answer, Never married, Separated,
+## Divorced, Widowed, Married</code></pre>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-172-1.png" width="672" /></p>
+<p><code>{forcats}</code> contains other very useful functions, so I urge you to go through the documentation.</p>
 </div>
 <div id="get-your-dates-right-with-lubridate" class="section level3">
 <h3><span class="header-section-number">5.7.2</span> Get your dates right with <code>{lubridate}</code></h3>
@@ -3415,10 +3452,10 @@ maybe you’d want to lump these categories together:</p>
 <div id="list-columns" class="section level2">
 <h2><span class="header-section-number">5.8</span> List-columns</h2>
 <p>To learn about list-columns, let’s first focus on a single character of the <code>starwars</code> dataset:</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1"><span class="kw">data</span>(starwars)</a></code></pre></div>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb320-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb320-3" title="3"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1"><span class="kw">data</span>(starwars)</a></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb324-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb324-3" title="3"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
 <pre><code>## Observations: 1
 ## Variables: 13
 ## $ name       &lt;chr&gt; &quot;Luke Skywalker&quot;
@@ -3436,9 +3473,9 @@ maybe you’d want to lump these categories together:</p>
 ## $ starships  &lt;list&gt; [&lt;&quot;X-wing&quot;, &quot;Imperial shuttle&quot;&gt;]</code></pre>
 <p>We see that the columns <code>films</code>, <code>vehicles</code> and <code>starships</code> are all lists, and in the case of
 <code>films</code>, it lists all the films where Luke Skywalker has appeared. What if you want to take a closer look at this list?</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb322-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb322-3" title="3"><span class="st">  </span><span class="kw">pull</span>(films)</a></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-3" title="3"><span class="st">  </span><span class="kw">pull</span>(films)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;Revenge of the Sith&quot;     &quot;Return of the Jedi&quot;     
 ## [3] &quot;The Empire Strikes Back&quot; &quot;A New Hope&quot;             
@@ -3448,10 +3485,10 @@ useful when you want to inspect a column.</p>
 <p>Suppose we want to create a categorical variable which counts the number of movies in which the
 characters have appeared. For this we need to compute the length of the list, or count the number
 of elements this list has. Let’s try with <code>length()</code> a base R function:</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb324-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb324-3" title="3"><span class="st">  </span><span class="kw">pull</span>(films) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb324-4" title="4"><span class="st">  </span><span class="kw">length</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb328-2" title="2"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb328-3" title="3"><span class="st">  </span><span class="kw">pull</span>(films) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb328-4" title="4"><span class="st">  </span><span class="kw">length</span>()</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>This might be surprising at first, because we know that Luke Skywalker has appeared in more than 1
 movie… the problem here is that for each individual, <code>films</code> is a list, whose single element is
@@ -3460,13 +3497,13 @@ one, and not the length of the vector contained in the list! How can we get the 
 vector of characters contained in the list and for each character? For this we need to use
 <code>dplyr::rowwise()</code> and remove the <code>filter()</code> function and use <code>mutate()</code> to add this column to the
 dataset:</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1">starwars &lt;-<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb326-2" title="2"><span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb326-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films))</a></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" title="1">starwars &lt;-<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb330-2" title="2"><span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb330-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films))</a></code></pre></div>
 <p><code>dplyr::rowwise()</code> is useful when working with list-columns: columns that have lists as elements.</p>
 <p>Let’s take a look at the characters and the number of films they have appeared in:</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb327-2" title="2"><span class="st">  </span><span class="kw">select</span>(name, n_films)</a></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb331-2" title="2"><span class="st">  </span><span class="kw">select</span>(name, n_films)</a></code></pre></div>
 <pre><code>## Source: local data frame [87 x 2]
 ## Groups: &lt;by row&gt;
 ## 
@@ -3486,15 +3523,15 @@ dataset:</p>
 ## # ... with 77 more rows</code></pre>
 <p>Now we can create a factor variable that groups characters by asking whether they appeared only in
 1 movie, or more:</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" title="1">starwars &lt;-<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb329-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,</a>
-<a class="sourceLine" id="cb329-3" title="3">                            n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1">starwars &lt;-<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb333-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,</a>
+<a class="sourceLine" id="cb333-3" title="3">                            n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>))</a></code></pre></div>
 <p><code>case_when()</code> is a <code>dplyr</code> function that works similarly to the standard <code>if..else..</code> construct of
 many programming languages (R also has this, we are going to learn about it in later chapters).</p>
 <p>You can also create list columns with your own datasets, by using <code>tidyr::nest()</code>. Remember the
 fake <code>survey_data</code> I created to illustrate <code>spread()</code> and <code>gather()</code>? Let’s go back to that dataset
 again:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" title="1"><span class="kw">print</span>(survey_data)</a></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1"><span class="kw">print</span>(survey_data)</a></code></pre></div>
 <pre><code>## # A tibble: 12 x 3
 ##       id variable value
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
@@ -3510,10 +3547,10 @@ again:</p>
 ## 10     4 var1       1.7
 ## 11    NA var2       1.9
 ## 12     4 var3       7.6</code></pre>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" title="1">nested_data =<span class="st"> </span>survey_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb332-2" title="2"><span class="st">  </span><span class="kw">nest</span>(variable, value)</a>
-<a class="sourceLine" id="cb332-3" title="3"></a>
-<a class="sourceLine" id="cb332-4" title="4"><span class="kw">print</span>(nested_data)</a></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1">nested_data =<span class="st"> </span>survey_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb336-2" title="2"><span class="st">  </span><span class="kw">nest</span>(variable, value)</a>
+<a class="sourceLine" id="cb336-3" title="3"></a>
+<a class="sourceLine" id="cb336-4" title="4"><span class="kw">print</span>(nested_data)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##      id data            
 ##   &lt;dbl&gt; &lt;list&gt;          
@@ -3524,9 +3561,9 @@ again:</p>
 ## 5     4 &lt;tibble [2 × 2]&gt;</code></pre>
 <p>This creates a new tibble, with columns <code>id</code> and <code>data</code>. <code>data</code> is a list-column that contains
 tibbles; each tibble is the <code>variable</code> and <code>value</code> for each individual:</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1">nested_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb334-2" title="2"><span class="st">  </span><span class="kw">filter</span>(id <span class="op">==</span><span class="st"> &quot;1&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb334-3" title="3"><span class="st">  </span><span class="kw">pull</span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" title="1">nested_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb338-2" title="2"><span class="st">  </span><span class="kw">filter</span>(id <span class="op">==</span><span class="st"> &quot;1&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb338-3" title="3"><span class="st">  </span><span class="kw">pull</span>(data)</a></code></pre></div>
 <pre><code>## [[1]]
 ## # A tibble: 2 x 2
 ##   variable value
@@ -3557,9 +3594,9 @@ where we are going to learn how to repeat actions over, say, individuals.</p>
 <ul>
 <li>What does the following code do? Copy and paste it in an R interpreter to find out!</li>
 </ul>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1">LaborSupply <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb336-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb336-3" title="3"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;l&quot;</span>)), <span class="kw">funs</span>(lag, lead))</a></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" title="1">LaborSupply <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb340-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb340-3" title="3"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;l&quot;</span>)), <span class="kw">funs</span>(lag, lead))</a></code></pre></div>
 <p><code>mutate_at()</code> is a scoped version of <code>mutate()</code> which allows you to specify a number of columns and
 functions in one go. This also exists for <code>summarise()</code>.</p>
 <ul>
