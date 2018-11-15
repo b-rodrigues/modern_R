@@ -191,7 +191,7 @@ or go to the **Packages** pane and then click on *Install*:
 knitr::include_graphics("pics/rstudio_install_packages.gif")
 ```
 
-### The author {-}
+## The author {-}
 
 My name is Bruno Rodrigues and I program almost exclusively in R and have been teaching some R
 courses for a few years now (first started teaching for students at the Université of Strasbourg).
@@ -203,4 +203,5 @@ such as [NetHack](http://nethack.wikia.com/wiki/NetHack), for which I wrote a
 is saved on your computer after you win or lose (it will be lose 99% of the time) the game.
 
 You can follow me on [twitter](https://www.twitter.com/brodriguesco),  I tweet mostly about R or 
-what's happening in Luxembourg.
+what's happening in Luxembourg. If you find this book useful, you can 
+[buy me an espresso](https://www.buymeacoffee.com/brodriguesco).

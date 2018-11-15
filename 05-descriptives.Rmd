@@ -680,7 +680,6 @@ gasoline %>%
   transmute(spam = exp(lgaspcar + lincomep))
 ```
 
-
 ### Joining `tibble`s with `full_join()`, `left_join()`, `right_join()` and all the others
 
 I will end this section on `dplyr` with the very useful verbs: the `*_join()` verbs. Let's first
@@ -1642,7 +1641,7 @@ you to recode, collapse and do all sorts of things on these levels. For example 
 `forcats::fct_recode()` you can recode levels:
 
 ```{r}
-gss_cat = gss_cat %>%
+gss_cat <- gss_cat %>%
   mutate(marital = fct_recode(marital,
                               refuse = "No answer",
                               never_married = "Never married",
@@ -1660,7 +1659,7 @@ a single category called `divorced`. As you can see, `refuse` and `widowed` are 
 maybe you'd want to lump these categories together:
 
 ```{r}
-gss_cat = gss_cat %>%
+gss_cat <- gss_cat %>%
   mutate(marital = fct_lump(marital, prop = 0.10, other_level = "other"))
 
 gss_cat %>%
@@ -1685,7 +1684,6 @@ It would be much better if the categories were ordered by frequency. This is eas
 
 ```{r}
 gss_cat %>%
-    
     tabyl(marital) %>%
     mutate(marital = fct_reorder(marital, n, .desc = FALSE)) %>%
     ggplot() +
@@ -1693,29 +1691,26 @@ gss_cat %>%
     coord_flip()
 ```
 
-Much better! Let's also recode the variables, as before:
-
-```{r}
-gss_cat %>%
-    mutate(marital = fct_recode(marital,
-                                refuse = "No answer",
-                                never_married = "Never married",
-                                divorced = "Separated",
-                                divorced = "Divorced",
-                                widowed = "Widowed",
-                                married = "Married")) %>%
-    tabyl(marital) %>%
-    mutate(marital = fct_reorder(marital, n, .desc = FALSE)) %>%
-    ggplot() +
-    geom_col(aes(y = n, x = marital)) +
-    coord_flip()
-```
+Much better! In Chapter 6, we are going to learn about `{ggplot2}`.
 
 `{forcats}` contains other very useful functions, so I urge you to go through the documentation.
 
 ###  Get your dates right with `{lubridate}`
 
+Just like `{forcats}`, `{lubridate}` contains numerous functions, each one of them very useful. 
+However, here, I will only focus on a handful of them (those that I use very often). If you need
+to work with dates a lot in your work, consider reading all the documentation.
+
 ### Manipulate strings with `{stringr}`
+
+`{stringr}` contains functions to manipulate strings. In Chapter 11, I will teach you about regular
+expressions, but the functions contained in `{stringr}` allow you to already do a lot of work on
+strings, without needing to be a regular expression expert.
+
+I will discuss the most common string operations: search and replace (or remove), detect, locate 
+or match, and trim a string.
+
+
 
 ## List-columns
 
@@ -1816,7 +1811,6 @@ As you can see, for individual 1, the column data contains a 2x2 tibble with col
 `value`. You might be wondering why this is useful, because this seems to introduce an unnecessary
 layer of complexity. The usefulness of list-columns will become apparent in the next chapters,
 where we are going to learn how to repeat actions over, say, individuals.
-
 
 ## Exercises
 
