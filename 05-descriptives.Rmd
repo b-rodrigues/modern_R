@@ -22,7 +22,7 @@ All these tidyverse functions are also called *verbs*. However, before getting t
 let's do an analysis using standard, or *base* R functions. This will be the benchmark against 
 which we are going to measure a `{tidyverse}` workflow.
 
-## An data exploration exercice using *base* R
+## A data exploration exercice using *base* R
 
 Let's first load the `starwars` data set, included in the `{dplyr}` package:
 

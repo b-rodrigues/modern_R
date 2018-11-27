@@ -192,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>4.3</b> Using RStudio projects to manage paths</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html"><i class="fa fa-check"></i><b>5</b> Descriptive statistics and data manipulation</a><ul>
-<li class="chapter" data-level="5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#an-data-exploration-exercice-using-base-r"><i class="fa fa-check"></i><b>5.1</b> An data exploration exercice using <em>base</em> R</a></li>
+<li class="chapter" data-level="5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-data-exploration-exercice-using-base-r"><i class="fa fa-check"></i><b>5.1</b> A data exploration exercice using <em>base</em> R</a></li>
 <li class="chapter" data-level="5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#smoking-is-bad-for-you-but-pipes-are-your-friend"><i class="fa fa-check"></i><b>5.2</b> Smoking is bad for you, but pipes are your friend</a></li>
 <li class="chapter" data-level="5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#the-tidyverses-enfant-prodige-dplyr"><i class="fa fa-check"></i><b>5.3</b> The <code>{tidyverse}</code>’s <em>enfant prodige</em>: <code>{dplyr}</code></a><ul>
 <li class="chapter" data-level="5.3.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-first-taste-of-data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>5.3.1</b> A first taste of data manipulation with <code>{dplyr}</code></a></li>
@@ -1493,18 +1493,13 @@ Plotting the densities of the bootstrapped parameters might also prove interesti
 <p>To do cross-validation, we are going to use the <code>modelr</code> package, which is also part of the
 <code>tidyverse</code>.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
 <div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb774-1" title="1"><span class="kw">library</span>(modelr)</a></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;modelr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:broom&#39;:
-## 
-##     bootstrap</code></pre>
 <p><code>modelr</code> includes two functions for cross-validation, <code>crossv_kfold</code> and <code>crossv_mc</code>, which
 do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let’s see what
 <code>cross_mc()</code> (<code>cross_kfold()</code>) returns when applied to data:</p>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1">cv_Housing =<span class="st"> </span>Housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb777-2" title="2"><span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb777-3" title="3"></a>
-<a class="sourceLine" id="cb777-4" title="4"><span class="kw">print</span>(cv_Housing)</a></code></pre></div>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1">cv_Housing =<span class="st"> </span>Housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb775-2" title="2"><span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb775-3" title="3"></a>
+<a class="sourceLine" id="cb775-4" title="4"><span class="kw">print</span>(cv_Housing)</a></code></pre></div>
 <pre><code>## # A tibble: 50 x 3
 ##    train          test           .id  
 ##    &lt;list&gt;         &lt;list&gt;         &lt;chr&gt;
@@ -1523,10 +1518,10 @@ do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First,
 of <code>train</code> and <code>test</code> is a resampled <code>tibble</code> of the original data. This means that we can now
 estimate our first model (the simple linear one) on each resampled data using <code>map()</code>:</p>
 <p>Now if we want to estimate all these models:</p>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1">cv_models =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb779-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .)))</a>
-<a class="sourceLine" id="cb779-3" title="3"></a>
-<a class="sourceLine" id="cb779-4" title="4"><span class="kw">print</span>(cv_models)</a></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1">cv_models =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb777-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .)))</a>
+<a class="sourceLine" id="cb777-3" title="3"></a>
+<a class="sourceLine" id="cb777-4" title="4"><span class="kw">print</span>(cv_models)</a></code></pre></div>
 <pre><code>## # A tibble: 50 x 4
 ##    train          test           .id   model   
 ##    &lt;list&gt;         &lt;list&gt;         &lt;chr&gt; &lt;list&gt;  
@@ -1544,11 +1539,11 @@ estimate our first model (the simple linear one) on each resampled data using <c
 <p>We added a list-column with the 50 models estimated (or trained) on the train data. Now we can compute,
 say, the RMSE from before on each one. <code>modelr</code> includes a <code>rmse()</code> function, so unlike in the
 previous section where we computed the RMSE manually we are simply going to use this function:</p>
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" title="1">rmse_cv =<span class="st"> </span>cv_models <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb781-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rmse_all_models =</span> <span class="kw">map2_dbl</span>(model, test, <span class="op">~</span><span class="kw">rmse</span>(.x, .y))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb781-3" title="3"><span class="st">  </span><span class="kw">pull</span>(rmse_all_models)</a>
-<a class="sourceLine" id="cb781-4" title="4"></a>
-<a class="sourceLine" id="cb781-5" title="5"><span class="kw">print</span>(rmse_cv)</a></code></pre></div>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1">rmse_cv =<span class="st"> </span>cv_models <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb779-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rmse_all_models =</span> <span class="kw">map2_dbl</span>(model, test, <span class="op">~</span><span class="kw">rmse</span>(.x, .y))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb779-3" title="3"><span class="st">  </span><span class="kw">pull</span>(rmse_all_models)</a>
+<a class="sourceLine" id="cb779-4" title="4"></a>
+<a class="sourceLine" id="cb779-5" title="5"><span class="kw">print</span>(rmse_cv)</a></code></pre></div>
 <pre><code>##  [1] 15951.99 16342.37 15942.59 13547.26 14220.94 13558.39 12336.18
 ##  [8] 13905.72 14659.48 16195.46 17102.41 14071.76 16190.94 17183.69
 ## [15] 15604.58 15008.10 17874.27 13993.60 15377.16 18582.74 17557.52
@@ -1558,7 +1553,7 @@ previous section where we computed the RMSE manually we are simply going to use 
 ## [43] 13984.53 13562.76 15935.71 15669.48 15501.22 14357.58 15069.67
 ## [50] 13746.53</code></pre>
 <p>We can now compute the mean of this <code>rmse_cv</code> variable:</p>
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" title="1">cv_rmse_lin_lin =<span class="st"> </span><span class="kw">mean</span>(rmse_cv)</a></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" title="1">cv_rmse_lin_lin =<span class="st"> </span><span class="kw">mean</span>(rmse_cv)</a></code></pre></div>
 <p>which is equal to 1.563492410^{4}.</p>
 <p>For the log-lin model, this is a bit more complicated, because we need to exponentiate the
 predictions. However, if we use <code>rmse()</code> as before, there is no way to do that. I show you how you
@@ -1566,16 +1561,16 @@ can do that, but it involves a few more steps than simply using <code>rmse()</co
 below that computes the bootstrapped <code>rmse</code> for the log-lin model.
 You can see this as an advanced exercise; if you understand these next lines of code, you should
 understand anything that has to do with the <code>tidyverse</code>.</p>
-<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1">cv_rmse_log_lin =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb784-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb784-3" title="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">log_pred =</span> <span class="kw">map2</span>(model, test, <span class="op">~</span><span class="kw">exp</span>(<span class="kw">predict</span>(.x, .y)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb784-4" title="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">prices =</span> <span class="kw">map</span>(test, <span class="op">~</span><span class="kw">as.data.frame</span>(.x)<span class="op">$</span>price)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb784-5" title="5"><span class="st">    </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb784-6" title="6">        <span class="dt">rmse_all =</span></a>
-<a class="sourceLine" id="cb784-7" title="7">            <span class="kw">map2_dbl</span>(log_pred, prices,</a>
-<a class="sourceLine" id="cb784-8" title="8">                     <span class="op">~</span><span class="kw">sqrt</span>(<span class="kw">mean</span>((.x <span class="op">-</span><span class="st"> </span>.y)<span class="op">**</span><span class="dv">2</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb784-9" title="9"><span class="st">    </span><span class="kw">pull</span>(rmse_all) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb784-10" title="10"><span class="st">    </span><span class="kw">mean</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1">cv_rmse_log_lin =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb782-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb782-3" title="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">log_pred =</span> <span class="kw">map2</span>(model, test, <span class="op">~</span><span class="kw">exp</span>(<span class="kw">predict</span>(.x, .y)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb782-4" title="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">prices =</span> <span class="kw">map</span>(test, <span class="op">~</span><span class="kw">as.data.frame</span>(.x)<span class="op">$</span>price)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb782-5" title="5"><span class="st">    </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb782-6" title="6">        <span class="dt">rmse_all =</span></a>
+<a class="sourceLine" id="cb782-7" title="7">            <span class="kw">map2_dbl</span>(log_pred, prices,</a>
+<a class="sourceLine" id="cb782-8" title="8">                     <span class="op">~</span><span class="kw">sqrt</span>(<span class="kw">mean</span>((.x <span class="op">-</span><span class="st"> </span>.y)<span class="op">**</span><span class="dv">2</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb782-9" title="9"><span class="st">    </span><span class="kw">pull</span>(rmse_all) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb782-10" title="10"><span class="st">    </span><span class="kw">mean</span>()</a></code></pre></div>
 <p><code>cv_rmse_log_lin</code> is equal to 1.530599610^{4}, which is lower than in the lin-lin model.</p>
 </div>
 </div>
@@ -1588,37 +1583,37 @@ sheet (download the example Excel workbook, <code>example_workbook.xlsx</code>, 
 the books github).</p></li>
 <li><p>Use one of the <code>map()</code> functions to combine two lists into one. Consider the following two lists:</p></li>
 </ol>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1">mediterranean &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;humous&quot;</span>, <span class="st">&quot;lasagna&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;sardines&quot;</span>, <span class="st">&quot;olives&quot;</span>))</a>
-<a class="sourceLine" id="cb785-2" title="2"></a>
-<a class="sourceLine" id="cb785-3" title="3">continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pea soup&quot;</span>, <span class="st">&quot;terrine&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;frikadelle&quot;</span>, <span class="st">&quot;sauerkraut&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" title="1">mediterranean &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;humous&quot;</span>, <span class="st">&quot;lasagna&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;sardines&quot;</span>, <span class="st">&quot;olives&quot;</span>))</a>
+<a class="sourceLine" id="cb783-2" title="2"></a>
+<a class="sourceLine" id="cb783-3" title="3">continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pea soup&quot;</span>, <span class="st">&quot;terrine&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;frikadelle&quot;</span>, <span class="st">&quot;sauerkraut&quot;</span>))</a></code></pre></div>
 <p>The result we’d like to have would look like this:
 <!-- map2(mediterranean, continental, append) --></p>
-<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" title="1"><span class="op">$</span>starters</a>
-<a class="sourceLine" id="cb786-2" title="2"><span class="op">$</span>starters[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb786-3" title="3">[<span class="dv">1</span>] <span class="st">&quot;humous&quot;</span></a>
-<a class="sourceLine" id="cb786-4" title="4"></a>
-<a class="sourceLine" id="cb786-5" title="5"><span class="op">$</span>starters[[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb786-6" title="6">[<span class="dv">1</span>] <span class="st">&quot;olives&quot;</span></a>
-<a class="sourceLine" id="cb786-7" title="7"></a>
-<a class="sourceLine" id="cb786-8" title="8"><span class="op">$</span>starters[[<span class="dv">3</span>]]</a>
-<a class="sourceLine" id="cb786-9" title="9">[<span class="dv">1</span>] <span class="st">&quot;pea soup&quot;</span></a>
-<a class="sourceLine" id="cb786-10" title="10"></a>
-<a class="sourceLine" id="cb786-11" title="11"><span class="op">$</span>starters[[<span class="dv">4</span>]]</a>
-<a class="sourceLine" id="cb786-12" title="12">[<span class="dv">1</span>] <span class="st">&quot;terrine&quot;</span></a>
-<a class="sourceLine" id="cb786-13" title="13"></a>
-<a class="sourceLine" id="cb786-14" title="14"></a>
-<a class="sourceLine" id="cb786-15" title="15"><span class="op">$</span>dishes</a>
-<a class="sourceLine" id="cb786-16" title="16"><span class="op">$</span>dishes[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb786-17" title="17">[<span class="dv">1</span>] <span class="st">&quot;sardines&quot;</span></a>
-<a class="sourceLine" id="cb786-18" title="18"></a>
-<a class="sourceLine" id="cb786-19" title="19"><span class="op">$</span>dishes[[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb786-20" title="20">[<span class="dv">1</span>] <span class="st">&quot;lasagna&quot;</span></a>
-<a class="sourceLine" id="cb786-21" title="21"></a>
-<a class="sourceLine" id="cb786-22" title="22"><span class="op">$</span>dishes[[<span class="dv">3</span>]]</a>
-<a class="sourceLine" id="cb786-23" title="23">[<span class="dv">1</span>] <span class="st">&quot;frikadelle&quot;</span></a>
-<a class="sourceLine" id="cb786-24" title="24"></a>
-<a class="sourceLine" id="cb786-25" title="25"><span class="op">$</span>dishes[[<span class="dv">4</span>]]</a>
-<a class="sourceLine" id="cb786-26" title="26">[<span class="dv">1</span>] <span class="st">&quot;sauerkraut&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1"><span class="op">$</span>starters</a>
+<a class="sourceLine" id="cb784-2" title="2"><span class="op">$</span>starters[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb784-3" title="3">[<span class="dv">1</span>] <span class="st">&quot;humous&quot;</span></a>
+<a class="sourceLine" id="cb784-4" title="4"></a>
+<a class="sourceLine" id="cb784-5" title="5"><span class="op">$</span>starters[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb784-6" title="6">[<span class="dv">1</span>] <span class="st">&quot;olives&quot;</span></a>
+<a class="sourceLine" id="cb784-7" title="7"></a>
+<a class="sourceLine" id="cb784-8" title="8"><span class="op">$</span>starters[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb784-9" title="9">[<span class="dv">1</span>] <span class="st">&quot;pea soup&quot;</span></a>
+<a class="sourceLine" id="cb784-10" title="10"></a>
+<a class="sourceLine" id="cb784-11" title="11"><span class="op">$</span>starters[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb784-12" title="12">[<span class="dv">1</span>] <span class="st">&quot;terrine&quot;</span></a>
+<a class="sourceLine" id="cb784-13" title="13"></a>
+<a class="sourceLine" id="cb784-14" title="14"></a>
+<a class="sourceLine" id="cb784-15" title="15"><span class="op">$</span>dishes</a>
+<a class="sourceLine" id="cb784-16" title="16"><span class="op">$</span>dishes[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb784-17" title="17">[<span class="dv">1</span>] <span class="st">&quot;sardines&quot;</span></a>
+<a class="sourceLine" id="cb784-18" title="18"></a>
+<a class="sourceLine" id="cb784-19" title="19"><span class="op">$</span>dishes[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb784-20" title="20">[<span class="dv">1</span>] <span class="st">&quot;lasagna&quot;</span></a>
+<a class="sourceLine" id="cb784-21" title="21"></a>
+<a class="sourceLine" id="cb784-22" title="22"><span class="op">$</span>dishes[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb784-23" title="23">[<span class="dv">1</span>] <span class="st">&quot;frikadelle&quot;</span></a>
+<a class="sourceLine" id="cb784-24" title="24"></a>
+<a class="sourceLine" id="cb784-25" title="25"><span class="op">$</span>dishes[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb784-26" title="26">[<span class="dv">1</span>] <span class="st">&quot;sauerkraut&quot;</span></a></code></pre></div>
 
 </div>
 </div>
