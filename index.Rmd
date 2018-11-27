@@ -214,5 +214,4 @@ such as [NetHack](http://nethack.wikia.com/wiki/NetHack), for which I wrote a
 is saved on your computer after you win or lose (it will be lose 99% of the time) the game.
 
 You can follow me on [twitter](https://www.twitter.com/brodriguesco),  I tweet mostly about R or 
-what's happening in Luxembourg. If you find this book useful, you can 
-[buy me an espresso](https://www.buymeacoffee.com/brodriguesco).
+what's happening in Luxembourg. 
