@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2018-11-15">
+<meta name="date" content="2018-11-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -137,9 +137,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is RStudio?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-to-expect-from-this-book"><i class="fa fa-check"></i>What to expect from this book?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
-</ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a><ul>
 <li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
@@ -352,14 +351,14 @@ paradigm, but first, let’s go over some formal definitions.</p>
 <h2><span class="header-section-number">9.1</span> Functions definition</h2>
 <p>You should be familiar with function definitions in R. For example, suppose you want to compute
 the square root of a number and want to do so using Newton’s algorithm:</p>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb648-1" title="1">sqrt_newton &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
-<a class="sourceLine" id="cb648-2" title="2">    <span class="cf">while</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>eps){</a>
-<a class="sourceLine" id="cb648-3" title="3">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
-<a class="sourceLine" id="cb648-4" title="4">    }</a>
-<a class="sourceLine" id="cb648-5" title="5">    <span class="kw">return</span>(init)</a>
-<a class="sourceLine" id="cb648-6" title="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb646-1" title="1">sqrt_newton &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
+<a class="sourceLine" id="cb646-2" title="2">    <span class="cf">while</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>eps){</a>
+<a class="sourceLine" id="cb646-3" title="3">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
+<a class="sourceLine" id="cb646-4" title="4">    }</a>
+<a class="sourceLine" id="cb646-5" title="5">    <span class="kw">return</span>(init)</a>
+<a class="sourceLine" id="cb646-6" title="6">}</a></code></pre></div>
 <p>You can then use this function to get the square root of a number:</p>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb649-1" title="1"><span class="kw">sqrt_newton</span>(<span class="dv">16</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb647-1" title="1"><span class="kw">sqrt_newton</span>(<span class="dv">16</span>, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 4.00122</code></pre>
 <p>We are using a <code>while</code> loop inside the body. The <em>body</em> of a function are the instructions that
 define the function. You can get the body of a function with <code>body(some_func)</code> of the function.
@@ -367,16 +366,16 @@ In <em>pure</em> functional programming languages, like Haskell, you don’t hav
 program without loops, you may ask? In functional programming, loops are replaced by recursion,
 which we already discussed in the previous chapter. Let’s rewrite our little example above
 with recursion:</p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb651-1" title="1">sqrt_newton_recur &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
-<a class="sourceLine" id="cb651-2" title="2">    <span class="cf">if</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&lt;</span><span class="st"> </span>eps){</a>
-<a class="sourceLine" id="cb651-3" title="3">        result &lt;-<span class="st"> </span>init</a>
-<a class="sourceLine" id="cb651-4" title="4">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb651-5" title="5">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
-<a class="sourceLine" id="cb651-6" title="6">        result &lt;-<span class="st"> </span><span class="kw">sqrt_newton_recur</span>(a, init, eps)</a>
-<a class="sourceLine" id="cb651-7" title="7">    }</a>
-<a class="sourceLine" id="cb651-8" title="8">    <span class="kw">return</span>(result)</a>
-<a class="sourceLine" id="cb651-9" title="9">}</a></code></pre></div>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" title="1"><span class="kw">sqrt_newton_recur</span>(<span class="dv">16</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb649-1" title="1">sqrt_newton_recur &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
+<a class="sourceLine" id="cb649-2" title="2">    <span class="cf">if</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&lt;</span><span class="st"> </span>eps){</a>
+<a class="sourceLine" id="cb649-3" title="3">        result &lt;-<span class="st"> </span>init</a>
+<a class="sourceLine" id="cb649-4" title="4">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb649-5" title="5">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
+<a class="sourceLine" id="cb649-6" title="6">        result &lt;-<span class="st"> </span><span class="kw">sqrt_newton_recur</span>(a, init, eps)</a>
+<a class="sourceLine" id="cb649-7" title="7">    }</a>
+<a class="sourceLine" id="cb649-8" title="8">    <span class="kw">return</span>(result)</a>
+<a class="sourceLine" id="cb649-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb650-1" title="1"><span class="kw">sqrt_newton_recur</span>(<span class="dv">16</span>, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 4.00122</code></pre>
 <p>R is not a pure functional programming language though, so we can still use loops (be it <code>while</code> or
 <code>for</code> loops) in the bodies of our functions. As discussed in the previous chapter, it is actually
@@ -394,73 +393,73 @@ won’t be penalized.</p>
 <p>Mathematical functions have a nice property: we always get the same output for a given input. This
 is called referential transparency and we should aim to write our R functions in such a way.</p>
 <p>For example, the following function:</p>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb654-1" title="1">increment &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb654-2" title="2">    <span class="kw">return</span>(x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb654-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" title="1">increment &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb652-2" title="2">    <span class="kw">return</span>(x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb652-3" title="3">}</a></code></pre></div>
 <p>Is a referential transparent function. We always get the same result for any <code>x</code> that we give to
 this function.</p>
 <p>This:</p>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" title="1"><span class="kw">increment</span>(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb653-1" title="1"><span class="kw">increment</span>(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1] 11</code></pre>
 <p>will always produce <code>11</code>.</p>
 <p>However, this one:</p>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb657-1" title="1">increment_opaque &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb657-2" title="2">    <span class="kw">return</span>(x <span class="op">+</span><span class="st"> </span>spam)</a>
-<a class="sourceLine" id="cb657-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" title="1">increment_opaque &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb655-2" title="2">    <span class="kw">return</span>(x <span class="op">+</span><span class="st"> </span>spam)</a>
+<a class="sourceLine" id="cb655-3" title="3">}</a></code></pre></div>
 <p>is not a referential transparent function, because its value depends on the global variable <code>spam</code>.</p>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb658-1" title="1">spam &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb658-2" title="2"></a>
-<a class="sourceLine" id="cb658-3" title="3"><span class="kw">increment_opaque</span>(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb656-1" title="1">spam &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb656-2" title="2"></a>
+<a class="sourceLine" id="cb656-3" title="3"><span class="kw">increment_opaque</span>(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1] 11</code></pre>
 <p>will only produce <code>11</code> if <code>spam = 1</code>. But what if <code>spam = 19</code>?</p>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb660-1" title="1">spam &lt;-<span class="st"> </span><span class="dv">19</span></a>
-<a class="sourceLine" id="cb660-2" title="2"></a>
-<a class="sourceLine" id="cb660-3" title="3"><span class="kw">increment_opaque</span>(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb658-1" title="1">spam &lt;-<span class="st"> </span><span class="dv">19</span></a>
+<a class="sourceLine" id="cb658-2" title="2"></a>
+<a class="sourceLine" id="cb658-3" title="3"><span class="kw">increment_opaque</span>(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1] 29</code></pre>
 <p>To make <code>increment_opaque()</code> a referential transparent function, it is enough to make <code>spam</code> an
 argument:</p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb662-1" title="1">increment_not_opaque &lt;-<span class="st"> </span><span class="cf">function</span>(x, spam){</a>
-<a class="sourceLine" id="cb662-2" title="2">    <span class="kw">return</span>(x <span class="op">+</span><span class="st"> </span>spam)</a>
-<a class="sourceLine" id="cb662-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb660-1" title="1">increment_not_opaque &lt;-<span class="st"> </span><span class="cf">function</span>(x, spam){</a>
+<a class="sourceLine" id="cb660-2" title="2">    <span class="kw">return</span>(x <span class="op">+</span><span class="st"> </span>spam)</a>
+<a class="sourceLine" id="cb660-3" title="3">}</a></code></pre></div>
 <p>Now even if there is a global variable called <code>spam</code>, this will not influence our function:</p>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb663-1" title="1">spam &lt;-<span class="st"> </span><span class="dv">19</span></a>
-<a class="sourceLine" id="cb663-2" title="2"></a>
-<a class="sourceLine" id="cb663-3" title="3"><span class="kw">increment_not_opaque</span>(<span class="dv">10</span>, <span class="dv">34</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb661-1" title="1">spam &lt;-<span class="st"> </span><span class="dv">19</span></a>
+<a class="sourceLine" id="cb661-2" title="2"></a>
+<a class="sourceLine" id="cb661-3" title="3"><span class="kw">increment_not_opaque</span>(<span class="dv">10</span>, <span class="dv">34</span>)</a></code></pre></div>
 <pre><code>## [1] 44</code></pre>
 <p>This is because the variable <code>spam</code> defined in the body of the function is a local variable. It
 could have been called anything else, really. Avoiding opaque functions makes our life easier.</p>
 <p>Another property that adepts of functional programming value is that functions should have no, or
 very limited, side-effects. This means that functions should not change the state of your program.</p>
 <p>For example this function (which is not a referential transparent function):</p>
-<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb665-1" title="1">count_iter &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb665-2" title="2"></a>
-<a class="sourceLine" id="cb665-3" title="3">sqrt_newton_side_effect &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
-<a class="sourceLine" id="cb665-4" title="4">    <span class="cf">while</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>eps){</a>
-<a class="sourceLine" id="cb665-5" title="5">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
-<a class="sourceLine" id="cb665-6" title="6">        count_iter &lt;&lt;-<span class="st"> </span>count_iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># The &quot;&lt;&lt;-&quot; symbol means that we assign the</span></a>
-<a class="sourceLine" id="cb665-7" title="7">    }                                 <span class="co"># RHS value in a variable in the global environment</span></a>
-<a class="sourceLine" id="cb665-8" title="8">    <span class="kw">return</span>(init)</a>
-<a class="sourceLine" id="cb665-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb663-1" title="1">count_iter &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb663-2" title="2"></a>
+<a class="sourceLine" id="cb663-3" title="3">sqrt_newton_side_effect &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
+<a class="sourceLine" id="cb663-4" title="4">    <span class="cf">while</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>eps){</a>
+<a class="sourceLine" id="cb663-5" title="5">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
+<a class="sourceLine" id="cb663-6" title="6">        count_iter &lt;&lt;-<span class="st"> </span>count_iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># The &quot;&lt;&lt;-&quot; symbol means that we assign the</span></a>
+<a class="sourceLine" id="cb663-7" title="7">    }                                 <span class="co"># RHS value in a variable in the global environment</span></a>
+<a class="sourceLine" id="cb663-8" title="8">    <span class="kw">return</span>(init)</a>
+<a class="sourceLine" id="cb663-9" title="9">}</a></code></pre></div>
 <p>If you look in the environment pane, you will see that <code>count_iter</code> equals 0. Now call this
 function with the following arguments:</p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb666-1" title="1"><span class="kw">sqrt_newton_side_effect</span>(<span class="dv">16000</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb664-1" title="1"><span class="kw">sqrt_newton_side_effect</span>(<span class="dv">16000</span>, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 126.4911</code></pre>
-<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb668-1" title="1"><span class="kw">print</span>(count_iter)</a></code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb666-1" title="1"><span class="kw">print</span>(count_iter)</a></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p>If you check the value of <code>count_iter</code> now, you will see that it increased! This is a side effect,
 because the function changed something outside of its scope. It changed a value in the global
 environment. In general, it is good practice to avoid side-effects. For example, we could make the
 above function not have any side effects like this:</p>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb670-1" title="1">sqrt_newton_count &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">count_iter =</span> <span class="dv">0</span>, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
-<a class="sourceLine" id="cb670-2" title="2">    <span class="cf">while</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>eps){</a>
-<a class="sourceLine" id="cb670-3" title="3">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
-<a class="sourceLine" id="cb670-4" title="4">        count_iter &lt;-<span class="st"> </span>count_iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb670-5" title="5">    }</a>
-<a class="sourceLine" id="cb670-6" title="6">    <span class="kw">return</span>(<span class="kw">c</span>(init, count_iter))</a>
-<a class="sourceLine" id="cb670-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb668-1" title="1">sqrt_newton_count &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">count_iter =</span> <span class="dv">0</span>, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
+<a class="sourceLine" id="cb668-2" title="2">    <span class="cf">while</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>eps){</a>
+<a class="sourceLine" id="cb668-3" title="3">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
+<a class="sourceLine" id="cb668-4" title="4">        count_iter &lt;-<span class="st"> </span>count_iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb668-5" title="5">    }</a>
+<a class="sourceLine" id="cb668-6" title="6">    <span class="kw">return</span>(<span class="kw">c</span>(init, count_iter))</a>
+<a class="sourceLine" id="cb668-7" title="7">}</a></code></pre></div>
 <p>Now, this function returns a list with two elements, the result, and the number of iterations it
 took to get the result:</p>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb671-1" title="1"><span class="kw">sqrt_newton_count</span>(<span class="dv">16000</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb669-1" title="1"><span class="kw">sqrt_newton_count</span>(<span class="dv">16000</span>, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 126.4911   9.0000</code></pre>
 <p>Writing to disk is also considered a side effect, because the function changes something (a file)
 outside its scope. But this cannot be avoided since you <em>want</em> to write to disk.
@@ -494,10 +493,10 @@ frame back, you would use <code>map_df()</code>. These are much more intuitive a
 going to learn how to use them in the chapter about <a href="#tidyverse">The Tidyverse</a>. For now, let’s just focus on
 the basic functions, <code>map()</code> and <code>reduce()</code> (and some variants of <code>reduce()</code>). To map a function
 to every element of a list, simply use <code>map()</code>:</p>
-<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb673-1" title="1"><span class="kw">library</span>(<span class="st">&quot;purrr&quot;</span>)</a>
-<a class="sourceLine" id="cb673-2" title="2">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">19</span>, <span class="dv">64</span>)</a>
-<a class="sourceLine" id="cb673-3" title="3"></a>
-<a class="sourceLine" id="cb673-4" title="4"><span class="kw">map</span>(numbers, sqrt_newton, <span class="dt">init =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb671-1" title="1"><span class="kw">library</span>(<span class="st">&quot;purrr&quot;</span>)</a>
+<a class="sourceLine" id="cb671-2" title="2">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">19</span>, <span class="dv">64</span>)</a>
+<a class="sourceLine" id="cb671-3" title="3"></a>
+<a class="sourceLine" id="cb671-4" title="4"><span class="kw">map</span>(numbers, sqrt_newton, <span class="dt">init =</span> <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 2.645767
 ## 
@@ -510,7 +509,7 @@ to every element of a list, simply use <code>map()</code>:</p>
 ## [[4]]
 ## [1] 8.000002</code></pre>
 <p>If you want print “hello” using a function from <code>purrr</code> you would need to use <code>rerun()</code>:</p>
-<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb675-1" title="1"><span class="kw">rerun</span>(<span class="dv">10</span>, <span class="st">&quot;hello&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb673-1" title="1"><span class="kw">rerun</span>(<span class="dv">10</span>, <span class="st">&quot;hello&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;hello&quot;
 ## 
@@ -543,7 +542,7 @@ to every element of a list, simply use <code>map()</code>:</p>
 <p><code>rerun()</code> simply runs an expression (which can be arbitrarily complex) <code>n</code> times, whereas <code>map()</code>
 maps a function to a list of inputs, so to achieve the same with <code>map()</code>, you need to map the <code>print()</code>
 function to a vector of characters:</p>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb677-1" title="1"><span class="kw">map</span>(<span class="kw">rep</span>(<span class="st">&quot;hello&quot;</span>, <span class="dv">10</span>), print)</a></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb675-1" title="1"><span class="kw">map</span>(<span class="kw">rep</span>(<span class="st">&quot;hello&quot;</span>, <span class="dv">10</span>), print)</a></code></pre></div>
 <pre><code>## [1] &quot;hello&quot;
 ## [1] &quot;hello&quot;
 ## [1] &quot;hello&quot;
@@ -589,17 +588,17 @@ you will see “hello” printed 10 times, but <code>map()</code> always returns
 will also get a list where each element is the string “hello”.</p>
 <p>We know the standard <code>map()</code> function, which returns a list, but there are a number of
 variants of this function. <code>map_dbl()</code> returns an atomic vector of doubles:</p>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" title="1"><span class="kw">map_dbl</span>(numbers, sqrt_newton, <span class="dt">init =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb678-1" title="1"><span class="kw">map_dbl</span>(numbers, sqrt_newton, <span class="dt">init =</span> <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 2.645767 2.828469 4.358902 8.000002</code></pre>
 <p><code>map_chr()</code> returns an atomic vector of strings:</p>
-<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb682-1" title="1"><span class="kw">map_chr</span>(numbers, sqrt_newton, <span class="dt">init =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" title="1"><span class="kw">map_chr</span>(numbers, sqrt_newton, <span class="dt">init =</span> <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;2.645767&quot; &quot;2.828469&quot; &quot;4.358902&quot; &quot;8.000002&quot;</code></pre>
 <p><code>map_lgl()</code> returns an atomic vector of <code>TRUE</code> or <code>FALSE</code>:</p>
-<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb684-1" title="1">divisible &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</a>
-<a class="sourceLine" id="cb684-2" title="2">  <span class="kw">if_else</span>(x <span class="op">%%</span><span class="st"> </span>y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb684-3" title="3">}</a>
-<a class="sourceLine" id="cb684-4" title="4"></a>
-<a class="sourceLine" id="cb684-5" title="5"><span class="kw">map_lgl</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), divisible, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb682-1" title="1">divisible &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</a>
+<a class="sourceLine" id="cb682-2" title="2">  <span class="kw">if_else</span>(x <span class="op">%%</span><span class="st"> </span>y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb682-3" title="3">}</a>
+<a class="sourceLine" id="cb682-4" title="4"></a>
+<a class="sourceLine" id="cb682-5" title="5"><span class="kw">map_lgl</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), divisible, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>##   [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE
 ##  [12]  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE
 ##  [23] FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE
@@ -611,9 +610,9 @@ variants of this function. <code>map_dbl()</code> returns an atomic vector of do
 ##  [89] FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE
 ## [100] FALSE</code></pre>
 <p>There are also other interesting variants, such as <code>map_if()</code>:</p>
-<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb686-1" title="1">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb686-2" title="2"></a>
-<a class="sourceLine" id="cb686-3" title="3"><span class="kw">map_if</span>(a, (<span class="cf">function</span>(x) <span class="kw">divisible</span>(x, <span class="dv">2</span>)), sqrt)</a></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb684-1" title="1">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb684-2" title="2"></a>
+<a class="sourceLine" id="cb684-3" title="3"><span class="kw">map_if</span>(a, (<span class="cf">function</span>(x) <span class="kw">divisible</span>(x, <span class="dv">2</span>)), sqrt)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -646,7 +645,7 @@ variants of this function. <code>map_dbl()</code> returns an atomic vector of do
 <p>I used <code>map_if()</code> to take the square root of only those numbers in vector <code>a</code> that are divisble by 2,
 by using an anonymous function that checks if a number is divisible by 2 (by wrapping <code>divisible()</code>).</p>
 <p><code>map_at()</code> is similar to <code>map_if()</code> but maps the function at a position specified by the user:</p>
-<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" title="1"><span class="kw">map_at</span>(numbers, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), sqrt)</a></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb686-1" title="1"><span class="kw">map_at</span>(numbers, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), sqrt)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 2.645751
 ## 
@@ -659,9 +658,9 @@ by using an anonymous function that checks if a number is divisible by 2 (by wra
 ## [[4]]
 ## [1] 64</code></pre>
 <p>or if you have a named list:</p>
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb690-1" title="1">recipe &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;spam&quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;eggs&quot;</span> =<span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;bacon&quot;</span> =<span class="st"> </span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb690-2" title="2"></a>
-<a class="sourceLine" id="cb690-3" title="3"><span class="kw">map_at</span>(recipe, <span class="st">&quot;bacon&quot;</span>, <span class="st">`</span><span class="dt">*</span><span class="st">`</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" title="1">recipe &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;spam&quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;eggs&quot;</span> =<span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;bacon&quot;</span> =<span class="st"> </span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb688-2" title="2"></a>
+<a class="sourceLine" id="cb688-3" title="3"><span class="kw">map_at</span>(recipe, <span class="st">&quot;bacon&quot;</span>, <span class="st">`</span><span class="dt">*</span><span class="st">`</span>, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## $spam
 ## [1] 1
 ## 
@@ -674,14 +673,14 @@ by using an anonymous function that checks if a number is divisible by 2 (by wra
 its second argument, <code>2</code>. Try the following in the command prompt: <code>`*`(3, 4)</code>).</p>
 <p><code>map2()</code> is the equivalent of <code>mapply()</code> and <code>pmap()</code> is the generalisation of <code>map2()</code> for more
 than 2 arguments:</p>
-<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb692-1" title="1"><span class="kw">print</span>(a)</a></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb690-1" title="1"><span class="kw">print</span>(a)</a></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb694-1" title="1">b &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dt">length.out =</span> <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb694-2" title="2"></a>
-<a class="sourceLine" id="cb694-3" title="3"><span class="kw">print</span>(b)</a></code></pre></div>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb692-1" title="1">b &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dt">length.out =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb692-2" title="2"></a>
+<a class="sourceLine" id="cb692-3" title="3"><span class="kw">print</span>(b)</a></code></pre></div>
 <pre><code>##  [1] 1.000000 1.111111 1.222222 1.333333 1.444444 1.555556 1.666667
 ##  [8] 1.777778 1.888889 2.000000</code></pre>
-<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb696-1" title="1"><span class="kw">map2</span>(a, b, <span class="st">`</span><span class="dt">*</span><span class="st">`</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb694-1" title="1"><span class="kw">map2</span>(a, b, <span class="st">`</span><span class="dt">*</span><span class="st">`</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -711,9 +710,9 @@ than 2 arguments:</p>
 ## 
 ## [[10]]
 ## [1] 20</code></pre>
-<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb698-1" title="1">n &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb698-2" title="2"></a>
-<a class="sourceLine" id="cb698-3" title="3"><span class="kw">pmap</span>(<span class="kw">list</span>(a, b, n), rnorm)</a></code></pre></div>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb696-1" title="1">n &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb696-2" title="2"></a>
+<a class="sourceLine" id="cb696-3" title="3"><span class="kw">pmap</span>(<span class="kw">list</span>(a, b, n), rnorm)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 0.5228073
 ## 
@@ -753,30 +752,30 @@ than 2 arguments:</p>
 <p>In the <code>purrr</code> package, you can find two more functions for folding: <code>reduce()</code> and
 <code>reduce_right()</code>. The difference between <code>reduce()</code> and <code>reduce_right()</code> is pretty obvious:
 <code>reduce_right()</code> starts from the right!</p>
-<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb700-1" title="1">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb700-2" title="2"></a>
-<a class="sourceLine" id="cb700-3" title="3"><span class="kw">reduce</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb698-1" title="1">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb698-2" title="2"></a>
+<a class="sourceLine" id="cb698-3" title="3"><span class="kw">reduce</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</a></code></pre></div>
 <pre><code>## [1] -53</code></pre>
-<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb702-1" title="1"><span class="kw">reduce_right</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb700-1" title="1"><span class="kw">reduce_right</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</a></code></pre></div>
 <pre><code>## [1] -35</code></pre>
 <p>For operations that are not commutative, this makes a difference. Other interesting folding
 functions are <code>accumulate()</code> and <code>accumulate_right()</code>:</p>
-<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb704-1" title="1">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb704-2" title="2"></a>
-<a class="sourceLine" id="cb704-3" title="3"><span class="kw">accumulate</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb702-1" title="1">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb702-2" title="2"></a>
+<a class="sourceLine" id="cb702-3" title="3"><span class="kw">accumulate</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</a></code></pre></div>
 <pre><code>##  [1]   1  -1  -4  -8 -13 -19 -26 -34 -43 -53</code></pre>
-<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" title="1"><span class="kw">accumulate_right</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb704-1" title="1"><span class="kw">accumulate_right</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</a></code></pre></div>
 <pre><code>##  [1] -35 -34 -32 -29 -25 -20 -14  -7   1  10</code></pre>
 <p>These two functions keep the intermediary results.</p>
 <p>In the previous chapter, we wrote a loop to compute the sum of the 100 first integers. We can do
 the same with <code>purrr::reduce()</code>:</p>
-<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" title="1">result =<span class="st"> </span><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb708-2" title="2"></a>
-<a class="sourceLine" id="cb708-3" title="3"><span class="kw">print</span>(result)</a></code></pre></div>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" title="1">result =<span class="st"> </span><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb706-2" title="2"></a>
+<a class="sourceLine" id="cb706-3" title="3"><span class="kw">print</span>(result)</a></code></pre></div>
 <pre><code>## [1] 5050</code></pre>
 <p>You certainly agree with me that is simpler to understand. You can even see what happens in more
 detail using <code>accumulate</code>:</p>
-<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" title="1"><span class="kw">accumulate</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" title="1"><span class="kw">accumulate</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a></code></pre></div>
 <pre><code>##   [1]    1    3    6   10   15   21   28   36   45   55   66   78   91  105
 ##  [15]  120  136  153  171  190  210  231  253  276  300  325  351  378  406
 ##  [29]  435  465  496  528  561  595  630  666  703  741  780  820  861  903
@@ -789,18 +788,18 @@ detail using <code>accumulate</code>:</p>
 <div id="safely-and-possibly" class="section level3">
 <h3><span class="header-section-number">9.3.3</span> <code>safely()</code> and <code>possibly()</code></h3>
 <p><code>safely()</code> and <code>possibly()</code> are very useful functions. Consider the following situation:</p>
-<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb712-1" title="1">a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">4</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb712-2" title="2"></a>
-<a class="sourceLine" id="cb712-3" title="3"><span class="kw">sqrt</span>(a)</a></code></pre></div>
-<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb713-1" title="1">Error <span class="cf">in</span> <span class="kw">sqrt</span>(a) <span class="op">:</span><span class="st"> </span>non<span class="op">-</span>numeric argument to mathematical <span class="cf">function</span></a></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" title="1">a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">4</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb710-2" title="2"></a>
+<a class="sourceLine" id="cb710-3" title="3"><span class="kw">sqrt</span>(a)</a></code></pre></div>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb711-1" title="1">Error <span class="cf">in</span> <span class="kw">sqrt</span>(a) <span class="op">:</span><span class="st"> </span>non<span class="op">-</span>numeric argument to mathematical <span class="cf">function</span></a></code></pre></div>
 <p>Using <code>map()</code> or <code>Map()</code> will result in a similar error. <code>safely()</code> is an higher-order function that
 takes one function as an argument and executes it… <em>safely</em>, meaning the execution of the function
 will not stop if there is an error. The error message gets captured alongside valid results.</p>
-<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb714-1" title="1">a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">4</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb714-2" title="2"></a>
-<a class="sourceLine" id="cb714-3" title="3">safe_sqrt &lt;-<span class="st"> </span><span class="kw">safely</span>(sqrt)</a>
-<a class="sourceLine" id="cb714-4" title="4"></a>
-<a class="sourceLine" id="cb714-5" title="5"><span class="kw">map</span>(a, safe_sqrt)</a></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb712-1" title="1">a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">4</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb712-2" title="2"></a>
+<a class="sourceLine" id="cb712-3" title="3">safe_sqrt &lt;-<span class="st"> </span><span class="kw">safely</span>(sqrt)</a>
+<a class="sourceLine" id="cb712-4" title="4"></a>
+<a class="sourceLine" id="cb712-5" title="5"><span class="kw">map</span>(a, safe_sqrt)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [[1]]$result
 ## NULL
@@ -824,9 +823,9 @@ will not stop if there is an error. The error message gets captured alongside va
 ## [[3]]$error
 ## NULL</code></pre>
 <p><code>possibly()</code> works similarly, but also allows you to specify a return value in case of an error:</p>
-<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb716-1" title="1">possible_sqrt &lt;-<span class="st"> </span><span class="kw">possibly</span>(sqrt, <span class="dt">otherwise =</span> <span class="ot">NA_real_</span>)</a>
-<a class="sourceLine" id="cb716-2" title="2"></a>
-<a class="sourceLine" id="cb716-3" title="3"><span class="kw">map</span>(a, possible_sqrt)</a></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb714-1" title="1">possible_sqrt &lt;-<span class="st"> </span><span class="kw">possibly</span>(sqrt, <span class="dt">otherwise =</span> <span class="ot">NA_real_</span>)</a>
+<a class="sourceLine" id="cb714-2" title="2"></a>
+<a class="sourceLine" id="cb714-3" title="3"><span class="kw">map</span>(a, possible_sqrt)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] NA
 ## 
@@ -836,7 +835,7 @@ will not stop if there is an error. The error message gets captured alongside va
 ## [[3]]
 ## [1] 2.236068</code></pre>
 <p>Of course, in this particular example, the same effect could be obtained way more easily:</p>
-<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb718-1" title="1"><span class="kw">sqrt</span>(<span class="kw">as.numeric</span>(a))</a></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb716-1" title="1"><span class="kw">sqrt</span>(<span class="kw">as.numeric</span>(a))</a></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1]       NA 2.000000 2.236068</code></pre>
 <p>However, in some situations, this trick does not work as intended (or at all), so <code>possibly()</code> and
@@ -852,9 +851,9 @@ were going to learn about <code>is_*()</code> and <code>as_*()</code> in Chapter
 <p>Another interesting function is <code>transpose()</code>. It is not an alternative to the function <code>t()</code> from
 <code>base</code> but, has a similar effect. <code>transpose()</code> works on lists. Let’s take a look at the example
 from before:</p>
-<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb721-1" title="1">safe_sqrt &lt;-<span class="st"> </span><span class="kw">safely</span>(sqrt, <span class="dt">otherwise =</span> <span class="ot">NA_real_</span>)</a>
-<a class="sourceLine" id="cb721-2" title="2"></a>
-<a class="sourceLine" id="cb721-3" title="3"><span class="kw">map</span>(a, safe_sqrt)</a></code></pre></div>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb719-1" title="1">safe_sqrt &lt;-<span class="st"> </span><span class="kw">safely</span>(sqrt, <span class="dt">otherwise =</span> <span class="ot">NA_real_</span>)</a>
+<a class="sourceLine" id="cb719-2" title="2"></a>
+<a class="sourceLine" id="cb719-3" title="3"><span class="kw">map</span>(a, safe_sqrt)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [[1]]$result
 ## [1] NA
@@ -880,7 +879,7 @@ from before:</p>
 <p>The output is a list with the first element being a list with a result and an error message. One
 might want to have all the results in a single list, and all the error messages in another list.
 This is possible with <code>transpose()</code>:</p>
-<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb723-1" title="1">purrr<span class="op">::</span><span class="kw">transpose</span>(<span class="kw">map</span>(a, safe_sqrt))</a></code></pre></div>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb721-1" title="1">purrr<span class="op">::</span><span class="kw">transpose</span>(<span class="kw">map</span>(a, safe_sqrt))</a></code></pre></div>
 <pre><code>## $result
 ## $result[[1]]
 ## [1] NA
@@ -909,11 +908,11 @@ errors in your programs and debuging this type of error is a nightmare.</p>
 <div id="using-your-functions-inside-mutate" class="section level2">
 <h2><span class="header-section-number">9.4</span> Using your functions inside <code>mutate()</code></h2>
 <p>Once you wrote a function, you can easily use it inside a pipe workflow:</p>
-<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb725-1" title="1">double_number &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb725-2" title="2">  x<span class="op">+</span>x</a>
-<a class="sourceLine" id="cb725-3" title="3">}</a></code></pre></div>
-<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb726-1" title="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb726-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">double_mpg =</span> <span class="kw">double_number</span>(mpg))</a></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb723-1" title="1">double_number &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb723-2" title="2">  x<span class="op">+</span>x</a>
+<a class="sourceLine" id="cb723-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb724-1" title="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb724-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">double_mpg =</span> <span class="kw">double_number</span>(mpg))</a></code></pre></div>
 <pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb double_mpg
 ## 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4       42.0
 ## 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4       42.0
@@ -951,8 +950,8 @@ errors in your programs and debuging this type of error is a nightmare.</p>
 special. You can use them just as any other.</p>
 <p>You can also avoid to define a function altogether, especially if you need an operation only once,
 by using the <code>.</code> like this:</p>
-<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb728-1" title="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb728-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">double_mpg =</span> .<span class="op">$</span>mpg <span class="op">+</span><span class="st"> </span>.<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb726-1" title="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb726-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">double_mpg =</span> .<span class="op">$</span>mpg <span class="op">+</span><span class="st"> </span>.<span class="op">$</span>mpg)</a></code></pre></div>
 <pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb double_mpg
 ## 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4       42.0
 ## 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4       42.0
@@ -993,11 +992,11 @@ by using the <code>.</code> like this:</p>
 <h3><span class="header-section-number">9.5.1</span> Using <code>map()</code> to work on lists of datasets</h3>
 <p>This is our first encouter with a typical functional programming function, <code>map()</code>.</p>
 <p>Let’s read the list of datasets from the previous chapter:</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb730-1" title="1">paths &lt;-<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb730-2" title="2"></a>
-<a class="sourceLine" id="cb730-3" title="3">all_datasets &lt;-<span class="st"> </span><span class="kw">import_list</span>(paths)</a>
-<a class="sourceLine" id="cb730-4" title="4"></a>
-<a class="sourceLine" id="cb730-5" title="5"><span class="kw">str</span>(all_datasets)</a></code></pre></div>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb728-1" title="1">paths &lt;-<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb728-2" title="2"></a>
+<a class="sourceLine" id="cb728-3" title="3">all_datasets &lt;-<span class="st"> </span><span class="kw">import_list</span>(paths)</a>
+<a class="sourceLine" id="cb728-4" title="4"></a>
+<a class="sourceLine" id="cb728-5" title="5"><span class="kw">str</span>(all_datasets)</a></code></pre></div>
 <pre><code>## List of 4
 ##  $ unemp_2013:&#39;data.frame&#39;:  118 obs. of  8 variables:
 ##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
@@ -1041,20 +1040,20 @@ by using the <code>.</code> like this:</p>
 names are not very easy to work with; there are spaces, and it would be better if the names of the
 columns would be all lowercase. For this we are going to use the function <code>clean_names()</code> from the
 <code>janitor</code> package. For a single dataset, I would write this:</p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" title="1"><span class="kw">library</span>(janitor)</a>
-<a class="sourceLine" id="cb732-2" title="2"></a>
-<a class="sourceLine" id="cb732-3" title="3">one_dataset =<span class="st"> </span>one_dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb732-4" title="4"><span class="st">  </span><span class="kw">clean_names</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb730-1" title="1"><span class="kw">library</span>(janitor)</a>
+<a class="sourceLine" id="cb730-2" title="2"></a>
+<a class="sourceLine" id="cb730-3" title="3">one_dataset =<span class="st"> </span>one_dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb730-4" title="4"><span class="st">  </span><span class="kw">clean_names</span>()</a></code></pre></div>
 <p>and I would get a dataset with column names in lowercase and spaces replaced by <code>_</code> (and other
 corrections). How can I apply, or map, this function to each dataset in the list? To do this I need
 to use <code>purrr::map()</code>:</p>
-<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb733-1" title="1"><span class="kw">library</span>(purrr)</a>
-<a class="sourceLine" id="cb733-2" title="2"></a>
-<a class="sourceLine" id="cb733-3" title="3">all_datasets =<span class="st"> </span>all_datasets <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb733-4" title="4"><span class="st">  </span><span class="kw">map</span>(clean_names)</a>
-<a class="sourceLine" id="cb733-5" title="5"></a>
-<a class="sourceLine" id="cb733-6" title="6">all_datasets <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb733-7" title="7"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" title="1"><span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb731-2" title="2"></a>
+<a class="sourceLine" id="cb731-3" title="3">all_datasets =<span class="st"> </span>all_datasets <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb731-4" title="4"><span class="st">  </span><span class="kw">map</span>(clean_names)</a>
+<a class="sourceLine" id="cb731-5" title="5"></a>
+<a class="sourceLine" id="cb731-6" title="6">all_datasets <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb731-7" title="7"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
 <pre><code>## List of 4
 ##  $ unemp_2013:&#39;data.frame&#39;:  118 obs. of  8 variables:
 ##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
@@ -1094,11 +1093,11 @@ to use <code>purrr::map()</code>:</p>
 ##   ..$ year                        : int [1:118] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...</code></pre>
 <p>So now, what if I want to know, for each dataset, which <em>communes</em> have an unemployment rate that is
 less than, say, 3%? For a single dataset I would do something like this:</p>
-<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" title="1">one_dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb735-2" title="2"><span class="st">  </span><span class="kw">filter</span>(unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb733-1" title="1">one_dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb733-2" title="2"><span class="st">  </span><span class="kw">filter</span>(unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>)</a></code></pre></div>
 <p>But for a list of datasets, <code>map()</code> is needed (and as you will see, that is not all that is needed):</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" title="1">all_datasets <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb736-2" title="2"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">filter</span>(., unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb734-1" title="1">all_datasets <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb734-2" title="2"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">filter</span>(., unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>))</a></code></pre></div>
 <pre><code>## $unemp_2013
 ##      commune total_employed_population of_which_wage_earners
 ## 1    Garnich                       844                   750
@@ -1160,8 +1159,8 @@ less than, say, 3%? For a single dataset I would do something like this:</p>
 <p>I know what you’re thinking… <em>what the hell?</em>. Let me explain: <code>map()</code> needs a function to map to
 each element of the list. <code>all_datasets</code> is the list to which I want to map the function. But what
 function? <code>filter()</code> is the function I need, so why doesn’t:</p>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" title="1">all_datasets <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb738-2" title="2"><span class="st">  </span><span class="kw">map</span>(<span class="kw">filter</span>(unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" title="1">all_datasets <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb736-2" title="2"><span class="st">  </span><span class="kw">map</span>(<span class="kw">filter</span>(unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>))</a></code></pre></div>
 <p>work? This is a bit complicated, and has to do with what is called environments. If you try to run
 the code above, you will get this error message:</p>
 <pre><code>Error in filter(unemployment_rate_in_percent &lt; 3) :
@@ -1178,9 +1177,9 @@ is an advanced topic.</p>
 <p>Before merging these datasets together, we would need them to have a <code>year</code> column indicating the
 year. It would also be helpful if gave names to these datasets. For this task, we can use
 <code>purrr::set_names()</code>:</p>
-<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" title="1">all_datasets =<span class="st"> </span><span class="kw">set_names</span>(all_datasets, <span class="kw">as.character</span>(<span class="kw">seq</span>(<span class="dv">2013</span>, <span class="dv">2016</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" title="1">all_datasets =<span class="st"> </span><span class="kw">set_names</span>(all_datasets, <span class="kw">as.character</span>(<span class="kw">seq</span>(<span class="dv">2013</span>, <span class="dv">2016</span>)))</a></code></pre></div>
 <p>Let’s take a look at the list now:</p>
-<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb741-1" title="1"><span class="kw">str</span>(all_datasets)</a></code></pre></div>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" title="1"><span class="kw">str</span>(all_datasets)</a></code></pre></div>
 <p>As you can see, each <code>data.frame</code> object contained in the list has been renamed. You can thus
 access them with the <code>$</code> operator:</p>
 <p><img src="pics/all_datasets_names.png" width="135" /></p>
@@ -1191,9 +1190,9 @@ easier to merge all the datasets first, and then manipulate them? Before that th
 teach you how to use <code>purrr::reduce()</code>, another very powerful function that works on lists. This is
 a function that you can find in other programming languages, but sometimes it is called fold.</p>
 <p>I think that the following example illustrates the power of <code>reduce()</code> well:</p>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" title="1">numbers =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>) <span class="co"># Create a vector with the numbers 1 to 5</span></a>
-<a class="sourceLine" id="cb742-2" title="2"></a>
-<a class="sourceLine" id="cb742-3" title="3"><span class="kw">reduce</span>(numbers, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>, <span class="dt">.init =</span> <span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" title="1">numbers =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>) <span class="co"># Create a vector with the numbers 1 to 5</span></a>
+<a class="sourceLine" id="cb740-2" title="2"></a>
+<a class="sourceLine" id="cb740-3" title="3"><span class="kw">reduce</span>(numbers, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>, <span class="dt">.init =</span> <span class="dv">0</span>)</a></code></pre></div>
 <pre><code>## [1] 15</code></pre>
 <p><code>reduce()</code> takes a function as an argument, here the function <code>+</code><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> and then does the following
 computation:</p>
@@ -1203,27 +1202,27 @@ the argument <code>init</code> also. This argument is actually optional, but I s
 cases it might be useful to start the computations at another value than <code>0</code>.<code>reduce()</code>
 generalizes functions that only take two arguments. If you were to write a function that returns
 the minimum between two numbers:</p>
-<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" title="1">my_min =<span class="st"> </span><span class="cf">function</span>(a, b){</a>
-<a class="sourceLine" id="cb745-2" title="2">    <span class="cf">if</span>(a <span class="op">&lt;</span><span class="st"> </span>b){</a>
-<a class="sourceLine" id="cb745-3" title="3">        <span class="kw">return</span>(a)</a>
-<a class="sourceLine" id="cb745-4" title="4">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb745-5" title="5">        <span class="kw">return</span>(b)</a>
-<a class="sourceLine" id="cb745-6" title="6">    }</a>
-<a class="sourceLine" id="cb745-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb743-1" title="1">my_min =<span class="st"> </span><span class="cf">function</span>(a, b){</a>
+<a class="sourceLine" id="cb743-2" title="2">    <span class="cf">if</span>(a <span class="op">&lt;</span><span class="st"> </span>b){</a>
+<a class="sourceLine" id="cb743-3" title="3">        <span class="kw">return</span>(a)</a>
+<a class="sourceLine" id="cb743-4" title="4">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb743-5" title="5">        <span class="kw">return</span>(b)</a>
+<a class="sourceLine" id="cb743-6" title="6">    }</a>
+<a class="sourceLine" id="cb743-7" title="7">}</a></code></pre></div>
 <p>You could use <code>reduce()</code> to get the minimum of a list of numbers:</p>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" title="1">numbers2 =<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">-8</span>, <span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb746-2" title="2"></a>
-<a class="sourceLine" id="cb746-3" title="3"><span class="kw">reduce</span>(numbers2, my_min)</a></code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" title="1">numbers2 =<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">-8</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb744-2" title="2"></a>
+<a class="sourceLine" id="cb744-3" title="3"><span class="kw">reduce</span>(numbers2, my_min)</a></code></pre></div>
 <pre><code>## [1] -8</code></pre>
 <p>As long as you provide a function and a list of elements to <code>reduce()</code>, you will get a single
 output. So how could <code>reduce()</code> help us with merging all the datasets that are in the list? <code>dplyr</code>
 comes with a lot of function to merge <em>two</em> datasets. Remember that I said before that <code>reduce()</code>
 allows you to generalize a function of two arguments? Let’s try it with our list of datasets:</p>
-<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb748-1" title="1">unemp_lux =<span class="st"> </span><span class="kw">reduce</span>(all_datasets, full_join)</a></code></pre></div>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" title="1">unemp_lux =<span class="st"> </span><span class="kw">reduce</span>(all_datasets, full_join)</a></code></pre></div>
 <pre><code>## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)
 ## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)
 ## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)</code></pre>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb750-1" title="1"><span class="kw">glimpse</span>(unemp_lux)</a></code></pre></div>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb748-1" title="1"><span class="kw">glimpse</span>(unemp_lux)</a></code></pre></div>
 <pre><code>## Observations: 472
 ## Variables: 8
 ## $ commune                      &lt;chr&gt; &quot;Grand-Duche de Luxembourg&quot;, &quot;Can...
@@ -1237,7 +1236,7 @@ allows you to generalize a function of two arguments? Let’s try it with our li
 <p><code>full_join()</code> is one of the <code>dplyr</code> function that merges data. There are others that might be
 useful depending on the kind of join operation you need. Let’s write this data to disk as we’re
 going to keep using it for the next chapters:</p>
-<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb752-1" title="1"><span class="kw">export</span>(unemp_lux, <span class="st">&quot;datasets/unemp_lux.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb750-1" title="1"><span class="kw">export</span>(unemp_lux, <span class="st">&quot;datasets/unemp_lux.csv&quot;</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="functional-programming-and-plotting" class="section level2">
@@ -1247,52 +1246,52 @@ and how it can work together with <code>ggplot2</code> to generate many plots. T
 but what comes next is also what makes R, and the functional programming paradigm so powerful.</p>
 <p>For example, suppose that instead of wanting a single plot with the unemployment rate of each
 commune, you need one unemployment plot, per commune:</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb753-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb753-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Luxembourg&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb753-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb753-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb753-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb753-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-469-1.png" width="672" /></p>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb751-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Luxembourg&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb751-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb751-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb751-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb751-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-468-1.png" width="672" /></p>
 <p>and then you would write the same for “Esch-sur-Alzette” and also for “Wiltz”. If you only have to
 make to make these 3 plots, copy and pasting the above lines is no big deal:</p>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb754-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb754-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Esch-sur-Alzette&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb754-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb754-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb754-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb754-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-470-1.png" width="672" /></p>
-<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb755-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb755-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Wiltz&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb755-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb755-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb755-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb755-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-470-2.png" width="672" /></p>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb752-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb752-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Esch-sur-Alzette&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb752-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb752-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb752-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb752-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-469-1.png" width="672" /></p>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb753-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb753-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Wiltz&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb753-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb753-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb753-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb753-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-469-2.png" width="672" /></p>
 <p>Put copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
 have to create the above plots for all 108 Luxembourguish communes? That’s a lot of copy pasting.
 What if, once you are done copy pasting, you have to change something, for example, the theme? You
 could use the search and replace function of RStudio, true, but sometimes search and replace can
 also introduce bugs and typos. You can avoid all these issues by using <code>purrr::map()</code>. What do you
 need to map over? The commune names. So let’s create a vector of commune names:</p>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb756-1" title="1">communes =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb754-1" title="1">communes =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)</a></code></pre></div>
 <p>Now we can create the graphs using <code>map()</code>, or <code>map2()</code> to be exact:</p>
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb757-1" title="1">plots_tibble =<span class="st"> </span>unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb757-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span>communes) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb757-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(division) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb757-4" title="4"><span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb757-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">plot =</span> <span class="kw">map2</span>(<span class="dt">.x =</span> data, <span class="dt">.y =</span> division, <span class="op">~</span><span class="kw">ggplot</span>(<span class="dt">data =</span> .x) <span class="op">+</span></a>
-<a class="sourceLine" id="cb757-6" title="6"><span class="st">       </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb757-7" title="7"><span class="st">       </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb757-8" title="8"><span class="st">       </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&quot;Unemployment in&quot;</span>, .y))))</a></code></pre></div>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb755-1" title="1">plots_tibble =<span class="st"> </span>unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb755-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span>communes) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb755-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(division) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb755-4" title="4"><span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb755-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">plot =</span> <span class="kw">map2</span>(<span class="dt">.x =</span> data, <span class="dt">.y =</span> division, <span class="op">~</span><span class="kw">ggplot</span>(<span class="dt">data =</span> .x) <span class="op">+</span></a>
+<a class="sourceLine" id="cb755-6" title="6"><span class="st">       </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb755-7" title="7"><span class="st">       </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb755-8" title="8"><span class="st">       </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&quot;Unemployment in&quot;</span>, .y))))</a></code></pre></div>
 <p>Let’s study this line by line: the first line is easy, we simply use <code>filter()</code> to keep only the
 communes we are interested in. Then we group by <code>division</code> and use <code>tidyr::nest()</code>. As a refresher,
 let’s take a look at what this does:</p>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb758-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb758-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span>communes) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb758-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(division) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb758-4" title="4"><span class="st">  </span><span class="kw">nest</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb756-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb756-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span>communes) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb756-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(division) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb756-4" title="4"><span class="st">  </span><span class="kw">nest</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   division         data             
 ##   &lt;chr&gt;            &lt;list&gt;           
@@ -1304,11 +1303,11 @@ commune in this case) is another tibble with all the original variables. This is
 because now we can pass these tibbles to <code>map2()</code>, to generate the plots. But why <code>map2()</code> and
 what’s the difference with <code>map()</code>? <code>map2()</code> works the same way as <code>map()</code>, but maps over two
 inputs:</p>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" title="1">numbers1 =<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb760-2" title="2"></a>
-<a class="sourceLine" id="cb760-3" title="3">numbers2 =<span class="st"> </span><span class="kw">list</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb760-4" title="4"></a>
-<a class="sourceLine" id="cb760-5" title="5"><span class="kw">map2</span>(numbers1, numbers2, <span class="st">`</span><span class="dt">*</span><span class="st">`</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb758-1" title="1">numbers1 =<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb758-2" title="2"></a>
+<a class="sourceLine" id="cb758-3" title="3">numbers2 =<span class="st"> </span><span class="kw">list</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb758-4" title="4"></a>
+<a class="sourceLine" id="cb758-5" title="5"><span class="kw">map2</span>(numbers1, numbers2, <span class="st">`</span><span class="dt">*</span><span class="st">`</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 9
 ## 
@@ -1327,7 +1326,7 @@ inputs:</p>
 useful to create the title with <code>labs(title = paste(&quot;Unemployment in&quot;, .y))))</code> where <code>.y</code> is the
 second input of <code>map2()</code>, the commune names contained in variable <code>division</code>.</p>
 <p>So what happened? We now have a tibble called <code>plots_tibble</code> that looks like this:</p>
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb762-1" title="1"><span class="kw">print</span>(plots_tibble)</a></code></pre></div>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" title="1"><span class="kw">print</span>(plots_tibble)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   division         data              plot    
 ##   &lt;chr&gt;            &lt;list&gt;            &lt;list&gt;  
@@ -1339,8 +1338,8 @@ created before using the last line <code>mutate(plot = ...)</code> (remember tha
 tibbles). <code>plot</code> is a list-column, with elements… being plots! Yes you read that right, the
 elements of the column <code>plot</code> are literally plots. This is what I meant with list columns.
 Let’s see what is inside the <code>data</code> and the <code>plot</code> columns exactly:</p>
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb764-1" title="1">plots_tibble <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb764-2" title="2"><span class="st">  </span><span class="kw">pull</span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb762-1" title="1">plots_tibble <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb762-2" title="2"><span class="st">  </span><span class="kw">pull</span>(data)</a></code></pre></div>
 <pre><code>## [[1]]
 ## # A tibble: 15 x 7
 ##     year active_populati… of_which_non_wa… of_which_wage_e…
@@ -1412,18 +1411,18 @@ join all the dots together, we need to add <code>group = 1</code> in the call to
 plot multiple lines in the same graph, you need to write <code>group = division</code>).</p>
 <p>But more interestingly, how can you actually see the plots? If you want to simply look at them, it
 is enough to use <code>pull()</code>:</p>
-<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb766-1" title="1">plots_tibble <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb766-2" title="2"><span class="st">  </span><span class="kw">pull</span>(plot)</a></code></pre></div>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb764-1" title="1">plots_tibble <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb764-2" title="2"><span class="st">  </span><span class="kw">pull</span>(plot)</a></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-477-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-476-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-477-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-476-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-477-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-476-3.png" width="672" /></p>
 <p>And if we want to save these plots, we can do so using <code>map2()</code>:</p>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb770-1" title="1"><span class="kw">map2</span>(<span class="kw">paste0</span>(plots_tibble<span class="op">$</span>division, <span class="st">&quot;.pdf&quot;</span>), plots_tibble<span class="op">$</span>plot, ggsave)</a></code></pre></div>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb768-1" title="1"><span class="kw">map2</span>(<span class="kw">paste0</span>(plots_tibble<span class="op">$</span>division, <span class="st">&quot;.pdf&quot;</span>), plots_tibble<span class="op">$</span>plot, ggsave)</a></code></pre></div>
 <pre><code>Saving 7 x 5 in image
 Saving 6.01 x 3.94 in image
 Saving 6.01 x 3.94 in image</code></pre>
@@ -1447,11 +1446,11 @@ replacement and estimate your model on each sample. A worked example is availabl
 includes a more general <code>boot()</code> function, but we are going to learn about this one later, as it
 involves some programming. Let’s go back to <code>model_log</code>, and try to get bootstrapped confidence
 intervals (as shown in the Vignette I linked above):</p>
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb772-1" title="1">boot_result &lt;-<span class="st"> </span>Housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb772-2" title="2"><span class="st">  </span><span class="kw">bootstrap</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb772-3" title="3"><span class="st">  </span><span class="kw">do</span>(<span class="kw">tidy</span>(<span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>bedrooms <span class="op">+</span><span class="st"> </span>driveway, <span class="dt">data =</span> .)))</a></code></pre></div>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb770-1" title="1">boot_result &lt;-<span class="st"> </span>Housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb770-2" title="2"><span class="st">  </span><span class="kw">bootstrap</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb770-3" title="3"><span class="st">  </span><span class="kw">do</span>(<span class="kw">tidy</span>(<span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>bedrooms <span class="op">+</span><span class="st"> </span>driveway, <span class="dt">data =</span> .)))</a></code></pre></div>
 <p>I just use 2 variables to make the output smaller. Let’s take a look at <code>boot_result</code>:</p>
-<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1"><span class="kw">print</span>(boot_result)</a></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" title="1"><span class="kw">print</span>(boot_result)</a></code></pre></div>
 <pre><code>## # A tibble: 150 x 6
 ## # Groups:   replicate [50]
 ##    replicate term        estimate std.error statistic  p.value
@@ -1469,10 +1468,10 @@ intervals (as shown in the Vignette I linked above):</p>
 ## # ... with 140 more rows</code></pre>
 <p><code>boot_result</code> is a <code>tibble</code> grouped by the new variable <code>replicate</code>. Now it is easy to compute confidence
 intervals for the parameters:</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1">boot_result <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb775-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(term) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb775-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">low =</span> <span class="kw">quantile</span>(estimate, <span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb775-4" title="4">            <span class="dt">high =</span> <span class="kw">quantile</span>(estimate, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1">boot_result <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb773-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(term) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb773-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">low =</span> <span class="kw">quantile</span>(estimate, <span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb773-4" title="4">            <span class="dt">high =</span> <span class="kw">quantile</span>(estimate, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   term           low   high
 ##   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
@@ -1483,23 +1482,23 @@ intervals for the parameters:</p>
 vector (in this case the vector of estimates). Of course, we had to group by <code>term</code> first, as we
 need to compute the confidence intervals, for each terms (or estimated parameters) separately.
 Plotting the densities of the bootstrapped parameters might also prove interesting:</p>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1"><span class="kw">ggplot</span>(boot_result, <span class="kw">aes</span>(estimate)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb777-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb777-3" title="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>term, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-483-1.png" width="672" /></p>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1"><span class="kw">ggplot</span>(boot_result, <span class="kw">aes</span>(estimate)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb775-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb775-3" title="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>term, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-482-1.png" width="672" /></p>
 </div>
 <div id="cross-validation" class="section level3">
 <h3><span class="header-section-number">9.8.2</span> Cross-validation</h3>
 <p>To do cross-validation, we are going to use the <code>modelr</code> package, which is also part of the
 <code>tidyverse</code>.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
-<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb778-1" title="1"><span class="kw">library</span>(modelr)</a></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" title="1"><span class="kw">library</span>(modelr)</a></code></pre></div>
 <p><code>modelr</code> includes two functions for cross-validation, <code>crossv_kfold</code> and <code>crossv_mc</code>, which
 do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let’s see what
 <code>cross_mc()</code> (<code>cross_kfold()</code>) returns when applied to data:</p>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1">cv_Housing =<span class="st"> </span>Housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb779-2" title="2"><span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb779-3" title="3"></a>
-<a class="sourceLine" id="cb779-4" title="4"><span class="kw">print</span>(cv_Housing)</a></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1">cv_Housing =<span class="st"> </span>Housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb777-2" title="2"><span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb777-3" title="3"></a>
+<a class="sourceLine" id="cb777-4" title="4"><span class="kw">print</span>(cv_Housing)</a></code></pre></div>
 <pre><code>## # A tibble: 50 x 3
 ##    train          test           .id  
 ##    &lt;list&gt;         &lt;list&gt;         &lt;chr&gt;
@@ -1518,10 +1517,10 @@ do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First,
 of <code>train</code> and <code>test</code> is a resampled <code>tibble</code> of the original data. This means that we can now
 estimate our first model (the simple linear one) on each resampled data using <code>map()</code>:</p>
 <p>Now if we want to estimate all these models:</p>
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" title="1">cv_models =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb781-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .)))</a>
-<a class="sourceLine" id="cb781-3" title="3"></a>
-<a class="sourceLine" id="cb781-4" title="4"><span class="kw">print</span>(cv_models)</a></code></pre></div>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1">cv_models =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb779-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .)))</a>
+<a class="sourceLine" id="cb779-3" title="3"></a>
+<a class="sourceLine" id="cb779-4" title="4"><span class="kw">print</span>(cv_models)</a></code></pre></div>
 <pre><code>## # A tibble: 50 x 4
 ##    train          test           .id   model   
 ##    &lt;list&gt;         &lt;list&gt;         &lt;chr&gt; &lt;list&gt;  
@@ -1539,11 +1538,11 @@ estimate our first model (the simple linear one) on each resampled data using <c
 <p>We added a list-column with the 50 models estimated (or trained) on the train data. Now we can compute,
 say, the RMSE from before on each one. <code>modelr</code> includes a <code>rmse()</code> function, so unlike in the
 previous section where we computed the RMSE manually we are simply going to use this function:</p>
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" title="1">rmse_cv =<span class="st"> </span>cv_models <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb783-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rmse_all_models =</span> <span class="kw">map2_dbl</span>(model, test, <span class="op">~</span><span class="kw">rmse</span>(.x, .y))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb783-3" title="3"><span class="st">  </span><span class="kw">pull</span>(rmse_all_models)</a>
-<a class="sourceLine" id="cb783-4" title="4"></a>
-<a class="sourceLine" id="cb783-5" title="5"><span class="kw">print</span>(rmse_cv)</a></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" title="1">rmse_cv =<span class="st"> </span>cv_models <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb781-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rmse_all_models =</span> <span class="kw">map2_dbl</span>(model, test, <span class="op">~</span><span class="kw">rmse</span>(.x, .y))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb781-3" title="3"><span class="st">  </span><span class="kw">pull</span>(rmse_all_models)</a>
+<a class="sourceLine" id="cb781-4" title="4"></a>
+<a class="sourceLine" id="cb781-5" title="5"><span class="kw">print</span>(rmse_cv)</a></code></pre></div>
 <pre><code>##  [1] 15951.99 16342.37 15942.59 13547.26 14220.94 13558.39 12336.18
 ##  [8] 13905.72 14659.48 16195.46 17102.41 14071.76 16190.94 17183.69
 ## [15] 15604.58 15008.10 17874.27 13993.60 15377.16 18582.74 17557.52
@@ -1553,7 +1552,7 @@ previous section where we computed the RMSE manually we are simply going to use 
 ## [43] 13984.53 13562.76 15935.71 15669.48 15501.22 14357.58 15069.67
 ## [50] 13746.53</code></pre>
 <p>We can now compute the mean of this <code>rmse_cv</code> variable:</p>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1">cv_rmse_lin_lin =<span class="st"> </span><span class="kw">mean</span>(rmse_cv)</a></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" title="1">cv_rmse_lin_lin =<span class="st"> </span><span class="kw">mean</span>(rmse_cv)</a></code></pre></div>
 <p>which is equal to 1.563492410^{4}.</p>
 <p>For the log-lin model, this is a bit more complicated, because we need to exponentiate the
 predictions. However, if we use <code>rmse()</code> as before, there is no way to do that. I show you how you
@@ -1561,16 +1560,16 @@ can do that, but it involves a few more steps than simply using <code>rmse()</co
 below that computes the bootstrapped <code>rmse</code> for the log-lin model.
 You can see this as an advanced exercise; if you understand these next lines of code, you should
 understand anything that has to do with the <code>tidyverse</code>.</p>
-<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" title="1">cv_rmse_log_lin =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb786-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb786-3" title="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">log_pred =</span> <span class="kw">map2</span>(model, test, <span class="op">~</span><span class="kw">exp</span>(<span class="kw">predict</span>(.x, .y)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb786-4" title="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">prices =</span> <span class="kw">map</span>(test, <span class="op">~</span><span class="kw">as.data.frame</span>(.x)<span class="op">$</span>price)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb786-5" title="5"><span class="st">    </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb786-6" title="6">        <span class="dt">rmse_all =</span></a>
-<a class="sourceLine" id="cb786-7" title="7">            <span class="kw">map2_dbl</span>(log_pred, prices,</a>
-<a class="sourceLine" id="cb786-8" title="8">                     <span class="op">~</span><span class="kw">sqrt</span>(<span class="kw">mean</span>((.x <span class="op">-</span><span class="st"> </span>.y)<span class="op">**</span><span class="dv">2</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb786-9" title="9"><span class="st">    </span><span class="kw">pull</span>(rmse_all) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb786-10" title="10"><span class="st">    </span><span class="kw">mean</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1">cv_rmse_log_lin =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb784-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb784-3" title="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">log_pred =</span> <span class="kw">map2</span>(model, test, <span class="op">~</span><span class="kw">exp</span>(<span class="kw">predict</span>(.x, .y)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb784-4" title="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">prices =</span> <span class="kw">map</span>(test, <span class="op">~</span><span class="kw">as.data.frame</span>(.x)<span class="op">$</span>price)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb784-5" title="5"><span class="st">    </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb784-6" title="6">        <span class="dt">rmse_all =</span></a>
+<a class="sourceLine" id="cb784-7" title="7">            <span class="kw">map2_dbl</span>(log_pred, prices,</a>
+<a class="sourceLine" id="cb784-8" title="8">                     <span class="op">~</span><span class="kw">sqrt</span>(<span class="kw">mean</span>((.x <span class="op">-</span><span class="st"> </span>.y)<span class="op">**</span><span class="dv">2</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb784-9" title="9"><span class="st">    </span><span class="kw">pull</span>(rmse_all) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb784-10" title="10"><span class="st">    </span><span class="kw">mean</span>()</a></code></pre></div>
 <p><code>cv_rmse_log_lin</code> is equal to 1.530599610^{4}, which is lower than in the lin-lin model.</p>
 </div>
 </div>
@@ -1583,37 +1582,37 @@ sheet (download the example Excel workbook, <code>example_workbook.xlsx</code>, 
 the books github).</p></li>
 <li><p>Use one of the <code>map()</code> functions to combine two lists into one. Consider the following two lists:</p></li>
 </ol>
-<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" title="1">mediterranean &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;humous&quot;</span>, <span class="st">&quot;lasagna&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;sardines&quot;</span>, <span class="st">&quot;olives&quot;</span>))</a>
-<a class="sourceLine" id="cb787-2" title="2"></a>
-<a class="sourceLine" id="cb787-3" title="3">continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pea soup&quot;</span>, <span class="st">&quot;terrine&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;frikadelle&quot;</span>, <span class="st">&quot;sauerkraut&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1">mediterranean &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;humous&quot;</span>, <span class="st">&quot;lasagna&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;sardines&quot;</span>, <span class="st">&quot;olives&quot;</span>))</a>
+<a class="sourceLine" id="cb785-2" title="2"></a>
+<a class="sourceLine" id="cb785-3" title="3">continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pea soup&quot;</span>, <span class="st">&quot;terrine&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;frikadelle&quot;</span>, <span class="st">&quot;sauerkraut&quot;</span>))</a></code></pre></div>
 <p>The result we’d like to have would look like this:
 <!-- map2(mediterranean, continental, append) --></p>
-<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb788-1" title="1"><span class="op">$</span>starters</a>
-<a class="sourceLine" id="cb788-2" title="2"><span class="op">$</span>starters[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb788-3" title="3">[<span class="dv">1</span>] <span class="st">&quot;humous&quot;</span></a>
-<a class="sourceLine" id="cb788-4" title="4"></a>
-<a class="sourceLine" id="cb788-5" title="5"><span class="op">$</span>starters[[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb788-6" title="6">[<span class="dv">1</span>] <span class="st">&quot;olives&quot;</span></a>
-<a class="sourceLine" id="cb788-7" title="7"></a>
-<a class="sourceLine" id="cb788-8" title="8"><span class="op">$</span>starters[[<span class="dv">3</span>]]</a>
-<a class="sourceLine" id="cb788-9" title="9">[<span class="dv">1</span>] <span class="st">&quot;pea soup&quot;</span></a>
-<a class="sourceLine" id="cb788-10" title="10"></a>
-<a class="sourceLine" id="cb788-11" title="11"><span class="op">$</span>starters[[<span class="dv">4</span>]]</a>
-<a class="sourceLine" id="cb788-12" title="12">[<span class="dv">1</span>] <span class="st">&quot;terrine&quot;</span></a>
-<a class="sourceLine" id="cb788-13" title="13"></a>
-<a class="sourceLine" id="cb788-14" title="14"></a>
-<a class="sourceLine" id="cb788-15" title="15"><span class="op">$</span>dishes</a>
-<a class="sourceLine" id="cb788-16" title="16"><span class="op">$</span>dishes[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb788-17" title="17">[<span class="dv">1</span>] <span class="st">&quot;sardines&quot;</span></a>
-<a class="sourceLine" id="cb788-18" title="18"></a>
-<a class="sourceLine" id="cb788-19" title="19"><span class="op">$</span>dishes[[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb788-20" title="20">[<span class="dv">1</span>] <span class="st">&quot;lasagna&quot;</span></a>
-<a class="sourceLine" id="cb788-21" title="21"></a>
-<a class="sourceLine" id="cb788-22" title="22"><span class="op">$</span>dishes[[<span class="dv">3</span>]]</a>
-<a class="sourceLine" id="cb788-23" title="23">[<span class="dv">1</span>] <span class="st">&quot;frikadelle&quot;</span></a>
-<a class="sourceLine" id="cb788-24" title="24"></a>
-<a class="sourceLine" id="cb788-25" title="25"><span class="op">$</span>dishes[[<span class="dv">4</span>]]</a>
-<a class="sourceLine" id="cb788-26" title="26">[<span class="dv">1</span>] <span class="st">&quot;sauerkraut&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" title="1"><span class="op">$</span>starters</a>
+<a class="sourceLine" id="cb786-2" title="2"><span class="op">$</span>starters[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb786-3" title="3">[<span class="dv">1</span>] <span class="st">&quot;humous&quot;</span></a>
+<a class="sourceLine" id="cb786-4" title="4"></a>
+<a class="sourceLine" id="cb786-5" title="5"><span class="op">$</span>starters[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb786-6" title="6">[<span class="dv">1</span>] <span class="st">&quot;olives&quot;</span></a>
+<a class="sourceLine" id="cb786-7" title="7"></a>
+<a class="sourceLine" id="cb786-8" title="8"><span class="op">$</span>starters[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb786-9" title="9">[<span class="dv">1</span>] <span class="st">&quot;pea soup&quot;</span></a>
+<a class="sourceLine" id="cb786-10" title="10"></a>
+<a class="sourceLine" id="cb786-11" title="11"><span class="op">$</span>starters[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb786-12" title="12">[<span class="dv">1</span>] <span class="st">&quot;terrine&quot;</span></a>
+<a class="sourceLine" id="cb786-13" title="13"></a>
+<a class="sourceLine" id="cb786-14" title="14"></a>
+<a class="sourceLine" id="cb786-15" title="15"><span class="op">$</span>dishes</a>
+<a class="sourceLine" id="cb786-16" title="16"><span class="op">$</span>dishes[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb786-17" title="17">[<span class="dv">1</span>] <span class="st">&quot;sardines&quot;</span></a>
+<a class="sourceLine" id="cb786-18" title="18"></a>
+<a class="sourceLine" id="cb786-19" title="19"><span class="op">$</span>dishes[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb786-20" title="20">[<span class="dv">1</span>] <span class="st">&quot;lasagna&quot;</span></a>
+<a class="sourceLine" id="cb786-21" title="21"></a>
+<a class="sourceLine" id="cb786-22" title="22"><span class="op">$</span>dishes[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb786-23" title="23">[<span class="dv">1</span>] <span class="st">&quot;frikadelle&quot;</span></a>
+<a class="sourceLine" id="cb786-24" title="24"></a>
+<a class="sourceLine" id="cb786-25" title="25"><span class="op">$</span>dishes[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb786-26" title="26">[<span class="dv">1</span>] <span class="st">&quot;sauerkraut&quot;</span></a></code></pre></div>
 
 </div>
 </div>

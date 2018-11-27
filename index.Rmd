@@ -19,6 +19,16 @@ library(ggthemes)
 library(janitor)
 ```
 
+## Note to the reader {-}
+
+This book is still being written. Chapters 1 to 6 are almost ready. Chapter 7 is outdated, but
+the key messages are still useful. Chapters 8 and 9 are quite complete too. 10 and 11 are empty
+for now. Some exercises might be at the wrong place too.
+
+If you already like what you read, you can [buy me a coffee](https://www.buymeacoffee.com/brodriguesco)
+or [paypal.me](https://www.paypal.me/brodriguesco).
+
+
 ## What is R? {-}
 
 Read R's official answer to this question
