@@ -274,7 +274,7 @@ knitr::include_graphics("pics/rstudio_environment_list.gif")
 You can also create named lists:
 
 ```{r}
-list4 <- list("a" <- 2, "b" <- 8, "c" <- "this is a named list")
+list4 <- list("a" = 2, "b" = 8, "c" = "this is a named list")
 ```
 
 and you can access the elements in two ways:

@@ -492,7 +492,7 @@ to use `purrr::map()`:
 ```{r, cache=TRUE}
 library(purrr)
 
-all_datasets = all_datasets %>%
+all_datasets <- all_datasets %>%
   map(clean_names)
 
 all_datasets %>%
@@ -674,7 +674,7 @@ also introduce bugs and typos. You can avoid all these issues by using `purrr::m
 need to map over? The commune names. So let's create a vector of commune names:
 
 ```{r, cache=TRUE}
-communes = list("Luxembourg", "Esch-sur-Alzette", "Wiltz")
+communes <- list("Luxembourg", "Esch-sur-Alzette", "Wiltz")
 ```
 
 Now we can create the graphs using `map()`, or `map2()` to be exact:
@@ -708,9 +708,9 @@ what's the difference with `map()`? `map2()` works the same way as `map()`, but 
 inputs:
 
 ```{r, cache=TRUE}
-numbers1 = list(1, 2, 3, 4, 5)
+numbers1 <- list(1, 2, 3, 4, 5)
 
-numbers2 = list(9, 8, 7, 6, 5)
+numbers2 <- list(9, 8, 7, 6, 5)
 
 map2(numbers1, numbers2, `*`)
 ```
@@ -840,7 +840,7 @@ do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First,
 `cross_mc()` (`cross_kfold()`) returns when applied to data:
 
 ```{r}
-cv_Housing = Housing %>%
+cv_Housing <- Housing %>%
   crossv_mc(n = 50)
 
 print(cv_Housing)
@@ -853,7 +853,7 @@ estimate our first model (the simple linear one) on each resampled data using `m
 Now if we want to estimate all these models:
 
 ```{r}
-cv_models = cv_Housing %>%
+cv_models <- cv_Housing %>%
   mutate(model = map(train, ~lm(price ~ ., data = .)))
 
 print(cv_models)
@@ -864,7 +864,7 @@ say, the RMSE from before on each one. `modelr` includes a `rmse()` function, so
 previous section where we computed the RMSE manually we are simply going to use this function:
 
 ```{r}
-rmse_cv = cv_models %>%
+rmse_cv <- cv_models %>%
   mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
   pull(rmse_all_models)
 
@@ -874,7 +874,7 @@ print(rmse_cv)
 We can now compute the mean of this `rmse_cv` variable:
 
 ```{r}
-cv_rmse_lin_lin = mean(rmse_cv)
+cv_rmse_lin_lin <- mean(rmse_cv)
 ```
 
 which is equal to `r cv_rmse_lin_lin`.
@@ -887,7 +887,7 @@ You can see this as an advanced exercise; if you understand these next lines of 
 understand anything that has to do with the `tidyverse`.
 
 ```{r}
-cv_rmse_log_lin = cv_Housing %>%
+cv_rmse_log_lin <- cv_Housing %>%
     mutate(model = map(train, ~lm(log(price) ~ ., data = .))) %>%
     mutate(log_pred = map2(model, test, ~exp(predict(.x, .y)))) %>%
     mutate(prices = map(test, ~as.data.frame(.x)$price)) %>%

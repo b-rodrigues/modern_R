@@ -271,7 +271,6 @@ export(processed_data, "processed_data.xlsx")
 
 instead of:
 
-
 ```{r, eval=FALSE}
 import("the/path/I/want/data/my_data.csv")
 
