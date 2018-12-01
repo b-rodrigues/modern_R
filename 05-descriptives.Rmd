@@ -899,7 +899,13 @@ survey_data
 It seems pretty obvious that the first `NA` is supposed to be `1` and the second missing is supposed
 to be `4`. With `fill()`, this is pretty easy to achieve:
 
-```{r}
+
+```{r, include=FALSE}
+survey_data %>% 
+    tidyr::fill(.direction = "down", variable = "id")
+```
+
+```{r, eval=FALSE}
 survey_data %>% 
     fill(.direction = "down", variable = "id")
 ```
@@ -922,8 +928,15 @@ it the data frame.
 
 Putting all these operations together:
 
+```{r, include=FALSE}
+survey_data %>% 
+    tidyr::fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
+    spread(variable, value)
+```
 
-```{r}
+
+```{r, eval=FALSE}
 survey_data %>% 
     fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
@@ -934,7 +947,16 @@ As you can see, this creates a lot of explicit `NA` values. The best would be to
 values and add the date column, and then work with that format. For example, to get the average
 of the values by date:
 
-```{r}
+```{r, include=FALSE}
+survey_data %>% 
+    tidyr::fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
+    group_by(date) %>%
+    summarise(mean(value))
+```
+
+
+```{r, eval=FALSE}
 survey_data %>% 
     fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
@@ -944,7 +966,16 @@ survey_data %>%
 
 Or by `date` and `variable`:
 
-```{r}
+
+```{r, include=FALSE}
+survey_data %>% 
+    tidyr::fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
+    group_by(date, variable) %>%
+    summarise(mean(value))
+```
+
+```{r, eval=FALSE}
 survey_data %>% 
     fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
@@ -958,7 +989,7 @@ As you can see, you can chain any `{tidyverse}` verbs, wether they come from `{d
 
 ```{r, include=FALSE}
 survey_data_not_tidy <- survey_data %>% 
-    fill(.direction = "down", variable = "id") %>%
+    tidyr::fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>% 
     mutate(variable_date = paste(variable, date, sep = "/")) %>% select(id, variable_date, value)
 ```
@@ -1040,7 +1071,15 @@ survey_data_clean
 
 quite easily:
 
-```{r}
+```{r, include=FALSE}
+survey_data_from_hell %>% 
+    separate_rows(variable, value, convert = TRUE) %>%
+    tidyr::fill(.direction = "down", variable = "id") %>%
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
+```
+
+
+```{r, eval=FALSE}
 survey_data_from_hell %>% 
     separate_rows(variable, value, convert = TRUE) %>%
     fill(.direction = "down", variable = "id") %>%

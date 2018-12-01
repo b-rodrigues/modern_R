@@ -3,7 +3,30 @@
 In this chapter, we will not learn about all the models out there that you may or may not need.
 Instead, I will show you how can use what you have learned until now and how you can apply these
 concepts to modeling. Also, as you read in the beginning of the book, R has many many packages. So
-the model you need is most probably already implemented in some package.
+the model you need is most probably already implemented in some package and you will very likely
+not need to write your own from scratch. 
+
+In the first section, I will discuss the terminology used in this book. Then I will discuss 
+linear regression; showing how linear regression works illsutrates very well how other models
+work too, without loss of generality. Then I will introduce the concepte of hyper-parameters
+with ridge regression. This chapter will then finish with an introduction to cross-validation as 
+a way to tune the hyper-parameters of models that features them.
+
+## Terminology
+
+Before continuing discussing about statistical models and model fitting it is worthwhile to discuss
+terminology a little bit. Depending on your background, you might call an explanatory variable a 
+feature or the dependent variable the target. These are the same objects. The matrix of features
+is usually called a design matrix, and the what statisticians call the intercept in a linear regression
+machine learning engineers call the bias. Calling the intercept the bias is unfortunate, as bias
+also has a very different meaning; bias is also what we call the error in a model that may cause
+*biased* estimates. To finish up, the estimated parameters of the model may be called coefficients
+or weights. Here again, I don't like the using *weight* as weight as a very different meaning in
+statistics. 
+So, in the remainder of this chapter, and book, I will use the terminology from the statistical 
+litterature, using dependent and explanatory variables (`y` and `x`), and calling the 
+estimated parameters coefficients and the intercept... well the intercept (the $\beta$s of the model). 
+However, I will talk of *training* a model, instead of *estimating* a model.
 
 ## Fitting a model to data
 
@@ -99,7 +122,7 @@ See Also:
 or by looking for `Housing` in the help pane of RStudio. Usually, you would take a look a the data
 before doing any modeling:
 
-```{r, cache=TRUE}
+```{r}
 glimpse(Housing)
 ```
 
@@ -108,36 +131,36 @@ and so on. If you believe that housing prices depend linearly on a set of explan
 you will want to estimate a linear model. To estimate a *linear model*, you will need to use the
 built-in `lm()` function:
 
-```{r, cache=TRUE}
-model1 = lm(price ~ lotsize + bedrooms, data = Housing)
+```{r}
+model1 <- lm(price ~ lotsize + bedrooms, data = Housing)
 ```
 
 `lm()` takes a formula as an argument, which defines the model you want to estimate. In this case,
 I ran the following regression:
 
 \[
-\text{price} = \alpha + \beta_1 * \text{lotsize} + \beta_2 * \text{bedrooms} + \varepsilon
+\text{price} = \beta_0 + \beta_1 * \text{lotsize} + \beta_2 * \text{bedrooms} + \varepsilon
 \]
 
-where \(alpha, beta_1\) and \(beta_2\) are three parameters to estimate. To take a look at the
+where \(\beta_0, \beta_1\) and \(\beta_2\) are three parameters to estimate. To take a look at the
 results, you can use the `summary()` method (not to be confused with `dplyr::summarise()`:
 
-```{r, cache=TRUE}
+```{r}
 summary(model1)
 ```
 
 if you wish to remove the intercept (\(alpha\)) from your model, you can do so with `-1`:
 
-```{r, cache=TRUE}
-model2 = lm(price ~ -1 + lotsize + bedrooms, data = Housing)
+```{r}
+model2 <- lm(price ~ -1 + lotsize + bedrooms, data = Housing)
 
 summary(model2)
 ```
 
 or if you want to use all the columns inside `Housing`:
 
-```{r, cache=TRUE}
-model3 = lm(price ~ ., data = Housing)
+```{r}
+model3 <- lm(price ~ ., data = Housing)
 
 summary(model3)
 ```
@@ -145,42 +168,46 @@ summary(model3)
 You can access different elements of `model3` (for example) with `$`, because the result of `lm()`
 is a list:
 
-```{r, cache=TRUE}
+```{r}
 print(model3$coefficients)
 ```
 
-but I prefer to use the `broom` package, and more specifically the `tidy()` function, which
+but I prefer to use the `{broom}` package, and more specifically the `tidy()` function, which
 converts `model3` into a neat `data.frame`:
 
-```{r, cache=TRUE}
-results3 = tidy(model3)
+```{r}
+results3 <- broom::tidy(model3)
 
 glimpse(results3)
 ```
 
-this is useful, because you can then work on the results easily, for example if you wish to only
-keep results that are significant at the 5\% level:
+I explicitely write `broom::tidy()` because `tidy()` is a popular function name. For instance,
+it is also a function from the `{yardstick}` package, which does not do the same thing at all. Since
+I will also be using `{yardstick}` I prefer explicitely writing `broom::tidy()` to avoid conflicts.
 
-```{r, cache=TRUE}
+Using `broom::tidy()` is useful, because you can then work on the results easily, for example if 
+you wish to only keep results that are significant at the 5\% level:
+
+```{r}
 results3 %>%
   filter(p.value < 0.05)
 ```
 
 You can even add new columns, such as the confidence intervals:
 
-```{r, cache=TRUE}
-results3 = tidy(model3, conf.int = TRUE, conf.level = 0.95)
+```{r}
+results3 <- broom::tidy(model3, conf.int = TRUE, conf.level = 0.95)
 
 print(results3)
 ```
 
 Going back to model estimation, you can of course use `lm()` in a pipe workflow:
 
-```{r, cache=TRUE}
+```{r}
 Housing %>%
   select(-driveway, -stories) %>%
   lm(price ~ ., data = .) %>%
-  tidy()
+  broom::tidy()
 ```
 
 The first `.` in the `lm()` function is used to indicate that we wish to use all the data from `Housing`
@@ -188,7 +215,7 @@ The first `.` in the `lm()` function is used to indicate that we wish to use all
 used to *place* the result from the two `dplyr` instructions that preceded is to be placed there.
 The picture below should help you understand:
 
-```{r, cache=TRUE}
+```{r}
 knitr::include_graphics("pics/pipe_to_second_position.png")
 ```
 
@@ -202,14 +229,14 @@ the \(R^2\) at the bottom of the summary (when running `summary(my_model)`), but
 more than simply reading these diagnostics from RStudio, you can put those in a `data.frame` too,
 using `broom::glance()`:
 
-```{r, cache=TRUE}
+```{r}
 glance(model3)
 ```
 
 You can also plot the usual diagnostics plots using `ggfortify::autoplot()` which uses the
 `ggplot2` package under the hood:
 
-```{r, cache=TRUE}
+```{r}
 library(ggfortify)
 
 autoplot(model3, which = 1:6) + theme_minimal()
@@ -221,30 +248,30 @@ option, you will only get 4 of them.
 You can also get the residuals of the regression in two ways; either you grab them directly from
 the model fit:
 
-```{r, cache=TRUE}
-resi3 = residuals(model3)
+```{r}
+resi3 <- residuals(model3)
 ```
 
 or you can augment the original data with a residuals column, using `broom::augment()`:
 
 ```{r, include=FALSE}
-housing_aug = augment(model3)
+housing_aug <- augment(model3)
 ```
 
 ```{r, eval=FALSE}
-housing_aug = augment(model3)
+housing_aug <- augment(model3)
 ```
 
 Let's take a look at `housing_aug`:
 
-```{r, cache=TRUE}
+```{r}
 glimpse(housing_aug)
 ```
 
 A few columns have been added to the original data, among them `.resid` which contains the
 residuals. Let's plot them:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(housing_aug) +
   geom_density(aes(.resid))
 ```
@@ -252,16 +279,16 @@ ggplot(housing_aug) +
 Fitted values are also added to the original data, under the variable `.fitted`. It would also have
 been possible to get the fitted values with:
 
-```{r, cache=TRUE}
-fit3 = fitted(model3)
+```{r}
+fit3 <- fitted(model3)
 ```
 
 but I prefer using `augment()`, because the columns get merged to the original data, which then
 makes it easier to find specific individuals, for example, you might want to know for which housing
 units the model underestimates the price:
 
-```{r, cache=TRUE}
-total_pos = housing_aug %>%
+```{r}
+total_pos <- housing_aug %>%
   filter(.resid > 0) %>%
   summarise(total = n()) %>%
   pull(total)
@@ -270,7 +297,7 @@ total_pos = housing_aug %>%
 we find `r total_pos` individuals where the residuals are positive. It is also easier to
 extract outliers:
 
-```{r, cache=TRUE}
+```{r}
 housing_aug %>%
   mutate(prank = cume_dist(.cooksd)) %>%
   filter(prank > 0.99) %>%
@@ -280,8 +307,8 @@ housing_aug %>%
 `prank` is a variable I created with `cume_dist()` which is a `dplyr` function that returns the
 proportion of all values less than or equal to the current rank. For example:
 
-```{r, cache=TRUE}
-example = c(5, 4.6, 2, 1, 0.8, 0, -1)
+```{r}
+example <- c(5, 4.6, 2, 1, 0.8, 0, -1)
 cume_dist(example)
 ```
 
@@ -291,13 +318,13 @@ by filtering `prank > 0.99` we get the top 1% of outliers according to Cook's di
 
 Model interpretation is essential in the social sciences. If one wants to know the effect of
 variable `x` on the dependent variable `y`, marginal effects have to be computed. This is easily
-done in R with the `margins`  package, which aims to provide the same functionality as the
+done in R with the `{margins}`  package, which aims to provide the same functionality as the
 `margins` command in STATA:
 
 ```{r}
 library(margins)
 
-effects_model3 = margins(model3)
+effects_model3 <- margins(model3)
 
 summary(effects_model3)
 ```
@@ -315,7 +342,7 @@ the others made with `ggplot2` you first need to save the summary in a variable.
 `effects_model3` with its summary:
 
 ```{r}
-effects_model3 = summary(effects_model3)
+effects_model3 <- summary(effects_model3)
 ```
 
 And now it is possible to use `ggplot2` to have the same plot:
@@ -404,16 +431,16 @@ which variables are relevant in the decision to participate in the labour force,
 a logit model, using glm().
 
 ```{r}
-logit_participation = glm(lfp ~ ., data = Participation, family = "binomial")
+logit_participation <- glm(lfp ~ ., data = Participation, family = "binomial")
 
-tidy(logit_participation)
+broom::tidy(logit_participation)
 ```
 
 From the results above, one can only interpret the sign of the coefficients. To know how much a
 variable influences the labour force participation, one has to use `margins()`:
 
 ```{r}
-effects_logit_participation = margins(logit_participation) %>%
+effects_logit_participation <- margins(logit_participation) %>%
   summary()
 
 print(effects_logit_participation)
@@ -451,68 +478,67 @@ my_subjects = tribble(
 dydx(my_subjects, logit_participation, "lnnlinc")
 ```
 
-
 I used the `tribble()` function from the tibble package to create this test data set, row by row.
 Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these two individuals.
-
 
 ## Comparing models
 
 Let's estimate another model on the same data; prices are only positive, so a linear regression
-might not be the best model, because the model allows for negative prices. Let's look at the
+might not be the best model, because the model could predict negative prices. Let's look at the
 distribution of prices:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(Housing) +
   geom_density(aes(price))
 ```
 
 it looks like modeling the log of `price` might provide a better fit:
 
-```{r, cache=TRUE}
-model_log = lm(log(price) ~ ., data = Housing)
+```{r}
+model_log <- lm(log(price) ~ ., data = Housing)
 
-result_log = tidy(model_log)
+result_log <- broom::tidy(model_log)
 
 print(result_log)
 ```
 
 Let's take a look at the diagnostics:
 
-```{r, cache=TRUE}
+```{r}
 glance(model_log)
 ```
 
 Let's compare these to the ones from the previous model:
 
-```{r, cache=TRUE}
-diag_lm = glance(model3)
+```{r}
+diag_lm <- glance(model3)
 
-diag_lm = diag_lm %>%
+diag_lm <- diag_lm %>%
   mutate(model = "lin-lin model")
 
-diag_log = glance(model_log)
+diag_log <- glance(model_log)
 
-diag_log = diag_log %>%
+diag_log  <- diag_log %>%
   mutate(model = "log-lin model")
 
-diagnostics_models = full_join(diag_lm, diag_log)
+diagnostics_models <- full_join(diag_lm, diag_log)
 
 print(diagnostics_models)
 ```
 
-I saved the diagnostics in two different `data.frame` using the `glance()` function and added a
+I saved the diagnostics in two different `data.frame` objects using the `glance()` function and added a
 `model` column to indicate which model the diagnostics come from. Then I merged both datasets using
-`full_join()`, a `dplyr` function.
+`full_join()`, a `{dplyr}` function.
 
-As you can see, the model with the logarithm of the prices as the explained variable has a higher
-likelihood (and thus lower AIC and BIC) than the simple linear model. Let's take a look at the diagnostics plots:
+As you can see, the model with the logarithm of the prices as the dependent variable has a higher
+likelihood (and thus lower AIC and BIC) than the simple linear model. Let's take a look at the 
+diagnostics plots:
 
 ```{r, include=FALSE}
 summary(model_log)
 ```
 
-```{r, cache=TRUE}
+```{r}
 autoplot(model_log, which = 1:6) + theme_minimal()
 ```
 
@@ -522,48 +548,50 @@ Once you estimated a model, you might want to use it for prediction. This is eas
 `predict()` function that works with most models. Prediction is also useful as a way to test the
 accuracy of your model: split your data into a training set (used for estimation) and a testing
 set (used for the pseudo-prediction) and see if your model overfits the data. We are going to see
-how to do that in a later section; for now, let's just get acquainted with `predict()`.
+how to do that in a later section; for now, let's just get acquainted with `predict()` and other
+functions. I insist, keep in mind that this section is only to get acquainted with these functions. 
+We are going to explore prediction, overfitting and tuning of models in a later section.
 
 Let's go back to the models we estimated in the previous section, `model3` and `model_log`. Let's also
 take a subsample of data, which we will be using for prediction:
 
-```{r, cache=TRUE}
+```{r}
 set.seed(1234)
 
-pred_set = Housing %>%
+pred_set <- Housing %>%
   sample_n(20)
 ```
 
 so that we get always the same `pred_set` I set the random seed first. Let's take a look at the
 data:
 
-```{r, cache=TRUE}
+```{r}
 print(pred_set)
 ```
 
 If we wish to use it for prediction, this is easily done with `predict()`:
 
-```{r, cache=TRUE}
+```{r}
 predict(model3, pred_set)
 ```
 
 This returns a vector of predicted prices. This can then be used to compute the Root Mean Squared Error
 for instance. Let's do it within a `tidyverse` pipeline:
 
-```{r, cache=TRUE}
-rmse = pred_set %>%
+```{r}
+rmse <- pred_set %>%
   mutate(predictions = predict(model3, .)) %>%
   summarise(sqrt(sum(predictions - price)**2/n()))
 ```
 
-The root mean square error of `model3` is `r rmse`.
+The root mean square error of `model3` is `r rmse`. 
 
-I also use the `n()` function which returns the number of observations in a group (or all the
+I also used the `n()` function which returns the number of observations in a group (or all the
 observations, if the data is not grouped). Let's compare `model3` 's RMSE with the one from
 `model_log`:
 
-```{r, cache=TRUE}
-rmse2 = pred_set %>%
+```{r}
+rmse2 <- pred_set %>%
   mutate(predictions = exp(predict(model_log, .))) %>%
   summarise(sqrt(sum(predictions - price)**2/n()))
 ```
@@ -616,3 +644,519 @@ with the `bayesm` package which estimates the usual micro-econometric models.
 There really are a lot of packages available for Bayesian inference, and you can find them all in the
 [related CRAN Task View](https://cran.r-project.org/web/views/Bayesian.html).
 
+
+## Hyper-parameters
+
+Hyper-parameters are parameters of the model that cannot be directly learned from the data. 
+A linear regression does not have any hyper-parameters, but a random forest for instance has several.
+You might have heard of ridge regression, lasso and elasticnet. These are 
+extensions to linear models that avoid over-fitting by penalizing *large* models. These 
+extensions of the linear regression have hyper-parameters that the practitioner has to tune. There
+are several ways one can tune these parameters, for example, by doing a grid-search, or a random 
+search over the grid or using more elaborate methods. To introduce hyper-parameters, let's get
+to know ridge regression, also called Tikhonov regularization.
+
+### Ridge regression
+
+Ridge regression is used when the data you are working with has a lot of explanatory variables, 
+or when there is a risk that a simple linear regression might overfit to the training data, because, 
+for example, your explanatory variables are collinear. 
+If you are training a linear model and then you notice that it generalizes very badly to new, 
+unseen data, it is very likely that the linear model you trained overfit the data. 
+In this case, ridge regression might prove useful. The way ridge regression works might seem 
+counter-intuititive; it boils down to fitting a *worse* model to the training data, but in return,
+this worse model will generalize better to new data.
+
+The closed form solution of the ordinary least squares estimator is defined as:
+
+\[
+\widehat{\beta} = (X'X)^{-1}X'Y
+\]
+
+where $X$ is the design matrix (the matrix made up of the explanatory variables) and $Y$ is the
+dependent variable. For ridge regression, this closed form solution changes a little bit:
+
+\[
+\widehat{\beta} = (X'X + \lambda I_p)^{-1}X'Y
+\]
+
+where $\lambda \in \mathbb{R}$ is an hyper-parameter and $I_p$ is the identity matrix of dimension $p$
+($p$ is the number of explanatory variables).
+This formula above is the closed form solution to the following optimisation program:
+
+\[
+\sum_{i=1}^n \left(y_i - \sum_{j=1}^px_{ij}\beta_j\right)^2 
+\]
+
+such that:
+
+\[
+\sum_{j=1}^p(\beta_j)^2 < c
+\]
+
+for any strictly positive $c$.
+
+The `glmnet()` function from the `{glmnet}` package can be used for ridge regression, by setting
+the `alpha` argument to 0 (setting it to 1 would do LASSO, and setting it to a number between 
+0 and 1 would do elasticnet). But in order to compare linear regression and ridge regression, 
+let me first divide the data into a training set and a testing set:
+
+```{r}
+index <- 1:nrow(Housing)
+
+set.seed(12345)
+train_index <- sample(index, round(0.90*nrow(Housing)), replace = FALSE)
+
+test_index <- setdiff(index, train_index)
+
+train_x <- Housing[train_index, ] %>% 
+    select(-price)
+
+train_y <- Housing[train_index, ] %>% 
+    pull(price)
+
+test_x <- Housing[test_index, ] %>% 
+    select(-price)
+
+test_y <- Housing[test_index, ] %>% 
+    pull(price)
+```
+
+I do the train/test split this way, because `glmnet()` requires a design matrix as input, and not
+a formula. Design matrices can be created using the `model.matrix()` function:
+
+```{r}
+library("glmnet")
+
+train_matrix <- model.matrix(train_y ~ ., data = train_x)
+
+test_matrix <- model.matrix(test_y ~ ., data = test_x)
+```
+
+Let's now run a linear regression, by setting the penalty to 0:
+
+```{r}
+model_lm_ridge <- glmnet(y = train_y, x = train_matrix, alpha = 0, lambda = 0)
+```
+
+The model above provides the same result as a linear regression, because I set `lambda` to 0. Let's
+compare the coefficients between the two:
+
+```{r}
+coef(model_lm_ridge)
+```
+
+and now the coefficients of the linear regression (because I provide a design matrix, I have to use
+`lm.fit()` instead of `lm()` which requires a formula, not a matrix.)
+
+```{r}
+coef(lm.fit(x = train_matrix, y = train_y))
+```
+
+as you can see, the coefficients are the same. Let's compute the RMSE for the unpenalized linear 
+regression:
+
+```{r}
+preds_lm <- predict(model_lm_ridge, test_matrix)
+
+rmse_lm <- sqrt(mean(preds_lm - test_y)^2)
+```
+
+The RMSE for the linear unpenalized regression is equal to `r rmse_lm`.
+
+Let's now run a ridge regression, with `lambda` equal to 100, and see if the RMSE is smaller:
+
+```{r}
+model_ridge <- glmnet(y = train_y, x = train_matrix, alpha = 0, lambda = 100)
+```
+
+and let's compute the RMSE again:
+
+```{r}
+preds <- predict(model_ridge, test_matrix)
+
+rmse <- sqrt(mean(preds - test_y)^2)
+```
+
+The RMSE for the linear penalized regression is equal to `r rmse`, which is smaller than before.
+But which value of `lambda` gives smallest RMSE? To find out, one must run model over a grid of
+`lambda` values and pick the model with lowest RMSE. This procedure is available in the `cv.glmnet()`
+function, which picks the best value for `lambda`:
+
+```{r}
+best_model <- cv.glmnet(train_matrix, train_y)
+# lambda that minimises the MSE
+best_model$lambda.min
+```
+
+According to `cv.glmnet()` the best value for `lambda` is `r best_model$lambda.min`. In the 
+next section, we will implement cross validation ourselves, in order to find the hyper-parameters
+of a random forest.
+
+
+## Training, validating, and testing models
+
+Cross-validation is an important procedure which is used to compare models but also to tune the
+hyper-parameters of a model. 
+
+In this section, we are going to use several packages from the
+[`{tidymodels}`](https://github.com/tidymodels) collection of packages, namely
+[`{recipes}`](https://tidymodels.github.io/recipes/), 
+[`{rsample}`](https://tidymodels.github.io/rsample/) and 
+[`{parsnip}`](https://tidymodels.github.io/parsnip/) to train a random forest the tidy way. I will
+also use [`{mlrMBO}`](http://mlrmbo.mlr-org.com/) to tune the hyper-parameters of the random forest.
+
+### Set up
+
+Let's load the needed packages:
+
+```{r, include=FALSE}
+library("tidyverse")
+library("tidymodels")
+library("parsnip")
+library("brotools")
+library("mlbench")
+```
+
+
+```{r, eval=FALSE}
+library("tidyverse")
+library("tidymodels")
+library("parsnip")
+library("brotools")
+library("mlbench")
+```
+
+Load the data, included in the `{mlrbench}` package:
+
+```{r}
+data("BostonHousing2")
+```
+
+I will train a random forest to predict the housing price, which is the `cmedv` column:
+
+```{r}
+head(BostonHousing2)
+```
+
+Only keep relevant columns:
+
+```{r}
+boston <- BostonHousing2 %>% 
+    select(-medv, -tract, -lon, -lat) %>% 
+    rename(price = cmedv)
+```
+
+I remove `tract`, `lat` and `lon` because the information contained in the column `town` is enough.
+
+To train and evaluate the model's performance, I split the data in two. 
+One data set, called the training set, will be further split into two down below. I won't 
+touch the second data set, the test set, until the very end, to finally assess the model's 
+performance.
+
+```{r}
+train_test_split <- initial_split(boston, prop = 0.9)
+
+housing_train <- training(train_test_split)
+
+housing_test <- testing(train_test_split)
+```
+
+`initial_split()`, `training()` and `testing()` are functions from the `{rsample}` package.
+
+I will train a random forest on the training data, but the question, is *which* random forest?
+Because random forests have several hyper-parameters, and as explained in the intro these 
+hyper-parameters cannot be directly learned from the data, which one should we choose? We could
+train 6 random forests for instance and compare their performance, but why only 6? Why not 16? 
+
+In order to find the right hyper-parameters, the practitioner can 
+use values from the literature that seemed to have worked well (like is done in Macro-econometrics)
+or you can further split the train set into two, create a grid of hyperparameter, train the model 
+on one part of the data for all values of the grid, and compare the predictions of the models on the 
+second part of the data. You then stick with the model that performed the best, for example, the 
+model with lowest RMSE. The thing is, you can't estimate the true value of the RMSE with only
+one value. It's like if you wanted to estimate the height of the population by drawing one single
+observation from the population. You need a bit more observations. To approach the true value of the
+RMSE for a give set of hyperparameters, instead of doing one split, let's do 30. Then we
+compute the average RMSE, which implies training 30 models for each combination of the values of the 
+hyperparameters.
+
+First, let's split the training data again, using the `mc_cv()` function from `{rsample}` package.
+This function implements Monte Carlo cross-validation:
+
+```{r}
+validation_data <- mc_cv(housing_train, prop = 0.9, times = 30)
+```
+
+What does `validation_data` look like?
+
+```{r}
+validation_data
+```
+
+Let's look further down:
+
+```{r}
+validation_data$splits[[1]]
+```
+
+The first value is the number of rows of the first set, the second value of the second, and the third
+was the original amount of values in the training data, before splitting again.
+
+How should we call these two new data sets? The author of `{rsample}`, Max Kuhn, talks about 
+the *analysis* and the *assessment* sets:
+
+```{r, echo=FALSE}
+blogdown::shortcode("tweet", "1066131042615140353")
+```
+
+Now, in order to continue I need pre-process the data. I will do this in three steps.
+The first and the second step are used to center and scale the numeric variables and the third step 
+converts character and factor variables to dummy variables. This is needed because I will train a 
+random forest, which cannot handle factor variables directly. Let's define a recipe to do that, 
+and start by pre-processing the testing set. I write a wrapper function around the recipe,
+because I will need to apply this recipe to various data sets:
+
+```{r}
+simple_recipe <- function(dataset){
+    recipe(price ~ ., data = dataset) %>%
+        step_center(all_numeric()) %>%
+        step_scale(all_numeric()) %>%
+        step_dummy(all_nominal())
+}
+```
+
+Once the recipe is defined, I can use the `prep()` function, which estimates the parameters from 
+the data which are needed to process the data. For example, for centering, `prep()` estimates 
+the mean which will then be subtracted from the variables. With `bake()` the estimates are then
+applied on the data:
+
+```{r}
+testing_rec <- prep(simple_recipe(housing_test), testing = housing_test)
+
+test_data <- bake(testing_rec, new_data = housing_test)
+```
+
+It is important to split the data before using `prep()` and `bake()`, because if not, you will 
+use observations from the test set in the `prep()` step, and thus introduce knowledge from the test
+set into the training data. This is called data leakage, and must be avoided. This is why it is 
+necessary to first split the training data into an analysis and an assessment set, and then also 
+pre-process these sets separately. However, the `validation_data` object cannot now be used with
+`recipe()`, because it is not a dataframe. No worries, I simply need to write a function that extracts
+the analysis and assessment sets from the `validation_data` object, applies the pre-processing, trains
+the model, and returns the RMSE. This will be a big function, at the center of the analysis. 
+
+But before that, let's run a simple linear regression, as a benchmark. For the linear regression, I will
+not use any CV, so let's pre-process the training set:
+
+```{r}
+trainlm_rec <- prep(simple_recipe(housing_train), testing = housing_train)
+
+trainlm_data <- bake(trainlm_rec, new_data = housing_train)
+
+linreg_model <- lm(price ~ ., data = trainlm_data)
+
+broom::augment(linreg_model, newdata = test_data) %>% 
+    rmse(price, .fitted)
+```
+
+`broom::augment()` adds the predictions to the `test_data` in a new column, `.fitted`. I won't
+use this trick with the random forest, because there is no `augment()` method for random forests
+from the `{ranger}` which I'll use. I'll add the predictions to the data myself.
+
+Ok, now let's go back to the random forest and write the big function:
+
+```{r}
+my_rf <- function(mtry, trees, split, id){
+    
+    analysis_set <- analysis(split)
+    
+    analysis_prep <- prep(simple_recipe(analysis_set), training = analysis_set)
+    
+    analysis_processed <- bake(analysis_prep, new_data = analysis_set)
+    
+    model <- rand_forest(mtry = mtry, trees = trees) %>%
+        set_engine("ranger", importance = 'impurity') %>%
+        fit(price ~ ., data = analysis_processed)
+
+    assessment_set <- assessment(split)
+    
+    assessment_prep <- prep(simple_recipe(assessment_set), testing = assessment_set)
+    
+    assessment_processed <- bake(assessment_prep, new_data = assessment_set)
+
+    tibble::tibble("id" = id,
+        "truth" = assessment_processed$price,
+        "prediction" = unlist(predict(model, new_data = assessment_processed)))
+}
+```
+
+The `rand_forest()` function is available from the `{parsnip}` package. This package provides an 
+unified interface to a lot of other machine learning packages. This means that instead of having to 
+learn the syntax of `range()` and `randomForest()` and, and... you can simply use the `rand_forest()`
+function and change the `engine` argument to the one you want (`ranger`, `randomForest`, etc).
+
+Let's try this function:
+
+```{r, cache=TRUE}
+results_example <- map2_df(.x = validation_data$splits,
+                           .y = validation_data$id,
+                           ~my_rf(mtry = 3, trees = 200, split = .x, id = .y))
+
+```
+
+```{r}
+head(results_example)
+```
+
+I can now compute the RMSE when `mtry` = 3 and `trees` = 200:
+
+```{r}
+results_example %>%
+    group_by(id) %>%
+    rmse(truth, prediction) %>%
+    summarise(mean_rmse = mean(.estimate)) %>%
+    pull
+```
+
+The random forest has already lower RMSE than the linear regression. The goal now is to lower this
+RMSE by tuning the `mtry` and `trees` hyperparameters. For this, I will use Bayesian Optimization
+methods implemented in the `{mlrMBO}` package.
+
+### Bayesian hyperparameter optimization
+
+I will re-use the code from above, and define a function that does everything from pre-processing
+to returning the metric I want to minimize by tuning the hyperparameters, the RMSE:
+
+```{r}
+tuning <- function(param, validation_data){
+
+    mtry <- param[1]
+    trees <- param[2]
+
+    results <- purrr::map2_df(.x = validation_data$splits,
+                       .y = validation_data$id,
+                       ~my_rf(mtry = mtry, trees = trees, split = .x, id = .y))
+
+    results %>%
+        group_by(id) %>%
+        rmse(truth, prediction) %>%
+        summarise(mean_rmse = mean(.estimate)) %>%
+        pull
+}
+```
+
+This is exactly the code from before, but it now returns the RMSE. Let's try the function
+with the values from before:
+
+```{r, cache=TRUE}
+tuning(c(3, 200), validation_data)
+```
+
+I now follow the code that can be found in the [arxiv](https://arxiv.org/abs/1703.03373) paper to 
+run the optimization. I think I got the gist of the paper, but I did not understand everything yet.
+For now, I am still experimenting with the library at the moment, but from what I understand, a 
+simpler model, called the surrogate model, is used to look for promising points and to evaluate the
+value of the function at these points. This seems somewhat similar (in spirit) to the 
+*Indirect Inference* method as described in [Gourieroux, Monfort, Renault](https://www.jstor.org/stable/2285076).
+
+Let's first load the package and create the function to optimize:
+
+```{r, include=FALSE}
+library("mlrMBO")
+```
+
+```{r, eval=FALSE}
+library("mlrMBO")
+```
+
+```{r}
+fn <- makeSingleObjectiveFunction(name = "tuning",
+                                 fn = tuning,
+                                 par.set = makeParamSet(makeIntegerParam("x1", lower = 3, upper = 8),
+                                                        makeIntegerParam("x2", lower = 100, upper = 500)))
+```
+
+This function is based on the function I defined before. The parameters to optimize are also 
+defined as are their bounds. I will look for `mtry` between the values of 3 and 8, and `trees` 
+between 50 and 500.
+
+Now comes the part I didn't quite get.
+
+```{r}
+# Create initial random Latin Hypercube Design of 10 points
+library(lhs)# for randomLHS
+des <- generateDesign(n = 5L * 2L, getParamSet(fn), fun = randomLHS)
+```
+
+I think this means that these 10 points are the points used to start the whole process. I did not
+understand why they have to be sampled from a hypercube, but ok. Then I choose the surrogate model,
+a random forest too, and predict the standard error. Here also, I did not quite get why the 
+standard error can be an option.
+ 
+```{r}
+# Specify kriging model with standard error estimation
+surrogate <- makeLearner("regr.ranger", predict.type = "se", keep.inbag = TRUE)
+```
+
+Here I define some options:
+
+```{r}
+# Set general controls
+ctrl <- makeMBOControl()
+ctrl <- setMBOControlTermination(ctrl, iters = 10L)
+ctrl <- setMBOControlInfill(ctrl, crit = makeMBOInfillCritEI())
+```
+
+And this is the optimization part:
+
+```{r, eval=FALSE}
+# Start optimization
+result <- mbo(fn, des, surrogate, ctrl, more.args = list("validation_data" = validation_data))
+```
+
+```{r, include=FALSE}
+result <- readRDS("random_forest_estimation.rds")
+```
+
+```{r}
+result
+```
+
+So the recommended parameters are `r result$x$x1` for `mtry` and `r result$x$x2` for `trees`. The
+user can access these recommended parameters with `result$x$x1` and `result$x$x2`.
+The value of the RMSE is lower than before, and equals `r result$y`. It can be accessed with 
+`result$y`.
+Let's now train the random forest on the training data with this values. First, I pre-process the 
+training data
+
+```{r}
+training_rec <- prep(simple_recipe(housing_train), testing = housing_train)
+
+train_data <- bake(training_rec, new_data = housing_train)
+```
+
+Let's now train our final model and predict the prices:
+
+```{r}
+final_model <- rand_forest(mtry = result$x$x1, trees = result$x$x2) %>%
+        set_engine("ranger", importance = 'impurity') %>%
+        fit(price ~ ., data = train_data)
+
+price_predict <- predict(final_model, new_data = select(test_data, -price))
+```
+
+Let's transform the data back and compare the predicted prices to the true ones visually:
+
+```{r}
+cbind(price_predict * sd(housing_train$price) + mean(housing_train$price), 
+      housing_test$price)
+```
+
+Let's now compute the RMSE:
+
+```{r, cache=TRUE}
+tibble::tibble("truth" = test_data$price,
+        "prediction" = unlist(price_predict)) %>% 
+    rmse(truth, prediction)
+```

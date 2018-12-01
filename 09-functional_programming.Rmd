@@ -314,22 +314,23 @@ In the `purrr` package, you can find two more functions for folding: `reduce()` 
 `reduce_right()`. The difference between `reduce()` and `reduce_right()` is pretty obvious:
 `reduce_right()` starts from the right!
 
-```{r}
+```{r, include=FALSE}
 a <- seq(1, 10)
 
-reduce(a, `-`)
-reduce_right(a, `-`)
+purrr::reduce(a, `-`)
+purrr::reduce_right(a, `-`)
 ```
 
 For operations that are not commutative, this makes a difference. Other interesting folding
 functions are `accumulate()` and `accumulate_right()`:
 
-```{r}
+```{r, eval=FALSE}
 a <- seq(1, 10)
 
 accumulate(a, `-`)
 accumulate_right(a, `-`)
 ```
+
 These two functions keep the intermediary results.
 
 In the previous chapter, we wrote a loop to compute the sum of the 100 first integers. We can do
@@ -344,10 +345,13 @@ print(result)
 You certainly agree with me that is simpler to understand. You can even see what happens in more
 detail using `accumulate`:
 
-```{r}
-accumulate(seq(1, 100), `+`)
+```{r, include=FALSE}
+purrr::accumulate(seq(1, 100), `+`)
 ```
 
+```{r, eval=FALSE}
+accumulate(seq(1, 100), `+`)
+```
 
 ### `safely()` and `possibly()`
 
@@ -755,7 +759,6 @@ And if we want to save these plots, we can do so using `map2()`:
 map2(paste0(plots_tibble$division, ".pdf"), plots_tibble$plot, ggsave)
 ```
 
-
 ```
 Saving 7 x 5 in image
 Saving 6.01 x 3.94 in image
@@ -772,136 +775,6 @@ graphs or even another function. `map()` will simply map this function to a list
 long as these inputs are correct arguments to the function, `map()` will do its magic. If you
 combine this with list-columns, you can even use `map()` alongside `dplyr` functions and map your
 function by first grouping, filtering, etc...
-
-## Functional programming and modeling
-
-
-### Bootstrapping
-
-The `broom` package includes a `bootstrap()` function that allows you to resample your data with
-replacement and estimate your model on each sample. A worked example is available in one of the package's
-[Vignette](https://cran.r-project.org/web/packages/broom/vignettes/bootstrapping.html). R also
-includes a more general `boot()` function, but we are going to learn about this one later, as it
-involves some programming. Let's go back to `model_log`, and try to get bootstrapped confidence
-intervals (as shown in the Vignette I linked above):
-
-```{r, include=FALSE, cache=TRUE}
-boot_result <- Housing %>%
-  broom::bootstrap(50) %>%
-  do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
-```
-
-```{r, eval=FALSE}
-boot_result <- Housing %>%
-  bootstrap(50) %>%
-  do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
-```
-
-I just use 2 variables to make the output smaller. Let's take a look at `boot_result`:
-
-```{r}
-print(boot_result)
-```
-
-`boot_result` is a `tibble` grouped by the new variable `replicate`. Now it is easy to compute confidence
-intervals for the parameters:
-
-```{r}
-boot_result %>%
-  group_by(term) %>%
-  summarize(low = quantile(estimate, .05/2),
-            high = quantile(estimate, 1 - .05/2))
-```
-
-`quantile()` is a built-in function that returns the quantile at the \(alpha\) level for a given
-vector (in this case the vector of estimates). Of course, we had to group by `term` first, as we
-need to compute the confidence intervals, for each terms (or estimated parameters) separately.
-Plotting the densities of the bootstrapped parameters might also prove interesting:
-
-```{r}
-ggplot(boot_result, aes(estimate)) +
-  geom_density() +
-  facet_wrap(~term, scales = "free")
-```
-
-### Cross-validation
-
-To do cross-validation, we are going to use the `modelr` package, which is also part of the
-`tidyverse`.^[This package is still somewhat young and experimental and might get replaced by two others in the
-future. At some point in the future you might get a warning message telling you that the package is deprecated.
-When this happens, you would need to switch to the new packages, but transition should be fairly easy.]
-
-```{r}
-library(modelr)
-```
-
-`modelr` includes two functions for cross-validation, `crossv_kfold` and `crossv_mc`, which
-do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let's see what
-`cross_mc()` (`cross_kfold()`) returns when applied to data:
-
-```{r}
-cv_Housing <- Housing %>%
-  crossv_mc(n = 50)
-
-print(cv_Housing)
-```
-
-This is a `tibble` with 3 colmuns, two of them being list-columns; `train` and `test`. Each element
-of `train` and `test` is a resampled `tibble` of the original data. This means that we can now
-estimate our first model (the simple linear one) on each resampled data using `map()`:
-
-Now if we want to estimate all these models:
-
-```{r}
-cv_models <- cv_Housing %>%
-  mutate(model = map(train, ~lm(price ~ ., data = .)))
-
-print(cv_models)
-```
-
-We added a list-column with the 50 models estimated (or trained) on the train data. Now we can compute,
-say, the RMSE from before on each one. `modelr` includes a `rmse()` function, so unlike in the
-previous section where we computed the RMSE manually we are simply going to use this function:
-
-```{r}
-rmse_cv <- cv_models %>%
-  mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
-  pull(rmse_all_models)
-
-print(rmse_cv)
-```
-
-We can now compute the mean of this `rmse_cv` variable:
-
-```{r}
-cv_rmse_lin_lin <- mean(rmse_cv)
-```
-
-which is equal to `r cv_rmse_lin_lin`.
-
-For the log-lin model, this is a bit more complicated, because we need to exponentiate the
-predictions. However, if we use `rmse()` as before, there is no way to do that. I show you how you
-can do that, but it involves a few more steps than simply using `rmse()`. Try to understand the code
-below that computes the bootstrapped `rmse` for the log-lin model.
-You can see this as an advanced exercise; if you understand these next lines of code, you should
-understand anything that has to do with the `tidyverse`.
-
-```{r}
-cv_rmse_log_lin <- cv_Housing %>%
-    mutate(model = map(train, ~lm(log(price) ~ ., data = .))) %>%
-    mutate(log_pred = map2(model, test, ~exp(predict(.x, .y)))) %>%
-    mutate(prices = map(test, ~as.data.frame(.x)$price)) %>%
-    mutate(
-        rmse_all =
-            map2_dbl(log_pred, prices,
-                     ~sqrt(mean((.x - .y)**2, na.rm = TRUE)))) %>%
-    pull(rmse_all) %>%
-    mean()
-```
-
-`cv_rmse_log_lin` is equal to `r cv_rmse_log_lin`, which is lower than in the lin-lin model.
-
-
 
 ## Exercises
 

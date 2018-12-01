@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2018-11-27}
+    \date{2018-12-01}
 
 \usepackage{booktabs}
 
@@ -419,9 +419,7 @@ win or lose (it will be lose 99\% of the time) the game.
 
 You can follow me on
 \href{https://www.twitter.com/brodriguesco}{twitter}, I tweet mostly
-about R or what's happening in Luxembourg. If you find this book useful,
-you can \href{https://www.buymeacoffee.com/brodriguesco}{buy me an
-espresso}.
+about R or what's happening in Luxembourg.
 
 \hypertarget{getting-to-know-rstudio}{%
 \section{Getting to know RStudio}\label{getting-to-know-rstudio}}
@@ -1122,7 +1120,7 @@ You can also create named lists:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{list4 <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"a"}\NormalTok{ <-}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"b"}\NormalTok{ <-}\StringTok{ }\DecValTok{8}\NormalTok{, }\StringTok{"c"}\NormalTok{ <-}\StringTok{ "this is a named list"}\NormalTok{)}
+\NormalTok{list4 <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"a"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"b"}\NormalTok{ =}\StringTok{ }\DecValTok{8}\NormalTok{, }\StringTok{"c"}\NormalTok{ =}\StringTok{ "this is a named list"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1147,7 +1145,7 @@ or, for named lists:
 \end{Shaded}
 
 \begin{verbatim}
-## NULL
+## [1] "this is a named list"
 \end{verbatim}
 
 Lists are used extensively because they are so flexible. You can build
@@ -1811,12 +1809,12 @@ too, and it will be passed down to \texttt{data.table::fread()}:
 
 \begin{verbatim}
 ##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## 1   21   6  160 110  3.9  2.62 16.46  0  1    4    4
+## 2   21   6  160 110  3.9 2.875 17.02  0  1    4    4
+## 3 22.8   4  108  93 3.85  2.32 18.61  1  1    4    1
 ## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+## 5 18.7   8  360 175 3.15  3.44 17.02  0  0    3    2
+## 6 18.1   6  225 105 2.76  3.46 20.22  1  0    3    1
 \end{verbatim}
 
 \texttt{export()} allows you to write data to disk, by simply providing
@@ -2108,10 +2106,10 @@ before getting to know these verbs, let's do an analysis using standard,
 or \emph{base} R functions. This will be the benchmark against which we
 are going to measure a \texttt{\{tidyverse\}} workflow.
 
-\hypertarget{an-data-exploration-exercice-using-base-r}{%
-\subsection{\texorpdfstring{An data exploration exercice using
+\hypertarget{a-data-exploration-exercice-using-base-r}{%
+\subsection{\texorpdfstring{A data exploration exercice using
 \emph{base}
-R}{An data exploration exercice using base R}}\label{an-data-exploration-exercice-using-base-r}}
+R}{A data exploration exercice using base R}}\label{a-data-exploration-exercice-using-base-r}}
 
 Let's first load the \texttt{starwars} data set, included in the
 \texttt{\{dplyr\}} package:
@@ -5327,7 +5325,7 @@ Now, let's create the plot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-214-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-226-1.pdf}
 
 Ok great. But now I want to create this plot for each
 \texttt{id}\ldots{} so I have to copy paste this 3 times. But
@@ -5411,28 +5409,28 @@ you now want to take a look at the plots, it is enough to do this:
 ## [[1]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-218-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-230-1.pdf}
 
 \begin{verbatim}
 ## 
 ## [[2]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-218-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-230-2.pdf}
 
 \begin{verbatim}
 ## 
 ## [[3]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-218-3.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-230-3.pdf}
 
 \begin{verbatim}
 ## 
 ## [[4]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-218-4.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-230-4.pdf}
 
 Ok, that was quite complicated, but again, this was only to introduce
 \texttt{nest()} and give you a taste of the power of the
@@ -6871,7 +6869,7 @@ reordering. Do not worry if you don't understand all the code for now:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-268-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-280-1.pdf}
 
 It would be much better if the categories were ordered by frequency.
 This is easy to do with \texttt{fct\_reorder()}:
@@ -6887,7 +6885,7 @@ This is easy to do with \texttt{fct\_reorder()}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-269-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-281-1.pdf}
 
 Much better! In Chapter 6, we are going to learn about
 \texttt{\{ggplot2\}}.
@@ -7321,7 +7319,7 @@ lines are enough:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-285-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-297-1.pdf}
 
 The first argument of the function is the data (called \texttt{starwars}
 in this example), and then the function \texttt{aes()}. This function is
@@ -7340,7 +7338,7 @@ You can also change the coordinate system in your barplot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-286-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-298-1.pdf}
 
 \hypertarget{density}{%
 \subsubsection{Density}\label{density}}
@@ -7359,7 +7357,7 @@ density plots:
 ## Warning: Removed 6 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-287-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-299-1.pdf}
 
 Let's go into more detail now; what if you would like to plot the
 densities for females and males only (removing the droids from the data
@@ -7391,7 +7389,7 @@ Then, we pipe this dataset to \texttt{ggplot}:
 ## Warning: Removed 5 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-289-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-301-1.pdf}
 
 Let's take a closer look to the \texttt{aes()} function: I've added
 \texttt{fill\ =\ gender}. This means that the there will be one density
@@ -7427,7 +7425,7 @@ Let's plot the unemployment for the canton of Luxembourg only:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-290-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-302-1.pdf}
 
 Because line plots are 2D, you need to specify the y and x axes. There
 is also another option you need to add, \texttt{group\ =\ 1}. This is to
@@ -7443,7 +7441,7 @@ line. What if you want to plot more than one commune?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-291-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-303-1.pdf}
 
 This time, I've specified \texttt{group\ =\ division} which means that
 there has to be one line per as many communes as in the variable
@@ -7461,7 +7459,7 @@ to add anything to the legend, no need to specify a third colour etc:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-292-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-304-1.pdf}
 
 \hypertarget{facets}{%
 \subsubsection{Facets}\label{facets}}
@@ -7488,7 +7486,7 @@ formula, hence the \texttt{\textasciitilde{}} symbol in the code below:
 ## Warning: Removed 4 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-293-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-305-1.pdf}
 
 By changing the formula, you change how the facetting is done:
 
@@ -7508,7 +7506,7 @@ By changing the formula, you change how the facetting is done:
 ## Warning: Removed 4 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-294-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-306-1.pdf}
 
 Recall the categorical variable \texttt{more\_1} that we computed in the
 previous chapter? Let's use it as a faceting variable:
@@ -7533,7 +7531,7 @@ previous chapter? Let's use it as a faceting variable:
 ## Warning: Removed 4 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-295-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-307-1.pdf}
 
 \hypertarget{pie-charts}{%
 \subsubsection{Pie Charts}\label{pie-charts}}
@@ -7576,7 +7574,7 @@ Now, let's plot this data, first by creating 3 bar plots:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-298-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-310-1.pdf}
 
 In the code above, I introduce a new option, called
 \texttt{stat\ =\ "identity"}. By default, \texttt{geom\_bar()} counts
@@ -7648,7 +7646,7 @@ coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-301-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-313-1.pdf}
 
 As you can see, this typical pie chart is not very easy to read;
 compared to the barplots above it is not easy to distinguish \texttt{a}
@@ -7666,7 +7664,7 @@ bit to make it clearer, by specifying \texttt{variable} as the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-302-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-314-1.pdf}
 
 But as a general rule, avoid pie charts if possible. Barplots show the
 same information, much, much clearer.
@@ -7686,7 +7684,7 @@ possible with \texttt{geom\_text()}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-303-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-315-1.pdf}
 
 You can put anything after \texttt{label\ =}but in general what you'd
 want are the values, so that's what I put there. But you can also refine
@@ -7971,7 +7969,7 @@ it, imagine the values are actualy, say €:
 ## <ac>
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-304-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-316-1.pdf}
 
 \hypertarget{customization}{%
 \subsection{Customization}\label{customization}}
@@ -7999,7 +7997,7 @@ names to the \texttt{labs()} function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-305-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-317-1.pdf}
 
 What if you want to make the lines thicker?
 
@@ -8013,7 +8011,7 @@ What if you want to make the lines thicker?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-306-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-318-1.pdf}
 
 \hypertarget{themes}{%
 \subsubsection{Themes}\label{themes}}
@@ -8035,7 +8033,7 @@ feature from the theme. This is done with the function \texttt{theme()}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-307-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-319-1.pdf}
 
 What I also like to do is remove the title of the legend, because it is
 often superfluous:
@@ -8051,7 +8049,7 @@ often superfluous:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-308-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-320-1.pdf}
 
 The legend title has to be an \texttt{element\_text}
 object.\texttt{element\_text} objects are used with \texttt{theme} to
@@ -8073,7 +8071,7 @@ built-in themes that you can use:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-309-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-321-1.pdf}
 
 For example in the code above, I have used \texttt{theme\_minimal()}
 which I like quite a lot. You can also use themes from the
@@ -8091,7 +8089,7 @@ like it:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-310-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-322-1.pdf}
 
 As you can see, \texttt{theme\_stata()} has the legend on the bottom by
 default, because this is how the legend position is defined within the
@@ -8109,7 +8107,7 @@ theme. However the legend title is still there. Let's remove it:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-311-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-323-1.pdf}
 
 \texttt{ggthemes} even features an Excel 2003 theme (don't use it
 though):
@@ -8125,7 +8123,7 @@ though):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-312-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-324-1.pdf}
 
 \hypertarget{colour-schemes-from-ggthemes}{%
 \subsubsection{\texorpdfstring{Colour schemes from
@@ -8151,7 +8149,7 @@ barplots for example). A colour scheme I like is the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-313-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-325-1.pdf}
 
 An example with a barplot:
 
@@ -8166,7 +8164,7 @@ An example with a barplot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-314-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-326-1.pdf}
 
 \hypertarget{using-your-own-colours}{%
 \subsubsection{Using your own colours}\label{using-your-own-colours}}
@@ -8188,7 +8186,7 @@ you want to use.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-315-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-327-1.pdf}
 
 To get html codes of colours you can use
 \href{http://htmlcolorcodes.com/color-picker/}{this online tool}. There
@@ -8212,7 +8210,7 @@ For a barplot you would do the same:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-317-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-329-1.pdf}
 
 \hypertarget{saving-plots-on-disk}{%
 \subsubsection{Saving plots on disk}\label{saving-plots-on-disk}}
@@ -8294,6 +8292,28 @@ have learned until now and how you can apply these concepts to modeling.
 Also, as you read in the beginning of the book, R has many many
 packages. So the model you need is most probably already implemented in
 some package.
+
+\hypertarget{terminology}{%
+\subsection{Terminology}\label{terminology}}
+
+Before continuing discussing about statistical models and model fitting
+it is worthwhile to discuss terminology a little bit. Depending on your
+background, you might call an explanatory variable a feature or the
+dependent variable the target. These are the same objects. The matrix of
+features is usually called a design matrix, and the what statisticians
+call the intercept in a linear regression machine learning engineers
+call the bias. Calling the intercept the bias is unfortunate, as bias
+also has a very different meaning; bias is also what we call the error
+in a model that may cause \emph{biased} estimates. To finish up, the
+estimated parameters of the model may be called coefficients or weights.
+Here again, I don't like the using \emph{weight} as weight as a very
+different meaning in statistics. So, in the remainder of this chapter,
+and book, I will use the terminology from the statistical litterature,
+using dependent and explanatory variables (\texttt{y} and \texttt{x}),
+and calling the estimated parameters coefficients and the
+intercept\ldots{} well the intercept (the \(\beta\)s of the model).
+However, I will talk of \emph{training} a model, instead of
+\emph{estimating} a model.
 
 \hypertarget{fitting-a-model-to-data}{%
 \subsection{Fitting a model to data}\label{fitting-a-model-to-data}}
@@ -8714,7 +8734,7 @@ under the hood:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-338-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-350-1.pdf}
 
 \texttt{which=1:6} is an additional option that shows you all the
 diagnostics plot. If you omit this option, you will only get 4 of them.
@@ -8779,7 +8799,7 @@ A few columns have been added to the original data, among them
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-343-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-355-1.pdf}
 
 Fitted values are also added to the original data, under the variable
 \texttt{.fitted}. It would also have been possible to get the fitted
@@ -8902,7 +8922,7 @@ It is also possible to plot the results:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-349-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-361-1.pdf}
 
 This uses the basic R plotting capabilities, which is useful because it
 is a simple call to the function \texttt{plot()} but if you've been
@@ -8931,7 +8951,7 @@ And now it is possible to use \texttt{ggplot2} to have the same plot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-351-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-363-1.pdf}
 
 Of course for \texttt{model3}, the marginal effects are the same as the
 coefficients, so let's estimate a logit model and compute the marginal
@@ -9071,7 +9091,7 @@ We can use the previous code to plot the marginal effects:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-356-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-368-1.pdf}
 
 So an infinitesimal increase, in say, non-labour income (lnnlinc) of
 0.001 is associated with a decrease of the probability of labour force
@@ -9134,7 +9154,7 @@ allows for negative prices. Let's look at the distribution of prices:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-359-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-371-1.pdf}
 
 it looks like modeling the log of \texttt{price} might provide a better
 fit:
@@ -9237,7 +9257,7 @@ plots:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-364-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-376-1.pdf}
 
 \hypertarget{using-a-model-for-prediction}{%
 \subsection{Using a model for
@@ -9814,7 +9834,7 @@ not use only recursive algorithms then? Try to run the following:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.036   0.055   0.076
+##   0.190   0.218   0.458
 \end{verbatim}
 
 The result should be printed very fast (the \texttt{system.time()}
@@ -9829,7 +9849,7 @@ function returns the time that it took to execute
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   1.400   0.446   1.891
+##   1.202   0.131   1.361
 \end{verbatim}
 
 It takes much longer to execute! Recursive algorithms are very CPU
@@ -11847,7 +11867,7 @@ map, this function to each dataset in the list? To do this I need to use
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(purrr)}
 
-\NormalTok{all_datasets =}\StringTok{ }\NormalTok{all_datasets }\OperatorTok{%>%}
+\NormalTok{all_datasets <-}\StringTok{ }\NormalTok{all_datasets }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{map}\NormalTok{(clean_names)}
 
 \NormalTok{all_datasets }\OperatorTok{%>%}
@@ -12183,7 +12203,7 @@ commune:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-468-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-480-1.pdf}
 
 and then you would write the same for ``Esch-sur-Alzette'' and also for
 ``Wiltz''. If you only have to make to make these 3 plots, copy and
@@ -12200,7 +12220,7 @@ pasting the above lines is no big deal:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-469-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-481-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12213,7 +12233,7 @@ pasting the above lines is no big deal:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-469-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-481-2.pdf}
 
 Put copy and pasting is error prone. Can you spot the copy-paste mistake
 I made? And what if you have to create the above plots for all 108
@@ -12227,7 +12247,7 @@ names:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{communes =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"Luxembourg"}\NormalTok{, }\StringTok{"Esch-sur-Alzette"}\NormalTok{, }\StringTok{"Wiltz"}\NormalTok{)}
+\NormalTok{communes <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"Luxembourg"}\NormalTok{, }\StringTok{"Esch-sur-Alzette"}\NormalTok{, }\StringTok{"Wiltz"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12280,9 +12300,9 @@ but maps over two inputs:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{numbers1 =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{numbers1 <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
 
-\NormalTok{numbers2 =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{9}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{numbers2 <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{9}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{)}
 
 \KeywordTok{map2}\NormalTok{(numbers1, numbers2, }\StringTok{`}\DataTypeTok{*}\StringTok{`}\NormalTok{)}
 \end{Highlighting}
@@ -12435,21 +12455,21 @@ to simply look at them, it is enough to use \texttt{pull()}:
 ## [[1]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-476-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-488-1.pdf}
 
 \begin{verbatim}
 ## 
 ## [[2]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-476-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-488-2.pdf}
 
 \begin{verbatim}
 ## 
 ## [[3]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-476-3.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-488-3.pdf}
 
 And if we want to save these plots, we can do so using \texttt{map2()}:
 
@@ -12570,7 +12590,7 @@ parameters might also prove interesting:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-482-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-494-1.pdf}
 
 \hypertarget{cross-validation}{%
 \subsubsection{Cross-validation}\label{cross-validation}}
@@ -12597,7 +12617,7 @@ when applied to data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cv_Housing =}\StringTok{ }\NormalTok{Housing }\OperatorTok{%>%}
+\NormalTok{cv_Housing <-}\StringTok{ }\NormalTok{Housing }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{crossv_mc}\NormalTok{(}\DataTypeTok{n =} \DecValTok{50}\NormalTok{)}
 
 \KeywordTok{print}\NormalTok{(cv_Housing)}
@@ -12631,7 +12651,7 @@ Now if we want to estimate all these models:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cv_models =}\StringTok{ }\NormalTok{cv_Housing }\OperatorTok{%>%}
+\NormalTok{cv_models <-}\StringTok{ }\NormalTok{cv_Housing }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{model =} \KeywordTok{map}\NormalTok{(train, }\OperatorTok{~}\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ .)))}
 
 \KeywordTok{print}\NormalTok{(cv_models)}
@@ -12663,7 +12683,7 @@ to use this function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{rmse_cv =}\StringTok{ }\NormalTok{cv_models }\OperatorTok{%>%}
+\NormalTok{rmse_cv <-}\StringTok{ }\NormalTok{cv_models }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{rmse_all_models =} \KeywordTok{map2_dbl}\NormalTok{(model, test, }\OperatorTok{~}\KeywordTok{rmse}\NormalTok{(.x, .y))) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pull}\NormalTok{(rmse_all_models)}
 
@@ -12686,7 +12706,7 @@ We can now compute the mean of this \texttt{rmse\_cv} variable:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cv_rmse_lin_lin =}\StringTok{ }\KeywordTok{mean}\NormalTok{(rmse_cv)}
+\NormalTok{cv_rmse_lin_lin <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(rmse_cv)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12703,7 +12723,7 @@ has to do with the \texttt{tidyverse}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cv_rmse_log_lin =}\StringTok{ }\NormalTok{cv_Housing }\OperatorTok{%>%}
+\NormalTok{cv_rmse_log_lin <-}\StringTok{ }\NormalTok{cv_Housing }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{model =} \KeywordTok{map}\NormalTok{(train, }\OperatorTok{~}\KeywordTok{lm}\NormalTok{(}\KeywordTok{log}\NormalTok{(price) }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ .))) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{log_pred =} \KeywordTok{map2}\NormalTok{(model, test, }\OperatorTok{~}\KeywordTok{exp}\NormalTok{(}\KeywordTok{predict}\NormalTok{(.x, .y)))) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{prices =} \KeywordTok{map}\NormalTok{(test, }\OperatorTok{~}\KeywordTok{as.data.frame}\NormalTok{(.x)}\OperatorTok{$}\NormalTok{price)) }\OperatorTok{%>%}
