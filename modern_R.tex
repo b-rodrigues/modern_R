@@ -6875,23 +6875,40 @@ using R. For now, let's take a look at the contents of the dataset:
 ## #   independence_won_through <chr>
 \end{verbatim}
 
-as you can see, the date of indepedence is in a format that might make
+as you can see, the date of independence is in a format that might make
 it difficult to answer questions such as \emph{Which African countries
 gained independence before 1960 ?} for two reasons. First of all, the
 date uses the name of the month instead of the number of the month, and
-second of all the type of the indepedence day column is \emph{character}
-and not ``date''. So our first task is to correctly define the column as
-being of type date, while making sure that R understands that
-\emph{January} is supposed to be ``01'', and so on. There are several
-helpful functions included in \texttt{\{lubridate\}} to convert columns
-to dates. For instance if the column you want to convert is of the form
-``2012-11-21'', then you would use the function \texttt{ymd()}, for
-``year-month-day''. If, however the column is ``2012-21-11'', then you
-would use \texttt{ydm()}. There's a few of these helper functions, and
-they can handle a lot of different formats for dates. In our case,
-having the name of the month instead of the number might seem quite
-problematic, but it turns out that this is a case that
-\texttt{\{lubridate\}} handles painfully:
+second of all the type of the independence day column is
+\emph{character} and not ``date''. So our first task is to correctly
+define the column as being of type date, while making sure that R
+understands that \emph{January} is supposed to be ``01'', and so on.
+There are several helpful functions included in \texttt{\{lubridate\}}
+to convert columns to dates. For instance if the column you want to
+convert is of the form ``2012-11-21'', then you would use the function
+\texttt{ymd()}, for ``year-month-day''. If, however the column is
+``2012-21-11'', then you would use \texttt{ydm()}. There's a few of
+these helper functions, and they can handle a lot of different formats
+for dates. In our case, having the name of the month instead of the
+number might seem quite problematic, but it turns out that this is a
+case that \texttt{\{lubridate\}} handles painfully:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:base':
+## 
+##     date
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6945,14 +6962,14 @@ Let's take a look at the data now:
 \end{verbatim}
 
 As you can see, we now have a date column in the right format. We can
-now answer questions such as \emph{Which countries gained indepedence
+now answer questions such as \emph{Which countries gained independence
 before 1960?} quite easily, by using the functions \texttt{year()},
 \texttt{month()} and \texttt{day()}. Let's see which countries gained
-indepedence before 1960:
+independence before 1960:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{indepedence }\OperatorTok{%>%}
+\NormalTok{independence }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{year}\NormalTok{(independence_date) }\OperatorTok{<=}\StringTok{ }\DecValTok{1960}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pull}\NormalTok{(country)}
 \end{Highlighting}
@@ -9780,7 +9797,45 @@ created using the \texttt{model.matrix()} function:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(}\StringTok{"glmnet"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:tidyr':
+## 
+##     expand
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: foreach
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'foreach'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:purrr':
+## 
+##     accumulate, when
+\end{verbatim}
+
+\begin{verbatim}
+## Loaded glmnet 2.0-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{train_matrix <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(train_y }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ train_x)}
 
 \NormalTok{test_matrix <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(test_y }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ test_x)}

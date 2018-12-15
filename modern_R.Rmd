@@ -3034,10 +3034,10 @@ of the dataset:
 independence
 ```
 
-as you can see, the date of indepedence is in a format that might make it difficult to answer questions
+as you can see, the date of independence is in a format that might make it difficult to answer questions
 such as *Which African countries gained independence before 1960 ?* for two reasons. First of all,
 the date uses the name of the month instead of the number of the month, and second of all the type of
-the indepedence day column is *character* and not "date". So our first task is to correctly define the column
+the independence day column is *character* and not "date". So our first task is to correctly define the column
 as being of type date, while making sure that R understands that *January* is supposed to be "01", and so
 on. There are several helpful functions included in `{lubridate}` to convert columns to dates. For instance
 if the column you want to convert is of the form "2012-11-21", then you would use the function `ymd()`,
@@ -3047,6 +3047,8 @@ having the name of the month instead of the number might seem quite problematic,
 that this is a case that `{lubridate}` handles painfully:
 
 ```{r}
+library(lubridate)
+
 independence <- independence %>%
   mutate(independence_date = dmy(independence_date))
 ```
@@ -3071,11 +3073,11 @@ independence
 ```
 
 As you can see, we now have a date column in the right format. We can now answer questions such as
-*Which countries gained indepedence before 1960?* quite easily, by using the functions `year()`,
-`month()` and `day()`. Let's see which countries gained indepedence before 1960:
+*Which countries gained independence before 1960?* quite easily, by using the functions `year()`,
+`month()` and `day()`. Let's see which countries gained independence before 1960:
 
 ```{r}
-indepedence %>%
+independence %>%
   filter(year(independence_date) <= 1960) %>%
   pull(country)
 ```
