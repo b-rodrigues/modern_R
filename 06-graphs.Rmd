@@ -280,8 +280,8 @@ ggplot(test_data_long) +
   coord_polar("x", start = 0)
 ```
 
-But as a general rule, avoid pie charts if possible. Barplots show the same information, much, much
-clearer.
+But as a general rule, avoid pie charts if possible. Barplots show the same information in a much 
+clearer way.
 
 ### Adding text to plots
 
