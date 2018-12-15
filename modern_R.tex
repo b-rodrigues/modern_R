@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2018-12-01}
+    \date{2018-12-15}
 
 \usepackage{booktabs}
 
@@ -2174,8 +2174,8 @@ so for this, we are going to use \texttt{aggregate()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{aggregate}\NormalTok{(starwars}\OperatorTok{$}\NormalTok{height, }
-          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars}\OperatorTok{$}\NormalTok{species), }
+\KeywordTok{aggregate}\NormalTok{(starwars}\OperatorTok{$}\NormalTok{height,}
+          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars}\OperatorTok{$}\NormalTok{species),}
 \NormalTok{          mean)}
 \end{Highlighting}
 \end{Shaded}
@@ -2230,9 +2230,9 @@ subset. You can easily add another grouping variable:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{aggregate}\NormalTok{(starwars}\OperatorTok{$}\NormalTok{height, }
+\KeywordTok{aggregate}\NormalTok{(starwars}\OperatorTok{$}\NormalTok{height,}
           \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars}\OperatorTok{$}\NormalTok{species,}
-                    \DataTypeTok{Homeworld =}\NormalTok{ starwars}\OperatorTok{$}\NormalTok{homeworld), }
+                    \DataTypeTok{Homeworld =}\NormalTok{ starwars}\OperatorTok{$}\NormalTok{homeworld),}
 \NormalTok{          mean)}
 \end{Highlighting}
 \end{Shaded}
@@ -2297,8 +2297,8 @@ or use another function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{aggregate}\NormalTok{(starwars}\OperatorTok{$}\NormalTok{height, }
-          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars}\OperatorTok{$}\NormalTok{species), }
+\KeywordTok{aggregate}\NormalTok{(starwars}\OperatorTok{$}\NormalTok{height,}
+          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars}\OperatorTok{$}\NormalTok{species),}
 \NormalTok{          sd)}
 \end{Highlighting}
 \end{Shaded}
@@ -2395,7 +2395,7 @@ for all the variables in the data frame:
 \end{Shaded}
 
 \begin{verbatim}
-Error in tapply(starwars, list(starwars$species), mean) : 
+Error in tapply(starwars, list(starwars$species), mean) :
   arguments must have same length
 \end{verbatim}
 
@@ -2409,8 +2409,8 @@ for males:
 \begin{Highlighting}[]
 \NormalTok{starwars_males <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(starwars, gender }\OperatorTok{==}\StringTok{ "male"}\NormalTok{)}
 
-\KeywordTok{aggregate}\NormalTok{(starwars_males}\OperatorTok{$}\NormalTok{height, }
-          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars_males}\OperatorTok{$}\NormalTok{species), }
+\KeywordTok{aggregate}\NormalTok{(starwars_males}\OperatorTok{$}\NormalTok{height,}
+          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars_males}\OperatorTok{$}\NormalTok{species),}
 \NormalTok{          mean)}
 \end{Highlighting}
 \end{Shaded}
@@ -2460,8 +2460,8 @@ this:
 \begin{Highlighting}[]
 \NormalTok{starwars_males_height_mass <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(starwars, gender }\OperatorTok{==}\StringTok{ "male"}\NormalTok{, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(height, mass, species))}
 
-\KeywordTok{aggregate}\NormalTok{(starwars_males_height_mass, }
-          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars_males_height_mass}\OperatorTok{$}\NormalTok{species), }
+\KeywordTok{aggregate}\NormalTok{(starwars_males_height_mass,}
+          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{Species =}\NormalTok{ starwars_males_height_mass}\OperatorTok{$}\NormalTok{species),}
 \NormalTok{          mean)}
 \end{Highlighting}
 \end{Shaded}
@@ -2622,7 +2622,7 @@ using the aptly-called \texttt{reshape()} command:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey_data_long <-}\StringTok{ }\KeywordTok{reshape}\NormalTok{(survey_data_base, }
+\NormalTok{survey_data_long <-}\StringTok{ }\KeywordTok{reshape}\NormalTok{(survey_data_base,}
         \DataTypeTok{varying =} \KeywordTok{list}\NormalTok{(}\DecValTok{2}\OperatorTok{:}\DecValTok{4}\NormalTok{), }\DataTypeTok{v.names =} \StringTok{"variable"}\NormalTok{, }\DataTypeTok{direction =} \StringTok{"long"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4826,28 +4826,10 @@ It seems pretty obvious that the first \texttt{NA} is supposed to be
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey_data }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{survey_data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{fill}\NormalTok{(}\DataTypeTok{.direction =} \StringTok{"down"}\NormalTok{, }\DataTypeTok{variable =} \StringTok{"id"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 12 x 3
-##       id variable value
-##    <dbl> <chr>    <dbl>
-##  1     1 var1       1  
-##  2     1 var2       0.2
-##  3     1 var3       0.3
-##  4     2 var1       1.4
-##  5     2 var2       1.9
-##  6     2 var3       4.1
-##  7     3 var1       0.1
-##  8     3 var2       2.8
-##  9     3 var3       8.9
-## 10     4 var1       1.7
-## 11     4 var2       1.9
-## 12     4 var3       7.6
-\end{verbatim}
 
 \texttt{full\_seq()} is similar:
 
@@ -4895,30 +4877,12 @@ Putting all these operations together:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey_data }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{survey_data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{fill}\NormalTok{(}\DataTypeTok{.direction =} \StringTok{"down"}\NormalTok{, }\DataTypeTok{variable =} \StringTok{"id"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{date =} \KeywordTok{rep}\NormalTok{(}\KeywordTok{full_seq}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(}\StringTok{"2018-08-01"}\NormalTok{), }\KeywordTok{as.Date}\NormalTok{(}\StringTok{"2018-08-03"}\NormalTok{)), }\DecValTok{1}\NormalTok{), }\DecValTok{4}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{spread}\NormalTok{(variable, value)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 12 x 5
-##       id date        var1  var2  var3
-##    <dbl> <date>     <dbl> <dbl> <dbl>
-##  1     1 2018-08-01   1    NA    NA  
-##  2     1 2018-08-02  NA     0.2  NA  
-##  3     1 2018-08-03  NA    NA     0.3
-##  4     2 2018-08-01   1.4  NA    NA  
-##  5     2 2018-08-02  NA     1.9  NA  
-##  6     2 2018-08-03  NA    NA     4.1
-##  7     3 2018-08-01   0.1  NA    NA  
-##  8     3 2018-08-02  NA     2.8  NA  
-##  9     3 2018-08-03  NA    NA     8.9
-## 10     4 2018-08-01   1.7  NA    NA  
-## 11     4 2018-08-02  NA     1.9  NA  
-## 12     4 2018-08-03  NA    NA     7.6
-\end{verbatim}
 
 As you can see, this creates a lot of explicit \texttt{NA} values. The
 best would be to fill in the missing values and add the date column, and
@@ -4927,7 +4891,7 @@ values by date:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey_data }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{survey_data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{fill}\NormalTok{(}\DataTypeTok{.direction =} \StringTok{"down"}\NormalTok{, }\DataTypeTok{variable =} \StringTok{"id"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{date =} \KeywordTok{rep}\NormalTok{(}\KeywordTok{full_seq}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(}\StringTok{"2018-08-01"}\NormalTok{), }\KeywordTok{as.Date}\NormalTok{(}\StringTok{"2018-08-03"}\NormalTok{)), }\DecValTok{1}\NormalTok{), }\DecValTok{4}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(date) }\OperatorTok{%>%}
@@ -4935,36 +4899,17 @@ values by date:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 3 x 2
-##   date       `mean(value)`
-##   <date>             <dbl>
-## 1 2018-08-01          1.05
-## 2 2018-08-02          1.7 
-## 3 2018-08-03          5.22
-\end{verbatim}
-
 Or by \texttt{date} and \texttt{variable}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey_data }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{survey_data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{fill}\NormalTok{(}\DataTypeTok{.direction =} \StringTok{"down"}\NormalTok{, }\DataTypeTok{variable =} \StringTok{"id"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{date =} \KeywordTok{rep}\NormalTok{(}\KeywordTok{full_seq}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(}\StringTok{"2018-08-01"}\NormalTok{), }\KeywordTok{as.Date}\NormalTok{(}\StringTok{"2018-08-03"}\NormalTok{)), }\DecValTok{1}\NormalTok{), }\DecValTok{4}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(date, variable) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{mean}\NormalTok{(value))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 3 x 3
-## # Groups:   date [?]
-##   date       variable `mean(value)`
-##   <date>     <chr>            <dbl>
-## 1 2018-08-01 var1              1.05
-## 2 2018-08-02 var2              1.7 
-## 3 2018-08-03 var3              5.22
-\end{verbatim}
 
 As you can see, you can chain any \texttt{\{tidyverse\}} verbs, wether
 they come from \texttt{\{dplyr\}} or \texttt{\{tidyr\}}.
@@ -5005,7 +4950,7 @@ Dealing with this is simple, thanks to \texttt{separate()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey_data_not_tidy }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{survey_data_not_tidy }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{separate}\NormalTok{(variable_date, }\DataTypeTok{into =} \KeywordTok{c}\NormalTok{(}\StringTok{"variable"}\NormalTok{, }\StringTok{"date"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"/"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5183,28 +5128,12 @@ quite easily:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey_data_from_hell }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{survey_data_from_hell }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{separate_rows}\NormalTok{(variable, value, }\DataTypeTok{convert =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{fill}\NormalTok{(}\DataTypeTok{.direction =} \StringTok{"down"}\NormalTok{, }\DataTypeTok{variable =} \StringTok{"id"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{date =} \KeywordTok{rep}\NormalTok{(}\KeywordTok{full_seq}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(}\StringTok{"2018-08-01"}\NormalTok{), }\KeywordTok{as.Date}\NormalTok{(}\StringTok{"2018-08-03"}\NormalTok{)), }\DecValTok{1}\NormalTok{), }\DecValTok{4}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-##    id variable value       date
-## 1   1     var1   1.0 2018-08-01
-## 2   1     var2   0.2 2018-08-02
-## 3   1     var3   0.3 2018-08-03
-## 4   2     var1   1.4 2018-08-01
-## 5   2     var2   1.9 2018-08-02
-## 6   2     var3   4.1 2018-08-03
-## 7   3     var1   0.1 2018-08-01
-## 8   3     var2   2.8 2018-08-02
-## 9   3     var3   8.9 2018-08-03
-## 10  4     var1   1.7 2018-08-01
-## 11  4     var2   1.9 2018-08-02
-## 12  4     var3   7.6 2018-08-03
-\end{verbatim}
 
 \hypertarget{a-sneak-peek-to-chapter-9-nest}{%
 \subsubsection{\texorpdfstring{A sneak peek to Chapter 9;
@@ -5325,7 +5254,7 @@ Now, let's create the plot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-226-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-219-1.pdf}
 
 Ok great. But now I want to create this plot for each
 \texttt{id}\ldots{} so I have to copy paste this 3 times. But
@@ -5340,7 +5269,7 @@ Chapter 9. Again, just follow along for now:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{my_plots <-}\StringTok{ }\NormalTok{nested_survey_data }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{plot =} \KeywordTok{map2}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ id, }
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{plot =} \KeywordTok{map2}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ id,}
                        \DataTypeTok{.y =}\NormalTok{ data,}
                        \OperatorTok{~}\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ .y) }\OperatorTok{+}
 \StringTok{                           }\KeywordTok{geom_bar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{x =}\NormalTok{ date, }\DataTypeTok{fill =}\NormalTok{ variable), }\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{) }\OperatorTok{+}
@@ -5409,28 +5338,28 @@ you now want to take a look at the plots, it is enough to do this:
 ## [[1]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-230-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-223-1.pdf}
 
 \begin{verbatim}
 ## 
 ## [[2]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-230-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-223-2.pdf}
 
 \begin{verbatim}
 ## 
 ## [[3]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-230-3.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-223-3.pdf}
 
 \begin{verbatim}
 ## 
 ## [[4]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-230-4.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-223-4.pdf}
 
 Ok, that was quite complicated, but again, this was only to introduce
 \texttt{nest()} and give you a taste of the power of the
@@ -6869,7 +6798,7 @@ reordering. Do not worry if you don't understand all the code for now:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-280-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-273-1.pdf}
 
 It would be much better if the categories were ordered by frequency.
 This is easy to do with \texttt{fct\_reorder()}:
@@ -6885,7 +6814,7 @@ This is easy to do with \texttt{fct\_reorder()}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-281-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-274-1.pdf}
 
 Much better! In Chapter 6, we are going to learn about
 \texttt{\{ggplot2\}}.
@@ -6897,11 +6826,262 @@ to go through the documentation.
 \subsubsection{\texorpdfstring{Get your dates right with
 \texttt{\{lubridate\}}}{Get your dates right with \{lubridate\}}}\label{get-your-dates-right-with-lubridate}}
 
-Just like \texttt{\{forcats\}}, \texttt{\{lubridate\}} contains numerous
-functions, each one of them very useful. However, here, I will only
-focus on a handful of them (those that I use very often). If you need to
-work with dates a lot in your work, consider reading all the
-documentation.
+\texttt{\{lubridate\}} is yet another tidyverse package, that makes
+dealing with dates or durations (and intervals) as painless as possible.
+I do not use every function contained in the package daily, and as such
+will only focus on some of the functions. However, if you have to deal
+with dates often, you might want to explore the package thouroughly.
+
+\hypertarget{defining-dates-the-tidy-way}{%
+\paragraph{Defining dates, the tidy
+way}\label{defining-dates-the-tidy-way}}
+
+Let's load new dataset, called \emph{independence} from the datasets
+folder:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{independence <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"datasets/independence.rds"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This dataset was scraped from the following Wikipedia
+\href{https://en.wikipedia.org/wiki/Decolonisation_of_Africa\#Timeline}{page}.
+It shows when African countries gained independence from which colonial
+powers. In Chapter 11, I will show you how to scrape Wikipedia pages
+using R. For now, let's take a look at the contents of the dataset:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{independence}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 54 x 6
+##    country colonial_name colonial_power independence_da~ first_head_of_s~
+##    <chr>   <chr>         <chr>          <chr>            <chr>           
+##  1 Liberia Liberia       United States  26 July 1847     Joseph Jenkins ~
+##  2 South ~ Cape Colony ~ United Kingdom 31 May 1910      Louis Botha     
+##  3 Egypt   Sultanate of~ United Kingdom 28 February 1922 Fuad I          
+##  4 Eritrea Italian Erit~ Italy          10 February 1947 Haile Selassie  
+##  5 Libya   British Mili~ United Kingdo~ 24 December 1951 Idris           
+##  6 Sudan   Anglo-Egypti~ United Kingdo~ 1 January 1956   Ismail al-Azhari
+##  7 Tunisia French Prote~ France         20 March 1956    Muhammad VIII a~
+##  8 Morocco French Prote~ France Spain   2 March 19567 A~ Mohammed V      
+##  9 Ghana   Gold Coast    United Kingdom 6 March 1957     Kwame Nkrumah   
+## 10 Guinea  French West ~ France         2 October 1958   Ahmed Sékou Tou~
+## # ... with 44 more rows, and 1 more variable:
+## #   independence_won_through <chr>
+\end{verbatim}
+
+as you can see, the date of indepedence is in a format that might make
+it difficult to answer questions such as \emph{Which African countries
+gained independence before 1960 ?} for two reasons. First of all, the
+date uses the name of the month instead of the number of the month, and
+second of all the type of the indepedence day column is \emph{character}
+and not ``date''. So our first task is to correctly define the column as
+being of type date, while making sure that R understands that
+\emph{January} is supposed to be ``01'', and so on. There are several
+helpful functions included in \texttt{\{lubridate\}} to convert columns
+to dates. For instance if the column you want to convert is of the form
+``2012-11-21'', then you would use the function \texttt{ymd()}, for
+``year-month-day''. If, however the column is ``2012-21-11'', then you
+would use \texttt{ydm()}. There's a few of these helper functions, and
+they can handle a lot of different formats for dates. In our case,
+having the name of the month instead of the number might seem quite
+problematic, but it turns out that this is a case that
+\texttt{\{lubridate\}} handles painfully:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{independence <-}\StringTok{ }\NormalTok{independence }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{independence_date =} \KeywordTok{dmy}\NormalTok{(independence_date))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: 5 failed to parse.
+\end{verbatim}
+
+Some dates failed to parse, for instance for Morocco. This is because
+these countries have several independence dates; this means that the
+string to convert looks like:
+
+\begin{verbatim}
+"2 March 1956
+7 April 1956
+10 April 1958
+4 January 1969"
+\end{verbatim}
+
+which obviously cannot be converted by \texttt{\{lubridate\}} without
+further manipulation. I ignore these cases for simplicity's sake.
+
+Let's take a look at the data now:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{independence}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 54 x 6
+##    country colonial_name colonial_power independence_da~ first_head_of_s~
+##    <chr>   <chr>         <chr>          <date>           <chr>           
+##  1 Liberia Liberia       United States  1847-07-26       Joseph Jenkins ~
+##  2 South ~ Cape Colony ~ United Kingdom 1910-05-31       Louis Botha     
+##  3 Egypt   Sultanate of~ United Kingdom 1922-02-28       Fuad I          
+##  4 Eritrea Italian Erit~ Italy          1947-02-10       Haile Selassie  
+##  5 Libya   British Mili~ United Kingdo~ 1951-12-24       Idris           
+##  6 Sudan   Anglo-Egypti~ United Kingdo~ 1956-01-01       Ismail al-Azhari
+##  7 Tunisia French Prote~ France         1956-03-20       Muhammad VIII a~
+##  8 Morocco French Prote~ France Spain   NA               Mohammed V      
+##  9 Ghana   Gold Coast    United Kingdom 1957-03-06       Kwame Nkrumah   
+## 10 Guinea  French West ~ France         1958-10-02       Ahmed Sékou Tou~
+## # ... with 44 more rows, and 1 more variable:
+## #   independence_won_through <chr>
+\end{verbatim}
+
+As you can see, we now have a date column in the right format. We can
+now answer questions such as \emph{Which countries gained indepedence
+before 1960?} quite easily, by using the functions \texttt{year()},
+\texttt{month()} and \texttt{day()}. Let's see which countries gained
+indepedence before 1960:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{indepedence }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{year}\NormalTok{(independence_date) }\OperatorTok{<=}\StringTok{ }\DecValTok{1960}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pull}\NormalTok{(country)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Liberia"                          "South Africa"                    
+##  [3] "Egypt"                            "Eritrea"                         
+##  [5] "Libya"                            "Sudan"                           
+##  [7] "Tunisia"                          "Ghana"                           
+##  [9] "Guinea"                           "Cameroon"                        
+## [11] "Togo"                             "Mali"                            
+## [13] "Madagascar"                       "Democratic Republic of the Congo"
+## [15] "Benin"                            "Niger"                           
+## [17] "Burkina Faso"                     "Ivory Coast"                     
+## [19] "Chad"                             "Central African Republic"        
+## [21] "Republic of the Congo"            "Gabon"                           
+## [23] "Mauritania"
+\end{verbatim}
+
+You guessed it, \texttt{year()} extracts the year of the date column and
+converts it as a \emph{numeric} so that we can work on it. This is the
+same for \texttt{month()} or \texttt{day()}. Let's try to see if
+countries gained their independence on Christmas Eve:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{independence }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{month}\NormalTok{(independence_date) }\OperatorTok{==}\StringTok{ }\DecValTok{12}\NormalTok{,}
+         \KeywordTok{day}\NormalTok{(independence_date) }\OperatorTok{==}\StringTok{ }\DecValTok{24}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pull}\NormalTok{(country)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Libya"
+\end{verbatim}
+
+Seems like Libya was the only one! You can also operate on dates. For
+instance, let's compute the difference between two dates, using the
+\texttt{interval()} column:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{independence }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{today =}\NormalTok{ lubridate}\OperatorTok{::}\KeywordTok{today}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{independent_since =} \KeywordTok{interval}\NormalTok{(independence_date, today)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(country, independent_since)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 54 x 2
+##    country      independent_since             
+##    <chr>        <S4: Interval>                
+##  1 Liberia      1847-07-26 UTC--2018-12-15 UTC
+##  2 South Africa 1910-05-31 UTC--2018-12-15 UTC
+##  3 Egypt        1922-02-28 UTC--2018-12-15 UTC
+##  4 Eritrea      1947-02-10 UTC--2018-12-15 UTC
+##  5 Libya        1951-12-24 UTC--2018-12-15 UTC
+##  6 Sudan        1956-01-01 UTC--2018-12-15 UTC
+##  7 Tunisia      1956-03-20 UTC--2018-12-15 UTC
+##  8 Morocco      NA--NA                        
+##  9 Ghana        1957-03-06 UTC--2018-12-15 UTC
+## 10 Guinea       1958-10-02 UTC--2018-12-15 UTC
+## # ... with 44 more rows
+\end{verbatim}
+
+The \texttt{independent\_since} column now contains an \emph{interval}
+object that we can convert to years:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{independence }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{today =}\NormalTok{ lubridate}\OperatorTok{::}\KeywordTok{today}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{independent_since =} \KeywordTok{interval}\NormalTok{(independence_date, today)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(country, independent_since) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{years_independent =} \KeywordTok{as.numeric}\NormalTok{(independent_since, }\StringTok{"years"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 54 x 3
+##    country      independent_since              years_independent
+##    <chr>        <S4: Interval>                             <dbl>
+##  1 Liberia      1847-07-26 UTC--2018-12-15 UTC             171. 
+##  2 South Africa 1910-05-31 UTC--2018-12-15 UTC             109. 
+##  3 Egypt        1922-02-28 UTC--2018-12-15 UTC              96.8
+##  4 Eritrea      1947-02-10 UTC--2018-12-15 UTC              71.8
+##  5 Libya        1951-12-24 UTC--2018-12-15 UTC              67.0
+##  6 Sudan        1956-01-01 UTC--2018-12-15 UTC              63.0
+##  7 Tunisia      1956-03-20 UTC--2018-12-15 UTC              62.7
+##  8 Morocco      NA--NA                                      NA  
+##  9 Ghana        1957-03-06 UTC--2018-12-15 UTC              61.8
+## 10 Guinea       1958-10-02 UTC--2018-12-15 UTC              60.2
+## # ... with 44 more rows
+\end{verbatim}
+
+We can now see for how long the last country to gain independence has
+been independent. Because the data is not tidy (in some cases, an
+African country was colonized by two powers, see Libya), I will only
+focus on 4 European colonial powers: Belgium, France, Portugal and the
+United Kingdom:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{independence }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(colonial_power }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Belgium"}\NormalTok{, }\StringTok{"France"}\NormalTok{, }\StringTok{"Portugal"}\NormalTok{, }\StringTok{"United Kingdom"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{today =}\NormalTok{ lubridate}\OperatorTok{::}\KeywordTok{today}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{independent_since =} \KeywordTok{interval}\NormalTok{(independence_date, today)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{years_independent =} \KeywordTok{as.numeric}\NormalTok{(independent_since, }\StringTok{"years"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(colonial_power) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{last_colony_independent_for =} \KeywordTok{min}\NormalTok{(years_independent, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 2
+##   colonial_power last_colony_independent_for
+##   <chr>                                <dbl>
+## 1 Belgium                               56.5
+## 2 France                                41.5
+## 3 Portugal                              43.1
+## 4 United Kingdom                        42.5
+\end{verbatim}
+
+\texttt{\{lubridate\}} contains many more functions. If you often work
+with dates, duration or interval data, \texttt{\{lubridate\}} is a
+package that you have to master.
 
 \hypertarget{manipulate-strings-with-stringr}{%
 \subsubsection{\texorpdfstring{Manipulate strings with
@@ -7319,7 +7499,7 @@ lines are enough:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-297-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-300-1.pdf}
 
 The first argument of the function is the data (called \texttt{starwars}
 in this example), and then the function \texttt{aes()}. This function is
@@ -7338,7 +7518,7 @@ You can also change the coordinate system in your barplot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-298-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-301-1.pdf}
 
 \hypertarget{density}{%
 \subsubsection{Density}\label{density}}
@@ -7357,7 +7537,7 @@ density plots:
 ## Warning: Removed 6 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-299-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-302-1.pdf}
 
 Let's go into more detail now; what if you would like to plot the
 densities for females and males only (removing the droids from the data
@@ -7389,7 +7569,7 @@ Then, we pipe this dataset to \texttt{ggplot}:
 ## Warning: Removed 5 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-301-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-304-1.pdf}
 
 Let's take a closer look to the \texttt{aes()} function: I've added
 \texttt{fill\ =\ gender}. This means that the there will be one density
@@ -7425,7 +7605,7 @@ Let's plot the unemployment for the canton of Luxembourg only:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-302-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-305-1.pdf}
 
 Because line plots are 2D, you need to specify the y and x axes. There
 is also another option you need to add, \texttt{group\ =\ 1}. This is to
@@ -7441,7 +7621,7 @@ line. What if you want to plot more than one commune?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-303-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-306-1.pdf}
 
 This time, I've specified \texttt{group\ =\ division} which means that
 there has to be one line per as many communes as in the variable
@@ -7459,7 +7639,7 @@ to add anything to the legend, no need to specify a third colour etc:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-304-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-307-1.pdf}
 
 \hypertarget{facets}{%
 \subsubsection{Facets}\label{facets}}
@@ -7486,7 +7666,7 @@ formula, hence the \texttt{\textasciitilde{}} symbol in the code below:
 ## Warning: Removed 4 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-305-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-308-1.pdf}
 
 By changing the formula, you change how the facetting is done:
 
@@ -7506,7 +7686,7 @@ By changing the formula, you change how the facetting is done:
 ## Warning: Removed 4 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-306-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-309-1.pdf}
 
 Recall the categorical variable \texttt{more\_1} that we computed in the
 previous chapter? Let's use it as a faceting variable:
@@ -7531,7 +7711,7 @@ previous chapter? Let's use it as a faceting variable:
 ## Warning: Removed 4 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-307-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-310-1.pdf}
 
 \hypertarget{pie-charts}{%
 \subsubsection{Pie Charts}\label{pie-charts}}
@@ -7574,7 +7754,7 @@ Now, let's plot this data, first by creating 3 bar plots:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-310-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-313-1.pdf}
 
 In the code above, I introduce a new option, called
 \texttt{stat\ =\ "identity"}. By default, \texttt{geom\_bar()} counts
@@ -7646,7 +7826,7 @@ coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-313-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-316-1.pdf}
 
 As you can see, this typical pie chart is not very easy to read;
 compared to the barplots above it is not easy to distinguish \texttt{a}
@@ -7664,7 +7844,7 @@ bit to make it clearer, by specifying \texttt{variable} as the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-314-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-317-1.pdf}
 
 But as a general rule, avoid pie charts if possible. Barplots show the
 same information, much, much clearer.
@@ -7684,7 +7864,7 @@ possible with \texttt{geom\_text()}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-315-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-318-1.pdf}
 
 You can put anything after \texttt{label\ =}but in general what you'd
 want are the values, so that's what I put there. But you can also refine
@@ -7969,7 +8149,7 @@ it, imagine the values are actualy, say €:
 ## <ac>
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-316-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-319-1.pdf}
 
 \hypertarget{customization}{%
 \subsection{Customization}\label{customization}}
@@ -7997,7 +8177,7 @@ names to the \texttt{labs()} function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-317-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-320-1.pdf}
 
 What if you want to make the lines thicker?
 
@@ -8011,7 +8191,7 @@ What if you want to make the lines thicker?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-318-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-321-1.pdf}
 
 \hypertarget{themes}{%
 \subsubsection{Themes}\label{themes}}
@@ -8033,7 +8213,7 @@ feature from the theme. This is done with the function \texttt{theme()}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-319-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-322-1.pdf}
 
 What I also like to do is remove the title of the legend, because it is
 often superfluous:
@@ -8049,7 +8229,7 @@ often superfluous:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-320-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-323-1.pdf}
 
 The legend title has to be an \texttt{element\_text}
 object.\texttt{element\_text} objects are used with \texttt{theme} to
@@ -8071,7 +8251,7 @@ built-in themes that you can use:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-321-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-324-1.pdf}
 
 For example in the code above, I have used \texttt{theme\_minimal()}
 which I like quite a lot. You can also use themes from the
@@ -8089,7 +8269,7 @@ like it:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-322-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-325-1.pdf}
 
 As you can see, \texttt{theme\_stata()} has the legend on the bottom by
 default, because this is how the legend position is defined within the
@@ -8107,7 +8287,7 @@ theme. However the legend title is still there. Let's remove it:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-323-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-326-1.pdf}
 
 \texttt{ggthemes} even features an Excel 2003 theme (don't use it
 though):
@@ -8123,7 +8303,7 @@ though):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-324-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-327-1.pdf}
 
 \hypertarget{colour-schemes-from-ggthemes}{%
 \subsubsection{\texorpdfstring{Colour schemes from
@@ -8149,7 +8329,7 @@ barplots for example). A colour scheme I like is the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-325-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-328-1.pdf}
 
 An example with a barplot:
 
@@ -8164,7 +8344,7 @@ An example with a barplot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-326-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-329-1.pdf}
 
 \hypertarget{using-your-own-colours}{%
 \subsubsection{Using your own colours}\label{using-your-own-colours}}
@@ -8186,7 +8366,7 @@ you want to use.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-327-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-330-1.pdf}
 
 To get html codes of colours you can use
 \href{http://htmlcolorcodes.com/color-picker/}{this online tool}. There
@@ -8210,7 +8390,7 @@ For a barplot you would do the same:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-329-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-332-1.pdf}
 
 \hypertarget{saving-plots-on-disk}{%
 \subsubsection{Saving plots on disk}\label{saving-plots-on-disk}}
@@ -8291,7 +8471,16 @@ you may or may not need. Instead, I will show you how can use what you
 have learned until now and how you can apply these concepts to modeling.
 Also, as you read in the beginning of the book, R has many many
 packages. So the model you need is most probably already implemented in
-some package.
+some package and you will very likely not need to write your own from
+scratch.
+
+In the first section, I will discuss the terminology used in this book.
+Then I will discuss linear regression; showing how linear regression
+works illsutrates very well how other models work too, without loss of
+generality. Then I will introduce the concepte of hyper-parameters with
+ridge regression. This chapter will then finish with an introduction to
+cross-validation as a way to tune the hyper-parameters of models that
+features them.
 
 \hypertarget{terminology}{%
 \subsection{Terminology}\label{terminology}}
@@ -8440,7 +8629,7 @@ need to use the built-in \texttt{lm()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{model1 =}\StringTok{ }\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{lotsize }\OperatorTok{+}\StringTok{ }\NormalTok{bedrooms, }\DataTypeTok{data =}\NormalTok{ Housing)}
+\NormalTok{model1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{lotsize }\OperatorTok{+}\StringTok{ }\NormalTok{bedrooms, }\DataTypeTok{data =}\NormalTok{ Housing)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8448,12 +8637,13 @@ need to use the built-in \texttt{lm()} function:
 you want to estimate. In this case, I ran the following regression:
 
 \[
-\text{price} = \alpha + \beta_1 * \text{lotsize} + \beta_2 * \text{bedrooms} + \varepsilon
+\text{price} = \beta_0 + \beta_1 * \text{lotsize} + \beta_2 * \text{bedrooms} + \varepsilon
 \]
 
-where \(alpha, beta_1\) and \(beta_2\) are three parameters to estimate.
-To take a look at the results, you can use the \texttt{summary()} method
-(not to be confused with \texttt{dplyr::summarise()}:
+where \(\beta_0, \beta_1\) and \(\beta_2\) are three parameters to
+estimate. To take a look at the results, you can use the
+\texttt{summary()} method (not to be confused with
+\texttt{dplyr::summarise()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8488,7 +8678,7 @@ do so with \texttt{-1}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{model2 =}\StringTok{ }\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\DecValTok{-1} \OperatorTok{+}\StringTok{ }\NormalTok{lotsize }\OperatorTok{+}\StringTok{ }\NormalTok{bedrooms, }\DataTypeTok{data =}\NormalTok{ Housing)}
+\NormalTok{model2 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\DecValTok{-1} \OperatorTok{+}\StringTok{ }\NormalTok{lotsize }\OperatorTok{+}\StringTok{ }\NormalTok{bedrooms, }\DataTypeTok{data =}\NormalTok{ Housing)}
 
 \KeywordTok{summary}\NormalTok{(model2)}
 \end{Highlighting}
@@ -8519,7 +8709,7 @@ or if you want to use all the columns inside \texttt{Housing}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{model3 =}\StringTok{ }\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ Housing)}
+\NormalTok{model3 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ Housing)}
 
 \KeywordTok{summary}\NormalTok{(model3)}
 \end{Highlighting}
@@ -8574,13 +8764,13 @@ You can access different elements of \texttt{model3} (for example) with
 ##  4244.829004  9369.513239
 \end{verbatim}
 
-but I prefer to use the \texttt{broom} package, and more specifically
-the \texttt{tidy()} function, which converts \texttt{model3} into a neat
-\texttt{data.frame}:
+but I prefer to use the \texttt{\{broom\}} package, and more
+specifically the \texttt{tidy()} function, which converts
+\texttt{model3} into a neat \texttt{data.frame}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{results3 =}\StringTok{ }\KeywordTok{tidy}\NormalTok{(model3)}
+\NormalTok{results3 <-}\StringTok{ }\NormalTok{broom}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(model3)}
 
 \KeywordTok{glimpse}\NormalTok{(results3)}
 \end{Highlighting}
@@ -8596,9 +8786,15 @@ the \texttt{tidy()} function, which converts \texttt{model3} into a neat
 ## $ p.value   <dbl> 2.367616e-01, 3.732442e-22, 8.073341e-02, 2.570369e-...
 \end{verbatim}
 
-this is useful, because you can then work on the results easily, for
-example if you wish to only keep results that are significant at the 5\%
-level:
+I explicitely write \texttt{broom::tidy()} because \texttt{tidy()} is a
+popular function name. For instance, it is also a function from the
+\texttt{\{yardstick\}} package, which does not do the same thing at all.
+Since I will also be using \texttt{\{yardstick\}} I prefer explicitely
+writing \texttt{broom::tidy()} to avoid conflicts.
+
+Using \texttt{broom::tidy()} is useful, because you can then work on the
+results easily, for example if you wish to only keep results that are
+significant at the 5\% level:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8627,7 +8823,7 @@ You can even add new columns, such as the confidence intervals:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{results3 =}\StringTok{ }\KeywordTok{tidy}\NormalTok{(model3, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{)}
+\NormalTok{results3 <-}\StringTok{ }\NormalTok{broom}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(model3, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{)}
 
 \KeywordTok{print}\NormalTok{(results3)}
 \end{Highlighting}
@@ -8659,7 +8855,7 @@ pipe workflow:
 \NormalTok{Housing }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{driveway, }\OperatorTok{-}\NormalTok{stories) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ .) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{tidy}\NormalTok{()}
+\StringTok{  }\NormalTok{broom}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8734,7 +8930,7 @@ under the hood:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-350-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-353-1.pdf}
 
 \texttt{which=1:6} is an additional option that shows you all the
 diagnostics plot. If you omit this option, you will only get 4 of them.
@@ -8744,7 +8940,7 @@ grab them directly from the model fit:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{resi3 =}\StringTok{ }\KeywordTok{residuals}\NormalTok{(model3)}
+\NormalTok{resi3 <-}\StringTok{ }\KeywordTok{residuals}\NormalTok{(model3)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8753,7 +8949,7 @@ or you can augment the original data with a residuals column, using
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{housing_aug =}\StringTok{ }\KeywordTok{augment}\NormalTok{(model3)}
+\NormalTok{housing_aug <-}\StringTok{ }\KeywordTok{augment}\NormalTok{(model3)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8799,7 +8995,7 @@ A few columns have been added to the original data, among them
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-355-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-358-1.pdf}
 
 Fitted values are also added to the original data, under the variable
 \texttt{.fitted}. It would also have been possible to get the fitted
@@ -8807,7 +9003,7 @@ values with:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{fit3 =}\StringTok{ }\KeywordTok{fitted}\NormalTok{(model3)}
+\NormalTok{fit3 <-}\StringTok{ }\KeywordTok{fitted}\NormalTok{(model3)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8818,7 +9014,7 @@ the model underestimates the price:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{total_pos =}\StringTok{ }\NormalTok{housing_aug }\OperatorTok{%>%}
+\NormalTok{total_pos <-}\StringTok{ }\NormalTok{housing_aug }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(.resid }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{total =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pull}\NormalTok{(total)}
@@ -8868,7 +9064,7 @@ less than or equal to the current rank. For example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{example =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\FloatTok{4.6}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.8}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{-1}\NormalTok{)}
+\NormalTok{example <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\FloatTok{4.6}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.8}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{-1}\NormalTok{)}
 \KeywordTok{cume_dist}\NormalTok{(example)}
 \end{Highlighting}
 \end{Shaded}
@@ -8886,14 +9082,14 @@ outliers according to Cook's distance.
 Model interpretation is essential in the social sciences. If one wants
 to know the effect of variable \texttt{x} on the dependent variable
 \texttt{y}, marginal effects have to be computed. This is easily done in
-R with the \texttt{margins} package, which aims to provide the same
+R with the \texttt{\{margins\}} package, which aims to provide the same
 functionality as the \texttt{margins} command in STATA:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(margins)}
 
-\NormalTok{effects_model3 =}\StringTok{ }\KeywordTok{margins}\NormalTok{(model3)}
+\NormalTok{effects_model3 <-}\StringTok{ }\KeywordTok{margins}\NormalTok{(model3)}
 
 \KeywordTok{summary}\NormalTok{(effects_model3)}
 \end{Highlighting}
@@ -8922,7 +9118,7 @@ It is also possible to plot the results:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-361-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-364-1.pdf}
 
 This uses the basic R plotting capabilities, which is useful because it
 is a simple call to the function \texttt{plot()} but if you've been
@@ -8934,7 +9130,7 @@ with its summary:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{effects_model3 =}\StringTok{ }\KeywordTok{summary}\NormalTok{(effects_model3)}
+\NormalTok{effects_model3 <-}\StringTok{ }\KeywordTok{summary}\NormalTok{(effects_model3)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8951,7 +9147,7 @@ And now it is possible to use \texttt{ggplot2} to have the same plot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-363-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-366-1.pdf}
 
 Of course for \texttt{model3}, the marginal effects are the same as the
 coefficients, so let's estimate a logit model and compute the marginal
@@ -9036,9 +9232,9 @@ using glm().
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{logit_participation =}\StringTok{ }\KeywordTok{glm}\NormalTok{(lfp }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ Participation, }\DataTypeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+\NormalTok{logit_participation <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(lfp }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ Participation, }\DataTypeTok{family =} \StringTok{"binomial"}\NormalTok{)}
 
-\KeywordTok{tidy}\NormalTok{(logit_participation)}
+\NormalTok{broom}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(logit_participation)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9061,7 +9257,7 @@ participation, one has to use \texttt{margins()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{effects_logit_participation =}\StringTok{ }\KeywordTok{margins}\NormalTok{(logit_participation) }\OperatorTok{%>%}
+\NormalTok{effects_logit_participation <-}\StringTok{ }\KeywordTok{margins}\NormalTok{(logit_participation) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summary}\NormalTok{()}
 
 \KeywordTok{print}\NormalTok{(effects_logit_participation)}
@@ -9091,7 +9287,7 @@ We can use the previous code to plot the marginal effects:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-368-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-371-1.pdf}
 
 So an infinitesimal increase, in say, non-labour income (lnnlinc) of
 0.001 is associated with a decrease of the probability of labour force
@@ -9145,7 +9341,7 @@ marginal effect of variable \texttt{lnnlinc} for these two individuals.
 
 Let's estimate another model on the same data; prices are only positive,
 so a linear regression might not be the best model, because the model
-allows for negative prices. Let's look at the distribution of prices:
+could predict negative prices. Let's look at the distribution of prices:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9154,16 +9350,16 @@ allows for negative prices. Let's look at the distribution of prices:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-371-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-374-1.pdf}
 
 it looks like modeling the log of \texttt{price} might provide a better
 fit:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{model_log =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\KeywordTok{log}\NormalTok{(price) }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ Housing)}
+\NormalTok{model_log <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\KeywordTok{log}\NormalTok{(price) }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ Housing)}
 
-\NormalTok{result_log =}\StringTok{ }\KeywordTok{tidy}\NormalTok{(model_log)}
+\NormalTok{result_log <-}\StringTok{ }\NormalTok{broom}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(model_log)}
 
 \KeywordTok{print}\NormalTok{(result_log)}
 \end{Highlighting}
@@ -9207,17 +9403,17 @@ Let's compare these to the ones from the previous model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diag_lm =}\StringTok{ }\KeywordTok{glance}\NormalTok{(model3)}
+\NormalTok{diag_lm <-}\StringTok{ }\KeywordTok{glance}\NormalTok{(model3)}
 
-\NormalTok{diag_lm =}\StringTok{ }\NormalTok{diag_lm }\OperatorTok{%>%}
+\NormalTok{diag_lm <-}\StringTok{ }\NormalTok{diag_lm }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{model =} \StringTok{"lin-lin model"}\NormalTok{)}
 
-\NormalTok{diag_log =}\StringTok{ }\KeywordTok{glance}\NormalTok{(model_log)}
+\NormalTok{diag_log <-}\StringTok{ }\KeywordTok{glance}\NormalTok{(model_log)}
 
-\NormalTok{diag_log =}\StringTok{ }\NormalTok{diag_log }\OperatorTok{%>%}
+\NormalTok{diag_log  <-}\StringTok{ }\NormalTok{diag_log }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{model =} \StringTok{"log-lin model"}\NormalTok{)}
 
-\NormalTok{diagnostics_models =}\StringTok{ }\KeywordTok{full_join}\NormalTok{(diag_lm, diag_log)}
+\NormalTok{diagnostics_models <-}\StringTok{ }\KeywordTok{full_join}\NormalTok{(diag_lm, diag_log)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9241,13 +9437,13 @@ Let's compare these to the ones from the previous model:
 ## #   model <chr>
 \end{verbatim}
 
-I saved the diagnostics in two different \texttt{data.frame} using the
-\texttt{glance()} function and added a \texttt{model} column to indicate
-which model the diagnostics come from. Then I merged both datasets using
-\texttt{full\_join()}, a \texttt{dplyr} function.
+I saved the diagnostics in two different \texttt{data.frame} objects
+using the \texttt{glance()} function and added a \texttt{model} column
+to indicate which model the diagnostics come from. Then I merged both
+datasets using \texttt{full\_join()}, a \texttt{\{dplyr\}} function.
 
 As you can see, the model with the logarithm of the prices as the
-explained variable has a higher likelihood (and thus lower AIC and BIC)
+dependent variable has a higher likelihood (and thus lower AIC and BIC)
 than the simple linear model. Let's take a look at the diagnostics
 plots:
 
@@ -9257,7 +9453,7 @@ plots:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-376-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-379-1.pdf}
 
 \hypertarget{using-a-model-for-prediction}{%
 \subsection{Using a model for
@@ -9270,7 +9466,9 @@ accuracy of your model: split your data into a training set (used for
 estimation) and a testing set (used for the pseudo-prediction) and see
 if your model overfits the data. We are going to see how to do that in a
 later section; for now, let's just get acquainted with
-\texttt{predict()}.
+\texttt{predict()} and other functions. I insist, keep in mind that this
+section is only to get acquainted with these functions. We are going to
+explore prediction, overfitting and tuning of models in a later section.
 
 Let's go back to the models we estimated in the previous section,
 \texttt{model3} and \texttt{model\_log}. Let's also take a subsample of
@@ -9280,7 +9478,7 @@ data, which we will be using for prediction:
 \begin{Highlighting}[]
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
 
-\NormalTok{pred_set =}\StringTok{ }\NormalTok{Housing }\OperatorTok{%>%}
+\NormalTok{pred_set <-}\StringTok{ }\NormalTok{Housing }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{sample_n}\NormalTok{(}\DecValTok{20}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -9363,7 +9561,7 @@ compute the Root Mean Squared Error for instance. Let's do it within a
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{rmse =}\StringTok{ }\NormalTok{pred_set }\OperatorTok{%>%}
+\NormalTok{rmse <-}\StringTok{ }\NormalTok{pred_set }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{predictions =} \KeywordTok{predict}\NormalTok{(model3, .)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{sum}\NormalTok{(predictions }\OperatorTok{-}\StringTok{ }\NormalTok{price)}\OperatorTok{**}\DecValTok{2}\OperatorTok{/}\KeywordTok{n}\NormalTok{()))}
 \end{Highlighting}
@@ -9371,14 +9569,14 @@ compute the Root Mean Squared Error for instance. Let's do it within a
 
 The root mean square error of \texttt{model3} is 1666.1312666.
 
-I also use the \texttt{n()} function which returns the number of
+I also used the \texttt{n()} function which returns the number of
 observations in a group (or all the observations, if the data is not
 grouped). Let's compare \texttt{model3} 's RMSE with the one from
 \texttt{model\_log}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{rmse2 =}\StringTok{ }\NormalTok{pred_set }\OperatorTok{%>%}
+\NormalTok{rmse2 <-}\StringTok{ }\NormalTok{pred_set }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{predictions =} \KeywordTok{exp}\NormalTok{(}\KeywordTok{predict}\NormalTok{(model_log, .))) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{sum}\NormalTok{(predictions }\OperatorTok{-}\StringTok{ }\NormalTok{price)}\OperatorTok{**}\DecValTok{2}\OperatorTok{/}\KeywordTok{n}\NormalTok{()))}
 \end{Highlighting}
@@ -9483,6 +9681,824 @@ micro-econometric models. There really are a lot of packages available
 for Bayesian inference, and you can find them all in the
 \href{https://cran.r-project.org/web/views/Bayesian.html}{related CRAN
 Task View}.
+
+\hypertarget{hyper-parameters}{%
+\subsection{Hyper-parameters}\label{hyper-parameters}}
+
+Hyper-parameters are parameters of the model that cannot be directly
+learned from the data. A linear regression does not have any
+hyper-parameters, but a random forest for instance has several. You
+might have heard of ridge regression, lasso and elasticnet. These are
+extensions to linear models that avoid over-fitting by penalizing
+\emph{large} models. These extensions of the linear regression have
+hyper-parameters that the practitioner has to tune. There are several
+ways one can tune these parameters, for example, by doing a grid-search,
+or a random search over the grid or using more elaborate methods. To
+introduce hyper-parameters, let's get to know ridge regression, also
+called Tikhonov regularization.
+
+\hypertarget{ridge-regression}{%
+\subsubsection{Ridge regression}\label{ridge-regression}}
+
+Ridge regression is used when the data you are working with has a lot of
+explanatory variables, or when there is a risk that a simple linear
+regression might overfit to the training data, because, for example,
+your explanatory variables are collinear. If you are training a linear
+model and then you notice that it generalizes very badly to new, unseen
+data, it is very likely that the linear model you trained overfit the
+data. In this case, ridge regression might prove useful. The way ridge
+regression works might seem counter-intuititive; it boils down to
+fitting a \emph{worse} model to the training data, but in return, this
+worse model will generalize better to new data.
+
+The closed form solution of the ordinary least squares estimator is
+defined as:
+
+\[
+\widehat{\beta} = (X'X)^{-1}X'Y
+\]
+
+where \(X\) is the design matrix (the matrix made up of the explanatory
+variables) and \(Y\) is the dependent variable. For ridge regression,
+this closed form solution changes a little bit:
+
+\[
+\widehat{\beta} = (X'X + \lambda I_p)^{-1}X'Y
+\]
+
+where \(\lambda \in \mathbb{R}\) is an hyper-parameter and \(I_p\) is
+the identity matrix of dimension \(p\) (\(p\) is the number of
+explanatory variables). This formula above is the closed form solution
+to the following optimisation program:
+
+\[
+\sum_{i=1}^n \left(y_i - \sum_{j=1}^px_{ij}\beta_j\right)^2 
+\]
+
+such that:
+
+\[
+\sum_{j=1}^p(\beta_j)^2 < c
+\]
+
+for any strictly positive \(c\).
+
+The \texttt{glmnet()} function from the \texttt{\{glmnet\}} package can
+be used for ridge regression, by setting the \texttt{alpha} argument to
+0 (setting it to 1 would do LASSO, and setting it to a number between 0
+and 1 would do elasticnet). But in order to compare linear regression
+and ridge regression, let me first divide the data into a training set
+and a testing set:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{index <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(Housing)}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{train_index <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(index, }\KeywordTok{round}\NormalTok{(}\FloatTok{0.90}\OperatorTok{*}\KeywordTok{nrow}\NormalTok{(Housing)), }\DataTypeTok{replace =} \OtherTok{FALSE}\NormalTok{)}
+
+\NormalTok{test_index <-}\StringTok{ }\KeywordTok{setdiff}\NormalTok{(index, train_index)}
+
+\NormalTok{train_x <-}\StringTok{ }\NormalTok{Housing[train_index, ] }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{price)}
+
+\NormalTok{train_y <-}\StringTok{ }\NormalTok{Housing[train_index, ] }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{pull}\NormalTok{(price)}
+
+\NormalTok{test_x <-}\StringTok{ }\NormalTok{Housing[test_index, ] }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{price)}
+
+\NormalTok{test_y <-}\StringTok{ }\NormalTok{Housing[test_index, ] }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{pull}\NormalTok{(price)}
+\end{Highlighting}
+\end{Shaded}
+
+I do the train/test split this way, because \texttt{glmnet()} requires a
+design matrix as input, and not a formula. Design matrices can be
+created using the \texttt{model.matrix()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"glmnet"}\NormalTok{)}
+
+\NormalTok{train_matrix <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(train_y }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ train_x)}
+
+\NormalTok{test_matrix <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(test_y }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ test_x)}
+\end{Highlighting}
+\end{Shaded}
+
+Let's now run a linear regression, by setting the penalty to 0:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model_lm_ridge <-}\StringTok{ }\KeywordTok{glmnet}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ train_y, }\DataTypeTok{x =}\NormalTok{ train_matrix, }\DataTypeTok{alpha =} \DecValTok{0}\NormalTok{, }\DataTypeTok{lambda =} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The model above provides the same result as a linear regression, because
+I set \texttt{lambda} to 0. Let's compare the coefficients between the
+two:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{coef}\NormalTok{(model_lm_ridge)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 13 x 1 sparse Matrix of class "dgCMatrix"
+##                       s0
+## (Intercept) -3247.030393
+## (Intercept)     .       
+## lotsize         3.520283
+## bedrooms     1745.211187
+## bathrms     14337.551325
+## stories      6736.679470
+## drivewayyes  5687.132236
+## recroomyes   5701.831289
+## fullbaseyes  5708.978557
+## gashwyes    12508.524241
+## aircoyes    12592.435621
+## garagepl     4438.918373
+## prefareayes  9085.172469
+\end{verbatim}
+
+and now the coefficients of the linear regression (because I provide a
+design matrix, I have to use \texttt{lm.fit()} instead of \texttt{lm()}
+which requires a formula, not a matrix.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{coef}\NormalTok{(}\KeywordTok{lm.fit}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ train_matrix, }\DataTypeTok{y =}\NormalTok{ train_y))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  (Intercept)      lotsize     bedrooms      bathrms      stories 
+## -3245.146665     3.520357  1744.983863 14336.336858  6737.000410 
+##  drivewayyes   recroomyes  fullbaseyes     gashwyes     aircoyes 
+##  5686.394123  5700.210775  5709.493884 12509.005265 12592.367268 
+##     garagepl  prefareayes 
+##  4439.029607  9085.409155
+\end{verbatim}
+
+as you can see, the coefficients are the same. Let's compute the RMSE
+for the unpenalized linear regression:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{preds_lm <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(model_lm_ridge, test_matrix)}
+
+\NormalTok{rmse_lm <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{mean}\NormalTok{(preds_lm }\OperatorTok{-}\StringTok{ }\NormalTok{test_y)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The RMSE for the linear unpenalized regression is equal to 2077.4197343.
+
+Let's now run a ridge regression, with \texttt{lambda} equal to 100, and
+see if the RMSE is smaller:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model_ridge <-}\StringTok{ }\KeywordTok{glmnet}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ train_y, }\DataTypeTok{x =}\NormalTok{ train_matrix, }\DataTypeTok{alpha =} \DecValTok{0}\NormalTok{, }\DataTypeTok{lambda =} \DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+and let's compute the RMSE again:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{preds <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(model_ridge, test_matrix)}
+
+\NormalTok{rmse <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{mean}\NormalTok{(preds }\OperatorTok{-}\StringTok{ }\NormalTok{test_y)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The RMSE for the linear penalized regression is equal to 2072.6117757,
+which is smaller than before. But which value of \texttt{lambda} gives
+smallest RMSE? To find out, one must run model over a grid of
+\texttt{lambda} values and pick the model with lowest RMSE. This
+procedure is available in the \texttt{cv.glmnet()} function, which picks
+the best value for \texttt{lambda}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{best_model <-}\StringTok{ }\KeywordTok{cv.glmnet}\NormalTok{(train_matrix, train_y)}
+\CommentTok{# lambda that minimises the MSE}
+\NormalTok{best_model}\OperatorTok{$}\NormalTok{lambda.min}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 66.07936
+\end{verbatim}
+
+According to \texttt{cv.glmnet()} the best value for \texttt{lambda} is
+66.0793576. In the next section, we will implement cross validation
+ourselves, in order to find the hyper-parameters of a random forest.
+
+\hypertarget{training-validating-and-testing-models}{%
+\subsection{Training, validating, and testing
+models}\label{training-validating-and-testing-models}}
+
+Cross-validation is an important procedure which is used to compare
+models but also to tune the hyper-parameters of a model.
+
+In this section, we are going to use several packages from the
+\href{https://github.com/tidymodels}{\texttt{\{tidymodels\}}} collection
+of packages, namely
+\href{https://tidymodels.github.io/recipes/}{\texttt{\{recipes\}}},
+\href{https://tidymodels.github.io/rsample/}{\texttt{\{rsample\}}} and
+\href{https://tidymodels.github.io/parsnip/}{\texttt{\{parsnip\}}} to
+train a random forest the tidy way. I will also use
+\href{http://mlrmbo.mlr-org.com/}{\texttt{\{mlrMBO\}}} to tune the
+hyper-parameters of the random forest.
+
+\hypertarget{set-up}{%
+\subsubsection{Set up}\label{set-up}}
+
+Let's load the needed packages:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"tidymodels"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"parsnip"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"brotools"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"mlbench"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Load the data, included in the \texttt{\{mlrbench\}} package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"BostonHousing2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+I will train a random forest to predict the housing price, which is the
+\texttt{cmedv} column:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(BostonHousing2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         town tract      lon     lat medv cmedv    crim zn indus chas   nox
+## 1     Nahant  2011 -70.9550 42.2550 24.0  24.0 0.00632 18  2.31    0 0.538
+## 2 Swampscott  2021 -70.9500 42.2875 21.6  21.6 0.02731  0  7.07    0 0.469
+## 3 Swampscott  2022 -70.9360 42.2830 34.7  34.7 0.02729  0  7.07    0 0.469
+## 4 Marblehead  2031 -70.9280 42.2930 33.4  33.4 0.03237  0  2.18    0 0.458
+## 5 Marblehead  2032 -70.9220 42.2980 36.2  36.2 0.06905  0  2.18    0 0.458
+## 6 Marblehead  2033 -70.9165 42.3040 28.7  28.7 0.02985  0  2.18    0 0.458
+##      rm  age    dis rad tax ptratio      b lstat
+## 1 6.575 65.2 4.0900   1 296    15.3 396.90  4.98
+## 2 6.421 78.9 4.9671   2 242    17.8 396.90  9.14
+## 3 7.185 61.1 4.9671   2 242    17.8 392.83  4.03
+## 4 6.998 45.8 6.0622   3 222    18.7 394.63  2.94
+## 5 7.147 54.2 6.0622   3 222    18.7 396.90  5.33
+## 6 6.430 58.7 6.0622   3 222    18.7 394.12  5.21
+\end{verbatim}
+
+Only keep relevant columns:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boston <-}\StringTok{ }\NormalTok{BostonHousing2 }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{medv, }\OperatorTok{-}\NormalTok{tract, }\OperatorTok{-}\NormalTok{lon, }\OperatorTok{-}\NormalTok{lat) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{price =}\NormalTok{ cmedv)}
+\end{Highlighting}
+\end{Shaded}
+
+I remove \texttt{tract}, \texttt{lat} and \texttt{lon} because the
+information contained in the column \texttt{town} is enough.
+
+To train and evaluate the model's performance, I split the data in two.
+One data set, called the training set, will be further split into two
+down below. I won't touch the second data set, the test set, until the
+very end, to finally assess the model's performance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train_test_split <-}\StringTok{ }\KeywordTok{initial_split}\NormalTok{(boston, }\DataTypeTok{prop =} \FloatTok{0.9}\NormalTok{)}
+
+\NormalTok{housing_train <-}\StringTok{ }\KeywordTok{training}\NormalTok{(train_test_split)}
+
+\NormalTok{housing_test <-}\StringTok{ }\KeywordTok{testing}\NormalTok{(train_test_split)}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{initial\_split()}, \texttt{training()} and \texttt{testing()}
+are functions from the \texttt{\{rsample\}} package.
+
+I will train a random forest on the training data, but the question, is
+\emph{which} random forest? Because random forests have several
+hyper-parameters, and as explained in the intro these hyper-parameters
+cannot be directly learned from the data, which one should we choose? We
+could train 6 random forests for instance and compare their performance,
+but why only 6? Why not 16?
+
+In order to find the right hyper-parameters, the practitioner can use
+values from the literature that seemed to have worked well (like is done
+in Macro-econometrics) or you can further split the train set into two,
+create a grid of hyperparameter, train the model on one part of the data
+for all values of the grid, and compare the predictions of the models on
+the second part of the data. You then stick with the model that
+performed the best, for example, the model with lowest RMSE. The thing
+is, you can't estimate the true value of the RMSE with only one value.
+It's like if you wanted to estimate the height of the population by
+drawing one single observation from the population. You need a bit more
+observations. To approach the true value of the RMSE for a give set of
+hyperparameters, instead of doing one split, let's do 30. Then we
+compute the average RMSE, which implies training 30 models for each
+combination of the values of the hyperparameters.
+
+First, let's split the training data again, using the \texttt{mc\_cv()}
+function from \texttt{\{rsample\}} package. This function implements
+Monte Carlo cross-validation:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{validation_data <-}\StringTok{ }\KeywordTok{mc_cv}\NormalTok{(housing_train, }\DataTypeTok{prop =} \FloatTok{0.9}\NormalTok{, }\DataTypeTok{times =} \DecValTok{30}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+What does \texttt{validation\_data} look like?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{validation_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # # Monte Carlo cross-validation (0.9/0.1) with 30 resamples  
+## # A tibble: 30 x 2
+##    splits           id        
+##    <list>           <chr>     
+##  1 <split [411/45]> Resample01
+##  2 <split [411/45]> Resample02
+##  3 <split [411/45]> Resample03
+##  4 <split [411/45]> Resample04
+##  5 <split [411/45]> Resample05
+##  6 <split [411/45]> Resample06
+##  7 <split [411/45]> Resample07
+##  8 <split [411/45]> Resample08
+##  9 <split [411/45]> Resample09
+## 10 <split [411/45]> Resample10
+## # ... with 20 more rows
+\end{verbatim}
+
+Let's look further down:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{validation_data}\OperatorTok{$}\NormalTok{splits[[}\DecValTok{1}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <411/45/456>
+\end{verbatim}
+
+The first value is the number of rows of the first set, the second value
+of the second, and the third was the original amount of values in the
+training data, before splitting again.
+
+How should we call these two new data sets? The author of
+\texttt{\{rsample\}}, Max Kuhn, talks about the \emph{analysis} and the
+\emph{assessment} sets:
+
+\{\{\% tweet ``1066131042615140353'' \%\}\}
+
+Now, in order to continue I need pre-process the data. I will do this in
+three steps. The first and the second step are used to center and scale
+the numeric variables and the third step converts character and factor
+variables to dummy variables. This is needed because I will train a
+random forest, which cannot handle factor variables directly. Let's
+define a recipe to do that, and start by pre-processing the testing set.
+I write a wrapper function around the recipe, because I will need to
+apply this recipe to various data sets:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{simple_recipe <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dataset)\{}
+    \KeywordTok{recipe}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ dataset) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{step_center}\NormalTok{(}\KeywordTok{all_numeric}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{step_scale}\NormalTok{(}\KeywordTok{all_numeric}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{step_dummy}\NormalTok{(}\KeywordTok{all_nominal}\NormalTok{())}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Once the recipe is defined, I can use the \texttt{prep()} function,
+which estimates the parameters from the data which are needed to process
+the data. For example, for centering, \texttt{prep()} estimates the mean
+which will then be subtracted from the variables. With \texttt{bake()}
+the estimates are then applied on the data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{testing_rec <-}\StringTok{ }\KeywordTok{prep}\NormalTok{(}\KeywordTok{simple_recipe}\NormalTok{(housing_test), }\DataTypeTok{testing =}\NormalTok{ housing_test)}
+
+\NormalTok{test_data <-}\StringTok{ }\KeywordTok{bake}\NormalTok{(testing_rec, }\DataTypeTok{new_data =}\NormalTok{ housing_test)}
+\end{Highlighting}
+\end{Shaded}
+
+It is important to split the data before using \texttt{prep()} and
+\texttt{bake()}, because if not, you will use observations from the test
+set in the \texttt{prep()} step, and thus introduce knowledge from the
+test set into the training data. This is called data leakage, and must
+be avoided. This is why it is necessary to first split the training data
+into an analysis and an assessment set, and then also pre-process these
+sets separately. However, the \texttt{validation\_data} object cannot
+now be used with \texttt{recipe()}, because it is not a dataframe. No
+worries, I simply need to write a function that extracts the analysis
+and assessment sets from the \texttt{validation\_data} object, applies
+the pre-processing, trains the model, and returns the RMSE. This will be
+a big function, at the center of the analysis.
+
+But before that, let's run a simple linear regression, as a benchmark.
+For the linear regression, I will not use any CV, so let's pre-process
+the training set:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trainlm_rec <-}\StringTok{ }\KeywordTok{prep}\NormalTok{(}\KeywordTok{simple_recipe}\NormalTok{(housing_train), }\DataTypeTok{testing =}\NormalTok{ housing_train)}
+
+\NormalTok{trainlm_data <-}\StringTok{ }\KeywordTok{bake}\NormalTok{(trainlm_rec, }\DataTypeTok{new_data =}\NormalTok{ housing_train)}
+
+\NormalTok{linreg_model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ trainlm_data)}
+
+\NormalTok{broom}\OperatorTok{::}\KeywordTok{augment}\NormalTok{(linreg_model, }\DataTypeTok{newdata =}\NormalTok{ test_data) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{rmse}\NormalTok{(price, .fitted)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   <chr>   <chr>          <dbl>
+## 1 rmse    standard       0.345
+\end{verbatim}
+
+\texttt{broom::augment()} adds the predictions to the
+\texttt{test\_data} in a new column, \texttt{.fitted}. I won't use this
+trick with the random forest, because there is no \texttt{augment()}
+method for random forests from the \texttt{\{ranger\}} which I'll use.
+I'll add the predictions to the data myself.
+
+Ok, now let's go back to the random forest and write the big function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_rf <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(mtry, trees, split, id)\{}
+    
+\NormalTok{    analysis_set <-}\StringTok{ }\KeywordTok{analysis}\NormalTok{(split)}
+    
+\NormalTok{    analysis_prep <-}\StringTok{ }\KeywordTok{prep}\NormalTok{(}\KeywordTok{simple_recipe}\NormalTok{(analysis_set), }\DataTypeTok{training =}\NormalTok{ analysis_set)}
+    
+\NormalTok{    analysis_processed <-}\StringTok{ }\KeywordTok{bake}\NormalTok{(analysis_prep, }\DataTypeTok{new_data =}\NormalTok{ analysis_set)}
+    
+\NormalTok{    model <-}\StringTok{ }\KeywordTok{rand_forest}\NormalTok{(}\DataTypeTok{mtry =}\NormalTok{ mtry, }\DataTypeTok{trees =}\NormalTok{ trees) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{set_engine}\NormalTok{(}\StringTok{"ranger"}\NormalTok{, }\DataTypeTok{importance =} \StringTok{'impurity'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{fit}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ analysis_processed)}
+
+\NormalTok{    assessment_set <-}\StringTok{ }\KeywordTok{assessment}\NormalTok{(split)}
+    
+\NormalTok{    assessment_prep <-}\StringTok{ }\KeywordTok{prep}\NormalTok{(}\KeywordTok{simple_recipe}\NormalTok{(assessment_set), }\DataTypeTok{testing =}\NormalTok{ assessment_set)}
+    
+\NormalTok{    assessment_processed <-}\StringTok{ }\KeywordTok{bake}\NormalTok{(assessment_prep, }\DataTypeTok{new_data =}\NormalTok{ assessment_set)}
+
+\NormalTok{    tibble}\OperatorTok{::}\KeywordTok{tibble}\NormalTok{(}\StringTok{"id"}\NormalTok{ =}\StringTok{ }\NormalTok{id,}
+        \StringTok{"truth"}\NormalTok{ =}\StringTok{ }\NormalTok{assessment_processed}\OperatorTok{$}\NormalTok{price,}
+        \StringTok{"prediction"}\NormalTok{ =}\StringTok{ }\KeywordTok{unlist}\NormalTok{(}\KeywordTok{predict}\NormalTok{(model, }\DataTypeTok{new_data =}\NormalTok{ assessment_processed)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{rand\_forest()} function is available from the
+\texttt{\{parsnip\}} package. This package provides an unified interface
+to a lot of other machine learning packages. This means that instead of
+having to learn the syntax of \texttt{range()} and
+\texttt{randomForest()} and, and\ldots{} you can simply use the
+\texttt{rand\_forest()} function and change the \texttt{engine} argument
+to the one you want (\texttt{ranger}, \texttt{randomForest}, etc).
+
+Let's try this function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{results_example <-}\StringTok{ }\KeywordTok{map2_df}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ validation_data}\OperatorTok{$}\NormalTok{splits,}
+                           \DataTypeTok{.y =}\NormalTok{ validation_data}\OperatorTok{$}\NormalTok{id,}
+                           \OperatorTok{~}\KeywordTok{my_rf}\NormalTok{(}\DataTypeTok{mtry =} \DecValTok{3}\NormalTok{, }\DataTypeTok{trees =} \DecValTok{200}\NormalTok{, }\DataTypeTok{split =}\NormalTok{ .x, }\DataTypeTok{id =}\NormalTok{ .y))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(results_example)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   id          truth prediction
+##   <chr>       <dbl>      <dbl>
+## 1 Resample01 -0.518     -0.259
+## 2 Resample01 -1.03      -0.354
+## 3 Resample01 -0.913     -0.345
+## 4 Resample01 -0.874     -0.407
+## 5 Resample01  0.430      0.241
+## 6 Resample01  0.259      0.301
+\end{verbatim}
+
+I can now compute the RMSE when \texttt{mtry} = 3 and \texttt{trees} =
+200:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{results_example }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(id) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rmse}\NormalTok{(truth, prediction) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_rmse =} \KeywordTok{mean}\NormalTok{(.estimate)) }\OperatorTok{%>%}
+\StringTok{    }\NormalTok{pull}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6095162
+\end{verbatim}
+
+The random forest has already lower RMSE than the linear regression. The
+goal now is to lower this RMSE by tuning the \texttt{mtry} and
+\texttt{trees} hyperparameters. For this, I will use Bayesian
+Optimization methods implemented in the \texttt{\{mlrMBO\}} package.
+
+\hypertarget{bayesian-hyperparameter-optimization}{%
+\subsubsection{Bayesian hyperparameter
+optimization}\label{bayesian-hyperparameter-optimization}}
+
+I will re-use the code from above, and define a function that does
+everything from pre-processing to returning the metric I want to
+minimize by tuning the hyperparameters, the RMSE:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tuning <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(param, validation_data)\{}
+
+\NormalTok{    mtry <-}\StringTok{ }\NormalTok{param[}\DecValTok{1}\NormalTok{]}
+\NormalTok{    trees <-}\StringTok{ }\NormalTok{param[}\DecValTok{2}\NormalTok{]}
+
+\NormalTok{    results <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map2_df}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ validation_data}\OperatorTok{$}\NormalTok{splits,}
+                       \DataTypeTok{.y =}\NormalTok{ validation_data}\OperatorTok{$}\NormalTok{id,}
+                       \OperatorTok{~}\KeywordTok{my_rf}\NormalTok{(}\DataTypeTok{mtry =}\NormalTok{ mtry, }\DataTypeTok{trees =}\NormalTok{ trees, }\DataTypeTok{split =}\NormalTok{ .x, }\DataTypeTok{id =}\NormalTok{ .y))}
+
+\NormalTok{    results }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{group_by}\NormalTok{(id) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{rmse}\NormalTok{(truth, prediction) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_rmse =} \KeywordTok{mean}\NormalTok{(.estimate)) }\OperatorTok{%>%}
+\StringTok{        }\NormalTok{pull}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This is exactly the code from before, but it now returns the RMSE. Let's
+try the function with the values from before:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tuning}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{200}\NormalTok{), validation_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6084911
+\end{verbatim}
+
+I now follow the code that can be found in the
+\href{https://arxiv.org/abs/1703.03373}{arxiv} paper to run the
+optimization. I think I got the gist of the paper, but I did not
+understand everything yet. For now, I am still experimenting with the
+library at the moment, but from what I understand, a simpler model,
+called the surrogate model, is used to look for promising points and to
+evaluate the value of the function at these points. This seems somewhat
+similar (in spirit) to the \emph{Indirect Inference} method as described
+in \href{https://www.jstor.org/stable/2285076}{Gourieroux, Monfort,
+Renault}.
+
+Let's first load the package and create the function to optimize:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"mlrMBO"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fn <-}\StringTok{ }\KeywordTok{makeSingleObjectiveFunction}\NormalTok{(}\DataTypeTok{name =} \StringTok{"tuning"}\NormalTok{,}
+                                 \DataTypeTok{fn =}\NormalTok{ tuning,}
+                                 \DataTypeTok{par.set =} \KeywordTok{makeParamSet}\NormalTok{(}\KeywordTok{makeIntegerParam}\NormalTok{(}\StringTok{"x1"}\NormalTok{, }\DataTypeTok{lower =} \DecValTok{3}\NormalTok{, }\DataTypeTok{upper =} \DecValTok{8}\NormalTok{),}
+                                                        \KeywordTok{makeIntegerParam}\NormalTok{(}\StringTok{"x2"}\NormalTok{, }\DataTypeTok{lower =} \DecValTok{100}\NormalTok{, }\DataTypeTok{upper =} \DecValTok{500}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+This function is based on the function I defined before. The parameters
+to optimize are also defined as are their bounds. I will look for
+\texttt{mtry} between the values of 3 and 8, and \texttt{trees} between
+50 and 500.
+
+Now comes the part I didn't quite get.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Create initial random Latin Hypercube Design of 10 points}
+\KeywordTok{library}\NormalTok{(lhs)}\CommentTok{# for randomLHS}
+\NormalTok{des <-}\StringTok{ }\KeywordTok{generateDesign}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ 5L }\OperatorTok{*}\StringTok{ }\NormalTok{2L, }\KeywordTok{getParamSet}\NormalTok{(fn), }\DataTypeTok{fun =}\NormalTok{ randomLHS)}
+\end{Highlighting}
+\end{Shaded}
+
+I think this means that these 10 points are the points used to start the
+whole process. I did not understand why they have to be sampled from a
+hypercube, but ok. Then I choose the surrogate model, a random forest
+too, and predict the standard error. Here also, I~did not quite get why
+the standard error can be an option.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Specify kriging model with standard error estimation}
+\NormalTok{surrogate <-}\StringTok{ }\KeywordTok{makeLearner}\NormalTok{(}\StringTok{"regr.ranger"}\NormalTok{, }\DataTypeTok{predict.type =} \StringTok{"se"}\NormalTok{, }\DataTypeTok{keep.inbag =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Here I define some options:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Set general controls}
+\NormalTok{ctrl <-}\StringTok{ }\KeywordTok{makeMBOControl}\NormalTok{()}
+\NormalTok{ctrl <-}\StringTok{ }\KeywordTok{setMBOControlTermination}\NormalTok{(ctrl, }\DataTypeTok{iters =}\NormalTok{ 10L)}
+\NormalTok{ctrl <-}\StringTok{ }\KeywordTok{setMBOControlInfill}\NormalTok{(ctrl, }\DataTypeTok{crit =} \KeywordTok{makeMBOInfillCritEI}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+And this is the optimization part:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Start optimization}
+\NormalTok{result <-}\StringTok{ }\KeywordTok{mbo}\NormalTok{(fn, des, surrogate, ctrl, }\DataTypeTok{more.args =} \KeywordTok{list}\NormalTok{(}\StringTok{"validation_data"}\NormalTok{ =}\StringTok{ }\NormalTok{validation_data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{result}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Recommended parameters:
+## x1=8; x2=314
+## Objective: y = 0.484
+## 
+## Optimization path
+## 10 + 10 entries in total, displaying last 10 (or less):
+##    x1  x2         y dob eol error.message exec.time            ei
+## 11  8 283 0.4855415   1  NA          <NA>     7.353 -3.276847e-04
+## 12  8 284 0.4852047   2  NA          <NA>     7.321 -3.283713e-04
+## 13  8 314 0.4839817   3  NA          <NA>     7.703 -3.828517e-04
+## 14  8 312 0.4841398   4  NA          <NA>     7.633 -2.829713e-04
+## 15  8 318 0.4841066   5  NA          <NA>     7.692 -2.668354e-04
+## 16  8 314 0.4845221   6  NA          <NA>     7.574 -1.382333e-04
+## 17  8 321 0.4843018   7  NA          <NA>     7.693 -3.828924e-05
+## 18  8 318 0.4868457   8  NA          <NA>     7.696 -8.692828e-07
+## 19  8 310 0.4862687   9  NA          <NA>     7.594 -1.061185e-07
+## 20  8 313 0.4878694  10  NA          <NA>     7.628 -5.153015e-07
+##    error.model train.time prop.type propose.time           se      mean
+## 11        <NA>      0.011 infill_ei        0.450 0.0143886864 0.5075765
+## 12        <NA>      0.011 infill_ei        0.427 0.0090265872 0.4971003
+## 13        <NA>      0.012 infill_ei        0.443 0.0062693960 0.4916927
+## 14        <NA>      0.012 infill_ei        0.435 0.0037308971 0.4878950
+## 15        <NA>      0.012 infill_ei        0.737 0.0024446891 0.4860699
+## 16        <NA>      0.013 infill_ei        0.442 0.0012713838 0.4850705
+## 17        <NA>      0.012 infill_ei        0.444 0.0006371109 0.4847248
+## 18        <NA>      0.013 infill_ei        0.467 0.0002106381 0.4844576
+## 19        <NA>      0.014 infill_ei        0.435 0.0002182254 0.4846214
+## 20        <NA>      0.013 infill_ei        0.748 0.0002971160 0.4847383
+\end{verbatim}
+
+So the recommended parameters are 8 for \texttt{mtry} and 314 for
+\texttt{trees}. The user can access these recommended parameters with
+\texttt{result\$x\$x1} and \texttt{result\$x\$x2}. The value of the RMSE
+is lower than before, and equals 0.4839817. It can be accessed with
+\texttt{result\$y}. Let's now train the random forest on the training
+data with this values. First, I pre-process the training data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{training_rec <-}\StringTok{ }\KeywordTok{prep}\NormalTok{(}\KeywordTok{simple_recipe}\NormalTok{(housing_train), }\DataTypeTok{testing =}\NormalTok{ housing_train)}
+
+\NormalTok{train_data <-}\StringTok{ }\KeywordTok{bake}\NormalTok{(training_rec, }\DataTypeTok{new_data =}\NormalTok{ housing_train)}
+\end{Highlighting}
+\end{Shaded}
+
+Let's now train our final model and predict the prices:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{final_model <-}\StringTok{ }\KeywordTok{rand_forest}\NormalTok{(}\DataTypeTok{mtry =}\NormalTok{ result}\OperatorTok{$}\NormalTok{x}\OperatorTok{$}\NormalTok{x1, }\DataTypeTok{trees =}\NormalTok{ result}\OperatorTok{$}\NormalTok{x}\OperatorTok{$}\NormalTok{x2) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{set_engine}\NormalTok{(}\StringTok{"ranger"}\NormalTok{, }\DataTypeTok{importance =} \StringTok{'impurity'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{fit}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ train_data)}
+
+\NormalTok{price_predict <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(final_model, }\DataTypeTok{new_data =} \KeywordTok{select}\NormalTok{(test_data, }\OperatorTok{-}\NormalTok{price))}
+\end{Highlighting}
+\end{Shaded}
+
+Let's transform the data back and compare the predicted prices to the
+true ones visually:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cbind}\NormalTok{(price_predict }\OperatorTok{*}\StringTok{ }\KeywordTok{sd}\NormalTok{(housing_train}\OperatorTok{$}\NormalTok{price) }\OperatorTok{+}\StringTok{ }\KeywordTok{mean}\NormalTok{(housing_train}\OperatorTok{$}\NormalTok{price), }
+\NormalTok{      housing_test}\OperatorTok{$}\NormalTok{price)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       .pred housing_test$price
+## 1  30.59821               33.4
+## 2  20.51527               22.1
+## 3  20.70910               15.0
+## 4  21.05006               18.9
+## 5  21.83339               21.0
+## 6  22.21497               19.7
+## 7  25.46633               23.5
+## 8  23.33025               22.8
+## 9  23.10575               22.9
+## 10 35.21667               43.8
+## 11 19.74732               19.4
+## 12 20.64019               18.5
+## 13 19.33295               20.5
+## 14 17.45800               19.2
+## 15 17.84190               23.0
+## 16 37.03059               50.0
+## 17 19.93137               17.4
+## 18 25.12708               29.9
+## 19 28.48672               29.6
+## 20 27.60802               30.5
+## 21 36.22326               48.5
+## 22 37.12297               50.0
+## 23 22.24472               24.4
+## 24 25.26734               27.5
+## 25 36.77645               44.8
+## 26 31.38922               31.5
+## 27 32.41102               44.0
+## 28 29.69693               36.5
+## 29 29.55211               35.1
+## 30 23.21213               23.9
+## 31 23.85407               26.4
+## 32 19.85476               17.8
+## 33 22.49282               19.4
+## 34 20.94734               18.7
+## 35 24.34244               23.1
+## 36 22.48134               20.6
+## 37 16.06177               17.8
+## 38 21.52339               50.0
+## 39 13.02448               12.3
+## 40 12.45328               12.7
+## 41 15.59053               11.9
+## 42 19.65195               15.0
+## 43 14.32340               11.7
+## 44 12.10552                8.3
+## 45 13.72787               14.4
+## 46 17.12866               19.1
+## 47 15.80288               13.3
+## 48 16.89238               21.4
+## 49 20.52074               16.8
+## 50 21.40366               22.4
+\end{verbatim}
+
+Let's now compute the RMSE:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tibble}\OperatorTok{::}\KeywordTok{tibble}\NormalTok{(}\StringTok{"truth"}\NormalTok{ =}\StringTok{ }\NormalTok{test_data}\OperatorTok{$}\NormalTok{price,}
+        \StringTok{"prediction"}\NormalTok{ =}\StringTok{ }\KeywordTok{unlist}\NormalTok{(price_predict)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{rmse}\NormalTok{(truth, prediction)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   <chr>   <chr>          <dbl>
+## 1 rmse    standard       0.481
+\end{verbatim}
 
 \hypertarget{defining-your-own-functions}{%
 \section{Defining your own
@@ -9834,7 +10850,7 @@ not use only recursive algorithms then? Try to run the following:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.190   0.218   0.458
+##   0.014   0.092   0.099
 \end{verbatim}
 
 The result should be printed very fast (the \texttt{system.time()}
@@ -9849,7 +10865,7 @@ function returns the time that it took to execute
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   1.202   0.131   1.361
+##   1.361   1.307   2.522
 \end{verbatim}
 
 It takes much longer to execute! Recursive algorithms are very CPU
@@ -11349,38 +12365,38 @@ arguments:
 
 \begin{verbatim}
 ## [[1]]
-## [1] 0.5228073
+## [1] -0.3390433
 ## 
 ## [[2]]
-## [1] -0.8856618 -0.4413967
+## [1] 2.9112815 0.6336281
 ## 
 ## [[3]]
-## [1] 1.4155987 4.1007044 0.8913657
+## [1] -0.3468364 -5.0780178  4.8137809
 ## 
 ## [[4]]
-## [1] -0.7107047 -2.3114483 -2.0153534 10.9966740
+## [1]  2.8895890 -0.6554886 -3.3664595  1.7246887
 ## 
 ## [[5]]
-## [1]  2.1148855 -1.0089850 -0.7582949  3.7423916 -2.0241568
+## [1] 13.510076 11.967669  5.364994 -1.626470  2.279362
 ## 
 ## [[6]]
-## [1] -7.133674  5.004090 -4.586379  1.464726 -4.060136  8.169341
+## [1]  1.9960271 -5.9273471 10.2248510  6.4238841 -0.9296016 -0.6230772
 ## 
 ## [[7]]
-## [1]  -1.662485  -3.299414  -1.842140  -9.736988  -6.506668 -13.593611
-## [7]  -7.720286
+## [1] -3.56441591  9.36087823 -2.18931874 11.29486286 -7.70610720 12.14668245
+## [7]  0.05655167
 ## 
 ## [[8]]
-## [1] -0.5765731 -1.9494025 13.3737479 -6.7713640 -5.0651393 -0.4672062
-## [7] -6.1769428 -5.9703368
+## [1]  -9.0300679 -15.5087408  -0.5029011  -6.7685115  -0.8930143   8.6610726
+## [7]   4.3739079  -1.5743869
 ## 
 ## [[9]]
-## [1]  -8.0769748  -9.3789841  -2.8255642  -2.5827607 -14.3653924  -3.3497944
-## [7]  -8.0911177  -7.2457692   0.4281032
+## [1] -2.953657  9.719432 -5.994068 -3.860638 -4.197553  4.104475  3.926871
+## [8] 11.128557  3.842179
 ## 
 ## [[10]]
-##  [1]  7.630558 18.478175 -5.733534 18.059096 -9.578085  8.565885 27.489911
-##  [8]  1.652396 -4.696336  1.923952
+##  [1]   5.099272  -5.734222  -5.000404   8.345451   9.945886  20.915801
+##  [7]  13.787797 -13.270184  15.504936  16.635813
 \end{verbatim}
 
 \hypertarget{reducing-with-purrr}{%
@@ -11392,28 +12408,6 @@ folding: \texttt{reduce()} and \texttt{reduce\_right()}. The difference
 between \texttt{reduce()} and \texttt{reduce\_right()} is pretty
 obvious: \texttt{reduce\_right()} starts from the right!
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{a <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
-
-\KeywordTok{reduce}\NormalTok{(a, }\StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] -53
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{reduce_right}\NormalTok{(a, }\StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] -35
-\end{verbatim}
-
 For operations that are not commutative, this makes a difference. Other
 interesting folding functions are \texttt{accumulate()} and
 \texttt{accumulate\_right()}:
@@ -11423,22 +12417,9 @@ interesting folding functions are \texttt{accumulate()} and
 \NormalTok{a <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
 
 \KeywordTok{accumulate}\NormalTok{(a, }\StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1]   1  -1  -4  -8 -13 -19 -26 -34 -43 -53
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{accumulate_right}\NormalTok{(a, }\StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-##  [1] -35 -34 -32 -29 -25 -20 -14  -7   1  10
-\end{verbatim}
 
 These two functions keep the intermediary results.
 
@@ -11465,17 +12446,6 @@ see what happens in more detail using \texttt{accumulate}:
 \KeywordTok{accumulate}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{100}\NormalTok{), }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-##   [1]    1    3    6   10   15   21   28   36   45   55   66   78   91  105
-##  [15]  120  136  153  171  190  210  231  253  276  300  325  351  378  406
-##  [29]  435  465  496  528  561  595  630  666  703  741  780  820  861  903
-##  [43]  946  990 1035 1081 1128 1176 1225 1275 1326 1378 1431 1485 1540 1596
-##  [57] 1653 1711 1770 1830 1891 1953 2016 2080 2145 2211 2278 2346 2415 2485
-##  [71] 2556 2628 2701 2775 2850 2926 3003 3081 3160 3240 3321 3403 3486 3570
-##  [85] 3655 3741 3828 3916 4005 4095 4186 4278 4371 4465 4560 4656 4753 4851
-##  [99] 4950 5050
-\end{verbatim}
 
 \hypertarget{safely-and-possibly}{%
 \subsubsection{\texorpdfstring{\texttt{safely()} and
@@ -12203,7 +13173,7 @@ commune:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-480-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-525-1.pdf}
 
 and then you would write the same for ``Esch-sur-Alzette'' and also for
 ``Wiltz''. If you only have to make to make these 3 plots, copy and
@@ -12220,7 +13190,7 @@ pasting the above lines is no big deal:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-481-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-526-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12233,7 +13203,7 @@ pasting the above lines is no big deal:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-481-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-526-2.pdf}
 
 Put copy and pasting is error prone. Can you spot the copy-paste mistake
 I made? And what if you have to create the above plots for all 108
@@ -12455,21 +13425,21 @@ to simply look at them, it is enough to use \texttt{pull()}:
 ## [[1]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-488-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-533-1.pdf}
 
 \begin{verbatim}
 ## 
 ## [[2]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-488-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-533-2.pdf}
 
 \begin{verbatim}
 ## 
 ## [[3]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-488-3.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-533-3.pdf}
 
 And if we want to save these plots, we can do so using \texttt{map2()}:
 
@@ -12500,244 +13470,6 @@ correct arguments to the function, \texttt{map()} will do its magic. If
 you combine this with list-columns, you can even use \texttt{map()}
 alongside \texttt{dplyr} functions and map your function by first
 grouping, filtering, etc\ldots{}
-
-\hypertarget{functional-programming-and-modeling}{%
-\subsection{Functional programming and
-modeling}\label{functional-programming-and-modeling}}
-
-\hypertarget{bootstrapping}{%
-\subsubsection{Bootstrapping}\label{bootstrapping}}
-
-The \texttt{broom} package includes a \texttt{bootstrap()} function that
-allows you to resample your data with replacement and estimate your
-model on each sample. A worked example is available in one of the
-package's
-\href{https://cran.r-project.org/web/packages/broom/vignettes/bootstrapping.html}{Vignette}.
-R also includes a more general \texttt{boot()} function, but we are
-going to learn about this one later, as it involves some programming.
-Let's go back to \texttt{model\_log}, and try to get bootstrapped
-confidence intervals (as shown in the Vignette I linked above):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{boot_result <-}\StringTok{ }\NormalTok{Housing }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{bootstrap}\NormalTok{(}\DecValTok{50}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{do}\NormalTok{(}\KeywordTok{tidy}\NormalTok{(}\KeywordTok{lm}\NormalTok{(}\KeywordTok{log}\NormalTok{(price) }\OperatorTok{~}\StringTok{ }\NormalTok{bedrooms }\OperatorTok{+}\StringTok{ }\NormalTok{driveway, }\DataTypeTok{data =}\NormalTok{ .)))}
-\end{Highlighting}
-\end{Shaded}
-
-I just use 2 variables to make the output smaller. Let's take a look at
-\texttt{boot\_result}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(boot_result)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 150 x 6
-## # Groups:   replicate [50]
-##    replicate term        estimate std.error statistic  p.value
-##        <int> <chr>          <dbl>     <dbl>     <dbl>    <dbl>
-##  1         1 (Intercept)   10.2      0.0691    148.   0.      
-##  2         1 bedrooms       0.185    0.0191      9.72 1.07e-20
-##  3         1 drivewayyes    0.366    0.0404      9.07 2.23e-18
-##  4         2 (Intercept)   10.1      0.0640    158.   0.      
-##  5         2 bedrooms       0.218    0.0181     12.0  1.12e-29
-##  6         2 drivewayyes    0.319    0.0381      8.37 4.93e-16
-##  7         3 (Intercept)   10.2      0.0706    144.   0.      
-##  8         3 bedrooms       0.192    0.0200      9.58 3.51e-20
-##  9         3 drivewayyes    0.341    0.0402      8.48 2.15e-16
-## 10         4 (Intercept)   10.2      0.0703    146.   0.      
-## # ... with 140 more rows
-\end{verbatim}
-
-\texttt{boot\_result} is a \texttt{tibble} grouped by the new variable
-\texttt{replicate}. Now it is easy to compute confidence intervals for
-the parameters:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{boot_result }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(term) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{low =} \KeywordTok{quantile}\NormalTok{(estimate, }\FloatTok{.05}\OperatorTok{/}\DecValTok{2}\NormalTok{),}
-            \DataTypeTok{high =} \KeywordTok{quantile}\NormalTok{(estimate, }\DecValTok{1} \OperatorTok{-}\StringTok{ }\FloatTok{.05}\OperatorTok{/}\DecValTok{2}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 3 x 3
-##   term           low   high
-##   <chr>        <dbl>  <dbl>
-## 1 (Intercept) 10.1   10.3  
-## 2 bedrooms     0.152  0.223
-## 3 drivewayyes  0.314  0.412
-\end{verbatim}
-
-\texttt{quantile()} is a built-in function that returns the quantile at
-the \(alpha\) level for a given vector (in this case the vector of
-estimates). Of course, we had to group by \texttt{term} first, as we
-need to compute the confidence intervals, for each terms (or estimated
-parameters) separately. Plotting the densities of the bootstrapped
-parameters might also prove interesting:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(boot_result, }\KeywordTok{aes}\NormalTok{(estimate)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_density}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{term, }\DataTypeTok{scales =} \StringTok{"free"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-494-1.pdf}
-
-\hypertarget{cross-validation}{%
-\subsubsection{Cross-validation}\label{cross-validation}}
-
-To do cross-validation, we are going to use the \texttt{modelr} package,
-which is also part of the \texttt{tidyverse}.\footnote{This package is
-  still somewhat young and experimental and might get replaced by two
-  others in the future. At some point in the future you might get a
-  warning message telling you that the package is deprecated. When this
-  happens, you would need to switch to the new packages, but transition
-  should be fairly easy.}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(modelr)}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{modelr} includes two functions for cross-validation,
-\texttt{crossv\_kfold} and \texttt{crossv\_mc}, which do K-fold
-Cross-Validation and Monte Carlo Cross-Validation respectively. First,
-let's see what \texttt{cross\_mc()} (\texttt{cross\_kfold()}) returns
-when applied to data:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{cv_Housing <-}\StringTok{ }\NormalTok{Housing }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{crossv_mc}\NormalTok{(}\DataTypeTok{n =} \DecValTok{50}\NormalTok{)}
-
-\KeywordTok{print}\NormalTok{(cv_Housing)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 50 x 3
-##    train          test           .id  
-##    <list>         <list>         <chr>
-##  1 <S3: resample> <S3: resample> 01   
-##  2 <S3: resample> <S3: resample> 02   
-##  3 <S3: resample> <S3: resample> 03   
-##  4 <S3: resample> <S3: resample> 04   
-##  5 <S3: resample> <S3: resample> 05   
-##  6 <S3: resample> <S3: resample> 06   
-##  7 <S3: resample> <S3: resample> 07   
-##  8 <S3: resample> <S3: resample> 08   
-##  9 <S3: resample> <S3: resample> 09   
-## 10 <S3: resample> <S3: resample> 10   
-## # ... with 40 more rows
-\end{verbatim}
-
-This is a \texttt{tibble} with 3 colmuns, two of them being
-list-columns; \texttt{train} and \texttt{test}. Each element of
-\texttt{train} and \texttt{test} is a resampled \texttt{tibble} of the
-original data. This means that we can now estimate our first model (the
-simple linear one) on each resampled data using \texttt{map()}:
-
-Now if we want to estimate all these models:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{cv_models <-}\StringTok{ }\NormalTok{cv_Housing }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{model =} \KeywordTok{map}\NormalTok{(train, }\OperatorTok{~}\KeywordTok{lm}\NormalTok{(price }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ .)))}
-
-\KeywordTok{print}\NormalTok{(cv_models)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 50 x 4
-##    train          test           .id   model   
-##    <list>         <list>         <chr> <list>  
-##  1 <S3: resample> <S3: resample> 01    <S3: lm>
-##  2 <S3: resample> <S3: resample> 02    <S3: lm>
-##  3 <S3: resample> <S3: resample> 03    <S3: lm>
-##  4 <S3: resample> <S3: resample> 04    <S3: lm>
-##  5 <S3: resample> <S3: resample> 05    <S3: lm>
-##  6 <S3: resample> <S3: resample> 06    <S3: lm>
-##  7 <S3: resample> <S3: resample> 07    <S3: lm>
-##  8 <S3: resample> <S3: resample> 08    <S3: lm>
-##  9 <S3: resample> <S3: resample> 09    <S3: lm>
-## 10 <S3: resample> <S3: resample> 10    <S3: lm>
-## # ... with 40 more rows
-\end{verbatim}
-
-We added a list-column with the 50 models estimated (or trained) on the
-train data. Now we can compute, say, the RMSE from before on each one.
-\texttt{modelr} includes a \texttt{rmse()} function, so unlike in the
-previous section where we computed the RMSE manually we are simply going
-to use this function:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rmse_cv <-}\StringTok{ }\NormalTok{cv_models }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{rmse_all_models =} \KeywordTok{map2_dbl}\NormalTok{(model, test, }\OperatorTok{~}\KeywordTok{rmse}\NormalTok{(.x, .y))) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pull}\NormalTok{(rmse_all_models)}
-
-\KeywordTok{print}\NormalTok{(rmse_cv)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] 15951.99 16342.37 15942.59 13547.26 14220.94 13558.39 12336.18
-##  [8] 13905.72 14659.48 16195.46 17102.41 14071.76 16190.94 17183.69
-## [15] 15604.58 15008.10 17874.27 13993.60 15377.16 18582.74 17557.52
-## [22] 16666.49 17355.66 18119.38 17788.71 15631.23 14969.67 19183.09
-## [29] 14250.48 15560.58 15389.80 16337.59 13726.18 15567.40 14204.88
-## [36] 18432.65 15793.34 17213.26 16693.29 15047.21 13187.58 17593.13
-## [43] 13984.53 13562.76 15935.71 15669.48 15501.22 14357.58 15069.67
-## [50] 13746.53
-\end{verbatim}
-
-We can now compute the mean of this \texttt{rmse\_cv} variable:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{cv_rmse_lin_lin <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(rmse_cv)}
-\end{Highlighting}
-\end{Shaded}
-
-which is equal to 1.5634924\times 10\^{}\{4\}.
-
-For the log-lin model, this is a bit more complicated, because we need
-to exponentiate the predictions. However, if we use \texttt{rmse()} as
-before, there is no way to do that. I show you how you can do that, but
-it involves a few more steps than simply using \texttt{rmse()}. Try to
-understand the code below that computes the bootstrapped \texttt{rmse}
-for the log-lin model. You can see this as an advanced exercise; if you
-understand these next lines of code, you should understand anything that
-has to do with the \texttt{tidyverse}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{cv_rmse_log_lin <-}\StringTok{ }\NormalTok{cv_Housing }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{model =} \KeywordTok{map}\NormalTok{(train, }\OperatorTok{~}\KeywordTok{lm}\NormalTok{(}\KeywordTok{log}\NormalTok{(price) }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ .))) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{log_pred =} \KeywordTok{map2}\NormalTok{(model, test, }\OperatorTok{~}\KeywordTok{exp}\NormalTok{(}\KeywordTok{predict}\NormalTok{(.x, .y)))) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{prices =} \KeywordTok{map}\NormalTok{(test, }\OperatorTok{~}\KeywordTok{as.data.frame}\NormalTok{(.x)}\OperatorTok{$}\NormalTok{price)) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mutate}\NormalTok{(}
-        \DataTypeTok{rmse_all =}
-            \KeywordTok{map2_dbl}\NormalTok{(log_pred, prices,}
-                     \OperatorTok{~}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{mean}\NormalTok{((.x }\OperatorTok{-}\StringTok{ }\NormalTok{.y)}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)))) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{pull}\NormalTok{(rmse_all) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mean}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{cv\_rmse\_log\_lin} is equal to 1.5305996\times 10\^{}\{4\},
-which is lower than in the lin-lin model.
 
 \hypertarget{exercises-6}{%
 \subsection{Exercises}\label{exercises-6}}

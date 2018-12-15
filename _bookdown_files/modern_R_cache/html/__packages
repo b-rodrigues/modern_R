@@ -41,3 +41,6 @@ lhs
 Matrix
 foreach
 glmnet
+xml2
+rvest
+curl

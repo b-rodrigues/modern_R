@@ -14,12 +14,12 @@ this is called `dplyr`. `dplyr` contains a lot of functions that make manipulati
 data and computing descriptive statistics very easy. To make things easier for now, we are going to
 use example data included with `dplyr`. So no need to import an external dataset; this does not
 change anything to the example that we are going to study here; the source of the data does not
-matter for this. Using `dplyr` is possible only if the data you are working with is already in 
+matter for this. Using `dplyr` is possible only if the data you are working with is already in
 a useful shape. When data is more messy, you will need to first manipulate it to bring it a *tidy*
-format. For this, we will use `tidyr`, which is very useful package to reshape data and to do 
+format. For this, we will use `tidyr`, which is very useful package to reshape data and to do
 advanced cleaning of your data.
 All these tidyverse functions are also called *verbs*. However, before getting to know these verbs,
-let's do an analysis using standard, or *base* R functions. This will be the benchmark against 
+let's do an analysis using standard, or *base* R functions. This will be the benchmark against
 which we are going to measure a `{tidyverse}` workflow.
 
 ## A data exploration exercice using *base* R
@@ -54,28 +54,28 @@ It might be more informative to compute these two statistics by species, so for 
 to use `aggregate()`:
 
 ```{r}
-aggregate(starwars$height, 
-          by = list(Species = starwars$species), 
+aggregate(starwars$height,
+          by = list(Species = starwars$species),
           mean)
 ```
 
 Even if you are not familiar with `aggregate()`, I believe the above lines are quite self-explanatory.
-You need to provide `aggregate()` with 3 things; the variable you want to summarize (or only the 
-data frame, if you want to summarize all variables), a list of grouping variables and then the 
+You need to provide `aggregate()` with 3 things; the variable you want to summarize (or only the
+data frame, if you want to summarize all variables), a list of grouping variables and then the
 function that will be applied to each subset. You can easily add another grouping variable:
 
 ```{r}
-aggregate(starwars$height, 
+aggregate(starwars$height,
           by = list(Species = starwars$species,
-                    Homeworld = starwars$homeworld), 
+                    Homeworld = starwars$homeworld),
           mean)
 ```
 
 or use another function:
 
 ```{r}
-aggregate(starwars$height, 
-          by = list(Species = starwars$species), 
+aggregate(starwars$height,
+          by = list(Species = starwars$species),
           sd)
 ```
 
@@ -101,7 +101,7 @@ tapply(starwars, list(starwars$species), mean)
 ```
 
 ```
-Error in tapply(starwars, list(starwars$species), mean) : 
+Error in tapply(starwars, list(starwars$species), mean) :
   arguments must have same length
 ```
 
@@ -113,20 +113,20 @@ Let's continue now, by only computing the average height by species, but for mal
 ```{r}
 starwars_males <- subset(starwars, gender == "male")
 
-aggregate(starwars_males$height, 
-          by = list(Species = starwars_males$species), 
+aggregate(starwars_males$height,
+          by = list(Species = starwars_males$species),
           mean)
 ```
 
 I first use `subset()` to create a subset of the data in which I only kept males. Then, I rerun
-the analysis from before again. `subset()` can also be used to select columns. So if you want 
+the analysis from before again. `subset()` can also be used to select columns. So if you want
 the average of the height and mass for males, you could do something like this:
 
 ```{r}
 starwars_males_height_mass <- subset(starwars, gender == "male", select = c(height, mass, species))
 
-aggregate(starwars_males_height_mass, 
-          by = list(Species = starwars_males_height_mass$species), 
+aggregate(starwars_males_height_mass,
+          by = list(Species = starwars_males_height_mass$species),
           mean)
 ```
 
@@ -155,7 +155,7 @@ I will explain later where this comes from. Depending on what you want to do wit
 not in the right shape. So let's reshape it, using the aptly-called `reshape()` command:
 
 ```{r}
-survey_data_long <- reshape(survey_data_base, 
+survey_data_long <- reshape(survey_data_base,
         varying = list(2:4), v.names = "variable", direction = "long")
 ```
 
@@ -169,9 +169,9 @@ aggregate(survey_data_long$variable,
 
 There is also the possiblity to merge two datasets with `merge()`. I won't go into that however.
 As you can see, R comes with very powerful functions right out of the box, ready to use. When I was
-studying, unfortunately, my professors had been brought up on FORTRAN loops, so we had to do to all 
+studying, unfortunately, my professors had been brought up on FORTRAN loops, so we had to do to all
 this using loops (not reshaping, thankfully), which was not so easy.
-Now that we have seen how *base* R works, let's redo the analysis using `{tidyverse}` verbs. 
+Now that we have seen how *base* R works, let's redo the analysis using `{tidyverse}` verbs.
 But before deep diving into the `{tidyverse}`, let's take a moment to discuss about our lord and
 saviour, `%>%`.
 
@@ -208,7 +208,7 @@ library(magrittr)
 16 %>% sqrt
 ```
 
-This looks quite weird, but you probably understand what happened; `16` got *fed* as the first 
+This looks quite weird, but you probably understand what happened; `16` got *fed* as the first
 argument of the function `sqrt()`. You can chain multiple functions:
 
 ```{r}
@@ -433,10 +433,10 @@ and load dplyr:
 library(dplyr)
 ```
 
-This dataset gives the consumption of gasoline for 18 countries from 1960 to 1978. When you load 
-the data like this, it is a standard `data.frame`. `dplyr` functions can be used on standard 
-`data.frame` objects, but also on `tibble`s. `tibble`s are just like data frame, but with a better 
-print method (and other niceties). I'll discuss the `{tibble}` package later, but for now, let's 
+This dataset gives the consumption of gasoline for 18 countries from 1960 to 1978. When you load
+the data like this, it is a standard `data.frame`. `dplyr` functions can be used on standard
+`data.frame` objects, but also on `tibble`s. `tibble`s are just like data frame, but with a better
+print method (and other niceties). I'll discuss the `{tibble}` package later, but for now, let's
 convert the data to a `tibble` and change its name:
 
 ```{r}
@@ -474,7 +474,7 @@ To select non-consecutive years:
 gasoline %>% filter(year %in% c(1969, 1973, 1977))
 ```
 
-`%in%` tests if an object is part of a set. 
+`%in%` tests if an object is part of a set.
 
 
 ### Select columns with `select()`
@@ -782,8 +782,8 @@ gas_pwt_semi %>%
 
 The rows are the same, but not the columns.
 
-`left_join()` and `right_join()` return all the rows from either the dataset that is on the 
-"left" (the first argument of the fonction) or on the "right" (the second argument of the 
+`left_join()` and `right_join()` return all the rows from either the dataset that is on the
+"left" (the first argument of the fonction) or on the "right" (the second argument of the
 function) but all columns from both datasets. So depending on which countries you're interested in,
 you're going to use either one of these functions:
 
@@ -854,7 +854,7 @@ survey_data <- tribble(
 head(survey_data)
 ```
 
-I used the `tribble()` function from the `{tibble}` package to create this fake dataset. 
+I used the `tribble()` function from the `{tibble}` package to create this fake dataset.
 I'll discuss this package later, for now, let's focus on `{tidyr}.`
 
 `survey_data` is a long dataset. We can reshape it to be wide using the `spread()` function:
@@ -901,12 +901,12 @@ to be `4`. With `fill()`, this is pretty easy to achieve:
 
 
 ```{r, include=FALSE}
-survey_data %>% 
+survey_data %>%
     tidyr::fill(.direction = "down", variable = "id")
 ```
 
 ```{r, eval=FALSE}
-survey_data %>% 
+survey_data %>%
     fill(.direction = "down", variable = "id")
 ```
 
@@ -929,7 +929,7 @@ it the data frame.
 Putting all these operations together:
 
 ```{r, include=FALSE}
-survey_data %>% 
+survey_data %>%
     tidyr::fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     spread(variable, value)
@@ -937,7 +937,7 @@ survey_data %>%
 
 
 ```{r, eval=FALSE}
-survey_data %>% 
+survey_data %>%
     fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     spread(variable, value)
@@ -948,7 +948,7 @@ values and add the date column, and then work with that format. For example, to 
 of the values by date:
 
 ```{r, include=FALSE}
-survey_data %>% 
+survey_data %>%
     tidyr::fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     group_by(date) %>%
@@ -957,7 +957,7 @@ survey_data %>%
 
 
 ```{r, eval=FALSE}
-survey_data %>% 
+survey_data %>%
     fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     group_by(date) %>%
@@ -968,7 +968,7 @@ Or by `date` and `variable`:
 
 
 ```{r, include=FALSE}
-survey_data %>% 
+survey_data %>%
     tidyr::fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     group_by(date, variable) %>%
@@ -976,7 +976,7 @@ survey_data %>%
 ```
 
 ```{r, eval=FALSE}
-survey_data %>% 
+survey_data %>%
     fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     group_by(date, variable) %>%
@@ -988,9 +988,9 @@ As you can see, you can chain any `{tidyverse}` verbs, wether they come from `{d
 ### Put order in your columns with `separate()`, `unite()`, and in your rows with `separate_rows()`
 
 ```{r, include=FALSE}
-survey_data_not_tidy <- survey_data %>% 
+survey_data_not_tidy <- survey_data %>%
     tidyr::fill(.direction = "down", variable = "id") %>%
-    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>% 
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     mutate(variable_date = paste(variable, date, sep = "/")) %>% select(id, variable_date, value)
 ```
 
@@ -1004,7 +1004,7 @@ survey_data_not_tidy
 Dealing with this is simple, thanks to `separate()`:
 
 ```{r}
-survey_data_not_tidy %>% 
+survey_data_not_tidy %>%
     separate(variable_date, into = c("variable", "date"), sep = "/")
 ```
 
@@ -1014,7 +1014,7 @@ to specify the separator, in this case "/".
 `unite()` is the reverse operation, which can be useful when you are confronted to this situation:
 
 ```{r, include=FALSE}
-survey_data2 <- survey_data_not_tidy %>% 
+survey_data2 <- survey_data_not_tidy %>%
     separate(variable_date, into = c("variable", "date"), sep = "/") %>%
     separate(date, into = c("year", "month", "day"), sep = "-")
 ```
@@ -1072,7 +1072,7 @@ survey_data_clean
 quite easily:
 
 ```{r, include=FALSE}
-survey_data_from_hell %>% 
+survey_data_from_hell %>%
     separate_rows(variable, value, convert = TRUE) %>%
     tidyr::fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
@@ -1080,7 +1080,7 @@ survey_data_from_hell %>%
 
 
 ```{r, eval=FALSE}
-survey_data_from_hell %>% 
+survey_data_from_hell %>%
     separate_rows(variable, value, convert = TRUE) %>%
     fill(.direction = "down", variable = "id") %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
@@ -1143,13 +1143,13 @@ ggplot(data = survey_data_id1) +
 Ok great. But now I want to create this plot for each `id`... so I have to copy paste this 3 times.
 But copy-pasting is error prone. So there are two alternatives; I either write a function that
 takes as argument the data and the `id` I want to plot and run it for each `id` (we will learn to
-do this in Chapter 8), or I can use `tidyr::nest()`, combined with `purrr::map()`. `{purrr}` is 
+do this in Chapter 8), or I can use `tidyr::nest()`, combined with `purrr::map()`. `{purrr}` is
 another very useful `{tidevyrse}` package, and we are going to learn about it in Chapter 9. Again,
 just follow along for now:
 
 ```{r}
 my_plots <- nested_survey_data %>%
-    mutate(plot = map2(.x = id, 
+    mutate(plot = map2(.x = id,
                        .y = data,
                        ~ggplot(data = .y) +
                            geom_bar(aes(y = value, x = date, fill = variable), stat = "identity") +
@@ -1157,14 +1157,14 @@ my_plots <- nested_survey_data %>%
 ```
 
 This is some very advanced stuff, and again, do not worry if you don't understand everything now.
-We are going to learn about this in detail in Chapter 9. Let's go through each line. 
+We are going to learn about this in detail in Chapter 9. Let's go through each line.
 In the first line, I have started from my clean data `nested_survey_data` and then, using the `%>%`
 and `mutate()` I create a new column called `plot`. Inside the `mutate()` function, I called `map2`.
 `map2` is a `{purrr}` function that takes three inputs: `.x`, `.y` and a function. `.x` is the `id`
 column from my data, and `.y` is the `data` column from `nested_survey_data`. The function is the
 ggplot I created before. Think of `map2()` has a loop over two lists, all while applying a function.
 
-The following illustration, taken from @vaudor_purrr_2018 by 
+The following illustration, taken from @vaudor_purrr_2018 by
 [Lise Vaudor](https://twitter.com/LVaudor), illustrates this perfectly:
 
 ```{r, echo=FALSE}
@@ -1183,8 +1183,8 @@ Now, let's take a look at the result:
 my_plots
 ```
 
-`my_plots` is a tibble with three columns: `id`, `data` and.. `plot`! `plot` is a very interesting 
-column. It is a list, where each element is of type `S3: gg`. Yes, you guessed it, each element of 
+`my_plots` is a tibble with three columns: `id`, `data` and.. `plot`! `plot` is a very interesting
+column. It is a list, where each element is of type `S3: gg`. Yes, you guessed it, each element of
 that list-column is a ggplot! If you now want to take a look at the plots, it is enough to do this:
 
 ```{r}
@@ -1229,10 +1229,10 @@ gasoline %>% filter_at(vars(ends_with("p")), all_vars(. > -8))
 
 we already know about `ends_with()` and `starts_with()`. So the above line means "for the columns
 whose name end with a 'p' only keep the lines where, for all the selected columns, the values are
-strictly superior to `-8`". Again, this is not very easy the first time you deal with that, so 
+strictly superior to `-8`". Again, this is not very easy the first time you deal with that, so
 play around with it for a bit.
 
-Finally, there is also `filter_all()` which, as the name implies, uses all the variables for 
+Finally, there is also `filter_all()` which, as the name implies, uses all the variables for
 the filtering step.
 
 `filter_if()` and `filter_at()` are very useful when you have very large datasets with a lot of
@@ -1241,7 +1241,7 @@ useful if, for example, you only want to keep the positive values for all the co
 
 ### select_\*() and rename_\*()
 
-Just as with `filter()`, `select()` also has scoped versions. `select_if()` makes it easy to 
+Just as with `filter()`, `select()` also has scoped versions. `select_if()` makes it easy to
 select columns that satisfy a criterium:
 
 ```{r}
@@ -1267,8 +1267,8 @@ gasoline %>% select_at(vars(c(1,2,5)))
 ```
 
 Notice that I use a new helper function, `vars()`, which allows me to specify which variables I want
-to select. This is similar to the helper functions we have seen before, `all_vars()` 
-and `any_vars()`. So the way to read the above line would be something like "Start with the 
+to select. This is similar to the helper functions we have seen before, `all_vars()`
+and `any_vars()`. So the way to read the above line would be something like "Start with the
 gasoline data, then select the variables at position 1, 2, 5". Knowing how to read your code makes
 it even easier to write.
 
@@ -1299,7 +1299,7 @@ down below.
 
 ### group_by_*()
 
-To illustrate `group_by_*()` I have to first modify the `gasoline` data a little bit. As you can 
+To illustrate `group_by_*()` I have to first modify the `gasoline` data a little bit. As you can
 see below, the data column is of type integer:
 
 ```{r}
@@ -1329,9 +1329,9 @@ gasoline %>%
     summarise(mean(lincomep))
 ```
 
-You may think that having two write the name of two variables is not a huge hassle, which is true. 
-But imagine that you have dozens of character columns that you want to group by. This is the kind 
-of situation where `group_by_if()` is very useful. If you prefer, you can specify the position of 
+You may think that having two write the name of two variables is not a huge hassle, which is true.
+But imagine that you have dozens of character columns that you want to group by. This is the kind
+of situation where `group_by_if()` is very useful. If you prefer, you can specify the position of
 the columns instead of the name of the columns, with `group_by_at()`:
 
 ```{r}
@@ -1388,7 +1388,7 @@ gasoline %>%
   summarise_if(is.double, funs(mean, sd, min, max))
 ```
 
-This allows you to summarise every column that contain real numbers. The difference between 
+This allows you to summarise every column that contain real numbers. The difference between
 `is.double()` and `is.numeric()` is that `is.numeric()` returns `TRUE` for integers too, whereas
 `is.double()` returns `TRUE` for real numbers only (integers are real numbers too, but you know
 what I mean). To go faster, you can also use `summarise_all()`:
@@ -1435,7 +1435,7 @@ gasoline %<>%
 ### `if_else()`, `case_when()` and `recode()`
 
 Some other very useful `{tidyverse}` functions are `if_else()` and `case_when`. These two
-functions, combined with `mutate()` make it easy to create a new variable whose values must 
+functions, combined with `mutate()` make it easy to create a new variable whose values must
 respect certain conditions. For instance, we might want to have a dummy that equals `1` if a country
 in the European Union (to simplify, say as of 2017) and `0` if not. First let's create a list of
 countries that are in the EU:
@@ -1513,7 +1513,7 @@ gasoline %>%
   filter(year == 1960)
 ```
 
-If all you want is to recode values, you can use `recode()`. For example, the Netherlands is 
+If all you want is to recode values, you can use `recode()`. For example, the Netherlands is
 written as "NETHERLA" in the `gasoline` data, which is quite ugly. Same for Switzerland:
 
 ```{r}
@@ -1641,8 +1641,8 @@ where `n()` is a `dplyr` function that can only be used within `summarise()`, `m
 
 ### 🐈🐈🐈🐈
 
-Factor variables are very useful but not very easy to manipulate. `forcats` contains very useful 
-functions that make working on factor variables painless. In my opinion, the four following functions, `fct_recode()`, `fct_relevel()`, `fct_reorder()` and `fct_relabel()`, are the ones you must 
+Factor variables are very useful but not very easy to manipulate. `forcats` contains very useful
+functions that make working on factor variables painless. In my opinion, the four following functions, `fct_recode()`, `fct_relevel()`, `fct_reorder()` and `fct_relabel()`, are the ones you must
 know, so that's what I'll be showing.
 
 Remember in chapter 3 when I very quickly explained what were `factor` variables? In this section,
@@ -1707,7 +1707,7 @@ gss_cat %>%
 
 `fct_reorder()` is especially useful for plotting. We will explore plotting in the next chapter,
 but to show you why `fct_reorder()` is so useful, I will create a barplot, first without
-using `fct_reorder()` to re-order the factors, then with reordering. Do not worry if you don't 
+using `fct_reorder()` to re-order the factors, then with reordering. Do not worry if you don't
 understand all the code for now:
 
 ```{r}
@@ -1718,7 +1718,7 @@ gss_cat %>%
     coord_flip()
 ```
 
-It would be much better if the categories were ordered by frequency. This is easy to do with 
+It would be much better if the categories were ordered by frequency. This is easy to do with
 `fct_reorder()`:
 
 ```{r}
@@ -1736,9 +1736,141 @@ Much better! In Chapter 6, we are going to learn about `{ggplot2}`.
 
 ###  Get your dates right with `{lubridate}`
 
-Just like `{forcats}`, `{lubridate}` contains numerous functions, each one of them very useful. 
-However, here, I will only focus on a handful of them (those that I use very often). If you need
-to work with dates a lot in your work, consider reading all the documentation.
+`{lubridate}` is yet another tidyverse package, that makes dealing with dates or durations (and intervals) as
+painless as possible. I do not use every function contained in the package daily, and as such will
+only focus on some of the functions. However, if you have to deal with dates often,
+you might want to explore the package thouroughly.
+
+#### Defining dates, the tidy way
+
+```{r, eval=FALSE, echo=FALSE}
+page <- read_html("https://en.wikipedia.org/wiki/Decolonisation_of_Africa")
+
+independence <- page %>%
+    html_node(".wikitable") %>%
+    html_table(fill = TRUE)
+
+independence <- independence %>%
+    select(-Rank) %>%
+    map_df(~str_remove_all(., "\\[.*\\]")) %>%
+    rename(country = `Country[a]`,
+           colonial_name = `Colonial name`,
+           colonial_power = `Colonial power[b]`,
+           independence_date = `Independence date[c]`,
+           first_head_of_state = `First head of state[d]`,
+           independence_won_through = `Independence won through`)
+
+saveRDS(independence, "independence.rds")
+```
+
+Let's load new dataset, called *independence* from the datasets folder:
+
+```{r}
+independence <- readRDS("datasets/independence.rds")
+```
+
+This dataset was scraped from the following Wikipedia [page](https://en.wikipedia.org/wiki/Decolonisation_of_Africa#Timeline).
+It shows when African countries gained independence from which colonial powers. In Chapter 11, I
+will show you how to scrape Wikipedia pages using R. For now, let's take a look at the contents
+of the dataset:
+
+```{r}
+independence
+```
+
+as you can see, the date of indepedence is in a format that might make it difficult to answer questions
+such as *Which African countries gained independence before 1960 ?* for two reasons. First of all,
+the date uses the name of the month instead of the number of the month, and second of all the type of
+the indepedence day column is *character* and not "date". So our first task is to correctly define the column
+as being of type date, while making sure that R understands that *January* is supposed to be "01", and so
+on. There are several helpful functions included in `{lubridate}` to convert columns to dates. For instance
+if the column you want to convert is of the form "2012-11-21", then you would use the function `ymd()`,
+for "year-month-day". If, however the column is "2012-21-11", then you would use `ydm()`. There's
+a few of these helper functions, and they can handle a lot of different formats for dates. In our case,
+having the name of the month instead of the number might seem quite problematic, but it turns out
+that this is a case that `{lubridate}` handles painfully:
+
+```{r}
+independence <- independence %>%
+  mutate(independence_date = dmy(independence_date))
+```
+
+Some dates failed to parse, for instance for Morocco. This is because these countries have several
+independence dates; this means that the string to convert looks like:
+
+```
+"2 March 1956
+7 April 1956
+10 April 1958
+4 January 1969"
+```
+
+which obviously cannot be converted by `{lubridate}` without further manipulation. I ignore these cases for
+simplicity's sake.
+
+Let's take a look at the data now:
+
+```{r}
+independence
+```
+
+As you can see, we now have a date column in the right format. We can now answer questions such as
+*Which countries gained indepedence before 1960?* quite easily, by using the functions `year()`,
+`month()` and `day()`. Let's see which countries gained indepedence before 1960:
+
+```{r}
+indepedence %>%
+  filter(year(independence_date) <= 1960) %>%
+  pull(country)
+```
+
+You guessed it, `year()` extracts the year of the date column and converts it as a *numeric* so that we can work
+on it. This is the same for `month()` or `day()`. Let's try to see if countries gained their independence on
+Christmas Eve:
+
+```{r}
+independence %>%
+  filter(month(independence_date) == 12,
+         day(independence_date) == 24) %>%
+  pull(country)
+```
+
+Seems like Libya was the only one! You can also operate on dates. For instance, let's compute the difference between
+two dates, using the `interval()` column:
+
+```{r}
+independence %>%
+  mutate(today = lubridate::today()) %>%
+  mutate(independent_since = interval(independence_date, today)) %>%
+  select(country, independent_since)
+```
+
+The `independent_since` column now contains an *interval* object that we can convert to years:
+
+```{r}
+independence %>%
+  mutate(today = lubridate::today()) %>%
+  mutate(independent_since = interval(independence_date, today)) %>%
+  select(country, independent_since) %>%
+  mutate(years_independent = as.numeric(independent_since, "years"))
+```
+
+We can now see for how long the last country to gain independence has been independent.
+Because the data is not tidy (in some cases, an African country was colonized by two powers,
+see Libya), I will only focus on 4 European colonial powers: Belgium, France, Portugal and the United Kingdom:
+
+```{r}
+independence %>%
+  filter(colonial_power %in% c("Belgium", "France", "Portugal", "United Kingdom")) %>%
+  mutate(today = lubridate::today()) %>%
+  mutate(independent_since = interval(independence_date, today)) %>%
+  mutate(years_independent = as.numeric(independent_since, "years")) %>%
+  group_by(colonial_power) %>%
+  summarise(last_colony_independent_for = min(years_independent, na.rm = TRUE))
+```
+
+`{lubridate}` contains many more functions. If you often work with dates, duration or interval data, `{lubridate}`
+is a package that you have to master.
 
 ### Manipulate strings with `{stringr}`
 
@@ -1746,7 +1878,7 @@ to work with dates a lot in your work, consider reading all the documentation.
 expressions, but the functions contained in `{stringr}` allow you to already do a lot of work on
 strings, without needing to be a regular expression expert.
 
-I will discuss the most common string operations: search and replace (or remove), detect, locate 
+I will discuss the most common string operations: search and replace (or remove), detect, locate
 or match, and trim a string.
 
 
