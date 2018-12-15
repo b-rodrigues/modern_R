@@ -2044,6 +2044,8 @@ ggplot(points) +
     geom_hline(yintercept = pi)
 ```
 
+In Chapter 6, we are going to learn all about `{ggplot2}`.
+
 As the number of tries grows, the estimation of $\pi$ gets better.
 
 Using a data frame as strua cture to hold our simulated points and the results makes it very easy
