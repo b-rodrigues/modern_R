@@ -44,3 +44,4 @@ glmnet
 xml2
 rvest
 curl
+lubridate

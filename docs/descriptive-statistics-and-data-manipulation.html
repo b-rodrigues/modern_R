@@ -229,7 +229,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.7.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>5.7.3</b> Manipulate strings with <code>{stringr}</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>5.8</b> List-columns</a></li>
-<li class="chapter" data-level="5.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>5.9</b> Exercises</a><ul>
+<li class="chapter" data-level="5.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#going-beyond-descriptive-statistics-and-data-manipulation"><i class="fa fa-check"></i><b>5.9</b> Going beyond descriptive statistics and data manipulation</a></li>
+<li class="chapter" data-level="5.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -1038,7 +1039,7 @@ these lines:</p>
 ## 5 Capt…     NA    NA unknown    unknown    unknown           NA female
 ## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 ## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-<p>To test for <code>NA</code>, one uses the function <code>is.na()</code> not something like <code>species == &quot;NA&quot;</code> or anything
+<p>To test for <code>NA</code>, one uses the function <code>is.na()</code> not something like <code>species == "NA"</code> or anything
 like that. <code>!is.na()</code> does the opposite:</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">starwars <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb63-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(species))</a></code></pre></div>
@@ -3406,10 +3407,10 @@ of the dataset:</p>
 ## 10 Guinea  French West … France         2 October 1958   Ahmed Sékou Tou…
 ## # ... with 44 more rows, and 1 more variable:
 ## #   independence_won_through &lt;chr&gt;</code></pre>
-<p>as you can see, the date of indepedence is in a format that might make it difficult to answer questions
+<p>as you can see, the date of independence is in a format that might make it difficult to answer questions
 such as <em>Which African countries gained independence before 1960 ?</em> for two reasons. First of all,
 the date uses the name of the month instead of the number of the month, and second of all the type of
-the indepedence day column is <em>character</em> and not “date”. So our first task is to correctly define the column
+the independence day column is <em>character</em> and not “date”. So our first task is to correctly define the column
 as being of type date, while making sure that R understands that <em>January</em> is supposed to be “01”, and so
 on. There are several helpful functions included in <code>{lubridate}</code> to convert columns to dates. For instance
 if the column you want to convert is of the form “2012-11-21”, then you would use the function <code>ymd()</code>,
@@ -3417,8 +3418,10 @@ for “year-month-day”. If, however the column is “2012-21-11”, then you w
 a few of these helper functions, and they can handle a lot of different formats for dates. In our case,
 having the name of the month instead of the number might seem quite problematic, but it turns out
 that this is a case that <code>{lubridate}</code> handles painfully:</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1">independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb319-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">independence_date =</span> <span class="kw">dmy</span>(independence_date))</a></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb319-2" title="2"></a>
+<a class="sourceLine" id="cb319-3" title="3">independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb319-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">independence_date =</span> <span class="kw">dmy</span>(independence_date))</a></code></pre></div>
 <pre><code>## Warning: 5 failed to parse.</code></pre>
 <p>Some dates failed to parse, for instance for Morocco. This is because these countries have several
 independence dates; this means that the string to convert looks like:</p>
@@ -3446,9 +3449,9 @@ simplicity’s sake.</p>
 ## # ... with 44 more rows, and 1 more variable:
 ## #   independence_won_through &lt;chr&gt;</code></pre>
 <p>As you can see, we now have a date column in the right format. We can now answer questions such as
-<em>Which countries gained indepedence before 1960?</em> quite easily, by using the functions <code>year()</code>,
-<code>month()</code> and <code>day()</code>. Let’s see which countries gained indepedence before 1960:</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1">indepedence <span class="op">%&gt;%</span></a>
+<em>Which countries gained independence before 1960?</em> quite easily, by using the functions <code>year()</code>,
+<code>month()</code> and <code>day()</code>. Let’s see which countries gained independence before 1960:</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1">independence <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb324-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">year</span>(independence_date) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1960</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb324-3" title="3"><span class="st">  </span><span class="kw">pull</span>(country)</a></code></pre></div>
 <pre><code>##  [1] &quot;Liberia&quot;                          &quot;South Africa&quot;                    
@@ -3667,8 +3670,64 @@ tibbles; each tibble is the <code>variable</code> and <code>value</code> for eac
 layer of complexity. The usefulness of list-columns will become apparent in the next chapters,
 where we are going to learn how to repeat actions over, say, individuals.</p>
 </div>
+<div id="going-beyond-descriptive-statistics-and-data-manipulation" class="section level2">
+<h2><span class="header-section-number">5.9</span> Going beyond descriptive statistics and data manipulation</h2>
+<p>The <code>{tidyverse}</code> collection of packages can do much more than simply data manipulation and
+descriptive statisics. You can use the principles we have covered and the functions you now know
+to do much more. For instance, you can use a few <code>{tidyverse}</code> functions to do Monte Carlo simulations,
+for example to estimate <span class="math inline">\(\pi\)</span>.</p>
+<p>Draw the unit circle inside the unit square, the ratio of the area of the circle to the area of the
+square will be <span class="math inline">\(\pi/4\)</span>. Then shot K arrows at the square; roughly <span class="math inline">\(K*\pi/4\)</span> should have fallen
+inside the circle. So if now you shoot N arrows at the square, and M fall inside the circle, you have
+the following relationship <span class="math inline">\(M = N*\pi/4\)</span>. You can thus compute <span class="math inline">\(\pi\)</span> like so: <span class="math inline">\(\pi = 4*M/N\)</span>.</p>
+<p>The more arrows N you throw at the square, the better approximation of <span class="math inline">\(\pi\)</span> you’ll have. Let’s
+try to do this with a tidy Monte Carlo simulation. First, let’s randomly pick some points inside
+the unit square:</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb351-2" title="2"></a>
+<a class="sourceLine" id="cb351-3" title="3">n &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb351-4" title="4"></a>
+<a class="sourceLine" id="cb351-5" title="5"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb351-6" title="6">points &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="st">&quot;x&quot;</span> =<span class="st"> </span><span class="kw">runif</span>(n), <span class="st">&quot;y&quot;</span> =<span class="st"> </span><span class="kw">runif</span>(n))</a></code></pre></div>
+<p>Now, to know if a point is inside the unit circle, we need to check wether <span class="math inline">\(x^2 + y^2 &lt; 1\)</span>. Let’s
+add a new column to the <code>points</code> tibble, called <code>inside</code> equal to 1 if the point is inside the
+unit circle and 0 if not:</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" title="1">points &lt;-<span class="st"> </span>points <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb352-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">inside =</span> <span class="kw">map2_dbl</span>(<span class="dt">.x =</span> x, <span class="dt">.y =</span> y, <span class="op">~</span><span class="kw">ifelse</span>(.x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>.y<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb352-3" title="3"><span class="st">    </span><span class="kw">rowid_to_column</span>(<span class="st">&quot;N&quot;</span>)</a></code></pre></div>
+<p>Let’s take a look at <code>points</code>:</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1">points</a></code></pre></div>
+<pre><code>## # A tibble: 500 x 4
+##        N       x      y inside
+##    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1     1 0.114   0.669       1
+##  2     2 0.622   0.801       0
+##  3     3 0.609   0.855       0
+##  4     4 0.623   0.0501      1
+##  5     5 0.861   0.674       0
+##  6     6 0.640   0.846       0
+##  7     7 0.00950 0.746       1
+##  8     8 0.233   0.830       1
+##  9     9 0.666   0.128       1
+## 10    10 0.514   0.794       1
+## # ... with 490 more rows</code></pre>
+<p>The <code>rowid_to_column()</code> function, from the <code>{tibble}</code> package, adds a new column to the data frame
+with an id, going from 1 to the number of rows in the data frame. Now, I can compute the estimation
+of <span class="math inline">\(\pi\)</span> at each row, by computing the cumulative sum of the 1’s in the <code>inside</code> column and dividing
+that by the current value of <code>N</code> column:</p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" title="1">points &lt;-<span class="st"> </span>points <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb355-2" title="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">estimate =</span> <span class="dv">4</span><span class="op">*</span><span class="kw">cumsum</span>(inside)<span class="op">/</span>N)</a></code></pre></div>
+<p><code>cumsum(inside)</code> is the <code>M</code> from the formula. Now, we can finish by plotting the result:</p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1"><span class="kw">ggplot</span>(points) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb356-2" title="2"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> estimate, <span class="dt">x =</span> N)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb356-3" title="3"><span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> pi)</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-197-1.png" width="672" /></p>
+<p>As the number of tries grows, the estimation of <span class="math inline">\(\pi\)</span> gets better.</p>
+<p>Using a data frame as strua cture to hold our simulated points and the results makes it very easy
+to avoid loops, and thus write code that is more concise and easier to follow.</p>
+</div>
 <div id="exercises-2" class="section level2">
-<h2><span class="header-section-number">5.9</span> Exercises</h2>
+<h2><span class="header-section-number">5.10</span> Exercises</h2>
 <div id="exercise-1-2" class="section level3 unnumbered">
 <h3>Exercise 1</h3>
 <p>Load the <code>LaborSupply</code> dataset from the <code>Ecdat</code> package and answer the following questions:</p>
@@ -3686,9 +3745,9 @@ where we are going to learn how to repeat actions over, say, individuals.</p>
 <ul>
 <li>What does the following code do? Copy and paste it in an R interpreter to find out!</li>
 </ul>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" title="1">LaborSupply <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb351-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb351-3" title="3"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;l&quot;</span>)), <span class="kw">funs</span>(lag, lead))</a></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" title="1">LaborSupply <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb357-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb357-3" title="3"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;l&quot;</span>)), <span class="kw">funs</span>(lag, lead))</a></code></pre></div>
 <p><code>mutate_at()</code> is a scoped version of <code>mutate()</code> which allows you to specify a number of columns and
 functions in one go. This also exists for <code>summarise()</code>.</p>
 <ul>
@@ -3768,6 +3827,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

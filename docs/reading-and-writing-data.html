@@ -229,7 +229,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.7.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>5.7.3</b> Manipulate strings with <code>{stringr}</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>5.8</b> List-columns</a></li>
-<li class="chapter" data-level="5.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>5.9</b> Exercises</a><ul>
+<li class="chapter" data-level="5.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#going-beyond-descriptive-statistics-and-data-manipulation"><i class="fa fa-check"></i><b>5.9</b> Going beyond descriptive statistics and data manipulation</a></li>
+<li class="chapter" data-level="5.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -429,7 +430,7 @@ Importing a STATA or a SAS file is done just the same:</p>
 <p>As you can see <code>multi</code> is a list of datasets. Told you lists were very flexible! It is also possible
 to import all the datasets in a single directory at once. For this, you first need a vector of paths:</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">paths &lt;-<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</a></code></pre></div>
-<p><code>Sys.glob()</code> allows you to find files using a regular expression. &quot;datasets/unemployment/*.csv&quot;
+<p><code>Sys.glob()</code> allows you to find files using a regular expression. "datasets/unemployment/*.csv"
 matches all the <code>.csv</code> files inside the “datasets/unemployment/” folder.</p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">all_data &lt;-<span class="st"> </span><span class="kw">import_list</span>(paths)</a>
 <a class="sourceLine" id="cb100-2" title="2"></a>

@@ -1985,6 +1985,70 @@ As you can see, for individual 1, the column data contains a 2x2 tibble with col
 layer of complexity. The usefulness of list-columns will become apparent in the next chapters,
 where we are going to learn how to repeat actions over, say, individuals.
 
+## Going beyond descriptive statistics and data manipulation
+
+The `{tidyverse}` collection of packages can do much more than simply data manipulation and 
+descriptive statisics. You can use the principles we have covered and the functions you now know
+to do much more. For instance, you can use a few `{tidyverse}` functions to do Monte Carlo simulations,
+for example to estimate $\pi$. 
+
+Draw the unit circle inside the unit square, the ratio of the area of the circle to the area of the
+square will be $\pi/4$. Then shot K arrows at the square; roughly $K*\pi/4$ should have fallen
+inside the circle. So if now you shoot N arrows at the square, and M fall inside the circle, you have
+the following relationship $M = N*\pi/4$. You can thus compute $\pi$ like so: $\pi = 4*M/N$.
+
+The more arrows N you throw at the square, the better approximation of $\pi$ you'll have. Let's 
+try to do this with a tidy Monte Carlo simulation. First, let's randomly pick some points inside 
+the unit square:
+
+```{r}
+library(tidyverse)
+
+n <- 500
+
+set.seed(1234)
+points <- tibble("x" = runif(n), "y" = runif(n))
+```
+
+Now, to know if a point is inside the unit circle, we need to check wether $x^2 + y^2 < 1$. Let's
+add a new column to the `points` tibble, called `inside` equal to 1 if the point is inside the 
+unit circle and 0 if not:
+
+```{r}
+points <- points %>% 
+    mutate(inside = map2_dbl(.x = x, .y = y, ~ifelse(.x**2 + .y**2 < 1, 1, 0))) %>% 
+    rowid_to_column("N")
+```
+
+Let's take a look at `points`:
+
+```{r}
+points
+```
+
+The `rowid_to_column()` function, from the `{tibble}` package, adds a new column to the data frame
+with an id, going from 1 to the number of rows in the data frame. Now, I can compute the estimation
+of $\pi$ at each row, by computing the cumulative sum of the 1's in the `inside` column and dividing
+that by the current value of `N` column:
+
+```{r}
+points <- points %>% 
+    mutate(estimate = 4*cumsum(inside)/N)
+```
+
+`cumsum(inside)` is the `M` from the formula. Now, we can finish by plotting the result:
+
+```{r}
+ggplot(points) + 
+    geom_line(aes(y = estimate, x = N)) + 
+    geom_hline(yintercept = pi)
+```
+
+As the number of tries grows, the estimation of $\pi$ gets better.
+
+Using a data frame as strua cture to hold our simulated points and the results makes it very easy
+to avoid loops, and thus write code that is more concise and easier to follow. 
+
 ## Exercises
 
 ### Exercise 1 {-}
