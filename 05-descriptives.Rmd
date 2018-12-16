@@ -1871,8 +1871,53 @@ independence %>%
   summarise(last_colony_independent_for = min(years_independent, na.rm = TRUE))
 ```
 
-`{lubridate}` contains many more functions. If you often work with dates, duration or interval data, `{lubridate}`
-is a package that you have to master.
+#### Arithmetic with dates
+
+Adding or substracting days to dates is quite easy:
+
+```{r}
+ymd("2018-12-31") + 16
+```
+
+It is also possible to be more explicit and use `days()`:
+
+```{r}
+ymd("2018-12-31") + days(16)
+```
+
+To add years, you can use `years()`:
+
+```{r}
+ymd("2018-12-31") + years(1)
+```
+
+But you have to be careful with leap years:
+
+```{r}
+ymd("2016-02-29") + years(1)
+```
+
+Because 2017 is not a leap year, the above computation returns `NA`. The same goes for months with 
+a different number of days:
+
+```{r}
+ymd("2018-12-31") + months(2)
+```
+
+The way to solve these issues is to use the special `%m+%` infix operator:
+
+```{r}
+ymd("2016-02-29") %m+% years(1)
+```
+
+and for months:
+
+```{r}
+ymd("2018-12-31") %m+% months(2)
+```
+
+`{lubridate}` contains many more functions. If you often work with dates, duration or interval 
+data, `{lubridate}` is a package that you have to add to your toolbox.
 
 ### Manipulate strings with `{stringr}`
 
