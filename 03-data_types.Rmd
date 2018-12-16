@@ -81,6 +81,25 @@ Manipulating dates and time can be
 tricky, but thankfully there's a `{tidyverse}` package for that, called `{lubridate}`. We are going
 to go over this package in Chapter 5.
 
+## The `logical` class
+
+This class is the result of logical comparisons, for example, if you type:
+
+```{r}
+4 > 3
+```
+
+R returns `TRUE`, which is an object of class `logical`:
+
+```{r}
+k <- 4 > 3
+class(k)
+```
+
+In other programming languages, `logical`s are often called `bool`s.
+
+A `logical` variable can only have two values, either `TRUE` or `FALSE`.
+
 ## Vectors and matrices
 
 You can create a vector in different ways. But first of all, it is important to understand that a
@@ -162,7 +181,7 @@ matrix_a <- matrix(0, nrow <- 5, ncol <- 5)
 If you want to create the following matrix:
 
 \[
-B <- \left(
+B = \left(
 \begin{array}{ccc}
  2 & 4 & 3 \\
  1 & 5 & 7
@@ -208,29 +227,14 @@ To access its third element, you can simply write:
 b[3]
 ```
 
-## The `logical` class
-
-This class is the result of logical comparisons, for example, if you type:
-
-```{r}
-4 > 3
-```
-
-R returns true. If we save this in a variable `k`:
-
-```{r}
-k <- 4 > 3
-```
-
-and check `k`'s class:
-
-```{r}
-class(k)
-```
-
-R returns `logical`. In other programming languages, `logical`s are often called `bool`s.
-
-A `logical` variable can only have two values, either `TRUE` or `FALSE`.
+I have heard many people praising R for being a matrix based language. Matrices are indeed useful,
+and statisticians are very used to working with them. However, I very rarely use matrices in my
+day to day work, and prefer an approach based on data frames (which will be discussed below). This
+is because working with data frames makes it easier to use R's advanced functional programming
+language capabilities, and this is where R really shines in my opinion. Working with matrices
+almost automatically implies using loops and all the iterative programming techniques, *à la Fortran*,
+which I personally believe are ill-suited for interactive statistical programming (as discussed in
+the introduction).
 
 ## The `list` class
 
@@ -291,8 +295,8 @@ list4$c
 
 Lists are used extensively because they are so flexible. You can build lists of datasets and apply
 functions to all the datasets at once, build lists of models, lists of plots, etc... In the later
-chapters we are going to learn all about them. Actually, I use lists very often, but never vectors
-or matrices. Lists are much more flexible and in R, datasets behave like lists.
+chapters we are going to learn all about them. Lists are central objects in a functional programming
+workflow for interactive statistical analysis.
 
 ## The `data.frame` and `tibble` classes
 
@@ -305,7 +309,8 @@ book](https://b-rodrigues.github.io/fput/tidyverse.html#getting-data-into-r-with
 but for our purposes, there's not much you need to know about `data.frame` and `tibble` objects,
 apart that this is the representation of a dataset when loaded into R.
 
-However, I want to stress that these objects are central to R and are thus very important. There
+However, I want to stress that these objects are central to R and are thus very important; they are
+actually special cases of lists, discussed above. There
 are different ways to print a `data.frame` or a `tibble` if you wish to inspect it. You can use
 `View(my_data)` to show the `my_data` `data.frame` in the *View* pane of RStudio:
 
