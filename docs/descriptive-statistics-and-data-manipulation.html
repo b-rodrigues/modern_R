@@ -3431,8 +3431,10 @@ independence dates; this means that the string to convert looks like:</p>
 4 January 1969&quot;</code></pre>
 <p>which obviously cannot be converted by <code>{lubridate}</code> without further manipulation. I ignore these cases for
 simplicity’s sake.</p>
-<p>Let’#### Data manipulation with dates</p>
-<p>s take a look at the data now:</p>
+</div>
+<div id="data-manipulation-with-dates" class="section level4">
+<h4><span class="header-section-number">5.7.2.2</span> Data manipulation with dates</h4>
+<p>Let’s take a look at the data now:</p>
 <div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1">independence</a></code></pre></div>
 <pre><code>## # A tibble: 54 x 6
 ##    country colonial_name colonial_power independence_da… first_head_of_s…
@@ -3534,7 +3536,7 @@ see Libya), I will only focus on 4 European colonial powers: Belgium, France, Po
 ## 4 United Kingdom                        42.5</code></pre>
 </div>
 <div id="arithmetic-with-dates" class="section level4">
-<h4><span class="header-section-number">5.7.2.2</span> Arithmetic with dates</h4>
+<h4><span class="header-section-number">5.7.2.3</span> Arithmetic with dates</h4>
 <p>Adding or substracting days to dates is quite easy:</p>
 <div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1"><span class="kw">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="dv">16</span></a></code></pre></div>
 <pre><code>## [1] &quot;2019-01-16&quot;</code></pre>
