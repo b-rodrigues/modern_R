@@ -3713,9 +3713,9 @@ try to do this with a tidy Monte Carlo simulation. First, let’s randomly pick 
 the unit square:</p>
 <div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb365-2" title="2"></a>
-<a class="sourceLine" id="cb365-3" title="3">n &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb365-3" title="3">n &lt;-<span class="st"> </span><span class="dv">5000</span></a>
 <a class="sourceLine" id="cb365-4" title="4"></a>
-<a class="sourceLine" id="cb365-5" title="5"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb365-5" title="5"><span class="kw">set.seed</span>(<span class="dv">2019</span>)</a>
 <a class="sourceLine" id="cb365-6" title="6">points &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="st">&quot;x&quot;</span> =<span class="st"> </span><span class="kw">runif</span>(n), <span class="st">&quot;y&quot;</span> =<span class="st"> </span><span class="kw">runif</span>(n))</a></code></pre></div>
 <p>Now, to know if a point is inside the unit circle, we need to check wether <span class="math inline">\(x^2 + y^2 &lt; 1\)</span>. Let’s
 add a new column to the <code>points</code> tibble, called <code>inside</code> equal to 1 if the point is inside the
@@ -3725,20 +3725,20 @@ unit circle and 0 if not:</p>
 <a class="sourceLine" id="cb366-3" title="3"><span class="st">    </span><span class="kw">rowid_to_column</span>(<span class="st">&quot;N&quot;</span>)</a></code></pre></div>
 <p>Let’s take a look at <code>points</code>:</p>
 <div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" title="1">points</a></code></pre></div>
-<pre><code>## # A tibble: 500 x 4
+<pre><code>## # A tibble: 5,000 x 4
 ##        N       x      y inside
 ##    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-##  1     1 0.114   0.669       1
-##  2     2 0.622   0.801       0
-##  3     3 0.609   0.855       0
-##  4     4 0.623   0.0501      1
-##  5     5 0.861   0.674       0
-##  6     6 0.640   0.846       0
-##  7     7 0.00950 0.746       1
-##  8     8 0.233   0.830       1
-##  9     9 0.666   0.128       1
-## 10    10 0.514   0.794       1
-## # ... with 490 more rows</code></pre>
+##  1     1 0.770   0.984       0
+##  2     2 0.713   0.0107      1
+##  3     3 0.303   0.133       1
+##  4     4 0.618   0.0378      1
+##  5     5 0.0505  0.677       1
+##  6     6 0.0432  0.0846      1
+##  7     7 0.820   0.727       0
+##  8     8 0.00961 0.0758      1
+##  9     9 0.102   0.373       1
+## 10    10 0.609   0.676       1
+## # ... with 4,990 more rows</code></pre>
 <p>The <code>rowid_to_column()</code> function, from the <code>{tibble}</code> package, adds a new column to the data frame
 with an id, going from 1 to the number of rows in the data frame. Now, I can compute the estimation
 of <span class="math inline">\(\pi\)</span> at each row, by computing the cumulative sum of the 1’s in the <code>inside</code> column and dividing
@@ -3754,7 +3754,7 @@ that by the current value of <code>N</code> column:</p>
 <p>As the number of tries grows, the estimation of <span class="math inline">\(\pi\)</span> gets better.</p>
 <p>Using a data frame as a structure to hold our simulated points and the results makes it very easy
 to avoid loops, and thus write code that is more concise and easier to follow.
-If you studied a quantitative field in University, you might have done a similar exercise at the
+If you studied a quantitative field in u8niversity, you might have done a similar exercise at the
 time, very likely by defining a matrix to hold your points, and an empty vector to hold whether a
 particular point was inside the unit circle. Then you wrote a loop to compute whether
 a point was inside the unit circle, save this result in the before-defined empty vector and then

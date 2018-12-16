@@ -2051,9 +2051,9 @@ the unit square:
 ```{r}
 library(tidyverse)
 
-n <- 500
+n <- 5000
 
-set.seed(1234)
+set.seed(2019)
 points <- tibble("x" = runif(n), "y" = runif(n))
 ```
 
@@ -2097,7 +2097,7 @@ As the number of tries grows, the estimation of $\pi$ gets better.
 
 Using a data frame as a structure to hold our simulated points and the results makes it very easy
 to avoid loops, and thus write code that is more concise and easier to follow. 
-If you studied a quantitative field in University, you might have done a similar exercise at the 
+If you studied a quantitative field in u8niversity, you might have done a similar exercise at the 
 time, very likely by defining a matrix to hold your points, and an empty vector to hold whether a
 particular point was inside the unit circle. Then you wrote a loop to compute whether
 a point was inside the unit circle, save this result in the before-defined empty vector and then
