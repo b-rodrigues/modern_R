@@ -1810,7 +1810,9 @@ independence dates; this means that the string to convert looks like:
 which obviously cannot be converted by `{lubridate}` without further manipulation. I ignore these cases for
 simplicity's sake.
 
-Let's take a look at the data now:
+Let'#### Data manipulation with dates
+
+s take a look at the data now:
 
 ```{r}
 independence
