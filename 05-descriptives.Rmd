@@ -2095,7 +2095,7 @@ In Chapter 6, we are going to learn all about `{ggplot2}`.
 
 As the number of tries grows, the estimation of $\pi$ gets better.
 
-Using a data frame as structure to hold our simulated points and the results makes it very easy
+Using a data frame as a structure to hold our simulated points and the results makes it very easy
 to avoid loops, and thus write code that is more concise and easier to follow. 
 If you studied a quantitative field in University, you might have done a similar exercise at the 
 time, very likely by defining a matrix to hold your points, and an empty vector to hold whether a
