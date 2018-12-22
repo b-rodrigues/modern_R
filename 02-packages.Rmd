@@ -15,7 +15,6 @@ Vignettes are valuable documents; inside vignettes, the purpose of the package i
 plain English, usually with accompanying examples. The reference manuals list the available functions
 inside the packages. You can also find vignettes from within Rstudio:
 
-
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_vignette.gif")
 ```
@@ -43,4 +42,4 @@ using the `::` operator, you can access functions from packages without having t
 package beforehand.
 
 It is possible and easy to create your own packages. This is useful if you have to write a lot of
-functions that you use daily. We will lean about that, in Chapter 11.
+functions that you use daily. We will lean about that, in Chapter 10.

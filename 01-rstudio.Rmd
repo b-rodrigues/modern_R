@@ -33,7 +33,7 @@ The *Console* pane is where you can execute R code. Write the following in the c
 ```
 
 and you'll get the answer, `5`. However, do not write a lot of lines in the console. It is better
-write your code inside a script.
+write your code inside a script. Output is also shown inside the console.
 
 ## Scripts
 
@@ -46,7 +46,7 @@ knitr::include_graphics("pics/rstudio_new_script.gif")
 In this gif, we see the user creating a new R script. R scripts are simple text files that hold R
 code. Think of `.do` files in STATA or `.c` files for C. R scripts have the extension `.r` or `.R`.
 
-It is possible to create a lot of other files. We'll take a look at `R Markdown` files later.
+It is possible to create a lot of other files. We'll take a look at `R Markdown` files in Chapter 11.
 
 ### The help pane
 
@@ -98,7 +98,7 @@ from your script. However, these other shortcuts are also worth knowing:
 * `CTRL-S`: Save script
 
 This is just a few keyboard shortcuts that I personally find useful. However, I strongly advise you
-to learn and use whatever shortcuts are useful to you!
+to learn and use whatever shortcuts are useful and feel natural to you!
 
 ## Projects
 
@@ -149,6 +149,9 @@ This addins make it easier to use some functions and you can read more about the
 
 My favorite addins are the ones you get when installing the `{datapasta}` package. Read more about
 it [here](https://github.com/MilesMcBain/datapasta).
+
+There are other panes that I will not discuss here, but you will naturally discover their use as you
+go. For example, we will discuss the *Build* pane in Chapter 11.
 
 ## Exercises
 
