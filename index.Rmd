@@ -21,9 +21,9 @@ library(janitor)
 
 ## Note to the reader {-}
 
-This book is still being written. Chapters 1 to 6 are almost ready. Chapter 7 is outdated, but
-the key messages are still useful. Chapters 8 and 9 are quite complete too. 10 and 11 are empty
-for now. Some exercises might be at the wrong place too.
+This book is still being written. Chapters 1 to 7 are almost ready. Chapter 7 is outdated, but
+the key messages are still useful. 10 and 11 are empty for now. Some exercises might be at the 
+wrong place too and more are coming.
 
 If you already like what you read, you can support 
 me by [buying me a coffee](https://www.buymeacoffee.com/brodriguesco)
@@ -189,7 +189,8 @@ popular. As of November 2018, R has over 13000 packages.
 To install the packages we need, first open RStudio and then copy and paste this line in the console:
 
 ```{r, eval=FALSE}
-install.packages(c("tidyverse", "plm", "pwt9", "checkpoint", "Ecdat", "ggthemes", "janitor", "rio", "colourpicker"))
+install.packages(c("tidyverse", "tidymodels", "parsnip", "plm", "pwt9", "checkpoint", "Ecdat",
+                "ggthemes", "janitor", "rio", "colourpicker", "glmnet", "mlbench"))
 ```
 
 ```{r, echo=FALSE}
@@ -205,10 +206,13 @@ knitr::include_graphics("pics/rstudio_install_packages.gif")
 ## The author {-}
 
 My name is Bruno Rodrigues and I program almost exclusively in R and have been teaching some R
-courses for a few years now (first started teaching for students at the Université of Strasbourg).
+courses for a few years now. I first started teaching for students at the University of Strasbourg 
+while working on my PhD.
 These notes are an update of those I used at the time, plus a lot of things I've learned about R
+since then in my jobs.
 In my free time I like cooking, working out and [blogging](https://www.brodrigues.co), while listening to
-[Fip](http://www.fipradio.fr/player). I also like to get my butt handed to me by playing roguelikes
+[Fip](http://www.fipradio.fr/player) or [Vaporwave](https://www.youtube.com/watch?v=u5qwtO_ABPM). 
+I also like to get my butt handed to me by playing roguelikes
 such as [NetHack](http://nethack.wikia.com/wiki/NetHack), for which I wrote a 
 [package](https://github.com/b-rodrigues/nethack) that contains functions to analyze the data that 
 is saved on your computer after you win or lose (it will be lose 99% of the time) the game.

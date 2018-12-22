@@ -1,5 +1,15 @@
 # Getting to know RStudio
 
+RStudio is a company that develops and maintains several products. Their best-known product is
+an IDE (Integrated development environment) for the R programming language, also called RStudio.
+You can install RStudio by visiting this [link](https://www.rstudio.com/products/rstudio/download/).
+There is also a server version that can be used to have a centralized version of R within, say, a 
+company. RStudio, the company, also develops [Shiny](https://shiny.rstudio.com/), a package to 
+create full-fledged web-apps. I am not going to cover Shiny in this book, since there's already 
+[a lot](http://shiny.rstudio.com/tutorial/) of material that you can learn from.
+
+Once you have installed RStudio, launch it and let's go through the interface together.
+
 ## Panes
 
 RStudio is divided into different panes. Each pane has a specific function. The gif below shows
