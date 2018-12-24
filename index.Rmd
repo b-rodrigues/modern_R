@@ -21,9 +21,8 @@ library(janitor)
 
 ## Note to the reader {-}
 
-This book is still being written. Chapters 1 to 7 are almost ready. Chapter 7 is outdated, but
-the key messages are still useful. 10 and 11 are empty for now. Some exercises might be at the 
-wrong place too and more are coming.
+This book is still being written. Chapters 1 to 9 are almost ready, but more content is being added.
+9 and 10 are empty for now. Some exercises might be at the wrong place too and more are coming.
 
 If you already like what you read, you can support 
 me by [buying me a coffee](https://www.buymeacoffee.com/brodriguesco)
