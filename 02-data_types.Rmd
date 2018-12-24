@@ -17,7 +17,7 @@ a = 3
 ```
 
 in very practical terms, there is no difference between the two. I prefer using `<-` for assigning
-values to varibles and reserve `=` for passing arguments to functions, for example:
+values to variables and reserve `=` for passing arguments to functions, for example:
 
 ```{r}
 spam <- mean(x = c(1,2,3))
@@ -51,7 +51,7 @@ Decimals are defined with the character `.`:
 a <- 3.14
 ```
 
-R also supports integers. If you find yourself in a situation where you explicitely need an integer
+R also supports integers. If you find yourself in a situation where you explicitly need an integer
 and not a floating point number, you can use the following:
 
 ```{r}
@@ -66,7 +66,7 @@ is a whole family of `as.*()` functions. To convert `a` into a floating point nu
 class(as.numeric(a))
 ```
 
-There is also `is.numeric()` which tests wether a number is of the `numeric` class:
+There is also `is.numeric()` which tests whether a number is of the `numeric` class:
 
 ```{r}
 is.numeric(a)
@@ -174,7 +174,7 @@ k <- 4 > 3
 The `!` operator indicates negation, so the above expression could be translated as *is k not TRUE?*.
 There are other such operators, namely `&, &&, |, ||`. `&` means *and* and `|` stands for *or*.
 You might be wondering what the difference between `&` and `&&` is? Or between `|` and `||`? `&` and
-`|` work on vector, doing pairwaise comparisons:
+`|` work on vectors, doing pairwise comparisons:
 
 ```{r}
 one <- c(TRUE, FALSE, TRUE, FALSE)
@@ -258,9 +258,9 @@ But before continuing, be aware that atomic vectors can only contain elements of
 c(1, 2, "3")
 ```
 
-because "3" is a character, all the other values get implicitely converted to characters. You have
+because "3" is a character, all the other values get implicitly converted to characters. You have
 to be very careful about this, and if you use atomic vectors in your programming, you have to make
-absolutely sure that no characters or booleans or whatever else are going to convert your atomic
+absolutely sure that no characters or logicals or whatever else are going to convert your atomic
 vector to something you were not expecting.
 
 ### `cbind()` and `rbind()`
@@ -268,7 +268,7 @@ vector to something you were not expecting.
 You can create a *true* vector with `cbind()`:
 
 ```{r}
-a <- cbind(1,2,3,4,5)
+a <- cbind(1, 2, 3, 4, 5)
 ```
 
 Check its class now:
@@ -512,7 +512,7 @@ if you try to access an element that does not exist, such as `d`, you will get `
 list4$d
 ```
 
-`NaNN`means "Not a Number" and is returned when a function return something that is not a number:
+`NaN` means "Not a Number" and is returned when a function return something that is not a number:
 
 ```{r}
 sqrt(-1)
@@ -534,8 +534,143 @@ several types of `NA`s:
 * `NA_complex_`
 * `NA_character_`
 
-but these are in principle only used when you need to program your own functions and need to explicitely test for the missingness of, say,
+but these are in principle only used when you need to program your own functions and need to explicitly test for the missingness of, say,
 a character value.
+
+To test whether a value is `NA`, use the `is.na()` function.
+
+## Useful functions to get you started
+
+This section will list several basic R functions that are very useful and should be part of your toolbox.
+
+### Sequences
+
+There are several functions that create sequences, `seq()`, `seq_along()` and `rep()`. `rep()` is easy enough:
+
+```{r}
+rep(1, 10)
+```
+
+This simply repeats `1` 10 times. You can repeat other objects too:
+
+```{r}
+rep("HAHA", 10)
+```
+
+To create a sequence, things are not as straightforward. There is `seq()`:
+
+```{r}
+seq(1, 10)
+seq(70, 80)
+```
+
+It is also possible to provide a `by` argument:
+
+```{r}
+seq(1, 10, by = 2)
+```
+
+`seq_along()` behaves similarly, but returns the length of the object passed to it. So if you pass `list4` to
+`seq_along()`, it will return a sequence from 1 to 3:
+
+```{r}
+seq_along(list4)
+```
+
+which is also true for `seq()` actually:
+
+```{r}
+seq(list4)
+```
+
+but these two functions behave differently for arguments of length equal to 1:
+
+```{r}
+seq(10)
+
+seq_along(10)
+```
+
+So be quite careful about that. I would advise you do not use `seq()`, but only `seq_along()` and `seq_len()`. `seq_len()`
+only takes arguments of length 1:
+
+```{r}
+seq_len(10)
+
+seq_along(10)
+```
+
+The problem with `seq()` is that it is unpredictable; depending on its input, the output will either be an integer or a sequence.
+When programming, it is better to have function that are stricter and fail when confronted to special cases, instead of returning
+some result. This is a bit of a recurrent issue with R, and the functions from the `{tidyverse}` mitigate this issue by being
+stricter than their base R counterparts. For example, consider the `ifelse()` function from base R:
+
+```{r}
+ifelse(3 > 5, 1, "this is false")
+```
+
+and compare it to `{dplyr}`'s implementation, `if_else()`:
+
+```{r, eval=FALSE}
+if_else(3 > 5, 1, "this is false")
+Error: `false` must be type double, not character
+Call `rlang::last_error()` to see a backtrace
+```
+
+`if_else()` fails because the return value when `FALSE` is not a double (a real number) but a character. This might seem unnecessarily
+strict, but at least it is predictable. This makes debugging easier when used inside functions. In Chapter 8 we are going to learn how
+to write our own functions, and being strict makes programming easier.
+
+### Basic string manipulation
+
+For now, we have not closely studied `character` objects, we only learned how to define them. Later, in Chapter 5 we will learn about the
+`{stringr}` package which provides useful function to work with strings. However, there are several base R functions that are very
+useful that you might want to know nonetheless, such as `paste()` and `paste0()`:
+
+```{r}
+paste("Hello", "amigo")
+```
+
+but you can also change the separator if needed:
+
+```{r}
+paste("Hello", "amigo", sep = "--")
+```
+
+`paste0()` is the same as `paste()` but does not have any `sep` argument:
+
+```{r}
+paste0("Hello", "amigo")
+```
+
+If you provide a vector of characters, you can also use the `collapse` argument, which places whatever you provide for `collapse` between the
+characters of the vector:
+
+```{r}
+paste0(c("Joseph", "Mary", "Jesus"), collapse = ", and ")
+```
+
+To change the case of characters, you can use `toupper()` and `tolower()`:
+
+```{r}
+tolower("HAHAHAHAH")
+```
+
+```{r}
+toupper("hueuehuehuheuhe")
+```
+
+Finally, there are the classical mathematical functions that you know and love:
+
+* `sqrt()`
+* `exp()`
+* `log()`
+* `abs()`
+* `sin()`, `cos()`, `tan()`, and others
+* `sum()`, `cumsum()`, `prod()`, `cumprod()`
+* `max()`, `min()`
+
+and many others...
 
 ## Exercises
 
