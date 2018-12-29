@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2018-12-24">
+<meta name="date" content="2018-12-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -175,7 +175,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#formulas"><i class="fa fa-check"></i><b>2.9</b> Formulas</a></li>
 <li class="chapter" data-level="2.10" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#models"><i class="fa fa-check"></i><b>2.10</b> Models</a></li>
 <li class="chapter" data-level="2.11" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#null-na-and-nan"><i class="fa fa-check"></i><b>2.11</b> NULL, NA and NaN</a></li>
-<li class="chapter" data-level="2.12" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercises-1"><i class="fa fa-check"></i><b>2.12</b> Exercises</a><ul>
+<li class="chapter" data-level="2.12" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#useful-functions-to-get-you-started"><i class="fa fa-check"></i><b>2.12</b> Useful functions to get you started</a><ul>
+<li class="chapter" data-level="2.12.1" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#sequences"><i class="fa fa-check"></i><b>2.12.1</b> Sequences</a></li>
+<li class="chapter" data-level="2.12.2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#basic-string-manipulation"><i class="fa fa-check"></i><b>2.12.2</b> Basic string manipulation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.13" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercises-1"><i class="fa fa-check"></i><b>2.13</b> Exercises</a><ul>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-1-1"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-3"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -207,7 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.1</b> <code>spread()</code> and <code>gather()</code></a></li>
 <li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.2</b> <code>fill()</code> and <code>full_seq()</code></a></li>
 <li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.3</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
-<li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-9-nest"><i class="fa fa-check"></i><b>4.4.4</b> A sneak peek to Chapter 9; <code>nest()</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-8-nest"><i class="fa fa-check"></i><b>4.4.4</b> A sneak peek to Chapter 8; <code>nest()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>4.5</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter_"><i class="fa fa-check"></i><b>4.5.1</b> filter_*()</a></li>
@@ -352,7 +356,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Modern R with the tidyverse</h1>
 <h4 class="author"><em>Bruno Rodrigues</em></h4>
-<h4 class="date"><em>2018-12-24</em></h4>
+<h4 class="date"><em>2018-12-28</em></h4>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>

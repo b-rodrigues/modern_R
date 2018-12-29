@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2018-12-24">
+<meta name="date" content="2018-12-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -175,7 +175,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#formulas"><i class="fa fa-check"></i><b>2.9</b> Formulas</a></li>
 <li class="chapter" data-level="2.10" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#models"><i class="fa fa-check"></i><b>2.10</b> Models</a></li>
 <li class="chapter" data-level="2.11" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#null-na-and-nan"><i class="fa fa-check"></i><b>2.11</b> NULL, NA and NaN</a></li>
-<li class="chapter" data-level="2.12" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercises-1"><i class="fa fa-check"></i><b>2.12</b> Exercises</a><ul>
+<li class="chapter" data-level="2.12" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#useful-functions-to-get-you-started"><i class="fa fa-check"></i><b>2.12</b> Useful functions to get you started</a><ul>
+<li class="chapter" data-level="2.12.1" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#sequences"><i class="fa fa-check"></i><b>2.12.1</b> Sequences</a></li>
+<li class="chapter" data-level="2.12.2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#basic-string-manipulation"><i class="fa fa-check"></i><b>2.12.2</b> Basic string manipulation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.13" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercises-1"><i class="fa fa-check"></i><b>2.13</b> Exercises</a><ul>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-1-1"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-3"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -199,62 +203,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter-the-rows-of-a-dataset-with-filter"><i class="fa fa-check"></i><b>4.3.2</b> Filter the rows of a dataset with <code>filter()</code></a></li>
 <li class="chapter" data-level="4.3.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select-columns-with-select"><i class="fa fa-check"></i><b>4.3.3</b> Select columns with <code>select()</code></a></li>
 <li class="chapter" data-level="4.3.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group-the-observations-of-your-dataset-with-group_by"><i class="fa fa-check"></i><b>4.3.4</b> Group the observations of your dataset with <code>group_by()</code></a></li>
-<li class="chapter" data-level="4.3.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-summary-statistics-with-summarise"><i class="fa fa-check"></i><b>4.3.5</b> Get summary statistics with <code>summarise()</code></a></li>
-<li class="chapter" data-level="4.3.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#adding-columns-with-mutate-and-transmute"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns with <code>mutate()</code> and <code>transmute()</code></a></li>
-<li class="chapter" data-level="4.3.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.3.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a><ul>
-<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.1</b> <code>spread()</code> and <code>gather()</code></a></li>
-<li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.2</b> <code>fill()</code> and <code>full_seq()</code></a></li>
-<li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.3</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
-<li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-9-nest"><i class="fa fa-check"></i><b>4.4.4</b> A sneak peek to Chapter 9; <code>nest()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#groups-country-18"><i class="fa fa-check"></i><b>4.4</b> # Groups: country [18]</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-summary-statistics-with-summarise"><i class="fa fa-check"></i><b>4.4.1</b> Get summary statistics with <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#adding-columns-with-mutate-and-transmute"><i class="fa fa-check"></i><b>4.4.2</b> Adding columns with <code>mutate()</code> and <code>transmute()</code></a></li>
+<li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.4.3</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>4.5</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter_"><i class="fa fa-check"></i><b>4.5.1</b> filter_*()</a></li>
-<li class="chapter" data-level="4.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select_-and-rename_"><i class="fa fa-check"></i><b>4.5.2</b> select_*() and rename_*()</a></li>
-<li class="chapter" data-level="4.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group_by_"><i class="fa fa-check"></i><b>4.5.3</b> group_by_*()</a></li>
-<li class="chapter" data-level="4.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise_"><i class="fa fa-check"></i><b>4.5.4</b> summarise_()</a></li>
-<li class="chapter" data-level="4.5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#mutate_"><i class="fa fa-check"></i><b>4.5.5</b> mutate_*()</a></li>
+<li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.5</b> Reshaping data with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="4.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.5.1</b> <code>spread()</code> and <code>gather()</code></a></li>
+<li class="chapter" data-level="4.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.5.2</b> <code>fill()</code> and <code>full_seq()</code></a></li>
+<li class="chapter" data-level="4.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.5.3</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
+<li class="chapter" data-level="4.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-8-nest"><i class="fa fa-check"></i><b>4.5.4</b> A sneak peek to Chapter 8; <code>nest()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>4.6</b> Other useful <code>{tidyverse}</code> functions</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#if_else-case_when-and-recode"><i class="fa fa-check"></i><b>4.6.1</b> <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code></a></li>
-<li class="chapter" data-level="4.6.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#lead-and-lag"><i class="fa fa-check"></i><b>4.6.2</b> <code>lead()</code> and <code>lag()</code></a></li>
-<li class="chapter" data-level="4.6.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#ntile"><i class="fa fa-check"></i><b>4.6.3</b> <code>ntile()</code></a></li>
-<li class="chapter" data-level="4.6.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#arrange"><i class="fa fa-check"></i><b>4.6.4</b> <code>arrange()</code></a></li>
-<li class="chapter" data-level="4.6.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tally-and-count"><i class="fa fa-check"></i><b>4.6.5</b> <code>tally()</code> and <code>count()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="4.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>4.7</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a><ul>
-<li class="chapter" data-level="4.7.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#section"><i class="fa fa-check"></i><b>4.7.1</b> 🐈🐈🐈🐈</a></li>
-<li class="chapter" data-level="4.7.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-your-dates-right-with-lubridate"><i class="fa fa-check"></i><b>4.7.2</b> Get your dates right with <code>{lubridate}</code></a></li>
-<li class="chapter" data-level="4.7.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>4.7.3</b> Manipulate strings with <code>{stringr}</code></a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>4.8</b> List-columns</a></li>
-<li class="chapter" data-level="4.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#going-beyond-descriptive-statistics-and-data-manipulation"><i class="fa fa-check"></i><b>4.9</b> Going beyond descriptive statistics and data manipulation</a></li>
-<li class="chapter" data-level="4.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>4.10</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="4.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>4.6</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
+<li><a href="descriptive-statistics-and-data-manipulation.html#filter_-select_-and-rename_-group_by_"><span class="toc-section-number">4.6.1</span> filter_<em>()
+### select_*() and rename_*()
+### group_by_</em>()</a></li>
+<li class="chapter" data-level="4.6.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise_"><i class="fa fa-check"></i><b>4.6.2</b> summarise_()</a></li>
+<li><a href="descriptive-statistics-and-data-manipulation.html#mutate_-other-useful-tidyverse-functions-if_else-case_when-and-recode-lead-and-lag-ntile-arrange-tally-and-count-special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr-get-your-dates-right-with-lubridate-defining-dates-the-tidy-way-data-manipulation-with-dates-arithmetic-with-dates-manipulate-strings-with-stringr-list-columns-going-beyond-descriptive-statistics-and-data-manipulation-exercises-exercise-1---exercise-2---exercise-3--"><span class="toc-section-number">4.6.3</span> mutate_*()
+## Other useful <code>{tidyverse}</code> functions
+### <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code>
+### <code>lead()</code> and <code>lag()</code>
+### <code>ntile()</code>
+### <code>arrange()</code>
+### <code>tally()</code> and <code>count()</code>
+## Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code>
+### 🐈🐈🐈🐈
+### Get your dates right with <code>{lubridate}</code>
+#### Defining dates, the tidy way
+#### Data manipulation with dates
+#### Arithmetic with dates
+### Manipulate strings with <code>{stringr}</code>
+## List-columns
+## Going beyond descriptive statistics and data manipulation
+## Exercises
+### Exercise 1 {-}
+### Exercise 2 {-}
+### Exercise 3 {-}</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a><ul>
 <li class="chapter" data-level="5.1" data-path="graphs.html"><a href="graphs.html#resources"><i class="fa fa-check"></i><b>5.1</b> Resources</a></li>
 <li class="chapter" data-level="5.2" data-path="graphs.html"><a href="graphs.html#examples"><i class="fa fa-check"></i><b>5.2</b> Examples</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="graphs.html"><a href="graphs.html#barplots"><i class="fa fa-check"></i><b>5.2.1</b> Barplots</a></li>
-<li class="chapter" data-level="5.2.2" data-path="graphs.html"><a href="graphs.html#density"><i class="fa fa-check"></i><b>5.2.2</b> Density</a></li>
-<li class="chapter" data-level="5.2.3" data-path="graphs.html"><a href="graphs.html#line-plots"><i class="fa fa-check"></i><b>5.2.3</b> Line plots</a></li>
-<li class="chapter" data-level="5.2.4" data-path="graphs.html"><a href="graphs.html#facets"><i class="fa fa-check"></i><b>5.2.4</b> Facets</a></li>
-<li class="chapter" data-level="5.2.5" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>5.2.5</b> Pie Charts</a></li>
-<li class="chapter" data-level="5.2.6" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>5.2.6</b> Adding text to plots</a></li>
+<li class="chapter" data-level="5.2.2" data-path="graphs.html"><a href="graphs.html#scatter-plots"><i class="fa fa-check"></i><b>5.2.2</b> Scatter plots</a></li>
+<li class="chapter" data-level="5.2.3" data-path="graphs.html"><a href="graphs.html#density"><i class="fa fa-check"></i><b>5.2.3</b> Density</a></li>
+<li class="chapter" data-level="5.2.4" data-path="graphs.html"><a href="graphs.html#line-plots"><i class="fa fa-check"></i><b>5.2.4</b> Line plots</a></li>
+<li class="chapter" data-level="5.2.5" data-path="graphs.html"><a href="graphs.html#facets"><i class="fa fa-check"></i><b>5.2.5</b> Facets</a></li>
+<li class="chapter" data-level="5.2.6" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>5.2.6</b> Pie Charts</a></li>
+<li class="chapter" data-level="5.2.7" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>5.2.7</b> Adding text to plots</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>5.3</b> Customization</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="graphs.html"><a href="graphs.html#titles-axes-names-and-more"><i class="fa fa-check"></i><b>5.3.1</b> Titles, axes names and more</a></li>
-<li class="chapter" data-level="5.3.2" data-path="graphs.html"><a href="graphs.html#themes"><i class="fa fa-check"></i><b>5.3.2</b> Themes</a></li>
-<li class="chapter" data-level="5.3.3" data-path="graphs.html"><a href="graphs.html#colour-schemes-from-ggthemes"><i class="fa fa-check"></i><b>5.3.3</b> Colour schemes from <code>ggthemes</code></a></li>
-<li class="chapter" data-level="5.3.4" data-path="graphs.html"><a href="graphs.html#using-your-own-colours"><i class="fa fa-check"></i><b>5.3.4</b> Using your own colours</a></li>
-<li class="chapter" data-level="5.3.5" data-path="graphs.html"><a href="graphs.html#saving-plots-on-disk"><i class="fa fa-check"></i><b>5.3.5</b> Saving plots on disk</a></li>
+<li class="chapter" data-level="5.3.1" data-path="graphs.html"><a href="graphs.html#changing-titles-axes-labels-options-mixing-geoms-and-changing-themes"><i class="fa fa-check"></i><b>5.3.1</b> Changing titles, axes labels, options, mixing geoms and changing themes</a></li>
+<li class="chapter" data-level="5.3.2" data-path="graphs.html"><a href="graphs.html#colour-schemes"><i class="fa fa-check"></i><b>5.3.2</b> Colour schemes</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="graphs.html"><a href="graphs.html#exercises-3"><i class="fa fa-check"></i><b>5.4</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="graphs.html"><a href="graphs.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="5.4" data-path="graphs.html"><a href="graphs.html#saving-plots-to-disk"><i class="fa fa-check"></i><b>5.4</b> Saving plots to disk</a></li>
+<li class="chapter" data-level="5.5" data-path="graphs.html"><a href="graphs.html#exercises-2"><i class="fa fa-check"></i><b>5.5</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphs.html"><a href="graphs.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>6</b> Statistical models</a><ul>
@@ -283,19 +288,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>7.2.1</b> Declaring functions in R</a></li>
 <li class="chapter" data-level="7.2.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#fibonacci-numbers"><i class="fa fa-check"></i><b>7.2.2</b> Fibonacci numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="7.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-3"><i class="fa fa-check"></i><b>7.3</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-functions-as-arguments"><i class="fa fa-check"></i><b>7.4</b> Functions that take functions as arguments</a></li>
 <li class="chapter" data-level="7.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>7.5</b> Functions that take columns of data as arguments</a></li>
 <li class="chapter" data-level="7.6" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-use-loops"><i class="fa fa-check"></i><b>7.6</b> Functions that use loops</a></li>
 <li class="chapter" data-level="7.7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#anonymous-functions"><i class="fa fa-check"></i><b>7.7</b> Anonymous functions</a></li>
-<li class="chapter" data-level="7.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-5"><i class="fa fa-check"></i><b>7.8</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="7.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>7.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
@@ -317,7 +322,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.6.1" data-path="functional-programming.html"><a href="functional-programming.html#data-frames-and-reduce"><i class="fa fa-check"></i><b>8.6.1</b> Data frames and <code>reduce</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>8.7</b> Functional programming and plotting</a></li>
-<li class="chapter" data-level="8.8" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+<li class="chapter" data-level="8.8" data-path="functional-programming.html"><a href="functional-programming.html#exercises-5"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
@@ -352,17 +357,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="graphs" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Graphs</h1>
 <p>By default, it is possible to make a lot of graphs with R without the need of any external
-packages. However, in this chapter, we are going to learn how to make graphs using <code>ggplot2</code> which
-is a very powerful package that produces amazing graphs. There is an entry cost to <code>ggplot2</code> as it
+packages. However, in this chapter, we are going to learn how to make graphs using <code>{ggplot2}</code> which
+is a very powerful package that produces amazing graphs. There is an entry cost to <code>{ggplot2}</code> as it
 works in a very different way than what you would expect, especially if you know how to make plots
 with the basic R functions already. But the resulting graphs are well worth the effort and once
-you’ll know more about <code>ggplot2</code> you’ll see that in a lot of situations it is actually faster
-and easier. Even if you are not interested in drawing plots, I advise you continue reading, as we
-will dig deeper into functional programming territory and learn how to graph an arbitrary large
-amount of plots with a few lines of code.</p>
+you will know more about <code>{ggplot2}</code> you will see that in a lot of situations it is actually faster
+and easier. Another advantage is that making plots with <code>{ggplot2}</code> is consistent, so you do not need
+to learn anything specific to make, say, density plots. There are a lot of extensions to <code>{ggplot2}</code>,
+such as <code>{ggridges}</code> to create so-called ridge plots and <code>{gganimate}</code> to create animated plots. By
+the end of this chapter you will know how to do basic plots with <code>{ggplot2}</code> and also how to use these
+two extensions.</p>
 <div id="resources" class="section level2">
 <h2><span class="header-section-number">5.1</span> Resources</h2>
-<p>Before showing some examples and the general functionality of <code>ggplot2</code>, I list here some online
+<p>Before showing some examples and the general functionality of <code>{ggplot2}</code>, I list here some online
 resources that I keep coming back to:</p>
 <ul>
 <li><p><a href="http://socviz.co/">Data Visualization for Social Science</a></p></li>
@@ -373,161 +380,208 @@ resources that I keep coming back to:</p>
 <li><p><a href="https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html">ggthemes Vignette</a></p></li>
 <li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">ggplot2 cheatsheet</a></p></li>
 </ul>
-<p>I have a cookbook approach to using <code>ggplot2</code>; I try to find an example online that looks similar
-to what I have in mind, copy and paste the code and then adapt it to my case. The above resources
-are the ones I consult the most in these situations (I also go back to past code I’ve written, of
+<p>When I first started using <code>{ggplot2}</code>, I had a cookbook approach to it; I tried findinge examples
+online that looked like what I needed, copy and paste the code and then adapted it to my case. The above resources
+are the ones I consulted and keep consulting in these situations (I also go back to past code I’ve written, of
 course). Don’t hesitate to skim these resources for inspiration and to learn more about some
-extensions to <code>ggplot2</code>. In the next subsections I am going to show you how to draw the most common
-plots, as well as show you how to customize your plots with <code>ggthemes</code>.</p>
+extensions to <code>{ggplot2}</code>. In the next subsections I am going to show you how to draw the most common
+plots, as well as show you how to customize your plots with <code>{ggthemes}</code>, a package that contains pre-defined
+themes for <code>{ggplot2}</code>.</p>
 </div>
 <div id="examples" class="section level2">
 <h2><span class="header-section-number">5.2</span> Examples</h2>
+<p>I think that the best way to learn how to use <code>{ggplot2}</code> is to jump right into it. Let’s first start with
+barplots.</p>
 <div id="barplots" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Barplots</h3>
 <p>To follow the examples below, load the following libraries:</p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" title="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb532-2" title="2"><span class="kw">library</span>(ggthemes)</a></code></pre></div>
-<p><code>ggplot2</code> is an implementation of the <em>Grammar of Graphics</em> by <span class="citation">Wilkinson (<a href="#ref-wilkinson2006">2006</a>)</span>, but you don’t need
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(ggthemes)</a></code></pre></div>
+<p><code>{ggplot2}</code> is an implementation of the <em>Grammar of Graphics</em> by <span class="citation">Wilkinson (<a href="#ref-wilkinson2006">2006</a>)</span>, but you don’t need
 to read the books to start using it. If we go back to the Star Wars data (contained in <code>dplyr</code>),
 and wish to draw a barplot of the gender, the following lines are enough:</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb533-1" title="1"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(gender)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb533-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-325-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The first argument of the function is the data (called <code>starwars</code> in this example), and then the
-function <code>aes()</code>. This function is where you list the variables you want to map, and to quote the
-help file of <code>aes()</code>, <em>describes how the variables are mapped to visual properties (aesthetics) of
-geoms</em>. You can get different kind of plots by using different <code>geom_</code> functions.</p>
-<p>You can also change the coordinate system in your barplot:</p>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb534-1" title="1"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(gender)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb534-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb534-3" title="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-326-1.png" width="672" /></p>
+function <code>aes()</code>. This function is where you list the variables that you want to map to the aesthetics
+of the <em>geoms</em> functions. On the second line, you see that we use the <code>geom_bar()</code> function. This
+function creates a barplot of <code>gender</code> variable.
+You can get different kind of plots by using different <code>geom_</code> functions. You can also provide the
+<code>aes()</code> argument to the <code>geom_*()</code> function:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">ggplot</span>(starwars) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(gender))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The difference between these two approaches is that when you specify the aesthetics in the <code>ggplot()</code> function,
+all the <code>geom_*()</code> functions that follow will inherited these aesthetics. This is useful if you want to avoid
+writing the same code over and over again, but can be problematic if you need to specify different aesthetics
+to different <code>geom_*()</code> functions. This will become clear in a later example.</p>
+<p>You can add options to your plots, for instance, you can change the coordinate system in your barplot:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>This is the basic recipe to create plots using <code>{ggplot2}</code>: start with a call to <code>ggplot()</code> where you specify
+the data you want to plot, and optionally the aesthetics. Then, use the <code>geom_*()</code> function you need; if you
+did not specify the aesthetics in the call to the <code>ggplot()</code> function, do it here. Then, you can add different
+options, such as changing the coordinate system, changing the theme, the colour palette used, changing the
+position of the legend and much, much more. This chapter will only give you an overview of the capabilities
+of <code>{ggplot2}</code>.</p>
+</div>
+<div id="scatter-plots" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Scatter plots</h3>
+<p>Scatter plots are very useful, especially if you are trying to figure out the relationship between two variables.
+For instance, let’s make a scatter plot of height vs weight of Star Wars characters:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">ggplot</span>(starwars) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(height, mass))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>As you can see there is an outlier; a very heavy character! Star Wars fans already guessed it, it’s Jabba the Hut.
+To make the plot easier to read, let’s remove this outlier:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;Jabba&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(height, mass))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>There is a positive correlation between height and mass. Later, we are going to see how we can also plot a regression
+line that goes through the scatter plot, but first, let’s discover some other <code>geom_*()</code> functions.</p>
 </div>
 <div id="density" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Density</h3>
+<h3><span class="header-section-number">5.2.3</span> Density</h3>
 <p><code>geom_density()</code> is the <em>geom</em> that allows you to get density plots:</p>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" title="1"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(height)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb535-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(height)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 6 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-327-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Let’s go into more detail now; what if you would like to plot the densities for females and males
 only (removing the droids from the data first)? This can be done by first filtering the data using
 <code>dplyr</code> and then separating the dataset by gender:</p>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb537-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb537-2" title="2"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>))</a></code></pre></div>
 <p>The above lines do the filtering; only keep gender if gender is in the vector <code>"female", "male"</code>.
 This is much easier than having to write <code>gender == "female" | gender == "male"</code>. Then, we pipe
 this dataset to <code>ggplot</code>:</p>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb538-2" title="2"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb538-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb538-4" title="4"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 5 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-329-1.png" width="672" /></p>
-<p>Let’s take a closer look to the <code>aes()</code> function: I’ve added <code>fill = gender</code>. This means that the
+<p><img src="modern_R_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Let’s take a closer look to the <code>aes()</code> function: I’ve added <code>fill = gender</code>. This means that
 there will be one density plot for each gender in the data, and each will be coloured accordingly.
-This is where <code>ggplot2</code> might be confusing; there is no need to write explicitly (even if it is
+This is where <code>{ggplot2}</code> might be confusing; there is no need to write explicitly (even if it is
 possible) that you want the <em>female</em> density to be red and the <em>male</em> density to be blue. You just
 map the variable <code>gender</code> to this particular aesthetic. You conclude the plot by adding
 <code>geom_density()</code> which is this case is the plot you want. We will see later how to change the
 colours of your plot.</p>
+<p>An alternative way to write this code is first to save the filtered data in a variable, and define
+the aesthetics inside the <code>geom_density()</code> function:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">filtered_data &lt;-<span class="st"> </span>starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>))</a>
+<a class="sourceLine" id="cb12-3" title="3"></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="kw">ggplot</span>(filtered_data) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender))</a></code></pre></div>
+<pre><code>## Warning: Removed 5 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="line-plots" class="section level3">
-<h3><span class="header-section-number">5.2.3</span> Line plots</h3>
+<h3><span class="header-section-number">5.2.4</span> Line plots</h3>
 <p>For the line plots, we are going to use official unemployment data (the same as in the previous
 chapter, but with all the available years). Get it from
 <a href="https://github.com/b-rodrigues/modern_R/tree/master/datasets/unemployment/all">here</a>
 (downloaded from:
 <a href="http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950&amp;IF_Language=eng&amp;MainTheme=2&amp;FldrName=3&amp;RFPath=91" class="uri">http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950&amp;IF_Language=eng&amp;MainTheme=2&amp;FldrName=3&amp;RFPath=91</a>).</p>
 <p>Let’s plot the unemployment for the canton of Luxembourg only:</p>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" title="1">unemp_lux_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/unemployment/all/unemployment_lux_all.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb540-2" title="2"></a>
-<a class="sourceLine" id="cb540-3" title="3">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb540-4" title="4"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Luxembourg&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb540-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb540-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-330-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">unemp_lux_data &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/unemployment/all/unemployment_lux_all.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb14-2" title="2"></a>
+<a class="sourceLine" id="cb14-3" title="3">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Luxembourg&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> unemployment_rate_in_percent, <span class="dt">group =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Because line plots are 2D, you need to specify the y and x axes. There is also another option you
 need to add, <code>group = 1</code>. This is to tell <code>aes()</code> that the dots have to be connected with a single
 line. What if you want to plot more than one commune?</p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb541-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb541-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Luxembourg&quot;</span> <span class="op">|</span><span class="st"> </span>division <span class="op">==</span><span class="st"> &quot;Esch-sur-Alzette&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb541-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb541-4" title="4"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-331-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>This time, I’ve specified <code>group = division</code> which means that there has to be one line per as many
 communes as in the variable <code>division</code>. I do the same for colours. I think the next example
-illustrates how <code>ggplot2</code> is actually brilliant; if you need to add a third commune, there is no
+illustrates how <code>{ggplot2}</code> is actually brilliant; if you need to add a third commune, there is no
 need to specify anything else; no need to add anything to the legend, no need to specify a third
 colour etc:</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb542-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb542-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb542-4" title="4"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-332-1.png" width="672" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-4" title="4"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>The three communes get mapped to the colour aesthetic so whatever the number of communes, as long
+as there are enough colours, the communes will each get mapped to one of these colours.</p>
 </div>
 <div id="facets" class="section level3">
-<h3><span class="header-section-number">5.2.4</span> Facets</h3>
+<h3><span class="header-section-number">5.2.5</span> Facets</h3>
 <p>In some case you have a factor variable that separates the data you wish to plot into different
 categories. If you want to have a plot per category you can use the <code>facet_grid()</code> function.
 Careful though, this function does not take a variable as an argument, but a formula, hence the <code>~</code>
 symbol in the code below:</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb543-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,</a>
-<a class="sourceLine" id="cb543-3" title="3">                           species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb543-4" title="4"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb543-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb543-6" title="6"><span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>human) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--- this is a formula</span></a>
-<a class="sourceLine" id="cb543-7" title="7"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,</a>
+<a class="sourceLine" id="cb17-3" title="3">                           species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>human) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--- this is a formula</span></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-333-1.png" width="672" /></p>
-<p>By changing the formula, you change how the facetting is done:</p>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb545-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,</a>
-<a class="sourceLine" id="cb545-3" title="3">                           species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb545-4" title="4"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb545-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb545-6" title="6"><span class="st">  </span><span class="kw">facet_grid</span>(human <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></a>
-<a class="sourceLine" id="cb545-7" title="7"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>I first created a factor variable that specifies if a Star Wars character is human or not, and then
+use it for facetting. By changing the formula, you change how the facetting is done:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,</a>
+<a class="sourceLine" id="cb19-3" title="3">                           species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-4" title="4"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-6" title="6"><span class="st">  </span><span class="kw">facet_grid</span>(human <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-7" title="7"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-334-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Recall the categorical variable <code>more_1</code> that we computed in the previous chapter? Let’s use it as
 a faceting variable:</p>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" title="1">starwars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb547-2" title="2"><span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb547-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb547-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,</a>
-<a class="sourceLine" id="cb547-5" title="5">                            n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb547-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,</a>
-<a class="sourceLine" id="cb547-7" title="7">                           species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb547-8" title="8"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb547-9" title="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb547-10" title="10"><span class="st">  </span><span class="kw">facet_grid</span>(human <span class="op">~</span><span class="st"> </span>more_<span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb547-11" title="11"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,</a>
+<a class="sourceLine" id="cb21-5" title="5">                            n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,</a>
+<a class="sourceLine" id="cb21-7" title="7">                           species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-8" title="8"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-9" title="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-10" title="10"><span class="st">  </span><span class="kw">facet_grid</span>(human <span class="op">~</span><span class="st"> </span>more_<span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-11" title="11"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-335-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 <div id="pie-charts" class="section level3">
-<h3><span class="header-section-number">5.2.5</span> Pie Charts</h3>
+<h3><span class="header-section-number">5.2.6</span> Pie Charts</h3>
 <p>I am not a huge fan of pie charts, but sometimes this is what you have to do. So let’s see how you
 can create pie charts.
 First, let’s create a mock dataset with the function <code>tibble::tribble()</code> which allows you to create a
 dataset line by line:</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" title="1">test_data &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb549-2" title="2">  <span class="op">~</span>id, <span class="op">~</span>var1, <span class="op">~</span>var2,  <span class="op">~</span>var3, <span class="op">~</span>var4, <span class="op">~</span>var5,</a>
-<a class="sourceLine" id="cb549-3" title="3">  <span class="st">&quot;a&quot;</span>, <span class="fl">26.5</span>, <span class="dv">38</span>, <span class="dv">30</span>, <span class="dv">32</span>, <span class="dv">34</span>,</a>
-<a class="sourceLine" id="cb549-4" title="4">  <span class="st">&quot;b&quot;</span>, <span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">30</span>,</a>
-<a class="sourceLine" id="cb549-5" title="5">  <span class="st">&quot;c&quot;</span>, <span class="dv">34</span>, <span class="dv">32</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="fl">26.5</span></a>
-<a class="sourceLine" id="cb549-6" title="6">)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">test_data &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb23-2" title="2">  <span class="op">~</span>id, <span class="op">~</span>var1, <span class="op">~</span>var2,  <span class="op">~</span>var3, <span class="op">~</span>var4, <span class="op">~</span>var5,</a>
+<a class="sourceLine" id="cb23-3" title="3">  <span class="st">&quot;a&quot;</span>, <span class="fl">26.5</span>, <span class="dv">38</span>, <span class="dv">30</span>, <span class="dv">32</span>, <span class="dv">34</span>,</a>
+<a class="sourceLine" id="cb23-4" title="4">  <span class="st">&quot;b&quot;</span>, <span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">30</span>,</a>
+<a class="sourceLine" id="cb23-5" title="5">  <span class="st">&quot;c&quot;</span>, <span class="dv">34</span>, <span class="dv">32</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="fl">26.5</span></a>
+<a class="sourceLine" id="cb23-6" title="6">)</a></code></pre></div>
 <p>This data is not in the right format though, which is wide. We need to have it in the long format
-for it to work with <code>ggplot2</code>. For this, let’s use <code>tidyr::gather()</code> as seen in the previous chapter:</p>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" title="1">test_data_long =<span class="st"> </span>test_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb550-2" title="2"><span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="kw">starts_with</span>(<span class="st">&quot;var&quot;</span>))</a></code></pre></div>
+for it to work with <code>{ggplot2}</code>. For this, let’s use <code>tidyr::gather()</code> as seen in the previous chapter:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">test_data_long =<span class="st"> </span>test_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="kw">starts_with</span>(<span class="st">&quot;var&quot;</span>))</a></code></pre></div>
 <p>Now, let’s plot this data, first by creating 3 bar plots:</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb551-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
-<a class="sourceLine" id="cb551-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-338-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>In the code above, I introduce a new option, called <code>stat = "identity"</code>. By default, <code>geom_bar()</code> counts
 the number of observations of each category that is plotted, which is a statistical transformation.
 By adding <code>stat = "identity"</code>, I force the statistical transformation to be the identity function, and
@@ -536,13 +590,13 @@ thus plot the data as is.</p>
 <p>To do this, we first group by <code>id</code>, then compute the total. Then we use a new function <code>ungroup()</code>.
 After using <code>ungroup()</code> all the computations are done on the whole dataset instead of by group, which
 is what we need to compute the share:</p>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" title="1">test_data_long =<span class="st"> </span>test_data_long <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb552-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb552-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> <span class="kw">sum</span>(value)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb552-4" title="4"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb552-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">share =</span> value<span class="op">/</span>total)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">test_data_long &lt;-<span class="st"> </span>test_data_long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> <span class="kw">sum</span>(value)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">share =</span> value<span class="op">/</span>total)</a></code></pre></div>
 <p>Let’s take a look to see if this is what we wanted:</p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" title="1"><span class="kw">print</span>(test_data_long)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">print</span>(test_data_long)</a></code></pre></div>
 <pre><code>## # A tibble: 15 x 5
 ##    id    variable value total share
 ##    &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -564,164 +618,233 @@ is what we need to compute the share:</p>
 <p>If you didn’t understand what <code>ungroup()</code> did, rerun the last few lines with it and inspect the
 output.</p>
 <p>To plot the pie chart, we create a barplot again, but specify polar coordinates:</p>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb555-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
-<a class="sourceLine" id="cb555-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> share, <span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb555-4" title="4"><span class="st">  </span><span class="kw">theme</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb555-5" title="5"><span class="st">  </span><span class="kw">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="dt">start =</span> <span class="dv">0</span>)</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-341-1.png" width="672" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> share, <span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="st">  </span><span class="kw">theme</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="st">  </span><span class="kw">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="dt">start =</span> <span class="dv">0</span>)</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>As you can see, this typical pie chart is not very easy to read; compared to the barplots above it
-is not easy to distinguish <code>a</code> from <code>b</code> from <code>c</code>. It is possible to amend the pie chart a bit to
-make it clearer, by specifying <code>variable</code> as the <code>x</code>:</p>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb556-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
-<a class="sourceLine" id="cb556-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> share, <span class="dt">x =</span> variable, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb556-4" title="4"><span class="st">  </span><span class="kw">theme</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb556-5" title="5"><span class="st">  </span><span class="kw">coord_polar</span>(<span class="st">&quot;x&quot;</span>, <span class="dt">start =</span> <span class="dv">0</span>)</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-342-1.png" width="672" /></p>
-<p>But as a general rule, avoid pie charts if possible. Barplots show the same information in a much
-clearer way.</p>
+is not easy to distinguish if <code>a</code> has a higher share than <code>b</code> or <code>c</code>. You can change the look of the
+pie chart, for exmalpe by specifying <code>variable</code> as the <code>x</code>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> share, <span class="dt">x =</span> variable, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-4" title="4"><span class="st">  </span><span class="kw">theme</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-5" title="5"><span class="st">  </span><span class="kw">coord_polar</span>(<span class="st">&quot;x&quot;</span>, <span class="dt">start =</span> <span class="dv">0</span>)</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>But as a general rule, avoid pie charts if possible. I find that pie charts are only interesting if
+you need to show proportions that are hugely unequal, to really emphasize the difference between
+said proportions.</p>
 </div>
 <div id="adding-text-to-plots" class="section level3">
-<h3><span class="header-section-number">5.2.6</span> Adding text to plots</h3>
+<h3><span class="header-section-number">5.2.7</span> Adding text to plots</h3>
 <p>Sometimes you might want to add some text to your plots. This is possible with <code>geom_text()</code>:</p>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb557-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
-<a class="sourceLine" id="cb557-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb557-4" title="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> value))</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-343-1.png" width="672" /></p>
-<p>You can put anything after <code>label =</code>but in general what you’d want are the values, so that’s what
-I put there. But you can also refine it, imagine the values are actualy, say €:</p>
-<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb558-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
-<a class="sourceLine" id="cb558-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb558-4" title="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> <span class="kw">paste</span>(value, <span class="st">&quot;€&quot;</span>)))</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-344-1.png" width="672" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb31-4" title="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> value))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>You can put anything after <code>label =</code> but in general what you want are the values, so that’s what
+I put there. But you can also refine it, imagine the values are actually in euros:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb32-4" title="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> <span class="kw">paste</span>(value, <span class="st">&quot;€&quot;</span>)))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>You can also achieve something similar with <code>geom_label()</code>:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="st">  </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> <span class="kw">paste</span>(value, <span class="st">&quot;€&quot;</span>)))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 </div>
 </div>
 <div id="customization" class="section level2">
 <h2><span class="header-section-number">5.3</span> Customization</h2>
-<p>Every plot you’ve seen until now was made with the default look of <code>ggplot2</code>. If you want to change
+<p>Every plot you’ve seen until now was made with the default look of <code>{ggplot2}</code>. If you want to change
 the look, you can apply a theme, and a colour scheme. Let’s take a look at themes first by using the
 ones found in the package <code>ggthemes</code>. But first, let’s learn how to change the names of the axes
 and how to title a plot.</p>
-<div id="titles-axes-names-and-more" class="section level3">
-<h3><span class="header-section-number">5.3.1</span> Titles, axes names and more</h3>
-<p>To change the title of the plot, and of the axes, you need to pass the names to the <code>labs()</code>
-function:</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb559-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb559-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb559-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb559-5" title="5"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-345-1.png" width="672" /></p>
+<div id="changing-titles-axes-labels-options-mixing-geoms-and-changing-themes" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Changing titles, axes labels, options, mixing geoms and changing themes</h3>
+<p>The name of this subsection is quite long, but this is because everything is kind of linked. Let’s
+start by learning what the <code>labs()</code> function does. To change the title of the plot, and of the axes,
+you need to pass the names to the <code>labs()</code> function:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb34-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb34-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb34-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb34-5" title="5"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>What if you want to make the lines thicker?</p>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb560-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb560-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb560-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb560-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb560-5" title="5"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">2</span>)</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-346-1.png" width="672" /></p>
-</div>
-<div id="themes" class="section level3">
-<h3><span class="header-section-number">5.3.2</span> Themes</h3>
-<p>Let’s go back to the unemployment line plots. For now, let’s keep the base <code>ggplot2</code> theme, but
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb35-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb35-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb35-5" title="5"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Each <code>geom_*()</code> function has its own options. Notice that the <code>size=2</code> argument is not inside
+an <code>aes()</code> function. This is because I do not want to map a variable of the data to the size
+of the line, in other words, I do not want to make the size of the line proportional to a certain
+variable in the data. Recall the scatter plot we did earlier, where we showed that height and mass of
+star wars characters increased together? Let’s take this plot again, but make the size of the dots proportional
+to the birth year of the character:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb36-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;Jabba&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb36-4" title="4"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(height, mass, <span class="dt">size =</span> birth_year))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>Making the size proportional to the birth year (the age would have been more informative) allows
+us to see a third dimension. It is also possible to “see” a fourth dimension, the gender for instance,
+by changing the colour of the dots:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;Jabba&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(height, mass, <span class="dt">size =</span> birth_year, <span class="dt">colour =</span> gender))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>As I promised above, we are now going to learn how to add a regression line to this scatter plot:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;Jabba&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(height, mass, <span class="dt">size =</span> birth_year, <span class="dt">colour =</span> gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(height, mass), <span class="dt">method  =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><code>geom_smooth()</code> adds a regression line, but only if you specify <code>method = "lm"</code> (“lm” stands for
+“linear model”). What happens if you remove this option?</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;Jabba&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb39-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb39-4" title="4"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(height, mass, <span class="dt">size =</span> birth_year, <span class="dt">colour =</span> gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb39-5" title="5"><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(height, mass))</a></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>By default, <code>geom_smooth()</code> does a non-parametric regression called LOESS (locally estimated scatterplot smoothing),
+which is more flexible. It is also possible to have one regression line by gender:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">starwars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb41-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;Jabba&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb41-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb41-4" title="4"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(height, mass, <span class="dt">size =</span> birth_year, <span class="dt">colour =</span> gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb41-5" title="5"><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(height, mass, <span class="dt">colour =</span> gender))</a></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Because there are only a few observations for females and <code>NA</code>s the regression lines are not very informative,
+but this was only an example to show you some options of <code>geom_smooth()</code>.</p>
+<p>Let’s go back to the unemployment line plots. For now, let’s keep the base <code>{ggplot2}</code> theme, but
 modify it a bit. For example, the legend placement is actually a feature of the theme. This means
 that if you want to change where the legend is placed you need to modify this feature from the
 theme. This is done with the function <code>theme()</code>:</p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb561-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb561-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb561-4" title="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb561-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb561-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-347-1.png" width="672" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb43-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb43-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-4" title="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <p>What I also like to do is remove the title of the legend, because it is often superfluous:</p>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb562-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb562-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb562-4" title="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb562-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb562-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-348-1.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb44-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb44-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb44-4" title="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb44-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb44-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>The legend title has to be an <code>element_text</code> object.<code>element_text</code> objects are used with <code>theme</code> to
 specify how text should be displayed. <code>element_blank()</code> draws nothing and assigns no space (not
-even blank space).</p>
+even blank space). If you want to keep the legend title but change it, you need to use <code>element_text()</code>:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb45-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb45-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb45-4" title="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb45-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb45-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>If you want to change the word “division” to something else, you can do so by providing the <code>colour</code> argument
+to the <code>labs()</code> function:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb46-4" title="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb46-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;Administrative division&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb46-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p>You could modify every feature of the theme like that, but there are built-in themes that you can use:</p>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb563-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb563-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb563-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb563-5" title="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb563-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb563-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-349-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-5" title="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>For example in the code above, I have used <code>theme_minimal()</code> which I like quite a lot. You can also
 use themes from the <code>ggthemes</code> package, which even contains a STATA theme, if you like it:</p>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb564-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb564-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb564-4" title="4"><span class="st">  </span><span class="kw">theme_stata</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb564-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb564-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-350-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb48-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb48-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb48-4" title="4"><span class="st">  </span><span class="kw">theme_stata</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb48-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb48-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>As you can see, <code>theme_stata()</code> has the legend on the bottom by default, because this is how the
 legend position is defined within the theme. However the legend title is still there. Let’s remove
 it:</p>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb565-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb565-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb565-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb565-4" title="4"><span class="st">  </span><span class="kw">theme_stata</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb565-5" title="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb565-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb565-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-351-1.png" width="672" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb49-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb49-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb49-4" title="4"><span class="st">  </span><span class="kw">theme_stata</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb49-5" title="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb49-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb49-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p><code>ggthemes</code> even features an Excel 2003 theme (don’t use it though):</p>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb566-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb566-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb566-4" title="4"><span class="st">  </span><span class="kw">theme_excel</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb566-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb566-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-352-1.png" width="672" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb50-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb50-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb50-4" title="4"><span class="st">  </span><span class="kw">theme_excel</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb50-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb50-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>You can create your own theme by using a simple theme, such as <code>theme_minimal()</code> as a base
+and then add your options. We are going to create one theme after we learn how to create our
+own functions, in Chapter 7. Then, we are going to create a package to share this theme with
+the world, and we are going to learn how to make packages in Chapter 9.</p>
 </div>
-<div id="colour-schemes-from-ggthemes" class="section level3">
-<h3><span class="header-section-number">5.3.3</span> Colour schemes from <code>ggthemes</code></h3>
-<p>You can also change colour schemes, by specifying either <code>scale_colour_*</code> or <code>scale_fill_*</code>
-functions. <code>scale_colour_*</code> functions are used for continuous variables, while <code>scale_fill_*</code>
+<div id="colour-schemes" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Colour schemes</h3>
+<p>You can also change colour schemes, by specifying either <code>scale_colour_*()</code> or <code>scale_fill_*()</code>
+functions. <code>scale_colour_*()</code> functions are used for continuous variables, while <code>scale_fill_*()</code>
 functions for discrete variables (so for barplots for example). A colour scheme I like is the
 <a href="https://www.highcharts.com/">Highcharts</a> colour scheme.</p>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb567-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb567-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb567-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb567-5" title="5"><span class="st">  </span><span class="kw">scale_colour_hc</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb567-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb567-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb567-8" title="8"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-353-1.png" width="672" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb51-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb51-5" title="5"><span class="st">  </span><span class="kw">scale_colour_hc</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb51-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb51-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb51-8" title="8"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>An example with a barplot:</p>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb568-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb568-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
-<a class="sourceLine" id="cb568-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb568-4" title="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb568-5" title="5"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb568-6" title="6"><span class="st">  </span><span class="kw">scale_fill_hc</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-354-1.png" width="672" /></p>
-</div>
-<div id="using-your-own-colours" class="section level3">
-<h3><span class="header-section-number">5.3.4</span> Using your own colours</h3>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-4" title="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-5" title="5"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-6" title="6"><span class="st">  </span><span class="kw">scale_fill_hc</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>It is also possible to define and use your own palette.</p>
 <p>To use your own colours you can use <code>scale_colour_manual()</code> and <code>scale_fill_manual()</code> and specify
 the html codes of the colours you want to use.</p>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb569-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb569-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb569-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb569-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb569-5" title="5"><span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#FF336C&quot;</span>, <span class="st">&quot;#334BFF&quot;</span>, <span class="st">&quot;#2CAE00&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb569-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb569-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb569-8" title="8"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-355-1.png" width="672" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">unemp_lux_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb53-2" title="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb53-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">colour =</span> division)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb53-4" title="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb53-5" title="5"><span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#FF336C&quot;</span>, <span class="st">&quot;#334BFF&quot;</span>, <span class="st">&quot;#2CAE00&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb53-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb53-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb53-8" title="8"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>To get html codes of colours you can use <a href="http://htmlcolorcodes.com/color-picker/">this online
 tool</a>.
 There is also a very nice package, called <code>colourpicker</code> that allows you to
@@ -729,39 +852,47 @@ pick colours from with RStudio. Also, you do not even need to load it to use
 it, since it comes with an Addin:</p>
 <p><img src="pics/rstudio_colourpicker.gif" /><!-- --></p>
 <p>For a barplot you would do the same:</p>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb570-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb570-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
-<a class="sourceLine" id="cb570-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb570-4" title="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb570-5" title="5"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb570-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb570-7" title="7"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#FF336C&quot;</span>, <span class="st">&quot;#334BFF&quot;</span>, <span class="st">&quot;#2CAE00&quot;</span>, <span class="st">&quot;#B3C9C6&quot;</span>, <span class="st">&quot;#765234&quot;</span>))</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-357-1.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-2" title="2"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-4" title="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-5" title="5"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-7" title="7"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#FF336C&quot;</span>, <span class="st">&quot;#334BFF&quot;</span>, <span class="st">&quot;#2CAE00&quot;</span>, <span class="st">&quot;#B3C9C6&quot;</span>, <span class="st">&quot;#765234&quot;</span>))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>For countinuous variables, things are a bit different. Let’s first create a plot where we map a continuous
+variable to the colour argument of <code>aes()</code>:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(carat, price, <span class="dt">colour =</span> depth))</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p>To change the colour, we need to use <code>scale_color_gradient()</code> and specify a value for low values of the variable,
+and a value for high values of the variable. For example, using the colours of the theme I made for my blog:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
+<a class="sourceLine" id="cb56-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(carat, price, <span class="dt">colour =</span> depth)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb56-3" title="3"><span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;#bec3b8&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#ad2c6c&quot;</span>)</a></code></pre></div>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 </div>
-<div id="saving-plots-on-disk" class="section level3">
-<h3><span class="header-section-number">5.3.5</span> Saving plots on disk</h3>
-<p>There are two ways to save plots on disk; one through the <em>Plots</em> in RStudio and another using the
+</div>
+<div id="saving-plots-to-disk" class="section level2">
+<h2><span class="header-section-number">5.4</span> Saving plots to disk</h2>
+<p>There are two ways to save plots on disk; one through the <em>Plots</em> plane in RStudio and another using the
 <code>ggsave()</code> function. Using RStudio, navigate to the <em>Plots</em> pane and click on <em>Export</em>. You can
 then choose where to save the plot and other various options:</p>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" title="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;pics/rstudio_save_plots.gif&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;pics/rstudio_save_plots.gif&quot;</span>)</a></code></pre></div>
 <p><img src="pics/rstudio_save_plots.gif" /><!-- --></p>
 <p>This is fine if you only generate one or two plots but if you generate a large number of them, it
 is less tedious to use the <code>ggsave()</code> function:</p>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb572-1" title="1">my_plot1 =<span class="st"> </span><span class="kw">ggplot</span>(my_data) <span class="op">+</span></a>
-<a class="sourceLine" id="cb572-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable))</a>
-<a class="sourceLine" id="cb572-3" title="3"></a>
-<a class="sourceLine" id="cb572-4" title="4"><span class="kw">ggsave</span>(<span class="st">&quot;path/you/want/to/save/the/plot/to/my_plot1.pdf&quot;</span>, my_plot1)</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">my_plot1 =<span class="st"> </span><span class="kw">ggplot</span>(my_data) <span class="op">+</span></a>
+<a class="sourceLine" id="cb58-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable))</a>
+<a class="sourceLine" id="cb58-3" title="3"></a>
+<a class="sourceLine" id="cb58-4" title="4"><span class="kw">ggsave</span>(<span class="st">&quot;path/you/want/to/save/the/plot/to/my_plot1.pdf&quot;</span>, my_plot1)</a></code></pre></div>
 <p>There are other options that you can specify such as the width and height, resolution, units,
 etc…</p>
 </div>
-</div>
-<div id="exercises-3" class="section level2">
-<h2><span class="header-section-number">5.4</span> Exercises</h2>
-<div id="exercise-1-3" class="section level3 unnumbered">
+<div id="exercises-2" class="section level2">
+<h2><span class="header-section-number">5.5</span> Exercises</h2>
+<div id="exercise-1-2" class="section level3 unnumbered">
 <h3>Exercise 1</h3>
-<p>This exercise will force you to look for <code>ggplot2</code> functions that you don’t know yet. But it’s a
-good exercise, so my advice is to try to do it, even if takes you a long time to find the right
-functions.</p>
 <p>Load the <code>Bwages</code> dataset from the <code>Ecdat</code> package. Your first task is to create a new variable,
 <code>educ_level</code>, which is a factor variable that equals:</p>
 <ul>
@@ -775,8 +906,7 @@ functions.</p>
 <p>Then, plot a scatter plot of wages on experience, by education level. Add a theme that you like,
 and remove the title of the legend.</p>
 <p>The scatter plot is not very useful, because you cannot make anything out. Instead, use another
-geom that shows you a non-parametric fit with confidence bands. You do not need to estimate a model or
-anything like that, you just need to find the right geom.</p>
+geom that shows you a non-parametric fit with confidence bands.</p>
 
 </div>
 </div>
@@ -834,19 +964,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

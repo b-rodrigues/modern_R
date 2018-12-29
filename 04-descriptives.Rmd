@@ -1087,7 +1087,7 @@ survey_data_from_hell %>%
 ```
 
 
-### A sneak peek to Chapter 9; `nest()`
+### A sneak peek to Chapter 8; `nest()`
 
 Let's take a look at our clean survey data:
 
@@ -2091,13 +2091,14 @@ ggplot(points) +
     geom_hline(yintercept = pi)
 ```
 
-In Chapter 6, we are going to learn all about `{ggplot2}`.
+In the next chapter, we are going to learn all about `{ggplot2}`, the package I used in the lines
+above to create this plot.
 
 As the number of tries grows, the estimation of $\pi$ gets better.
 
 Using a data frame as a structure to hold our simulated points and the results makes it very easy
 to avoid loops, and thus write code that is more concise and easier to follow. 
-If you studied a quantitative field in u8niversity, you might have done a similar exercise at the 
+If you studied a quantitative field in university, you might have done a similar exercise at the 
 time, very likely by defining a matrix to hold your points, and an empty vector to hold whether a
 particular point was inside the unit circle. Then you wrote a loop to compute whether
 a point was inside the unit circle, save this result in the before-defined empty vector and then
