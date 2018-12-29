@@ -1,5 +1,7 @@
 # Further topics
 
+## Using Python from R with `{reticulate}`
+
 ## Generating Pdf or Word reports with R
 
 ## Scraping the internet
