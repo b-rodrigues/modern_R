@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2018-12-29">
+<meta name="date" content="2019-01-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -356,7 +356,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Modern R with the tidyverse</h1>
 <h4 class="author"><em>Bruno Rodrigues</em></h4>
-<h4 class="date"><em>2018-12-29</em></h4>
+<h4 class="date"><em>2019-01-02</em></h4>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -428,7 +428,7 @@ notation, you would write something like:</p>
 <p><span class="math display">\[
 \sum_{i = 1}^{100} x_{i}
 \]</span></p>
-<p>where <span class="math inline">\(x\)</span> is a vector of length <span class="math inline">\(i\)</span>. Solving this using a loop would look something like this:</p>
+<p>where <span class="math inline">\(x\)</span> is a vector of length 100. Solving this using a loop would look something like this:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">res &lt;-<span class="st"> </span><span class="dv">0</span></a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)){</a>
 <a class="sourceLine" id="cb1-3" title="3">  res &lt;-<span class="st"> </span>x[i] <span class="op">+</span><span class="st"> </span>res</a>

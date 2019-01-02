@@ -92,7 +92,7 @@ notation, you would write something like:
 \sum_{i = 1}^{100} x_{i}
 \]
 
-where $x$ is a vector of length $i$. Solving this using a loop would look something like this:
+where $x$ is a vector of length 100. Solving this using a loop would look something like this:
 
 ```{r, eval=FALSE}
 res <- 0
