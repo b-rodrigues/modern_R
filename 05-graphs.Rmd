@@ -333,7 +333,7 @@ ggplot(test_data_long) +
 
 As you can see, this typical pie chart is not very easy to read; compared to the barplots above it
 is not easy to distinguish if `a` has a higher share than `b` or `c`. You can change the look of the
-pie chart, for exmalpe by specifying `variable` as the `x`:
+pie chart, for example by specifying `variable` as the `x`:
 
 ```{r, cache=TRUE}
 ggplot(test_data_long) +
