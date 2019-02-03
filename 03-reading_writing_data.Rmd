@@ -70,7 +70,7 @@ str(all_data)
 
 in a subsequent chapter we will learn how to actually use these lists of datasets.
 
-If you know that each dataset in each file has the same colmuns, you can also import them directly
+If you know that each dataset in each file has the same columns, you can also import them directly
 into a single dataset by binding each dataset together using `rbind = TRUE`:
 
 ```{r}
