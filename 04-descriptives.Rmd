@@ -232,7 +232,7 @@ means that you can live without them, and because of this, I will not discuss th
 
 ## The `{tidyverse}`'s *enfant prodige*: `{dplyr}`
 
-The best way to get started with the tidyverse packages is to get to know `{dplyr}`. `{dplyr}` prodives
+The best way to get started with the tidyverse packages is to get to know `{dplyr}`. `{dplyr}` provides
 a lot of very useful functions that makes it very easy to get discriptive statistics or add new columns
 to your data.
 
@@ -1923,14 +1923,66 @@ data, `{lubridate}` is a package that you have to add to your toolbox.
 
 ### Manipulate strings with `{stringr}`
 
-`{stringr}` contains functions to manipulate strings. In Chapter 11, I will teach you about regular
+`{stringr}` contains functions to manipulate strings. In Chapter 10, I will teach you about regular
 expressions, but the functions contained in `{stringr}` allow you to already do a lot of work on
 strings, without needing to be a regular expression expert.
 
-I will discuss the most common string operations: search and replace (or remove), detect, locate
-or match, and trim a string.
+I will discuss the most common string operations: detecting, locating, matching, seaching and replacing, and removing strings.
 
+To introduce these operations, let us use an ALTO file of an issue of *The Winchester News* from
+October 31, 1910, which you can find on this 
+[link](https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml) (to see
+how the newspaper looked like, 
+[click here](https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/)).
 
+ALTO is an XML schema for the description of text OCR and layout information of pages for digitzed
+material, such as newspapers (source: [ALTO Wikipedia page](https://en.wikipedia.org/wiki/ALTO_(XML))).
+For more details, you can read my
+[blogpost](https://www.brodrigues.co/blog/2019-01-13-newspapers_mets_alto/)
+on the matter, but for our current purposes, it is enough to know that the file contains the text
+of newspaper articles. The file looks like this:
+
+```
+<TextLine HEIGHT="138.0" WIDTH="2424.0" HPOS="4056.0" VPOS="5814.0">
+<String STYLEREFS="ID7" HEIGHT="108.0" WIDTH="393.0" HPOS="4056.0" VPOS="5838.0" CONTENT="timore" WC="0.82539684">
+<ALTERNATIVE>timole</ALTERNATIVE>
+<ALTERNATIVE>tlnldre</ALTERNATIVE>
+<ALTERNATIVE>timor</ALTERNATIVE>
+<ALTERNATIVE>insole</ALTERNATIVE>
+<ALTERNATIVE>landed</ALTERNATIVE>
+</String>
+<SP WIDTH="74.0" HPOS="4449.0" VPOS="5838.0"/>
+<String STYLEREFS="ID7" HEIGHT="105.0" WIDTH="432.0" HPOS="4524.0" VPOS="5847.0" CONTENT="market" WC="0.95238096"/>
+<SP WIDTH="116.0" HPOS="4956.0" VPOS="5847.0"/>
+<String STYLEREFS="ID7" HEIGHT="69.0" WIDTH="138.0" HPOS="5073.0" VPOS="5883.0" CONTENT="as" WC="0.96825397"/>
+<SP WIDTH="74.0" HPOS="5211.0" VPOS="5883.0"/>
+<String STYLEREFS="ID7" HEIGHT="69.0" WIDTH="285.0" HPOS="5286.0" VPOS="5877.0" CONTENT="were" WC="1.0">
+<ALTERNATIVE>verc</ALTERNATIVE>
+<ALTERNATIVE>veer</ALTERNATIVE>
+</String>
+<SP WIDTH="68.0" HPOS="5571.0" VPOS="5877.0"/>
+<String STYLEREFS="ID7" HEIGHT="111.0" WIDTH="147.0" HPOS="5640.0" VPOS="5838.0" CONTENT="all" WC="1.0"/>
+<SP WIDTH="83.0" HPOS="5787.0" VPOS="5838.0"/>
+<String STYLEREFS="ID7" HEIGHT="111.0" WIDTH="183.0" HPOS="5871.0" VPOS="5835.0" CONTENT="the" WC="0.95238096">
+<ALTERNATIVE>tll</ALTERNATIVE>
+<ALTERNATIVE>Cu</ALTERNATIVE>
+<ALTERNATIVE>tall</ALTERNATIVE>
+</String>
+<SP WIDTH="75.0" HPOS="6054.0" VPOS="5835.0"/>
+<String STYLEREFS="ID3" HEIGHT="132.0" WIDTH="351.0" HPOS="6129.0" VPOS="5814.0" CONTENT="cattle" WC="0.95238096"/>
+</TextLine>
+```
+
+We are interested in the strings after `CONTENT=`. In Chapter 10, we are going to explore this file
+again, but using complex regular expressions to get all the content in one go.
+
+#### Detecting, locating, and locating but it's different
+
+First of all, let us read in the file:
+
+```{r}
+winchester <- read_lines("https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml")
+```
 
 ## List-columns
 
