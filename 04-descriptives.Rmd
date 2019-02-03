@@ -1927,7 +1927,8 @@ data, `{lubridate}` is a package that you have to add to your toolbox.
 expressions, but the functions contained in `{stringr}` allow you to already do a lot of work on
 strings, without needing to be a regular expression expert.
 
-I will discuss the most common string operations: detecting, locating, matching, seaching and replacing, and removing strings.
+I will discuss the most common string operations: detecting, locating, matching, searching and 
+replacing, and exctracting/removing strings.
 
 To introduce these operations, let us use an ALTO file of an issue of *The Winchester News* from
 October 31, 1910, which you can find on this 
@@ -1976,13 +1977,314 @@ of newspaper articles. The file looks like this:
 We are interested in the strings after `CONTENT=`. In Chapter 10, we are going to explore this file
 again, but using complex regular expressions to get all the content in one go.
 
-#### Detecting, locating, and locating but it's different
+#### Getting text data into Rstudio
 
 First of all, let us read in the file:
 
 ```{r}
 winchester <- read_lines("https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml")
 ```
+
+Even though the file is an XML file, I still read it in using `read_lines()` and not `read_xml()`
+from the `{xml2}` package. This is for the purposes of the current exercise, and also because I 
+always have trouble with XML files, and prefer to treat them as simple text files, and use regular
+expressions to get what I need.
+
+Now that the ALTO file is read in and saved in the `winchester` variable, you might want to print
+the whole thing in the console. Before that, take a look at the structure:
+
+```{r}
+str(winchester)
+```
+
+So the `winchester` variable si a character atomic vector with 42 elements. So first, we need to
+understand what these elements are. Let's start with the first one:
+
+```{r}
+winchester[1]
+```
+
+Ok, so seems like the first element is part of the header of the file. What about the second one?
+
+```{r}
+winchester[2]
+```
+
+Same. So where is the content? The file is very large, so if you print it in the console, it will
+take quite some time to print, and you will not really be able to make it out anything. The best
+way would be to try to detect the string `CONTENT` and work from there.
+
+#### Detecting, getting the position and locating strings
+
+When confronted to an atomic vector of strings, you might want to know inside which elements you
+can find certain strings. For example, to know which elements of `winchester` contain the string
+`CONTENT`, use `str_detect()`:
+
+```{r}
+winchester %>% 
+  str_detect("CONTENT")
+```
+
+This returns a boolean atomic vector of the same length of `winchester`. If the string `CONTENT` is
+nowhere to be found, the result will equal `FALSE`, if not it will equal `TRUE`. Here it is easy to
+see that the last element contains the string `CONTENT`. But what if instead of having 42 elements,
+the vector had 24192 elements? And hundreds had the contained the string `CONTENT`? It would be easier
+to instead have the indices of the vector where one can find the word `CONTENT`.
+
+This is possible with `str_which()`
+
+```{r}
+winchester %>% 
+  str_which("CONTENT")
+```
+
+Here, the result is 42, meaning that the 42nd element of `winchester` contains the string `CONTENT`
+somewhere. If we need more precision, we can use `str_locate()` and `str_locate_all()`. To explain
+how both these functions work, let's create a very small example:
+
+```{r}
+ancient_philosophers <- c("aristotle", "plato", "epictetus", "seneca the younger", "epicurus", "marcus aurelius")
+```
+
+Now suppose I am interested in philosophers whose name ends in `us`. 
+
+
+Let us use `str_locate()` first:
+
+```{r}
+ancient_philosophers %>% 
+  str_locate("us")
+```
+
+You can interpret the result as follows: in the rows, this is the index of the vector where the 
+string `us` is found. So the 3rd, 5th and 6th philosopher have `us` somewhere in their name.
+The result also has two columns: `start` and `end`. These give the position of the string. So the 
+string `us` can be found starting at position 8 of the 3rd element of the vector, and ends at position
+9. Same goes for the other philisophers. However, consider Marcus Aurelius. He has two names, both
+ending with `us`. However, `str_locate()` only shows the position of the `us` in `marcus`. 
+
+To get both `us` strings, you need to use `str_locate_all()`:
+
+```{r}
+ancient_philosophers %>% 
+  str_locate_all("us")
+```
+
+Now we get the position of the two `us` in Marcus Aurelius. Doing this on the `winchester` vector
+will give use the position of the `CONTENT` string, but this is not really important right now. What
+matters is that you know how `str_locate()` and `str_locate_all()` work.
+
+So now that we know that what interests us in the 42nd element of `winchester`, let's take a closer
+look at it:
+
+```{r, eval=FALSE}
+winchester[42]
+```
+
+As you can see, it's a mess:
+
+```
+<TextLine HEIGHT=\"126.0\" WIDTH=\"1731.0\" HPOS=\"17160.0\" VPOS=\"21252.0\"><String HEIGHT=\"114.0\" WIDTH=\"354.0\" HPOS=\"17160.0\" VPOS=\"21264.0\" CONTENT=\"0tV\" WC=\"0.8095238\"/><SP WIDTH=\"131.0\" HPOS=\"17514.0\" VPOS=\"21264.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"111.0\" WIDTH=\"474.0\" HPOS=\"17646.0\" VPOS=\"21258.0\" CONTENT=\"BATES\" WC=\"1.0\"/><SP WIDTH=\"140.0\" HPOS=\"18120.0\" VPOS=\"21258.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"114.0\" WIDTH=\"630.0\" HPOS=\"18261.0\" VPOS=\"21252.0\" CONTENT=\"President\" WC=\"1.0\"><ALTERNATIVE>Prcideht</ALTERNATIVE><ALTERNATIVE>Pride</ALTERNATIVE></String></TextLine><TextLine HEIGHT=\"153.0\" WIDTH=\"1689.0\" HPOS=\"17145.0\" VPOS=\"21417.0\"><String STYLEREFS=\"ID7\" HEIGHT=\"105.0\" WIDTH=\"258.0\" HPOS=\"17145.0\" VPOS=\"21429.0\" CONTENT=\"WM\" WC=\"0.82539684\"><TextLine HEIGHT=\"120.0\" WIDTH=\"2211.0\" HPOS=\"16788.0\" VPOS=\"21870.0\"><String STYLEREFS=\"ID7\" HEIGHT=\"96.0\" WIDTH=\"102.0\" HPOS=\"16788.0\" VPOS=\"21894.0\" CONTENT=\"It\" WC=\"1.0\"/><SP WIDTH=\"72.0\" HPOS=\"16890.0\" VPOS=\"21894.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"96.0\" WIDTH=\"93.0\" HPOS=\"16962.0\" VPOS=\"21885.0\" CONTENT=\"is\" WC=\"1.0\"/><SP WIDTH=\"80.0\" HPOS=\"17055.0\" VPOS=\"21885.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"102.0\" WIDTH=\"417.0\" HPOS=\"17136.0\" VPOS=\"21879.0\" CONTENT=\"seldom\" WC=\"1.0\"/><SP WIDTH=\"80.0\" HPOS=\"17553.0\" VPOS=\"21879.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"96.0\" WIDTH=\"267.0\" HPOS=\"17634.0\" VPOS=\"21873.0\" CONTENT=\"hard\" WC=\"1.0\"/><SP WIDTH=\"81.0\" HPOS=\"17901.0\" VPOS=\"21873.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"87.0\" WIDTH=\"111.0\" HPOS=\"17982.0\" VPOS=\"21879.0\" CONTENT=\"to\" WC=\"1.0\"/><SP WIDTH=\"81.0\" HPOS=\"18093.0\" VPOS=\"21879.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"96.0\" WIDTH=\"219.0\" HPOS=\"18174.0\" VPOS=\"21870.0\" CONTENT=\"find\" WC=\"1.0\"/><SP WIDTH=\"77.0\" HPOS=\"18393.0\" VPOS=\"21870.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"69.0\" WIDTH=\"66.0\" HPOS=\"18471.0\" VPOS=\"21894.0\" CONTENT=\"a\" WC=\"1.0\"/><SP WIDTH=\"77.0\" HPOS=\"18537.0\" VPOS=\"21894.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"78.0\" WIDTH=\"384.0\" HPOS=\"18615.0\" VPOS=\"21888.0\" CONTENT=\"succes\" WC=\"0.82539684\"><ALTERNATIVE>success</ALTERNATIVE></String></TextLine><TextLine HEIGHT=\"126.0\" WIDTH=\"2316.0\" HPOS=\"16662.0\" VPOS=\"22008.0\"><String STYLEREFS=\"ID7\" HEIGHT=\"75.0\" WIDTH=\"183.0\" HPOS=\"16662.0\" VPOS=\"22059.0\" CONTENT=\"sor\" WC=\"1.0\"><ALTERNATIVE>soar</ALTERNATIVE></String><SP WIDTH=\"72.0\" HPOS=\"16845.0\" VPOS=\"22059.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"90.0\" WIDTH=\"168.0\" HPOS=\"16917.0\" VPOS=\"22035.0\" CONTENT=\"for\" WC=\"1.0\"/><SP WIDTH=\"72.0\" HPOS=\"17085.0\" VPOS=\"22035.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"69.0\" WIDTH=\"267.0\" HPOS=\"17157.0\" VPOS=\"22050.0\" CONTENT=\"even\" WC=\"1.0\"><ALTERNATIVE>cen</ALTERNATIVE><ALTERNATIVE>cent</ALTERNATIVE></String><SP WIDTH=\"77.0\" HPOS=\"17424.0\" VPOS=\"22050.0\"/><String STYLEREFS=\"ID7\" HEIGHT=\"66.0\" WIDTH=\"63.0\" HPOS=\"17502.0\" VPOS=\"22044.0\" 
+```
+
+The file was imported without any newlines. So we need to insert them ourselves, by splitting the 
+string in a clever way.
+
+#### Splitting strings
+
+There are two functions included in `{stringr}` to split strings, `str_split()` and `str_split_fixed()`.
+Let's go back to our ancient philosophers. Two of them, Seneca the Younger and Marcus Aurelius have
+something else in common than both being Roman Stoic philosophers. Their names are composed of several
+words. If we want to split their names at the space character, we can use `str_split()` like this:
+
+```{r}
+ancient_philosophers %>% 
+  str_split(" ")
+```
+
+`str_split()` also has a `simplify = TRUE` option:
+
+```{r}
+ancient_philosophers %>% 
+  str_split(" ", simplify = TRUE)
+```
+
+This time, the returned object is a matrix. 
+
+What about `str_split_fixed()`? The difference is that here you can specify the number of pieces
+to return. For example, you could consider the name "Aurelius" to be the middle name of Marcus Aurelius,
+and the "the younger" to be the middle name of Seneca the younger. This means that you would want
+to split the name only at the first space character, and not at all of them. This is easily achieved
+with `str_split_fixed()`:
+
+```{r}
+ancient_philosophers %>% 
+  str_split_fixed(" ", 2)
+```
+
+This gives the expected result. 
+
+So how does this help in our case? Well, if you look at how the ALTO file looks like, at the beginning
+of this section, you will notice that every line ends with the ">" character. So let's split at 
+that character!
+
+
+```{r}
+winchester_text <- winchester[42] %>% 
+  str_split(">")
+```
+
+Let's take a closer look at `winchester_text`:
+
+```{r}
+str(winchester_text)
+```
+
+So this is a list of length one, and the first, and only, element of that list is an atomic vector
+with 19706 elements. Since this is a list of only one element, we can simplify it by saving the 
+atomic vector in a variable:
+
+```{r}
+winchester_text <- winchester_text[[1]]
+```
+
+Let's now look at some lines:
+
+```{r}
+winchester_text[1232:1245]
+```
+
+This now looks easier to handle. We can narrow it down to the lines that only contain the string
+we are interested in, "CONTENT". First, let's get the indices:
+
+```{r}
+content_winchester_index <- winchester_text %>% 
+  str_which("CONTENT")
+```
+
+How many lines contain the string "CONTENT"?
+
+```{r}
+length(content_winchester_index)
+```
+
+As you can see, this reduces the amount of data we have to work with. Let us save this is a new 
+varible:
+
+```{r}
+content_winchester <- winchester_text[content_winchester_index]
+```
+
+#### Matching strings
+
+Matching strings is useful, but only in combination with regular expressions. As stated at the 
+beginning of this section, we are going to learn about regular expressions in Chapter 10, but in
+order to make this section useful, we are going to learn the easiest, but perhaps the most useful
+regular expression: `.*`.
+
+Let's go back to our ancient philosophers, and use `str_match()` and see what happens. Let's match
+the "us" string:
+
+```{r}
+ancient_philosophers %>% 
+  str_match("us")
+```
+
+Not very useful, but what about the regular expression `.*`? How could it help?
+
+```{r}
+ancient_philosophers %>% 
+  str_match(".*us")
+```
+
+That's already very interesting! So how does `.*` work? To understand, let's first start by using
+`.` alone:
+
+```{r}
+ancient_philosophers %>% 
+  str_match(".us")
+```
+
+This also matched whatever symbol comes just before the "u" from "us". What if we use two `.` instead?
+
+```{r}
+ancient_philosophers %>% 
+  str_match("..us")
+```
+
+This time, we get the two symbols that immediately precede "us". Instead of continuing to like this
+we now use the `*`, which matches zero or more of `.`. So by combining `*` and `.`, we can match 
+any symbol repeatetly, until there is nothing more to match. Note that there is also `+`, which works
+similarly to `*`, but it matches one or more symbols. 
+
+There is also a `str_match_all()`:
+
+```{r}
+ancient_philosophers %>% 
+  str_match_all(".*us")
+```
+
+In this particular case it does not change the end result, but keep it in mind for cases like this one:
+
+```{r}
+c("haha", "huhu") %>% 
+  str_match("ha")
+```
+
+and:
+
+```{r}
+c("haha", "huhu") %>% 
+  str_match_all("ha")
+```
+
+What if we want to match names containing the letter "t"? Easy:
+
+```{r}
+ancient_philosophers %>% 
+  str_match(".*t.*")
+```
+
+So how does this help us with our historical newspaper? Let's try to get the strings that come 
+after "CONTENT":
+
+```{r}
+winchester_content <- winchester_text %>% 
+  str_match("CONTENT.*")
+```
+
+Let's use our faithful `str()` function to take a look:
+
+```{r}
+winchester_content %>% 
+  str
+```
+
+Hum, there's a lot of `NA` values! This is because a lot of the lines from the file did not have the
+string "CONTENT", so there is no match possible. Let's us remove all these `NA`s. Because the 
+result is a matrix, we cannot use the `filter()` function from `{dplyr}`. So we need to convert it
+to a tibble first:
+
+```{r}
+winchester_content <- winchester_content %>% 
+  as.tibble() %>% 
+  filter(!is.na(V1))
+```
+
+Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
+gets automatically called `V1`. This is why I filter on this column. Let's take a look at the data:
+
+```{r}
+head(winchester_content)
+```
+
+
+
+#### Searching and replacing strings
+
+#### Exctracting or removing strings
+
+
 
 ## List-columns
 
