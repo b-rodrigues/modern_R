@@ -2279,10 +2279,9 @@ head(winchester_content)
 ```
 
 
-
 #### Searching and replacing strings
 
-#### Exctracting or removing strings
+#### Exctrating or removing strings
 
 
 
