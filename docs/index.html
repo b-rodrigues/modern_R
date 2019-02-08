@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2019-02-03">
+<meta name="date" content="2019-02-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -356,13 +356,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Modern R with the tidyverse</h1>
 <h4 class="author"><em>Bruno Rodrigues</em></h4>
-<h4 class="date"><em>2019-02-03</em></h4>
+<h4 class="date"><em>2019-02-08</em></h4>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
 <div id="note-to-the-reader" class="section level2 unnumbered">
 <h2>Note to the reader</h2>
-<p>This book is still being written. Chapters 1 to 9 are almost ready, but more content is being added.
+<p>This book is still being written. Chapters 1 to 8 are almost ready, but more content is being added.
 9 and 10 are empty for now. Some exercises might be at the wrong place too and more are coming.</p>
 <p>If you already like what you read, you can support
 me by <a href="https://www.buymeacoffee.com/brodriguesco">buying me a coffee</a>
@@ -380,33 +380,33 @@ disciplines for the remaineder of this book.</p>
 </div>
 <div id="who-is-this-book-for" class="section level2 unnumbered">
 <h2>Who is this book for?</h2>
-<p>This book can be useful to different audiences. If you have never used R in your life, and what
+<p>This book can be useful to different audiences. If you have never used R in your life, and want
 to start, start with Chapter 1 of this book. Chapter 1 to 3 are the very basics, and should be
 easy to follow up to Chapter 9.
-Starting with Chapter 9, it gets more technical, and will be harder to follow. But if I suggest
+Starting with Chapter 9, it gets more technical, and will be harder to follow. But I suggest
 you keep on going, and do not hesitate to contact me for help if you struggle! Chapter 9
 is also where you can start if you are already familiar with R <strong>and</strong> the <code>{tidyverse}</code>, but not
 functional programming. If you are familiar with R but not the <code>{tidyverse}</code> (or have no clue
 what the <code>{tidyverse}</code> is), then you can start with Chapter 4. If you are familiar with R, the
 <code>{tidyverse}</code> and functional programming, you might still be interested in this book, especially
-Chapter 10 and 11, which deal with package development and further advanced topics respectively.</p>
+Chapter 9 and 10, which deal with package development and further advanced topics respectively.</p>
 </div>
 <div id="why-this-book" class="section level2 unnumbered">
 <h2>Why this book?</h2>
 <p>This book is first and foremost for myself. This book is the result of years of using and teaching
 R at university and then at my jobs. During my university time, I wrote some notes to help me
-teach R and which I distributed to my students. These are still the basis of chapter 3. Then, once
+teach R and which I shared with my students. These are still the basis of Chapter 2. Then, once
 I had left university, and continued using R at my first “real” job, I wrote another book that
 dealt mostly with package development and functional programming. This book is now merged to this
-one and is the basis of Chapters 9 and 11. During these years at my first
+one and is the basis of Chapters 9 and 10. During these years at my first
 job, I was also tasked with teaching R. By that time, I was already quite familiar with the
 <code>{tidyverse}</code> so I wrote a lot of notes that were internal and adapted for the audience of my
-first job. These are now the basis of Chapters 4 to 8.
+first job. These are now the basis of Chapters 3 to 8.
 Then, during all these years, I kept blogging about R, and reading blogs and further books. All
 this knowledge is condensed here, so if you are familiar with my blog, you’ll definitely recognize
 a lot of my blog posts in here. So this book is first and foremost for me, because I need to write
 all of this down in a central place. So because my target audience is myself, this book is free. If
-you find it useful, and are in the mood of buying me a coffee you can, but if this book is not
+you find it useful, and are in the mood of buying me a coffee, you can, but if this book is not
 useful to you, no harm done (unless you paid for it before reading it, in which case, I am sorry
 to have wasted your time). But I am quite sure you’ll find some of the things written here useful,
 regardless of your current experience level with R.</p>
@@ -453,11 +453,11 @@ capabilities, we can write code that is faster and easier to explain to colleagu
 to maintain. This also means that you might have to change your expectations and what you know
 already from R, if you learned it at University but haven’t touched it in a long time. For example
 for and while loops, are relegated to chapter 8. This does not mean that you will have to wait for
-8 chapter to know how to repeat instructions <em>N</em> times, but that for and while loops are tools that
-are very useful for very specific kinds of situations that will be discussed at that point.</p>
+8 chapter to know how to repeat instructions <em>N</em> times, but that <em>for</em> and <em>while</em> loops are tools that
+are very useful for very specific situations that will be discussed at that point.</p>
 <p>In the second part of the book, we are going to move from using R to solve statistical problems to
-develop with R. We are going to learn about creating one’s own package. If you do not know what
-packages R, don’t worry, this will be discussed just below.</p>
+developing with R. We are going to learn about creating one’s own package. If you do not know what
+packages are, don’t worry, this will be discussed just below.</p>
 </div>
 <div id="what-is-rstudio" class="section level2 unnumbered">
 <h2>What is RStudio?</h2>
@@ -484,9 +484,7 @@ keep using R every day, you’ll definitely become very fluent. To stay informed
 the language, and the latest news, I advise you read blogs, especially
 <a href="https://www.r-bloggers.com/">R-bloggers</a> which aggregates blog posts by more than 750 blogs
 discussing R.</p>
-<p>So what you can expect from this book is that this book is not the only one you should read (it’s
-definitely not the only one you should read, more talented people than me have written much better
-books. Why are you reading this one, by the way?)</p>
+<p>So what you can expect from this book is that this book is not the only one you should read.</p>
 </div>
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
