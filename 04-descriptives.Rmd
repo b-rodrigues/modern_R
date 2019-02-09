@@ -2377,8 +2377,7 @@ head(winchester_content)
 ```
 
 To finish off this section, let's remove stop words (words that do not add any meaning to a sentence,
-such as "as", "and"...) and words that are composed of less than 3 characters, and also only keep
-words (so we'll remove words that contain special characters or numbers). You can find a dataset
+such as "as", "and"...) and words that are composed of less than 3 characters. You can find a dataset
 with stopwords inside the `{stopwords}` package:
 
 ```{r}
