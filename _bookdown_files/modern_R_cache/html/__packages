@@ -45,3 +45,4 @@ xml2
 rvest
 curl
 lubridate
+stopwords
