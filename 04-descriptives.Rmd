@@ -823,10 +823,21 @@ That was it for the basic `{dplyr}` verbs. Next, we're going to learn about `{ti
 ## Reshaping data with `tidyr`
 
 Another important package from the `tidyverse` that goes hand in hand with `dplyr` is `tidyr`. `tidyr`
-is the package you need when it's time to reshape data. The basic functions from `tidyr`, `spread()`
-and `gather()` make it possible to go from long to wide datasets respectively.
+is the package you need when it's time to reshape data. As of March 2019, the development version 
+of `tidyr` introduced two new functions that make reshaping data easier, `pivot_long()` and `pivot_wide()`.
+To install the development version of `tidyr`, use the following line:
 
-### `spread()` and `gather()`
+```{r, eval=FALSE}
+devtools::install_github("tidyverse/tidyr")
+```
+
+The legacy functions, `spread()` and `gather()` will remain in the package but their use will be 
+discouraged.
+
+I will start by presenting `pivot_wide()` and `pivot_long()`, and then, for reference, will show
+how to solve the similar problems using `gather()` and `spread()`.
+
+### `pivot_wide()` and `pivot_long()`
 
 Let's first create a fake dataset:
 
@@ -856,6 +867,165 @@ head(survey_data)
 
 I used the `tribble()` function from the `{tibble}` package to create this fake dataset.
 I'll discuss this package later, for now, let's focus on `{tidyr}.`
+
+Let's suppose that we need the data to be in the wide format which means `var1`, `var2` and `var3`
+need to be their own columns. To do this, we need to use 
+
+```{r}
+survey_data %>% 
+  pivot_wide(keys = id, names_from = variable, values_from = value)
+```
+
+Let's go through `pivot_wide()`'s arguments: the first is `keys = ` which requires the variable
+that uniquely identifies the rows. `names_from = ` is where you input the variable that will 
+generate the names of the new columns. In our case, the `variable` colmuns has three values; `var1`,
+`var2` and `var3`, and these are now the names of the new columns. Finally, `values_from = ` is where
+you can specify the column containing the values that will fill the data frame.
+I find the argument names `names_from = ` and `values_from = ` quite explicit. 
+
+As you can see, there are some missing values. Let's suppose that we know that these missing values
+are true 0's. `pivot_wide()` has an argument called `values_fill = ` that makes it easy to replace
+the missing values:
+
+```{r}
+survey_data %>% 
+  pivot_wide(keys = id, names_from = variable, values_from = value, values_fill = list(value = 0))
+```
+
+A list of variable and their respective value to replace NA's with must be supplied to `values_fill`. 
+
+Let's now use another dataset, which you can get from
+[here](https://github.com/b-rodrigues/modern_R/tree/master/datasets/unemployment/all) 
+(downloaded from: http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950&IF_Language=eng&MainTheme=2&FldrName=3&RFPath=91). This data set gives the unemployment rate for each Luxembourguish
+canton from 2001 to 2015. We will come back to this data later on to learn how to plot it. For now, 
+let's use it to learn more about `{tidyr}`.
+
+```{r}
+unemp_lux_data <- rio::import("datasets/unemployment/all/unemployment_lux_all.csv")
+
+head(unemp_lux_data)
+```
+
+Now, let's suppose that for our purposes, it would make more sense to have the data in a wide format,
+where columns are divison times year and the value is the unemployment rate. This can be easily done
+with providing more columns to `names_from = `. 
+
+```{r}
+unemp_lux_data2 <- unemp_lux_data %>% 
+  filter(year %in% seq(2013, 2017), str_detect(division, ".*ange$"), !str_detect(division, ".*Canton.*")) %>% 
+  select(division, year, unemployment_rate_in_percent) %>% 
+  rowid_to_column()
+
+unemp_lux_data2 %>% 
+  pivot_wide(names_from = c(division, year), values_from = unemployment_rate_in_percent)
+```
+
+In the `filter()` statement, I only kept data from 2013 to 2017, "division"s ending with the string "ange"
+("division" can be a canton or a commune, for example "Canton Redange", a canton, or "Hesperange" a commune),
+and removed the cantons as I'm only interested in communes. 
+I then only kept the columns I'm interested in, pivoted the data to a wide format.
+Also, I needed to add a unique identifier to the data frame. For this, I used `rowid_to_column()` function, 
+from the `{tibble}` package, which adds a new column to the data frame with an id, going from 1 to
+the number of rows in the data frame. If I did not add this identifier, the statement would work still:
+
+```{r}
+unemp_lux_data3 <- unemp_lux_data %>% 
+  filter(year %in% seq(2013, 2017), str_detect(division, ".*ange$"), !str_detect(division, ".*Canton.*")) %>% 
+  select(division, year, unemployment_rate_in_percent)
+
+unemp_lux_data3 %>% 
+  pivot_wide(names_from = c(division, year), values_from = unemployment_rate_in_percent)
+```
+
+and actually look even better, but only because there are no repeated values; there is only one
+unemployment rate for each commune times year. Contrast this to the following example:
+
+```{r}
+data(mtcars)
+mtcars_spec <- mtcars %>% 
+    expand(am, cyl, .value = "mpg") %>%
+    unite(".name", am, cyl, remove = FALSE)
+
+mtcars_spec
+```
+
+We can now transform the data:
+
+```{r}
+mtcars %>% 
+    pivot_wide(spec = mtcars_spec)
+```
+
+As you can see, there are several values of "mpg" for some combinations of "am" times "cyl". If 
+we remove the other columns, each row will not be uniquely identified anymore, and thus an error will be 
+returned:
+
+```{r, eval=FALSE}
+mtcars %>% 
+  select(am, cyl, mpg) %>% 
+  pivot_wide(spec = mtcars_spec)
+```
+
+```
+Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 6, 32
+```
+
+So you have to be careful with this.
+
+Going back to the unemployment example, you might have noticed that because there is no data for 
+the years 2016 and 2017, these columnsdo do not appear in the data. But suppose that we need to have 
+these columns, so that a colleague from another department can fill in the values. This is possible
+by providing a data frame with the detailed specifications of the result data frame. This optional 
+data frame must have at least two columns, `.name`, which are the column names you want, and 
+`.value` which contains the values.
+
+```{r}
+unemp_spec <- unemp_lux_data %>% 
+  expand(division, year = c(year, 2016, 2017), .value = "unemployment_rate_in_percent") %>%
+  unite(".name", division, year, remove = FALSE)
+
+unemp_spec
+```
+
+The spec has more rows than the data frame (80 vs 48), so this will cause issues if you try to use
+the specification directly, just like for the `mtcars` example of before:
+
+```{r, eval=FALSE}
+unemp_lux_data  %>% 
+  pivot_wide(spec = unemp_spec)
+```
+
+```
+Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 80, 48
+```
+
+So to make it work, we first need to create a column that uniquely identifies each row:
+
+```{r}
+unemp_lux_data4 <- unemp_lux_data %>% 
+  select(division, year, unemployment_rate_in_percent) %>% 
+  rowid_to_column() %>% 
+  pivot_wide(spec = unemp_spec) 
+
+unemp_lux_data4
+```
+
+You can notice that now we have columns for 2016 and 2017 too. Let's clean the data a little bit more:
+
+```{r}
+unemp_lux_data4 %>% 
+  select(-rowid) %>% 
+  fill(matches(".*"), .direction = "down") %>% 
+  slice(n())
+```
+
+We will learn about `fill()`, anoher `{tidyr}` function a bit later in this chapter, but its basic
+purpose is to fill rows with whatever value comes before or after the missing values. `slice(n())`
+then only keeps the last row of the data frame, which is the row that contains all the values (expect
+for 2016 and 2017, which has missing values, as we wanted).
+
+
+### `spread()` and `gather()`
 
 `survey_data` is a long dataset. We can reshape it to be wide using the `spread()` function:
 
@@ -1734,7 +1904,7 @@ Much better! In Chapter 6, we are going to learn about `{ggplot2}`.
 
 `{forcats}` contains other very useful functions, so I urge you to go through the documentation.
 
-###  Get your dates right with `{lubridate}`
+### Get your dates right with `{lubridate}`
 
 `{lubridate}` is yet another tidyverse package, that makes dealing with dates or durations (and intervals) as
 painless as possible. I do not use every function contained in the package daily, and as such will
@@ -2397,6 +2567,10 @@ head(winchester_content)
 That's it for this section! You now know how to work with strings, but in Chapter 10 we are going
 one step further by learning about regular expressions, which offer much more power.
 
+### Tidy data frames with `{tibble}`
+
+
+
 ## List-columns
 
 To learn about list-columns, let's first focus on a single character of the `starwars` dataset:
@@ -2538,8 +2712,7 @@ Let's take a look at `points`:
 points
 ```
 
-The `rowid_to_column()` function, from the `{tibble}` package, adds a new column to the data frame
-with an id, going from 1 to the number of rows in the data frame. Now, I can compute the estimation
+Now, I can compute the estimation
 of $\pi$ at each row, by computing the cumulative sum of the 1's in the `inside` column and dividing
 that by the current value of `N` column:
 

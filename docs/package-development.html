@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Modern R with the tidyverse</title>
+  <title>Chapter 9 Package development | Modern R with the tidyverse</title>
   <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Modern R with the tidyverse" />
+  <meta property="og:title" content="Chapter 9 Package development | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Modern R with the tidyverse" />
+  <meta name="twitter:title" content="Chapter 9 Package development | Modern R with the tidyverse" />
   
   <meta name="twitter:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2019-02-09">
+<meta name="date" content="2019-03-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="further-topics.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -208,10 +209,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.3.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a><ul>
-<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.1</b> <code>spread()</code> and <code>gather()</code></a></li>
-<li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.2</b> <code>fill()</code> and <code>full_seq()</code></a></li>
-<li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.3</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
-<li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-8-nest"><i class="fa fa-check"></i><b>4.4.4</b> A sneak peek to Chapter 8; <code>nest()</code></a></li>
+<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wide-and-pivot_long"><i class="fa fa-check"></i><b>4.4.1</b> <code>pivot_wide()</code> and <code>pivot_long()</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.2</b> <code>spread()</code> and <code>gather()</code></a></li>
+<li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.3</b> <code>fill()</code> and <code>full_seq()</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.4</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
+<li class="chapter" data-level="4.4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-8-nest"><i class="fa fa-check"></i><b>4.4.5</b> A sneak peek to Chapter 8; <code>nest()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>4.5</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter_"><i class="fa fa-check"></i><b>4.5.1</b> filter_*()</a></li>
@@ -231,6 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#section"><i class="fa fa-check"></i><b>4.7.1</b> 🐈🐈🐈🐈</a></li>
 <li class="chapter" data-level="4.7.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-your-dates-right-with-lubridate"><i class="fa fa-check"></i><b>4.7.2</b> Get your dates right with <code>{lubridate}</code></a></li>
 <li class="chapter" data-level="4.7.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>4.7.3</b> Manipulate strings with <code>{stringr}</code></a></li>
+<li class="chapter" data-level="4.7.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tidy-data-frames-with-tibble"><i class="fa fa-check"></i><b>4.7.4</b> Tidy data frames with <code>{tibble}</code></a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>4.8</b> List-columns</a></li>
 <li class="chapter" data-level="4.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#going-beyond-descriptive-statistics-and-data-manipulation"><i class="fa fa-check"></i><b>4.9</b> Going beyond descriptive statistics and data manipulation</a></li>
@@ -389,7 +392,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -399,6 +402,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -416,7 +423,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
