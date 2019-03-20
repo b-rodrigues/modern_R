@@ -462,18 +462,18 @@ before doing any modeling:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(Housing)</code></pre>
 <pre><code>## Observations: 546
 ## Variables: 12
-## $ price    &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69000, 83800, 88500, 90000, 30500, 27000, 36000,…
-## $ lotsize  &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 4800, 5500, 7200, 3000, 1700, 2880, 3600, 3185, 3…
-## $ bedrooms &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, 4, 1, 2, 3, 4, 3, 2, 2, 2, 2, 2, 3, 3, 2, 4, 2…
-## $ bathrms  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-## $ stories  &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, 3, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1…
-## $ driveway &lt;fct&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, no, yes, no, yes, yes, no, yes, yes, no, y…
-## $ recroom  &lt;fct&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no, no, no, no, no, no, no, no, yes, yes, no, no,…
-## $ fullbase &lt;fct&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, no, no, no, no, no, no, no, no, yes, yes, yes, n…
-## $ gashw    &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, n…
-## $ airco    &lt;fct&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no, no, no, no, yes, no, no, no, no, yes, no, yes,…
-## $ garagepl &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0…
-## $ prefarea &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, n…</code></pre>
+## $ price    &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69000,…
+## $ lotsize  &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 4800, 5…
+## $ bedrooms &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, 4, 1…
+## $ bathrms  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ stories  &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, 3, 1…
+## $ driveway &lt;fct&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, …
+## $ recroom  &lt;fct&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no, no,…
+## $ fullbase &lt;fct&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, no, no…
+## $ gashw    &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no,…
+## $ airco    &lt;fct&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no, no, …
+## $ garagepl &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0…
+## $ prefarea &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no,…</code></pre>
 <p>Housing prices depend on a set of variables such as the number of bedrooms, the area it is located
 and so on. If you believe that housing prices depend linearly on a set of explanatory variables,
 you will want to estimate a linear model. To estimate a <em>linear model</em>, you will need to use the
@@ -563,10 +563,12 @@ results, you can use the <code>summary()</code> method (not to be confused with 
 <p>You can access different elements of <code>model3</code> (for example) with <code>$</code>, because the result of <code>lm()</code>
 is a list:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(model3<span class="op">$</span>coefficients)</code></pre>
-<pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories  drivewayyes   recroomyes  fullbaseyes     gashwyes 
-## -4038.350425     3.546303  1832.003466 14335.558468  6556.945711  6687.778890  4511.283826  5452.385539 12831.406266 
-##     aircoyes     garagepl  prefareayes 
-## 12632.890405  4244.829004  9369.513239</code></pre>
+<pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories 
+## -4038.350425     3.546303  1832.003466 14335.558468  6556.945711 
+##  drivewayyes   recroomyes  fullbaseyes     gashwyes     aircoyes 
+##  6687.778890  4511.283826  5452.385539 12831.406266 12632.890405 
+##     garagepl  prefareayes 
+##  4244.829004  9369.513239</code></pre>
 <p>but I prefer to use the <code>{broom}</code> package, and more specifically the <code>tidy()</code> function, which
 converts <code>model3</code> into a neat <code>data.frame</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">results3 &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model3)
@@ -574,11 +576,11 @@ converts <code>model3</code> into a neat <code>data.frame</code>:</p>
 <span class="kw">glimpse</span>(results3)</code></pre>
 <pre><code>## Observations: 12
 ## Variables: 5
-## $ term      &lt;chr&gt; &quot;(Intercept)&quot;, &quot;lotsize&quot;, &quot;bedrooms&quot;, &quot;bathrms&quot;, &quot;stories&quot;, &quot;drivewayyes&quot;, &quot;recroomyes&quot;, &quot;fullba…
-## $ estimate  &lt;dbl&gt; -4038.350425, 3.546303, 1832.003466, 14335.558468, 6556.945711, 6687.778890, 4511.283826, 5452.3…
-## $ std.error &lt;dbl&gt; 3409.4713, 0.3503, 1047.0002, 1489.9209, 925.2899, 2045.2458, 1899.9577, 1588.0239, 3217.5971, 1…
-## $ statistic &lt;dbl&gt; -1.184451, 10.123618, 1.749764, 9.621691, 7.086369, 3.269914, 2.374413, 3.433440, 3.987885, 8.12…
-## $ p.value   &lt;dbl&gt; 2.367616e-01, 3.732442e-22, 8.073341e-02, 2.570369e-20, 4.374046e-12, 1.145151e-03, 1.792936e-02…</code></pre>
+## $ term      &lt;chr&gt; &quot;(Intercept)&quot;, &quot;lotsize&quot;, &quot;bedrooms&quot;, &quot;bathrms&quot;, &quot;stor…
+## $ estimate  &lt;dbl&gt; -4038.350425, 3.546303, 1832.003466, 14335.558468, 655…
+## $ std.error &lt;dbl&gt; 3409.4713, 0.3503, 1047.0002, 1489.9209, 925.2899, 204…
+## $ statistic &lt;dbl&gt; -1.184451, 10.123618, 1.749764, 9.621691, 7.086369, 3.…
+## $ p.value   &lt;dbl&gt; 2.367616e-01, 3.732442e-22, 8.073341e-02, 2.570369e-20…</code></pre>
 <p>I explicitely write <code>broom::tidy()</code> because <code>tidy()</code> is a popular function name. For instance,
 it is also a function from the <code>{yardstick}</code> package, which does not do the same thing at all. Since
 I will also be using <code>{yardstick}</code> I prefer explicitely writing <code>broom::tidy()</code> to avoid conflicts.</p>
@@ -653,15 +655,16 @@ more than simply reading these diagnostics from RStudio, you can put those in a 
 using <code>broom::glance()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(model3)</code></pre>
 <pre><code>## # A tibble: 1 x 11
-##   r.squared adj.r.squared  sigma statistic   p.value    df logLik    AIC    BIC      deviance df.residual
-##       &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;
-## 1     0.673         0.666 15423.     100.0 6.18e-122    12 -6034. 12094. 12150. 127025071644.         534</code></pre>
+##   r.squared adj.r.squared  sigma statistic   p.value    df logLik    AIC
+##       &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     0.673         0.666 15423.     100.0 6.18e-122    12 -6034. 12094.
+## # … with 3 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
 <p>You can also plot the usual diagnostics plots using <code>ggfortify::autoplot()</code> which uses the
 <code>ggplot2</code> package under the hood:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
 
 <span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-473-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-475-1.png" width="672" /></p>
 <p><code>which=1:6</code> is an additional option that shows you all the diagnostics plot. If you omit this
 option, you will only get 4 of them.</p>
 <p>You can also get the residuals of the regression in two ways; either you grab them directly from
@@ -673,30 +676,30 @@ the model fit:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(housing_aug)</code></pre>
 <pre><code>## Observations: 546
 ## Variables: 19
-## $ price      &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69000, 83800, 88500, 90000, 30500, 27000, 3600…
-## $ lotsize    &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 4800, 5500, 7200, 3000, 1700, 2880, 3600, 3185,…
-## $ bedrooms   &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, 4, 1, 2, 3, 4, 3, 2, 2, 2, 2, 2, 3, 3, 2, 4,…
-## $ bathrms    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-## $ stories    &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, 3, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 1, 2, 1, 2,…
-## $ driveway   &lt;fct&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, no, yes, no, yes, yes, no, yes, yes, no,…
-## $ recroom    &lt;fct&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no, no, no, no, no, no, no, no, yes, yes, no, n…
-## $ fullbase   &lt;fct&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, no, no, no, no, no, no, no, no, yes, yes, yes,…
-## $ gashw      &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no,…
-## $ airco      &lt;fct&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no, no, no, no, yes, no, no, no, no, yes, no, ye…
-## $ garagepl   &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,…
-## $ prefarea   &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no,…
-## $ .fitted    &lt;dbl&gt; 66037.98, 41391.15, 39889.63, 63689.09, 49760.43, 66387.12, 77632.15, 56904.45, 56023.87, 10393…
-## $ .se.fit    &lt;dbl&gt; 1790.507, 1406.500, 1534.102, 2262.056, 1567.689, 2366.755, 2241.869, 1621.799, 2061.425, 2633.…
-## $ .resid     &lt;dbl&gt; -24037.9757, -2891.1515, 9610.3699, -3189.0873, 11239.5735, -387.1232, -11632.1463, 12095.5452,…
-## $ .hat       &lt;dbl&gt; 0.013477335, 0.008316321, 0.009893730, 0.021510891, 0.010331701, 0.023548245, 0.021128667, 0.01…
-## $ .sigma     &lt;dbl&gt; 15402.01, 15437.14, 15431.98, 15437.02, 15429.89, 15437.64, 15429.25, 15428.66, 15389.84, 15422…
-## $ .cooksd    &lt;dbl&gt; 2.803214e-03, 2.476265e-05, 3.265481e-04, 8.004787e-05, 4.668343e-04, 1.296659e-06, 1.045228e-0…
-## $ .std.resid &lt;dbl&gt; -1.56917096, -0.18823924, 0.62621736, -0.20903274, 0.73253926, -0.02540093, -0.76229480, 0.7886…</code></pre>
+## $ price      &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 6900…
+## $ lotsize    &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 4800,…
+## $ bedrooms   &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, 4,…
+## $ bathrms    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1,…
+## $ stories    &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, 3,…
+## $ driveway   &lt;fct&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes…
+## $ recroom    &lt;fct&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no, n…
+## $ fullbase   &lt;fct&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, no, …
+## $ gashw      &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, n…
+## $ airco      &lt;fct&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no, no…
+## $ garagepl   &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0,…
+## $ prefarea   &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, n…
+## $ .fitted    &lt;dbl&gt; 66037.98, 41391.15, 39889.63, 63689.09, 49760.43, 663…
+## $ .se.fit    &lt;dbl&gt; 1790.507, 1406.500, 1534.102, 2262.056, 1567.689, 236…
+## $ .resid     &lt;dbl&gt; -24037.9757, -2891.1515, 9610.3699, -3189.0873, 11239…
+## $ .hat       &lt;dbl&gt; 0.013477335, 0.008316321, 0.009893730, 0.021510891, 0…
+## $ .sigma     &lt;dbl&gt; 15402.01, 15437.14, 15431.98, 15437.02, 15429.89, 154…
+## $ .cooksd    &lt;dbl&gt; 2.803214e-03, 2.476265e-05, 3.265481e-04, 8.004787e-0…
+## $ .std.resid &lt;dbl&gt; -1.56917096, -0.18823924, 0.62621736, -0.20903274, 0.…</code></pre>
 <p>A few columns have been added to the original data, among them <code>.resid</code> which contains the
 residuals. Let’s plot them:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-478-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-480-1.png" width="672" /></p>
 <p>Fitted values are also added to the original data, under the variable <code>.fitted</code>. It would also have
 been possible to get the fitted values with:</p>
 <pre class="sourceCode r"><code class="sourceCode r">fit3 &lt;-<span class="st"> </span><span class="kw">fitted</span>(model3)</code></pre>
@@ -727,14 +730,14 @@ extract outliers:</p>
 ## $ airco      &lt;fct&gt; yes, no, no, no, yes, yes
 ## $ garagepl   &lt;dbl&gt; 2, 2, 2, 2, 2, 3
 ## $ prefarea   &lt;fct&gt; no, no, no, yes, yes, yes
-## $ .fitted    &lt;dbl&gt; 94826.68, 77688.37, 85495.58, 108563.18, 115125.03, 118549.00
-## $ .se.fit    &lt;dbl&gt; 2520.691, 3551.954, 3544.961, 2589.680, 2185.603, 2586.007
-## $ .resid     &lt;dbl&gt; 68173.32, 47311.63, 46504.42, 66436.82, 74874.97, 55951.00
-## $ .hat       &lt;dbl&gt; 0.02671105, 0.05303793, 0.05282929, 0.02819317, 0.02008141, 0.02811326
-## $ .sigma     &lt;dbl&gt; 15144.70, 15293.34, 15298.27, 15159.14, 15085.99, 15240.66
-## $ .cooksd    &lt;dbl&gt; 0.04590995, 0.04637969, 0.04461464, 0.04616068, 0.04107317, 0.03264121
-## $ .std.resid &lt;dbl&gt; 4.480428, 3.152300, 3.098176, 4.369631, 4.904193, 3.679815
-## $ prank      &lt;dbl&gt; 0.9963370, 1.0000000, 0.9945055, 0.9981685, 0.9926740, 0.9908425</code></pre>
+## $ .fitted    &lt;dbl&gt; 94826.68, 77688.37, 85495.58, 108563.18, 115125.03, 1…
+## $ .se.fit    &lt;dbl&gt; 2520.691, 3551.954, 3544.961, 2589.680, 2185.603, 258…
+## $ .resid     &lt;dbl&gt; 68173.32, 47311.63, 46504.42, 66436.82, 74874.97, 559…
+## $ .hat       &lt;dbl&gt; 0.02671105, 0.05303793, 0.05282929, 0.02819317, 0.020…
+## $ .sigma     &lt;dbl&gt; 15144.70, 15293.34, 15298.27, 15159.14, 15085.99, 152…
+## $ .cooksd    &lt;dbl&gt; 0.04590995, 0.04637969, 0.04461464, 0.04616068, 0.041…
+## $ .std.resid &lt;dbl&gt; 4.480428, 3.152300, 3.098176, 4.369631, 4.904193, 3.6…
+## $ prank      &lt;dbl&gt; 0.9963370, 1.0000000, 0.9945055, 0.9981685, 0.9926740…</code></pre>
 <p><code>prank</code> is a variable I created with <code>cume_dist()</code> which is a <code>dplyr</code> function that returns the
 proportion of all values less than or equal to the current rank. For example:</p>
 <pre class="sourceCode r"><code class="sourceCode r">example &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="fl">4.6</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="dv">0</span>, <span class="dv">-1</span>)
@@ -767,7 +770,7 @@ effects_model3 &lt;-<span class="st"> </span><span class="kw">margins</span>(mod
 ##      stories  6556.9457  924.4211  7.0930 0.0000  4745.1137  8368.7777</code></pre>
 <p>It is also possible to plot the results:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(effects_model3)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-484-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-486-1.png" width="672" /></p>
 <p>This uses the basic R plotting capabilities, which is useful because it is a simple call to the
 function <code>plot()</code> but if you’ve been using <code>ggplot2</code> and want this graph to have the same feel as
 the others made with <code>ggplot2</code> you first need to save the summary in a variable.
@@ -781,7 +784,7 @@ the others made with <code>ggplot2</code> you first need to save the summary in 
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-486-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-488-1.png" width="672" /></p>
 <p>Of course for <code>model3</code>, the marginal effects are the same as the coefficients, so let’s estimate a
 logit model and compute the marginal effects. Logit models can be estimated using the <code>glm()</code> function.
 As an example, we are going to use the <code>Participation</code> data, also from the <code>Ecdat</code> package:</p>
@@ -878,7 +881,7 @@ variable influences the labour force participation, one has to use <code>margins
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-491-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-493-1.png" width="672" /></p>
 <p>So an infinitesimal increase, in say, non-labour income (lnnlinc) of 0.001 is associated with a
 decrease of the probability of labour force participation by 0.001*17 percentage points.</p>
 <p>You can also extract the marginal effects of a single variable:</p>
@@ -911,7 +914,7 @@ might not be the best model, because the model could predict negative prices. Le
 distribution of prices:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Housing) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-494-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-496-1.png" width="672" /></p>
 <p>it looks like modeling the log of <code>price</code> might provide a better fit:</p>
 <pre class="sourceCode r"><code class="sourceCode r">model_log &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)
 
@@ -936,9 +939,10 @@ result_log &lt;-<span class="st"> </span>broom<span class="op">::</span><span cl
 <p>Let’s take a look at the diagnostics:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(model_log)</code></pre>
 <pre><code>## # A tibble: 1 x 11
-##   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC deviance df.residual
-##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt;
-## 1     0.677         0.670 0.214      102. 3.67e-123    12   73.9 -122. -65.8     24.4         534</code></pre>
+##   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.677         0.670 0.214      102. 3.67e-123    12   73.9 -122.
+## # … with 3 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
 <p>Let’s compare these to the ones from the previous model:</p>
 <pre class="sourceCode r"><code class="sourceCode r">diag_lm &lt;-<span class="st"> </span><span class="kw">glance</span>(model3)
 
@@ -954,10 +958,12 @@ diagnostics_models &lt;-<span class="st"> </span><span class="kw">full_join</spa
 <pre><code>## Joining, by = c(&quot;r.squared&quot;, &quot;adj.r.squared&quot;, &quot;sigma&quot;, &quot;statistic&quot;, &quot;p.value&quot;, &quot;df&quot;, &quot;logLik&quot;, &quot;AIC&quot;, &quot;BIC&quot;, &quot;deviance&quot;, &quot;df.residual&quot;, &quot;model&quot;)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(diagnostics_models)</code></pre>
 <pre><code>## # A tibble: 2 x 12
-##   r.squared adj.r.squared     sigma statistic   p.value    df  logLik     AIC     BIC deviance df.residual model     
-##       &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;chr&gt;     
-## 1     0.673         0.666 15423.        100.0 6.18e-122    12 -6034.   12094.  1.22e4  1.27e11         534 lin-lin m…
-## 2     0.677         0.670     0.214     102.  3.67e-123    12    73.9   -122. -6.58e1  2.44e 1         534 log-lin m…</code></pre>
+##   r.squared adj.r.squared   sigma statistic   p.value    df  logLik     AIC
+##       &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1     0.673         0.666 1.54e+4     100.0 6.18e-122    12 -6034.   12094.
+## 2     0.677         0.670 2.14e-1     102.  3.67e-123    12    73.9   -122.
+## # … with 4 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;,
+## #   model &lt;chr&gt;</code></pre>
 <p>I saved the diagnostics in two different <code>data.frame</code> objects using the <code>glance()</code> function and added a
 <code>model</code> column to indicate which model the diagnostics come from. Then I merged both datasets using
 <code>full_join()</code>, a <code>{dplyr}</code> function.</p>
@@ -965,7 +971,7 @@ diagnostics_models &lt;-<span class="st"> </span><span class="kw">full_join</spa
 likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the
 diagnostics plots:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-499-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-501-1.png" width="672" /></p>
 </div>
 <div id="using-a-model-for-prediction" class="section level2">
 <h2><span class="header-section-number">6.6</span> Using a model for prediction</h2>
@@ -985,33 +991,56 @@ pred_set &lt;-<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <p>so that we get always the same <code>pred_set</code> I set the random seed first. Let’s take a look at the
 data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(pred_set)</code></pre>
-<pre><code>##     price lotsize bedrooms bathrms stories driveway recroom fullbase gashw airco garagepl prefarea
-## 1   52000    4280        2       1       1      yes      no       no    no   yes        2       no
-## 2   62500    3900        3       1       2      yes      no       no    no    no        0       no
-## 3  175000    8960        4       4       4      yes      no       no    no   yes        3       no
-## 4  141000    8100        4       1       2      yes     yes      yes    no   yes        2      yes
-## 5   54000    2856        3       1       3      yes      no       no    no    no        0      yes
-## 6   52000    4130        3       2       2      yes      no       no    no    no        2       no
-## 7   66000    4160        3       1       1      yes     yes      yes    no   yes        0       no
-## 8   95000    4260        4       2       2      yes      no       no   yes    no        0       no
-## 9   97000   12090        4       2       2      yes      no       no    no    no        2      yes
-## 10  70000    6300        3       1       1      yes      no       no    no   yes        2       no
-## 11  85000    6420        3       1       1      yes      no      yes    no   yes        0      yes
-## 12  39000    4000        3       1       2      yes      no       no    no    no        1       no
-## 13  59900    3450        3       1       2      yes      no       no    no    no        1       no
-## 14  53000    4050        2       1       1      yes      no       no    no    no        0       no
-## 15  60000    2610        4       3       2       no      no       no    no    no        0       no
-## 16  72500    5720        2       1       2      yes      no       no    no   yes        0      yes
-## 17  35500    3000        3       1       2       no      no       no    no    no        0       no
-## 18  40000    2650        3       1       2      yes      no      yes    no    no        1       no
-## 19  35000    3500        2       1       1      yes     yes       no    no    no        0       no
-## 20  37000    4400        2       1       1      yes      no       no    no    no        0       no</code></pre>
+<pre><code>##     price lotsize bedrooms bathrms stories driveway recroom fullbase gashw
+## 1   52000    4280        2       1       1      yes      no       no    no
+## 2   62500    3900        3       1       2      yes      no       no    no
+## 3  175000    8960        4       4       4      yes      no       no    no
+## 4  141000    8100        4       1       2      yes     yes      yes    no
+## 5   54000    2856        3       1       3      yes      no       no    no
+## 6   52000    4130        3       2       2      yes      no       no    no
+## 7   66000    4160        3       1       1      yes     yes      yes    no
+## 8   95000    4260        4       2       2      yes      no       no   yes
+## 9   97000   12090        4       2       2      yes      no       no    no
+## 10  70000    6300        3       1       1      yes      no       no    no
+## 11  85000    6420        3       1       1      yes      no      yes    no
+## 12  39000    4000        3       1       2      yes      no       no    no
+## 13  59900    3450        3       1       2      yes      no       no    no
+## 14  53000    4050        2       1       1      yes      no       no    no
+## 15  60000    2610        4       3       2       no      no       no    no
+## 16  72500    5720        2       1       2      yes      no       no    no
+## 17  35500    3000        3       1       2       no      no       no    no
+## 18  40000    2650        3       1       2      yes      no      yes    no
+## 19  35000    3500        2       1       1      yes     yes       no    no
+## 20  37000    4400        2       1       1      yes      no       no    no
+##    airco garagepl prefarea
+## 1    yes        2       no
+## 2     no        0       no
+## 3    yes        3       no
+## 4    yes        2      yes
+## 5     no        0      yes
+## 6     no        2       no
+## 7    yes        0       no
+## 8     no        0       no
+## 9     no        2      yes
+## 10   yes        2       no
+## 11   yes        0      yes
+## 12    no        1       no
+## 13    no        1       no
+## 14    no        0       no
+## 15    no        0       no
+## 16   yes        0      yes
+## 17    no        0       no
+## 18    no        1       no
+## 19    no        0       no
+## 20    no        0       no</code></pre>
 <p>If we wish to use it for prediction, this is easily done with <code>predict()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(model3, pred_set)</code></pre>
-<pre><code>##         1         2         3         4         5         6         7         8         9        10        11 
-##  63506.66  49425.47 150689.71 106607.68  61649.59  73066.34  66387.12  79701.11 112496.42  72502.20  79260.00 
-##        12        13        14        15        16        17        18        19        20 
-##  54024.93  52074.46  41568.47  68666.08  76050.14  39546.02  54689.81  44129.28  42809.67</code></pre>
+<pre><code>##         1         2         3         4         5         6         7 
+##  63506.66  49425.47 150689.71 106607.68  61649.59  73066.34  66387.12 
+##         8         9        10        11        12        13        14 
+##  79701.11 112496.42  72502.20  79260.00  54024.93  52074.46  41568.47 
+##        15        16        17        18        19        20 
+##  68666.08  76050.14  39546.02  54689.81  44129.28  42809.67</code></pre>
 <p>This returns a vector of predicted prices. This can then be used to compute the Root Mean Squared Error
 for instance. Let’s do it within a <code>tidyverse</code> pipeline:</p>
 <pre class="sourceCode r"><code class="sourceCode r">rmse &lt;-<span class="st"> </span>pred_set <span class="op">%&gt;%</span>
@@ -1218,10 +1247,12 @@ compare the coefficients between the two:</p>
 <p>and now the coefficients of the linear regression (because I provide a design matrix, I have to use
 <code>lm.fit()</code> instead of <code>lm()</code> which requires a formula, not a matrix.)</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(<span class="kw">lm.fit</span>(<span class="dt">x =</span> train_matrix, <span class="dt">y =</span> train_y))</code></pre>
-<pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories  drivewayyes   recroomyes  fullbaseyes     gashwyes 
-## -3245.146665     3.520357  1744.983863 14336.336858  6737.000410  5686.394123  5700.210775  5709.493884 12509.005265 
-##     aircoyes     garagepl  prefareayes 
-## 12592.367268  4439.029607  9085.409155</code></pre>
+<pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories 
+## -3245.146665     3.520357  1744.983863 14336.336858  6737.000410 
+##  drivewayyes   recroomyes  fullbaseyes     gashwyes     aircoyes 
+##  5686.394123  5700.210775  5709.493884 12509.005265 12592.367268 
+##     garagepl  prefareayes 
+##  4439.029607  9085.409155</code></pre>
 <p>as you can see, the coefficients are the same. Let’s compute the RMSE for the unpenalized linear
 regression:</p>
 <pre class="sourceCode r"><code class="sourceCode r">preds_lm &lt;-<span class="st"> </span><span class="kw">predict</span>(model_lm_ridge, test_matrix)
@@ -1269,20 +1300,20 @@ also use <a href="http://mlrmbo.mlr-org.com/"><code>{mlrMBO}</code></a> to tune 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;BostonHousing2&quot;</span>)</code></pre>
 <p>I will train a random forest to predict the housing price, which is the <code>cmedv</code> column:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(BostonHousing2)</code></pre>
-<pre><code>##         town tract      lon     lat medv cmedv    crim zn indus chas   nox    rm  age    dis rad tax ptratio      b
-## 1     Nahant  2011 -70.9550 42.2550 24.0  24.0 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
-## 2 Swampscott  2021 -70.9500 42.2875 21.6  21.6 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
-## 3 Swampscott  2022 -70.9360 42.2830 34.7  34.7 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
-## 4 Marblehead  2031 -70.9280 42.2930 33.4  33.4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
-## 5 Marblehead  2032 -70.9220 42.2980 36.2  36.2 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
-## 6 Marblehead  2033 -70.9165 42.3040 28.7  28.7 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
-##   lstat
-## 1  4.98
-## 2  9.14
-## 3  4.03
-## 4  2.94
-## 5  5.33
-## 6  5.21</code></pre>
+<pre><code>##         town tract      lon     lat medv cmedv    crim zn indus chas   nox
+## 1     Nahant  2011 -70.9550 42.2550 24.0  24.0 0.00632 18  2.31    0 0.538
+## 2 Swampscott  2021 -70.9500 42.2875 21.6  21.6 0.02731  0  7.07    0 0.469
+## 3 Swampscott  2022 -70.9360 42.2830 34.7  34.7 0.02729  0  7.07    0 0.469
+## 4 Marblehead  2031 -70.9280 42.2930 33.4  33.4 0.03237  0  2.18    0 0.458
+## 5 Marblehead  2032 -70.9220 42.2980 36.2  36.2 0.06905  0  2.18    0 0.458
+## 6 Marblehead  2033 -70.9165 42.3040 28.7  28.7 0.02985  0  2.18    0 0.458
+##      rm  age    dis rad tax ptratio      b lstat
+## 1 6.575 65.2 4.0900   1 296    15.3 396.90  4.98
+## 2 6.421 78.9 4.9671   2 242    17.8 396.90  9.14
+## 3 7.185 61.1 4.9671   2 242    17.8 392.83  4.03
+## 4 6.998 45.8 6.0622   3 222    18.7 394.63  2.94
+## 5 7.147 54.2 6.0622   3 222    18.7 396.90  5.33
+## 6 6.430 58.7 6.0622   3 222    18.7 394.12  5.21</code></pre>
 <p>Only keep relevant columns:</p>
 <pre class="sourceCode r"><code class="sourceCode r">boston &lt;-<span class="st"> </span>BostonHousing2 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>medv, <span class="op">-</span>tract, <span class="op">-</span>lon, <span class="op">-</span>lat) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -1500,28 +1531,28 @@ result &lt;-<span class="st"> </span><span class="kw">mbo</span>(fn, des, surrog
 ## 
 ## Optimization path
 ## 10 + 10 entries in total, displaying last 10 (or less):
-##    x1  x2         y dob eol error.message exec.time            ei error.model train.time prop.type propose.time
-## 11  8 283 0.4855415   1  NA          &lt;NA&gt;     7.353 -3.276847e-04        &lt;NA&gt;      0.011 infill_ei        0.450
-## 12  8 284 0.4852047   2  NA          &lt;NA&gt;     7.321 -3.283713e-04        &lt;NA&gt;      0.011 infill_ei        0.427
-## 13  8 314 0.4839817   3  NA          &lt;NA&gt;     7.703 -3.828517e-04        &lt;NA&gt;      0.012 infill_ei        0.443
-## 14  8 312 0.4841398   4  NA          &lt;NA&gt;     7.633 -2.829713e-04        &lt;NA&gt;      0.012 infill_ei        0.435
-## 15  8 318 0.4841066   5  NA          &lt;NA&gt;     7.692 -2.668354e-04        &lt;NA&gt;      0.012 infill_ei        0.737
-## 16  8 314 0.4845221   6  NA          &lt;NA&gt;     7.574 -1.382333e-04        &lt;NA&gt;      0.013 infill_ei        0.442
-## 17  8 321 0.4843018   7  NA          &lt;NA&gt;     7.693 -3.828924e-05        &lt;NA&gt;      0.012 infill_ei        0.444
-## 18  8 318 0.4868457   8  NA          &lt;NA&gt;     7.696 -8.692828e-07        &lt;NA&gt;      0.013 infill_ei        0.467
-## 19  8 310 0.4862687   9  NA          &lt;NA&gt;     7.594 -1.061185e-07        &lt;NA&gt;      0.014 infill_ei        0.435
-## 20  8 313 0.4878694  10  NA          &lt;NA&gt;     7.628 -5.153015e-07        &lt;NA&gt;      0.013 infill_ei        0.748
-##              se      mean
-## 11 0.0143886864 0.5075765
-## 12 0.0090265872 0.4971003
-## 13 0.0062693960 0.4916927
-## 14 0.0037308971 0.4878950
-## 15 0.0024446891 0.4860699
-## 16 0.0012713838 0.4850705
-## 17 0.0006371109 0.4847248
-## 18 0.0002106381 0.4844576
-## 19 0.0002182254 0.4846214
-## 20 0.0002971160 0.4847383</code></pre>
+##    x1  x2         y dob eol error.message exec.time            ei
+## 11  8 283 0.4855415   1  NA          &lt;NA&gt;     7.353 -3.276847e-04
+## 12  8 284 0.4852047   2  NA          &lt;NA&gt;     7.321 -3.283713e-04
+## 13  8 314 0.4839817   3  NA          &lt;NA&gt;     7.703 -3.828517e-04
+## 14  8 312 0.4841398   4  NA          &lt;NA&gt;     7.633 -2.829713e-04
+## 15  8 318 0.4841066   5  NA          &lt;NA&gt;     7.692 -2.668354e-04
+## 16  8 314 0.4845221   6  NA          &lt;NA&gt;     7.574 -1.382333e-04
+## 17  8 321 0.4843018   7  NA          &lt;NA&gt;     7.693 -3.828924e-05
+## 18  8 318 0.4868457   8  NA          &lt;NA&gt;     7.696 -8.692828e-07
+## 19  8 310 0.4862687   9  NA          &lt;NA&gt;     7.594 -1.061185e-07
+## 20  8 313 0.4878694  10  NA          &lt;NA&gt;     7.628 -5.153015e-07
+##    error.model train.time prop.type propose.time           se      mean
+## 11        &lt;NA&gt;      0.011 infill_ei        0.450 0.0143886864 0.5075765
+## 12        &lt;NA&gt;      0.011 infill_ei        0.427 0.0090265872 0.4971003
+## 13        &lt;NA&gt;      0.012 infill_ei        0.443 0.0062693960 0.4916927
+## 14        &lt;NA&gt;      0.012 infill_ei        0.435 0.0037308971 0.4878950
+## 15        &lt;NA&gt;      0.012 infill_ei        0.737 0.0024446891 0.4860699
+## 16        &lt;NA&gt;      0.013 infill_ei        0.442 0.0012713838 0.4850705
+## 17        &lt;NA&gt;      0.012 infill_ei        0.444 0.0006371109 0.4847248
+## 18        &lt;NA&gt;      0.013 infill_ei        0.467 0.0002106381 0.4844576
+## 19        &lt;NA&gt;      0.014 infill_ei        0.435 0.0002182254 0.4846214
+## 20        &lt;NA&gt;      0.013 infill_ei        0.748 0.0002971160 0.4847383</code></pre>
 <p>So the recommended parameters are 8 for <code>mtry</code> and 314 for <code>trees</code>. The
 user can access these recommended parameters with <code>result$x$x1</code> and <code>result$x$x2</code>.
 The value of the RMSE is lower than before, and equals 0.4839817. It can be accessed with

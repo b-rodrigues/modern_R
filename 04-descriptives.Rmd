@@ -950,7 +950,15 @@ by providing a data frame with the detailed specifications of the result data fr
 data frame must have at least two columns, `.name`, which are the column names you want, and 
 `.value` which contains the values.
 
-```{r}
+```{r, include=FALSE}
+unemp_spec <- unemp_lux_data %>% 
+  tidyr::expand(division, year = c(year, 2016, 2017), .value = "unemployment_rate_in_percent") %>%
+  unite(".name", division, year, remove = FALSE)
+
+unemp_spec
+```
+
+```{r, eval=FALSE}
 unemp_spec <- unemp_lux_data %>% 
   expand(division, year = c(year, 2016, 2017), .value = "unemployment_rate_in_percent") %>%
   unite(".name", division, year, remove = FALSE)
@@ -997,7 +1005,16 @@ for 2016 and 2017, which has missing values, as we wanted).
 
 Here is another example of the importance of having an identifier column when using a spec:
 
-```{r}
+```{r, include=FALSE}
+data(mtcars)
+mtcars_spec <- mtcars %>% 
+    tidyr::expand(am, cyl, .value = "mpg") %>%
+    unite(".name", am, cyl, remove = FALSE)
+
+mtcars_spec
+```
+
+```{r, eval=FALSE}
 data(mtcars)
 mtcars_spec <- mtcars %>% 
     expand(am, cyl, .value = "mpg") %>%
@@ -1177,7 +1194,7 @@ to be `4`. With `fill()`, this is pretty easy to achieve:
 
 ```{r, include=FALSE}
 survey_data %>%
-    tidyr::fill(.direction = "down", variable = "id")
+    fill(.direction = "down", variable = "id")
 ```
 
 ```{r, eval=FALSE}
@@ -2674,6 +2691,33 @@ one step further by learning about regular expressions, which offer much more po
 
 ### Tidy data frames with `{tibble}`
 
+We have already seen and used several functions from the `{tibble}` package. Let's now go through
+some more useful functions. 
+
+#### Creating tibbles
+
+`tribble()` makes it easy to create tibble row by row, manually:
+
+```{r, include=FALSE}
+cars <- tribble(
+  ~combustion, ~doors,
+  "oil", 3,
+  "diesel", 5,
+  "oil", 5,
+  "electric", 5
+)
+```
+
+It is also possible to create a tibble from a named list:
+
+```{r}
+as_tibble(list("combustion" = c("oil", "diesel", "oil", "electric"),
+               "doors" = c(3, 5, 5, 5)))
+```
+
+```{r}
+enframe(list("combustion" = c(1,2), "doors" = c(1,2,4), "cylinders" = c(1,8,9,10)))
+```
 
 
 ## List-columns

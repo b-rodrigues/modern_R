@@ -1695,21 +1695,21 @@ pwt &lt;-<span class="st"> </span>SumHes <span class="op">%&gt;%</span>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(pwt)</code></pre>
 <pre><code>## Observations: 3,250
 ## Variables: 7
-## $ year    &lt;int&gt; 1960, 1961, 1962, 1963, 1964, 1965, 1…
-## $ country &lt;chr&gt; &quot;algeria&quot;, &quot;algeria&quot;, &quot;algeria&quot;, &quot;alg…
-## $ opec    &lt;fct&gt; no, no, no, no, no, no, no, no, no, n…
-## $ com     &lt;fct&gt; no, no, no, no, no, no, no, no, no, n…
-## $ pop     &lt;int&gt; 10800, 11016, 11236, 11460, 11690, 11…
-## $ gdp     &lt;int&gt; 1723, 1599, 1275, 1517, 1589, 1584, 1…
-## $ sr      &lt;dbl&gt; 19.9, 21.1, 15.0, 13.9, 10.6, 11.0, 8…</code></pre>
+## $ year    &lt;int&gt; 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 19…
+## $ country &lt;chr&gt; &quot;algeria&quot;, &quot;algeria&quot;, &quot;algeria&quot;, &quot;algeria&quot;, &quot;algeria&quot;, &quot;…
+## $ opec    &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, …
+## $ com     &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, …
+## $ pop     &lt;int&gt; 10800, 11016, 11236, 11460, 11690, 11923, 12267, 12622, …
+## $ gdp     &lt;int&gt; 1723, 1599, 1275, 1517, 1589, 1584, 1548, 1600, 1758, 18…
+## $ sr      &lt;dbl&gt; 19.9, 21.1, 15.0, 13.9, 10.6, 11.0, 8.3, 11.3, 15.1, 18.…</code></pre>
 <p>We can merge both <code>gasoline</code> and <code>pwt</code> by country and year, as these two variables are common to
 both datasets. There are more countries and years in the <code>pwt</code> dataset, so when merging both, and
 depending on which function you use, you will either have <code>NA</code>’s for the variables where there is
 no match, or rows that will be dropped. Let’s start with <code>full_join</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_full &lt;-<span class="st"> </span>gasoline <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">full_join</span>(pwt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
-<pre><code>## Warning: Column `country` joining factor and character
-## vector, coercing into character vector</code></pre>
+<pre><code>## Warning: Column `country` joining factor and character vector, coercing
+## into character vector</code></pre>
 <p>Let’s see which countries and years are included:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_full <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">count</span>(country, year)</code></pre>
@@ -1732,27 +1732,26 @@ is in <code>pwt</code> but not in <code>gasoline</code> at all:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_full <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;u.s.s.r.&quot;</span>)</code></pre>
 <pre><code>## # A tibble: 26 x 11
-##    country  year lgaspcar lincomep lrpmg lcarpcap opec 
-##    &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;
-##  1 u.s.s.…  1960       NA       NA    NA       NA no   
-##  2 u.s.s.…  1961       NA       NA    NA       NA no   
-##  3 u.s.s.…  1962       NA       NA    NA       NA no   
-##  4 u.s.s.…  1963       NA       NA    NA       NA no   
-##  5 u.s.s.…  1964       NA       NA    NA       NA no   
-##  6 u.s.s.…  1965       NA       NA    NA       NA no   
-##  7 u.s.s.…  1966       NA       NA    NA       NA no   
-##  8 u.s.s.…  1967       NA       NA    NA       NA no   
-##  9 u.s.s.…  1968       NA       NA    NA       NA no   
-## 10 u.s.s.…  1969       NA       NA    NA       NA no   
-## # … with 16 more rows, and 4 more variables: com &lt;fct&gt;,
-## #   pop &lt;int&gt;, gdp &lt;int&gt;, sr &lt;dbl&gt;</code></pre>
+##    country  year lgaspcar lincomep lrpmg lcarpcap opec  com      pop   gdp
+##    &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;  &lt;int&gt; &lt;int&gt;
+##  1 u.s.s.…  1960       NA       NA    NA       NA no    yes   214400  2397
+##  2 u.s.s.…  1961       NA       NA    NA       NA no    yes   217896  2542
+##  3 u.s.s.…  1962       NA       NA    NA       NA no    yes   221449  2656
+##  4 u.s.s.…  1963       NA       NA    NA       NA no    yes   225060  2681
+##  5 u.s.s.…  1964       NA       NA    NA       NA no    yes   227571  2854
+##  6 u.s.s.…  1965       NA       NA    NA       NA no    yes   230109  3049
+##  7 u.s.s.…  1966       NA       NA    NA       NA no    yes   232676  3247
+##  8 u.s.s.…  1967       NA       NA    NA       NA no    yes   235272  3454
+##  9 u.s.s.…  1968       NA       NA    NA       NA no    yes   237896  3730
+## 10 u.s.s.…  1969       NA       NA    NA       NA no    yes   240550  3808
+## # … with 16 more rows, and 1 more variable: sr &lt;dbl&gt;</code></pre>
 <p>As you probably guessed, the variables from <code>gasoline</code> that are not included in <code>pwt</code> are filled with
 <code>NA</code>s. One could remove all these lines and only keep countries for which these variables are not
 <code>NA</code> everywhere with <code>filter()</code>, but there is a simpler solution:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_inner &lt;-<span class="st"> </span>gasoline <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">inner_join</span>(pwt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
-<pre><code>## Warning: Column `country` joining factor and character
-## vector, coercing into character vector</code></pre>
+<pre><code>## Warning: Column `country` joining factor and character vector, coercing
+## into character vector</code></pre>
 <p>Let’s use the <code>tabyl()</code> from the <code>janitor</code> packages which is a very nice alternative to the <code>table()</code>
 function from base R:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
@@ -1782,8 +1781,8 @@ provide an example of a country not in <code>pwt</code>). Let’s also look at t
 <p>Contrast this to <code>semi_join()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_semi &lt;-<span class="st"> </span>gasoline <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">semi_join</span>(pwt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
-<pre><code>## Warning: Column `country` joining factor and character
-## vector, coercing into character vector</code></pre>
+<pre><code>## Warning: Column `country` joining factor and character vector, coercing
+## into character vector</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(gas_pwt_semi)</code></pre>
 <pre><code>## Observations: 0
 ## Variables: 6
@@ -1795,8 +1794,8 @@ provide an example of a country not in <code>pwt</code>). Let’s also look at t
 ## $ lcarpcap &lt;dbl&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_semi <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tabyl</span>(country)</code></pre>
-<pre><code>## Warning: Factor `dat` contains implicit NA, consider
-## using `forcats::fct_explicit_na`</code></pre>
+<pre><code>## Warning: Factor `dat` contains implicit NA, consider using
+## `forcats::fct_explicit_na`</code></pre>
 <pre><code>##   country n percent
 ##   AUSTRIA 0     NaN
 ##   BELGIUM 0     NaN
@@ -1820,8 +1819,8 @@ provide an example of a country not in <code>pwt</code>). Let’s also look at t
 from <code>pwt</code>. <code>semi_join()</code> is not a commutative operation:</p>
 <pre class="sourceCode r"><code class="sourceCode r">pwt_gas_semi &lt;-<span class="st"> </span>pwt <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">semi_join</span>(gasoline, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
-<pre><code>## Warning: Column `country` joining character vector and
-## factor, coercing into character vector</code></pre>
+<pre><code>## Warning: Column `country` joining character vector and factor, coercing
+## into character vector</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(pwt_gas_semi)</code></pre>
 <pre><code>## Observations: 0
 ## Variables: 7
@@ -1834,8 +1833,8 @@ from <code>pwt</code>. <code>semi_join()</code> is not a commutative operation:<
 ## $ sr      &lt;dbl&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_semi <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tabyl</span>(country)</code></pre>
-<pre><code>## Warning: Factor `dat` contains implicit NA, consider
-## using `forcats::fct_explicit_na`</code></pre>
+<pre><code>## Warning: Factor `dat` contains implicit NA, consider using
+## `forcats::fct_explicit_na`</code></pre>
 <pre><code>##   country n percent
 ##   AUSTRIA 0     NaN
 ##   BELGIUM 0     NaN
@@ -1862,8 +1861,8 @@ function) but all columns from both datasets. So depending on which countries yo
 you’re going to use either one of these functions:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_left &lt;-<span class="st"> </span>gasoline <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">left_join</span>(pwt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
-<pre><code>## Warning: Column `country` joining factor and character
-## vector, coercing into character vector</code></pre>
+<pre><code>## Warning: Column `country` joining factor and character vector, coercing
+## into character vector</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_left <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tabyl</span>(country)</code></pre>
 <pre><code>##   country  n    percent
@@ -1887,8 +1886,8 @@ you’re going to use either one of these functions:</p>
 ##    U.S.A. 19 0.05555556</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_right &lt;-<span class="st"> </span>gasoline <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">right_join</span>(pwt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
-<pre><code>## Warning: Column `country` joining factor and character
-## vector, coercing into character vector</code></pre>
+<pre><code>## Warning: Column `country` joining factor and character vector, coercing
+## into character vector</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_right <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tabyl</span>(country)</code></pre>
 <pre><code>##          country  n percent
@@ -2020,17 +2019,17 @@ you’re going to use either one of these functions:</p>
 <p>The last merge function is <code>anti_join()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_anti &lt;-<span class="st"> </span>gasoline <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">anti_join</span>(pwt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
-<pre><code>## Warning: Column `country` joining factor and character
-## vector, coercing into character vector</code></pre>
+<pre><code>## Warning: Column `country` joining factor and character vector, coercing
+## into character vector</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(gas_pwt_anti)</code></pre>
 <pre><code>## Observations: 342
 ## Variables: 6
-## $ country  &lt;fct&gt; AUSTRIA, AUSTRIA, AUSTRIA, AUSTRIA, …
-## $ year     &lt;int&gt; 1960, 1961, 1962, 1963, 1964, 1965, …
-## $ lgaspcar &lt;dbl&gt; 4.173244, 4.100989, 4.073177, 4.0595…
-## $ lincomep &lt;dbl&gt; -6.474277, -6.426006, -6.407308, -6.…
-## $ lrpmg    &lt;dbl&gt; -0.3345476, -0.3513276, -0.3795177, …
-## $ lcarpcap &lt;dbl&gt; -9.766840, -9.608622, -9.457257, -9.…</code></pre>
+## $ country  &lt;fct&gt; AUSTRIA, AUSTRIA, AUSTRIA, AUSTRIA, AUSTRIA, AUSTRIA, A…
+## $ year     &lt;int&gt; 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1…
+## $ lgaspcar &lt;dbl&gt; 4.173244, 4.100989, 4.073177, 4.059509, 4.037689, 4.033…
+## $ lincomep &lt;dbl&gt; -6.474277, -6.426006, -6.407308, -6.370679, -6.322247, …
+## $ lrpmg    &lt;dbl&gt; -0.3345476, -0.3513276, -0.3795177, -0.4142514, -0.4453…
+## $ lcarpcap &lt;dbl&gt; -9.766840, -9.608622, -9.457257, -9.343155, -9.237739, …</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_anti <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tabyl</span>(country)</code></pre>
 <pre><code>##   country  n    percent
@@ -2141,27 +2140,20 @@ let’s use it to learn more about <code>{tidyr}</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data &lt;-<span class="st"> </span>rio<span class="op">::</span><span class="kw">import</span>(<span class="st">&quot;datasets/unemployment/all/unemployment_lux_all.csv&quot;</span>)
 
 <span class="kw">head</span>(unemp_lux_data)</code></pre>
-<pre><code>##   division year active_population
-## 1 Beaufort 2001               688
-## 2 Beaufort 2002               742
-## 3 Beaufort 2003               773
-## 4 Beaufort 2004               828
-## 5 Beaufort 2005               866
-## 6 Beaufort 2006               893
-##   of_which_non_wage_earners of_which_wage_earners
-## 1                        85                   568
-## 2                        85                   631
-## 3                        85                   648
-## 4                        80                   706
-## 5                        96                   719
-## 6                        87                   746
-##   total_employed_population unemployed
-## 1                       653         35
-## 2                       716         26
-## 3                       733         40
-## 4                       786         42
-## 5                       815         51
-## 6                       833         60
+<pre><code>##   division year active_population of_which_non_wage_earners
+## 1 Beaufort 2001               688                        85
+## 2 Beaufort 2002               742                        85
+## 3 Beaufort 2003               773                        85
+## 4 Beaufort 2004               828                        80
+## 5 Beaufort 2005               866                        96
+## 6 Beaufort 2006               893                        87
+##   of_which_wage_earners total_employed_population unemployed
+## 1                   568                       653         35
+## 2                   631                       716         26
+## 3                   648                       733         40
+## 4                   706                       786         42
+## 5                   719                       815         51
+## 6                   746                       833         60
 ##   unemployment_rate_in_percent
 ## 1                         5.09
 ## 2                         3.50
@@ -2180,42 +2172,34 @@ with providing more columns to <code>names_from =</code>.</p>
 unemp_lux_data2 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">names_from =</span> <span class="kw">c</span>(division, year), <span class="dt">values_from =</span> unemployment_rate_in_percent)</code></pre>
 <pre><code>## # A tibble: 48 x 49
-##    rowid Bertrange_2013 Bertrange_2014 Bertrange_2015
-##    &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
-##  1     1           5.69          NA             NA   
-##  2     2          NA              5.65          NA   
-##  3     3          NA             NA              5.35
-##  4     4          NA             NA             NA   
-##  5     5          NA             NA             NA   
-##  6     6          NA             NA             NA   
-##  7     7          NA             NA             NA   
-##  8     8          NA             NA             NA   
-##  9     9          NA             NA             NA   
-## 10    10          NA             NA             NA   
-## # … with 38 more rows, and 45 more variables:
-## #   Differdange_2013 &lt;dbl&gt;, Differdange_2014 &lt;dbl&gt;,
-## #   Differdange_2015 &lt;dbl&gt;, Dudelange_2013 &lt;dbl&gt;,
-## #   Dudelange_2014 &lt;dbl&gt;, Dudelange_2015 &lt;dbl&gt;,
-## #   Frisange_2013 &lt;dbl&gt;, Frisange_2014 &lt;dbl&gt;,
-## #   Frisange_2015 &lt;dbl&gt;, Hesperange_2013 &lt;dbl&gt;,
-## #   Hesperange_2014 &lt;dbl&gt;, Hesperange_2015 &lt;dbl&gt;,
-## #   Leudelange_2013 &lt;dbl&gt;, Leudelange_2014 &lt;dbl&gt;,
-## #   Leudelange_2015 &lt;dbl&gt;, Mondercange_2013 &lt;dbl&gt;,
-## #   Mondercange_2014 &lt;dbl&gt;, Mondercange_2015 &lt;dbl&gt;,
-## #   Pétange_2013 &lt;dbl&gt;, Pétange_2014 &lt;dbl&gt;,
-## #   Pétange_2015 &lt;dbl&gt;, Rumelange_2013 &lt;dbl&gt;,
-## #   Rumelange_2014 &lt;dbl&gt;, Rumelange_2015 &lt;dbl&gt;,
-## #   Schifflange_2013 &lt;dbl&gt;, Schifflange_2014 &lt;dbl&gt;,
+##    rowid Bertrange_2013 Bertrange_2014 Bertrange_2015 Differdange_2013
+##    &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;
+##  1     1           5.69          NA             NA                NA  
+##  2     2          NA              5.65          NA                NA  
+##  3     3          NA             NA              5.35             NA  
+##  4     4          NA             NA             NA                13.2
+##  5     5          NA             NA             NA                NA  
+##  6     6          NA             NA             NA                NA  
+##  7     7          NA             NA             NA                NA  
+##  8     8          NA             NA             NA                NA  
+##  9     9          NA             NA             NA                NA  
+## 10    10          NA             NA             NA                NA  
+## # … with 38 more rows, and 44 more variables: Differdange_2014 &lt;dbl&gt;,
+## #   Differdange_2015 &lt;dbl&gt;, Dudelange_2013 &lt;dbl&gt;, Dudelange_2014 &lt;dbl&gt;,
+## #   Dudelange_2015 &lt;dbl&gt;, Frisange_2013 &lt;dbl&gt;, Frisange_2014 &lt;dbl&gt;,
+## #   Frisange_2015 &lt;dbl&gt;, Hesperange_2013 &lt;dbl&gt;, Hesperange_2014 &lt;dbl&gt;,
+## #   Hesperange_2015 &lt;dbl&gt;, Leudelange_2013 &lt;dbl&gt;, Leudelange_2014 &lt;dbl&gt;,
+## #   Leudelange_2015 &lt;dbl&gt;, Mondercange_2013 &lt;dbl&gt;, Mondercange_2014 &lt;dbl&gt;,
+## #   Mondercange_2015 &lt;dbl&gt;, Pétange_2013 &lt;dbl&gt;, Pétange_2014 &lt;dbl&gt;,
+## #   Pétange_2015 &lt;dbl&gt;, Rumelange_2013 &lt;dbl&gt;, Rumelange_2014 &lt;dbl&gt;,
+## #   Rumelange_2015 &lt;dbl&gt;, Schifflange_2013 &lt;dbl&gt;, Schifflange_2014 &lt;dbl&gt;,
 ## #   Schifflange_2015 &lt;dbl&gt;, Schuttrange_2013 &lt;dbl&gt;,
-## #   Schuttrange_2014 &lt;dbl&gt;, Schuttrange_2015 &lt;dbl&gt;,
-## #   Tuntange_2013 &lt;dbl&gt;, Tuntange_2014 &lt;dbl&gt;,
-## #   Tuntange_2015 &lt;dbl&gt;, Useldange_2013 &lt;dbl&gt;,
-## #   Useldange_2014 &lt;dbl&gt;, Useldange_2015 &lt;dbl&gt;,
-## #   Walferdange_2013 &lt;dbl&gt;, Walferdange_2014 &lt;dbl&gt;,
-## #   Walferdange_2015 &lt;dbl&gt;, Wincrange_2013 &lt;dbl&gt;,
-## #   Wincrange_2014 &lt;dbl&gt;, Wincrange_2015 &lt;dbl&gt;,
-## #   Wormeldange_2013 &lt;dbl&gt;, Wormeldange_2014 &lt;dbl&gt;,
-## #   Wormeldange_2015 &lt;dbl&gt;</code></pre>
+## #   Schuttrange_2014 &lt;dbl&gt;, Schuttrange_2015 &lt;dbl&gt;, Tuntange_2013 &lt;dbl&gt;,
+## #   Tuntange_2014 &lt;dbl&gt;, Tuntange_2015 &lt;dbl&gt;, Useldange_2013 &lt;dbl&gt;,
+## #   Useldange_2014 &lt;dbl&gt;, Useldange_2015 &lt;dbl&gt;, Walferdange_2013 &lt;dbl&gt;,
+## #   Walferdange_2014 &lt;dbl&gt;, Walferdange_2015 &lt;dbl&gt;, Wincrange_2013 &lt;dbl&gt;,
+## #   Wincrange_2014 &lt;dbl&gt;, Wincrange_2015 &lt;dbl&gt;, Wormeldange_2013 &lt;dbl&gt;,
+## #   Wormeldange_2014 &lt;dbl&gt;, Wormeldange_2015 &lt;dbl&gt;</code></pre>
 <p>In the <code>filter()</code> statement, I only kept data from 2013 to 2017, “division”s ending with the string “ange”
 (“division” can be a canton or a commune, for example “Canton Redange”, a canton, or “Hesperange” a commune),
 and removed the cantons as I’m only interested in communes.
@@ -2230,31 +2214,24 @@ the number of rows in the data frame. If I did not add this identifier, the stat
 unemp_lux_data3 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">names_from =</span> <span class="kw">c</span>(division, year), <span class="dt">values_from =</span> unemployment_rate_in_percent)</code></pre>
 <pre><code>## # A tibble: 1 x 48
-##   Bertrange_2013 Bertrange_2014 Bertrange_2015
-##            &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
-## 1           5.69           5.65           5.35
-## # … with 45 more variables: Differdange_2013 &lt;dbl&gt;,
-## #   Differdange_2014 &lt;dbl&gt;, Differdange_2015 &lt;dbl&gt;,
-## #   Dudelange_2013 &lt;dbl&gt;, Dudelange_2014 &lt;dbl&gt;,
-## #   Dudelange_2015 &lt;dbl&gt;, Frisange_2013 &lt;dbl&gt;,
-## #   Frisange_2014 &lt;dbl&gt;, Frisange_2015 &lt;dbl&gt;,
-## #   Hesperange_2013 &lt;dbl&gt;, Hesperange_2014 &lt;dbl&gt;,
-## #   Hesperange_2015 &lt;dbl&gt;, Leudelange_2013 &lt;dbl&gt;,
-## #   Leudelange_2014 &lt;dbl&gt;, Leudelange_2015 &lt;dbl&gt;,
-## #   Mondercange_2013 &lt;dbl&gt;, Mondercange_2014 &lt;dbl&gt;,
-## #   Mondercange_2015 &lt;dbl&gt;, Pétange_2013 &lt;dbl&gt;,
-## #   Pétange_2014 &lt;dbl&gt;, Pétange_2015 &lt;dbl&gt;,
-## #   Rumelange_2013 &lt;dbl&gt;, Rumelange_2014 &lt;dbl&gt;,
-## #   Rumelange_2015 &lt;dbl&gt;, Schifflange_2013 &lt;dbl&gt;,
-## #   Schifflange_2014 &lt;dbl&gt;, Schifflange_2015 &lt;dbl&gt;,
-## #   Schuttrange_2013 &lt;dbl&gt;, Schuttrange_2014 &lt;dbl&gt;,
-## #   Schuttrange_2015 &lt;dbl&gt;, Tuntange_2013 &lt;dbl&gt;,
-## #   Tuntange_2014 &lt;dbl&gt;, Tuntange_2015 &lt;dbl&gt;,
-## #   Useldange_2013 &lt;dbl&gt;, Useldange_2014 &lt;dbl&gt;,
-## #   Useldange_2015 &lt;dbl&gt;, Walferdange_2013 &lt;dbl&gt;,
-## #   Walferdange_2014 &lt;dbl&gt;, Walferdange_2015 &lt;dbl&gt;,
-## #   Wincrange_2013 &lt;dbl&gt;, Wincrange_2014 &lt;dbl&gt;,
-## #   Wincrange_2015 &lt;dbl&gt;, Wormeldange_2013 &lt;dbl&gt;,
+##   Bertrange_2013 Bertrange_2014 Bertrange_2015 Differdange_2013
+##            &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;
+## 1           5.69           5.65           5.35             13.2
+## # … with 44 more variables: Differdange_2014 &lt;dbl&gt;,
+## #   Differdange_2015 &lt;dbl&gt;, Dudelange_2013 &lt;dbl&gt;, Dudelange_2014 &lt;dbl&gt;,
+## #   Dudelange_2015 &lt;dbl&gt;, Frisange_2013 &lt;dbl&gt;, Frisange_2014 &lt;dbl&gt;,
+## #   Frisange_2015 &lt;dbl&gt;, Hesperange_2013 &lt;dbl&gt;, Hesperange_2014 &lt;dbl&gt;,
+## #   Hesperange_2015 &lt;dbl&gt;, Leudelange_2013 &lt;dbl&gt;, Leudelange_2014 &lt;dbl&gt;,
+## #   Leudelange_2015 &lt;dbl&gt;, Mondercange_2013 &lt;dbl&gt;, Mondercange_2014 &lt;dbl&gt;,
+## #   Mondercange_2015 &lt;dbl&gt;, Pétange_2013 &lt;dbl&gt;, Pétange_2014 &lt;dbl&gt;,
+## #   Pétange_2015 &lt;dbl&gt;, Rumelange_2013 &lt;dbl&gt;, Rumelange_2014 &lt;dbl&gt;,
+## #   Rumelange_2015 &lt;dbl&gt;, Schifflange_2013 &lt;dbl&gt;, Schifflange_2014 &lt;dbl&gt;,
+## #   Schifflange_2015 &lt;dbl&gt;, Schuttrange_2013 &lt;dbl&gt;,
+## #   Schuttrange_2014 &lt;dbl&gt;, Schuttrange_2015 &lt;dbl&gt;, Tuntange_2013 &lt;dbl&gt;,
+## #   Tuntange_2014 &lt;dbl&gt;, Tuntange_2015 &lt;dbl&gt;, Useldange_2013 &lt;dbl&gt;,
+## #   Useldange_2014 &lt;dbl&gt;, Useldange_2015 &lt;dbl&gt;, Walferdange_2013 &lt;dbl&gt;,
+## #   Walferdange_2014 &lt;dbl&gt;, Walferdange_2015 &lt;dbl&gt;, Wincrange_2013 &lt;dbl&gt;,
+## #   Wincrange_2014 &lt;dbl&gt;, Wincrange_2015 &lt;dbl&gt;, Wormeldange_2013 &lt;dbl&gt;,
 ## #   Wormeldange_2014 &lt;dbl&gt;, Wormeldange_2015 &lt;dbl&gt;</code></pre>
 <p>and actually look even better, but only because there are no repeated values; there is only one
 unemployment rate for each “commune times year”. I will come back to this later on, with another
@@ -2270,20 +2247,6 @@ data frame must have at least two columns, <code>.name</code>, which are the col
 <span class="st">  </span><span class="kw">unite</span>(<span class="st">&quot;.name&quot;</span>, division, year, <span class="dt">remove =</span> <span class="ot">FALSE</span>)
 
 unemp_spec</code></pre>
-<pre><code>## # A tibble: 2,006 x 4
-##    .name        division  year .value                   
-##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;                    
-##  1 Beaufort_20… Beaufort  2001 unemployment_rate_in_per…
-##  2 Beaufort_20… Beaufort  2002 unemployment_rate_in_per…
-##  3 Beaufort_20… Beaufort  2003 unemployment_rate_in_per…
-##  4 Beaufort_20… Beaufort  2004 unemployment_rate_in_per…
-##  5 Beaufort_20… Beaufort  2005 unemployment_rate_in_per…
-##  6 Beaufort_20… Beaufort  2006 unemployment_rate_in_per…
-##  7 Beaufort_20… Beaufort  2007 unemployment_rate_in_per…
-##  8 Beaufort_20… Beaufort  2008 unemployment_rate_in_per…
-##  9 Beaufort_20… Beaufort  2009 unemployment_rate_in_per…
-## 10 Beaufort_20… Beaufort  2010 unemployment_rate_in_per…
-## # … with 1,996 more rows</code></pre>
 <p>The spec has more rows than the data frame (80 vs 48), so this will cause issues if you try to use
 the specification directly:</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data  <span class="op">%&gt;%</span><span class="st"> </span>
@@ -2297,69 +2260,99 @@ the specification directly:</p>
 
 unemp_lux_data4</code></pre>
 <pre><code>## # A tibble: 1,770 x 2,007
-##    rowid Beaufort_2001 Beaufort_2002 Beaufort_2003 Beaufort_2004 Beaufort_2005 Beaufort_2006 Beaufort_2007
-##    &lt;int&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1     1          5.09          NA           NA            NA            NA            NA             NA  
-##  2     2         NA              3.5         NA            NA            NA            NA             NA  
-##  3     3         NA             NA            5.17         NA            NA            NA             NA  
-##  4     4         NA             NA           NA             5.07         NA            NA             NA  
-##  5     5         NA             NA           NA            NA             5.89         NA             NA  
-##  6     6         NA             NA           NA            NA            NA             6.72          NA  
-##  7     7         NA             NA           NA            NA            NA            NA              4.3
-##  8     8         NA             NA           NA            NA            NA            NA             NA  
-##  9     9         NA             NA           NA            NA            NA            NA             NA  
-## 10    10         NA             NA           NA            NA            NA            NA             NA  
-## # … with 1,760 more rows, and 1,999 more variables: Beaufort_2008 &lt;dbl&gt;, Beaufort_2009 &lt;dbl&gt;, Beaufort_2010 &lt;dbl&gt;,
-## #   Beaufort_2011 &lt;dbl&gt;, Beaufort_2012 &lt;dbl&gt;, Beaufort_2013 &lt;dbl&gt;, Beaufort_2014 &lt;dbl&gt;, Beaufort_2015 &lt;dbl&gt;,
-## #   Beaufort_2016 &lt;dbl&gt;, Beaufort_2017 &lt;dbl&gt;, Bech_2001 &lt;dbl&gt;, Bech_2002 &lt;dbl&gt;, Bech_2003 &lt;dbl&gt;, Bech_2004 &lt;dbl&gt;,
-## #   Bech_2005 &lt;dbl&gt;, Bech_2006 &lt;dbl&gt;, Bech_2007 &lt;dbl&gt;, Bech_2008 &lt;dbl&gt;, Bech_2009 &lt;dbl&gt;, Bech_2010 &lt;dbl&gt;,
-## #   Bech_2011 &lt;dbl&gt;, Bech_2012 &lt;dbl&gt;, Bech_2013 &lt;dbl&gt;, Bech_2014 &lt;dbl&gt;, Bech_2015 &lt;dbl&gt;, Bech_2016 &lt;dbl&gt;,
-## #   Bech_2017 &lt;dbl&gt;, Beckerich_2001 &lt;dbl&gt;, Beckerich_2002 &lt;dbl&gt;, Beckerich_2003 &lt;dbl&gt;, Beckerich_2004 &lt;dbl&gt;,
-## #   Beckerich_2005 &lt;dbl&gt;, Beckerich_2006 &lt;dbl&gt;, Beckerich_2007 &lt;dbl&gt;, Beckerich_2008 &lt;dbl&gt;, Beckerich_2009 &lt;dbl&gt;,
-## #   Beckerich_2010 &lt;dbl&gt;, Beckerich_2011 &lt;dbl&gt;, Beckerich_2012 &lt;dbl&gt;, Beckerich_2013 &lt;dbl&gt;, Beckerich_2014 &lt;dbl&gt;,
-## #   Beckerich_2015 &lt;dbl&gt;, Beckerich_2016 &lt;dbl&gt;, Beckerich_2017 &lt;dbl&gt;, Berdorf_2001 &lt;dbl&gt;, Berdorf_2002 &lt;dbl&gt;,
-## #   Berdorf_2003 &lt;dbl&gt;, Berdorf_2004 &lt;dbl&gt;, Berdorf_2005 &lt;dbl&gt;, Berdorf_2006 &lt;dbl&gt;, Berdorf_2007 &lt;dbl&gt;,
-## #   Berdorf_2008 &lt;dbl&gt;, Berdorf_2009 &lt;dbl&gt;, Berdorf_2010 &lt;dbl&gt;, Berdorf_2011 &lt;dbl&gt;, Berdorf_2012 &lt;dbl&gt;,
-## #   Berdorf_2013 &lt;dbl&gt;, Berdorf_2014 &lt;dbl&gt;, Berdorf_2015 &lt;dbl&gt;, Berdorf_2016 &lt;dbl&gt;, Berdorf_2017 &lt;dbl&gt;,
-## #   Bertrange_2001 &lt;dbl&gt;, Bertrange_2002 &lt;dbl&gt;, Bertrange_2003 &lt;dbl&gt;, Bertrange_2004 &lt;dbl&gt;, Bertrange_2005 &lt;dbl&gt;,
-## #   Bertrange_2006 &lt;dbl&gt;, Bertrange_2007 &lt;dbl&gt;, Bertrange_2008 &lt;dbl&gt;, Bertrange_2009 &lt;dbl&gt;, Bertrange_2010 &lt;dbl&gt;,
-## #   Bertrange_2011 &lt;dbl&gt;, Bertrange_2012 &lt;dbl&gt;, Bertrange_2013 &lt;dbl&gt;, Bertrange_2014 &lt;dbl&gt;, Bertrange_2015 &lt;dbl&gt;,
-## #   Bertrange_2016 &lt;dbl&gt;, Bertrange_2017 &lt;dbl&gt;, Bettembourg_2001 &lt;dbl&gt;, Bettembourg_2002 &lt;dbl&gt;,
-## #   Bettembourg_2003 &lt;dbl&gt;, Bettembourg_2004 &lt;dbl&gt;, Bettembourg_2005 &lt;dbl&gt;, Bettembourg_2006 &lt;dbl&gt;,
-## #   Bettembourg_2007 &lt;dbl&gt;, Bettembourg_2008 &lt;dbl&gt;, Bettembourg_2009 &lt;dbl&gt;, Bettembourg_2010 &lt;dbl&gt;,
-## #   Bettembourg_2011 &lt;dbl&gt;, Bettembourg_2012 &lt;dbl&gt;, Bettembourg_2013 &lt;dbl&gt;, Bettembourg_2014 &lt;dbl&gt;,
-## #   Bettembourg_2015 &lt;dbl&gt;, Bettembourg_2016 &lt;dbl&gt;, Bettembourg_2017 &lt;dbl&gt;, Bettendorf_2001 &lt;dbl&gt;,
-## #   Bettendorf_2002 &lt;dbl&gt;, Bettendorf_2003 &lt;dbl&gt;, Bettendorf_2004 &lt;dbl&gt;, Bettendorf_2005 &lt;dbl&gt;, …</code></pre>
+##    rowid Beaufort_2001 Beaufort_2002 Beaufort_2003 Beaufort_2004
+##    &lt;int&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1     1          5.09          NA           NA            NA   
+##  2     2         NA              3.5         NA            NA   
+##  3     3         NA             NA            5.17         NA   
+##  4     4         NA             NA           NA             5.07
+##  5     5         NA             NA           NA            NA   
+##  6     6         NA             NA           NA            NA   
+##  7     7         NA             NA           NA            NA   
+##  8     8         NA             NA           NA            NA   
+##  9     9         NA             NA           NA            NA   
+## 10    10         NA             NA           NA            NA   
+## # … with 1,760 more rows, and 2,002 more variables: Beaufort_2005 &lt;dbl&gt;,
+## #   Beaufort_2006 &lt;dbl&gt;, Beaufort_2007 &lt;dbl&gt;, Beaufort_2008 &lt;dbl&gt;,
+## #   Beaufort_2009 &lt;dbl&gt;, Beaufort_2010 &lt;dbl&gt;, Beaufort_2011 &lt;dbl&gt;,
+## #   Beaufort_2012 &lt;dbl&gt;, Beaufort_2013 &lt;dbl&gt;, Beaufort_2014 &lt;dbl&gt;,
+## #   Beaufort_2015 &lt;dbl&gt;, Beaufort_2016 &lt;dbl&gt;, Beaufort_2017 &lt;dbl&gt;,
+## #   Bech_2001 &lt;dbl&gt;, Bech_2002 &lt;dbl&gt;, Bech_2003 &lt;dbl&gt;, Bech_2004 &lt;dbl&gt;,
+## #   Bech_2005 &lt;dbl&gt;, Bech_2006 &lt;dbl&gt;, Bech_2007 &lt;dbl&gt;, Bech_2008 &lt;dbl&gt;,
+## #   Bech_2009 &lt;dbl&gt;, Bech_2010 &lt;dbl&gt;, Bech_2011 &lt;dbl&gt;, Bech_2012 &lt;dbl&gt;,
+## #   Bech_2013 &lt;dbl&gt;, Bech_2014 &lt;dbl&gt;, Bech_2015 &lt;dbl&gt;, Bech_2016 &lt;dbl&gt;,
+## #   Bech_2017 &lt;dbl&gt;, Beckerich_2001 &lt;dbl&gt;, Beckerich_2002 &lt;dbl&gt;,
+## #   Beckerich_2003 &lt;dbl&gt;, Beckerich_2004 &lt;dbl&gt;, Beckerich_2005 &lt;dbl&gt;,
+## #   Beckerich_2006 &lt;dbl&gt;, Beckerich_2007 &lt;dbl&gt;, Beckerich_2008 &lt;dbl&gt;,
+## #   Beckerich_2009 &lt;dbl&gt;, Beckerich_2010 &lt;dbl&gt;, Beckerich_2011 &lt;dbl&gt;,
+## #   Beckerich_2012 &lt;dbl&gt;, Beckerich_2013 &lt;dbl&gt;, Beckerich_2014 &lt;dbl&gt;,
+## #   Beckerich_2015 &lt;dbl&gt;, Beckerich_2016 &lt;dbl&gt;, Beckerich_2017 &lt;dbl&gt;,
+## #   Berdorf_2001 &lt;dbl&gt;, Berdorf_2002 &lt;dbl&gt;, Berdorf_2003 &lt;dbl&gt;,
+## #   Berdorf_2004 &lt;dbl&gt;, Berdorf_2005 &lt;dbl&gt;, Berdorf_2006 &lt;dbl&gt;,
+## #   Berdorf_2007 &lt;dbl&gt;, Berdorf_2008 &lt;dbl&gt;, Berdorf_2009 &lt;dbl&gt;,
+## #   Berdorf_2010 &lt;dbl&gt;, Berdorf_2011 &lt;dbl&gt;, Berdorf_2012 &lt;dbl&gt;,
+## #   Berdorf_2013 &lt;dbl&gt;, Berdorf_2014 &lt;dbl&gt;, Berdorf_2015 &lt;dbl&gt;,
+## #   Berdorf_2016 &lt;dbl&gt;, Berdorf_2017 &lt;dbl&gt;, Bertrange_2001 &lt;dbl&gt;,
+## #   Bertrange_2002 &lt;dbl&gt;, Bertrange_2003 &lt;dbl&gt;, Bertrange_2004 &lt;dbl&gt;,
+## #   Bertrange_2005 &lt;dbl&gt;, Bertrange_2006 &lt;dbl&gt;, Bertrange_2007 &lt;dbl&gt;,
+## #   Bertrange_2008 &lt;dbl&gt;, Bertrange_2009 &lt;dbl&gt;, Bertrange_2010 &lt;dbl&gt;,
+## #   Bertrange_2011 &lt;dbl&gt;, Bertrange_2012 &lt;dbl&gt;, Bertrange_2013 &lt;dbl&gt;,
+## #   Bertrange_2014 &lt;dbl&gt;, Bertrange_2015 &lt;dbl&gt;, Bertrange_2016 &lt;dbl&gt;,
+## #   Bertrange_2017 &lt;dbl&gt;, Bettembourg_2001 &lt;dbl&gt;, Bettembourg_2002 &lt;dbl&gt;,
+## #   Bettembourg_2003 &lt;dbl&gt;, Bettembourg_2004 &lt;dbl&gt;,
+## #   Bettembourg_2005 &lt;dbl&gt;, Bettembourg_2006 &lt;dbl&gt;,
+## #   Bettembourg_2007 &lt;dbl&gt;, Bettembourg_2008 &lt;dbl&gt;,
+## #   Bettembourg_2009 &lt;dbl&gt;, Bettembourg_2010 &lt;dbl&gt;,
+## #   Bettembourg_2011 &lt;dbl&gt;, Bettembourg_2012 &lt;dbl&gt;,
+## #   Bettembourg_2013 &lt;dbl&gt;, Bettembourg_2014 &lt;dbl&gt;,
+## #   Bettembourg_2015 &lt;dbl&gt;, Bettembourg_2016 &lt;dbl&gt;,
+## #   Bettembourg_2017 &lt;dbl&gt;, Bettendorf_2001 &lt;dbl&gt;, Bettendorf_2002 &lt;dbl&gt;,
+## #   …</code></pre>
 <p>You can notice that now we have columns for 2016 and 2017 too. Let’s clean the data a little bit more:</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data4 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>rowid) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">fill</span>(<span class="kw">matches</span>(<span class="st">&quot;.*&quot;</span>), <span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">slice</span>(<span class="kw">n</span>())</code></pre>
 <pre><code>## # A tibble: 1 x 2,006
-##   Beaufort_2001 Beaufort_2002 Beaufort_2003 Beaufort_2004 Beaufort_2005 Beaufort_2006 Beaufort_2007 Beaufort_2008
-##           &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-## 1          5.09           3.5          5.17          5.07          5.89          6.72           4.3          7.08
-## # … with 1,998 more variables: Beaufort_2009 &lt;dbl&gt;, Beaufort_2010 &lt;dbl&gt;, Beaufort_2011 &lt;dbl&gt;, Beaufort_2012 &lt;dbl&gt;,
-## #   Beaufort_2013 &lt;dbl&gt;, Beaufort_2014 &lt;dbl&gt;, Beaufort_2015 &lt;dbl&gt;, Beaufort_2016 &lt;dbl&gt;, Beaufort_2017 &lt;dbl&gt;,
-## #   Bech_2001 &lt;dbl&gt;, Bech_2002 &lt;dbl&gt;, Bech_2003 &lt;dbl&gt;, Bech_2004 &lt;dbl&gt;, Bech_2005 &lt;dbl&gt;, Bech_2006 &lt;dbl&gt;,
-## #   Bech_2007 &lt;dbl&gt;, Bech_2008 &lt;dbl&gt;, Bech_2009 &lt;dbl&gt;, Bech_2010 &lt;dbl&gt;, Bech_2011 &lt;dbl&gt;, Bech_2012 &lt;dbl&gt;,
-## #   Bech_2013 &lt;dbl&gt;, Bech_2014 &lt;dbl&gt;, Bech_2015 &lt;dbl&gt;, Bech_2016 &lt;dbl&gt;, Bech_2017 &lt;dbl&gt;, Beckerich_2001 &lt;dbl&gt;,
-## #   Beckerich_2002 &lt;dbl&gt;, Beckerich_2003 &lt;dbl&gt;, Beckerich_2004 &lt;dbl&gt;, Beckerich_2005 &lt;dbl&gt;, Beckerich_2006 &lt;dbl&gt;,
-## #   Beckerich_2007 &lt;dbl&gt;, Beckerich_2008 &lt;dbl&gt;, Beckerich_2009 &lt;dbl&gt;, Beckerich_2010 &lt;dbl&gt;, Beckerich_2011 &lt;dbl&gt;,
-## #   Beckerich_2012 &lt;dbl&gt;, Beckerich_2013 &lt;dbl&gt;, Beckerich_2014 &lt;dbl&gt;, Beckerich_2015 &lt;dbl&gt;, Beckerich_2016 &lt;dbl&gt;,
-## #   Beckerich_2017 &lt;dbl&gt;, Berdorf_2001 &lt;dbl&gt;, Berdorf_2002 &lt;dbl&gt;, Berdorf_2003 &lt;dbl&gt;, Berdorf_2004 &lt;dbl&gt;,
-## #   Berdorf_2005 &lt;dbl&gt;, Berdorf_2006 &lt;dbl&gt;, Berdorf_2007 &lt;dbl&gt;, Berdorf_2008 &lt;dbl&gt;, Berdorf_2009 &lt;dbl&gt;,
-## #   Berdorf_2010 &lt;dbl&gt;, Berdorf_2011 &lt;dbl&gt;, Berdorf_2012 &lt;dbl&gt;, Berdorf_2013 &lt;dbl&gt;, Berdorf_2014 &lt;dbl&gt;,
-## #   Berdorf_2015 &lt;dbl&gt;, Berdorf_2016 &lt;dbl&gt;, Berdorf_2017 &lt;dbl&gt;, Bertrange_2001 &lt;dbl&gt;, Bertrange_2002 &lt;dbl&gt;,
-## #   Bertrange_2003 &lt;dbl&gt;, Bertrange_2004 &lt;dbl&gt;, Bertrange_2005 &lt;dbl&gt;, Bertrange_2006 &lt;dbl&gt;, Bertrange_2007 &lt;dbl&gt;,
-## #   Bertrange_2008 &lt;dbl&gt;, Bertrange_2009 &lt;dbl&gt;, Bertrange_2010 &lt;dbl&gt;, Bertrange_2011 &lt;dbl&gt;, Bertrange_2012 &lt;dbl&gt;,
-## #   Bertrange_2013 &lt;dbl&gt;, Bertrange_2014 &lt;dbl&gt;, Bertrange_2015 &lt;dbl&gt;, Bertrange_2016 &lt;dbl&gt;, Bertrange_2017 &lt;dbl&gt;,
-## #   Bettembourg_2001 &lt;dbl&gt;, Bettembourg_2002 &lt;dbl&gt;, Bettembourg_2003 &lt;dbl&gt;, Bettembourg_2004 &lt;dbl&gt;,
-## #   Bettembourg_2005 &lt;dbl&gt;, Bettembourg_2006 &lt;dbl&gt;, Bettembourg_2007 &lt;dbl&gt;, Bettembourg_2008 &lt;dbl&gt;,
-## #   Bettembourg_2009 &lt;dbl&gt;, Bettembourg_2010 &lt;dbl&gt;, Bettembourg_2011 &lt;dbl&gt;, Bettembourg_2012 &lt;dbl&gt;,
-## #   Bettembourg_2013 &lt;dbl&gt;, Bettembourg_2014 &lt;dbl&gt;, Bettembourg_2015 &lt;dbl&gt;, Bettembourg_2016 &lt;dbl&gt;,
-## #   Bettembourg_2017 &lt;dbl&gt;, Bettendorf_2001 &lt;dbl&gt;, Bettendorf_2002 &lt;dbl&gt;, Bettendorf_2003 &lt;dbl&gt;,
-## #   Bettendorf_2004 &lt;dbl&gt;, Bettendorf_2005 &lt;dbl&gt;, Bettendorf_2006 &lt;dbl&gt;, …</code></pre>
+##   Beaufort_2001 Beaufort_2002 Beaufort_2003 Beaufort_2004 Beaufort_2005
+##           &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1          5.09           3.5          5.17          5.07          5.89
+## # … with 2,001 more variables: Beaufort_2006 &lt;dbl&gt;, Beaufort_2007 &lt;dbl&gt;,
+## #   Beaufort_2008 &lt;dbl&gt;, Beaufort_2009 &lt;dbl&gt;, Beaufort_2010 &lt;dbl&gt;,
+## #   Beaufort_2011 &lt;dbl&gt;, Beaufort_2012 &lt;dbl&gt;, Beaufort_2013 &lt;dbl&gt;,
+## #   Beaufort_2014 &lt;dbl&gt;, Beaufort_2015 &lt;dbl&gt;, Beaufort_2016 &lt;dbl&gt;,
+## #   Beaufort_2017 &lt;dbl&gt;, Bech_2001 &lt;dbl&gt;, Bech_2002 &lt;dbl&gt;,
+## #   Bech_2003 &lt;dbl&gt;, Bech_2004 &lt;dbl&gt;, Bech_2005 &lt;dbl&gt;, Bech_2006 &lt;dbl&gt;,
+## #   Bech_2007 &lt;dbl&gt;, Bech_2008 &lt;dbl&gt;, Bech_2009 &lt;dbl&gt;, Bech_2010 &lt;dbl&gt;,
+## #   Bech_2011 &lt;dbl&gt;, Bech_2012 &lt;dbl&gt;, Bech_2013 &lt;dbl&gt;, Bech_2014 &lt;dbl&gt;,
+## #   Bech_2015 &lt;dbl&gt;, Bech_2016 &lt;dbl&gt;, Bech_2017 &lt;dbl&gt;,
+## #   Beckerich_2001 &lt;dbl&gt;, Beckerich_2002 &lt;dbl&gt;, Beckerich_2003 &lt;dbl&gt;,
+## #   Beckerich_2004 &lt;dbl&gt;, Beckerich_2005 &lt;dbl&gt;, Beckerich_2006 &lt;dbl&gt;,
+## #   Beckerich_2007 &lt;dbl&gt;, Beckerich_2008 &lt;dbl&gt;, Beckerich_2009 &lt;dbl&gt;,
+## #   Beckerich_2010 &lt;dbl&gt;, Beckerich_2011 &lt;dbl&gt;, Beckerich_2012 &lt;dbl&gt;,
+## #   Beckerich_2013 &lt;dbl&gt;, Beckerich_2014 &lt;dbl&gt;, Beckerich_2015 &lt;dbl&gt;,
+## #   Beckerich_2016 &lt;dbl&gt;, Beckerich_2017 &lt;dbl&gt;, Berdorf_2001 &lt;dbl&gt;,
+## #   Berdorf_2002 &lt;dbl&gt;, Berdorf_2003 &lt;dbl&gt;, Berdorf_2004 &lt;dbl&gt;,
+## #   Berdorf_2005 &lt;dbl&gt;, Berdorf_2006 &lt;dbl&gt;, Berdorf_2007 &lt;dbl&gt;,
+## #   Berdorf_2008 &lt;dbl&gt;, Berdorf_2009 &lt;dbl&gt;, Berdorf_2010 &lt;dbl&gt;,
+## #   Berdorf_2011 &lt;dbl&gt;, Berdorf_2012 &lt;dbl&gt;, Berdorf_2013 &lt;dbl&gt;,
+## #   Berdorf_2014 &lt;dbl&gt;, Berdorf_2015 &lt;dbl&gt;, Berdorf_2016 &lt;dbl&gt;,
+## #   Berdorf_2017 &lt;dbl&gt;, Bertrange_2001 &lt;dbl&gt;, Bertrange_2002 &lt;dbl&gt;,
+## #   Bertrange_2003 &lt;dbl&gt;, Bertrange_2004 &lt;dbl&gt;, Bertrange_2005 &lt;dbl&gt;,
+## #   Bertrange_2006 &lt;dbl&gt;, Bertrange_2007 &lt;dbl&gt;, Bertrange_2008 &lt;dbl&gt;,
+## #   Bertrange_2009 &lt;dbl&gt;, Bertrange_2010 &lt;dbl&gt;, Bertrange_2011 &lt;dbl&gt;,
+## #   Bertrange_2012 &lt;dbl&gt;, Bertrange_2013 &lt;dbl&gt;, Bertrange_2014 &lt;dbl&gt;,
+## #   Bertrange_2015 &lt;dbl&gt;, Bertrange_2016 &lt;dbl&gt;, Bertrange_2017 &lt;dbl&gt;,
+## #   Bettembourg_2001 &lt;dbl&gt;, Bettembourg_2002 &lt;dbl&gt;,
+## #   Bettembourg_2003 &lt;dbl&gt;, Bettembourg_2004 &lt;dbl&gt;,
+## #   Bettembourg_2005 &lt;dbl&gt;, Bettembourg_2006 &lt;dbl&gt;,
+## #   Bettembourg_2007 &lt;dbl&gt;, Bettembourg_2008 &lt;dbl&gt;,
+## #   Bettembourg_2009 &lt;dbl&gt;, Bettembourg_2010 &lt;dbl&gt;,
+## #   Bettembourg_2011 &lt;dbl&gt;, Bettembourg_2012 &lt;dbl&gt;,
+## #   Bettembourg_2013 &lt;dbl&gt;, Bettembourg_2014 &lt;dbl&gt;,
+## #   Bettembourg_2015 &lt;dbl&gt;, Bettembourg_2016 &lt;dbl&gt;,
+## #   Bettembourg_2017 &lt;dbl&gt;, Bettendorf_2001 &lt;dbl&gt;, Bettendorf_2002 &lt;dbl&gt;,
+## #   Bettendorf_2003 &lt;dbl&gt;, …</code></pre>
 <p>We will learn about <code>fill()</code>, anoher <code>{tidyr}</code> function a bit later in this chapter, but its basic
 purpose is to fill rows with whatever value comes before or after the missing values. <code>slice(n())</code>
 then only keeps the last row of the data frame, which is the row that contains all the values (expect
@@ -2371,32 +2364,23 @@ mtcars_spec &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><
 <span class="st">    </span><span class="kw">unite</span>(<span class="st">&quot;.name&quot;</span>, am, cyl, <span class="dt">remove =</span> <span class="ot">FALSE</span>)
 
 mtcars_spec</code></pre>
-<pre><code>## # A tibble: 6 x 4
-##   .name    am   cyl .value
-##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
-## 1 0_4       0     4 mpg   
-## 2 0_6       0     6 mpg   
-## 3 0_8       0     8 mpg   
-## 4 1_4       1     4 mpg   
-## 5 1_6       1     6 mpg   
-## 6 1_8       1     8 mpg</code></pre>
 <p>We can now transform the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
 <pre><code>## # A tibble: 32 x 14
-##     disp    hp  drat    wt  qsec    vs  gear  carb `0_4` `0_6` `0_8` `1_4` `1_6` `1_8`
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1  160    110  3.9   2.62  16.5     0     4     4  NA    NA    NA    NA      21    NA
-##  2  160    110  3.9   2.88  17.0     0     4     4  NA    NA    NA    NA      21    NA
-##  3  108     93  3.85  2.32  18.6     1     4     1  NA    NA    NA    22.8    NA    NA
-##  4  258    110  3.08  3.22  19.4     1     3     1  NA    21.4  NA    NA      NA    NA
-##  5  360    175  3.15  3.44  17.0     0     3     2  NA    NA    18.7  NA      NA    NA
-##  6  225    105  2.76  3.46  20.2     1     3     1  NA    18.1  NA    NA      NA    NA
-##  7  360    245  3.21  3.57  15.8     0     3     4  NA    NA    14.3  NA      NA    NA
-##  8  147.    62  3.69  3.19  20       1     4     2  24.4  NA    NA    NA      NA    NA
-##  9  141.    95  3.92  3.15  22.9     1     4     2  22.8  NA    NA    NA      NA    NA
-## 10  168.   123  3.92  3.44  18.3     1     4     4  NA    19.2  NA    NA      NA    NA
-## # … with 22 more rows</code></pre>
+##     disp    hp  drat    wt  qsec    vs  gear  carb `0_4` `0_6` `0_8` `1_4`
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  160    110  3.9   2.62  16.5     0     4     4  NA    NA    NA    NA  
+##  2  160    110  3.9   2.88  17.0     0     4     4  NA    NA    NA    NA  
+##  3  108     93  3.85  2.32  18.6     1     4     1  NA    NA    NA    22.8
+##  4  258    110  3.08  3.22  19.4     1     3     1  NA    21.4  NA    NA  
+##  5  360    175  3.15  3.44  17.0     0     3     2  NA    NA    18.7  NA  
+##  6  225    105  2.76  3.46  20.2     1     3     1  NA    18.1  NA    NA  
+##  7  360    245  3.21  3.57  15.8     0     3     4  NA    NA    14.3  NA  
+##  8  147.    62  3.69  3.19  20       1     4     2  24.4  NA    NA    NA  
+##  9  141.    95  3.92  3.15  22.9     1     4     2  22.8  NA    NA    NA  
+## 10  168.   123  3.92  3.44  18.3     1     4     4  NA    19.2  NA    NA  
+## # … with 22 more rows, and 2 more variables: `1_6` &lt;dbl&gt;, `1_8` &lt;dbl&gt;</code></pre>
 <p>As you can see, there are several values of “mpg” for some combinations of “am” times “cyl”. If
 we remove the other columns, each row will not be uniquely identified anymore, and thus an error will be
 returned:</p>
@@ -2502,19 +2486,19 @@ output. These can be removed easily:</p>
 
 mtcars_wide</code></pre>
 <pre><code>## # A tibble: 32 x 14
-##     disp    hp  drat    wt  qsec    vs  gear  carb `0_4` `0_6` `0_8` `1_4` `1_6` `1_8`
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1  160    110  3.9   2.62  16.5     0     4     4  NA    NA    NA    NA      21    NA
-##  2  160    110  3.9   2.88  17.0     0     4     4  NA    NA    NA    NA      21    NA
-##  3  108     93  3.85  2.32  18.6     1     4     1  NA    NA    NA    22.8    NA    NA
-##  4  258    110  3.08  3.22  19.4     1     3     1  NA    21.4  NA    NA      NA    NA
-##  5  360    175  3.15  3.44  17.0     0     3     2  NA    NA    18.7  NA      NA    NA
-##  6  225    105  2.76  3.46  20.2     1     3     1  NA    18.1  NA    NA      NA    NA
-##  7  360    245  3.21  3.57  15.8     0     3     4  NA    NA    14.3  NA      NA    NA
-##  8  147.    62  3.69  3.19  20       1     4     2  24.4  NA    NA    NA      NA    NA
-##  9  141.    95  3.92  3.15  22.9     1     4     2  22.8  NA    NA    NA      NA    NA
-## 10  168.   123  3.92  3.44  18.3     1     4     4  NA    19.2  NA    NA      NA    NA
-## # … with 22 more rows</code></pre>
+##     disp    hp  drat    wt  qsec    vs  gear  carb `0_4` `0_6` `0_8` `1_4`
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  160    110  3.9   2.62  16.5     0     4     4  NA    NA    NA    NA  
+##  2  160    110  3.9   2.88  17.0     0     4     4  NA    NA    NA    NA  
+##  3  108     93  3.85  2.32  18.6     1     4     1  NA    NA    NA    22.8
+##  4  258    110  3.08  3.22  19.4     1     3     1  NA    21.4  NA    NA  
+##  5  360    175  3.15  3.44  17.0     0     3     2  NA    NA    18.7  NA  
+##  6  225    105  2.76  3.46  20.2     1     3     1  NA    18.1  NA    NA  
+##  7  360    245  3.21  3.57  15.8     0     3     4  NA    NA    14.3  NA  
+##  8  147.    62  3.69  3.19  20       1     4     2  24.4  NA    NA    NA  
+##  9  141.    95  3.92  3.15  22.9     1     4     2  22.8  NA    NA    NA  
+## 10  168.   123  3.92  3.44  18.3     1     4     4  NA    19.2  NA    NA  
+## # … with 22 more rows, and 2 more variables: `1_6` &lt;dbl&gt;, `1_8` &lt;dbl&gt;</code></pre>
 <p>The difficulty here is that we have columns with two levels of information. For instance, the
 column “0_4” contains the miles per gallon values for manual cars (<code>0</code>) with <code>4</code> cylinders.
 The first step is to first pivot the columns:</p>
@@ -2903,7 +2887,7 @@ everything I write):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_data_id1) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> value, <span class="dt">x =</span> date, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;id 1&quot;</span>)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-270-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 <p>Ok great. But now I want to create this plot for each <code>id</code>… so I have to copy paste this 3 times.
 But copy-pasting is error prone. So there are two alternatives; I either write a function that
 takes as argument the data and the <code>id</code> I want to plot and run it for each <code>id</code> (we will learn to
@@ -2946,19 +2930,19 @@ column. It is a list, where each element is of type <code>S3: gg</code>. Yes, yo
 that list-column is a ggplot! If you now want to take a look at the plots, it is enough to do this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_plots<span class="op">$</span>plot</code></pre>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-274-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-274-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-160-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-274-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-160-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-274-4.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-160-4.png" width="672" /></p>
 <pre><code>## 
 ## [[5]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-274-5.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-160-5.png" width="672" /></p>
 <p>Ok, that was quite complicated, but again, this was only to introduce <code>nest()</code> and give you a taste
 of the power of the <code>{tidyverse}</code>. By the end of Chapter 9, you’ll be used to this.</p>
 <p>That was it for a first introduction to <code>{tidyr}</code>. Now, it’s time to learn about <em>scoped</em> verbs.</p>
@@ -3129,29 +3113,20 @@ something very useful, which is rename all the columns in bulk:</p>
 ## # … with 332 more rows</code></pre>
 <p>You can apply any arbitrary function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gasoline <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_all</span>(<span class="kw">funs</span>(<span class="kw">paste0</span>(<span class="st">&quot;hello_&quot;</span>, .)))</code></pre>
-<pre><code>## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## please use list() instead
-## 
-## # Before:
-## funs(name = f(.)
-## 
-## # After: 
-## list(name = ~f(.))
-## This warning is displayed once per session.</code></pre>
 <pre><code>## # A tibble: 342 x 6
-##    hello_country hello_year hello_lgaspcar hello_lincomep hello_lrpmg hello_lcarpcap
-##    &lt;fct&gt;              &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;
-##  1 AUSTRIA             1960           4.17          -6.47      -0.335          -9.77
-##  2 AUSTRIA             1961           4.10          -6.43      -0.351          -9.61
-##  3 AUSTRIA             1962           4.07          -6.41      -0.380          -9.46
-##  4 AUSTRIA             1963           4.06          -6.37      -0.414          -9.34
-##  5 AUSTRIA             1964           4.04          -6.32      -0.445          -9.24
-##  6 AUSTRIA             1965           4.03          -6.29      -0.497          -9.12
-##  7 AUSTRIA             1966           4.05          -6.25      -0.467          -9.02
-##  8 AUSTRIA             1967           4.05          -6.23      -0.506          -8.93
-##  9 AUSTRIA             1968           4.05          -6.21      -0.522          -8.85
-## 10 AUSTRIA             1969           4.05          -6.15      -0.559          -8.79
-## # … with 332 more rows</code></pre>
+##    hello_country hello_year hello_lgaspcar hello_lincomep hello_lrpmg
+##    &lt;fct&gt;              &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AUSTRIA             1960           4.17          -6.47      -0.335
+##  2 AUSTRIA             1961           4.10          -6.43      -0.351
+##  3 AUSTRIA             1962           4.07          -6.41      -0.380
+##  4 AUSTRIA             1963           4.06          -6.37      -0.414
+##  5 AUSTRIA             1964           4.04          -6.32      -0.445
+##  6 AUSTRIA             1965           4.03          -6.29      -0.497
+##  7 AUSTRIA             1966           4.05          -6.25      -0.467
+##  8 AUSTRIA             1967           4.05          -6.23      -0.506
+##  9 AUSTRIA             1968           4.05          -6.21      -0.522
+## 10 AUSTRIA             1969           4.05          -6.15      -0.559
+## # … with 332 more rows, and 1 more variable: hello_lcarpcap &lt;dbl&gt;</code></pre>
 <p>I have passed the <code>paste0()</code> function to the <code>funs()</code> helper function of <code>select_all()</code>. <code>funs()</code> is
 used a lot with scoped verbs, just like <code>vars()</code>, which we have already seen.</p>
 <p>The scoped version of <code>rename()</code> work just as you expect. But I’ll leave these for the exercices
@@ -3283,28 +3258,30 @@ the data? Very easy:</p>
 <span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;l&quot;</span>)), <span class="kw">funs</span>(mean, sd, max, min))</code></pre>
 <pre><code>## # A tibble: 18 x 17
-##    country lgaspcar_mean lincomep_mean lrpmg_mean lcarpcap_mean lgaspcar_sd lincomep_sd lrpmg_sd lcarpcap_sd
-##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AUSTRIA          4.06         -6.12    -0.486          -8.85      0.0693       0.235   0.0873       0.473
-##  2 BELGIUM          3.92         -5.85    -0.326          -8.63      0.103        0.227   0.0997       0.417
-##  3 CANADA           4.86         -5.58    -1.05           -8.08      0.0262       0.193   0.0573       0.195
-##  4 DENMARK          4.19         -5.76    -0.358          -8.58      0.158        0.176   0.0867       0.349
-##  5 FRANCE           3.82         -5.87    -0.253          -8.45      0.0499       0.241   0.125        0.344
-##  6 GERMANY          3.89         -5.85    -0.517          -8.51      0.0239       0.193   0.155        0.406
-##  7 GREECE           4.88         -6.61    -0.0339        -10.8       0.255        0.331   0.165        0.839
-##  8 IRELAND          4.23         -6.44    -0.348          -9.04      0.0437       0.162   0.209        0.345
-##  9 ITALY            3.73         -6.35    -0.152          -8.83      0.220        0.217   0.168        0.639
-## 10 JAPAN            4.70         -6.25    -0.287          -9.95      0.684        0.425   0.121        1.20 
-## 11 NETHER…          4.08         -5.92    -0.370          -8.82      0.286        0.193   0.0897       0.617
-## 12 NORWAY           4.11         -5.75    -0.278          -8.77      0.123        0.201   0.0752       0.438
-## 13 SPAIN            4.06         -5.63     0.739          -9.90      0.317        0.278   0.208        0.960
-## 14 SWEDEN           4.01         -7.82    -2.71           -8.25      0.0364       0.126   0.108        0.242
-## 15 SWITZE…          4.24         -5.93    -0.902          -8.54      0.102        0.124   0.0588       0.378
-## 16 TURKEY           5.77         -7.34    -0.422         -12.5       0.329        0.331   0.193        0.751
-## 17 U.K.             3.98         -6.02    -0.459          -8.55      0.0479       0.107   0.118        0.281
-## 18 U.S.A.           4.82         -5.45    -1.21           -7.78      0.0219       0.148   0.0523       0.162
-## # … with 8 more variables: lgaspcar_max &lt;dbl&gt;, lincomep_max &lt;dbl&gt;, lrpmg_max &lt;dbl&gt;, lcarpcap_max &lt;dbl&gt;,
-## #   lgaspcar_min &lt;dbl&gt;, lincomep_min &lt;dbl&gt;, lrpmg_min &lt;dbl&gt;, lcarpcap_min &lt;dbl&gt;</code></pre>
+##    country lgaspcar_mean lincomep_mean lrpmg_mean lcarpcap_mean lgaspcar_sd
+##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AUSTRIA          4.06         -6.12    -0.486          -8.85      0.0693
+##  2 BELGIUM          3.92         -5.85    -0.326          -8.63      0.103 
+##  3 CANADA           4.86         -5.58    -1.05           -8.08      0.0262
+##  4 DENMARK          4.19         -5.76    -0.358          -8.58      0.158 
+##  5 FRANCE           3.82         -5.87    -0.253          -8.45      0.0499
+##  6 GERMANY          3.89         -5.85    -0.517          -8.51      0.0239
+##  7 GREECE           4.88         -6.61    -0.0339        -10.8       0.255 
+##  8 IRELAND          4.23         -6.44    -0.348          -9.04      0.0437
+##  9 ITALY            3.73         -6.35    -0.152          -8.83      0.220 
+## 10 JAPAN            4.70         -6.25    -0.287          -9.95      0.684 
+## 11 NETHER…          4.08         -5.92    -0.370          -8.82      0.286 
+## 12 NORWAY           4.11         -5.75    -0.278          -8.77      0.123 
+## 13 SPAIN            4.06         -5.63     0.739          -9.90      0.317 
+## 14 SWEDEN           4.01         -7.82    -2.71           -8.25      0.0364
+## 15 SWITZE…          4.24         -5.93    -0.902          -8.54      0.102 
+## 16 TURKEY           5.77         -7.34    -0.422         -12.5       0.329 
+## 17 U.K.             3.98         -6.02    -0.459          -8.55      0.0479
+## 18 U.S.A.           4.82         -5.45    -1.21           -7.78      0.0219
+## # … with 11 more variables: lincomep_sd &lt;dbl&gt;, lrpmg_sd &lt;dbl&gt;,
+## #   lcarpcap_sd &lt;dbl&gt;, lgaspcar_max &lt;dbl&gt;, lincomep_max &lt;dbl&gt;,
+## #   lrpmg_max &lt;dbl&gt;, lcarpcap_max &lt;dbl&gt;, lgaspcar_min &lt;dbl&gt;,
+## #   lincomep_min &lt;dbl&gt;, lrpmg_min &lt;dbl&gt;, lcarpcap_min &lt;dbl&gt;</code></pre>
 <p>Just use <code>vars()</code> to specify the variables you want to summarise, and then <code>funs()</code> to list all the
 functions you want to use on each of the columns.</p>
 <p>But maybe you’re just interested in descriptive statistics for some variables, but not all those
@@ -3314,26 +3291,28 @@ helper:</p>
 <span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(dplyr<span class="op">::</span><span class="kw">contains</span>(<span class="st">&quot;car&quot;</span>)), <span class="kw">funs</span>(mean, sd, max, min))</code></pre>
 <pre><code>## # A tibble: 18 x 9
-##    country  lgaspcar_mean lcarpcap_mean lgaspcar_sd lcarpcap_sd lgaspcar_max lcarpcap_max lgaspcar_min lcarpcap_min
-##    &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-##  1 AUSTRIA           4.06         -8.85      0.0693       0.473         4.20        -8.21         3.92        -9.77
-##  2 BELGIUM           3.92         -8.63      0.103        0.417         4.16        -8.10         3.82        -9.41
-##  3 CANADA            4.86         -8.08      0.0262       0.195         4.90        -7.77         4.81        -8.38
-##  4 DENMARK           4.19         -8.58      0.158        0.349         4.50        -8.20         4.00        -9.33
-##  5 FRANCE            3.82         -8.45      0.0499       0.344         3.91        -8.01         3.75        -9.15
-##  6 GERMANY           3.89         -8.51      0.0239       0.406         3.93        -7.95         3.85        -9.34
-##  7 GREECE            4.88        -10.8       0.255        0.839         5.38        -9.57         4.48       -12.2 
-##  8 IRELAND           4.23         -9.04      0.0437       0.345         4.33        -8.55         4.16        -9.70
-##  9 ITALY             3.73         -8.83      0.220        0.639         4.05        -8.11         3.38       -10.1 
-## 10 JAPAN             4.70         -9.95      0.684        1.20          6.00        -8.59         3.95       -12.2 
-## 11 NETHERLA          4.08         -8.82      0.286        0.617         4.65        -8.16         3.71       -10.00
-## 12 NORWAY            4.11         -8.77      0.123        0.438         4.44        -8.17         3.96        -9.68
-## 13 SPAIN             4.06         -9.90      0.317        0.960         4.75        -8.63         3.62       -11.6 
-## 14 SWEDEN            4.01         -8.25      0.0364       0.242         4.07        -7.96         3.91        -8.74
-## 15 SWITZERL          4.24         -8.54      0.102        0.378         4.44        -8.03         4.05        -9.26
-## 16 TURKEY            5.77        -12.5       0.329        0.751         6.16       -11.2          5.14       -13.5 
-## 17 U.K.              3.98         -8.55      0.0479       0.281         4.10        -8.26         3.91        -9.12
-## 18 U.S.A.            4.82         -7.78      0.0219       0.162         4.86        -7.54         4.79        -8.02</code></pre>
+##    country lgaspcar_mean lcarpcap_mean lgaspcar_sd lcarpcap_sd lgaspcar_max
+##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+##  1 AUSTRIA          4.06         -8.85      0.0693       0.473         4.20
+##  2 BELGIUM          3.92         -8.63      0.103        0.417         4.16
+##  3 CANADA           4.86         -8.08      0.0262       0.195         4.90
+##  4 DENMARK          4.19         -8.58      0.158        0.349         4.50
+##  5 FRANCE           3.82         -8.45      0.0499       0.344         3.91
+##  6 GERMANY          3.89         -8.51      0.0239       0.406         3.93
+##  7 GREECE           4.88        -10.8       0.255        0.839         5.38
+##  8 IRELAND          4.23         -9.04      0.0437       0.345         4.33
+##  9 ITALY            3.73         -8.83      0.220        0.639         4.05
+## 10 JAPAN            4.70         -9.95      0.684        1.20          6.00
+## 11 NETHER…          4.08         -8.82      0.286        0.617         4.65
+## 12 NORWAY           4.11         -8.77      0.123        0.438         4.44
+## 13 SPAIN            4.06         -9.90      0.317        0.960         4.75
+## 14 SWEDEN           4.01         -8.25      0.0364       0.242         4.07
+## 15 SWITZE…          4.24         -8.54      0.102        0.378         4.44
+## 16 TURKEY           5.77        -12.5       0.329        0.751         6.16
+## 17 U.K.             3.98         -8.55      0.0479       0.281         4.10
+## 18 U.S.A.           4.82         -7.78      0.0219       0.162         4.86
+## # … with 3 more variables: lcarpcap_max &lt;dbl&gt;, lgaspcar_min &lt;dbl&gt;,
+## #   lcarpcap_min &lt;dbl&gt;</code></pre>
 <p>I used <code>dplyr::contains()</code> instead of simply <code>contains()</code> because there’s also a
 <code>purrr::contains()</code>. If you load <code>purrr</code> after <code>dplyr</code>, <code>contains()</code> will actually be
 <code>purrr::contains()</code> and not <code>dplyr::contains()</code> which causes the above code to fail.</p>
@@ -3342,28 +3321,30 @@ helper:</p>
 <span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_if</span>(is.double, <span class="kw">funs</span>(mean, sd, min, max))</code></pre>
 <pre><code>## # A tibble: 18 x 17
-##    country lgaspcar_mean lincomep_mean lrpmg_mean lcarpcap_mean lgaspcar_sd lincomep_sd lrpmg_sd lcarpcap_sd
-##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AUSTRIA          4.06         -6.12    -0.486          -8.85      0.0693       0.235   0.0873       0.473
-##  2 BELGIUM          3.92         -5.85    -0.326          -8.63      0.103        0.227   0.0997       0.417
-##  3 CANADA           4.86         -5.58    -1.05           -8.08      0.0262       0.193   0.0573       0.195
-##  4 DENMARK          4.19         -5.76    -0.358          -8.58      0.158        0.176   0.0867       0.349
-##  5 FRANCE           3.82         -5.87    -0.253          -8.45      0.0499       0.241   0.125        0.344
-##  6 GERMANY          3.89         -5.85    -0.517          -8.51      0.0239       0.193   0.155        0.406
-##  7 GREECE           4.88         -6.61    -0.0339        -10.8       0.255        0.331   0.165        0.839
-##  8 IRELAND          4.23         -6.44    -0.348          -9.04      0.0437       0.162   0.209        0.345
-##  9 ITALY            3.73         -6.35    -0.152          -8.83      0.220        0.217   0.168        0.639
-## 10 JAPAN            4.70         -6.25    -0.287          -9.95      0.684        0.425   0.121        1.20 
-## 11 NETHER…          4.08         -5.92    -0.370          -8.82      0.286        0.193   0.0897       0.617
-## 12 NORWAY           4.11         -5.75    -0.278          -8.77      0.123        0.201   0.0752       0.438
-## 13 SPAIN            4.06         -5.63     0.739          -9.90      0.317        0.278   0.208        0.960
-## 14 SWEDEN           4.01         -7.82    -2.71           -8.25      0.0364       0.126   0.108        0.242
-## 15 SWITZE…          4.24         -5.93    -0.902          -8.54      0.102        0.124   0.0588       0.378
-## 16 TURKEY           5.77         -7.34    -0.422         -12.5       0.329        0.331   0.193        0.751
-## 17 U.K.             3.98         -6.02    -0.459          -8.55      0.0479       0.107   0.118        0.281
-## 18 U.S.A.           4.82         -5.45    -1.21           -7.78      0.0219       0.148   0.0523       0.162
-## # … with 8 more variables: lgaspcar_min &lt;dbl&gt;, lincomep_min &lt;dbl&gt;, lrpmg_min &lt;dbl&gt;, lcarpcap_min &lt;dbl&gt;,
-## #   lgaspcar_max &lt;dbl&gt;, lincomep_max &lt;dbl&gt;, lrpmg_max &lt;dbl&gt;, lcarpcap_max &lt;dbl&gt;</code></pre>
+##    country lgaspcar_mean lincomep_mean lrpmg_mean lcarpcap_mean lgaspcar_sd
+##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AUSTRIA          4.06         -6.12    -0.486          -8.85      0.0693
+##  2 BELGIUM          3.92         -5.85    -0.326          -8.63      0.103 
+##  3 CANADA           4.86         -5.58    -1.05           -8.08      0.0262
+##  4 DENMARK          4.19         -5.76    -0.358          -8.58      0.158 
+##  5 FRANCE           3.82         -5.87    -0.253          -8.45      0.0499
+##  6 GERMANY          3.89         -5.85    -0.517          -8.51      0.0239
+##  7 GREECE           4.88         -6.61    -0.0339        -10.8       0.255 
+##  8 IRELAND          4.23         -6.44    -0.348          -9.04      0.0437
+##  9 ITALY            3.73         -6.35    -0.152          -8.83      0.220 
+## 10 JAPAN            4.70         -6.25    -0.287          -9.95      0.684 
+## 11 NETHER…          4.08         -5.92    -0.370          -8.82      0.286 
+## 12 NORWAY           4.11         -5.75    -0.278          -8.77      0.123 
+## 13 SPAIN            4.06         -5.63     0.739          -9.90      0.317 
+## 14 SWEDEN           4.01         -7.82    -2.71           -8.25      0.0364
+## 15 SWITZE…          4.24         -5.93    -0.902          -8.54      0.102 
+## 16 TURKEY           5.77         -7.34    -0.422         -12.5       0.329 
+## 17 U.K.             3.98         -6.02    -0.459          -8.55      0.0479
+## 18 U.S.A.           4.82         -5.45    -1.21           -7.78      0.0219
+## # … with 11 more variables: lincomep_sd &lt;dbl&gt;, lrpmg_sd &lt;dbl&gt;,
+## #   lcarpcap_sd &lt;dbl&gt;, lgaspcar_min &lt;dbl&gt;, lincomep_min &lt;dbl&gt;,
+## #   lrpmg_min &lt;dbl&gt;, lcarpcap_min &lt;dbl&gt;, lgaspcar_max &lt;dbl&gt;,
+## #   lincomep_max &lt;dbl&gt;, lrpmg_max &lt;dbl&gt;, lcarpcap_max &lt;dbl&gt;</code></pre>
 <p>This allows you to summarise every column that contain real numbers. The difference between
 <code>is.double()</code> and <code>is.numeric()</code> is that <code>is.numeric()</code> returns <code>TRUE</code> for integers too, whereas
 <code>is.double()</code> returns <code>TRUE</code> for real numbers only (integers are real numbers too, but you know
@@ -3373,28 +3354,30 @@ what I mean). To go faster, you can also use <code>summarise_all()</code>:</p>
 <span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(mean, sd, min, max))</code></pre>
 <pre><code>## # A tibble: 18 x 17
-##    country lgaspcar_mean lincomep_mean lrpmg_mean lcarpcap_mean lgaspcar_sd lincomep_sd lrpmg_sd lcarpcap_sd
-##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AUSTRIA          4.06         -6.12    -0.486          -8.85      0.0693       0.235   0.0873       0.473
-##  2 BELGIUM          3.92         -5.85    -0.326          -8.63      0.103        0.227   0.0997       0.417
-##  3 CANADA           4.86         -5.58    -1.05           -8.08      0.0262       0.193   0.0573       0.195
-##  4 DENMARK          4.19         -5.76    -0.358          -8.58      0.158        0.176   0.0867       0.349
-##  5 FRANCE           3.82         -5.87    -0.253          -8.45      0.0499       0.241   0.125        0.344
-##  6 GERMANY          3.89         -5.85    -0.517          -8.51      0.0239       0.193   0.155        0.406
-##  7 GREECE           4.88         -6.61    -0.0339        -10.8       0.255        0.331   0.165        0.839
-##  8 IRELAND          4.23         -6.44    -0.348          -9.04      0.0437       0.162   0.209        0.345
-##  9 ITALY            3.73         -6.35    -0.152          -8.83      0.220        0.217   0.168        0.639
-## 10 JAPAN            4.70         -6.25    -0.287          -9.95      0.684        0.425   0.121        1.20 
-## 11 NETHER…          4.08         -5.92    -0.370          -8.82      0.286        0.193   0.0897       0.617
-## 12 NORWAY           4.11         -5.75    -0.278          -8.77      0.123        0.201   0.0752       0.438
-## 13 SPAIN            4.06         -5.63     0.739          -9.90      0.317        0.278   0.208        0.960
-## 14 SWEDEN           4.01         -7.82    -2.71           -8.25      0.0364       0.126   0.108        0.242
-## 15 SWITZE…          4.24         -5.93    -0.902          -8.54      0.102        0.124   0.0588       0.378
-## 16 TURKEY           5.77         -7.34    -0.422         -12.5       0.329        0.331   0.193        0.751
-## 17 U.K.             3.98         -6.02    -0.459          -8.55      0.0479       0.107   0.118        0.281
-## 18 U.S.A.           4.82         -5.45    -1.21           -7.78      0.0219       0.148   0.0523       0.162
-## # … with 8 more variables: lgaspcar_min &lt;dbl&gt;, lincomep_min &lt;dbl&gt;, lrpmg_min &lt;dbl&gt;, lcarpcap_min &lt;dbl&gt;,
-## #   lgaspcar_max &lt;dbl&gt;, lincomep_max &lt;dbl&gt;, lrpmg_max &lt;dbl&gt;, lcarpcap_max &lt;dbl&gt;</code></pre>
+##    country lgaspcar_mean lincomep_mean lrpmg_mean lcarpcap_mean lgaspcar_sd
+##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AUSTRIA          4.06         -6.12    -0.486          -8.85      0.0693
+##  2 BELGIUM          3.92         -5.85    -0.326          -8.63      0.103 
+##  3 CANADA           4.86         -5.58    -1.05           -8.08      0.0262
+##  4 DENMARK          4.19         -5.76    -0.358          -8.58      0.158 
+##  5 FRANCE           3.82         -5.87    -0.253          -8.45      0.0499
+##  6 GERMANY          3.89         -5.85    -0.517          -8.51      0.0239
+##  7 GREECE           4.88         -6.61    -0.0339        -10.8       0.255 
+##  8 IRELAND          4.23         -6.44    -0.348          -9.04      0.0437
+##  9 ITALY            3.73         -6.35    -0.152          -8.83      0.220 
+## 10 JAPAN            4.70         -6.25    -0.287          -9.95      0.684 
+## 11 NETHER…          4.08         -5.92    -0.370          -8.82      0.286 
+## 12 NORWAY           4.11         -5.75    -0.278          -8.77      0.123 
+## 13 SPAIN            4.06         -5.63     0.739          -9.90      0.317 
+## 14 SWEDEN           4.01         -7.82    -2.71           -8.25      0.0364
+## 15 SWITZE…          4.24         -5.93    -0.902          -8.54      0.102 
+## 16 TURKEY           5.77         -7.34    -0.422         -12.5       0.329 
+## 17 U.K.             3.98         -6.02    -0.459          -8.55      0.0479
+## 18 U.S.A.           4.82         -5.45    -1.21           -7.78      0.0219
+## # … with 11 more variables: lincomep_sd &lt;dbl&gt;, lrpmg_sd &lt;dbl&gt;,
+## #   lcarpcap_sd &lt;dbl&gt;, lgaspcar_min &lt;dbl&gt;, lincomep_min &lt;dbl&gt;,
+## #   lrpmg_min &lt;dbl&gt;, lcarpcap_min &lt;dbl&gt;, lgaspcar_max &lt;dbl&gt;,
+## #   lincomep_max &lt;dbl&gt;, lrpmg_max &lt;dbl&gt;, lcarpcap_max &lt;dbl&gt;</code></pre>
 <p>I removed the <code>year</code> variable because it’s not a variable for which we want to have descriptive
 statistics.</p>
 </div>
@@ -3590,19 +3573,19 @@ very easy:</p>
 <span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">1960</span>, <span class="dv">1963</span>))</code></pre>
 <pre><code>## # A tibble: 72 x 8
 ## # Groups:   country [18]
-##    country  year lgaspcar lincomep  lrpmg lcarpcap lag_lgaspcar lead_lgaspcar
-##    &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;
-##  1 austria  1960     4.17    -6.47 -0.335    -9.77        NA             4.10
-##  2 austria  1961     4.10    -6.43 -0.351    -9.61         4.17          4.07
-##  3 austria  1962     4.07    -6.41 -0.380    -9.46         4.10          4.06
-##  4 austria  1963     4.06    -6.37 -0.414    -9.34         4.07          4.04
-##  5 belgium  1960     4.16    -6.22 -0.166    -9.41        NA             4.12
-##  6 belgium  1961     4.12    -6.18 -0.172    -9.30         4.16          4.08
-##  7 belgium  1962     4.08    -6.13 -0.222    -9.22         4.12          4.00
-##  8 belgium  1963     4.00    -6.09 -0.250    -9.11         4.08          3.99
-##  9 canada   1960     4.86    -5.89 -0.972    -8.38        NA             4.83
-## 10 canada   1961     4.83    -5.88 -0.972    -8.35         4.86          4.85
-## # … with 62 more rows</code></pre>
+##    country  year lgaspcar lincomep  lrpmg lcarpcap lag_lgaspcar
+##    &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
+##  1 austria  1960     4.17    -6.47 -0.335    -9.77        NA   
+##  2 austria  1961     4.10    -6.43 -0.351    -9.61         4.17
+##  3 austria  1962     4.07    -6.41 -0.380    -9.46         4.10
+##  4 austria  1963     4.06    -6.37 -0.414    -9.34         4.07
+##  5 belgium  1960     4.16    -6.22 -0.166    -9.41        NA   
+##  6 belgium  1961     4.12    -6.18 -0.172    -9.30         4.16
+##  7 belgium  1962     4.08    -6.13 -0.222    -9.22         4.12
+##  8 belgium  1963     4.00    -6.09 -0.250    -9.11         4.08
+##  9 canada   1960     4.86    -5.89 -0.972    -8.38        NA   
+## 10 canada   1961     4.83    -5.88 -0.972    -8.35         4.86
+## # … with 62 more rows, and 1 more variable: lead_lgaspcar &lt;dbl&gt;</code></pre>
 <p>To lag every variable, remember that you can use <code>mutate_if()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gasoline <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span>
@@ -3824,14 +3807,14 @@ load the data:</p>
 
 <span class="kw">head</span>(gss_cat)</code></pre>
 <pre><code>## # A tibble: 6 x 9
-##    year marital         age race  rincome        partyid            relig              denom            tvhours
-##   &lt;int&gt; &lt;fct&gt;         &lt;int&gt; &lt;fct&gt; &lt;fct&gt;          &lt;fct&gt;              &lt;fct&gt;              &lt;fct&gt;              &lt;int&gt;
-## 1  2000 Never married    26 White $8000 to 9999  Ind,near rep       Protestant         Southern baptist      12
-## 2  2000 Divorced         48 White $8000 to 9999  Not str republican Protestant         Baptist-dk which      NA
-## 3  2000 Widowed          67 White Not applicable Independent        Protestant         No denomination        2
-## 4  2000 Never married    39 White Not applicable Ind,near rep       Orthodox-christian Not applicable         4
-## 5  2000 Divorced         25 White Not applicable Not str democrat   None               Not applicable         1
-## 6  2000 Married          25 White $20000 - 24999 Strong democrat    Protestant         Southern baptist      NA</code></pre>
+##    year marital     age race  rincome   partyid    relig    denom   tvhours
+##   &lt;int&gt; &lt;fct&gt;     &lt;int&gt; &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;int&gt;
+## 1  2000 Never ma…    26 White $8000 to… Ind,near … Protest… Southe…      12
+## 2  2000 Divorced     48 White $8000 to… Not str r… Protest… Baptis…      NA
+## 3  2000 Widowed      67 White Not appl… Independe… Protest… No den…       2
+## 4  2000 Never ma…    39 White Not appl… Ind,near … Orthodo… Not ap…       4
+## 5  2000 Divorced     25 White Not appl… Not str d… None     Not ap…       1
+## 6  2000 Married      25 White $20000 -… Strong de… Protest… Southe…      NA</code></pre>
 <p>as you can see, <code>marital</code>, <code>race</code>, <code>rincome</code> and <code>partyid</code> are all factor variables. Let’s take a closer
 look at <code>marital</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(gss_cat<span class="op">$</span>marital)</code></pre>
@@ -3881,7 +3864,7 @@ understand all the code for now:</p>
 <span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">coord_flip</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-324-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-210-1.png" width="672" /></p>
 <p>It would be much better if the categories were ordered by frequency. This is easy to do with
 <code>fct_reorder()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gss_cat <span class="op">%&gt;%</span>
@@ -3890,7 +3873,7 @@ understand all the code for now:</p>
 <span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">coord_flip</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-325-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
 <p>Much better! In Chapter 6, we are going to learn about <code>{ggplot2}</code>.</p>
 <p><code>{forcats}</code> contains other very useful functions, so I urge you to go through the documentation.</p>
 </div>
@@ -3910,19 +3893,19 @@ will show you how to scrape Wikipedia pages using R. For now, let’s take a loo
 of the dataset:</p>
 <pre class="sourceCode r"><code class="sourceCode r">independence</code></pre>
 <pre><code>## # A tibble: 54 x 6
-##    country  colonial_name               colonial_power    independence_date    first_head_of_sta… independence_won_t…
-##    &lt;chr&gt;    &lt;chr&gt;                       &lt;chr&gt;             &lt;chr&gt;                &lt;chr&gt;              &lt;chr&gt;              
-##  1 Liberia  Liberia                     United States     26 July 1847         Joseph Jenkins Ro… Liberian Declarati…
-##  2 South A… Cape Colony  Colony of Nat… United Kingdom    31 May 1910          Louis Botha        South Africa Act 1…
-##  3 Egypt    Sultanate of Egypt          United Kingdom    28 February 1922     Fuad I             Egyptian revolutio…
-##  4 Eritrea  Italian Eritrea             Italy             10 February 1947     Haile Selassie     -                  
-##  5 Libya    British Military Administr… United Kingdom F… 24 December 1951     Idris              -                  
-##  6 Sudan    Anglo-Egyptian Sudan        United Kingdom R… 1 January 1956       Ismail al-Azhari   -                  
-##  7 Tunisia  French Protectorate of Tun… France            20 March 1956        Muhammad VIII al-… -                  
-##  8 Morocco  French Protectorate in Mor… France Spain      2 March 19567 April… Mohammed V         Ifni War           
-##  9 Ghana    Gold Coast                  United Kingdom    6 March 1957         Kwame Nkrumah      Gold Coast legisla…
-## 10 Guinea   French West Africa          France            2 October 1958       Ahmed Sékou Touré  Guinean constituti…
-## # … with 44 more rows</code></pre>
+##    country colonial_name colonial_power independence_da… first_head_of_s…
+##    &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;           
+##  1 Liberia Liberia       United States  26 July 1847     Joseph Jenkins …
+##  2 South … Cape Colony … United Kingdom 31 May 1910      Louis Botha     
+##  3 Egypt   Sultanate of… United Kingdom 28 February 1922 Fuad I          
+##  4 Eritrea Italian Erit… Italy          10 February 1947 Haile Selassie  
+##  5 Libya   British Mili… United Kingdo… 24 December 1951 Idris           
+##  6 Sudan   Anglo-Egypti… United Kingdo… 1 January 1956   Ismail al-Azhari
+##  7 Tunisia French Prote… France         20 March 1956    Muhammad VIII a…
+##  8 Morocco French Prote… France Spain   2 March 19567 A… Mohammed V      
+##  9 Ghana   Gold Coast    United Kingdom 6 March 1957     Kwame Nkrumah   
+## 10 Guinea  French West … France         2 October 1958   Ahmed Sékou Tou…
+## # … with 44 more rows, and 1 more variable: independence_won_through &lt;chr&gt;</code></pre>
 <p>as you can see, the date of independence is in a format that might make it difficult to answer questions
 such as <em>Which African countries gained independence before 1960 ?</em> for two reasons. First of all,
 the date uses the name of the month instead of the number of the month, and second of all the type of
@@ -3934,13 +3917,9 @@ for “year-month-day”. If, however the column is “2012-21-11”, then you w
 a few of these helper functions, and they can handle a lot of different formats for dates. In our case,
 having the name of the month instead of the number might seem quite problematic, but it turns out
 that this is a case that <code>{lubridate}</code> handles painfully:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     date</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
+
+independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">independence_date =</span> <span class="kw">dmy</span>(independence_date))</code></pre>
 <pre><code>## Warning: 5 failed to parse.</code></pre>
 <p>Some dates failed to parse, for instance for Morocco. This is because these countries have several
@@ -3957,33 +3936,37 @@ simplicity’s sake.</p>
 <p>Let’s take a look at the data now:</p>
 <pre class="sourceCode r"><code class="sourceCode r">independence</code></pre>
 <pre><code>## # A tibble: 54 x 6
-##    country  colonial_name                  colonial_power    independence_da… first_head_of_state independence_won_t…
-##    &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt;             &lt;date&gt;           &lt;chr&gt;               &lt;chr&gt;              
-##  1 Liberia  Liberia                        United States     1847-07-26       Joseph Jenkins Rob… Liberian Declarati…
-##  2 South A… Cape Colony  Colony of Natal … United Kingdom    1910-05-31       Louis Botha         South Africa Act 1…
-##  3 Egypt    Sultanate of Egypt             United Kingdom    1922-02-28       Fuad I              Egyptian revolutio…
-##  4 Eritrea  Italian Eritrea                Italy             1947-02-10       Haile Selassie      -                  
-##  5 Libya    British Military Administrati… United Kingdom F… 1951-12-24       Idris               -                  
-##  6 Sudan    Anglo-Egyptian Sudan           United Kingdom R… 1956-01-01       Ismail al-Azhari    -                  
-##  7 Tunisia  French Protectorate of Tunisia France            1956-03-20       Muhammad VIII al-A… -                  
-##  8 Morocco  French Protectorate in Morocc… France Spain      NA               Mohammed V          Ifni War           
-##  9 Ghana    Gold Coast                     United Kingdom    1957-03-06       Kwame Nkrumah       Gold Coast legisla…
-## 10 Guinea   French West Africa             France            1958-10-02       Ahmed Sékou Touré   Guinean constituti…
-## # … with 44 more rows</code></pre>
+##    country colonial_name colonial_power independence_da… first_head_of_s…
+##    &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;          &lt;date&gt;           &lt;chr&gt;           
+##  1 Liberia Liberia       United States  1847-07-26       Joseph Jenkins …
+##  2 South … Cape Colony … United Kingdom 1910-05-31       Louis Botha     
+##  3 Egypt   Sultanate of… United Kingdom 1922-02-28       Fuad I          
+##  4 Eritrea Italian Erit… Italy          1947-02-10       Haile Selassie  
+##  5 Libya   British Mili… United Kingdo… 1951-12-24       Idris           
+##  6 Sudan   Anglo-Egypti… United Kingdo… 1956-01-01       Ismail al-Azhari
+##  7 Tunisia French Prote… France         1956-03-20       Muhammad VIII a…
+##  8 Morocco French Prote… France Spain   NA               Mohammed V      
+##  9 Ghana   Gold Coast    United Kingdom 1957-03-06       Kwame Nkrumah   
+## 10 Guinea  French West … France         1958-10-02       Ahmed Sékou Tou…
+## # … with 44 more rows, and 1 more variable: independence_won_through &lt;chr&gt;</code></pre>
 <p>As you can see, we now have a date column in the right format. We can now answer questions such as
 <em>Which countries gained independence before 1960?</em> quite easily, by using the functions <code>year()</code>,
 <code>month()</code> and <code>day()</code>. Let’s see which countries gained independence before 1960:</p>
 <pre class="sourceCode r"><code class="sourceCode r">independence <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">year</span>(independence_date) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1960</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(country)</code></pre>
-<pre><code>##  [1] &quot;Liberia&quot;                          &quot;South Africa&quot;                     &quot;Egypt&quot;                           
-##  [4] &quot;Eritrea&quot;                          &quot;Libya&quot;                            &quot;Sudan&quot;                           
-##  [7] &quot;Tunisia&quot;                          &quot;Ghana&quot;                            &quot;Guinea&quot;                          
-## [10] &quot;Cameroon&quot;                         &quot;Togo&quot;                             &quot;Mali&quot;                            
-## [13] &quot;Madagascar&quot;                       &quot;Democratic Republic of the Congo&quot; &quot;Benin&quot;                           
-## [16] &quot;Niger&quot;                            &quot;Burkina Faso&quot;                     &quot;Ivory Coast&quot;                     
-## [19] &quot;Chad&quot;                             &quot;Central African Republic&quot;         &quot;Republic of the Congo&quot;           
-## [22] &quot;Gabon&quot;                            &quot;Mauritania&quot;</code></pre>
+<pre><code>##  [1] &quot;Liberia&quot;                          &quot;South Africa&quot;                    
+##  [3] &quot;Egypt&quot;                            &quot;Eritrea&quot;                         
+##  [5] &quot;Libya&quot;                            &quot;Sudan&quot;                           
+##  [7] &quot;Tunisia&quot;                          &quot;Ghana&quot;                           
+##  [9] &quot;Guinea&quot;                           &quot;Cameroon&quot;                        
+## [11] &quot;Togo&quot;                             &quot;Mali&quot;                            
+## [13] &quot;Madagascar&quot;                       &quot;Democratic Republic of the Congo&quot;
+## [15] &quot;Benin&quot;                            &quot;Niger&quot;                           
+## [17] &quot;Burkina Faso&quot;                     &quot;Ivory Coast&quot;                     
+## [19] &quot;Chad&quot;                             &quot;Central African Republic&quot;        
+## [21] &quot;Republic of the Congo&quot;            &quot;Gabon&quot;                           
+## [23] &quot;Mauritania&quot;</code></pre>
 <p>You guessed it, <code>year()</code> extracts the year of the date column and converts it as a <em>numeric</em> so that we can work
 on it. This is the same for <code>month()</code> or <code>day()</code>. Let’s try to see if countries gained their independence on
 Christmas Eve:</p>
@@ -4159,9 +4142,10 @@ can find certain strings. For example, to know which elements of <code>wincheste
 <code>CONTENT</code>, use <code>str_detect()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">winchester <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">str_detect</span>(<span class="st">&quot;CONTENT&quot;</span>)</code></pre>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [19] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [37] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [34] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
 <p>This returns a boolean atomic vector of the same length as <code>winchester</code>. If the string <code>CONTENT</code> is
 nowhere to be found, the result will equal <code>FALSE</code>, if not it will equal <code>TRUE</code>. Here it is easy to
 see that the last element contains the string <code>CONTENT</code>. But what if instead of having 43 elements,
@@ -4425,7 +4409,7 @@ after “CONTENT”:</p>
 <p>Let’s use our faithful <code>str()</code> function to take a look:</p>
 <pre class="sourceCode r"><code class="sourceCode r">winchester_content <span class="op">%&gt;%</span>
 <span class="st">  </span>str</code></pre>
-<pre><code>##  chr [1:19706, 1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<pre><code>##  chr [1:19706, 1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <p>Hum, there’s a lot of <code>NA</code> values! This is because a lot of the lines from the file did not have the
 string “CONTENT”, so there is no match possible. Let’s us remove all these <code>NA</code>s. Because the
 result is a matrix, we cannot use the <code>filter()</code> function from <code>{dplyr}</code>. So we need to convert it
@@ -4433,8 +4417,6 @@ to a tibble first:</p>
 <pre class="sourceCode r"><code class="sourceCode r">winchester_content &lt;-<span class="st"> </span>winchester_content <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(V1))</code></pre>
-<pre><code>## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
-## This warning is displayed once per session.</code></pre>
 <p>Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
 gets automatically called <code>V1</code>. This is why I filter on this column. Let’s take a look at the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(winchester_content)</code></pre>
@@ -4619,6 +4601,29 @@ one step further by learning about regular expressions, which offer much more po
 </div>
 <div id="tidy-data-frames-with-tibble" class="section level3">
 <h3><span class="header-section-number">4.7.4</span> Tidy data frames with <code>{tibble}</code></h3>
+<p>We have already seen and used several functions from the <code>{tibble}</code> package. Let’s now go through
+some more useful functions.</p>
+<div id="creating-tibbles" class="section level4">
+<h4><span class="header-section-number">4.7.4.1</span> Creating tibbles</h4>
+<p><code>tribble()</code> makes it easy to create tibble row by row, manually:</p>
+<p>It is also possible to create a tibble from a named list:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_tibble</span>(<span class="kw">list</span>(<span class="st">&quot;combustion&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;oil&quot;</span>, <span class="st">&quot;diesel&quot;</span>, <span class="st">&quot;oil&quot;</span>, <span class="st">&quot;electric&quot;</span>),
+               <span class="st">&quot;doors&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>)))</code></pre>
+<pre><code>## # A tibble: 4 x 2
+##   combustion doors
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 oil            3
+## 2 diesel         5
+## 3 oil            5
+## 4 electric       5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">enframe</span>(<span class="kw">list</span>(<span class="st">&quot;combustion&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;doors&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cylinders&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)))</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   name       value    
+##   &lt;chr&gt;      &lt;list&gt;   
+## 1 combustion &lt;dbl [2]&gt;
+## 2 doors      &lt;dbl [3]&gt;
+## 3 cylinders  &lt;dbl [4]&gt;</code></pre>
+</div>
 </div>
 </div>
 <div id="list-columns" class="section level2">
@@ -4640,7 +4645,7 @@ one step further by learning about regular expressions, which offer much more po
 ## $ gender     &lt;chr&gt; &quot;male&quot;
 ## $ homeworld  &lt;chr&gt; &quot;Tatooine&quot;
 ## $ species    &lt;chr&gt; &quot;Human&quot;
-## $ films      &lt;list&gt; [&lt;&quot;Revenge of the Sith&quot;, &quot;Return of the Jedi&quot;, &quot;The Empire Strikes Back&quot;, &quot;A New Hope&quot;, &quot;The F…
+## $ films      &lt;list&gt; [&lt;&quot;Revenge of the Sith&quot;, &quot;Return of the Jedi&quot;, &quot;The …
 ## $ vehicles   &lt;list&gt; [&lt;&quot;Snowspeeder&quot;, &quot;Imperial Speeder Bike&quot;&gt;]
 ## $ starships  &lt;list&gt; [&lt;&quot;X-wing&quot;, &quot;Imperial shuttle&quot;&gt;]</code></pre>
 <p>We see that the columns <code>films</code>, <code>vehicles</code> and <code>starships</code> are all lists, and in the case of
@@ -4649,7 +4654,8 @@ one step further by learning about regular expressions, which offer much more po
 <span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(films)</code></pre>
 <pre><code>## [[1]]
-## [1] &quot;Revenge of the Sith&quot;     &quot;Return of the Jedi&quot;      &quot;The Empire Strikes Back&quot; &quot;A New Hope&quot;             
+## [1] &quot;Revenge of the Sith&quot;     &quot;Return of the Jedi&quot;     
+## [3] &quot;The Empire Strikes Back&quot; &quot;A New Hope&quot;             
 ## [5] &quot;The Force Awakens&quot;</code></pre>
 <p><code>pull()</code> is a <code>dplyr</code> function that extract (pulls) the column you’re interested in. It is quite
 useful when you want to inspect a column.</p>
@@ -4796,7 +4802,7 @@ that by the current value of <code>N</code> column:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(points) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> estimate, <span class="dt">x =</span> N)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> pi)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-399-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-288-1.png" width="672" /></p>
 <p>In the next chapter, we are going to learn all about <code>{ggplot2}</code>, the package I used in the lines
 above to create this plot.</p>
 <p>As the number of tries grows, the estimation of <span class="math inline">\(\pi\)</span> gets better.</p>
