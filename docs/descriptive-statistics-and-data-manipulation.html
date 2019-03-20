@@ -2100,7 +2100,8 @@ how to solve the similar problems using <code>gather()</code> and <code>spread()
 <p>I used the <code>tribble()</code> function from the <code>{tibble}</code> package to create this fake dataset.
 I’ll discuss this package later, for now, let’s focus on <code>{tidyr}.</code></p>
 <p>Let’s suppose that we need the data to be in the wide format which means <code>var1</code>, <code>var2</code> and <code>var3</code>
-need to be their own columns. To do this, we need to use</p>
+need to be their own columns. To do this, we need to use the <code>pivot_wide()</code> function. Why <em>wide</em>?
+Because the data set will be wide, meaning, having more columns than rows.</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">keys =</span> id, <span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> value)</code></pre>
 <pre><code>## # A tibble: 5 x 4
@@ -2112,7 +2113,7 @@ need to be their own columns. To do this, we need to use</p>
 ## 4     3   0.1   2.8   8.9
 ## 5     4   1.7  NA     7.6</code></pre>
 <p>Let’s go through <code>pivot_wide()</code>’s arguments: the first is <code>keys =</code> which requires the variable
-that uniquely identifies the rows. <code>names_from =</code> is where you input the variable that will
+that uniquely identifies the rows to be supplied. <code>names_from =</code> is where you input the variable that will
 generate the names of the new columns. In our case, the <code>variable</code> colmuns has three values; <code>var1</code>,
 <code>var2</code> and <code>var3</code>, and these are now the names of the new columns. Finally, <code>values_from =</code> is where
 you can specify the column containing the values that will fill the data frame.
@@ -2130,7 +2131,7 @@ the missing values:</p>
 ## 3     2   1.4   1.9   4.1
 ## 4     3   0.1   2.8   8.9
 ## 5     4   1.7   0     7.6</code></pre>
-<p>A list of variable and their respective value to replace NA’s with must be supplied to <code>values_fill</code>.</p>
+<p>A list of variables and their respective values to replace NA’s with must be supplied to <code>values_fill</code>.</p>
 <p>Let’s now use another dataset, which you can get from
 <a href="https://github.com/b-rodrigues/modern_R/tree/master/datasets/unemployment/all">here</a>
 (downloaded from: <a href="http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950&amp;IF_Language=eng&amp;MainTheme=2&amp;FldrName=3&amp;RFPath=91" class="uri">http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950&amp;IF_Language=eng&amp;MainTheme=2&amp;FldrName=3&amp;RFPath=91</a>). This data set gives the unemployment rate for each Luxembourguish
@@ -2161,7 +2162,7 @@ let’s use it to learn more about <code>{tidyr}</code>.</p>
 ## 5                         5.89
 ## 6                         6.72</code></pre>
 <p>Now, let’s suppose that for our purposes, it would make more sense to have the data in a wide format,
-where columns are divison times year and the value is the unemployment rate. This can be easily done
+where columns are “divison times year” and the value is the unemployment rate. This can be easily done
 with providing more columns to <code>names_from =</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data2 &lt;-<span class="st"> </span>unemp_lux_data <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">2013</span>, <span class="dv">2017</span>), <span class="kw">str_detect</span>(division, <span class="st">&quot;.*ange$&quot;</span>), <span class="op">!</span><span class="kw">str_detect</span>(division, <span class="st">&quot;.*Canton.*&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -2202,7 +2203,7 @@ unemp_lux_data2 <span class="op">%&gt;%</span><span class="st"> </span>
 <p>In the <code>filter()</code> statement, I only kept data from 2013 to 2017, “division”s ending with the string “ange”
 (“division” can be a canton or a commune, for example “Canton Redange”, a canton, or “Hesperange” a commune),
 and removed the cantons as I’m only interested in communes.
-I then only kept the columns I’m interested in, pivoted the data to a wide format.
+I then only kept the columns I’m interested in and pivoted the data to a wide format.
 Also, I needed to add a unique identifier to the data frame. For this, I used <code>rowid_to_column()</code> function,
 from the <code>{tibble}</code> package, which adds a new column to the data frame with an id, going from 1 to
 the number of rows in the data frame. If I did not add this identifier, the statement would work still:</p>
@@ -2233,49 +2234,10 @@ unemp_lux_data3 <span class="op">%&gt;%</span><span class="st"> </span>
 ## #   Wincrange_2014 &lt;dbl&gt;, Wincrange_2015 &lt;dbl&gt;, Wormeldange_2013 &lt;dbl&gt;,
 ## #   Wormeldange_2014 &lt;dbl&gt;, Wormeldange_2015 &lt;dbl&gt;</code></pre>
 <p>and actually look even better, but only because there are no repeated values; there is only one
-unemployment rate for each commune times year. Contrast this to the following example:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(mtcars)
-mtcars_spec &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">expand</span>(am, cyl, <span class="dt">.value =</span> <span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">unite</span>(<span class="st">&quot;.name&quot;</span>, am, cyl, <span class="dt">remove =</span> <span class="ot">FALSE</span>)
-
-mtcars_spec</code></pre>
-<pre><code>## # A tibble: 6 x 4
-##   .name    am   cyl .value
-##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
-## 1 0_4       0     4 mpg   
-## 2 0_6       0     6 mpg   
-## 3 0_8       0     8 mpg   
-## 4 1_4       1     4 mpg   
-## 5 1_6       1     6 mpg   
-## 6 1_8       1     8 mpg</code></pre>
-<p>We can now transform the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
-<pre><code>## # A tibble: 32 x 14
-##     disp    hp  drat    wt  qsec    vs  gear  carb `0_4` `0_6` `0_8` `1_4`
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1  160    110  3.9   2.62  16.5     0     4     4  NA    NA    NA    NA  
-##  2  160    110  3.9   2.88  17.0     0     4     4  NA    NA    NA    NA  
-##  3  108     93  3.85  2.32  18.6     1     4     1  NA    NA    NA    22.8
-##  4  258    110  3.08  3.22  19.4     1     3     1  NA    21.4  NA    NA  
-##  5  360    175  3.15  3.44  17.0     0     3     2  NA    NA    18.7  NA  
-##  6  225    105  2.76  3.46  20.2     1     3     1  NA    18.1  NA    NA  
-##  7  360    245  3.21  3.57  15.8     0     3     4  NA    NA    14.3  NA  
-##  8  147.    62  3.69  3.19  20       1     4     2  24.4  NA    NA    NA  
-##  9  141.    95  3.92  3.15  22.9     1     4     2  22.8  NA    NA    NA  
-## 10  168.   123  3.92  3.44  18.3     1     4     4  NA    19.2  NA    NA  
-## # … with 22 more rows, and 2 more variables: `1_6` &lt;dbl&gt;, `1_8` &lt;dbl&gt;</code></pre>
-<p>As you can see, there are several values of “mpg” for some combinations of “am” times “cyl”. If
-we remove the other columns, each row will not be uniquely identified anymore, and thus an error will be
-returned:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(am, cyl, mpg) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
-<pre><code>Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 6, 32</code></pre>
-<p>So you have to be careful with this.</p>
-<p>Going back to the unemployment example, you might have noticed that because there is no data for
-the years 2016 and 2017, these columnsdo do not appear in the data. But suppose that we need to have
+unemployment rate for each “commune times year”. I will come back to this later on, with another
+example that might be clearer.</p>
+<p>You might have noticed that because there is no data for
+the years 2016 and 2017, these columns do not appear in the data. But suppose that we need to have
 these columns, so that a colleague from another department can fill in the values. This is possible
 by providing a data frame with the detailed specifications of the result data frame. This optional
 data frame must have at least two columns, <code>.name</code>, which are the column names you want, and
@@ -2300,7 +2262,7 @@ unemp_spec</code></pre>
 ## 10 Beaufort_2010 Beaufort  2010 unemployment_rate_in_percent
 ## # … with 1,996 more rows</code></pre>
 <p>The spec has more rows than the data frame (80 vs 48), so this will cause issues if you try to use
-the specification directly, just like for the <code>mtcars</code> example of before:</p>
+the specification directly:</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> unemp_spec)</code></pre>
 <pre><code>Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 80, 48</code></pre>
@@ -2409,6 +2371,47 @@ unemp_lux_data4</code></pre>
 purpose is to fill rows with whatever value comes before or after the missing values. <code>slice(n())</code>
 then only keeps the last row of the data frame, which is the row that contains all the values (expect
 for 2016 and 2017, which has missing values, as we wanted).</p>
+<p>Here is another example of the importance of having an identifier column when using a spec:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(mtcars)
+mtcars_spec &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">expand</span>(am, cyl, <span class="dt">.value =</span> <span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">unite</span>(<span class="st">&quot;.name&quot;</span>, am, cyl, <span class="dt">remove =</span> <span class="ot">FALSE</span>)
+
+mtcars_spec</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   .name    am   cyl .value
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
+## 1 0_4       0     4 mpg   
+## 2 0_6       0     6 mpg   
+## 3 0_8       0     8 mpg   
+## 4 1_4       1     4 mpg   
+## 5 1_6       1     6 mpg   
+## 6 1_8       1     8 mpg</code></pre>
+<p>We can now transform the data:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
+<pre><code>## # A tibble: 32 x 14
+##     disp    hp  drat    wt  qsec    vs  gear  carb `0_4` `0_6` `0_8` `1_4`
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  160    110  3.9   2.62  16.5     0     4     4  NA    NA    NA    NA  
+##  2  160    110  3.9   2.88  17.0     0     4     4  NA    NA    NA    NA  
+##  3  108     93  3.85  2.32  18.6     1     4     1  NA    NA    NA    22.8
+##  4  258    110  3.08  3.22  19.4     1     3     1  NA    21.4  NA    NA  
+##  5  360    175  3.15  3.44  17.0     0     3     2  NA    NA    18.7  NA  
+##  6  225    105  2.76  3.46  20.2     1     3     1  NA    18.1  NA    NA  
+##  7  360    245  3.21  3.57  15.8     0     3     4  NA    NA    14.3  NA  
+##  8  147.    62  3.69  3.19  20       1     4     2  24.4  NA    NA    NA  
+##  9  141.    95  3.92  3.15  22.9     1     4     2  22.8  NA    NA    NA  
+## 10  168.   123  3.92  3.44  18.3     1     4     4  NA    19.2  NA    NA  
+## # … with 22 more rows, and 2 more variables: `1_6` &lt;dbl&gt;, `1_8` &lt;dbl&gt;</code></pre>
+<p>As you can see, there are several values of “mpg” for some combinations of “am” times “cyl”. If
+we remove the other columns, each row will not be uniquely identified anymore, and thus an error will be
+returned:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(am, cyl, mpg) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
+<pre><code>Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 6, 32</code></pre>
+<p>So you have to be careful with this.</p>
 </div>
 <div id="spread-and-gather" class="section level3">
 <h3><span class="header-section-number">4.4.2</span> <code>spread()</code> and <code>gather()</code></h3>

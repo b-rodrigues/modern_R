@@ -869,7 +869,8 @@ I used the `tribble()` function from the `{tibble}` package to create this fake 
 I'll discuss this package later, for now, let's focus on `{tidyr}.`
 
 Let's suppose that we need the data to be in the wide format which means `var1`, `var2` and `var3`
-need to be their own columns. To do this, we need to use 
+need to be their own columns. To do this, we need to use the `pivot_wide()` function. Why *wide*?
+Because the data set will be wide, meaning, having more columns than rows.
 
 ```{r}
 survey_data %>% 
@@ -877,7 +878,7 @@ survey_data %>%
 ```
 
 Let's go through `pivot_wide()`'s arguments: the first is `keys = ` which requires the variable
-that uniquely identifies the rows. `names_from = ` is where you input the variable that will 
+that uniquely identifies the rows to be supplied. `names_from = ` is where you input the variable that will 
 generate the names of the new columns. In our case, the `variable` colmuns has three values; `var1`,
 `var2` and `var3`, and these are now the names of the new columns. Finally, `values_from = ` is where
 you can specify the column containing the values that will fill the data frame.
@@ -892,7 +893,7 @@ survey_data %>%
   pivot_wide(keys = id, names_from = variable, values_from = value, values_fill = list(value = 0))
 ```
 
-A list of variable and their respective value to replace NA's with must be supplied to `values_fill`. 
+A list of variables and their respective values to replace NA's with must be supplied to `values_fill`. 
 
 Let's now use another dataset, which you can get from
 [here](https://github.com/b-rodrigues/modern_R/tree/master/datasets/unemployment/all) 
@@ -907,7 +908,7 @@ head(unemp_lux_data)
 ```
 
 Now, let's suppose that for our purposes, it would make more sense to have the data in a wide format,
-where columns are divison times year and the value is the unemployment rate. This can be easily done
+where columns are "divison times year" and the value is the unemployment rate. This can be easily done
 with providing more columns to `names_from = `. 
 
 ```{r}
@@ -923,7 +924,7 @@ unemp_lux_data2 %>%
 In the `filter()` statement, I only kept data from 2013 to 2017, "division"s ending with the string "ange"
 ("division" can be a canton or a commune, for example "Canton Redange", a canton, or "Hesperange" a commune),
 and removed the cantons as I'm only interested in communes. 
-I then only kept the columns I'm interested in, pivoted the data to a wide format.
+I then only kept the columns I'm interested in and pivoted the data to a wide format.
 Also, I needed to add a unique identifier to the data frame. For this, I used `rowid_to_column()` function, 
 from the `{tibble}` package, which adds a new column to the data frame with an id, going from 1 to
 the number of rows in the data frame. If I did not add this identifier, the statement would work still:
@@ -938,42 +939,12 @@ unemp_lux_data3 %>%
 ```
 
 and actually look even better, but only because there are no repeated values; there is only one
-unemployment rate for each commune times year. Contrast this to the following example:
+unemployment rate for each "commune times year". I will come back to this later on, with another
+example that might be clearer.
 
-```{r}
-data(mtcars)
-mtcars_spec <- mtcars %>% 
-    expand(am, cyl, .value = "mpg") %>%
-    unite(".name", am, cyl, remove = FALSE)
 
-mtcars_spec
-```
-
-We can now transform the data:
-
-```{r}
-mtcars %>% 
-    pivot_wide(spec = mtcars_spec)
-```
-
-As you can see, there are several values of "mpg" for some combinations of "am" times "cyl". If 
-we remove the other columns, each row will not be uniquely identified anymore, and thus an error will be 
-returned:
-
-```{r, eval=FALSE}
-mtcars %>% 
-  select(am, cyl, mpg) %>% 
-  pivot_wide(spec = mtcars_spec)
-```
-
-```
-Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 6, 32
-```
-
-So you have to be careful with this.
-
-Going back to the unemployment example, you might have noticed that because there is no data for 
-the years 2016 and 2017, these columnsdo do not appear in the data. But suppose that we need to have 
+You might have noticed that because there is no data for 
+the years 2016 and 2017, these columns do not appear in the data. But suppose that we need to have 
 these columns, so that a colleague from another department can fill in the values. This is possible
 by providing a data frame with the detailed specifications of the result data frame. This optional 
 data frame must have at least two columns, `.name`, which are the column names you want, and 
@@ -988,7 +959,7 @@ unemp_spec
 ```
 
 The spec has more rows than the data frame (80 vs 48), so this will cause issues if you try to use
-the specification directly, just like for the `mtcars` example of before:
+the specification directly:
 
 ```{r, eval=FALSE}
 unemp_lux_data  %>% 
@@ -1023,6 +994,40 @@ We will learn about `fill()`, anoher `{tidyr}` function a bit later in this chap
 purpose is to fill rows with whatever value comes before or after the missing values. `slice(n())`
 then only keeps the last row of the data frame, which is the row that contains all the values (expect
 for 2016 and 2017, which has missing values, as we wanted).
+
+Here is another example of the importance of having an identifier column when using a spec:
+
+```{r}
+data(mtcars)
+mtcars_spec <- mtcars %>% 
+    expand(am, cyl, .value = "mpg") %>%
+    unite(".name", am, cyl, remove = FALSE)
+
+mtcars_spec
+```
+
+We can now transform the data:
+
+```{r}
+mtcars %>% 
+    pivot_wide(spec = mtcars_spec)
+```
+
+As you can see, there are several values of "mpg" for some combinations of "am" times "cyl". If 
+we remove the other columns, each row will not be uniquely identified anymore, and thus an error will be 
+returned:
+
+```{r, eval=FALSE}
+mtcars %>% 
+  select(am, cyl, mpg) %>% 
+  pivot_wide(spec = mtcars_spec)
+```
+
+```
+Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 6, 32
+```
+
+So you have to be careful with this.
 
 
 ### `spread()` and `gather()`
