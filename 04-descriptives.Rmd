@@ -1029,6 +1029,106 @@ Error in data.frame(row = row_id, col = col_id) : arguments imply differing numb
 
 So you have to be careful with this.
 
+`pivot_long()` is used when you need to go from a wide to a long dataset, meaning, a dataset where 
+there are some columns that should not be columns, but rather, the levels of a factor variable. 
+Let's suppose that the "am" column is split into two columns, `1` for 
+automatic and `0` for manual transmissions, and that the values filling these colums are miles per
+gallon, "mpg":
+
+```{r}
+mtcars_wide_am <- mtcars %>% 
+  pivot_wide(names_from = am, values_from = mpg)
+
+mtcars_wide_am %>% 
+  select(`0`, `1`, everything())
+```
+
+As you can see, the "0" and "1" columns should not be their own columns, unless there is a very
+specific and good reason they should... but rather, they should be the levels of another column (in
+our case, "am").
+
+We can go back to a long dataset like so:
+
+```{r}
+mtcars_wide_am %>% 
+  pivot_long(cols = c(`1`, `0`), names_to = "am", values_to = "mpg") %>% 
+  select(am, mpg, everything())
+```
+
+In the cols argument, you need to list all the variables that need to be transformed. Only `1` and 
+`0` must be pivoted, so I list them. Just for illustration purposes, imagine that we would need
+to pivot 50 columns. It would be faster to list the columns that do not need to be pivoted. This 
+can be achieved by listing the columns that must be excluded with `-` in front, and maybe using 
+`match()` with a regular expression:
+
+```{r}
+mtcars_wide_am %>% 
+  pivot_long(cols = -matches("^[[:alpha:]]"), names_to = "am", values_to = "mpg") %>% 
+  select(am, mpg, everything())
+```
+
+Every column that starts with a letter is ok, so there is no need to pivot them. I use the `match()` 
+function with a regular expression so that I don't have to type the names of all the columns. `select()`
+is used to re-order the columns, only for viewing purposes
+
+`names_to = ` takes a string as argument, which will be the name of the name column containing the 
+levels `0` and `1`, and `values_to = ` also takes a string as argument, which will be the name of 
+the column containing the values. Finally, you can see that there are a lot of `NA`s in the 
+output. These can be removed easily:
+
+```{r}
+mtcars_wide_am %>% 
+  pivot_long(cols = c(`1`, `0`), names_to = "am", values_to = "mpg", na.rm = TRUE) %>% 
+  select(am, mpg, everything())
+```
+
+Now for a more advanced example, let's suppose that we are dealing with the following wide dataset:
+
+```{r}
+mtcars_wide <- mtcars %>% 
+    pivot_wide(spec = mtcars_spec)
+
+mtcars_wide
+```
+
+The difficulty here is that we have columns with two levels of information. For instance, the 
+column "0_4" contains the miles per gallon values for manual cars (`0`) with `4` cylinders.
+The first step is to first pivot the columns:
+
+```{r}
+mtcars_wide %>% 
+  pivot_long(cols = matches("0|1"), names_to = "am_cyl", values_to = "mpg", na.rm = TRUE) %>% 
+  select(am_cyl, mpg, everything())
+```
+
+Now we only need to separate the "am_cyl" column into two new columns, "am" and "cyl":
+
+```{r}
+mtcars_wide %>% 
+  pivot_long(cols = matches("0|1"), names_to = "am_cyl", values_to = "mpg", na.rm = TRUE) %>% 
+  separate(am_cyl, into = c("am", "cyl"), sep = "_") %>% 
+  select(am, cyl, mpg, everything())
+```
+
+It is also possible to construct a specification data frame, just like for `pivot_wide()`:
+
+```{r}
+mtcars_spec_long <- mtcars_wide %>% 
+  pivot_long_spec(matches("0|1"), values_to = "mpg") %>% 
+  separate(name, c("am", "cyl"), sep = "_")
+
+mtcars_spec_long
+```
+
+This spec can now be specified to `pivot_long()`:
+
+```{r}
+mtcars_wide %>% 
+  pivot_long(spec = mtcars_spec_long, na.rm = TRUE) %>% 
+  select(am, cyl, mpg, everything())
+```
+
+Defining specifications give a lot of flexibility and in some complicated cases are the way to go.
 
 ### `spread()` and `gather()`
 
