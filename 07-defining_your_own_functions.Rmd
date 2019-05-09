@@ -305,7 +305,7 @@ Write a function to find the roots of quadratic functions. Your function should 
 
 ```{r, include=FALSE}
 quad_root <- function(a, b, c){
-# function that return the root of a quadratic function
+# function that returns the root of a quadratic function
 # very basic, doesn't cover the case where delta < 0
   delta = b**2 - 4 * a * c
   x1 = (-b + sqrt(delta)) / (2 * a)
@@ -316,11 +316,11 @@ quad_root <- function(a, b, c){
 quad_root(1, -4, 3) # should return 3 and 1
 ```
 
-## Functions that take functions as arguments
+## Functions that take functions as arguments: writing your own higher-order functions
 
 Functions that take functions as arguments are very powerful and useful tools. You already know a
-couple, `purrr::map()` and `purrr::reduce()`. But you can also write your own! A very simple 
-example would be the following:
+couple, `purrr::map()` and `purrr::reduce()`, discussed briefly in Chapter 4. 
+But you can also write your own! A very simple example would be the following:
 
 ```{r}
 my_func <- function(x, func){
@@ -654,7 +654,7 @@ result = 0
 }
 
 result = 0
-  while (i<=length(a)){
+  while (i <= length(a)){
     result = result + a[i]
     i = i + 1
 }
@@ -697,6 +697,8 @@ result = 0
 
 7) Inside this last loop, compute the result and save it inside C: `C[i,j] = C[i,j] + A[i,k] * B[k,j]}
 
+8) Now write a function that takes two matrices as arguments, and returns their product.
+
 ```{r, include=FALSE}
 A <- matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
 
@@ -717,14 +719,16 @@ for(i in 1:nrow(A)){
 
 ### Exercise 3 {-}
 
-* Fizz Buzz: Print integers from 1 to 100. If a number is divisible by 3, print the word `Fizz` if
-it's divisible by 5, print `Buzz`. Use a for loop and if statements.
+* Fizz Buzz: Print integers from 1 to 100. If a number is divisible by 3, print the word `"Fizz"` if
+it's divisible by 5, print `"Buzz"`. Use a for loop and if statements.
+
+* Write a function that takes an integer as arguments, and prints `"Fizz"` or `"Buzz"` up to that integer.
 
 ### Exercise 4 {-}
 
 * Fizz Buzz 2: Same as above, but now add this third condition: if a number is both divisible by 3 and 5, print `"FizzBuzz"`.
 
-```{r}
+```{r, include=FALSE}
 for (i in 1:100){
 if (i %% 15 == 0) {
   print("FizzBuzz")
@@ -737,3 +741,5 @@ if (i %% 15 == 0) {
 }
 }
 ```
+
+* Write a function that takes an integer as argument, and prints `Fizz`, `Buzz` or `FizzBuzz` up to that integer.

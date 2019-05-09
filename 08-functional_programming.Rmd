@@ -195,7 +195,7 @@ possible. This makes testing and debugging easier, as you will see.
 
 Hadley Wickham developed a package called `purrr` which contains a lot of very useful functions. 
 
-### The `map*()` family of functions
+### Doing away with loops: the `map*()` family of functions
 
 In the previous section we saw how to map a function to each element of a list. Each version of an
 `*apply()` function has a different purpose, but it is not very easy to remember which one returns
@@ -353,7 +353,7 @@ purrr::accumulate(seq(1, 100), `+`)
 accumulate(seq(1, 100), `+`)
 ```
 
-### `safely()` and `possibly()`
+### Error handling with `safely()` and `possibly()`
 
 `safely()` and `possibly()` are very useful functions. Consider the following situation:
 
@@ -397,10 +397,39 @@ sqrt(as.numeric(a))
 However, in some situations, this trick does not work as intended (or at all), so `possibly()` and
 `safely()` are the way to go.
 
-### `is_*()` and `as_*()` functions
+### Partial applications with `partial()`
+
+```{r}
+add <- function(a, b) a+b
+```
+
+```{r}
+purrr::partial(add, a = 10)
+```
+
+```{r}
+purrr::partial(add, a = 10)(12)
+```
+
+### Function composition using `compose`
+
+```{r}
+compose(sqrt, log, exp)(10)
+```
+
+```{r}
+sqrt(log(exp(10)))
+```
+
+### Type safety with `{checkmate}`
+
+### `is_*()` `as_*()`
 
 Remember in Chapter 3, when I introduced `is.*()` and `as.*()` functions? I told you then that we
 were going to learn about `is_*()` and `as_*()` in Chapter 9. This is it!
+
+These functions actually reside in the `{rlang}` package, but are made available to the user once
+`{purrr}` is loaded.
 
 ### «Transposing lists»
 
@@ -426,7 +455,10 @@ I explicitely call `purrr::transpose()` because there is also a `data.table::tra
 is not the same function. You have to be careful about that sort of thing, because it can cause
 errors in your programs and debuging this type of error is a nightmare.
 
-## Using your functions inside `mutate()`
+Now that we are familiar with functional programming, let's try to apply some of its principles
+to data manipulation.
+
+## List-based workflows for efficiency
 
 Once you wrote a function, you can easily use it inside a pipe workflow:
 
@@ -444,20 +476,13 @@ mtcars %>%
 Granted this example is stupid, but it shows you, again, that functions you define are nothing
 special. You can use them just as any other.
 
-You can also avoid to define a function altogether, especially if you need an operation only once,
-by using the `.` like this:
+Now, let's step back for a bit and think about what we learned up until now, and especially 
+the `map()` family of functions.
 
-```{r}
-mtcars %>%
-  mutate(double_mpg = .$mpg + .$mpg)
+```
+TO BE FINALIZED
 ```
 
-
-## Working with a list of datasets
-
-### Using `map()` to work on lists of datasets
-
-This is our first encouter with a typical functional programming function, `map()`.
 
 Let's read the list of datasets from the previous chapter:
 
@@ -470,8 +495,6 @@ all_datasets <- import_list(paths)
 str(all_datasets)
 ```
 
-For working with lists, another package from the `tidyverse` that is very useful, is called
-`purrr`. `purrr` will be presented in-depth in Chapter 9.
 
 The first thing we are going to do is use a function to clean the names of the datasets. These
 names are not very easy to work with; there are spaces, and it would be better if the names of the
@@ -485,7 +508,7 @@ library(janitor)
 ```{r, eval = FALSE}
 library(janitor)
 
-one_dataset = one_dataset %>%
+one_dataset <- one_dataset %>%
   clean_names()
 ```
 
@@ -541,8 +564,6 @@ converts it to a function that it can use. If you want to know more about this, 
 is an advanced topic.
 
 
-## Mapping your homebrewed functions to lists of datasets
-
 Before merging these datasets together, we would need them to have a `year` column indicating the
 year. It would also be helpful if gave names to these datasets. For this task, we can use
 `purrr::set_names()`:
@@ -564,7 +585,6 @@ access them with the `$` operator:
 knitr::include_graphics("pics/all_datasets_names.png")
 ```
 
-### Data frames and `reduce`
 
 Using `map()` we now know how to apply a function to each dataset of a list. But maybe it would be
 easier to merge all the datasets first, and then manipulate them? Before that though, I am going to
@@ -595,7 +615,7 @@ generalizes functions that only take two arguments. If you were to write a funct
 the minimum between two numbers:
 
 ```{r, cache=TRUE}
-my_min = function(a, b){
+my_min <- function(a, b){
     if(a < b){
         return(a)
     } else {
@@ -633,7 +653,7 @@ export(unemp_lux, "datasets/unemp_lux.csv")
 ```
 
 
-## Functional programming and plotting
+### Functional programming and plotting
 
 In this section, we are going to learn how to use the possibilities offered by the `purrr` package
 and how it can work together with `ggplot2` to generate many plots. This is a more advanced topic,
@@ -775,6 +795,12 @@ graphs or even another function. `map()` will simply map this function to a list
 long as these inputs are correct arguments to the function, `map()` will do its magic. If you
 combine this with list-columns, you can even use `map()` alongside `dplyr` functions and map your
 function by first grouping, filtering, etc...
+
+### Modeling with functional programming
+
+```
+TO BE WRITTEN
+```
 
 ## Exercises
 

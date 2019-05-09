@@ -45,3 +45,4 @@ Matrix
 foreach
 glmnet
 lubridate
+stopwords
