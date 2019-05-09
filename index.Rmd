@@ -21,8 +21,9 @@ library(janitor)
 
 ## Note to the reader {-}
 
-This book is still being written. Chapters 1 to 8 are almost ready, but more content is being added.
-9 and 10 are empty for now. Some exercises might be at the wrong place too and more are coming.
+This book is still being written. Chapters 1 to 8 are almost ready, but more content is being added 
+(especially to chapter 8). 9 and 10 are empty for now. Some exercises might be at the wrong place 
+too and more are coming.
 
 If you already like what you read, you can support 
 me by [buying me a coffee](https://www.buymeacoffee.com/brodriguesco)
@@ -38,7 +39,7 @@ to focus on R's functional programming capabilities] programming language that
 focuses on applications in *statistics*. By *statistics* I mean any field that uses statistics such
 as official statistics, economics, finance, data science, machine learning, etc. For the sake of
 simplicity, I will use the word "statistics" as a general term that encompasses all these fields and
-disciplines for the remaineder of this book.
+disciplines for the remainder of this book.
 
 ## Who is this book for? {-}
 
