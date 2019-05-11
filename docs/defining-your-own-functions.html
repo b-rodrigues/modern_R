@@ -370,13 +370,13 @@ programming languages would be very limited.</p>
 <h3><span class="header-section-number">7.1.1</span> If-else</h3>
 <p>Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical
 problem that requires the <code>if ... else ...</code> construct. For instance:</p>
-<pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">4</span>
-b =<span class="st"> </span><span class="dv">5</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">4</span>
+b &lt;-<span class="st"> </span><span class="dv">5</span></code></pre>
 <p>Suppose that if <code>a &gt; b</code> then <code>f</code> should be equal to 20, else <code>f</code> should be equal to 10. Using <code>if ... else ...</code> you can achieve this like so:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (a <span class="op">&gt;</span><span class="st"> </span>b) {
-  f =<span class="st"> </span><span class="dv">20</span>
+  f &lt;-<span class="st"> </span><span class="dv">20</span>
     } <span class="cf">else</span> {
-  f =<span class="st"> </span><span class="dv">10</span>
+  f &lt;-<span class="st"> </span><span class="dv">10</span>
 }</code></pre>
 <p>Obviously, here <code>f = 10</code>. Another way to achieve this is by using the <code>ifelse()</code> function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="kw">ifelse</span>(a <span class="op">&gt;</span><span class="st"> </span>b, <span class="dv">20</span>, <span class="dv">10</span>)</code></pre>
@@ -487,16 +487,84 @@ Writing this in R is quite simple:</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(x){
 <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)
 }</code></pre>
+<p>The argument of the function, <code>x</code>, gets passed to the… <code>function()</code> function and the <em>body</em> of
+the function (more on that in the next Chapter) contains the function definition. Of course,
+you could define functions that use more than one input:</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){
+<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x <span class="op">+</span><span class="st"> </span>y)
+}</code></pre>
+<p>or inputs with names longer than one character:</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2){
+<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(argument1 <span class="op">+</span><span class="st"> </span>argument2)
+}</code></pre>
+<p>Functions written by the user get called just the same way as functions included in R:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_function</span>(<span class="dv">1</span>, <span class="dv">10</span>)</code></pre>
+<pre><code>## [1] 0.3015113</code></pre>
+<p>It is also possible to provide default values to the function’s arguments. Values that are used
+if the user omits them:</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, <span class="dt">argument2 =</span> <span class="dv">10</span>){
+<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(argument1 <span class="op">+</span><span class="st"> </span>argument2)
+}</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_function</span>(<span class="dv">1</span>)</code></pre>
+<pre><code>## [1] 0.3015113</code></pre>
+<p>This is especially useful for functions with many arguments, or to allow users to choose between
+different methods:</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2, <span class="dt">method =</span> <span class="st">&quot;foo&quot;</span>){
+  
+  x &lt;-<span class="st"> </span>argument1 <span class="op">+</span><span class="st"> </span>argument2
+  
+  <span class="cf">if</span>(method <span class="op">==</span><span class="st"> &quot;foo&quot;</span>){
+    <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)
+  } <span class="cf">else</span> <span class="cf">if</span> (method <span class="op">==</span><span class="st"> &quot;bar&quot;</span>){
+    <span class="st">&quot;this is a string&quot;</span>
+    }
+}
+
+<span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>)</code></pre>
+<pre><code>## [1] 0.2182179</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;bar&quot;</span>)</code></pre>
+<pre><code>## [1] &quot;this is a string&quot;</code></pre>
+<p>As you see, depending on the “method” chosen, the returned result is either a numeric, or a string.
+What happens if the user provides a “method” that is neither “foo” nor “bar”?</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;spam&quot;</span>)</code></pre>
+<p>As you can see nothing happens. It is possible to add safeguards to your function to avoid such
+situations:</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2, <span class="dt">method =</span> <span class="st">&quot;foo&quot;</span>){
+  
+  <span class="cf">if</span>(<span class="op">!</span>(method <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>))){
+    <span class="kw">return</span>(<span class="st">&quot;Method must be either &#39;foo&#39; or &#39;bar&#39;&quot;</span>)
+  }
+  
+  x &lt;-<span class="st"> </span>argument1 <span class="op">+</span><span class="st"> </span>argument2
+  
+  <span class="cf">if</span>(method <span class="op">==</span><span class="st"> &quot;foo&quot;</span>){
+    <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)
+  } <span class="cf">else</span> <span class="cf">if</span> (method <span class="op">==</span><span class="st"> &quot;bar&quot;</span>){
+    <span class="st">&quot;this is a string&quot;</span>
+    }
+}
+
+<span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>)</code></pre>
+<pre><code>## [1] 0.2182179</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;bar&quot;</span>)</code></pre>
+<pre><code>## [1] &quot;this is a string&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;foobar&quot;</span>)</code></pre>
+<pre><code>## [1] &quot;Method must be either &#39;foo&#39; or &#39;bar&#39;&quot;</code></pre>
+<p>Notice that I have used <code>return()</code> inside my first <code>if</code> statement. This is to immediately stop
+evaluation of the function and return a value. If I had omitted it, evaluation would have
+continued, as it is always the last expression that gets evaluated. Remove <code>return()</code> and run the
+function again, and see what happens. Later, we are going to learn how to add better safeguards to
+your functions, to avoid runtime errors.</p>
 <p>While in general, it is a good idea to add comments to your functions to explain what they do, I
 would avoid adding comments to functions that do things that are very obvious, such as with this
 one. Function names should be of the form: <code>function_name()</code>. Always give your function very
 explicit names! In mathematics it is standard to give functions just one letter as a name, but I
 would advise against doing that in your code. Functions that you write are not special in any way;
 this means that R will treat them the same way, and they will work in conjunction with any other
-function just as if it was built-in into R. They have one limitation though (which is shared with
-R’s native function): just like in math, they can only return one value. However, sometimes, you
-may need to return more than one value. To be able to do this, you must put your values in a list,
-and return the list of values. For example:</p>
+function just as if it was built-in into R.</p>
+<p>They have one limitation though (which is shared with R’s native function): just like in math,
+they can only return one value. However, sometimes, you may need to return more than one value.
+To be able to do this, you must put your values in a list, and return the list of values. For example:</p>
 <pre class="sourceCode r"><code class="sourceCode r">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){
 <span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))
 }
@@ -514,7 +582,7 @@ and return the list of values. For example:</p>
 ## 
 ## $sd_x
 ## [1] 4.262237</code></pre>
-<p>Note that there is the possibility to use <code>return()</code> at the end of your functions:</p>
+<p>As described before, you can use <code>return()</code> at the end of your functions:</p>
 <pre class="sourceCode r"><code class="sourceCode r">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){
   result &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))
 <span class="kw">return</span>(result)
@@ -600,12 +668,12 @@ mathematical definition of the fibonacci sequence. So why not use only recursive
 then? Try to run the following:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">my_fibo</span>(<span class="dv">30</span>))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.121   0.117   0.238</code></pre>
+##   0.291   0.320   0.577</code></pre>
 <p>The result should be printed very fast (the <code>system.time()</code> function returns the time that it took
 to execute <code>my_fibo(30)</code>). Let’s try with the recursive version:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">fibo_recur</span>(<span class="dv">30</span>))</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.272   0.167   1.437</code></pre>
+##   1.217   0.197   1.403</code></pre>
 <p>It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
 critical, it’s best to avoid recursive algorithms. Also, in <code>fibo_recur()</code> try to remove this line:
 <code>if (n == 0 || n == 1)</code> and try to run <code>fibo_recur(5)</code> for example and see what happens. You should

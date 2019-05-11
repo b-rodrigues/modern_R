@@ -17,8 +17,8 @@ Imagine you want a variable to be equal to a certain value if a condition is met
 problem that requires the `if ... else ...` construct. For instance:
 
 ```{r, cache=TRUE}
-a = 4
-b = 5
+a <- 4
+b <- 5
 ```
 
 Suppose that if `a > b` then `f` should be equal to 20, else `f` should be equal to 10. Using ```if ... else
@@ -26,9 +26,9 @@ Suppose that if `a > b` then `f` should be equal to 20, else `f` should be equal
 
 ```{r, cache=TRUE}
 if (a > b) {
-  f = 20
+  f <- 20
     } else {
-  f = 10
+  f <- 10
 }
 ```
 
@@ -170,16 +170,113 @@ my_function <- function(x){
 }
 ```
 
+The argument of the function, `x`, gets passed to the... `function()` function and the *body* of 
+the function (more on that in the next Chapter) contains the function definition. Of course, 
+you could define functions that use more than one input:
+
+```{r, cache=TRUE}
+my_function <- function(x, y){
+1/sqrt(x + y)
+}
+```
+
+or inputs with names longer than one character:
+
+```{r, cache=TRUE}
+my_function <- function(argument1, argument2){
+1/sqrt(argument1 + argument2)
+}
+```
+
+Functions written by the user get called just the same way as functions included in R:
+
+```{r, cache=TRUE}
+my_function(1, 10)
+```
+
+It is also possible to provide default values to the function's arguments. Values that are used
+if the user omits them:
+
+```{r, cache=TRUE}
+my_function <- function(argument1, argument2 = 10){
+1/sqrt(argument1 + argument2)
+}
+```
+
+```{r, cache=TRUE}
+my_function(1)
+```
+
+This is especially useful for functions with many arguments, or to allow users to choose between
+different methods:
+
+```{r, cache=TRUE}
+my_function <- function(argument1, argument2, method = "foo"){
+  
+  x <- argument1 + argument2
+  
+  if(method == "foo"){
+    1/sqrt(x)
+  } else if (method == "bar"){
+    "this is a string"
+    }
+}
+
+my_function(10, 11)
+
+my_function(10, 11, "bar")
+```
+
+As you see, depending on the "method" chosen, the returned result is either a numeric, or a string.
+What happens if the user provides a "method" that is neither "foo" nor "bar"?
+
+```{r, cache=TRUE}
+my_function(10, 11, "spam")
+```
+
+As you can see nothing happens. It is possible to add safeguards to your function to avoid such
+situations:
+
+```{r, cache=TRUE}
+my_function <- function(argument1, argument2, method = "foo"){
+  
+  if(!(method %in% c("foo", "bar"))){
+    return("Method must be either 'foo' or 'bar'")
+  }
+  
+  x <- argument1 + argument2
+  
+  if(method == "foo"){
+    1/sqrt(x)
+  } else if (method == "bar"){
+    "this is a string"
+    }
+}
+
+my_function(10, 11)
+
+my_function(10, 11, "bar")
+
+my_function(10, 11, "foobar")
+```
+
+Notice that I have used `return()` inside my first `if` statement. This is to immediately stop
+evaluation of the function and return a value. If I had omitted it, evaluation would have 
+continued, as it is always the last expression that gets evaluated. Remove `return()` and run the
+function again, and see what happens. Later, we are going to learn how to add better safeguards to 
+your functions, to avoid runtime errors.
+
 While in general, it is a good idea to add comments to your functions to explain what they do, I
 would avoid adding comments to functions that do things that are very obvious, such as with this
 one. Function names should be of the form: `function_name()`. Always give your function very
 explicit names! In mathematics it is standard to give functions just one letter as a name, but I
 would advise against doing that in your code. Functions that you write are not special in any way;
 this means that R will treat them the same way, and they will work in conjunction with any other
-function just as if it was built-in into R. They have one limitation though (which is shared with
-R's native function): just like in math, they can only return one value. However, sometimes, you
-may need to return more than one value. To be able to do this, you must put your values in a list,
-and return the list of values. For example:
+function just as if it was built-in into R. 
+
+They have one limitation though (which is shared with R's native function): just like in math, 
+they can only return one value. However, sometimes, you may need to return more than one value. 
+To be able to do this, you must put your values in a list, and return the list of values. For example:
 
 
 ```{r, cache=TRUE}
@@ -200,7 +297,7 @@ list("mean_x" =  mean(x), "sd_x" = sd(x))
 average_and_sd(c(1, 3, 8, 9, 10, 12))
 ```
 
-Note that there is the possibility to use `return()` at the end of your functions:
+As described before, you can use `return()` at the end of your functions:
 
 ```{r, cache=TRUE}
 average_and_sd <- function(x){

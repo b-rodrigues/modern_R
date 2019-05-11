@@ -1,12 +1,17 @@
 # Functional programming
 
-By now, you are pretty familiar with functions in R. Now, let's introduce the functional programming
-paradigm, but first, let's go over some formal definitions.
+Functional programming is a paradigm that I find very suitable for data science. In functional
+programming, your code is organised into functions that you can call when needed. Your scripts
+will only be a sequence of calls to these functions, making it easier to understand. R is not a pure
+functional programming language, so we need some self-discipline to apply pure functional programming
+principles. However, these efforts are worth it, because pure functions are easier to debug, extend
+and document. In this chapter, we are going to learn about functional programming principles that you
+can adopt and start using to make your code better. 
 
 ## Functions definition
 
-You should be familiar with function definitions in R. For example, suppose you want to compute
-the square root of a number and want to do so using Newton's algorithm:
+You should now be familiar with function definitions in R. Let's suppose you want to write a function
+to compute the square root of a number and want to do so using Newton's algorithm:
 
 ```{r square_root_loop}
 sqrt_newton <- function(a, init, eps = 0.01){
@@ -53,7 +58,8 @@ I won't got into the details of what tail-call optimization is but just remember
 performance is important a loop will be faster. However, sometimes, it is easier to write a 
 function using recursion. I personally tend to avoid loops if performance is not important, 
 because I find that code that avoids loops is easier to read and debug. However, knowing that 
-you can use loops is reassuring. In the coming sections I will show you some built-in functions
+you can use loops is reassuring, and encapsulating loos inside functions gives you the benefits of
+both using functions, and loops. In the coming sections I will show you some built-in functions
 that make it possible to avoid writing loops and that don't rely on recursion, so performance
 won't be penalized.
 
@@ -66,7 +72,7 @@ For example, the following function:
 
 ```{r}
 increment <- function(x){
-    return(x + 1)
+    x + 1
 }
 ```
 
@@ -85,7 +91,7 @@ However, this one:
 
 ```{r}
 increment_opaque <- function(x){
-    return(x + spam)
+    x + spam
 }
 ```
 
@@ -111,7 +117,7 @@ argument:
 
 ```{r}
 increment_not_opaque <- function(x, spam){
-    return(x + spam)
+    x + spam
 }
 ```
 
@@ -138,7 +144,7 @@ sqrt_newton_side_effect <- function(a, init, eps = 0.01){
     while(abs(init**2 - a) > eps){
         init <- 1/2 *(init + a/init)
         count_iter <<- count_iter + 1 # The "<<-" symbol means that we assign the
-    }                                 # RHS value in a variable in the global environment
+    }                                 # RHS value in a variable inside the global environment
     return(init)
 }
 ```
@@ -163,7 +169,7 @@ sqrt_newton_count <- function(a, init, count_iter = 0, eps = 0.01){
         init <- 1/2 *(init + a/init)
         count_iter <- count_iter + 1
     }
-    return(c(init, count_iter))
+    c(init, count_iter)
 }
 ```
 
@@ -178,6 +184,14 @@ Writing to disk is also considered a side effect, because the function changes s
 outside its scope. But this cannot be avoided since you *want* to write to disk. 
 Just remember: try to avoid having functions changing variables in the global environment unless 
 you have a very good reason of doing so.
+
+Very long scripts that don't use functions and but use a lot of global variables with loops changing
+the values are a nightmare to debug. If something goes wrong, it might be very difficult to pinpoint
+where the problem is. Is there an error in one of the loops? Is your code running for a particular
+value of a particular variable in the global environment, but not for other values? Which values? And
+of which variables? It can be very difficult to know what is wrong with such a script. 
+With functional programming, you can avoid a lot of this pain for free (well not entirely for free,
+it still requires some effort, since R is not a pure functional language).
 
 Finally, another property of mathematical functions, is that they do one single thing. Functional
 programming purists also program their functions to do one single task. This has benefits, but
