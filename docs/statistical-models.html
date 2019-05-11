@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -663,7 +663,7 @@ using <code>broom::glance()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
 
 <span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-486-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-478-1.png" width="672" /></p>
 <p><code>which=1:6</code> is an additional option that shows you all the diagnostics plot. If you omit this
 option, you will only get 4 of them.</p>
 <p>You can also get the residuals of the regression in two ways; either you grab them directly from
@@ -698,7 +698,7 @@ the model fit:</p>
 residuals. Let’s plot them:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-491-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-483-1.png" width="672" /></p>
 <p>Fitted values are also added to the original data, under the variable <code>.fitted</code>. It would also have
 been possible to get the fitted values with:</p>
 <pre class="sourceCode r"><code class="sourceCode r">fit3 &lt;-<span class="st"> </span><span class="kw">fitted</span>(model3)</code></pre>
@@ -769,7 +769,7 @@ effects_model3 &lt;-<span class="st"> </span><span class="kw">margins</span>(mod
 ##      stories  6556.9457  924.4211  7.0930 0.0000  4745.1137  8368.7777</code></pre>
 <p>It is also possible to plot the results:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(effects_model3)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-497-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-489-1.png" width="672" /></p>
 <p>This uses the basic R plotting capabilities, which is useful because it is a simple call to the
 function <code>plot()</code> but if you’ve been using <code>ggplot2</code> and want this graph to have the same feel as
 the others made with <code>ggplot2</code> you first need to save the summary in a variable.
@@ -783,7 +783,7 @@ the others made with <code>ggplot2</code> you first need to save the summary in 
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-499-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-491-1.png" width="672" /></p>
 <p>Of course for <code>model3</code>, the marginal effects are the same as the coefficients, so let’s estimate a
 logit model and compute the marginal effects. Logit models can be estimated using the <code>glm()</code> function.
 As an example, we are going to use the <code>Participation</code> data, also from the <code>Ecdat</code> package:</p>
@@ -880,7 +880,7 @@ variable influences the labour force participation, one has to use <code>margins
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-504-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-496-1.png" width="672" /></p>
 <p>So an infinitesimal increase, in say, non-labour income (lnnlinc) of 0.001 is associated with a
 decrease of the probability of labour force participation by 0.001*17 percentage points.</p>
 <p>You can also extract the marginal effects of a single variable:</p>
@@ -913,7 +913,7 @@ might not be the best model, because the model could predict negative prices. Le
 distribution of prices:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Housing) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-507-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-499-1.png" width="672" /></p>
 <p>it looks like modeling the log of <code>price</code> might provide a better fit:</p>
 <pre class="sourceCode r"><code class="sourceCode r">model_log &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)
 
@@ -970,7 +970,7 @@ diagnostics_models &lt;-<span class="st"> </span><span class="kw">full_join</spa
 likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the
 diagnostics plots:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-512-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-504-1.png" width="672" /></p>
 </div>
 <div id="using-a-model-for-prediction" class="section level2">
 <h2><span class="header-section-number">6.6</span> Using a model for prediction</h2>
@@ -1096,12 +1096,12 @@ recommended packages that you can use:</p>
 <tr class="odd">
 <td>Logit</td>
 <td><code>stats</code></td>
-<td><code>glm(y ~ x, data = mydata, family = "binomial")</code></td>
+<td><code>glm(y ~ x, data = mydata, family = &quot;binomial&quot;)</code></td>
 </tr>
 <tr class="even">
 <td>Probit</td>
 <td><code>stats</code></td>
-<td><code>glm(y ~ x, data = mydata, family = binomial(link = "probit"))</code></td>
+<td><code>glm(y ~ x, data = mydata, family = binomial(link = &quot;probit&quot;))</code></td>
 </tr>
 <tr class="odd">
 <td>K-Means</td>
@@ -1131,7 +1131,7 @@ recommended packages that you can use:</p>
 <tr class="even">
 <td>Panel data</td>
 <td><code>plm</code></td>
-<td><code>plm(y ~ x, data = mydata, model = "within|random")</code></td>
+<td><code>plm(y ~ x, data = mydata, model = &quot;within|random&quot;)</code></td>
 </tr>
 <tr class="odd">
 <td>Neural Networks</td>

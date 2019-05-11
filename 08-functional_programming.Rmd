@@ -6,7 +6,7 @@ will only be a sequence of calls to these functions, making it easier to underst
 functional programming language, so we need some self-discipline to apply pure functional programming
 principles. However, these efforts are worth it, because pure functions are easier to debug, extend
 and document. In this chapter, we are going to learn about functional programming principles that you
-can adopt and start using to make your code better. 
+can adopt and start using to make your code better.
 
 ## Functions definition
 
@@ -32,7 +32,7 @@ We are using a `while` loop inside the body. The *body* of a function are the in
 define the function. You can get the body of a function with `body(some_func)` of the function.
 In *pure* functional programming languages, like Haskell, you don't have loops. How can you
 program without loops, you may ask? In functional programming, loops are replaced by recursion,
-which we already discussed in the previous chapter. Let's rewrite our little example above 
+which we already discussed in the previous chapter. Let's rewrite our little example above
 with recursion:
 
 ```{r square_root_recur}
@@ -52,12 +52,12 @@ sqrt_newton_recur(16, 2)
 ```
 
 R is not a pure functional programming language though, so we can still use loops (be it `while` or
-`for` loops) in the bodies of our functions. As discussed in the previous chapter, it is actually 
+`for` loops) in the bodies of our functions. As discussed in the previous chapter, it is actually
 better, performance-wise, to use loops instead of recursion, because R is not tail-call optimized.
-I won't got into the details of what tail-call optimization is but just remember that if 
-performance is important a loop will be faster. However, sometimes, it is easier to write a 
-function using recursion. I personally tend to avoid loops if performance is not important, 
-because I find that code that avoids loops is easier to read and debug. However, knowing that 
+I won't got into the details of what tail-call optimization is but just remember that if
+performance is important a loop will be faster. However, sometimes, it is easier to write a
+function using recursion. I personally tend to avoid loops if performance is not important,
+because I find that code that avoids loops is easier to read and debug. However, knowing that
 you can use loops is reassuring, and encapsulating loos inside functions gives you the benefits of
 both using functions, and loops. In the coming sections I will show you some built-in functions
 that make it possible to avoid writing loops and that don't rely on recursion, so performance
@@ -181,48 +181,134 @@ sqrt_newton_count(16000, 2)
 ```
 
 Writing to disk is also considered a side effect, because the function changes something (a file)
-outside its scope. But this cannot be avoided since you *want* to write to disk. 
-Just remember: try to avoid having functions changing variables in the global environment unless 
+outside its scope. But this cannot be avoided since you *want* to write to disk.
+Just remember: try to avoid having functions changing variables in the global environment unless
 you have a very good reason of doing so.
 
 Very long scripts that don't use functions and but use a lot of global variables with loops changing
 the values are a nightmare to debug. If something goes wrong, it might be very difficult to pinpoint
 where the problem is. Is there an error in one of the loops? Is your code running for a particular
 value of a particular variable in the global environment, but not for other values? Which values? And
-of which variables? It can be very difficult to know what is wrong with such a script. 
+of which variables? It can be very difficult to know what is wrong with such a script.
 With functional programming, you can avoid a lot of this pain for free (well not entirely for free,
-it still requires some effort, since R is not a pure functional language).
+it still requires some effort, since R is not a pure functional language). Writing functions also
+makes it easier to parallelize your code. We are going to learn about that later in this chapter too.
 
 Finally, another property of mathematical functions, is that they do one single thing. Functional
 programming purists also program their functions to do one single task. This has benefits, but
 can complicate things. The function we wrote previously does two things: it computes the square
 root of a number and also returns the number of iterations it took to compute the result. However,
 this is not a bad thing; the function is doing two tasks, but these tasks are related to each other
-and it makes sense to have them together. My piece of advice: avoid having functions that do 
+and it makes sense to have them together. My piece of advice: avoid having functions that do
 many *unrelated* things. This makes debugging harder.
 
 In conclusion: you should strive for referential transparency, try to avoid side effects unless you
 have a good reason to have them and try to keep your functions short and do as little tasks as
-possible. This makes testing and debugging easier, as you will see.
+possible. This makes testing and debugging easier, as you will see in the next chapter, but also
+improves readability and maintainability of your code.
 
 ## Functional programming with `{purrr}`
 
-Hadley Wickham developed a package called `purrr` which contains a lot of very useful functions. 
+I mentioned it several times already, but R is not a pure functional programming language. It is
+possible to write R code using the functional programming paradigm, but some effort is required.
+The `{purrr}` package, extends R's base functional programming capabilities with some very interesting
+functions. We have already seen `map()` and `reduce()`, which we are going to see in more detail now.
+Then, we are going to learn about some other functions included in `{purrr}` that make functional
+programming easier in R.
 
 ### Doing away with loops: the `map*()` family of functions
 
-In the previous section we saw how to map a function to each element of a list. Each version of an
-`*apply()` function has a different purpose, but it is not very easy to remember which one returns
-a list, which other one returns an atomic vector and so on. If you're working on data frames you
-can use `apply()` to sum (for example) over columns or rows, because you can specify which `MARGIN`
-you want to sum over. But you do not get a data frame back. In the `purrr` package, each of the
-functions that do mapping have a similar name. The first part of these functions' names all start
-with `map_` and the second part tells you what this function is going to output. For example, if
-you want `double`s out, you would use `map_dbl()`. If you are working on data frames want a data
-frame back, you would use `map_df()`. These are much more intuitive and easier to remember and we're
-going to learn how to use them in the chapter about [The Tidyverse](#tidyverse). For now, let's just focus on
-the basic functions, `map()` and `reduce()` (and some variants of `reduce()`). To map a function
-to every element of a list, simply use `map()`:
+Instead of using loops, pure functional programming languages use functions that perform the achieve
+the same result. These functions are often called `Map` or `Reduce` (also called `Fold`). R comes
+with the `*apply()` family of functions, as well as `Reduce()` for functional programming.
+
+Within this family, you can find `lapply()`, `sapply()`, `vapply()`, `tapply()`, `mapply()`, `rapply()`,
+`eapply()` and `apply()` (I might have forgotten one or the other, but that's not important).
+Each version of an `*apply()` function has a different purpose, but it is not very easy to
+remember which does what exactly. To add even more confusion, the arguments are sometimes different between
+each of these.
+
+In the `{purrr}` package, these functions are replaced by the `map*()` family of functions. As you will
+shortly see, they are very consistent, and thus easier to use.
+The first part of these functions' names all start
+with `map_` and the second part tells you what this function is going to return. For example, if
+you want `double`s out, you would use `map_dbl()`. If you are working on data frames and want a data
+frame back, you would use `map_df()`. Let's start with the basic `map()` function. The following
+gif (source: [Wikipedia](https://en.wikipedia.org/wiki/Map_(higher-order_function))) illustrates
+what `map()` does fairly well:
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/0/06/Mapping-steps-loillibe-new.gif")
+````
+
+$X$ is a vector composed of the following scalars: $(0, 5, 8, 3, 2, 1)$. The function we want to
+map to each element of $X$ is $f(x) = x + 1$. $X'$ is the result of this operation. Using R, we
+would do the following:
+
+```{r}
+library("purrr")
+numbers <- c(0, 5, 8, 3, 2, 1)
+
+plus_one <- function(x) (x + 1)
+
+my_results <- map(numbers, plus_one)
+
+my_results
+```
+
+Using a loop, you would write:
+
+```{r}
+numbers <- c(0, 5, 8, 3, 2, 1)
+
+plus_one <- function(x) (x + 1)
+
+my_results <- vector("list", 6)
+
+for(number in seq_along(numbers)){
+  my_results[[number]] <- plus_one(number)
+}
+
+my_results
+```
+
+Now I don't know about you, but I prefer the first option. Using functional programming, you don't
+need to create an empty list to hold your results, and the code is more concise. Plus,
+it is less error prone. While writing the for-loop, and I had to try several times to get it right
+(and I've using R for almost 10 years now). Why? Well, first of all I used `%in%` instead of `in`.
+Then, I forgot about `seq_along()`. After that, I made a typo, `plos_one()` instead of `plus_one()`
+(ok, that one is unrelated to the loop). Let's also see how this works using base R:
+
+```{r}
+numbers <- c(0, 5, 8, 3, 2, 1)
+
+plus_one <- function(x) (x + 1)
+
+my_results <- lapply(numbers, plus_one)
+
+my_results
+```
+
+So what is the added value of using `{purrr}`, you might ask. Well, imagine that instead of a list,
+I need to an atomic vector of `numeric`s. This is fairly easy with `{purrr}`:
+
+```{r}
+library("purrr")
+numbers <- c(0, 5, 8, 3, 2, 1)
+
+plus_one <- function(x) (x + 1)
+
+my_results <- map_dbl(numbers, plus_one)
+
+my_results
+```
+
+We're going to discuss these functions below, but know that in base R, not every function has an
+equivalent, at least as far as I know.
+
+Let's go back to our `sqrt_newton()` function. This function has more than one parameter. Often,
+we would like to map functions with more than one parameter to a list, while holding constant
+some of the functions parameters. This is easily achieved like so:
 
 ```{r}
 library("purrr")
@@ -231,8 +317,17 @@ numbers <- c(7, 8, 19, 64)
 map(numbers, sqrt_newton, init = 1)
 ```
 
+It is also possible to use a formula:
 
-If you want print "hello" using a function from `purrr` you would need to use `rerun()`:
+```{r}
+library("purrr")
+numbers <- c(7, 8, 19, 64)
+
+map(numbers, ~sqrt_newton(., init = 1))
+```
+
+Another function that is similar to `map()` is `rerun()`. You guessed it, this one simply
+reruns an expression:
 
 ```{r}
 rerun(10, "hello")
@@ -248,11 +343,81 @@ map(rep("hello", 10), print)
 
 `rep()` is a function that creates a vector by repeating something, in this case the string "hello",
 as many times as needed, here 10. The output here is a bit different that before though, because first
-you will see "hello" printed 10 times, but `map()` always returns a list, this means that you 
-will also get a list where each element is the string "hello".
+you will see "hello" printed 10 times and then the list where each element is "hello".
+This is because the `print()` function has a side effect, which is, well printing to the console.
+We see this side effect 10 times, plus then the list created with `map()`.
 
-We know the standard `map()` function, which returns a list, but there are a number of 
-variants of this function. `map_dbl()` returns an atomic vector of doubles:
+`rerun()` is useful if you want to run simulation. For instance, let's suppose that I perform a simulation
+where I throw a die 5 times, and compute the mean of the points obtained, as well as the variance:
+
+```{r, cache = TRUE}
+mean_var_throws <- function(n){
+  throws <- sample(1:6, n, replace = TRUE)
+
+  mean_throws <- mean(throws)
+  var_throws <- var(throws)
+
+  tibble::tribble(~mean_throws, ~var_throws,
+                   mean_throws, var_throws)
+}
+
+mean_var_throws(5)
+````
+
+`mean_var_throws()` returns a `tibble` object with mean of points and the variance of the points. Now suppose
+I want to compute the expected value of the distribution of throwing dice. We know from theory that it should
+be equal to $3.5 (= 1*1/6 + 2*1/6 + 3*1/6 + 4*1/6 + 5*1/6 + 6*1/6)$.
+
+Let's rerun the simulation 50 times:
+
+```{r, cache = TRUE}
+simulations <- rerun(50, mean_var_throws(5))
+```
+
+Let's see what the `simulations` object is made of:
+
+```{r, eval = FALSE}
+str(simulations)
+```
+
+```
+## List of 50
+##  $ :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
+##   ..$ mean_throws: num 2
+##   ..$ var_throws : num 3
+##  $ :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
+##   ..$ mean_throws: num 2.8
+##   ..$ var_throws : num 0.2
+##  $ :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
+##   ..$ mean_throws: num 2.8
+##   ..$ var_throws : num 0.7
+##  $ :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
+##   ..$ mean_throws: num 2.8
+##   ..$ var_throws : num 1.7
+.....
+```
+
+`simulations` is a list of 50 data frames. We can easily combine them into a single data frame, and compute the
+mean of the means, which should return something close to the expected value of 3.5:
+
+```{r, cache = TRUE}
+bind_rows(simulations) %>%
+  summarise(expected_value = mean(mean_throws))
+```
+
+Pretty close! Now of course, one could have simply done something like this:
+
+
+```{r, cache = TRUE}
+mean(sample(1:6, 1000, replace = TRUE))
+```
+
+but the point was to illustrate that `rerun()` can run any arbitrarily complex expression, and that it is good
+practice to put the result in a data frame or list, for easy further manipulation.
+
+
+We know the standard `map()` function, and also `rerun()`, which return lists, but there are a number of
+variants of this function. `map_dbl()` returns an atomic vector of doubles, as seen quickly before:
 
 ```{r}
 map_dbl(numbers, sqrt_newton, init = 1)
@@ -490,7 +655,7 @@ mtcars %>%
 Granted this example is stupid, but it shows you, again, that functions you define are nothing
 special. You can use them just as any other.
 
-Now, let's step back for a bit and think about what we learned up until now, and especially 
+Now, let's step back for a bit and think about what we learned up until now, and especially
 the `map()` family of functions.
 
 ```
