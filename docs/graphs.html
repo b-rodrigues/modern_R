@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -398,7 +398,7 @@ barplots.</p>
 <p>To follow the examples below, load the following libraries:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(ggthemes)</code></pre>
-<p><code>{ggplot2}</code> is an implementation of the <em>Grammar of Graphics</em> by <span class="citation">Wilkinson (<a href="#ref-wilkinson2006" role="doc-biblioref">2006</a>)</span>, but you don’t need
+<p><code>{ggplot2}</code> is an implementation of the <em>Grammar of Graphics</em> by <span class="citation">Wilkinson (<a href="#ref-wilkinson2006">2006</a>)</span>, but you don’t need
 to read the books to start using it. If we go back to the Star Wars data (contained in <code>dplyr</code>),
 and wish to draw a barplot of the gender, the following lines are enough:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(gender)) <span class="op">+</span>
@@ -458,8 +458,8 @@ only (removing the droids from the data first)? This can be done by first filter
 <code>dplyr</code> and then separating the dataset by gender:</p>
 <pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>))</code></pre>
-<p>The above lines do the filtering; only keep gender if gender is in the vector <code>"female", "male"</code>.
-This is much easier than having to write <code>gender == "female" | gender == "male"</code>. Then, we pipe
+<p>The above lines do the filtering; only keep gender if gender is in the vector <code>&quot;female&quot;, &quot;male&quot;</code>.
+This is much easier than having to write <code>gender == &quot;female&quot; | gender == &quot;male&quot;</code>. Then, we pipe
 this dataset to <code>ggplot</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>)) <span class="op">%&gt;%</span>
@@ -583,9 +583,9 @@ for it to work with <code>{ggplot2}</code>. For this, let’s use <code>tidyr::g
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</code></pre>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-428-1.png" width="672" /></p>
-<p>In the code above, I introduce a new option, called <code>stat = "identity"</code>. By default, <code>geom_bar()</code> counts
+<p>In the code above, I introduce a new option, called <code>stat = &quot;identity&quot;</code>. By default, <code>geom_bar()</code> counts
 the number of observations of each category that is plotted, which is a statistical transformation.
-By adding <code>stat = "identity"</code>, I force the statistical transformation to be the identity function, and
+By adding <code>stat = &quot;identity&quot;</code>, I force the statistical transformation to be the identity function, and
 thus plot the data as is.</p>
 <p>To create the pie chart, first we need to compute the share of each <code>id</code> to <code>var1</code>, <code>var2</code>, etc…</p>
 <p>To do this, we first group by <code>id</code>, then compute the total. Then we use a new function <code>ungroup()</code>.
@@ -711,7 +711,7 @@ by changing the colour of the dots:</p>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(height, mass, <span class="dt">size =</span> birth_year, <span class="dt">colour =</span> gender)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(height, mass), <span class="dt">method  =</span> <span class="st">&quot;lm&quot;</span>)</code></pre>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-440-1.png" width="672" /></p>
-<p><code>geom_smooth()</code> adds a regression line, but only if you specify <code>method = "lm"</code> (“lm” stands for
+<p><code>geom_smooth()</code> adds a regression line, but only if you specify <code>method = &quot;lm&quot;</code> (“lm” stands for
 “linear model”). What happens if you remove this option?</p>
 <pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(name, <span class="st">&quot;Jabba&quot;</span>)) <span class="op">%&gt;%</span>

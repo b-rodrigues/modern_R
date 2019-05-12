@@ -479,11 +479,33 @@ print(b)
 map2(a, b, `*`)
 ```
 
+Each element of `a` gets multiplied by the element of `b` that is in the same position.
+Let's see what `pmap()` does. Can you guess from the code below what is going on? I will print
+`a` and `b` again for clarity:
+
 ```{r}
+a
+
+b
+
 n <- seq(1:10)
 
 pmap(list(a, b, n), rnorm)
 ```
+
+Let's take a closer look at what `a`, `b` and `n` look like, when they are place next to each other:
+
+```{r}
+cbind(a, b, n)
+```
+
+`rnorm()` gets first called with the parameters from the first line, meaning 
+`rnorm(a[1], b[1], n[1])`. The second time `rnorm()` gets called, you guessed it, 
+it with the parameters on the second line of the array above,
+`rnorm(a[2], b[2], n[2])`, etc.
+
+There are other functions in the `map()` family of functions, but we will discover them in the 
+exercises!
 
 The `map()` family of functions does not have any more secrets for you. Let's now take a look at
 the `reduce()` family of functions.

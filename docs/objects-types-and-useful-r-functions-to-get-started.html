@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -398,7 +398,7 @@ package includes further such functions.</p>
 </div>
 <div id="the-character-class" class="section level2">
 <h2><span class="header-section-number">2.2</span> The <code>character</code> class</h2>
-<p>Use <code>" "</code> to define characters (called strings in other programming languages):</p>
+<p>Use <code>&quot; &quot;</code> to define characters (called strings in other programming languages):</p>
 <pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> &quot;this is a string&quot;</span></code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(a)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>

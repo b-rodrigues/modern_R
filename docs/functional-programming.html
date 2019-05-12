@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -204,43 +204,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter-the-rows-of-a-dataset-with-filter"><i class="fa fa-check"></i><b>4.3.2</b> Filter the rows of a dataset with <code>filter()</code></a></li>
 <li class="chapter" data-level="4.3.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select-columns-with-select"><i class="fa fa-check"></i><b>4.3.3</b> Select columns with <code>select()</code></a></li>
 <li class="chapter" data-level="4.3.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group-the-observations-of-your-dataset-with-group_by"><i class="fa fa-check"></i><b>4.3.4</b> Group the observations of your dataset with <code>group_by()</code></a></li>
-<li class="chapter" data-level="4.3.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-summary-statistics-with-summarise"><i class="fa fa-check"></i><b>4.3.5</b> Get summary statistics with <code>summarise()</code></a></li>
-<li class="chapter" data-level="4.3.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#adding-columns-with-mutate-and-transmute"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns with <code>mutate()</code> and <code>transmute()</code></a></li>
-<li class="chapter" data-level="4.3.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.3.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a><ul>
-<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wide-and-pivot_long"><i class="fa fa-check"></i><b>4.4.1</b> <code>pivot_wide()</code> and <code>pivot_long()</code></a></li>
-<li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.2</b> <code>spread()</code> and <code>gather()</code></a></li>
-<li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.3</b> <code>fill()</code> and <code>full_seq()</code></a></li>
-<li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.4</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
-<li class="chapter" data-level="4.4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-8-nest"><i class="fa fa-check"></i><b>4.4.5</b> A sneak peek to Chapter 8; <code>nest()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#groups-country-18"><i class="fa fa-check"></i><b>4.4</b> # Groups: country [18]</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-summary-statistics-with-summarise"><i class="fa fa-check"></i><b>4.4.1</b> Get summary statistics with <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#adding-columns-with-mutate-and-transmute"><i class="fa fa-check"></i><b>4.4.2</b> Adding columns with <code>mutate()</code> and <code>transmute()</code></a></li>
+<li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.4.3</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>4.5</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter_"><i class="fa fa-check"></i><b>4.5.1</b> filter_*()</a></li>
-<li class="chapter" data-level="4.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select_-and-rename_"><i class="fa fa-check"></i><b>4.5.2</b> select_*() and rename_*()</a></li>
-<li class="chapter" data-level="4.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group_by_"><i class="fa fa-check"></i><b>4.5.3</b> group_by_*()</a></li>
-<li class="chapter" data-level="4.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise_"><i class="fa fa-check"></i><b>4.5.4</b> summarise_()</a></li>
-<li class="chapter" data-level="4.5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#mutate_"><i class="fa fa-check"></i><b>4.5.5</b> mutate_*()</a></li>
+<li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.5</b> Reshaping data with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="4.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wide-and-pivot_long"><i class="fa fa-check"></i><b>4.5.1</b> <code>pivot_wide()</code> and <code>pivot_long()</code></a></li>
+<li class="chapter" data-level="4.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.5.2</b> <code>spread()</code> and <code>gather()</code></a></li>
+<li class="chapter" data-level="4.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.5.3</b> <code>fill()</code> and <code>full_seq()</code></a></li>
+<li class="chapter" data-level="4.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.5.4</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
+<li class="chapter" data-level="4.5.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-8-nest"><i class="fa fa-check"></i><b>4.5.5</b> A sneak peek to Chapter 8; <code>nest()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>4.6</b> Other useful <code>{tidyverse}</code> functions</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#if_else-case_when-and-recode"><i class="fa fa-check"></i><b>4.6.1</b> <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code></a></li>
-<li class="chapter" data-level="4.6.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#lead-and-lag"><i class="fa fa-check"></i><b>4.6.2</b> <code>lead()</code> and <code>lag()</code></a></li>
-<li class="chapter" data-level="4.6.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#ntile"><i class="fa fa-check"></i><b>4.6.3</b> <code>ntile()</code></a></li>
-<li class="chapter" data-level="4.6.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#arrange"><i class="fa fa-check"></i><b>4.6.4</b> <code>arrange()</code></a></li>
-<li class="chapter" data-level="4.6.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tally-and-count"><i class="fa fa-check"></i><b>4.6.5</b> <code>tally()</code> and <code>count()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="4.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>4.7</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a><ul>
-<li class="chapter" data-level="4.7.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#section"><i class="fa fa-check"></i><b>4.7.1</b> 🐈🐈🐈🐈</a></li>
-<li class="chapter" data-level="4.7.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-your-dates-right-with-lubridate"><i class="fa fa-check"></i><b>4.7.2</b> Get your dates right with <code>{lubridate}</code></a></li>
-<li class="chapter" data-level="4.7.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>4.7.3</b> Manipulate strings with <code>{stringr}</code></a></li>
-<li class="chapter" data-level="4.7.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tidy-data-frames-with-tibble"><i class="fa fa-check"></i><b>4.7.4</b> Tidy data frames with <code>{tibble}</code></a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>4.8</b> List-columns</a></li>
-<li class="chapter" data-level="4.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#going-beyond-descriptive-statistics-and-data-manipulation"><i class="fa fa-check"></i><b>4.9</b> Going beyond descriptive statistics and data manipulation</a></li>
-<li class="chapter" data-level="4.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>4.10</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="4.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#scoped-tidyverse-verbs"><i class="fa fa-check"></i><b>4.6</b> Scoped <code>{tidyverse}</code> verbs</a><ul>
+<li><a href="descriptive-statistics-and-data-manipulation.html#filter_-select_-and-rename_-group_by_"><span class="toc-section-number">4.6.1</span> filter_<em>()
+### select_*() and rename_*()
+### group_by_</em>()</a></li>
+<li class="chapter" data-level="4.6.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise_"><i class="fa fa-check"></i><b>4.6.2</b> summarise_()</a></li>
+<li><a href="descriptive-statistics-and-data-manipulation.html#mutate_-other-useful-tidyverse-functions-if_else-case_when-and-recode-lead-and-lag-ntile-arrange-tally-and-count-special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr-get-your-dates-right-with-lubridate-defining-dates-the-tidy-way-data-manipulation-with-dates-arithmetic-with-dates-manipulate-strings-with-stringr-getting-text-data-into-rstudio-detecting-getting-the-position-and-locating-strings-splitting-strings-matching-strings-searching-and-replacing-strings-exctracting-or-removing-strings-tidy-data-frames-with-tibble-creating-tibbles-list-columns-going-beyond-descriptive-statistics-and-data-manipulation-exercises-exercise-1---exercise-2---exercise-3--"><span class="toc-section-number">4.6.3</span> mutate_*()
+## Other useful <code>{tidyverse}</code> functions
+### <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code>
+### <code>lead()</code> and <code>lag()</code>
+### <code>ntile()</code>
+### <code>arrange()</code>
+### <code>tally()</code> and <code>count()</code>
+## Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code>
+### 🐈🐈🐈🐈
+### Get your dates right with <code>{lubridate}</code>
+#### Defining dates, the tidy way
+#### Data manipulation with dates
+#### Arithmetic with dates
+### Manipulate strings with <code>{stringr}</code>
+#### Getting text data into Rstudio
+#### Detecting, getting the position and locating strings
+#### Splitting strings
+#### Matching strings
+#### Searching and replacing strings
+#### Exctracting or removing strings
+### Tidy data frames with <code>{tibble}</code>
+#### Creating tibbles
+## List-columns
+## Going beyond descriptive statistics and data manipulation
+## Exercises
+### Exercise 1 {-}
+### Exercise 2 {-}
+### Exercise 3 {-}</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a><ul>
@@ -259,8 +268,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.2" data-path="graphs.html"><a href="graphs.html#colour-schemes"><i class="fa fa-check"></i><b>5.3.2</b> Colour schemes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="graphs.html"><a href="graphs.html#saving-plots-to-disk"><i class="fa fa-check"></i><b>5.4</b> Saving plots to disk</a></li>
-<li class="chapter" data-level="5.5" data-path="graphs.html"><a href="graphs.html#exercises-3"><i class="fa fa-check"></i><b>5.5</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="graphs.html"><a href="graphs.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="5.5" data-path="graphs.html"><a href="graphs.html#exercises-2"><i class="fa fa-check"></i><b>5.5</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphs.html"><a href="graphs.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>6</b> Statistical models</a><ul>
@@ -289,19 +298,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>7.2.1</b> Declaring functions in R</a></li>
 <li class="chapter" data-level="7.2.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#fibonacci-numbers"><i class="fa fa-check"></i><b>7.2.2</b> Fibonacci numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="7.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-3"><i class="fa fa-check"></i><b>7.3</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-functions-as-arguments-writing-your-own-higher-order-functions"><i class="fa fa-check"></i><b>7.4</b> Functions that take functions as arguments: writing your own higher-order functions</a></li>
 <li class="chapter" data-level="7.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>7.5</b> Functions that take columns of data as arguments</a></li>
 <li class="chapter" data-level="7.6" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-use-loops"><i class="fa fa-check"></i><b>7.6</b> Functions that use loops</a></li>
 <li class="chapter" data-level="7.7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#anonymous-functions"><i class="fa fa-check"></i><b>7.7</b> Anonymous functions</a></li>
-<li class="chapter" data-level="7.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-5"><i class="fa fa-check"></i><b>7.8</b> Exercises</a><ul>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="7.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>7.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
@@ -322,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.1" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>8.4.1</b> Functional programming and plotting</a></li>
 <li class="chapter" data-level="8.4.2" data-path="functional-programming.html"><a href="functional-programming.html#modeling-with-functional-programming"><i class="fa fa-check"></i><b>8.4.2</b> Modeling with functional programming</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-5"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
@@ -760,7 +769,7 @@ where I throw a die 5 times, and compute the mean of the points obtained, as wel
 <pre><code>## # A tibble: 1 x 2
 ##   mean_throws var_throws
 ##         &lt;dbl&gt;      &lt;dbl&gt;
-## 1         3.4        4.3</code></pre>
+## 1           3        3.5</code></pre>
 <p><code>mean_var_throws()</code> returns a <code>tibble</code> object with mean of points and the variance of the points. Now suppose
 I want to compute the expected value of the distribution of throwing dice. We know from theory that it should
 be equal to <span class="math inline">\(3.5 (= 1*1/6 + 2*1/6 + 3*1/6 + 4*1/6 + 5*1/6 + 6*1/6)\)</span>.</p>
@@ -789,10 +798,10 @@ mean of the means, which should return something close to the expected value of 
 <pre><code>## # A tibble: 1 x 1
 ##   expected_value
 ##            &lt;dbl&gt;
-## 1           3.32</code></pre>
+## 1           3.48</code></pre>
 <p>Pretty close! Now of course, one could have simply done something like this:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1000</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))</code></pre>
-<pre><code>## [1] 3.511</code></pre>
+<pre><code>## [1] 3.484</code></pre>
 <p>but the point was to illustrate that <code>rerun()</code> can run any arbitrarily complex expression, and that it is good
 practice to put the result in a data frame or list, for easy further manipulation.</p>
 <p>You now know the standard <code>map()</code> function, and also <code>rerun()</code>, which return lists, but there are a
@@ -920,42 +929,69 @@ than 2 arguments:</p>
 ## 
 ## [[10]]
 ## [1] 20</code></pre>
+<p>Each element of <code>a</code> gets multiplied by the element of <code>b</code> that is in the same position.
+Let’s see what <code>pmap()</code> does. Can you guess from the code below what is going on? I will print
+<code>a</code> and <code>b</code> again for clarity:</p>
+<pre class="sourceCode r"><code class="sourceCode r">a</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">b</code></pre>
+<pre><code>##  [1] 1.000000 1.111111 1.222222 1.333333 1.444444 1.555556 1.666667
+##  [8] 1.777778 1.888889 2.000000</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
 
 <span class="kw">pmap</span>(<span class="kw">list</span>(a, b, n), rnorm)</code></pre>
 <pre><code>## [[1]]
-## [1] 1.176356
+## [1] 2.219284
 ## 
 ## [[2]]
-## [1] -3.030326  5.313510
+## [1] -3.5731423  0.5467517
 ## 
 ## [[3]]
-## [1]  3.6913308 -0.1764854  2.3506073
+## [1]  2.2780904  1.4104373 -0.8158492
 ## 
 ## [[4]]
-## [1] 4.3194893 8.0508965 1.2111194 0.6164168
+## [1] -1.8445843  0.8990702 -0.9689345  1.9007863
 ## 
 ## [[5]]
-## [1] -4.48574507 -2.38283482 -5.85375200 -1.87588569  0.02109254
+## [1]  4.9680858 -7.0037769  4.4970792 -0.4392488  0.3524212
 ## 
 ## [[6]]
-## [1]  4.046816 -4.700930  1.701437 -1.892204  2.404707 -9.322544
+## [1]  5.136758  2.449862 -7.607464 -4.841541  4.770409 10.933457
 ## 
 ## [[7]]
-## [1]   4.535108  -3.539218  -2.140494  -3.791482   6.571106   1.505159
-## [7] -12.669327
+## [1]   4.1576938  -2.2753518   8.5909015   0.5077904   1.0496176 -13.4256126
+## [7]  -8.4963347
 ## 
 ## [[8]]
-## [1]  14.8862784   8.4633197   0.4760567   6.8811666  10.8983387  -9.4916930
-## [7]   2.7636656 -11.0630963
+## [1]  -4.508493   8.481658  -5.941438  13.767869  -7.422803   2.325096
+## [7] -16.013458   9.902072
 ## 
 ## [[9]]
-## [1]   1.9296462  -1.3933216   4.3952786 -10.4717919 -15.6164434  16.7492450
-## [7]  12.8055355  -8.8329952  -0.6489293
+## [1]  11.63948439  -0.06222196   1.14864578  -0.25355791 -19.90591897
+## [6]  -3.99732274  -6.10234632   8.77515331  -1.70725773
 ## 
 ## [[10]]
-##  [1]   3.4213124   0.2267865  11.7103547   7.2469864 -11.2778562
-##  [6]  -3.0162153  -4.0109492  24.2472092   2.2042099   6.4918187</code></pre>
+##  [1]  -7.809305   7.273161 -10.097212  -9.244642  12.485809  22.951518
+##  [7]  -8.636241  11.485884  -1.311930  -1.878113</code></pre>
+<p>Let’s take a closer look at what <code>a</code>, <code>b</code> and <code>n</code> look like, when they are place next to each other:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cbind</span>(a, b, n)</code></pre>
+<pre><code>##        a        b  n
+##  [1,]  1 1.000000  1
+##  [2,]  2 1.111111  2
+##  [3,]  3 1.222222  3
+##  [4,]  4 1.333333  4
+##  [5,]  5 1.444444  5
+##  [6,]  6 1.555556  6
+##  [7,]  7 1.666667  7
+##  [8,]  8 1.777778  8
+##  [9,]  9 1.888889  9
+## [10,] 10 2.000000 10</code></pre>
+<p><code>rnorm()</code> gets first called with the parameters from the first line, meaning
+<code>rnorm(a[1], b[1], n[1])</code>. The second time <code>rnorm()</code> gets called, you guessed it,
+it with the parameters on the second line of the array above,
+<code>rnorm(a[2], b[2], n[2])</code>, etc.</p>
+<p>There are other functions in the <code>map()</code> family of functions, but we will discover them in the
+exercises!</p>
 <p>The <code>map()</code> family of functions does not have any more secrets for you. Let’s now take a look at
 the <code>reduce()</code> family of functions.</p>
 </div>
@@ -1374,7 +1410,7 @@ a function that you can find in other programming languages, but sometimes it is
 
 <span class="kw">reduce</span>(numbers, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>, <span class="dt">.init =</span> <span class="dv">0</span>)</code></pre>
 <pre><code>## [1] 15</code></pre>
-<p><code>reduce()</code> takes a function as an argument, here the function <code>+</code><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> and then does the following
+<p><code>reduce()</code> takes a function as an argument, here the function <code>+</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and then does the following
 computation:</p>
 <pre><code>0 + numbers[1] + numbers[2] + numbers[3]...</code></pre>
 <p>It applies the user supplied function successively but has to start with something, so we give it
@@ -1430,7 +1466,7 @@ commune, you need one unemployment plot, per commune:</p>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-684-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 <p>and then you would write the same for “Esch-sur-Alzette” and also for “Wiltz”. If you only have to
 make to make these 3 plots, copy and pasting the above lines is no big deal:</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
@@ -1439,14 +1475,14 @@ make to make these 3 plots, copy and pasting the above lines is no big deal:</p>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-685-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Wiltz&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-685-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-72-2.png" width="672" /></p>
 <p>Put copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
 have to create the above plots for all 108 Luxembourguish communes? That’s a lot of copy pasting.
 What if, once you are done copy pasting, you have to change something, for example, the theme? You
@@ -1501,7 +1537,7 @@ numbers2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class=
 ## [[5]]
 ## [1] 25</code></pre>
 <p>In our example with the graphs, the two inputs are the data, and the names of the communes. This is
-useful to create the title with <code>labs(title = paste("Unemployment in", .y))))</code> where <code>.y</code> is the
+useful to create the title with <code>labs(title = paste(&quot;Unemployment in&quot;, .y))))</code> where <code>.y</code> is the
 second input of <code>map2()</code>, the commune names contained in variable <code>division</code>.</p>
 <p>So what happened? We now have a tibble called <code>plots_tibble</code> that looks like this:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(plots_tibble)</code></pre>
@@ -1592,13 +1628,13 @@ is enough to use <code>pull()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">plots_tibble <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(plot)</code></pre>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-692-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-692-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-79-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-692-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-79-3.png" width="672" /></p>
 <p>And if we want to save these plots, we can do so using <code>map2()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map2</span>(<span class="kw">paste0</span>(plots_tibble<span class="op">$</span>division, <span class="st">&quot;.pdf&quot;</span>), plots_tibble<span class="op">$</span>plot, ggsave)</code></pre>
 <pre><code>Saving 7 x 5 in image
@@ -1608,7 +1644,7 @@ Saving 6.01 x 3.94 in image</code></pre>
 it is among the most useful ones. This section is a perfect illustration of the power of functional
 programming; you can mix and match functions as long as you give them the correct arguments.
 You can pass data to functions that use data and then pass these functions to other functions that
-use functions as arguments, such as <code>map()</code>.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> <code>map()</code> does not care if the functions you pass to it produces tables,
+use functions as arguments, such as <code>map()</code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <code>map()</code> does not care if the functions you pass to it produces tables,
 graphs or even another function. <code>map()</code> will simply map this function to a list of inputs, and as
 long as these inputs are correct arguments to the function, <code>map()</code> will do its magic. If you
 combine this with list-columns, you can even use <code>map()</code> alongside <code>dplyr</code> functions and map your
@@ -1619,7 +1655,7 @@ function by first grouping, filtering, etc…</p>
 <pre><code>TO BE WRITTEN</code></pre>
 </div>
 </div>
-<div id="exercises-6" class="section level2">
+<div id="exercises-5" class="section level2">
 <h2><span class="header-section-number">8.5</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li><p>Suppose you have an Excel workbook that contains data on three sheets. Create a function that
@@ -1664,12 +1700,12 @@ continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span cla
 </div>
 <div class="footnotes">
 <hr />
-<ol start="7">
-<li id="fn7"><p>This is simply the <code>+</code> operator
+<ol start="1">
+<li id="fn1"><p>This is simply the <code>+</code> operator
 you’re used to. Try this out: <code>`+`(1, 5)</code> and you’ll see <code>+</code> is a function like any other. You
-just have to write backticks around the plus symbol to make it work.<a href="functional-programming.html#fnref7" class="footnote-back">↩</a></p></li>
-<li id="fn8"><p>Functions that have other functions as input are
-called <em>higher order functions</em><a href="functional-programming.html#fnref8" class="footnote-back">↩</a></p></li>
+just have to write backticks around the plus symbol to make it work.<a href="functional-programming.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Functions that have other functions as input are
+called <em>higher order functions</em><a href="functional-programming.html#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

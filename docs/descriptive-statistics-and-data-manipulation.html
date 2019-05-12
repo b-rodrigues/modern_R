@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -1045,7 +1045,7 @@ these lines:</p>
 ## 5 Capt…     NA    NA unknown    unknown    unknown           NA female
 ## # … with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 ## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-<p>To test for <code>NA</code>, one uses the function <code>is.na()</code> not something like <code>species == "NA"</code> or anything
+<p>To test for <code>NA</code>, one uses the function <code>is.na()</code> not something like <code>species == &quot;NA&quot;</code> or anything
 like that. <code>!is.na()</code> does the opposite:</p>
 <pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(species))</code></pre>
@@ -2906,7 +2906,7 @@ and <code>mutate()</code> I create a new column called <code>plot</code>. Inside
 <code>map2</code> is a <code>{purrr}</code> function that takes three inputs: <code>.x</code>, <code>.y</code> and a function. <code>.x</code> is the <code>id</code>
 column from my data, and <code>.y</code> is the <code>data</code> column from <code>nested_survey_data</code>. The function is the
 ggplot I created before. Think of <code>map2()</code> has a loop over two lists, all while applying a function.</p>
-<p>The following illustration, taken from <span class="citation">Vaudor (<a href="#ref-vaudor_purrr_2018" role="doc-biblioref">2018</a>)</span> by
+<p>The following illustration, taken from <span class="citation">Vaudor (<a href="#ref-vaudor_purrr_2018">2018</a>)</span> by
 <a href="https://twitter.com/LVaudor">Lise Vaudor</a>, illustrates this perfectly:</p>
 <p><img src="assets/purrr3.png" width="663" /></p>
 <p>Two inputs go in at the same type, the factory, your function, does what it has to do, and an
@@ -4558,7 +4558,7 @@ which are not needed now:</p>
 ## 4 &quot;\&quot;mj\&quot; &quot;  
 ## 5 &quot;\&quot;ii\&quot; &quot;  
 ## 6 &quot;\&quot;te1r\&quot; &quot;</code></pre>
-<p>Almost done! We only need to remove the <code>"</code> characters:</p>
+<p>Almost done! We only need to remove the <code>&quot;</code> characters:</p>
 <pre class="sourceCode r"><code class="sourceCode r">winchester_content &lt;-<span class="st"> </span>winchester_content <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">content =</span> <span class="kw">str_replace_all</span>(content, <span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">&quot;</span>, <span class="st">&quot;&quot;</span>)) 
 
@@ -4881,7 +4881,7 @@ This is not an easy exercise; so here are some hints:</p>
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-vaudor_purrr_2018">
-<p>Vaudor, Lise. 2018. “Itération de Fonctions Avec Purrr.” <em>R-Atique: Analyse de Données Avec R</em>. <a href="http://perso.ens-lyon.fr/lise.vaudor/iterer-des-fonctions-avec-purrr/">http://perso.ens-lyon.fr/lise.vaudor/iterer-des-fonctions-avec-purrr/</a>.</p>
+<p>Vaudor, Lise. 2018. “Itération de Fonctions Avec Purrr.” <em>R-Atique: Analyse de Données Avec R</em>. <a href="http://perso.ens-lyon.fr/lise.vaudor/iterer-des-fonctions-avec-purrr/" class="uri">http://perso.ens-lyon.fr/lise.vaudor/iterer-des-fonctions-avec-purrr/</a>.</p>
 </div>
 </div>
             </section>

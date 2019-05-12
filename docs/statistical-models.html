@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -1096,12 +1096,12 @@ recommended packages that you can use:</p>
 <tr class="odd">
 <td>Logit</td>
 <td><code>stats</code></td>
-<td><code>glm(y ~ x, data = mydata, family = "binomial")</code></td>
+<td><code>glm(y ~ x, data = mydata, family = &quot;binomial&quot;)</code></td>
 </tr>
 <tr class="even">
 <td>Probit</td>
 <td><code>stats</code></td>
-<td><code>glm(y ~ x, data = mydata, family = binomial(link = "probit"))</code></td>
+<td><code>glm(y ~ x, data = mydata, family = binomial(link = &quot;probit&quot;))</code></td>
 </tr>
 <tr class="odd">
 <td>K-Means</td>
@@ -1131,7 +1131,7 @@ recommended packages that you can use:</p>
 <tr class="even">
 <td>Panel data</td>
 <td><code>plm</code></td>
-<td><code>plm(y ~ x, data = mydata, model = "within|random")</code></td>
+<td><code>plm(y ~ x, data = mydata, model = &quot;within|random&quot;)</code></td>
 </tr>
 <tr class="odd">
 <td>Neural Networks</td>
