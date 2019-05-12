@@ -44,10 +44,17 @@ to find the average height of the characters:
 mean(starwars$height)
 ```
 
+Because there are `NA` values in the data, the result is also `NA`. To get the result, you need to
+add an option to `mean()`:
+
+```{r}
+mean(starwars$height, na.rm = TRUE)
+```
+
 Let's also take a look at the standard deviation:
 
 ```{r}
-sd(starwars$height)
+sd(starwars$height, na.rm = TRUE)
 ```
 
 It might be more informative to compute these two statistics by species, so for this, we are going

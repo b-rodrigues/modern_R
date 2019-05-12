@@ -400,9 +400,13 @@ which we are going to measure a <code>{tidyverse}</code> workflow.</p>
 to find the average height of the characters:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(starwars<span class="op">$</span>height)</code></pre>
 <pre><code>## [1] NA</code></pre>
+<p>Because there are <code>NA</code> values in the data, the result is also <code>NA</code>. To get the result, you need to
+add an option to <code>mean()</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(starwars<span class="op">$</span>height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] 174.358</code></pre>
 <p>Let’s also take a look at the standard deviation:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(starwars<span class="op">$</span>height)</code></pre>
-<pre><code>## [1] NA</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(starwars<span class="op">$</span>height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] 34.77043</code></pre>
 <p>It might be more informative to compute these two statistics by species, so for this, we are going
 to use <code>aggregate()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aggregate</span>(starwars<span class="op">$</span>height,
@@ -2886,7 +2890,7 @@ everything I write):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_data_id1) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> value, <span class="dt">x =</span> date, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;id 1&quot;</span>)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-272-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
 <p>Ok great. But now I want to create this plot for each <code>id</code>… so I have to copy paste this 3 times.
 But copy-pasting is error prone. So there are two alternatives; I either write a function that
 takes as argument the data and the <code>id</code> I want to plot and run it for each <code>id</code> (we will learn to
@@ -2929,19 +2933,19 @@ column. It is a list, where each element is of type <code>S3: gg</code>. Yes, yo
 that list-column is a ggplot! If you now want to take a look at the plots, it is enough to do this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_plots<span class="op">$</span>plot</code></pre>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-147-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-147-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-4.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-147-4.png" width="672" /></p>
 <pre><code>## 
 ## [[5]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-5.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-147-5.png" width="672" /></p>
 <p>Ok, that was quite complicated, but again, this was only to introduce <code>nest()</code> and give you a taste
 of the power of the <code>{tidyverse}</code>. By the end of Chapter 9, you’ll be used to this.</p>
 <p>That was it for a first introduction to <code>{tidyr}</code>. Now, it’s time to learn about <em>scoped</em> verbs.</p>
@@ -3112,15 +3116,6 @@ something very useful, which is rename all the columns in bulk:</p>
 ## # … with 332 more rows</code></pre>
 <p>You can apply any arbitrary function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gasoline <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_all</span>(<span class="kw">funs</span>(<span class="kw">paste0</span>(<span class="st">&quot;hello_&quot;</span>, .)))</code></pre>
-<pre><code>## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## please use list() instead
-## 
-## # Before:
-## funs(name = f(.)
-## 
-## # After: 
-## list(name = ~f(.))
-## This warning is displayed once per session.</code></pre>
 <pre><code>## # A tibble: 342 x 6
 ##    hello_country hello_year hello_lgaspcar hello_lincomep hello_lrpmg
 ##    &lt;fct&gt;              &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;
@@ -3872,7 +3867,7 @@ understand all the code for now:</p>
 <span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">coord_flip</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-326-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-197-1.png" width="672" /></p>
 <p>It would be much better if the categories were ordered by frequency. This is easy to do with
 <code>fct_reorder()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gss_cat <span class="op">%&gt;%</span>
@@ -3881,7 +3876,7 @@ understand all the code for now:</p>
 <span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">coord_flip</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-327-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-198-1.png" width="672" /></p>
 <p>Much better! In Chapter 6, we are going to learn about <code>{ggplot2}</code>.</p>
 <p><code>{forcats}</code> contains other very useful functions, so I urge you to go through the documentation.</p>
 </div>
@@ -3925,13 +3920,9 @@ for “year-month-day”. If, however the column is “2012-21-11”, then you w
 a few of these helper functions, and they can handle a lot of different formats for dates. In our case,
 having the name of the month instead of the number might seem quite problematic, but it turns out
 that this is a case that <code>{lubridate}</code> handles painfully:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     date</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
+
+independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">independence_date =</span> <span class="kw">dmy</span>(independence_date))</code></pre>
 <pre><code>## Warning: 5 failed to parse.</code></pre>
 <p>Some dates failed to parse, for instance for Morocco. This is because these countries have several
@@ -4429,8 +4420,6 @@ to a tibble first:</p>
 <pre class="sourceCode r"><code class="sourceCode r">winchester_content &lt;-<span class="st"> </span>winchester_content <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(V1))</code></pre>
-<pre><code>## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
-## This warning is displayed once per session.</code></pre>
 <p>Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
 gets automatically called <code>V1</code>. This is why I filter on this column. Let’s take a look at the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(winchester_content)</code></pre>
@@ -4816,7 +4805,7 @@ that by the current value of <code>N</code> column:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(points) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> estimate, <span class="dt">x =</span> N)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> pi)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-404-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-275-1.png" width="672" /></p>
 <p>In the next chapter, we are going to learn all about <code>{ggplot2}</code>, the package I used in the lines
 above to create this plot.</p>
 <p>As the number of tries grows, the estimation of <span class="math inline">\(\pi\)</span> gets better.</p>
