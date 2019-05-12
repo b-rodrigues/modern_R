@@ -555,6 +555,15 @@ a <- seq(1, 10)
 accumulate(a, `-`)
 ```
 
+
+```{r, echo=FALSE}
+a <- seq(1, 10)
+
+purrr::accumulate(a, `-`)
+```
+
+
+
 `accumulate()` illustrates pretty well what is happening; the first element, `1`, is simply the 
 first element of `seq(1, 10)`. The second element of the result however, is the difference between
 `1` and `2`, `-1`. The next element in `a` is `3`. Thus the next result is `-1-3`, `-4`, and so 
@@ -576,7 +585,34 @@ The below illustration shows the algorithm step-by-step:
 -53
 ```
 
-`reduce()` only shows the final result. 
+`reduce()` only shows the final result of all these operations. `accumulate()` and `reduce()` also
+have an `.init` argument, that makes it possible to start the reducing procedure from an initial
+value that is different from the first element of the vector:
+
+```{r, eval=FALSE}
+reduce(a, `+`, .init = 1000)
+
+accumulate(a, `-`, .init = 1000, .dir="backward")
+```
+
+```{r, echo=FALSE}
+reduce(a, `+`, .init = 1000)
+
+purrr::accumulate(a, `-`, .init = 1000, .dir="backward")
+```
+
+`map()` and `reduce()` are arguably the most useful higher-order functions, and perhaps also the 
+most famous one, true ambassadors of functional programming. You might have read about 
+[MapReduce](https://en.wikipedia.org/wiki/MapReduce), a programming model for processing big
+data in parallel. The way MapReduce works is inspired by both these `map()` and `reduce()` functions,
+which are always included in functional programming languages. This illustrates that the functional
+programming paradigm is very well suited to parallel computing. In the next chapter, we are going
+to explore parallel computing with the `{furrr}` package; as you will see, once you know about
+functional programming and are familiar with `{purrr}`, parallelizing your code with `{furrr}` is
+trivial. 
+
+Something else that is very important to understand at this point; up until now, we only used these
+functions on lists, or atomic vectors, of numbers.
 
 
 
