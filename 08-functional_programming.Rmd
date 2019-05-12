@@ -105,7 +105,6 @@ increment_opaque(10)
 
 will only produce `11` if `spam = 1`. But what if `spam = 19`?
 
-
 ```{r}
 spam <- 19
 
@@ -415,15 +414,15 @@ mean(sample(1:6, 1000, replace = TRUE))
 but the point was to illustrate that `rerun()` can run any arbitrarily complex expression, and that it is good
 practice to put the result in a data frame or list, for easy further manipulation.
 
-
-We know the standard `map()` function, and also `rerun()`, which return lists, but there are a number of
-variants of this function. `map_dbl()` returns an atomic vector of doubles, as seen quickly before:
+You now know the standard `map()` function, and also `rerun()`, which return lists, but there are a 
+number of variants of this function. `map_dbl()` returns an atomic vector of doubles, as seen 
+we've seen before. A little reminder below:
 
 ```{r}
 map_dbl(numbers, sqrt_newton, init = 1)
 ```
 
-`map_chr()` returns an atomic vector of strings:
+ In a similar fashion, `map_chr()` returns an atomic vector of strings:
 
 ```{r}
 map_chr(numbers, sqrt_newton, init = 1)
@@ -486,8 +485,26 @@ n <- seq(1:10)
 pmap(list(a, b, n), rnorm)
 ```
 
+The `map()` family of functions does not have any more secrets for you. Let's now take a look at
+the `reduce()` family of functions.
 
 ### Reducing with `purrr`
+
+Reducing is another important concept in functional programming. It allows going from a list of 
+elements, to a single element, by somehow *combining* the elements into one. For instance, using 
+the base R `Reduce()` function, you can sum the elements of a list like so:
+
+```{r}
+Reduce(`+`, seq(1:100))
+```
+
+using `purrr::reduce()`, this becomes:
+
+
+```{r}
+reduce(seq(1:100), `+`)
+```
+
 
 In the `purrr` package, you can find two more functions for folding: `reduce()` and
 `reduce_right()`. The difference between `reduce()` and `reduce_right()` is pretty obvious:

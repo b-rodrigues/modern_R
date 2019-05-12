@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2019-05-11">
+<meta name="date" content="2019-05-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -1096,12 +1096,12 @@ recommended packages that you can use:</p>
 <tr class="odd">
 <td>Logit</td>
 <td><code>stats</code></td>
-<td><code>glm(y ~ x, data = mydata, family = &quot;binomial&quot;)</code></td>
+<td><code>glm(y ~ x, data = mydata, family = "binomial")</code></td>
 </tr>
 <tr class="even">
 <td>Probit</td>
 <td><code>stats</code></td>
-<td><code>glm(y ~ x, data = mydata, family = binomial(link = &quot;probit&quot;))</code></td>
+<td><code>glm(y ~ x, data = mydata, family = binomial(link = "probit"))</code></td>
 </tr>
 <tr class="odd">
 <td>K-Means</td>
@@ -1131,7 +1131,7 @@ recommended packages that you can use:</p>
 <tr class="even">
 <td>Panel data</td>
 <td><code>plm</code></td>
-<td><code>plm(y ~ x, data = mydata, model = &quot;within|random&quot;)</code></td>
+<td><code>plm(y ~ x, data = mydata, model = "within|random")</code></td>
 </tr>
 <tr class="odd">
 <td>Neural Networks</td>
@@ -1218,9 +1218,21 @@ test_y &lt;-<span class="st"> </span>Housing[test_index, ] <span class="op">%&gt
 <span class="st">    </span><span class="kw">pull</span>(price)</code></pre>
 <p>I do the train/test split this way, because <code>glmnet()</code> requires a design matrix as input, and not
 a formula. Design matrices can be created using the <code>model.matrix()</code> function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;glmnet&quot;</span>)
-
-train_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(train_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_x)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;glmnet&quot;</span>)</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Matrix&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     expand</code></pre>
+<pre><code>## Loading required package: foreach</code></pre>
+<pre><code>## 
+## Attaching package: &#39;foreach&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:purrr&#39;:
+## 
+##     accumulate, when</code></pre>
+<pre><code>## Loaded glmnet 2.0-16</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">train_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(train_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_x)
 
 test_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(test_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> test_x)</code></pre>
 <p>Let’s now run a linear regression, by setting the penalty to 0:</p>

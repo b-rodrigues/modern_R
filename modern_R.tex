@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-05-09}
+    \date{2019-05-12}
 
 \usepackage{booktabs}
 
@@ -144,8 +144,9 @@
 \subsection*{Note to the reader}\label{note-to-the-reader}}
 \addcontentsline{toc}{subsection}{Note to the reader}
 
-This book is still being written. Chapters 1 to 8 are almost ready, but more content is being added.
-9 and 10 are empty for now. Some exercises might be at the wrong place too and more are coming.
+This book is still being written. Chapters 1 to 8 are almost ready, but more content is being added
+(especially to chapter 8). 9 and 10 are empty for now. Some exercises might be at the wrong place
+too and more are coming.
 
 If you already like what you read, you can support
 me by \href{https://www.buymeacoffee.com/brodriguesco}{buying me a coffee}
@@ -162,7 +163,7 @@ multi-paradigm (procedural, imperative, object-oriented and functional)\footnote
 focuses on applications in \emph{statistics}. By \emph{statistics} I mean any field that uses statistics such
 as official statistics, economics, finance, data science, machine learning, etc. For the sake of
 simplicity, I will use the word ``statistics'' as a general term that encompasses all these fields and
-disciplines for the remaineder of this book.
+disciplines for the remainder of this book.
 
 \hypertarget{who-is-this-book-for}{%
 \subsection*{Who is this book for?}\label{who-is-this-book-for}}
@@ -1969,7 +1970,16 @@ To import data with \texttt{\{rio\}}, \texttt{import()} is all you need:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(rio)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## The following rio suggested packages are not installed: 'csvy', 'feather', 'fst', 'hexView', 'rmatio'
+## Use 'install_formats()' to install them
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{mtcars <-}\StringTok{ }\KeywordTok{import}\NormalTok{(}\StringTok{"datasets/mtcars.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -6535,6 +6545,18 @@ You can apply any arbitrary function:
 \end{Shaded}
 
 \begin{verbatim}
+## Warning: funs() is soft deprecated as of dplyr 0.8.0
+## please use list() instead
+## 
+## # Before:
+## funs(name = f(.)
+## 
+## # After: 
+## list(name = ~f(.))
+## This warning is displayed once per session.
+\end{verbatim}
+
+\begin{verbatim}
 ## # A tibble: 342 x 6
 ##    hello_country hello_year hello_lgaspcar hello_lincomep hello_lrpmg
 ##    <fct>              <int>          <dbl>          <dbl>       <dbl>
@@ -7732,7 +7754,22 @@ that this is a case that \texttt{\{lubridate\}} handles painfully:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:base':
+## 
+##     date
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{independence <-}\StringTok{ }\NormalTok{independence }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{independence_date =} \KeywordTok{dmy}\NormalTok{(independence_date))}
 \end{Highlighting}
@@ -7844,16 +7881,16 @@ two dates, using the \texttt{interval()} column:
 ## # A tibble: 54 x 2
 ##    country      independent_since             
 ##    <chr>        <S4: Interval>                
-##  1 Liberia      1847-07-26 UTC--2019-05-09 UTC
-##  2 South Africa 1910-05-31 UTC--2019-05-09 UTC
-##  3 Egypt        1922-02-28 UTC--2019-05-09 UTC
-##  4 Eritrea      1947-02-10 UTC--2019-05-09 UTC
-##  5 Libya        1951-12-24 UTC--2019-05-09 UTC
-##  6 Sudan        1956-01-01 UTC--2019-05-09 UTC
-##  7 Tunisia      1956-03-20 UTC--2019-05-09 UTC
+##  1 Liberia      1847-07-26 UTC--2019-05-12 UTC
+##  2 South Africa 1910-05-31 UTC--2019-05-12 UTC
+##  3 Egypt        1922-02-28 UTC--2019-05-12 UTC
+##  4 Eritrea      1947-02-10 UTC--2019-05-12 UTC
+##  5 Libya        1951-12-24 UTC--2019-05-12 UTC
+##  6 Sudan        1956-01-01 UTC--2019-05-12 UTC
+##  7 Tunisia      1956-03-20 UTC--2019-05-12 UTC
 ##  8 Morocco      NA--NA                        
-##  9 Ghana        1957-03-06 UTC--2019-05-09 UTC
-## 10 Guinea       1958-10-02 UTC--2019-05-09 UTC
+##  9 Ghana        1957-03-06 UTC--2019-05-12 UTC
+## 10 Guinea       1958-10-02 UTC--2019-05-12 UTC
 ## # ... with 44 more rows
 \end{verbatim}
 
@@ -7873,16 +7910,16 @@ The \texttt{independent\_since} column now contains an \emph{interval} object th
 ## # A tibble: 54 x 3
 ##    country      independent_since              years_independent
 ##    <chr>        <S4: Interval>                             <dbl>
-##  1 Liberia      1847-07-26 UTC--2019-05-09 UTC             172. 
-##  2 South Africa 1910-05-31 UTC--2019-05-09 UTC             109. 
-##  3 Egypt        1922-02-28 UTC--2019-05-09 UTC              97.2
-##  4 Eritrea      1947-02-10 UTC--2019-05-09 UTC              72.2
-##  5 Libya        1951-12-24 UTC--2019-05-09 UTC              67.4
-##  6 Sudan        1956-01-01 UTC--2019-05-09 UTC              63.4
-##  7 Tunisia      1956-03-20 UTC--2019-05-09 UTC              63.1
+##  1 Liberia      1847-07-26 UTC--2019-05-12 UTC             172. 
+##  2 South Africa 1910-05-31 UTC--2019-05-12 UTC             109. 
+##  3 Egypt        1922-02-28 UTC--2019-05-12 UTC              97.2
+##  4 Eritrea      1947-02-10 UTC--2019-05-12 UTC              72.2
+##  5 Libya        1951-12-24 UTC--2019-05-12 UTC              67.4
+##  6 Sudan        1956-01-01 UTC--2019-05-12 UTC              63.4
+##  7 Tunisia      1956-03-20 UTC--2019-05-12 UTC              63.1
 ##  8 Morocco      NA--NA                                      NA  
-##  9 Ghana        1957-03-06 UTC--2019-05-09 UTC              62.2
-## 10 Guinea       1958-10-02 UTC--2019-05-09 UTC              60.6
+##  9 Ghana        1957-03-06 UTC--2019-05-12 UTC              62.2
+## 10 Guinea       1958-10-02 UTC--2019-05-12 UTC              60.6
 ## # ... with 44 more rows
 \end{verbatim}
 
@@ -8634,6 +8671,11 @@ to a tibble first:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
+## This warning is displayed once per session.
+\end{verbatim}
+
 Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
 gets automatically called \texttt{V1}. This is why I filter on this column. Let's take a look at the data:
 
@@ -8690,7 +8732,7 @@ Let's take a look at the result:
 ## 6 "content=\"te1r\" wc=\"0.8095238\"/"
 \end{verbatim}
 
-The second part of the string, ``wc=\ldots.'' is not really interesting. Let's search and replace this
+The second part of the string, ``wc=\ldots{}.'' is not really interesting. Let's search and replace this
 with an empty string, using \texttt{str\_replace()}:
 
 \begin{Shaded}
@@ -8884,7 +8926,7 @@ Let's remove space characters with \texttt{str\_trim()}:
 \end{verbatim}
 
 To finish off this section, let's remove stop words (words that do not add any meaning to a sentence,
-such as ``as'', ``and''\ldots) and words that are composed of less than 3 characters. You can find a dataset
+such as ``as'', ``and''\ldots{}) and words that are composed of less than 3 characters. You can find a dataset
 with stopwords inside the \texttt{\{stopwords\}} package:
 
 \begin{Shaded}
@@ -12519,7 +12561,45 @@ a formula. Design matrices can be created using the \texttt{model.matrix()} func
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(}\StringTok{"glmnet"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:tidyr':
+## 
+##     expand
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: foreach
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'foreach'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:purrr':
+## 
+##     accumulate, when
+\end{verbatim}
+
+\begin{verbatim}
+## Loaded glmnet 2.0-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{train_matrix <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(train_y }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ train_x)}
 
 \NormalTok{test_matrix <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(test_y }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ test_x)}
@@ -13200,11 +13280,15 @@ Let's now compute the RMSE:
 
 In this section we are going to learn some advanced concepts that are going to make you into a
 full-fledged R programmer. Before this chapter you only used whatever R came with, as well as the
-numerous R packages. This already allowed you to do a lot of things and solve a variety of problems!
+R packages. This already allowed you to do a lot of things and solve a variety of problems!
 The next step is now to learn how to actually build your own functions.
 
 \hypertarget{control-flow}{%
 \subsection{Control flow}\label{control-flow}}
+
+Knowing about control flow is essential to build your own functions. Without control flow statements,
+such as if-else statements or loops (or, in the case of pure functional programming languages, recursion),
+programming languages would be very limited.
 
 \hypertarget{if-else}{%
 \subsubsection{If-else}\label{if-else}}
@@ -13214,19 +13298,19 @@ problem that requires the \texttt{if\ ...\ else\ ...} construct. For instance:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a =}\StringTok{ }\DecValTok{4}
-\NormalTok{b =}\StringTok{ }\DecValTok{5}
+\NormalTok{a <-}\StringTok{ }\DecValTok{4}
+\NormalTok{b <-}\StringTok{ }\DecValTok{5}
 \end{Highlighting}
 \end{Shaded}
 
-If \texttt{a\ \textgreater{}\ b} then \texttt{f} should be equal to 20, else \texttt{f} should be equal to 10. Using \texttt{if\ ...\ else\ ...} you can achieve this like so:
+Suppose that if \texttt{a\ \textgreater{}\ b} then \texttt{f} should be equal to 20, else \texttt{f} should be equal to 10. Using \texttt{if\ ...\ else\ ...} you can achieve this like so:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{if}\NormalTok{ (a }\OperatorTok{>}\StringTok{ }\NormalTok{b) \{}
-\NormalTok{  f =}\StringTok{ }\DecValTok{20}
+\NormalTok{  f <-}\StringTok{ }\DecValTok{20}
 \NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{  f =}\StringTok{ }\DecValTok{10}
+\NormalTok{  f <-}\StringTok{ }\DecValTok{10}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -13235,13 +13319,68 @@ Obviously, here \texttt{f\ =\ 10}. Another way to achieve this is by using the \
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{f =}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(a }\OperatorTok{>}\StringTok{ }\NormalTok{b, }\DecValTok{20}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{f <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(a }\OperatorTok{>}\StringTok{ }\NormalTok{b, }\DecValTok{20}\NormalTok{, }\DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-This is exactly equivalent as using the longer \texttt{if\ ...\ else\ ...} construct.
+\texttt{if...else...} and \texttt{ifelse()} might seem interchangeable, but they're not. \texttt{ifelse()} is vectorized, while
+\texttt{if...else..} is not. Let's try the following:
 
-Nested \texttt{if\ ...\ else\ ...} constructs can get messy:
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{) }\OperatorTok{>}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{), }\StringTok{"yes"}\NormalTok{, }\StringTok{"no"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "no"  "yes" "yes"
+\end{verbatim}
+
+The result is a vector. Now, let's see what happens if we use \texttt{if...else...} instead of \texttt{ifelse()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{) }\OperatorTok{>}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\KeywordTok{print}\NormalTok{(}\StringTok{"yes"}\NormalTok{) }\ControlFlowTok{else} \KeywordTok{print}\NormalTok{(}\StringTok{"no"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in if (c(1, 2, 4) > c(3, 1, 0)) print("yes") else print("no"): the
+## condition has length > 1 and only the first element will be used
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "no"
+\end{verbatim}
+
+Only the first element of my atomic vector is used for the comparison. This is very important to keep in mind.
+Suppose that you want an expression to be evaluated, only if every element is \texttt{TRUE}. In this case, you should
+use the \texttt{all()} function, as seen previously in Chapter 2:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{all}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{) }\OperatorTok{>}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\StringTok{"all elements are greater"}\NormalTok{, }\StringTok{"not all elements are greater"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "not all elements are greater"
+\end{verbatim}
+
+You also remember the \texttt{any()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{any}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{) }\OperatorTok{>}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)), }\StringTok{"at least one element is greater"}\NormalTok{, }\StringTok{"no element greater"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "at least one element is greater"
+\end{verbatim}
+
+These are the basics. But sometimes, you might need to test for more complex conditions, which can lead to using
+nested \texttt{if...else...} constructs. These, however, can get messy:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13259,9 +13398,22 @@ Nested \texttt{if\ ...\ else\ ...} constructs can get messy:
 
 10 being obviously divisible by 2 and not 3, it is the second phrase that will be printed. The
 \texttt{\%\%} operator is the modulus operator, which gives the rest of the division of 10 by 2.
+It is easier to use \texttt{dplyr::case\_when()}:
 
-Remember that if you are working on a dataset and wish to create a new column with values
-conditionally on the values of another column, you can use \texttt{case\_when()}, which is much easier.
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{case_when}\NormalTok{(}\DecValTok{10} \OperatorTok{%%}\StringTok{ }\DecValTok{3} \OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{~}\StringTok{ "10 is divisible by 3"}\NormalTok{,}
+          \DecValTok{10} \OperatorTok{%%}\StringTok{ }\DecValTok{2} \OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{~}\StringTok{ "10 is divisible by 2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "10 is divisible by 2"
+\end{verbatim}
+
+We have already encountered this function in Chapter 4, inside a \texttt{dplyr::mutate()} call to create a new column.
+
+Let's now discuss loops.
 
 \hypertarget{for-loops}{%
 \subsubsection{For loops}\label{for-loops}}
@@ -13311,12 +13463,29 @@ It is also possible to do computations using for loops. Let's compute the sum of
 variable called \texttt{result} and set it to 0. Then, when the loops starts, \texttt{i} equals 1, so we add
 \texttt{result} to \texttt{1}, which is 1. Then, \texttt{i} equals 2, and again, we add \texttt{result} to \texttt{i}. But this time,
 \texttt{result} equals 1 and \texttt{i} equals 2, so now \texttt{result} equals 3, and we repeat this until \texttt{i}
-equals 100.
+equals 100. As explained in the introduction, this is not my preferred way of doing something like
+that. I actually use loops very rarely. I would solve the above problem using \texttt{purrr::reduce()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{100}\NormalTok{), }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5050
+\end{verbatim}
+
+This might look more complex, but once you're used to it, you will not use many loops again.
+You might wonder then, why use loops at all in this case? I refer you to the following
+\href{http://adv-r.had.co.nz/Functionals.html\#functionals-not}{section} of Hadley Wickham's \emph{Advanced R}
+for an in-depth discussion on situations where loops make more sense than higher-order functions
+such as \texttt{purrr::map()} or \texttt{purrr::reduce()}.
 
 \hypertarget{while-loops}{%
 \subsubsection{While loops}\label{while-loops}}
 
-While loops are very similar to for loops. The instructions inside a while loop are repeat while a
+While loops are very similar to for loops. The instructions inside a while loop are repeated while a
 certain condition holds true. Let's consider the sum of the first 100 integers again:
 
 \begin{Shaded}
@@ -13336,34 +13505,187 @@ certain condition holds true. Let's consider the sum of the first 100 integers a
 ## [1] 5050
 \end{verbatim}
 
-Here, we first set \texttt{result} and \texttt{i} to 0. Then, while \texttt{i} is inferior, or equal to 100, we add \texttt{i}
+Here, we first set \texttt{result} and \texttt{i} to 0. Then, while \texttt{i} is less than, or equal to 100, we add \texttt{i}
 to \texttt{result}. Notice that there is one more line than in the for loop: we need to increment the value
 of \texttt{i}, if not, \texttt{i} would stay equal to 1, and the condition would always be fulfilled, and
-the loop would run forever (not really, only until your computer runs out of memory).
+the loop would run forever (not really, only until your computer runs out of memory, or until the
+heat death of the universe, whichever comes first).
 
-In the next section we are going to learn how to write our own functions; this is when we are going
-to learn about recursive relationships that for and while loops can solve very well.
+Now that we know how to write loops, and know about \texttt{if...else...} constructs, we have (almost) all
+the ingredients to write our own functions.
 
 \hypertarget{writing-your-own-functions}{%
 \subsection{Writing your own functions}\label{writing-your-own-functions}}
 
-As you have seen by now, R includes a very large amount of preprogrammed functions, but also much
-more functions are available in packages. However, you will always need to write your own. In this
-section we are going to learn how to write our own functions.
+As you have seen by now, R includes a very large amount of preprogrammed functions, but also many
+more functions are available in packages. However, there will be a lot of situations where you will
+need to write your own. In this section we are going to learn how to write our own functions.
 
 \hypertarget{declaring-functions-in-r}{%
 \subsubsection{Declaring functions in R}\label{declaring-functions-in-r}}
 
 Suppose you want to create the following function: \(f(x) = \dfrac{1}{\sqrt{x}}\).
-This is the syntax you would use:
+Writing this in R is quite simple:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{my_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
-\KeywordTok{return}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(x))}
+\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(x)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
+
+The argument of the function, \texttt{x}, gets passed to the\ldots{} \texttt{function()} function and the \emph{body} of
+the function (more on that in the next Chapter) contains the function definition. Of course,
+you could define functions that use more than one input:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y)\{}
+\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{y)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+or inputs with names longer than one character:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(argument1, argument2)\{}
+\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(argument1 }\OperatorTok{+}\StringTok{ }\NormalTok{argument2)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Functions written by the user get called just the same way as functions included in R:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{my_function}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3015113
+\end{verbatim}
+
+It is also possible to provide default values to the function's arguments. Values that are used
+if the user omits them:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(argument1, }\DataTypeTok{argument2 =} \DecValTok{10}\NormalTok{)\{}
+\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(argument1 }\OperatorTok{+}\StringTok{ }\NormalTok{argument2)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{my_function}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3015113
+\end{verbatim}
+
+This is especially useful for functions with many arguments, or to allow users to choose between
+different methods:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(argument1, argument2, }\DataTypeTok{method =} \StringTok{"foo"}\NormalTok{)\{}
+  
+\NormalTok{  x <-}\StringTok{ }\NormalTok{argument1 }\OperatorTok{+}\StringTok{ }\NormalTok{argument2}
+  
+  \ControlFlowTok{if}\NormalTok{(method }\OperatorTok{==}\StringTok{ "foo"}\NormalTok{)\{}
+    \DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(x)}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (method }\OperatorTok{==}\StringTok{ "bar"}\NormalTok{)\{}
+    \StringTok{"this is a string"}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+\KeywordTok{my_function}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2182179
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{my_function}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{, }\StringTok{"bar"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "this is a string"
+\end{verbatim}
+
+As you see, depending on the ``method'' chosen, the returned result is either a numeric, or a string.
+What happens if the user provides a ``method'' that is neither ``foo'' nor ``bar''?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{my_function}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{, }\StringTok{"spam"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+As you can see nothing happens. It is possible to add safeguards to your function to avoid such
+situations:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(argument1, argument2, }\DataTypeTok{method =} \StringTok{"foo"}\NormalTok{)\{}
+  
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\NormalTok{(method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"foo"}\NormalTok{, }\StringTok{"bar"}\NormalTok{)))\{}
+    \KeywordTok{return}\NormalTok{(}\StringTok{"Method must be either 'foo' or 'bar'"}\NormalTok{)}
+\NormalTok{  \}}
+  
+\NormalTok{  x <-}\StringTok{ }\NormalTok{argument1 }\OperatorTok{+}\StringTok{ }\NormalTok{argument2}
+  
+  \ControlFlowTok{if}\NormalTok{(method }\OperatorTok{==}\StringTok{ "foo"}\NormalTok{)\{}
+    \DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(x)}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (method }\OperatorTok{==}\StringTok{ "bar"}\NormalTok{)\{}
+    \StringTok{"this is a string"}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+\KeywordTok{my_function}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2182179
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{my_function}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{, }\StringTok{"bar"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "this is a string"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{my_function}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{, }\StringTok{"foobar"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Method must be either 'foo' or 'bar'"
+\end{verbatim}
+
+Notice that I have used \texttt{return()} inside my first \texttt{if} statement. This is to immediately stop
+evaluation of the function and return a value. If I had omitted it, evaluation would have
+continued, as it is always the last expression that gets evaluated. Remove \texttt{return()} and run the
+function again, and see what happens. Later, we are going to learn how to add better safeguards to
+your functions, to avoid runtime errors.
 
 While in general, it is a good idea to add comments to your functions to explain what they do, I
 would avoid adding comments to functions that do things that are very obvious, such as with this
@@ -13371,10 +13693,47 @@ one. Function names should be of the form: \texttt{function\_name()}. Always giv
 explicit names! In mathematics it is standard to give functions just one letter as a name, but I
 would advise against doing that in your code. Functions that you write are not special in any way;
 this means that R will treat them the same way, and they will work in conjunction with any other
-function just as if it was built-in into R. They have one limitation though (which is shared with
-R's native function): just like in math, they can only return one value. However, sometimes, you
-may need to return more than one value. To be able to do this, you must put your values in a list,
-and return the list of values. For example:
+function just as if it was built-in into R.
+
+They have one limitation though (which is shared with R's native function): just like in math,
+they can only return one value. However, sometimes, you may need to return more than one value.
+To be able to do this, you must put your values in a list, and return the list of values. For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{average_and_sd <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+\KeywordTok{c}\NormalTok{(}\KeywordTok{mean}\NormalTok{(x), }\KeywordTok{sd}\NormalTok{(x))}
+\NormalTok{\}}
+
+\KeywordTok{average_and_sd}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.166667 4.262237
+\end{verbatim}
+
+You're still returning a single object, but it's a vector. You can also return a named list:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{average_and_sd <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+\KeywordTok{list}\NormalTok{(}\StringTok{"mean_x"}\NormalTok{ =}\StringTok{  }\KeywordTok{mean}\NormalTok{(x), }\StringTok{"sd_x"}\NormalTok{ =}\StringTok{ }\KeywordTok{sd}\NormalTok{(x))}
+\NormalTok{\}}
+
+\KeywordTok{average_and_sd}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $mean_x
+## [1] 7.166667
+## 
+## $sd_x
+## [1] 4.262237
+\end{verbatim}
+
+As described before, you can use \texttt{return()} at the end of your functions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13391,6 +13750,36 @@ and return the list of values. For example:
 ## [1] 7.166667 4.262237
 \end{verbatim}
 
+But this is only needed if you need to return a value early:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{average_and_sd <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+\ControlFlowTok{if}\NormalTok{(}\KeywordTok{any}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x)))\{}
+    \KeywordTok{return}\NormalTok{(}\OtherTok{NA}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \KeywordTok{c}\NormalTok{(}\KeywordTok{mean}\NormalTok{(x), }\KeywordTok{sd}\NormalTok{(x))}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+\KeywordTok{average_and_sd}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.166667 4.262237
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{average_and_sd}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
 If you need to use a function from a package inside your function use \texttt{::}:
 
 \begin{Shaded}
@@ -13402,7 +13791,7 @@ If you need to use a function from a package inside your function use \texttt{::
 \end{Shaded}
 
 However, if you need to use more than one function, this can become tedious. A quick and dirty
-way of doing that, is to use \texttt{library(package\_name)}, inside the function:
+(more dirty than quick, really) way of doing that, is to use \texttt{library(package\_name)}, inside the function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13415,7 +13804,7 @@ way of doing that, is to use \texttt{library(package\_name)}, inside the functio
 
 Loading the library inside the function has the advantage that you will be sure that the package
 upon which your function depends will be loaded. If the package is already loaded, it will not be
-loaded again, thus not impacting performance, but if you forgot to load it at the beginning of your
+loaded again, thus not impact performance, but if you forgot to load it at the beginning of your
 script, then, no worries, your function will load it the first time you use it! However, the very
 best way would be to write your own package and declare the packages upon which your functions
 depend as dependencies. This is something we are going to explore in Chapter 11.
@@ -13442,13 +13831,13 @@ Each subsequent number is composed of the sum of the two preceding ones. In R, i
 \NormalTok{  b <-}\StringTok{ }\NormalTok{a}
 \NormalTok{  a <-}\StringTok{ }\NormalTok{a }\OperatorTok{+}\StringTok{ }\NormalTok{temp}
 \NormalTok{ \}}
- \KeywordTok{return}\NormalTok{(a)}
+\NormalTok{ a}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
 Inside the loop, we defined a variable called \texttt{temp}. Defining temporary variables is usually very
-useful inside loops. Let's try to understand what happens inside this loop:
+useful. Let's try to understand what happens inside this loop:
 
 \begin{itemize}
 \tightlist
@@ -13481,7 +13870,7 @@ Let's look at another way to think about the problem, with a so-called recursive
  \ControlFlowTok{if}\NormalTok{ (n }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{||}\StringTok{ }\NormalTok{n }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)\{}
    \KeywordTok{return}\NormalTok{(n)}
 \NormalTok{   \} }\ControlFlowTok{else}\NormalTok{ \{}
-     \KeywordTok{return}\NormalTok{(}\KeywordTok{fibo_recur}\NormalTok{(n}\DecValTok{-1}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{fibo_recur}\NormalTok{(n}\DecValTok{-2}\NormalTok{))}
+   \KeywordTok{fibo_recur}\NormalTok{(n}\DecValTok{-1}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{fibo_recur}\NormalTok{(n}\DecValTok{-2}\NormalTok{)}
 \NormalTok{   \}}
 \NormalTok{\}}
 \end{Highlighting}
@@ -13501,7 +13890,7 @@ then? Try to run the following:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.024   0.036   0.055
+##   0.006   0.000   0.006
 \end{verbatim}
 
 The result should be printed very fast (the \texttt{system.time()} function returns the time that it took
@@ -13515,7 +13904,7 @@ to execute \texttt{my\_fibo(30)}). Let's try with the recursive version:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   1.430   0.589   1.951
+##    1.17    0.00    1.17
 \end{verbatim}
 
 It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
@@ -13687,8 +14076,7 @@ will happen:
 \NormalTok{simple_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dataset, col_name)\{}
 \NormalTok{  dataset }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(col_name) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_speed =} \KeywordTok{mean}\NormalTok{(speed)) ->}\StringTok{ }\NormalTok{dataset}
-  \KeywordTok{return}\NormalTok{(dataset)}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_speed =} \KeywordTok{mean}\NormalTok{(speed))}
 \NormalTok{\}}
 
 
@@ -13709,8 +14097,7 @@ variable name. So why not try to convert \texttt{col\_name} to a name?
 \NormalTok{  col_name <-}\StringTok{ }\KeywordTok{as.name}\NormalTok{(col_name)}
 \NormalTok{  dataset }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(col_name) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_speed =} \KeywordTok{mean}\NormalTok{(speed)) ->}\StringTok{ }\NormalTok{dataset}
-  \KeywordTok{return}\NormalTok{(dataset)}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_speed =} \KeywordTok{mean}\NormalTok{(speed))}
 \NormalTok{\}}
 
 
@@ -13724,13 +14111,13 @@ Error: unknown variable to group by : col_name
 
 This is because R is literally looking for the variable \texttt{"dist"} somewhere in the global
 environment, and not as a column of the data. R does not understand that you are refering to the
-column \texttt{"dist"} that is inside the dataset. So how can we make R understand what you mean?
+column \texttt{"dist"} that is inside the dataset. So how can we make R understands what you mean?
 
-To be able to do that, we need to use a framework that was introduced recently in the \texttt{tidyverse},
-called \texttt{tidyeval}. This discussion can get very technical, so I will spare you the details.
+To be able to do that, we need to use a framework that was introduced recently in the \texttt{\{tidyverse\}},
+called \texttt{\{tidyeval\}}. This discussion can get very technical, so I will spare you the details.
 However, you can read about it \href{http://dplyr.tidyverse.org/articles/programming.html}{here} and
 \href{https://cran.r-project.org/web/packages/rlang/vignettes/tidy-evaluation.html}{here}. The
-discussion can get complicated, but using \texttt{tidyeval} is actually quite easy, and you can get a
+discussion can get complicated, but using \texttt{\{tidyeval\}} is actually quite easy, and you can get a
 cookbook approach to it. Take a look at the code below:
 
 \begin{Shaded}
@@ -13739,8 +14126,7 @@ cookbook approach to it. Take a look at the code below:
 \NormalTok{  col_name <-}\StringTok{ }\KeywordTok{enquo}\NormalTok{(col_name)}
 \NormalTok{  dataset }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!}\NormalTok{col_name) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mpg =} \KeywordTok{mean}\NormalTok{(mpg)) ->}\StringTok{ }\NormalTok{dataset}
-  \KeywordTok{return}\NormalTok{(dataset)}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mpg =} \KeywordTok{mean}\NormalTok{(mpg))}
 \NormalTok{\}}
 
 
@@ -13761,9 +14147,9 @@ As you can see, the previous idea we had, which was using \texttt{as.name()} was
 the solution. The solution, with \texttt{tidyeval}, consists in using \texttt{enquo()}, which for our purposes,
 let's say that this function does something similar to \texttt{as.name()} (in truth, it doesn't). Now that
 \texttt{col\_name} is (R programmers call it) quoted, we need to tell \texttt{group\_by()} to evaluate the input as
-is. This is done with \texttt{!!()}, which is another \texttt{tidyeval} function. I say it again;
+is. This is done with \texttt{!!()}, which is another \texttt{\{tidyeval\}} function. I say it again;
 don't worry if you don't understand everything. Just remember to use \texttt{enquo()} on your column names
-and then \texttt{!!()} inside the \texttt{dplyr} function you want to use.
+and then \texttt{!!()} inside the \texttt{\{dplyr\}} function you want to use.
 
 Let's see some other examples:
 
@@ -13773,8 +14159,7 @@ Let's see some other examples:
 \NormalTok{  col_name <-}\StringTok{ }\KeywordTok{enquo}\NormalTok{(col_name)}
 \NormalTok{  dataset }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{((}\OperatorTok{!!}\NormalTok{col_name) }\OperatorTok{==}\StringTok{ }\NormalTok{value) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_cyl =} \KeywordTok{mean}\NormalTok{(cyl)) ->}\StringTok{ }\NormalTok{dataset}
-  \KeywordTok{return}\NormalTok{(dataset)}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_cyl =} \KeywordTok{mean}\NormalTok{(cyl))}
 \NormalTok{\}}
 
 
@@ -13816,8 +14201,7 @@ like the mean of another variable?
 \NormalTok{  mean_col <-}\StringTok{ }\KeywordTok{enquo}\NormalTok{(mean_col)}
 \NormalTok{  dataset }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{((}\OperatorTok{!!}\NormalTok{filter_col) }\OperatorTok{==}\StringTok{ }\NormalTok{value) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{mean}\NormalTok{((}\OperatorTok{!!}\NormalTok{mean_col))) ->}\StringTok{ }\NormalTok{dataset}
-  \KeywordTok{return}\NormalTok{(dataset)}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{mean}\NormalTok{((}\OperatorTok{!!}\NormalTok{mean_col)))}
 \NormalTok{\}}
 
 
@@ -13847,7 +14231,7 @@ Using the \texttt{...} that we discovered in the previous section, we can pass m
 Because these \emph{dots} contain more than one variable, you have to use \texttt{quos()} instead of \texttt{enquo()}.
 This will put the arguments provided via the dots in a list. Then, because we have a list of
 columns, we have to use \texttt{summarise\_at()}, which you should know if you did the exercices of
-chapter 5. So if you didn't do them, go back to them and finish them first. Doing the exercise will
+Chapter 4. So if you didn't do them, go back to them and finish them first. Doing the exercise will
 also teach you what \texttt{vars()} and \texttt{funs()} are. The last thing you have to pay attention to is to
 use \texttt{!!!()} if you used \texttt{quos()}. So 3 \texttt{!} instead of only 2. This allows you to then do things
 like this:
@@ -13910,7 +14294,7 @@ function that return the square root of a number using Newton's algorithm:
     \ControlFlowTok{while}\NormalTok{(}\KeywordTok{abs}\NormalTok{(init}\OperatorTok{**}\DecValTok{2} \OperatorTok{-}\StringTok{ }\NormalTok{a) }\OperatorTok{>}\StringTok{ }\NormalTok{eps)\{}
 \NormalTok{        init <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\DecValTok{2} \OperatorTok{*}\NormalTok{(init }\OperatorTok{+}\StringTok{ }\NormalTok{a}\OperatorTok{/}\NormalTok{init)}
 \NormalTok{    \}}
-    \KeywordTok{return}\NormalTok{(init)}
+\NormalTok{    init}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -13958,7 +14342,8 @@ This is what I meant before with ``your functions are nothing special''. Once th
 defined, you can use it like any other base R function.
 
 Notice the use of \texttt{stopifnot()} inside the body of the function. This is a way to return an error
-in case a condition is not fulfilled.
+in case a condition is not fulfilled. We are going to learn more about this type of functions
+in the next chapter.
 
 \hypertarget{anonymous-functions}{%
 \subsection{Anonymous functions}\label{anonymous-functions}}
@@ -14063,6 +14448,9 @@ or, using a formula:
 
 Because you have now two arguments, a single dot could not work, so instead you use \texttt{.x} and \texttt{.y} to
 avoid confusion.
+
+You now know a lot about writing your own functions. In the next chapter, we are going to learn about
+functional programming, the programming paradigm I described in the introduction of this book.
 
 \hypertarget{exercises-5}{%
 \subsection{Exercises}\label{exercises-5}}
@@ -14179,14 +14567,19 @@ as the counter inside the for loop, and \texttt{j} as the counter for the while 
 \hypertarget{functional-programming}{%
 \section{Functional programming}\label{functional-programming}}
 
-By now, you are pretty familiar with functions in R. Now, let's introduce the functional programming
-paradigm, but first, let's go over some formal definitions.
+Functional programming is a paradigm that I find very suitable for data science. In functional
+programming, your code is organised into functions that you can call when needed. Your scripts
+will only be a sequence of calls to these functions, making it easier to understand. R is not a pure
+functional programming language, so we need some self-discipline to apply pure functional programming
+principles. However, these efforts are worth it, because pure functions are easier to debug, extend
+and document. In this chapter, we are going to learn about functional programming principles that you
+can adopt and start using to make your code better.
 
 \hypertarget{functions-definition}{%
 \subsection{Functions definition}\label{functions-definition}}
 
-You should be familiar with function definitions in R. For example, suppose you want to compute
-the square root of a number and want to do so using Newton's algorithm:
+You should now be familiar with function definitions in R. Let's suppose you want to write a function
+to compute the square root of a number and want to do so using Newton's algorithm:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14249,7 +14642,8 @@ I won't got into the details of what tail-call optimization is but just remember
 performance is important a loop will be faster. However, sometimes, it is easier to write a
 function using recursion. I personally tend to avoid loops if performance is not important,
 because I find that code that avoids loops is easier to read and debug. However, knowing that
-you can use loops is reassuring. In the coming sections I will show you some built-in functions
+you can use loops is reassuring, and encapsulating loos inside functions gives you the benefits of
+both using functions, and loops. In the coming sections I will show you some built-in functions
 that make it possible to avoid writing loops and that don't rely on recursion, so performance
 won't be penalized.
 
@@ -14264,7 +14658,7 @@ For example, the following function:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{increment <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
-    \KeywordTok{return}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{    x }\OperatorTok{+}\StringTok{ }\DecValTok{1}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -14291,7 +14685,7 @@ However, this one:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{increment_opaque <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
-    \KeywordTok{return}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{spam)}
+\NormalTok{    x }\OperatorTok{+}\StringTok{ }\NormalTok{spam}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -14330,7 +14724,7 @@ argument:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{increment_not_opaque <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, spam)\{}
-    \KeywordTok{return}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{spam)}
+\NormalTok{    x }\OperatorTok{+}\StringTok{ }\NormalTok{spam}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -14365,7 +14759,7 @@ For example this function (which is not a referential transparent function):
     \ControlFlowTok{while}\NormalTok{(}\KeywordTok{abs}\NormalTok{(init}\OperatorTok{**}\DecValTok{2} \OperatorTok{-}\StringTok{ }\NormalTok{a) }\OperatorTok{>}\StringTok{ }\NormalTok{eps)\{}
 \NormalTok{        init <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\DecValTok{2} \OperatorTok{*}\NormalTok{(init }\OperatorTok{+}\StringTok{ }\NormalTok{a}\OperatorTok{/}\NormalTok{init)}
 \NormalTok{        count_iter <<-}\StringTok{ }\NormalTok{count_iter }\OperatorTok{+}\StringTok{ }\DecValTok{1} \CommentTok{# The "<<-" symbol means that we assign the}
-\NormalTok{    \}                                 }\CommentTok{# RHS value in a variable in the global environment}
+\NormalTok{    \}                                 }\CommentTok{# RHS value in a variable inside the global environment}
     \KeywordTok{return}\NormalTok{(init)}
 \NormalTok{\}}
 \end{Highlighting}
@@ -14406,7 +14800,7 @@ above function not have any side effects like this:
 \NormalTok{        init <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\DecValTok{2} \OperatorTok{*}\NormalTok{(init }\OperatorTok{+}\StringTok{ }\NormalTok{a}\OperatorTok{/}\NormalTok{init)}
 \NormalTok{        count_iter <-}\StringTok{ }\NormalTok{count_iter }\OperatorTok{+}\StringTok{ }\DecValTok{1}
 \NormalTok{    \}}
-    \KeywordTok{return}\NormalTok{(}\KeywordTok{c}\NormalTok{(init, count_iter))}
+    \KeywordTok{c}\NormalTok{(init, count_iter)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -14429,6 +14823,15 @@ outside its scope. But this cannot be avoided since you \emph{want} to write to 
 Just remember: try to avoid having functions changing variables in the global environment unless
 you have a very good reason of doing so.
 
+Very long scripts that don't use functions and but use a lot of global variables with loops changing
+the values are a nightmare to debug. If something goes wrong, it might be very difficult to pinpoint
+where the problem is. Is there an error in one of the loops? Is your code running for a particular
+value of a particular variable in the global environment, but not for other values? Which values? And
+of which variables? It can be very difficult to know what is wrong with such a script.
+With functional programming, you can avoid a lot of this pain for free (well not entirely for free,
+it still requires some effort, since R is not a pure functional language). Writing functions also
+makes it easier to parallelize your code. We are going to learn about that later in this chapter too.
+
 Finally, another property of mathematical functions, is that they do one single thing. Functional
 programming purists also program their functions to do one single task. This has benefits, but
 can complicate things. The function we wrote previously does two things: it computes the square
@@ -14439,28 +14842,183 @@ many \emph{unrelated} things. This makes debugging harder.
 
 In conclusion: you should strive for referential transparency, try to avoid side effects unless you
 have a good reason to have them and try to keep your functions short and do as little tasks as
-possible. This makes testing and debugging easier, as you will see.
+possible. This makes testing and debugging easier, as you will see in the next chapter, but also
+improves readability and maintainability of your code.
 
 \hypertarget{functional-programming-with-purrr}{%
 \subsection{\texorpdfstring{Functional programming with \texttt{\{purrr\}}}{Functional programming with \{purrr\}}}\label{functional-programming-with-purrr}}
 
-Hadley Wickham developed a package called \texttt{purrr} which contains a lot of very useful functions.
+I mentioned it several times already, but R is not a pure functional programming language. It is
+possible to write R code using the functional programming paradigm, but some effort is required.
+The \texttt{\{purrr\}} package, extends R's base functional programming capabilities with some very interesting
+functions. We have already seen \texttt{map()} and \texttt{reduce()}, which we are going to see in more detail now.
+Then, we are going to learn about some other functions included in \texttt{\{purrr\}} that make functional
+programming easier in R.
 
 \hypertarget{doing-away-with-loops-the-map-family-of-functions}{%
 \subsubsection{\texorpdfstring{Doing away with loops: the \texttt{map*()} family of functions}{Doing away with loops: the map*() family of functions}}\label{doing-away-with-loops-the-map-family-of-functions}}
 
-In the previous section we saw how to map a function to each element of a list. Each version of an
-\texttt{*apply()} function has a different purpose, but it is not very easy to remember which one returns
-a list, which other one returns an atomic vector and so on. If you're working on data frames you
-can use \texttt{apply()} to sum (for example) over columns or rows, because you can specify which \texttt{MARGIN}
-you want to sum over. But you do not get a data frame back. In the \texttt{purrr} package, each of the
-functions that do mapping have a similar name. The first part of these functions' names all start
-with \texttt{map\_} and the second part tells you what this function is going to output. For example, if
-you want \texttt{double}s out, you would use \texttt{map\_dbl()}. If you are working on data frames want a data
-frame back, you would use \texttt{map\_df()}. These are much more intuitive and easier to remember and we're
-going to learn how to use them in the chapter about \protect\hyperlink{tidyverse}{The Tidyverse}. For now, let's just focus on
-the basic functions, \texttt{map()} and \texttt{reduce()} (and some variants of \texttt{reduce()}). To map a function
-to every element of a list, simply use \texttt{map()}:
+Instead of using loops, pure functional programming languages use functions that perform the achieve
+the same result. These functions are often called \texttt{Map} or \texttt{Reduce} (also called \texttt{Fold}). R comes
+with the \texttt{*apply()} family of functions, as well as \texttt{Reduce()} for functional programming.
+
+Within this family, you can find \texttt{lapply()}, \texttt{sapply()}, \texttt{vapply()}, \texttt{tapply()}, \texttt{mapply()}, \texttt{rapply()},
+\texttt{eapply()} and \texttt{apply()} (I might have forgotten one or the other, but that's not important).
+Each version of an \texttt{*apply()} function has a different purpose, but it is not very easy to
+remember which does what exactly. To add even more confusion, the arguments are sometimes different between
+each of these.
+
+In the \texttt{\{purrr\}} package, these functions are replaced by the \texttt{map*()} family of functions. As you will
+shortly see, they are very consistent, and thus easier to use.
+The first part of these functions' names all start
+with \texttt{map\_} and the second part tells you what this function is going to return. For example, if
+you want \texttt{double}s out, you would use \texttt{map\_dbl()}. If you are working on data frames and want a data
+frame back, you would use \texttt{map\_df()}. Let's start with the basic \texttt{map()} function. The following
+gif (source: \href{https://en.wikipedia.org/wiki/Map_(higher-order_function)}{Wikipedia}) illustrates
+what \texttt{map()} does fairly well:
+
+\includegraphics{https://upload.wikimedia.org/wikipedia/commons/0/06/Mapping-steps-loillibe-new.gif}
+
+\(X\) is a vector composed of the following scalars: \((0, 5, 8, 3, 2, 1)\). The function we want to
+map to each element of \(X\) is \(f(x) = x + 1\). \(X'\) is the result of this operation. Using R, we
+would do the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"purrr"}\NormalTok{)}
+\NormalTok{numbers <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{plus_one <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) (x }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{my_results <-}\StringTok{ }\KeywordTok{map}\NormalTok{(numbers, plus_one)}
+
+\NormalTok{my_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 6
+## 
+## [[3]]
+## [1] 9
+## 
+## [[4]]
+## [1] 4
+## 
+## [[5]]
+## [1] 3
+## 
+## [[6]]
+## [1] 2
+\end{verbatim}
+
+Using a loop, you would write:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numbers <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{plus_one <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) (x }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{my_results <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\StringTok{"list"}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{(number }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(numbers))\{}
+\NormalTok{  my_results[[number]] <-}\StringTok{ }\KeywordTok{plus_one}\NormalTok{(number)}
+\NormalTok{\}}
+
+\NormalTok{my_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 2
+## 
+## [[2]]
+## [1] 3
+## 
+## [[3]]
+## [1] 4
+## 
+## [[4]]
+## [1] 5
+## 
+## [[5]]
+## [1] 6
+## 
+## [[6]]
+## [1] 7
+\end{verbatim}
+
+Now I don't know about you, but I prefer the first option. Using functional programming, you don't
+need to create an empty list to hold your results, and the code is more concise. Plus,
+it is less error prone. While writing the for-loop, and I had to try several times to get it right
+(and I've using R for almost 10 years now). Why? Well, first of all I used \texttt{\%in\%} instead of \texttt{in}.
+Then, I forgot about \texttt{seq\_along()}. After that, I made a typo, \texttt{plos\_one()} instead of \texttt{plus\_one()}
+(ok, that one is unrelated to the loop). Let's also see how this works using base R:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numbers <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{plus_one <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) (x }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{my_results <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(numbers, plus_one)}
+
+\NormalTok{my_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 6
+## 
+## [[3]]
+## [1] 9
+## 
+## [[4]]
+## [1] 4
+## 
+## [[5]]
+## [1] 3
+## 
+## [[6]]
+## [1] 2
+\end{verbatim}
+
+So what is the added value of using \texttt{\{purrr\}}, you might ask. Well, imagine that instead of a list,
+I need to an atomic vector of \texttt{numeric}s. This is fairly easy with \texttt{\{purrr\}}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"purrr"}\NormalTok{)}
+\NormalTok{numbers <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{plus_one <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) (x }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{my_results <-}\StringTok{ }\KeywordTok{map_dbl}\NormalTok{(numbers, plus_one)}
+
+\NormalTok{my_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 6 9 4 3 2
+\end{verbatim}
+
+We're going to discuss these functions below, but know that in base R, not every function has an
+equivalent, at least as far as I know.
+
+Let's go back to our \texttt{sqrt\_newton()} function. This function has more than one parameter. Often,
+we would like to map functions with more than one parameter to a list, while holding constant
+some of the functions parameters. This is easily achieved like so:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14485,7 +15043,33 @@ to every element of a list, simply use \texttt{map()}:
 ## [1] 8.000002
 \end{verbatim}
 
-If you want print ``hello'' using a function from \texttt{purrr} you would need to use \texttt{rerun()}:
+It is also possible to use a formula:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"purrr"}\NormalTok{)}
+\NormalTok{numbers <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{64}\NormalTok{)}
+
+\KeywordTok{map}\NormalTok{(numbers, }\OperatorTok{~}\KeywordTok{sqrt_newton}\NormalTok{(., }\DataTypeTok{init =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 2.645767
+## 
+## [[2]]
+## [1] 2.828469
+## 
+## [[3]]
+## [1] 4.358902
+## 
+## [[4]]
+## [1] 8.000002
+\end{verbatim}
+
+Another function that is similar to \texttt{map()} is \texttt{rerun()}. You guessed it, this one simply
+reruns an expression:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14582,11 +15166,108 @@ function to a vector of characters:
 
 \texttt{rep()} is a function that creates a vector by repeating something, in this case the string ``hello'',
 as many times as needed, here 10. The output here is a bit different that before though, because first
-you will see ``hello'' printed 10 times, but \texttt{map()} always returns a list, this means that you
-will also get a list where each element is the string ``hello''.
+you will see ``hello'' printed 10 times and then the list where each element is ``hello''.
+This is because the \texttt{print()} function has a side effect, which is, well printing to the console.
+We see this side effect 10 times, plus then the list created with \texttt{map()}.
 
-We know the standard \texttt{map()} function, which returns a list, but there are a number of
-variants of this function. \texttt{map\_dbl()} returns an atomic vector of doubles:
+\texttt{rerun()} is useful if you want to run simulation. For instance, let's suppose that I perform a simulation
+where I throw a die 5 times, and compute the mean of the points obtained, as well as the variance:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean_var_throws <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(n)\{}
+\NormalTok{  throws <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{, n, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{  mean_throws <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(throws)}
+\NormalTok{  var_throws <-}\StringTok{ }\KeywordTok{var}\NormalTok{(throws)}
+
+\NormalTok{  tibble}\OperatorTok{::}\KeywordTok{tribble}\NormalTok{(}\OperatorTok{~}\NormalTok{mean_throws, }\OperatorTok{~}\NormalTok{var_throws,}
+\NormalTok{                   mean_throws, var_throws)}
+\NormalTok{\}}
+
+\KeywordTok{mean_var_throws}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 2
+##   mean_throws var_throws
+##         <dbl>      <dbl>
+## 1         3.4        4.3
+\end{verbatim}
+
+\texttt{mean\_var\_throws()} returns a \texttt{tibble} object with mean of points and the variance of the points. Now suppose
+I want to compute the expected value of the distribution of throwing dice. We know from theory that it should
+be equal to \(3.5 (= 1*1/6 + 2*1/6 + 3*1/6 + 4*1/6 + 5*1/6 + 6*1/6)\).
+
+Let's rerun the simulation 50 times:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{simulations <-}\StringTok{ }\KeywordTok{rerun}\NormalTok{(}\DecValTok{50}\NormalTok{, }\KeywordTok{mean_var_throws}\NormalTok{(}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Let's see what the \texttt{simulations} object is made of:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(simulations)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## List of 50
+##  $ :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
+##   ..$ mean_throws: num 2
+##   ..$ var_throws : num 3
+##  $ :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
+##   ..$ mean_throws: num 2.8
+##   ..$ var_throws : num 0.2
+##  $ :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
+##   ..$ mean_throws: num 2.8
+##   ..$ var_throws : num 0.7
+##  $ :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
+##   ..$ mean_throws: num 2.8
+##   ..$ var_throws : num 1.7
+.....
+\end{verbatim}
+
+\texttt{simulations} is a list of 50 data frames. We can easily combine them into a single data frame, and compute the
+mean of the means, which should return something close to the expected value of 3.5:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{bind_rows}\NormalTok{(simulations) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{expected_value =} \KeywordTok{mean}\NormalTok{(mean_throws))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   expected_value
+##            <dbl>
+## 1           3.32
+\end{verbatim}
+
+Pretty close! Now of course, one could have simply done something like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.511
+\end{verbatim}
+
+but the point was to illustrate that \texttt{rerun()} can run any arbitrarily complex expression, and that it is good
+practice to put the result in a data frame or list, for easy further manipulation.
+
+You now know the standard \texttt{map()} function, and also \texttt{rerun()}, which return lists, but there are a
+number of variants of this function. \texttt{map\_dbl()} returns an atomic vector of doubles, as seen
+we've seen before. A little reminder below:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14598,7 +15279,7 @@ variants of this function. \texttt{map\_dbl()} returns an atomic vector of doubl
 ## [1] 2.645767 2.828469 4.358902 8.000002
 \end{verbatim}
 
-\texttt{map\_chr()} returns an atomic vector of strings:
+In a similar fashion, \texttt{map\_chr()} returns an atomic vector of strings:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14800,42 +15481,71 @@ than 2 arguments:
 
 \begin{verbatim}
 ## [[1]]
-## [1] -0.3390433
+## [1] 1.176356
 ## 
 ## [[2]]
-## [1] 2.9112815 0.6336281
+## [1] -3.030326  5.313510
 ## 
 ## [[3]]
-## [1] -0.3468364 -5.0780178  4.8137809
+## [1]  3.6913308 -0.1764854  2.3506073
 ## 
 ## [[4]]
-## [1]  2.8895890 -0.6554886 -3.3664595  1.7246887
+## [1] 4.3194893 8.0508965 1.2111194 0.6164168
 ## 
 ## [[5]]
-## [1] 13.510076 11.967669  5.364994 -1.626470  2.279362
+## [1] -4.48574507 -2.38283482 -5.85375200 -1.87588569  0.02109254
 ## 
 ## [[6]]
-## [1]  1.9960271 -5.9273471 10.2248510  6.4238841 -0.9296016 -0.6230772
+## [1]  4.046816 -4.700930  1.701437 -1.892204  2.404707 -9.322544
 ## 
 ## [[7]]
-## [1] -3.56441591  9.36087823 -2.18931874 11.29486286 -7.70610720 12.14668245
-## [7]  0.05655167
+## [1]   4.535108  -3.539218  -2.140494  -3.791482   6.571106   1.505159
+## [7] -12.669327
 ## 
 ## [[8]]
-## [1]  -9.0300679 -15.5087408  -0.5029011  -6.7685115  -0.8930143   8.6610726
-## [7]   4.3739079  -1.5743869
+## [1]  14.8862784   8.4633197   0.4760567   6.8811666  10.8983387  -9.4916930
+## [7]   2.7636656 -11.0630963
 ## 
 ## [[9]]
-## [1] -2.953657  9.719432 -5.994068 -3.860638 -4.197553  4.104475  3.926871
-## [8] 11.128557  3.842179
+## [1]   1.9296462  -1.3933216   4.3952786 -10.4717919 -15.6164434  16.7492450
+## [7]  12.8055355  -8.8329952  -0.6489293
 ## 
 ## [[10]]
-##  [1]   5.099272  -5.734222  -5.000404   8.345451   9.945886  20.915801
-##  [7]  13.787797 -13.270184  15.504936  16.635813
+##  [1]   3.4213124   0.2267865  11.7103547   7.2469864 -11.2778562
+##  [6]  -3.0162153  -4.0109492  24.2472092   2.2042099   6.4918187
 \end{verbatim}
+
+The \texttt{map()} family of functions does not have any more secrets for you. Let's now take a look at
+the \texttt{reduce()} family of functions.
 
 \hypertarget{reducing-with-purrr}{%
 \subsubsection{\texorpdfstring{Reducing with \texttt{purrr}}{Reducing with purrr}}\label{reducing-with-purrr}}
+
+Reducing is another important concept in functional programming. It allows going from a list of
+elements, to a single element, by somehow \emph{combining} the elements into one. For instance, using
+the base R \texttt{Reduce()} function, you can sum the elements of a list like so:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{Reduce}\NormalTok{(}\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{, }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5050
+\end{verbatim}
+
+using \texttt{purrr::reduce()}, this becomes:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{), }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5050
+\end{verbatim}
 
 In the \texttt{purrr} package, you can find two more functions for folding: \texttt{reduce()} and
 \texttt{reduce\_right()}. The difference between \texttt{reduce()} and \texttt{reduce\_right()} is pretty obvious:
@@ -15031,8 +15741,11 @@ However, in some situations, this trick does not work as intended (or at all), s
 ## [1] 3.162278
 \end{verbatim}
 
-\hypertarget{type-safety-with-is_-and-as_-functions}{%
-\subsubsection{\texorpdfstring{Type safety with \texttt{is\_*()} and \texttt{as\_*()} functions}{Type safety with is\_*() and as\_*() functions}}\label{type-safety-with-is_-and-as_-functions}}
+\hypertarget{type-safety-with-checkmate}{%
+\subsubsection{\texorpdfstring{Type safety with \texttt{\{checkmate\}}}{Type safety with \{checkmate\}}}\label{type-safety-with-checkmate}}
+
+\hypertarget{is_-as_}{%
+\subsubsection{\texorpdfstring{\texttt{is\_*()} \texttt{as\_*()}}{is\_*() as\_*()}}\label{is_-as_}}
 
 Remember in Chapter 3, when I introduced \texttt{is.*()} and \texttt{as.*()} functions? I told you then that we
 were going to learn about \texttt{is\_*()} and \texttt{as\_*()} in Chapter 9. This is it!
@@ -15563,7 +16276,7 @@ commune, you need one unemployment plot, per commune:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-654-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-684-1.pdf}
 
 and then you would write the same for ``Esch-sur-Alzette'' and also for ``Wiltz''. If you only have to
 make to make these 3 plots, copy and pasting the above lines is no big deal:
@@ -15579,7 +16292,7 @@ make to make these 3 plots, copy and pasting the above lines is no big deal:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-655-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-685-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15592,7 +16305,7 @@ make to make these 3 plots, copy and pasting the above lines is no big deal:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-655-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-685-2.pdf}
 
 Put copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
 have to create the above plots for all 108 Luxembourguish communes? That's a lot of copy pasting.
@@ -15798,21 +16511,21 @@ is enough to use \texttt{pull()}:
 ## [[1]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-662-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-692-1.pdf}
 
 \begin{verbatim}
 ## 
 ## [[2]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-662-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-692-2.pdf}
 
 \begin{verbatim}
 ## 
 ## [[3]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-662-3.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-692-3.pdf}
 
 And if we want to save these plots, we can do so using \texttt{map2()}:
 

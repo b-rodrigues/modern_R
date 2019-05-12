@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2019-05-11">
+<meta name="date" content="2019-05-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -783,9 +783,9 @@ variable name. So why not try to convert <code>col_name</code> to a name?</p>
 
 <span class="kw">simple_function</span>(cars, <span class="st">&quot;dist&quot;</span>)</code></pre>
 <pre><code>Error: unknown variable to group by : col_name</code></pre>
-<p>This is because R is literally looking for the variable <code>&quot;dist&quot;</code> somewhere in the global
+<p>This is because R is literally looking for the variable <code>"dist"</code> somewhere in the global
 environment, and not as a column of the data. R does not understand that you are refering to the
-column <code>&quot;dist&quot;</code> that is inside the dataset. So how can we make R understands what you mean?</p>
+column <code>"dist"</code> that is inside the dataset. So how can we make R understands what you mean?</p>
 <p>To be able to do that, we need to use a framework that was introduced recently in the <code>{tidyverse}</code>,
 called <code>{tidyeval}</code>. This discussion can get very technical, so I will spare you the details.
 However, you can read about it <a href="http://dplyr.tidyverse.org/articles/programming.html">here</a> and
@@ -1044,15 +1044,15 @@ as the counter inside the for loop, and <code>j</code> as the counter for the wh
 <div id="exercise-3-3" class="section level3 unnumbered">
 <h3>Exercise 3</h3>
 <ul>
-<li><p>Fizz Buzz: Print integers from 1 to 100. If a number is divisible by 3, print the word <code>&quot;Fizz&quot;</code> if
-it’s divisible by 5, print <code>&quot;Buzz&quot;</code>. Use a for loop and if statements.</p></li>
-<li><p>Write a function that takes an integer as arguments, and prints <code>&quot;Fizz&quot;</code> or <code>&quot;Buzz&quot;</code> up to that integer.</p></li>
+<li><p>Fizz Buzz: Print integers from 1 to 100. If a number is divisible by 3, print the word <code>"Fizz"</code> if
+it’s divisible by 5, print <code>"Buzz"</code>. Use a for loop and if statements.</p></li>
+<li><p>Write a function that takes an integer as arguments, and prints <code>"Fizz"</code> or <code>"Buzz"</code> up to that integer.</p></li>
 </ul>
 </div>
 <div id="exercise-4-1" class="section level3 unnumbered">
 <h3>Exercise 4</h3>
 <ul>
-<li><p>Fizz Buzz 2: Same as above, but now add this third condition: if a number is both divisible by 3 and 5, print <code>&quot;FizzBuzz&quot;</code>.</p></li>
+<li><p>Fizz Buzz 2: Same as above, but now add this third condition: if a number is both divisible by 3 and 5, print <code>"FizzBuzz"</code>.</p></li>
 <li><p>Write a function that takes an integer as argument, and prints <code>Fizz</code>, <code>Buzz</code> or <code>FizzBuzz</code> up to that integer.</p></li>
 </ul>
 

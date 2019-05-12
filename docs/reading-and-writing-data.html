@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2019-05-11">
+<meta name="date" content="2019-05-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -436,7 +436,7 @@ Importing a STATA or a SAS file is done just the same:</p>
 <p>As you can see <code>multi</code> is a list of datasets. Told you lists were very flexible! It is also possible
 to import all the datasets in a single directory at once. For this, you first need a vector of paths:</p>
 <pre class="sourceCode r"><code class="sourceCode r">paths &lt;-<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</code></pre>
-<p><code>Sys.glob()</code> allows you to find files using a regular expression. &quot;datasets/unemployment/*.csv&quot;
+<p><code>Sys.glob()</code> allows you to find files using a regular expression. "datasets/unemployment/*.csv"
 matches all the <code>.csv</code> files inside the “datasets/unemployment/” folder.</p>
 <pre class="sourceCode r"><code class="sourceCode r">all_data &lt;-<span class="st"> </span><span class="kw">import_list</span>(paths)
 
