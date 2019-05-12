@@ -1005,25 +1005,41 @@ the base R <code>Reduce()</code> function, you can sum the elements of a list li
 <p>using <code>purrr::reduce()</code>, this becomes:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</code></pre>
 <pre><code>## [1] 5050</code></pre>
-<p>In the <code>purrr</code> package, you can find two more functions for folding: <code>reduce()</code> and
-<code>reduce_right()</code>. The difference between <code>reduce()</code> and <code>reduce_right()</code> is pretty obvious:
-<code>reduce_right()</code> starts from the right!</p>
-<p>For operations that are not commutative, this makes a difference. Other interesting folding
-functions are <code>accumulate()</code> and <code>accumulate_right()</code>:</p>
+<p>If you don’t really get what happening, don’t worry. Things should get clearer once I’ll introduce
+another version of <code>reduce()</code>, called <code>accumulate()</code>, which we will see below.</p>
+<p>Sometimes, the direction from which we start to reduce is quite important. You can “start from the
+end” of the list by using the <code>.dir</code> argument:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>, <span class="dt">.dir =</span> <span class="st">&quot;backward&quot;</span>)</code></pre>
+<pre><code>## [1] 5050</code></pre>
+<p>Of course, for commutative operations, direction does not matter. But it does matter for non-commutative
+operations:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</code></pre>
+<pre><code>## [1] -5048</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="st">`</span><span class="dt">-</span><span class="st">`</span>, <span class="dt">.dir =</span> <span class="st">&quot;backward&quot;</span>)</code></pre>
+<pre><code>## [1] -50</code></pre>
+<p>Let’s now take a look at <code>accumulate()</code>. <code>accumulate()</code> is very similar to <code>map()</code>, but keeps the
+intermediary results. Which intermediary results? Let’s try and see what happens:</p>
 <pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)
 
-<span class="kw">accumulate</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)
-<span class="kw">accumulate_right</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</code></pre>
-<p>These two functions keep the intermediary results.</p>
-<p>In the previous chapter, we wrote a loop to compute the sum of the 100 first integers. We can do
-the same with <code>purrr::reduce()</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">result =<span class="st"> </span><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)
-
-<span class="kw">print</span>(result)</code></pre>
-<pre><code>## [1] 5050</code></pre>
-<p>You certainly agree with me that is simpler to understand. You can even see what happens in more
-detail using <code>accumulate</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">accumulate</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</code></pre>
+<span class="kw">accumulate</span>(a, <span class="st">`</span><span class="dt">-</span><span class="st">`</span>)</code></pre>
+<p><code>accumulate()</code> illustrates pretty well what is happening; the first element, <code>1</code>, is simply the
+first element of <code>seq(1, 10)</code>. The second element of the result however, is the difference between
+<code>1</code> and <code>2</code>, <code>-1</code>. The next element in <code>a</code> is <code>3</code>. Thus the next result is <code>-1-3</code>, <code>-4</code>, and so
+on until we run out of elements in <code>a</code>.</p>
+<p>The below illustration shows the algorithm step-by-step:</p>
+<pre><code>(1-2-3-4-5-6-7-8-9-10)
+((1)-2-3-4-5-6-7-8-9-10)
+((1-2)-3-4-5-6-7-8-9-10)
+((-1-3)-4-5-6-7-8-9-10)
+((-4-4)-5-6-7-8-9-10)
+((-8-5)-6-7-8-9-10)
+((-13-6)-7-8-9-10)
+((-19-7)-8-9-10)
+((-26-8)-9-10)
+((-34-9)-10)
+(-43-10)
+-53</code></pre>
+<p><code>reduce()</code> only shows the final result.</p>
 </div>
 <div id="error-handling-with-safely-and-possibly" class="section level3">
 <h3><span class="header-section-number">8.3.3</span> Error handling with <code>safely()</code> and <code>possibly()</code></h3>
@@ -1466,7 +1482,7 @@ commune, you need one unemployment plot, per commune:</p>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>and then you would write the same for “Esch-sur-Alzette” and also for “Wiltz”. If you only have to
 make to make these 3 plots, copy and pasting the above lines is no big deal:</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
@@ -1475,14 +1491,14 @@ make to make these 3 plots, copy and pasting the above lines is no big deal:</p>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Wiltz&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-72-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-70-2.png" width="672" /></p>
 <p>Put copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
 have to create the above plots for all 108 Luxembourguish communes? That’s a lot of copy pasting.
 What if, once you are done copy pasting, you have to change something, for example, the theme? You
@@ -1628,13 +1644,13 @@ is enough to use <code>pull()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">plots_tibble <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(plot)</code></pre>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-79-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-77-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-79-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-77-3.png" width="672" /></p>
 <p>And if we want to save these plots, we can do so using <code>map2()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map2</span>(<span class="kw">paste0</span>(plots_tibble<span class="op">$</span>division, <span class="st">&quot;.pdf&quot;</span>), plots_tibble<span class="op">$</span>plot, ggsave)</code></pre>
 <pre><code>Saving 7 x 5 in image

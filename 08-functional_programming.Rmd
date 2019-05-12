@@ -522,54 +522,64 @@ Reduce(`+`, seq(1:100))
 
 using `purrr::reduce()`, this becomes:
 
-
 ```{r}
 reduce(seq(1:100), `+`)
 ```
 
+If you don't really get what happening, don't worry. Things should get clearer once I'll introduce
+another version of `reduce()`, called `accumulate()`, which we will see below.
 
-In the `purrr` package, you can find two more functions for folding: `reduce()` and
-`reduce_right()`. The difference between `reduce()` and `reduce_right()` is pretty obvious:
-`reduce_right()` starts from the right!
+Sometimes, the direction from which we start to reduce is quite important. You can "start from the
+end" of the list by using the `.dir` argument:
 
-```{r, include=FALSE}
-a <- seq(1, 10)
-
-purrr::reduce(a, `-`)
-purrr::reduce_right(a, `-`)
+```{r}
+reduce(seq(1:100), `+`, .dir = "backward")
 ```
 
-For operations that are not commutative, this makes a difference. Other interesting folding
-functions are `accumulate()` and `accumulate_right()`:
+Of course, for commutative operations, direction does not matter. But it does matter for non-commutative
+operations:
+
+
+```{r}
+reduce(seq(1:100), `-`)
+
+reduce(seq(1:100), `-`, .dir = "backward")
+```
+
+Let's now take a look at `accumulate()`. `accumulate()` is very similar to `map()`, but keeps the
+intermediary results. Which intermediary results? Let's try and see what happens:
 
 ```{r, eval=FALSE}
 a <- seq(1, 10)
 
 accumulate(a, `-`)
-accumulate_right(a, `-`)
 ```
 
-These two functions keep the intermediary results.
+`accumulate()` illustrates pretty well what is happening; the first element, `1`, is simply the 
+first element of `seq(1, 10)`. The second element of the result however, is the difference between
+`1` and `2`, `-1`. The next element in `a` is `3`. Thus the next result is `-1-3`, `-4`, and so 
+on until we run out of elements in `a`.
 
-In the previous chapter, we wrote a loop to compute the sum of the 100 first integers. We can do
-the same with `purrr::reduce()`:
-
-```{r}
-result = reduce(seq(1,100), `+`)
-
-print(result)
+The below illustration shows the algorithm step-by-step:
+```
+(1-2-3-4-5-6-7-8-9-10)
+((1)-2-3-4-5-6-7-8-9-10)
+((1-2)-3-4-5-6-7-8-9-10)
+((-1-3)-4-5-6-7-8-9-10)
+((-4-4)-5-6-7-8-9-10)
+((-8-5)-6-7-8-9-10)
+((-13-6)-7-8-9-10)
+((-19-7)-8-9-10)
+((-26-8)-9-10)
+((-34-9)-10)
+(-43-10)
+-53
 ```
 
-You certainly agree with me that is simpler to understand. You can even see what happens in more
-detail using `accumulate`:
+`reduce()` only shows the final result. 
 
-```{r, include=FALSE}
-purrr::accumulate(seq(1, 100), `+`)
-```
 
-```{r, eval=FALSE}
-accumulate(seq(1, 100), `+`)
-```
+
 
 ### Error handling with `safely()` and `possibly()`
 
