@@ -1058,7 +1058,14 @@ to explore parallel computing with the <code>{furrr}</code> package; as you will
 functional programming and are familiar with <code>{purrr}</code>, parallelizing your code with <code>{furrr}</code> is
 trivial.</p>
 <p>Something else that is very important to understand at this point; up until now, we only used these
-functions on lists, or atomic vectors, of numbers.</p>
+functions on lists, or atomic vectors, of numbers. However, <code>map()</code> and <code>reduce()</code>, and other
+higher-order functions for that matter, do not care about the contents of the list. What these
+functions do, is take another functions, and make it do something to the elements of the list.
+It does not matter if it’s a list of numbers, of characters, of data frames, even of models. All that
+matters is that the function that will be applied to these elements, can operate on them.
+So if you have a list of fitted models, you can map <code>summary()</code> on this list to get the results of
+each model. Or if you have a list of data frames, you can map a function that performs several
+cleaning steps. This will be explored in a future section, but it is important to keep this in mind.</p>
 </div>
 <div id="error-handling-with-safely-and-possibly" class="section level3">
 <h3><span class="header-section-number">8.3.3</span> Error handling with <code>safely()</code> and <code>possibly()</code></h3>

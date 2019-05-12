@@ -612,10 +612,14 @@ functional programming and are familiar with `{purrr}`, parallelizing your code 
 trivial. 
 
 Something else that is very important to understand at this point; up until now, we only used these
-functions on lists, or atomic vectors, of numbers.
-
-
-
+functions on lists, or atomic vectors, of numbers. However, `map()` and `reduce()`, and other 
+higher-order functions for that matter, do not care about the contents of the list. What these
+functions do, is take another functions, and make it do something to the elements of the list. 
+It does not matter if it's a list of numbers, of characters, of data frames, even of models. All that
+matters is that the function that will be applied to these elements, can operate on them.
+So if you have a list of fitted models, you can map `summary()` on this list to get the results of
+each model. Or if you have a list of data frames, you can map a function that performs several 
+cleaning steps. This will be explored in a future section, but it is important to keep this in mind.
 
 ### Error handling with `safely()` and `possibly()`
 
