@@ -663,8 +663,48 @@ Of course, in this particular example, the same effect could be obtained way mor
 sqrt(as.numeric(a))
 ```
 
-However, in some situations, this trick does not work as intended (or at all), so `possibly()` and
-`safely()` are the way to go.
+However, in some situations, this trick does not work as intended (or at all). `possibly()` and
+`safely()` allow the programmer to model errors explicitly, and to then provide a consistent way
+of dealing with them. For instance, consider the following example:
+
+```{r, eval=FALSE}
+data(mtcars)
+
+write.csv(mtcars, "my_data/mtcars.csv")
+```
+
+```
+Error in file(file, ifelse(append, "a", "w")) : 
+  cannot open the connection
+In addition: Warning message:
+In file(file, ifelse(append, "a", "w")) :
+  cannot open file 'my_data/mtcars.csv': No such file or directory
+```
+
+The folder `path/to/save/` does not exist, and as such this code produces an error. You might 
+want to catch this error, and create the directory for instance:
+
+```{r, eval=FALSE}
+possibly_write.csv <- possibly(write.csv, otherwise = NULL)
+
+if(is.null(possibly_write.csv(mtcars, "my_data/mtcars.csv"))) {
+  print("Creating folder...")
+  dir.create("my_data/")
+  print("Saving file...")
+  write.csv(mtcars, "my_data/mtcars.csv")
+}
+```
+
+```
+[1] "Creating folder..."
+[1] "Saving file..."
+Warning message:
+In file(file, ifelse(append, "a", "w")) :
+  cannot open file 'my_data/mtcars.csv': No such file or directory
+```
+
+The warning message comes from the first time we try to write the `.csv`, inside the `if` 
+statement. In the exercises, you'll discover `quietly()`, which also captures warnings and messages.
 
 ### Partial applications with `partial()`
 
