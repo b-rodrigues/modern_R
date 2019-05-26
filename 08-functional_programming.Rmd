@@ -708,27 +708,69 @@ statement. In the exercises, you'll discover `quietly()`, which also captures wa
 
 ### Partial applications with `partial()`
 
+Consider the following simple function:
+
 ```{r}
 add <- function(a, b) a+b
 ```
 
+It is possible to create a new function, where one of the parameters is fixed, for instance, where
+`a = 10`:
+
 ```{r}
-purrr::partial(add, a = 10)
+add_to_10 <- partial(add, a = 10)
 ```
 
 ```{r}
-purrr::partial(add, a = 10)(12)
+add_to_10(12)
+```
+
+This is equivalent to the following:
+
+```{r}
+add_to_10_2 <- function(b){
+  add(a = 10, b)
+}
+```
+
+Using `partial()` is much less verbose however, and allowing you to define new functions very quickly:
+
+```{r}
+head10 <- partial(head, n = 10)
+
+head10(mtcars)
 ```
 
 ### Function composition using `compose`
 
-```{r}
-compose(sqrt, log, exp)(10)
-```
+Function composition is another handy tool, which makes chaining equation much more elegant:
 
 ```{r}
-sqrt(log(exp(10)))
+compose(sqrt, log10, exp)(10)
 ```
+
+The above expression is equivalent to:
+
+```{r}
+sqrt(log10(exp(10)))
+```
+
+It is also possible to reverse the order the functions get called:
+
+```{r}
+compose(sqrt, log10, exp)(10)
+compose(sqrt, log10, exp, .dir="forward")(10)
+```
+
+One could also use the `%>%` operator:
+
+```{r}
+10 %>%
+  sqrt %>%
+  log10 %>%
+  exp
+```
+
 
 ### Type safety with `{checkmate}`
 
