@@ -187,7 +187,7 @@ popular. As of November 2018, R has over 13000 packages.
 To install the packages we need, first open RStudio and then copy and paste this line in the console:
 
 ```{r, eval=FALSE}
-install.packages(c("tidyverse", "tidymodels", "parsnip", "plm", "pwt9", "checkpoint", "Ecdat",
+install.packages(c("tidyverse", "rsample", "recipes", "yardstick", "parsnip", "plm", "pwt9", "checkpoint", "Ecdat",
                 "ggthemes", "janitor", "rio", "colourpicker", "glmnet", "mlbench"))
 ```
 

@@ -831,7 +831,7 @@ That was it for the basic `{dplyr}` verbs. Next, we're going to learn about `{ti
 
 Another important package from the `tidyverse` that goes hand in hand with `dplyr` is `tidyr`. `tidyr`
 is the package you need when it's time to reshape data. As of March 2019, the development version 
-of `tidyr` introduced two new functions that make reshaping data easier, `pivot_long()` and `pivot_wide()`.
+of `tidyr` introduced two new functions that make reshaping data easier, `pivot_longer()` and `pivot_wider()`.
 To install the development version of `tidyr`, use the following line:
 
 ```{r, eval=FALSE}
@@ -841,10 +841,10 @@ devtools::install_github("tidyverse/tidyr")
 The legacy functions, `spread()` and `gather()` will remain in the package but their use will be 
 discouraged.
 
-I will start by presenting `pivot_wide()` and `pivot_long()`, and then, for reference, will show
+I will start by presenting `pivot_wider()` and `pivot_longer()`, and then, for reference, will show
 how to solve the similar problems using `gather()` and `spread()`.
 
-### `pivot_wide()` and `pivot_long()`
+### `pivot_wider()` and `pivot_longer()`
 
 Let's first create a fake dataset:
 
@@ -876,15 +876,15 @@ I used the `tribble()` function from the `{tibble}` package to create this fake 
 I'll discuss this package later, for now, let's focus on `{tidyr}.`
 
 Let's suppose that we need the data to be in the wide format which means `var1`, `var2` and `var3`
-need to be their own columns. To do this, we need to use the `pivot_wide()` function. Why *wide*?
+need to be their own columns. To do this, we need to use the `pivot_wider()` function. Why *wide*?
 Because the data set will be wide, meaning, having more columns than rows.
 
 ```{r}
 survey_data %>% 
-  pivot_wide(keys = id, names_from = variable, values_from = value)
+  pivot_wider(id_cols = id, names_from = variable, values_from = value)
 ```
 
-Let's go through `pivot_wide()`'s arguments: the first is `keys = ` which requires the variable
+Let's go through `pivot_wider()`'s arguments: the first is `id_cols = ` which requires the variable
 that uniquely identifies the rows to be supplied. `names_from = ` is where you input the variable that will 
 generate the names of the new columns. In our case, the `variable` colmuns has three values; `var1`,
 `var2` and `var3`, and these are now the names of the new columns. Finally, `values_from = ` is where
@@ -892,12 +892,12 @@ you can specify the column containing the values that will fill the data frame.
 I find the argument names `names_from = ` and `values_from = ` quite explicit. 
 
 As you can see, there are some missing values. Let's suppose that we know that these missing values
-are true 0's. `pivot_wide()` has an argument called `values_fill = ` that makes it easy to replace
+are true 0's. `pivot_wider()` has an argument called `values_fill = ` that makes it easy to replace
 the missing values:
 
 ```{r}
 survey_data %>% 
-  pivot_wide(keys = id, names_from = variable, values_from = value, values_fill = list(value = 0))
+  pivot_wider(id_cols = id, names_from = variable, values_from = value, values_fill = list(value = 0))
 ```
 
 A list of variables and their respective values to replace NA's with must be supplied to `values_fill`. 
@@ -925,7 +925,7 @@ unemp_lux_data2 <- unemp_lux_data %>%
   rowid_to_column()
 
 unemp_lux_data2 %>% 
-  pivot_wide(names_from = c(division, year), values_from = unemployment_rate_in_percent)
+  pivot_wider(names_from = c(division, year), values_from = unemployment_rate_in_percent)
 ```
 
 In the `filter()` statement, I only kept data from 2013 to 2017, "division"s ending with the string "ange"
@@ -942,7 +942,7 @@ unemp_lux_data3 <- unemp_lux_data %>%
   select(division, year, unemployment_rate_in_percent)
 
 unemp_lux_data3 %>% 
-  pivot_wide(names_from = c(division, year), values_from = unemployment_rate_in_percent)
+  pivot_wider(names_from = c(division, year), values_from = unemployment_rate_in_percent)
 ```
 
 and actually look even better, but only because there are no repeated values; there is only one
@@ -978,7 +978,7 @@ the specification directly:
 
 ```{r, eval=FALSE}
 unemp_lux_data  %>% 
-  pivot_wide(spec = unemp_spec)
+  pivot_wider(spec = unemp_spec)
 ```
 
 ```
@@ -991,7 +991,7 @@ So to make it work, we first need to create a column that uniquely identifies ea
 unemp_lux_data4 <- unemp_lux_data %>% 
   select(division, year, unemployment_rate_in_percent) %>% 
   rowid_to_column() %>% 
-  pivot_wide(spec = unemp_spec) 
+  pivot_wider(spec = unemp_spec) 
 
 unemp_lux_data4
 ```
@@ -1034,7 +1034,7 @@ We can now transform the data:
 
 ```{r}
 mtcars %>% 
-    pivot_wide(spec = mtcars_spec)
+    pivot_wider(spec = mtcars_spec)
 ```
 
 As you can see, there are several values of "mpg" for some combinations of "am" times "cyl". If 
@@ -1044,7 +1044,7 @@ returned:
 ```{r, eval=FALSE}
 mtcars %>% 
   select(am, cyl, mpg) %>% 
-  pivot_wide(spec = mtcars_spec)
+  pivot_wider(spec = mtcars_spec)
 ```
 
 ```
@@ -1053,7 +1053,7 @@ Error in data.frame(row = row_id, col = col_id) : arguments imply differing numb
 
 So you have to be careful with this.
 
-`pivot_long()` is used when you need to go from a wide to a long dataset, meaning, a dataset where 
+`pivot_longer()` is used when you need to go from a wide to a long dataset, meaning, a dataset where 
 there are some columns that should not be columns, but rather, the levels of a factor variable. 
 Let's suppose that the "am" column is split into two columns, `1` for 
 automatic and `0` for manual transmissions, and that the values filling these colums are miles per
@@ -1061,7 +1061,7 @@ gallon, "mpg":
 
 ```{r}
 mtcars_wide_am <- mtcars %>% 
-  pivot_wide(names_from = am, values_from = mpg)
+  pivot_wider(names_from = am, values_from = mpg)
 
 mtcars_wide_am %>% 
   select(`0`, `1`, everything())
@@ -1075,7 +1075,7 @@ We can go back to a long dataset like so:
 
 ```{r}
 mtcars_wide_am %>% 
-  pivot_long(cols = c(`1`, `0`), names_to = "am", values_to = "mpg") %>% 
+  pivot_longer(cols = c(`1`, `0`), names_to = "am", values_to = "mpg") %>% 
   select(am, mpg, everything())
 ```
 
@@ -1087,7 +1087,7 @@ can be achieved by listing the columns that must be excluded with `-` in front, 
 
 ```{r}
 mtcars_wide_am %>% 
-  pivot_long(cols = -matches("^[[:alpha:]]"), names_to = "am", values_to = "mpg") %>% 
+  pivot_longer(cols = -matches("^[[:alpha:]]"), names_to = "am", values_to = "mpg") %>% 
   select(am, mpg, everything())
 ```
 
@@ -1102,7 +1102,7 @@ output. These can be removed easily:
 
 ```{r}
 mtcars_wide_am %>% 
-  pivot_long(cols = c(`1`, `0`), names_to = "am", values_to = "mpg", na.rm = TRUE) %>% 
+  pivot_longer(cols = c(`1`, `0`), names_to = "am", values_to = "mpg", values_drop_na = TRUE) %>% 
   select(am, mpg, everything())
 ```
 
@@ -1110,7 +1110,7 @@ Now for a more advanced example, let's suppose that we are dealing with the foll
 
 ```{r}
 mtcars_wide <- mtcars %>% 
-    pivot_wide(spec = mtcars_spec)
+    pivot_wider(spec = mtcars_spec)
 
 mtcars_wide
 ```
@@ -1121,7 +1121,7 @@ The first step is to first pivot the columns:
 
 ```{r}
 mtcars_wide %>% 
-  pivot_long(cols = matches("0|1"), names_to = "am_cyl", values_to = "mpg", na.rm = TRUE) %>% 
+  pivot_longer(cols = matches("0|1"), names_to = "am_cyl", values_to = "mpg", values_drop_na = TRUE) %>% 
   select(am_cyl, mpg, everything())
 ```
 
@@ -1129,32 +1129,38 @@ Now we only need to separate the "am_cyl" column into two new columns, "am" and 
 
 ```{r}
 mtcars_wide %>% 
-  pivot_long(cols = matches("0|1"), names_to = "am_cyl", values_to = "mpg", na.rm = TRUE) %>% 
+  pivot_longer(cols = matches("0|1"), names_to = "am_cyl", values_to = "mpg", values_drop_na = TRUE) %>% 
   separate(am_cyl, into = c("am", "cyl"), sep = "_") %>% 
   select(am, cyl, mpg, everything())
 ```
 
-It is also possible to construct a specification data frame, just like for `pivot_wide()`:
+It is also possible to construct a specification data frame, just like for `pivot_wider()`:
 
 ```{r}
 mtcars_spec_long <- mtcars_wide %>% 
-  pivot_long_spec(matches("0|1"), values_to = "mpg") %>% 
+  pivot_longer_spec(matches("0|1"), values_to = "mpg") %>% 
   separate(name, c("am", "cyl"), sep = "_")
 
 mtcars_spec_long
 ```
 
-This spec can now be specified to `pivot_long()`:
+This spec can now be specified to `pivot_longer()`:
 
 ```{r}
 mtcars_wide %>% 
-  pivot_long(spec = mtcars_spec_long, na.rm = TRUE) %>% 
+  pivot_longer(spec = mtcars_spec_long, values_drop_na = TRUE) %>% 
   select(am, cyl, mpg, everything())
 ```
 
 Defining specifications give a lot of flexibility and in some complicated cases are the way to go.
 
 ### `spread()` and `gather()`
+
+`spread()` and `gather()` are the original reshaping functions from the `{tidyr}` package. As I am
+writing these lines, in May 2019, there still the only ones in the released version of `{tidyr}` on
+CRAN. However, they will very likely become deprecated and superseded by `pivot_longer()` and 
+`pivot_wider()` in future releases of `{tidyr}`. But for now, unless you install the development
+version of `{tidyr}` you will need to use these functions to reshape your data.
 
 `survey_data` is a long dataset. We can reshape it to be wide using the `spread()` function:
 
@@ -1182,9 +1188,8 @@ print(long_data)
 In the `wide_data` `tibble`, we had 3 columns: `id`, `var1` and `var2`. We want to stack 'var1' and
 'var2' in a new column, that we choose to call "variable". This is the "key". For the value, we are
 using the values contained in `var1` and `var2`. Sometimes using `spread()` or `gather()` requires
-some trial and error. I advise you play around with the examples above to really grasp how these
-powerful functions work.
-
+some trial and error. I have been using these functions literally for years and never get it right
+the first time I need to use them.
 
 ### `fill()` and `full_seq()`
 
@@ -1201,12 +1206,12 @@ to be `4`. With `fill()`, this is pretty easy to achieve:
 
 ```{r, include=FALSE}
 survey_data %>%
-    fill(.direction = "down", variable = "id")
+    fill(.direction = "down", id)
 ```
 
 ```{r, eval=FALSE}
 survey_data %>%
-    fill(.direction = "down", variable = "id")
+    fill(.direction = "down", id)
 ```
 
 `full_seq()` is similar:
@@ -1229,7 +1234,7 @@ Putting all these operations together:
 
 ```{r, include=FALSE}
 survey_data %>%
-    tidyr::fill(.direction = "down", variable = "id") %>%
+    tidyr::fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     spread(variable, value)
 ```
@@ -1237,7 +1242,7 @@ survey_data %>%
 
 ```{r, eval=FALSE}
 survey_data %>%
-    fill(.direction = "down", variable = "id") %>%
+    fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     spread(variable, value)
 ```
@@ -1248,7 +1253,7 @@ of the values by date:
 
 ```{r, include=FALSE}
 survey_data %>%
-    tidyr::fill(.direction = "down", variable = "id") %>%
+    tidyr::fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     group_by(date) %>%
     summarise(mean(value))
@@ -1257,7 +1262,7 @@ survey_data %>%
 
 ```{r, eval=FALSE}
 survey_data %>%
-    fill(.direction = "down", variable = "id") %>%
+    fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     group_by(date) %>%
     summarise(mean(value))
@@ -1268,7 +1273,7 @@ Or by `date` and `variable`:
 
 ```{r, include=FALSE}
 survey_data %>%
-    tidyr::fill(.direction = "down", variable = "id") %>%
+    tidyr::fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     group_by(date, variable) %>%
     summarise(mean(value))
@@ -1276,7 +1281,7 @@ survey_data %>%
 
 ```{r, eval=FALSE}
 survey_data %>%
-    fill(.direction = "down", variable = "id") %>%
+    fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     group_by(date, variable) %>%
     summarise(mean(value))
@@ -1288,7 +1293,7 @@ As you can see, you can chain any `{tidyverse}` verbs, wether they come from `{d
 
 ```{r, include=FALSE}
 survey_data_not_tidy <- survey_data %>%
-    tidyr::fill(.direction = "down", variable = "id") %>%
+    tidyr::fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
     mutate(variable_date = paste(variable, date, sep = "/")) %>% select(id, variable_date, value)
 ```
@@ -1373,7 +1378,7 @@ quite easily:
 ```{r, include=FALSE}
 survey_data_from_hell %>%
     separate_rows(variable, value, convert = TRUE) %>%
-    tidyr::fill(.direction = "down", variable = "id") %>%
+    tidyr::fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
 ```
 
@@ -1381,7 +1386,7 @@ survey_data_from_hell %>%
 ```{r, eval=FALSE}
 survey_data_from_hell %>%
     separate_rows(variable, value, convert = TRUE) %>%
-    fill(.direction = "down", variable = "id") %>%
+    fill(.direction = "down", id) %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
 ```
 

@@ -18,7 +18,7 @@ sqrt_newton <- function(a, init, eps = 0.01){
     while(abs(init**2 - a) > eps){
         init <- 1/2 *(init + a/init)
     }
-    return(init)
+    init
 }
 ```
 
@@ -43,7 +43,7 @@ sqrt_newton_recur <- function(a, init, eps = 0.01){
         init <- 1/2 * (init + a/init)
         result <- sqrt_newton_recur(a, init, eps)
     }
-    return(result)
+    result
 }
 ```
 
@@ -144,7 +144,7 @@ sqrt_newton_side_effect <- function(a, init, eps = 0.01){
         init <- 1/2 *(init + a/init)
         count_iter <<- count_iter + 1 # The "<<-" symbol means that we assign the
     }                                 # RHS value in a variable inside the global environment
-    return(init)
+    init
 }
 ```
 
@@ -238,7 +238,7 @@ what `map()` does fairly well:
 
 ```{r, echo=FALSE}
 knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/0/06/Mapping-steps-loillibe-new.gif")
-````
+```
 
 $X$ is a vector composed of the following scalars: $(0, 5, 8, 3, 2, 1)$. The function we want to
 map to each element of $X$ is $f(x) = x + 1$. $X'$ is the result of this operation. Using R, we
@@ -570,6 +570,7 @@ first element of `seq(1, 10)`. The second element of the result however, is the 
 on until we run out of elements in `a`.
 
 The below illustration shows the algorithm step-by-step:
+
 ```
 (1-2-3-4-5-6-7-8-9-10)
 ((1)-2-3-4-5-6-7-8-9-10)
@@ -592,13 +593,13 @@ value that is different from the first element of the vector:
 ```{r, eval=FALSE}
 reduce(a, `+`, .init = 1000)
 
-accumulate(a, `-`, .init = 1000, .dir="backward")
+accumulate(a, `-`, .init = 1000, .dir = "backward")
 ```
 
 ```{r, echo=FALSE}
 reduce(a, `+`, .init = 1000)
 
-purrr::accumulate(a, `-`, .init = 1000, .dir="backward")
+purrr::accumulate(a, `-`, .init = 1000, .dir = "backward")
 ```
 
 `map()` and `reduce()` are arguably the most useful higher-order functions, and perhaps also the 

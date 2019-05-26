@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Descriptive statistics and data manipulation | Modern R with the tidyverse</title>
-  <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Descriptive statistics and data manipulation | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,14 @@
   <meta name="twitter:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
   
 
-<meta name="author" content="Bruno Rodrigues">
+<meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-05-12">
+<meta name="date" content="2019-05-26" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="reading-and-writing-data.html">
@@ -209,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.3.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a><ul>
-<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wide-and-pivot_long"><i class="fa fa-check"></i><b>4.4.1</b> <code>pivot_wide()</code> and <code>pivot_long()</code></a></li>
+<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wider-and-pivot_longer"><i class="fa fa-check"></i><b>4.4.1</b> <code>pivot_wider()</code> and <code>pivot_longer()</code></a></li>
 <li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.2</b> <code>spread()</code> and <code>gather()</code></a></li>
 <li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.3</b> <code>fill()</code> and <code>full_seq()</code></a></li>
 <li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.4</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
@@ -1797,27 +1796,26 @@ provide an example of a country not in <code>pwt</code>). Let’s also look at t
 ## $ lcarpcap &lt;dbl&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_semi <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tabyl</span>(country)</code></pre>
-<pre><code>## Warning: Factor `dat` contains implicit NA, consider using
-## `forcats::fct_explicit_na`</code></pre>
-<pre><code>##   country n percent
-##   AUSTRIA 0     NaN
-##   BELGIUM 0     NaN
-##    CANADA 0     NaN
-##   DENMARK 0     NaN
-##    FRANCE 0     NaN
-##   GERMANY 0     NaN
-##    GREECE 0     NaN
-##   IRELAND 0     NaN
-##     ITALY 0     NaN
-##     JAPAN 0     NaN
-##  NETHERLA 0     NaN
-##    NORWAY 0     NaN
-##     SPAIN 0     NaN
-##    SWEDEN 0     NaN
-##  SWITZERL 0     NaN
-##    TURKEY 0     NaN
-##      U.K. 0     NaN
-##    U.S.A. 0     NaN</code></pre>
+<pre><code>##   country n percent valid_percent
+##   AUSTRIA 0       0           NaN
+##   BELGIUM 0       0           NaN
+##    CANADA 0       0           NaN
+##   DENMARK 0       0           NaN
+##    FRANCE 0       0           NaN
+##   GERMANY 0       0           NaN
+##    GREECE 0       0           NaN
+##   IRELAND 0       0           NaN
+##     ITALY 0       0           NaN
+##     JAPAN 0       0           NaN
+##  NETHERLA 0       0           NaN
+##    NORWAY 0       0           NaN
+##     SPAIN 0       0           NaN
+##    SWEDEN 0       0           NaN
+##  SWITZERL 0       0           NaN
+##    TURKEY 0       0           NaN
+##      U.K. 0       0           NaN
+##    U.S.A. 0       0           NaN
+##      &lt;NA&gt; 0       0            NA</code></pre>
 <p>Only columns of <code>gasoline</code> are returned, and only rows of <code>gasoline</code> that were matched with rows
 from <code>pwt</code>. <code>semi_join()</code> is not a commutative operation:</p>
 <pre class="sourceCode r"><code class="sourceCode r">pwt_gas_semi &lt;-<span class="st"> </span>pwt <span class="op">%&gt;%</span>
@@ -1836,27 +1834,26 @@ from <code>pwt</code>. <code>semi_join()</code> is not a commutative operation:<
 ## $ sr      &lt;dbl&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gas_pwt_semi <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tabyl</span>(country)</code></pre>
-<pre><code>## Warning: Factor `dat` contains implicit NA, consider using
-## `forcats::fct_explicit_na`</code></pre>
-<pre><code>##   country n percent
-##   AUSTRIA 0     NaN
-##   BELGIUM 0     NaN
-##    CANADA 0     NaN
-##   DENMARK 0     NaN
-##    FRANCE 0     NaN
-##   GERMANY 0     NaN
-##    GREECE 0     NaN
-##   IRELAND 0     NaN
-##     ITALY 0     NaN
-##     JAPAN 0     NaN
-##  NETHERLA 0     NaN
-##    NORWAY 0     NaN
-##     SPAIN 0     NaN
-##    SWEDEN 0     NaN
-##  SWITZERL 0     NaN
-##    TURKEY 0     NaN
-##      U.K. 0     NaN
-##    U.S.A. 0     NaN</code></pre>
+<pre><code>##   country n percent valid_percent
+##   AUSTRIA 0       0           NaN
+##   BELGIUM 0       0           NaN
+##    CANADA 0       0           NaN
+##   DENMARK 0       0           NaN
+##    FRANCE 0       0           NaN
+##   GERMANY 0       0           NaN
+##    GREECE 0       0           NaN
+##   IRELAND 0       0           NaN
+##     ITALY 0       0           NaN
+##     JAPAN 0       0           NaN
+##  NETHERLA 0       0           NaN
+##    NORWAY 0       0           NaN
+##     SPAIN 0       0           NaN
+##    SWEDEN 0       0           NaN
+##  SWITZERL 0       0           NaN
+##    TURKEY 0       0           NaN
+##      U.K. 0       0           NaN
+##    U.S.A. 0       0           NaN
+##      &lt;NA&gt; 0       0            NA</code></pre>
 <p>The rows are the same, but not the columns.</p>
 <p><code>left_join()</code> and <code>right_join()</code> return all the rows from either the dataset that is on the
 “left” (the first argument of the fonction) or on the “right” (the second argument of the
@@ -2063,15 +2060,15 @@ that is not in <code>pwt</code>: “germany”.</p>
 <h2><span class="header-section-number">4.4</span> Reshaping data with <code>tidyr</code></h2>
 <p>Another important package from the <code>tidyverse</code> that goes hand in hand with <code>dplyr</code> is <code>tidyr</code>. <code>tidyr</code>
 is the package you need when it’s time to reshape data. As of March 2019, the development version
-of <code>tidyr</code> introduced two new functions that make reshaping data easier, <code>pivot_long()</code> and <code>pivot_wide()</code>.
+of <code>tidyr</code> introduced two new functions that make reshaping data easier, <code>pivot_longer()</code> and <code>pivot_wider()</code>.
 To install the development version of <code>tidyr</code>, use the following line:</p>
 <pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tidyverse/tidyr&quot;</span>)</code></pre>
 <p>The legacy functions, <code>spread()</code> and <code>gather()</code> will remain in the package but their use will be
 discouraged.</p>
-<p>I will start by presenting <code>pivot_wide()</code> and <code>pivot_long()</code>, and then, for reference, will show
+<p>I will start by presenting <code>pivot_wider()</code> and <code>pivot_longer()</code>, and then, for reference, will show
 how to solve the similar problems using <code>gather()</code> and <code>spread()</code>.</p>
-<div id="pivot_wide-and-pivot_long" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> <code>pivot_wide()</code> and <code>pivot_long()</code></h3>
+<div id="pivot_wider-and-pivot_longer" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> <code>pivot_wider()</code> and <code>pivot_longer()</code></h3>
 <p>Let’s first create a fake dataset:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data &lt;-<span class="st"> </span><span class="kw">tribble</span>(
@@ -2103,10 +2100,10 @@ how to solve the similar problems using <code>gather()</code> and <code>spread()
 <p>I used the <code>tribble()</code> function from the <code>{tibble}</code> package to create this fake dataset.
 I’ll discuss this package later, for now, let’s focus on <code>{tidyr}.</code></p>
 <p>Let’s suppose that we need the data to be in the wide format which means <code>var1</code>, <code>var2</code> and <code>var3</code>
-need to be their own columns. To do this, we need to use the <code>pivot_wide()</code> function. Why <em>wide</em>?
+need to be their own columns. To do this, we need to use the <code>pivot_wider()</code> function. Why <em>wide</em>?
 Because the data set will be wide, meaning, having more columns than rows.</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">keys =</span> id, <span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> value)</code></pre>
+<span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">id_cols =</span> id, <span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> value)</code></pre>
 <pre><code>## # A tibble: 5 x 4
 ##      id  var1  var2  var3
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -2115,17 +2112,17 @@ Because the data set will be wide, meaning, having more columns than rows.</p>
 ## 3     2   1.4   1.9   4.1
 ## 4     3   0.1   2.8   8.9
 ## 5     4   1.7  NA     7.6</code></pre>
-<p>Let’s go through <code>pivot_wide()</code>’s arguments: the first is <code>keys =</code> which requires the variable
+<p>Let’s go through <code>pivot_wider()</code>’s arguments: the first is <code>id_cols =</code> which requires the variable
 that uniquely identifies the rows to be supplied. <code>names_from =</code> is where you input the variable that will
 generate the names of the new columns. In our case, the <code>variable</code> colmuns has three values; <code>var1</code>,
 <code>var2</code> and <code>var3</code>, and these are now the names of the new columns. Finally, <code>values_from =</code> is where
 you can specify the column containing the values that will fill the data frame.
 I find the argument names <code>names_from =</code> and <code>values_from =</code> quite explicit.</p>
 <p>As you can see, there are some missing values. Let’s suppose that we know that these missing values
-are true 0’s. <code>pivot_wide()</code> has an argument called <code>values_fill =</code> that makes it easy to replace
+are true 0’s. <code>pivot_wider()</code> has an argument called <code>values_fill =</code> that makes it easy to replace
 the missing values:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">keys =</span> id, <span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> value, <span class="dt">values_fill =</span> <span class="kw">list</span>(<span class="dt">value =</span> <span class="dv">0</span>))</code></pre>
+<span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">id_cols =</span> id, <span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> value, <span class="dt">values_fill =</span> <span class="kw">list</span>(<span class="dt">value =</span> <span class="dv">0</span>))</code></pre>
 <pre><code>## # A tibble: 5 x 4
 ##      id  var1  var2  var3
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -2173,7 +2170,7 @@ with providing more columns to <code>names_from =</code>.</p>
 <span class="st">  </span><span class="kw">rowid_to_column</span>()
 
 unemp_lux_data2 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">names_from =</span> <span class="kw">c</span>(division, year), <span class="dt">values_from =</span> unemployment_rate_in_percent)</code></pre>
+<span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="kw">c</span>(division, year), <span class="dt">values_from =</span> unemployment_rate_in_percent)</code></pre>
 <pre><code>## # A tibble: 48 x 49
 ##    rowid Bertrange_2013 Bertrange_2014 Bertrange_2015 Differdange_2013
 ##    &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;
@@ -2215,7 +2212,7 @@ the number of rows in the data frame. If I did not add this identifier, the stat
 <span class="st">  </span><span class="kw">select</span>(division, year, unemployment_rate_in_percent)
 
 unemp_lux_data3 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">names_from =</span> <span class="kw">c</span>(division, year), <span class="dt">values_from =</span> unemployment_rate_in_percent)</code></pre>
+<span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="kw">c</span>(division, year), <span class="dt">values_from =</span> unemployment_rate_in_percent)</code></pre>
 <pre><code>## # A tibble: 1 x 48
 ##   Bertrange_2013 Bertrange_2014 Bertrange_2015 Differdange_2013
 ##            &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;
@@ -2253,13 +2250,13 @@ unemp_spec</code></pre>
 <p>The spec has more rows than the data frame (80 vs 48), so this will cause issues if you try to use
 the specification directly:</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data  <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> unemp_spec)</code></pre>
+<span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">spec =</span> unemp_spec)</code></pre>
 <pre><code>Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 80, 48</code></pre>
 <p>So to make it work, we first need to create a column that uniquely identifies each row:</p>
 <pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data4 &lt;-<span class="st"> </span>unemp_lux_data <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(division, year, unemployment_rate_in_percent) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">rowid_to_column</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> unemp_spec) 
+<span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">spec =</span> unemp_spec) 
 
 unemp_lux_data4</code></pre>
 <pre><code>## # A tibble: 1,770 x 2,007
@@ -2369,7 +2366,7 @@ mtcars_spec &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><
 mtcars_spec</code></pre>
 <p>We can now transform the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
+<span class="st">    </span><span class="kw">pivot_wider</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
 <pre><code>## # A tibble: 32 x 14
 ##     disp    hp  drat    wt  qsec    vs  gear  carb `0_4` `0_6` `0_8` `1_4`
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -2389,16 +2386,16 @@ we remove the other columns, each row will not be uniquely identified anymore, a
 returned:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(am, cyl, mpg) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
+<span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">spec =</span> mtcars_spec)</code></pre>
 <pre><code>Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 6, 32</code></pre>
 <p>So you have to be careful with this.</p>
-<p><code>pivot_long()</code> is used when you need to go from a wide to a long dataset, meaning, a dataset where
+<p><code>pivot_longer()</code> is used when you need to go from a wide to a long dataset, meaning, a dataset where
 there are some columns that should not be columns, but rather, the levels of a factor variable.
 Let’s suppose that the “am” column is split into two columns, <code>1</code> for
 automatic and <code>0</code> for manual transmissions, and that the values filling these colums are miles per
 gallon, “mpg”:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_wide_am &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_wide</span>(<span class="dt">names_from =</span> am, <span class="dt">values_from =</span> mpg)
+<span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> am, <span class="dt">values_from =</span> mpg)
 
 mtcars_wide_am <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="st">`</span><span class="dt">0</span><span class="st">`</span>, <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="kw">everything</span>())</code></pre>
@@ -2421,7 +2418,7 @@ specific and good reason they should… but rather, they should be the levels of
 our case, “am”).</p>
 <p>We can go back to a long dataset like so:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_wide_am <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_long</span>(<span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="st">`</span><span class="dt">0</span><span class="st">`</span>), <span class="dt">names_to =</span> <span class="st">&quot;am&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="st">`</span><span class="dt">0</span><span class="st">`</span>), <span class="dt">names_to =</span> <span class="st">&quot;am&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(am, mpg, <span class="kw">everything</span>())</code></pre>
 <pre><code>## # A tibble: 64 x 11
 ##    am      mpg   cyl  disp    hp  drat    wt  qsec    vs  gear  carb
@@ -2443,7 +2440,7 @@ to pivot 50 columns. It would be faster to list the columns that do not need to 
 can be achieved by listing the columns that must be excluded with <code>-</code> in front, and maybe using
 <code>match()</code> with a regular expression:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_wide_am <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_long</span>(<span class="dt">cols =</span> <span class="op">-</span><span class="kw">matches</span>(<span class="st">&quot;^[[:alpha:]]&quot;</span>), <span class="dt">names_to =</span> <span class="st">&quot;am&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">-</span><span class="kw">matches</span>(<span class="st">&quot;^[[:alpha:]]&quot;</span>), <span class="dt">names_to =</span> <span class="st">&quot;am&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(am, mpg, <span class="kw">everything</span>())</code></pre>
 <pre><code>## # A tibble: 64 x 11
 ##    am      mpg   cyl  disp    hp  drat    wt  qsec    vs  gear  carb
@@ -2467,7 +2464,7 @@ levels <code>0</code> and <code>1</code>, and <code>values_to =</code> also take
 the column containing the values. Finally, you can see that there are a lot of <code>NA</code>s in the
 output. These can be removed easily:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_wide_am <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_long</span>(<span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="st">`</span><span class="dt">0</span><span class="st">`</span>), <span class="dt">names_to =</span> <span class="st">&quot;am&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="st">`</span><span class="dt">0</span><span class="st">`</span>), <span class="dt">names_to =</span> <span class="st">&quot;am&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>, <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(am, mpg, <span class="kw">everything</span>())</code></pre>
 <pre><code>## # A tibble: 32 x 11
 ##    am      mpg   cyl  disp    hp  drat    wt  qsec    vs  gear  carb
@@ -2485,7 +2482,7 @@ output. These can be removed easily:</p>
 ## # … with 22 more rows</code></pre>
 <p>Now for a more advanced example, let’s suppose that we are dealing with the following wide dataset:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_wide &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">pivot_wide</span>(<span class="dt">spec =</span> mtcars_spec)
+<span class="st">    </span><span class="kw">pivot_wider</span>(<span class="dt">spec =</span> mtcars_spec)
 
 mtcars_wide</code></pre>
 <pre><code>## # A tibble: 32 x 14
@@ -2506,7 +2503,7 @@ mtcars_wide</code></pre>
 column “0_4” contains the miles per gallon values for manual cars (<code>0</code>) with <code>4</code> cylinders.
 The first step is to first pivot the columns:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_wide <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_long</span>(<span class="dt">cols =</span> <span class="kw">matches</span>(<span class="st">&quot;0|1&quot;</span>), <span class="dt">names_to =</span> <span class="st">&quot;am_cyl&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">matches</span>(<span class="st">&quot;0|1&quot;</span>), <span class="dt">names_to =</span> <span class="st">&quot;am_cyl&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>, <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(am_cyl, mpg, <span class="kw">everything</span>())</code></pre>
 <pre><code>## # A tibble: 32 x 10
 ##    am_cyl   mpg  disp    hp  drat    wt  qsec    vs  gear  carb
@@ -2524,7 +2521,7 @@ The first step is to first pivot the columns:</p>
 ## # … with 22 more rows</code></pre>
 <p>Now we only need to separate the “am_cyl” column into two new columns, “am” and “cyl”:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_wide <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_long</span>(<span class="dt">cols =</span> <span class="kw">matches</span>(<span class="st">&quot;0|1&quot;</span>), <span class="dt">names_to =</span> <span class="st">&quot;am_cyl&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">matches</span>(<span class="st">&quot;0|1&quot;</span>), <span class="dt">names_to =</span> <span class="st">&quot;am_cyl&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>, <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(am_cyl, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;am&quot;</span>, <span class="st">&quot;cyl&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(am, cyl, mpg, <span class="kw">everything</span>())</code></pre>
 <pre><code>## # A tibble: 32 x 11
@@ -2541,9 +2538,9 @@ The first step is to first pivot the columns:</p>
 ##  9 0     4      22.8  141.    95  3.92  3.15  22.9     1     4     2
 ## 10 0     6      19.2  168.   123  3.92  3.44  18.3     1     4     4
 ## # … with 22 more rows</code></pre>
-<p>It is also possible to construct a specification data frame, just like for <code>pivot_wide()</code>:</p>
+<p>It is also possible to construct a specification data frame, just like for <code>pivot_wider()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_spec_long &lt;-<span class="st"> </span>mtcars_wide <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_long_spec</span>(<span class="kw">matches</span>(<span class="st">&quot;0|1&quot;</span>), <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pivot_longer_spec</span>(<span class="kw">matches</span>(<span class="st">&quot;0|1&quot;</span>), <span class="dt">values_to =</span> <span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(name, <span class="kw">c</span>(<span class="st">&quot;am&quot;</span>, <span class="st">&quot;cyl&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)
 
 mtcars_spec_long</code></pre>
@@ -2556,9 +2553,9 @@ mtcars_spec_long</code></pre>
 ## 4 1_4   mpg    1     4    
 ## 5 1_6   mpg    1     6    
 ## 6 1_8   mpg    1     8</code></pre>
-<p>This spec can now be specified to <code>pivot_long()</code>:</p>
+<p>This spec can now be specified to <code>pivot_longer()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars_wide <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pivot_long</span>(<span class="dt">spec =</span> mtcars_spec_long, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">spec =</span> mtcars_spec_long, <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(am, cyl, mpg, <span class="kw">everything</span>())</code></pre>
 <pre><code>## # A tibble: 32 x 11
 ##    am    cyl     mpg  disp    hp  drat    wt  qsec    vs  gear  carb
@@ -2578,6 +2575,11 @@ mtcars_spec_long</code></pre>
 </div>
 <div id="spread-and-gather" class="section level3">
 <h3><span class="header-section-number">4.4.2</span> <code>spread()</code> and <code>gather()</code></h3>
+<p><code>spread()</code> and <code>gather()</code> are the original reshaping functions from the <code>{tidyr}</code> package. As I am
+writing these lines, in May 2019, there still the only ones in the released version of <code>{tidyr}</code> on
+CRAN. However, they will very likely become deprecated and superseded by <code>pivot_longer()</code> and
+<code>pivot_wider()</code> in future releases of <code>{tidyr}</code>. But for now, unless you install the development
+version of <code>{tidyr}</code> you will need to use these functions to reshape your data.</p>
 <p><code>survey_data</code> is a long dataset. We can reshape it to be wide using the <code>spread()</code> function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">wide_data &lt;-<span class="st"> </span>survey_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(variable, value)
@@ -2615,8 +2617,8 @@ of “variable”. Then we fill in the rows with the data contained in the colum
 <p>In the <code>wide_data</code> <code>tibble</code>, we had 3 columns: <code>id</code>, <code>var1</code> and <code>var2</code>. We want to stack ‘var1’ and
 ‘var2’ in a new column, that we choose to call “variable”. This is the “key”. For the value, we are
 using the values contained in <code>var1</code> and <code>var2</code>. Sometimes using <code>spread()</code> or <code>gather()</code> requires
-some trial and error. I advise you play around with the examples above to really grasp how these
-powerful functions work.</p>
+some trial and error. I have been using these functions literally for years and never get it right
+the first time I need to use them.</p>
 </div>
 <div id="fill-and-full_seq" class="section level3">
 <h3><span class="header-section-number">4.4.3</span> <code>fill()</code> and <code>full_seq()</code></h3>
@@ -2641,7 +2643,7 @@ are missing:</p>
 <p>It seems pretty obvious that the first <code>NA</code> is supposed to be <code>1</code> and the second missing is supposed
 to be <code>4</code>. With <code>fill()</code>, this is pretty easy to achieve:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, <span class="dt">variable =</span> <span class="st">&quot;id&quot;</span>)</code></pre>
+<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, id)</code></pre>
 <p><code>full_seq()</code> is similar:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">full_seq</span>(<span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2018-08-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2018-08-03&quot;</span>)), <span class="dv">1</span>)</code></pre>
 <pre><code>## [1] &quot;2018-08-01&quot; &quot;2018-08-02&quot; &quot;2018-08-03&quot;</code></pre>
@@ -2667,20 +2669,20 @@ to be <code>4</code>. With <code>fill()</code>, this is pretty easy to achieve:<
 it the data frame.</p>
 <p>Putting all these operations together:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, <span class="dt">variable =</span> <span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, id) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">rep</span>(<span class="kw">full_seq</span>(<span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2018-08-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2018-08-03&quot;</span>)), <span class="dv">1</span>), <span class="dv">4</span>)) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">spread</span>(variable, value)</code></pre>
 <p>As you can see, this creates a lot of explicit <code>NA</code> values. The best would be to fill in the missing
 values and add the date column, and then work with that format. For example, to get the average
 of the values by date:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, <span class="dt">variable =</span> <span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, id) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">rep</span>(<span class="kw">full_seq</span>(<span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2018-08-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2018-08-03&quot;</span>)), <span class="dv">1</span>), <span class="dv">4</span>)) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(date) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">summarise</span>(<span class="kw">mean</span>(value))</code></pre>
 <p>Or by <code>date</code> and <code>variable</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, <span class="dt">variable =</span> <span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, id) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">rep</span>(<span class="kw">full_seq</span>(<span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2018-08-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2018-08-03&quot;</span>)), <span class="dv">1</span>), <span class="dv">4</span>)) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(date, variable) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">summarise</span>(<span class="kw">mean</span>(value))</code></pre>
@@ -2692,38 +2694,38 @@ of the values by date:</p>
 get this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data_not_tidy</code></pre>
 <pre><code>## # A tibble: 12 x 3
-##       id variable_date value
-##    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
-##  1     1 1/2018-08-01    1  
-##  2     1 1/2018-08-02    0.2
-##  3    NA 1/2018-08-03    0.3
-##  4     2 2/2018-08-01    1.4
-##  5     2 2/2018-08-02    1.9
-##  6     2 2/2018-08-03    4.1
-##  7     3 3/2018-08-01    0.1
-##  8     3 3/2018-08-02    2.8
-##  9     3 3/2018-08-03    8.9
-## 10     4 4/2018-08-01    1.7
-## 11    NA 4/2018-08-02    1.9
-## 12     4 4/2018-08-03    7.6</code></pre>
+##       id variable_date   value
+##    &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+##  1     1 var1/2018-08-01   1  
+##  2     1 var2/2018-08-02   0.2
+##  3     1 var3/2018-08-03   0.3
+##  4     2 var1/2018-08-01   1.4
+##  5     2 var2/2018-08-02   1.9
+##  6     2 var3/2018-08-03   4.1
+##  7     3 var1/2018-08-01   0.1
+##  8     3 var2/2018-08-02   2.8
+##  9     3 var3/2018-08-03   8.9
+## 10     4 var1/2018-08-01   1.7
+## 11     4 var2/2018-08-02   1.9
+## 12     4 var3/2018-08-03   7.6</code></pre>
 <p>Dealing with this is simple, thanks to <code>separate()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data_not_tidy <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">separate</span>(variable_date, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;date&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>)</code></pre>
 <pre><code>## # A tibble: 12 x 4
 ##       id variable date       value
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
-##  1     1 1        2018-08-01   1  
-##  2     1 1        2018-08-02   0.2
-##  3    NA 1        2018-08-03   0.3
-##  4     2 2        2018-08-01   1.4
-##  5     2 2        2018-08-02   1.9
-##  6     2 2        2018-08-03   4.1
-##  7     3 3        2018-08-01   0.1
-##  8     3 3        2018-08-02   2.8
-##  9     3 3        2018-08-03   8.9
-## 10     4 4        2018-08-01   1.7
-## 11    NA 4        2018-08-02   1.9
-## 12     4 4        2018-08-03   7.6</code></pre>
+##  1     1 var1     2018-08-01   1  
+##  2     1 var2     2018-08-02   0.2
+##  3     1 var3     2018-08-03   0.3
+##  4     2 var1     2018-08-01   1.4
+##  5     2 var2     2018-08-02   1.9
+##  6     2 var3     2018-08-03   4.1
+##  7     3 var1     2018-08-01   0.1
+##  8     3 var2     2018-08-02   2.8
+##  9     3 var3     2018-08-03   8.9
+## 10     4 var1     2018-08-01   1.7
+## 11     4 var2     2018-08-02   1.9
+## 12     4 var3     2018-08-03   7.6</code></pre>
 <p>The <code>variable_date</code> column gets separated into two columns, <code>variable</code> and <code>date</code>. One also needs
 to specify the separator, in this case “/”.</p>
 <p><code>unite()</code> is the reverse operation, which can be useful when you are confronted to this situation:</p>
@@ -2731,36 +2733,36 @@ to specify the separator, in this case “/”.</p>
 <pre><code>## # A tibble: 12 x 6
 ##       id variable year  month day   value
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
-##  1     1 1        2018  08    01      1  
-##  2     1 1        2018  08    02      0.2
-##  3    NA 1        2018  08    03      0.3
-##  4     2 2        2018  08    01      1.4
-##  5     2 2        2018  08    02      1.9
-##  6     2 2        2018  08    03      4.1
-##  7     3 3        2018  08    01      0.1
-##  8     3 3        2018  08    02      2.8
-##  9     3 3        2018  08    03      8.9
-## 10     4 4        2018  08    01      1.7
-## 11    NA 4        2018  08    02      1.9
-## 12     4 4        2018  08    03      7.6</code></pre>
+##  1     1 var1     2018  08    01      1  
+##  2     1 var2     2018  08    02      0.2
+##  3     1 var3     2018  08    03      0.3
+##  4     2 var1     2018  08    01      1.4
+##  5     2 var2     2018  08    02      1.9
+##  6     2 var3     2018  08    03      4.1
+##  7     3 var1     2018  08    01      0.1
+##  8     3 var2     2018  08    02      2.8
+##  9     3 var3     2018  08    03      8.9
+## 10     4 var1     2018  08    01      1.7
+## 11     4 var2     2018  08    02      1.9
+## 12     4 var3     2018  08    03      7.6</code></pre>
 <p>In some situation, it is better to have the date as a single column:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data2 <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">unite</span>(date, year, month, day, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</code></pre>
 <pre><code>## # A tibble: 12 x 4
 ##       id variable date       value
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
-##  1     1 1        2018-08-01   1  
-##  2     1 1        2018-08-02   0.2
-##  3    NA 1        2018-08-03   0.3
-##  4     2 2        2018-08-01   1.4
-##  5     2 2        2018-08-02   1.9
-##  6     2 2        2018-08-03   4.1
-##  7     3 3        2018-08-01   0.1
-##  8     3 3        2018-08-02   2.8
-##  9     3 3        2018-08-03   8.9
-## 10     4 4        2018-08-01   1.7
-## 11    NA 4        2018-08-02   1.9
-## 12     4 4        2018-08-03   7.6</code></pre>
+##  1     1 var1     2018-08-01   1  
+##  2     1 var2     2018-08-02   0.2
+##  3     1 var3     2018-08-03   0.3
+##  4     2 var1     2018-08-01   1.4
+##  5     2 var2     2018-08-02   1.9
+##  6     2 var3     2018-08-03   4.1
+##  7     3 var1     2018-08-01   0.1
+##  8     3 var2     2018-08-02   2.8
+##  9     3 var3     2018-08-03   8.9
+## 10     4 var1     2018-08-01   1.7
+## 11     4 var2     2018-08-02   1.9
+## 12     4 var3     2018-08-03   7.6</code></pre>
 <p>Another awful situation is the following:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data_from_hell</code></pre>
 <pre><code>##   id         variable         value
@@ -2806,22 +2808,22 @@ to specify the separator, in this case “/”.</p>
 <pre><code>## # A tibble: 12 x 4
 ##       id variable date       value
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
-##  1     1 1        2018-08-01   1  
-##  2     1 1        2018-08-02   0.2
-##  3    NA 1        2018-08-03   0.3
-##  4     2 2        2018-08-01   1.4
-##  5     2 2        2018-08-02   1.9
-##  6     2 2        2018-08-03   4.1
-##  7     3 3        2018-08-01   0.1
-##  8     3 3        2018-08-02   2.8
-##  9     3 3        2018-08-03   8.9
-## 10     4 4        2018-08-01   1.7
-## 11    NA 4        2018-08-02   1.9
-## 12     4 4        2018-08-03   7.6</code></pre>
+##  1     1 var1     2018-08-01   1  
+##  2     1 var2     2018-08-02   0.2
+##  3     1 var3     2018-08-03   0.3
+##  4     2 var1     2018-08-01   1.4
+##  5     2 var2     2018-08-02   1.9
+##  6     2 var3     2018-08-03   4.1
+##  7     3 var1     2018-08-01   0.1
+##  8     3 var2     2018-08-02   2.8
+##  9     3 var3     2018-08-03   8.9
+## 10     4 var1     2018-08-01   1.7
+## 11     4 var2     2018-08-02   1.9
+## 12     4 var3     2018-08-03   7.6</code></pre>
 <p>quite easily:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data_from_hell <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">separate_rows</span>(variable, value, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, <span class="dt">variable =</span> <span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">fill</span>(<span class="dt">.direction =</span> <span class="st">&quot;down&quot;</span>, id) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">rep</span>(<span class="kw">full_seq</span>(<span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2018-08-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2018-08-03&quot;</span>)), <span class="dv">1</span>), <span class="dv">4</span>))</code></pre>
 </div>
 <div id="a-sneak-peek-to-chapter-8-nest" class="section level3">
@@ -2831,41 +2833,41 @@ to specify the separator, in this case “/”.</p>
 <pre><code>## # A tibble: 12 x 4
 ##       id variable date       value
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
-##  1     1 1        2018-08-01   1  
-##  2     1 1        2018-08-02   0.2
-##  3    NA 1        2018-08-03   0.3
-##  4     2 2        2018-08-01   1.4
-##  5     2 2        2018-08-02   1.9
-##  6     2 2        2018-08-03   4.1
-##  7     3 3        2018-08-01   0.1
-##  8     3 3        2018-08-02   2.8
-##  9     3 3        2018-08-03   8.9
-## 10     4 4        2018-08-01   1.7
-## 11    NA 4        2018-08-02   1.9
-## 12     4 4        2018-08-03   7.6</code></pre>
+##  1     1 var1     2018-08-01   1  
+##  2     1 var2     2018-08-02   0.2
+##  3     1 var3     2018-08-03   0.3
+##  4     2 var1     2018-08-01   1.4
+##  5     2 var2     2018-08-02   1.9
+##  6     2 var3     2018-08-03   4.1
+##  7     3 var1     2018-08-01   0.1
+##  8     3 var2     2018-08-02   2.8
+##  9     3 var3     2018-08-03   8.9
+## 10     4 var1     2018-08-01   1.7
+## 11     4 var2     2018-08-02   1.9
+## 12     4 var3     2018-08-03   7.6</code></pre>
 <p><code>{tidyr}</code> has another very useful function, called <code>nest()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data_clean <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">nest</span>(<span class="op">-</span>id)</code></pre>
-<pre><code>## # A tibble: 5 x 2
-##      id data            
-##   &lt;dbl&gt; &lt;list&gt;          
-## 1     1 &lt;tibble [2 × 3]&gt;
-## 2    NA &lt;tibble [2 × 3]&gt;
-## 3     2 &lt;tibble [3 × 3]&gt;
-## 4     3 &lt;tibble [3 × 3]&gt;
-## 5     4 &lt;tibble [2 × 3]&gt;</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(variable, date, value)`?</code></pre>
+<pre><code>## # A tibble: 4 x 2
+##      id data                                                               
+##   &lt;dbl&gt; &lt;list&lt;df[,3]&gt;&gt;                                                     
+## 1     1 var1      , var2      , var3      , 2018-08-01, 2018-08-02, 2018-0…
+## 2     2 var1      , var2      , var3      , 2018-08-01, 2018-08-02, 2018-0…
+## 3     3 var1      , var2      , var3      , 2018-08-01, 2018-08-02, 2018-0…
+## 4     4 var1      , var2      , var3      , 2018-08-01, 2018-08-02, 2018-0…</code></pre>
 <p>You can achieve the same result by using <code>group_by()</code> first:</p>
 <pre class="sourceCode r"><code class="sourceCode r">survey_data_clean <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">nest</span>()</code></pre>
-<pre><code>## # A tibble: 5 x 2
-##      id data            
-##   &lt;dbl&gt; &lt;list&gt;          
-## 1     1 &lt;tibble [2 × 3]&gt;
-## 2    NA &lt;tibble [2 × 3]&gt;
-## 3     2 &lt;tibble [3 × 3]&gt;
-## 4     3 &lt;tibble [3 × 3]&gt;
-## 5     4 &lt;tibble [2 × 3]&gt;</code></pre>
+<pre><code>## # A tibble: 4 x 2
+##      id data                                                               
+##   &lt;dbl&gt; &lt;list&lt;df[,3]&gt;&gt;                                                     
+## 1     1 var1      , var2      , var3      , 2018-08-01, 2018-08-02, 2018-0…
+## 2     2 var1      , var2      , var3      , 2018-08-01, 2018-08-02, 2018-0…
+## 3     3 var1      , var2      , var3      , 2018-08-01, 2018-08-02, 2018-0…
+## 4     4 var1      , var2      , var3      , 2018-08-01, 2018-08-02, 2018-0…</code></pre>
 <p>This cerates a new tibble object, whith two columns, one with the <code>id</code> column, and a new one called
 <code>data</code>. Let’s take a look at the first element of this column:</p>
 <pre class="sourceCode r"><code class="sourceCode r">nested_survey_data &lt;-<span class="st"> </span>survey_data_clean <span class="op">%&gt;%</span>
@@ -2873,12 +2875,20 @@ to specify the separator, in this case “/”.</p>
 <span class="st">    </span><span class="kw">nest</span>()
 
 nested_survey_data<span class="op">$</span>data[<span class="dv">1</span>]</code></pre>
-<pre><code>## [[1]]
-## # A tibble: 2 x 3
+<pre><code>## &lt;list_of&lt;
+##   tbl_df&lt;
+##     variable: character
+##     date    : character
+##     value   : double
+##   &gt;
+## &gt;[1]&gt;
+## [[1]]
+## # A tibble: 3 x 3
 ##   variable date       value
 ##   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
-## 1 1        2018-08-01   1  
-## 2 1        2018-08-02   0.2</code></pre>
+## 1 var1     2018-08-01   1  
+## 2 var2     2018-08-02   0.2
+## 3 var3     2018-08-03   0.3</code></pre>
 <p>As you can see, the first element of the <code>data</code> is also a tibble! You may wonder why this is useful;
 I will give you a small taste of what’s waiting in chapter 9. Imagine that you want to create a
 barplot for each <code>id</code>. For instance, for the first <code>id</code> (we are going to learn about making plots
@@ -2890,7 +2900,7 @@ everything I write):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_data_id1) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> value, <span class="dt">x =</span> date, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;id 1&quot;</span>)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-273-1.png" width="672" /></p>
 <p>Ok great. But now I want to create this plot for each <code>id</code>… so I have to copy paste this 3 times.
 But copy-pasting is error prone. So there are two alternatives; I either write a function that
 takes as argument the data and the <code>id</code> I want to plot and run it for each <code>id</code> (we will learn to
@@ -2920,32 +2930,28 @@ great and informative. It’s in French, but that’s not a problem, you know ho
 Here’s a link to <a href="http://perso.ens-lyon.fr/lise.vaudor/">her blog</a>.</p>
 <p>Now, let’s take a look at the result:</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_plots</code></pre>
-<pre><code>## # A tibble: 5 x 3
-##      id data             plot    
-##   &lt;dbl&gt; &lt;list&gt;           &lt;list&gt;  
-## 1     1 &lt;tibble [2 × 3]&gt; &lt;S3: gg&gt;
-## 2    NA &lt;tibble [2 × 3]&gt; &lt;S3: gg&gt;
-## 3     2 &lt;tibble [3 × 3]&gt; &lt;S3: gg&gt;
-## 4     3 &lt;tibble [3 × 3]&gt; &lt;S3: gg&gt;
-## 5     4 &lt;tibble [2 × 3]&gt; &lt;S3: gg&gt;</code></pre>
+<pre><code>## # A tibble: 4 x 3
+##      id data                                                          plot 
+##   &lt;dbl&gt; &lt;list&lt;df[,3]&gt;&gt;                                                &lt;lis&gt;
+## 1     1 var1      , var2      , var3      , 2018-08-01, 2018-08-02, … &lt;gg&gt; 
+## 2     2 var1      , var2      , var3      , 2018-08-01, 2018-08-02, … &lt;gg&gt; 
+## 3     3 var1      , var2      , var3      , 2018-08-01, 2018-08-02, … &lt;gg&gt; 
+## 4     4 var1      , var2      , var3      , 2018-08-01, 2018-08-02, … &lt;gg&gt;</code></pre>
 <p><code>my_plots</code> is a tibble with three columns: <code>id</code>, <code>data</code> and.. <code>plot</code>! <code>plot</code> is a very interesting
 column. It is a list, where each element is of type <code>S3: gg</code>. Yes, you guessed it, each element of
 that list-column is a ggplot! If you now want to take a look at the plots, it is enough to do this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_plots<span class="op">$</span>plot</code></pre>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-277-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-147-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-277-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-147-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-277-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-147-4.png" width="672" /></p>
-<pre><code>## 
-## [[5]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-147-5.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-277-4.png" width="672" /></p>
 <p>Ok, that was quite complicated, but again, this was only to introduce <code>nest()</code> and give you a taste
 of the power of the <code>{tidyverse}</code>. By the end of Chapter 9, you’ll be used to this.</p>
 <p>That was it for a first introduction to <code>{tidyr}</code>. Now, it’s time to learn about <em>scoped</em> verbs.</p>
@@ -3116,6 +3122,15 @@ something very useful, which is rename all the columns in bulk:</p>
 ## # … with 332 more rows</code></pre>
 <p>You can apply any arbitrary function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gasoline <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_all</span>(<span class="kw">funs</span>(<span class="kw">paste0</span>(<span class="st">&quot;hello_&quot;</span>, .)))</code></pre>
+<pre><code>## Warning: funs() is soft deprecated as of dplyr 0.8.0
+## please use list() instead
+## 
+##   # Before:
+##   funs(name = f(.))
+## 
+##   # After: 
+##   list(name = ~ f(.))
+## This warning is displayed once per session.</code></pre>
 <pre><code>## # A tibble: 342 x 6
 ##    hello_country hello_year hello_lgaspcar hello_lincomep hello_lrpmg
 ##    &lt;fct&gt;              &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;
@@ -3867,7 +3882,7 @@ understand all the code for now:</p>
 <span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">coord_flip</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-197-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-327-1.png" width="672" /></p>
 <p>It would be much better if the categories were ordered by frequency. This is easy to do with
 <code>fct_reorder()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gss_cat <span class="op">%&gt;%</span>
@@ -3876,7 +3891,7 @@ understand all the code for now:</p>
 <span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">coord_flip</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-198-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-328-1.png" width="672" /></p>
 <p>Much better! In Chapter 6, we are going to learn about <code>{ggplot2}</code>.</p>
 <p><code>{forcats}</code> contains other very useful functions, so I urge you to go through the documentation.</p>
 </div>
@@ -3920,9 +3935,13 @@ for “year-month-day”. If, however the column is “2012-21-11”, then you w
 a few of these helper functions, and they can handle a lot of different formats for dates. In our case,
 having the name of the month instead of the number might seem quite problematic, but it turns out
 that this is a case that <code>{lubridate}</code> handles painfully:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
-
-independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     date</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">independence_date =</span> <span class="kw">dmy</span>(independence_date))</code></pre>
 <pre><code>## Warning: 5 failed to parse.</code></pre>
 <p>Some dates failed to parse, for instance for Morocco. This is because these countries have several
@@ -3986,17 +4005,17 @@ two dates, using the <code>interval()</code> column:</p>
 <span class="st">  </span><span class="kw">select</span>(country, independent_since)</code></pre>
 <pre><code>## # A tibble: 54 x 2
 ##    country      independent_since             
-##    &lt;chr&gt;        &lt;S4: Interval&gt;                
-##  1 Liberia      1847-07-26 UTC--2019-05-12 UTC
-##  2 South Africa 1910-05-31 UTC--2019-05-12 UTC
-##  3 Egypt        1922-02-28 UTC--2019-05-12 UTC
-##  4 Eritrea      1947-02-10 UTC--2019-05-12 UTC
-##  5 Libya        1951-12-24 UTC--2019-05-12 UTC
-##  6 Sudan        1956-01-01 UTC--2019-05-12 UTC
-##  7 Tunisia      1956-03-20 UTC--2019-05-12 UTC
+##    &lt;chr&gt;        &lt;Interval&gt;                    
+##  1 Liberia      1847-07-26 UTC--2019-05-26 UTC
+##  2 South Africa 1910-05-31 UTC--2019-05-26 UTC
+##  3 Egypt        1922-02-28 UTC--2019-05-26 UTC
+##  4 Eritrea      1947-02-10 UTC--2019-05-26 UTC
+##  5 Libya        1951-12-24 UTC--2019-05-26 UTC
+##  6 Sudan        1956-01-01 UTC--2019-05-26 UTC
+##  7 Tunisia      1956-03-20 UTC--2019-05-26 UTC
 ##  8 Morocco      NA--NA                        
-##  9 Ghana        1957-03-06 UTC--2019-05-12 UTC
-## 10 Guinea       1958-10-02 UTC--2019-05-12 UTC
+##  9 Ghana        1957-03-06 UTC--2019-05-26 UTC
+## 10 Guinea       1958-10-02 UTC--2019-05-26 UTC
 ## # … with 44 more rows</code></pre>
 <p>The <code>independent_since</code> column now contains an <em>interval</em> object that we can convert to years:</p>
 <pre class="sourceCode r"><code class="sourceCode r">independence <span class="op">%&gt;%</span>
@@ -4006,17 +4025,17 @@ two dates, using the <code>interval()</code> column:</p>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">years_independent =</span> <span class="kw">as.numeric</span>(independent_since, <span class="st">&quot;years&quot;</span>))</code></pre>
 <pre><code>## # A tibble: 54 x 3
 ##    country      independent_since              years_independent
-##    &lt;chr&gt;        &lt;S4: Interval&gt;                             &lt;dbl&gt;
-##  1 Liberia      1847-07-26 UTC--2019-05-12 UTC             172. 
-##  2 South Africa 1910-05-31 UTC--2019-05-12 UTC             109. 
-##  3 Egypt        1922-02-28 UTC--2019-05-12 UTC              97.2
-##  4 Eritrea      1947-02-10 UTC--2019-05-12 UTC              72.2
-##  5 Libya        1951-12-24 UTC--2019-05-12 UTC              67.4
-##  6 Sudan        1956-01-01 UTC--2019-05-12 UTC              63.4
-##  7 Tunisia      1956-03-20 UTC--2019-05-12 UTC              63.1
+##    &lt;chr&gt;        &lt;Interval&gt;                                 &lt;dbl&gt;
+##  1 Liberia      1847-07-26 UTC--2019-05-26 UTC             172. 
+##  2 South Africa 1910-05-31 UTC--2019-05-26 UTC             109. 
+##  3 Egypt        1922-02-28 UTC--2019-05-26 UTC              97.2
+##  4 Eritrea      1947-02-10 UTC--2019-05-26 UTC              72.3
+##  5 Libya        1951-12-24 UTC--2019-05-26 UTC              67.4
+##  6 Sudan        1956-01-01 UTC--2019-05-26 UTC              63.4
+##  7 Tunisia      1956-03-20 UTC--2019-05-26 UTC              63.2
 ##  8 Morocco      NA--NA                                      NA  
-##  9 Ghana        1957-03-06 UTC--2019-05-12 UTC              62.2
-## 10 Guinea       1958-10-02 UTC--2019-05-12 UTC              60.6
+##  9 Ghana        1957-03-06 UTC--2019-05-26 UTC              62.2
+## 10 Guinea       1958-10-02 UTC--2019-05-26 UTC              60.6
 ## # … with 44 more rows</code></pre>
 <p>We can now see for how long the last country to gain independence has been independent.
 Because the data is not tidy (in some cases, an African country was colonized by two powers,
@@ -4420,6 +4439,8 @@ to a tibble first:</p>
 <pre class="sourceCode r"><code class="sourceCode r">winchester_content &lt;-<span class="st"> </span>winchester_content <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(V1))</code></pre>
+<pre><code>## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
+## This warning is displayed once per session.</code></pre>
 <p>Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
 gets automatically called <code>V1</code>. This is why I filter on this column. Let’s take a look at the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(winchester_content)</code></pre>
@@ -4728,23 +4749,30 @@ again:</p>
 ## 11    NA var2       1.9
 ## 12     4 var3       7.6</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">nested_data =<span class="st"> </span>survey_data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">nest</span>(variable, value)
-
-<span class="kw">print</span>(nested_data)</code></pre>
+<span class="st">  </span><span class="kw">nest</span>(variable, value)</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(variable, value)`?</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(nested_data)</code></pre>
 <pre><code>## # A tibble: 5 x 2
-##      id data            
-##   &lt;dbl&gt; &lt;list&gt;          
-## 1     1 &lt;tibble [2 × 2]&gt;
-## 2    NA &lt;tibble [2 × 2]&gt;
-## 3     2 &lt;tibble [3 × 2]&gt;
-## 4     3 &lt;tibble [3 × 2]&gt;
-## 5     4 &lt;tibble [2 × 2]&gt;</code></pre>
+##      id data                              
+##   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;                    
+## 1     1 var1, var2, 1   , 0.2             
+## 2    NA var3, var2, 0.3 , 1.9             
+## 3     2 var1, var2, var3, 1.4 , 1.9 , 4.1 
+## 4     3 var1, var2, var3, 0.1 , 2.8 , 8.9 
+## 5     4 var1, var3, 1.7 , 7.6</code></pre>
 <p>This creates a new tibble, with columns <code>id</code> and <code>data</code>. <code>data</code> is a list-column that contains
 tibbles; each tibble is the <code>variable</code> and <code>value</code> for each individual:</p>
 <pre class="sourceCode r"><code class="sourceCode r">nested_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(id <span class="op">==</span><span class="st"> &quot;1&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(data)</code></pre>
-<pre><code>## [[1]]
+<pre><code>## &lt;list_of&lt;
+##   tbl_df&lt;
+##     variable: character
+##     value   : double
+##   &gt;
+## &gt;[1]&gt;
+## [[1]]
 ## # A tibble: 2 x 2
 ##   variable value
 ##   &lt;chr&gt;    &lt;dbl&gt;
@@ -4805,7 +4833,7 @@ that by the current value of <code>N</code> column:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(points) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> estimate, <span class="dt">x =</span> N)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> pi)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-275-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-405-1.png" width="672" /></p>
 <p>In the next chapter, we are going to learn all about <code>{ggplot2}</code>, the package I used in the lines
 above to create this plot.</p>
 <p>As the number of tries grows, the estimation of <span class="math inline">\(\pi\)</span> gets better.</p>

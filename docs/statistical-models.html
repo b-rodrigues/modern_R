@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Statistical models | Modern R with the tidyverse</title>
-  <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Statistical models | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,14 @@
   <meta name="twitter:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
   
 
-<meta name="author" content="Bruno Rodrigues">
+<meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-05-12">
+<meta name="date" content="2019-05-26" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="graphs.html">
@@ -209,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.3.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a><ul>
-<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wide-and-pivot_long"><i class="fa fa-check"></i><b>4.4.1</b> <code>pivot_wide()</code> and <code>pivot_long()</code></a></li>
+<li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wider-and-pivot_longer"><i class="fa fa-check"></i><b>4.4.1</b> <code>pivot_wider()</code> and <code>pivot_longer()</code></a></li>
 <li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.2</b> <code>spread()</code> and <code>gather()</code></a></li>
 <li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.3</b> <code>fill()</code> and <code>full_seq()</code></a></li>
 <li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.4</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
@@ -605,20 +604,20 @@ you wish to only keep results that are significant at the 5% level:</p>
 
 <span class="kw">print</span>(results3)</code></pre>
 <pre><code>## # A tibble: 12 x 7
-##    term         estimate std.error statistic  p.value  conf.low conf.high
-##    &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-##  1 (Intercept)  -4038.    3409.        -1.18 2.37e- 1 -10736.     2659.  
-##  2 lotsize          3.55     0.350     10.1  3.73e-22      2.86      4.23
-##  3 bedrooms      1832.    1047.         1.75 8.07e- 2   -225.     3889.  
-##  4 bathrms      14336.    1490.         9.62 2.57e-20  11409.    17262.  
-##  5 stories       6557.     925.         7.09 4.37e-12   4739.     8375.  
-##  6 drivewayyes   6688.    2045.         3.27 1.15e- 3   2670.    10705.  
-##  7 recroomyes    4511.    1900.         2.37 1.79e- 2    779.     8244.  
-##  8 fullbaseyes   5452.    1588.         3.43 6.42e- 4   2333.     8572.  
-##  9 gashwyes     12831.    3218.         3.99 7.60e- 5   6511.    19152.  
-## 10 aircoyes     12633.    1555.         8.12 3.15e-15   9578.    15688.  
-## 11 garagepl      4245.     841.         5.05 6.07e- 7   2594.     5896.  
-## 12 prefareayes   9370.    1669.         5.61 3.19e- 8   6091.    12648.</code></pre>
+##    term        estimate std.error statistic  p.value  conf.low conf.high
+##    &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 (Intercept) -4038.    3409.        -1.18 2.37e- 1 -10736.     2659.  
+##  2 lotsize         3.55     0.350     10.1  3.73e-22      2.86      4.23
+##  3 bedrooms     1832.    1047.         1.75 8.07e- 2   -225.     3889.  
+##  4 bathrms     14336.    1490.         9.62 2.57e-20  11409.    17262.  
+##  5 stories      6557.     925.         7.09 4.37e-12   4739.     8375.  
+##  6 drivewayyes  6688.    2045.         3.27 1.15e- 3   2670.    10705.  
+##  7 recroomyes   4511.    1900.         2.37 1.79e- 2    779.     8244.  
+##  8 fullbaseyes  5452.    1588.         3.43 6.42e- 4   2333.     8572.  
+##  9 gashwyes    12831.    3218.         3.99 7.60e- 5   6511.    19152.  
+## 10 aircoyes    12633.    1555.         8.12 3.15e-15   9578.    15688.  
+## 11 garagepl     4245.     841.         5.05 6.07e- 7   2594.     5896.  
+## 12 prefareayes  9370.    1669.         5.61 3.19e- 8   6091.    12648.</code></pre>
 <p>Going back to model estimation, you can of course use <code>lm()</code> in a pipe workflow:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Housing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>driveway, <span class="op">-</span>stories) <span class="op">%&gt;%</span>
@@ -663,7 +662,7 @@ using <code>broom::glance()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
 
 <span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-478-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-479-1.png" width="672" /></p>
 <p><code>which=1:6</code> is an additional option that shows you all the diagnostics plot. If you omit this
 option, you will only get 4 of them.</p>
 <p>You can also get the residuals of the regression in two ways; either you grab them directly from
@@ -698,7 +697,7 @@ the model fit:</p>
 residuals. Let’s plot them:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-483-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-484-1.png" width="672" /></p>
 <p>Fitted values are also added to the original data, under the variable <code>.fitted</code>. It would also have
 been possible to get the fitted values with:</p>
 <pre class="sourceCode r"><code class="sourceCode r">fit3 &lt;-<span class="st"> </span><span class="kw">fitted</span>(model3)</code></pre>
@@ -757,19 +756,19 @@ effects_model3 &lt;-<span class="st"> </span><span class="kw">margins</span>(mod
 <span class="kw">summary</span>(effects_model3)</code></pre>
 <pre><code>##       factor        AME        SE       z      p      lower      upper
 ##     aircoyes 12632.8904 1555.0329  8.1239 0.0000  9585.0819 15680.6989
-##      bathrms 14335.5585 1482.9885  9.6667 0.0000 11428.9545 17242.1624
-##     bedrooms  1832.0035 1045.6558  1.7520 0.0798  -217.4442  3881.4512
-##  drivewayyes  6687.7789 2045.2636  3.2699 0.0011  2679.1359 10696.4219
-##  fullbaseyes  5452.3855 1587.9782  3.4335 0.0006  2340.0054  8564.7657
-##     garagepl  4244.8290  847.2173  5.0103 0.0000  2584.3136  5905.3444
-##     gashwyes 12831.4063 3217.6211  3.9879 0.0001  6524.9848 19137.8277
-##      lotsize     3.5463    0.3503 10.1250 0.0000     2.8598     4.2328
+##      bathrms 14335.5585 1476.0367  9.7122 0.0000 11442.5798 17228.5371
+##     bedrooms  1832.0035 1049.8954  1.7449 0.0810  -225.7538  3889.7607
+##  drivewayyes  6687.7789 2045.2602  3.2699 0.0011  2679.1426 10696.4152
+##  fullbaseyes  5452.3855 1588.0360  3.4334 0.0006  2339.8922  8564.8789
+##     garagepl  4244.8290  840.4267  5.0508 0.0000  2597.6229  5892.0351
+##     gashwyes 12831.4063 3217.6210  3.9879 0.0001  6524.9850 19137.8276
+##      lotsize     3.5463    0.3508 10.1082 0.0000     2.8587     4.2339
 ##  prefareayes  9369.5132 1669.1034  5.6135 0.0000  6098.1307 12640.8957
-##   recroomyes  4511.2838 1899.9255  2.3745 0.0176   787.4982  8235.0694
-##      stories  6556.9457  924.4211  7.0930 0.0000  4745.1137  8368.7777</code></pre>
+##   recroomyes  4511.2838 1899.9564  2.3744 0.0176   787.4377  8235.1300
+##      stories  6556.9457  919.9560  7.1275 0.0000  4753.8651  8360.0263</code></pre>
 <p>It is also possible to plot the results:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(effects_model3)</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-489-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-490-1.png" width="672" /></p>
 <p>This uses the basic R plotting capabilities, which is useful because it is a simple call to the
 function <code>plot()</code> but if you’ve been using <code>ggplot2</code> and want this graph to have the same feel as
 the others made with <code>ggplot2</code> you first need to save the summary in a variable.
@@ -783,7 +782,7 @@ the others made with <code>ggplot2</code> you first need to save the summary in 
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-491-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-492-1.png" width="672" /></p>
 <p>Of course for <code>model3</code>, the marginal effects are the same as the coefficients, so let’s estimate a
 logit model and compute the marginal effects. Logit models can be estimated using the <code>glm()</code> function.
 As an example, we are going to use the <code>Participation</code> data, also from the <code>Ecdat</code> package:</p>
@@ -880,7 +879,7 @@ variable influences the labour force participation, one has to use <code>margins
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-496-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-497-1.png" width="672" /></p>
 <p>So an infinitesimal increase, in say, non-labour income (lnnlinc) of 0.001 is associated with a
 decrease of the probability of labour force participation by 0.001*17 percentage points.</p>
 <p>You can also extract the marginal effects of a single variable:</p>
@@ -913,7 +912,7 @@ might not be the best model, because the model could predict negative prices. Le
 distribution of prices:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Housing) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-499-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-500-1.png" width="672" /></p>
 <p>it looks like modeling the log of <code>price</code> might provide a better fit:</p>
 <pre class="sourceCode r"><code class="sourceCode r">model_log &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)
 
@@ -957,10 +956,10 @@ diagnostics_models &lt;-<span class="st"> </span><span class="kw">full_join</spa
 <pre><code>## Joining, by = c(&quot;r.squared&quot;, &quot;adj.r.squared&quot;, &quot;sigma&quot;, &quot;statistic&quot;, &quot;p.value&quot;, &quot;df&quot;, &quot;logLik&quot;, &quot;AIC&quot;, &quot;BIC&quot;, &quot;deviance&quot;, &quot;df.residual&quot;, &quot;model&quot;)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(diagnostics_models)</code></pre>
 <pre><code>## # A tibble: 2 x 12
-##   r.squared adj.r.squared   sigma statistic   p.value    df  logLik     AIC
-##       &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1     0.673         0.666 1.54e+4     100.0 6.18e-122    12 -6034.   12094.
-## 2     0.677         0.670 2.14e-1     102.  3.67e-123    12    73.9   -122.
+##   r.squared adj.r.squared   sigma statistic   p.value    df  logLik    AIC
+##       &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1     0.673         0.666 1.54e+4     100.0 6.18e-122    12 -6034.  12094.
+## 2     0.677         0.670 2.14e-1     102.  3.67e-123    12    73.9  -122.
 ## # … with 4 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;,
 ## #   model &lt;chr&gt;</code></pre>
 <p>I saved the diagnostics in two different <code>data.frame</code> objects using the <code>glance()</code> function and added a
@@ -970,7 +969,7 @@ diagnostics_models &lt;-<span class="st"> </span><span class="kw">full_join</spa
 likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the
 diagnostics plots:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-504-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-505-1.png" width="672" /></p>
 </div>
 <div id="using-a-model-for-prediction" class="section level2">
 <h2><span class="header-section-number">6.6</span> Using a model for prediction</h2>
@@ -1222,16 +1221,16 @@ a formula. Design matrices can be created using the <code>model.matrix()</code> 
 <pre><code>## Loading required package: Matrix</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;Matrix&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+<pre><code>## The following objects are masked from &#39;package:tidyr&#39;:
 ## 
-##     expand</code></pre>
+##     expand, pack, unpack</code></pre>
 <pre><code>## Loading required package: foreach</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;foreach&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:purrr&#39;:
 ## 
 ##     accumulate, when</code></pre>
-<pre><code>## Loaded glmnet 2.0-16</code></pre>
+<pre><code>## Loaded glmnet 2.0-18</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">train_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(train_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_x)
 
 test_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(test_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> test_x)</code></pre>
@@ -1283,8 +1282,8 @@ function, which picks the best value for <code>lambda</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">best_model &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(train_matrix, train_y)
 <span class="co"># lambda that minimises the MSE</span>
 best_model<span class="op">$</span>lambda.min</code></pre>
-<pre><code>## [1] 66.07936</code></pre>
-<p>According to <code>cv.glmnet()</code> the best value for <code>lambda</code> is 66.0793576. In the
+<pre><code>## [1] 60.20905</code></pre>
+<p>According to <code>cv.glmnet()</code> the best value for <code>lambda</code> is 60.2090496. In the
 next section, we will implement cross validation ourselves, in order to find the hyper-parameters
 of a random forest.</p>
 </div>
@@ -1303,8 +1302,10 @@ also use <a href="http://mlrmbo.mlr-org.com/"><code>{mlrMBO}</code></a> to tune 
 <h3><span class="header-section-number">6.9.1</span> Set up</h3>
 <p>Let’s load the needed packages:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;tidymodels&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;recipes&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;rsample&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;parsnip&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;yardstick&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;brotools&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;mlbench&quot;</span>)</code></pre>
 <p>Load the data, included in the <code>{mlrbench}</code> package:</p>
@@ -1399,9 +1400,18 @@ because I will need to apply this recipe to various data sets:</p>
 the data which are needed to process the data. For example, for centering, <code>prep()</code> estimates
 the mean which will then be subtracted from the variables. With <code>bake()</code> the estimates are then
 applied on the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r">testing_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_test), <span class="dt">testing =</span> housing_test)
+<pre class="sourceCode r"><code class="sourceCode r">testing_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_test), <span class="dt">testing =</span> housing_test)</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
 
-test_data &lt;-<span class="st"> </span><span class="kw">bake</span>(testing_rec, <span class="dt">new_data =</span> housing_test)</code></pre>
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">test_data &lt;-<span class="st"> </span><span class="kw">bake</span>(testing_rec, <span class="dt">new_data =</span> housing_test)</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?</code></pre>
 <p>It is important to split the data before using <code>prep()</code> and <code>bake()</code>, because if not, you will
 use observations from the test set in the <code>prep()</code> step, and thus introduce knowledge from the test
 set into the training data. This is called data leakage, and must be avoided. This is why it is
@@ -1412,14 +1422,22 @@ the analysis and assessment sets from the <code>validation_data</code> object, a
 the model, and returns the RMSE. This will be a big function, at the center of the analysis.</p>
 <p>But before that, let’s run a simple linear regression, as a benchmark. For the linear regression, I will
 not use any CV, so let’s pre-process the training set:</p>
-<pre class="sourceCode r"><code class="sourceCode r">trainlm_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_train), <span class="dt">testing =</span> housing_train)
+<pre class="sourceCode r"><code class="sourceCode r">trainlm_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_train), <span class="dt">testing =</span> housing_train)</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
 
-trainlm_data &lt;-<span class="st"> </span><span class="kw">bake</span>(trainlm_rec, <span class="dt">new_data =</span> housing_train)
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
 
-linreg_model &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> trainlm_data)
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">trainlm_data &lt;-<span class="st"> </span><span class="kw">bake</span>(trainlm_rec, <span class="dt">new_data =</span> housing_train)</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">linreg_model &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> trainlm_data)
 
 broom<span class="op">::</span><span class="kw">augment</span>(linreg_model, <span class="dt">newdata =</span> test_data) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">rmse</span>(price, .fitted)</code></pre>
+<span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(price, .fitted)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
@@ -1458,6 +1476,725 @@ function and change the <code>engine</code> argument to the one you want (<code>
 <pre class="sourceCode r"><code class="sourceCode r">results_example &lt;-<span class="st"> </span><span class="kw">map2_df</span>(<span class="dt">.x =</span> validation_data<span class="op">$</span>splits,
                            <span class="dt">.y =</span> validation_data<span class="op">$</span>id,
                            <span class="op">~</span><span class="kw">my_rf</span>(<span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">200</span>, <span class="dt">split =</span> .x, <span class="dt">id =</span> .y))</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(results_example)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##   id          truth prediction
@@ -1471,7 +2208,7 @@ function and change the <code>engine</code> argument to the one you want (<code>
 <p>I can now compute the RMSE when <code>mtry</code> = 3 and <code>trees</code> = 200:</p>
 <pre class="sourceCode r"><code class="sourceCode r">results_example <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span>
+<span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_rmse =</span> <span class="kw">mean</span>(.estimate)) <span class="op">%&gt;%</span>
 <span class="st">    </span>pull</code></pre>
 <pre><code>## [1] 0.6096097</code></pre>
@@ -1494,13 +2231,732 @@ to returning the metric I want to minimize by tuning the hyperparameters, the RM
 
     results <span class="op">%&gt;%</span>
 <span class="st">        </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span>
-<span class="st">        </span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span>
+<span class="st">        </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span>
 <span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean_rmse =</span> <span class="kw">mean</span>(.estimate)) <span class="op">%&gt;%</span>
 <span class="st">        </span>pull
 }</code></pre>
 <p>This is exactly the code from before, but it now returns the RMSE. Let’s try the function
 with the values from before:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tuning</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">200</span>), validation_data)</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?</code></pre>
 <pre><code>## [1] 0.6085931</code></pre>
 <p>I now follow the code that can be found in the <a href="https://arxiv.org/abs/1703.03373">arxiv</a> paper to
 run the optimization. I think I got the gist of the paper, but I did not understand everything yet.
@@ -1570,9 +3026,18 @@ The value of the RMSE is lower than before, and equals 0.4839817. It can be acce
 <code>result$y</code>.
 Let’s now train the random forest on the training data with this values. First, I pre-process the
 training data</p>
-<pre class="sourceCode r"><code class="sourceCode r">training_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_train), <span class="dt">testing =</span> housing_train)
+<pre class="sourceCode r"><code class="sourceCode r">training_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_train), <span class="dt">testing =</span> housing_train)</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
 
-train_data &lt;-<span class="st"> </span><span class="kw">bake</span>(training_rec, <span class="dt">new_data =</span> housing_train)</code></pre>
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?
+
+## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">train_data &lt;-<span class="st"> </span><span class="kw">bake</span>(training_rec, <span class="dt">new_data =</span> housing_train)</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(type, role, source)`?</code></pre>
 <p>Let’s now train our final model and predict the prices:</p>
 <pre class="sourceCode r"><code class="sourceCode r">final_model &lt;-<span class="st"> </span><span class="kw">rand_forest</span>(<span class="dt">mtry =</span> result<span class="op">$</span>x<span class="op">$</span>x1, <span class="dt">trees =</span> result<span class="op">$</span>x<span class="op">$</span>x2) <span class="op">%&gt;%</span>
 <span class="st">        </span><span class="kw">set_engine</span>(<span class="st">&quot;ranger&quot;</span>, <span class="dt">importance =</span> <span class="st">&#39;impurity&#39;</span>) <span class="op">%&gt;%</span>
@@ -1636,7 +3101,7 @@ price_predict &lt;-<span class="st"> </span><span class="kw">predict</span>(fina
 <p>Let’s now compute the RMSE:</p>
 <pre class="sourceCode r"><code class="sourceCode r">tibble<span class="op">::</span><span class="kw">tibble</span>(<span class="st">&quot;truth&quot;</span> =<span class="st"> </span>test_data<span class="op">$</span>price,
         <span class="st">&quot;prediction&quot;</span> =<span class="st"> </span><span class="kw">unlist</span>(price_predict)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">rmse</span>(truth, prediction)</code></pre>
+<span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;

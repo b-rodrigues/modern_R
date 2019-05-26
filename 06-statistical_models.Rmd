@@ -812,8 +812,10 @@ Let's load the needed packages:
 
 ```{r, include=FALSE}
 library("tidyverse")
-library("tidymodels")
+library("recipes")
+library("rsample")
 library("parsnip")
+library("yardstick")
 library("brotools")
 library("mlbench")
 ```
@@ -821,8 +823,10 @@ library("mlbench")
 
 ```{r, eval=FALSE}
 library("tidyverse")
-library("tidymodels")
+library("recipes")
+library("rsample")
 library("parsnip")
+library("yardstick")
 library("brotools")
 library("mlbench")
 ```
@@ -957,7 +961,7 @@ trainlm_data <- bake(trainlm_rec, new_data = housing_train)
 linreg_model <- lm(price ~ ., data = trainlm_data)
 
 broom::augment(linreg_model, newdata = test_data) %>% 
-    rmse(price, .fitted)
+    yardstick::rmse(price, .fitted)
 ```
 
 `broom::augment()` adds the predictions to the `test_data` in a new column, `.fitted`. I won't
@@ -1014,7 +1018,7 @@ I can now compute the RMSE when `mtry` = 3 and `trees` = 200:
 ```{r}
 results_example %>%
     group_by(id) %>%
-    rmse(truth, prediction) %>%
+    yardstick::rmse(truth, prediction) %>%
     summarise(mean_rmse = mean(.estimate)) %>%
     pull
 ```
@@ -1040,7 +1044,7 @@ tuning <- function(param, validation_data){
 
     results %>%
         group_by(id) %>%
-        rmse(truth, prediction) %>%
+        yardstick::rmse(truth, prediction) %>%
         summarise(mean_rmse = mean(.estimate)) %>%
         pull
 }
@@ -1158,5 +1162,5 @@ Let's now compute the RMSE:
 ```{r, cache=TRUE}
 tibble::tibble("truth" = test_data$price,
         "prediction" = unlist(price_predict)) %>% 
-    rmse(truth, prediction)
+    yardstick::rmse(truth, prediction)
 ```
