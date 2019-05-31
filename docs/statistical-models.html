@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-05-26" />
+<meta name="date" content="2019-05-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functional-programming.html"><a href="functional-programming.html"><i class="fa fa-check"></i><b>8</b> Functional programming</a><ul>
-<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#functions-definition"><i class="fa fa-check"></i><b>8.1</b> Functions definition</a></li>
+<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#function-definitions"><i class="fa fa-check"></i><b>8.1</b> Function definitions</a></li>
 <li class="chapter" data-level="8.2" data-path="functional-programming.html"><a href="functional-programming.html#properties-of-functions"><i class="fa fa-check"></i><b>8.2</b> Properties of functions</a></li>
 <li class="chapter" data-level="8.3" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>8.3</b> Functional programming with <code>{purrr}</code></a><ul>
 <li class="chapter" data-level="8.3.1" data-path="functional-programming.html"><a href="functional-programming.html#doing-away-with-loops-the-map-family-of-functions"><i class="fa fa-check"></i><b>8.3.1</b> Doing away with loops: the <code>map*()</code> family of functions</a></li>
@@ -321,7 +321,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.1" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>8.4.1</b> Functional programming and plotting</a></li>
 <li class="chapter" data-level="8.4.2" data-path="functional-programming.html"><a href="functional-programming.html#modeling-with-functional-programming"><i class="fa fa-check"></i><b>8.4.2</b> Modeling with functional programming</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
@@ -1217,21 +1220,9 @@ test_y &lt;-<span class="st"> </span>Housing[test_index, ] <span class="op">%&gt
 <span class="st">    </span><span class="kw">pull</span>(price)</code></pre>
 <p>I do the train/test split this way, because <code>glmnet()</code> requires a design matrix as input, and not
 a formula. Design matrices can be created using the <code>model.matrix()</code> function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;glmnet&quot;</span>)</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## 
-## Attaching package: &#39;Matrix&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:tidyr&#39;:
-## 
-##     expand, pack, unpack</code></pre>
-<pre><code>## Loading required package: foreach</code></pre>
-<pre><code>## 
-## Attaching package: &#39;foreach&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:purrr&#39;:
-## 
-##     accumulate, when</code></pre>
-<pre><code>## Loaded glmnet 2.0-18</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">train_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(train_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_x)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;glmnet&quot;</span>)
+
+train_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(train_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_x)
 
 test_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(test_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> test_x)</code></pre>
 <p>Let’s now run a linear regression, by setting the penalty to 0:</p>

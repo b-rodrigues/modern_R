@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-05-26" />
+<meta name="date" content="2019-05-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functional-programming.html"><a href="functional-programming.html"><i class="fa fa-check"></i><b>8</b> Functional programming</a><ul>
-<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#functions-definition"><i class="fa fa-check"></i><b>8.1</b> Functions definition</a></li>
+<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#function-definitions"><i class="fa fa-check"></i><b>8.1</b> Function definitions</a></li>
 <li class="chapter" data-level="8.2" data-path="functional-programming.html"><a href="functional-programming.html#properties-of-functions"><i class="fa fa-check"></i><b>8.2</b> Properties of functions</a></li>
 <li class="chapter" data-level="8.3" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>8.3</b> Functional programming with <code>{purrr}</code></a><ul>
 <li class="chapter" data-level="8.3.1" data-path="functional-programming.html"><a href="functional-programming.html#doing-away-with-loops-the-map-family-of-functions"><i class="fa fa-check"></i><b>8.3.1</b> Doing away with loops: the <code>map*()</code> family of functions</a></li>
@@ -321,7 +321,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.1" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>8.4.1</b> Functional programming and plotting</a></li>
 <li class="chapter" data-level="8.4.2" data-path="functional-programming.html"><a href="functional-programming.html#modeling-with-functional-programming"><i class="fa fa-check"></i><b>8.4.2</b> Modeling with functional programming</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
@@ -357,14 +360,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="functional-programming" class="section level1">
 <h1><span class="header-section-number">Chapter 8</span> Functional programming</h1>
 <p>Functional programming is a paradigm that I find very suitable for data science. In functional
-programming, your code is organised into functions that you can call when needed. Your scripts
-will only be a sequence of calls to these functions, making it easier to understand. R is not a pure
+programming, your code is organised into functions that perform the operations you need. Your scripts
+will only be a sequence of calls to these functions, making them easier to understand. R is not a pure
 functional programming language, so we need some self-discipline to apply pure functional programming
 principles. However, these efforts are worth it, because pure functions are easier to debug, extend
 and document. In this chapter, we are going to learn about functional programming principles that you
 can adopt and start using to make your code better.</p>
-<div id="functions-definition" class="section level2">
-<h2><span class="header-section-number">8.1</span> Functions definition</h2>
+<div id="function-definitions" class="section level2">
+<h2><span class="header-section-number">8.1</span> Function definitions</h2>
 <p>You should now be familiar with function definitions in R. Let’s suppose you want to write a function
 to compute the square root of a number and want to do so using Newton’s algorithm:</p>
 <pre class="sourceCode r"><code class="sourceCode r">sqrt_newton &lt;-<span class="st"> </span><span class="cf">function</span>(a, init, <span class="dt">eps =</span> <span class="fl">0.01</span>){
@@ -376,9 +379,9 @@ to compute the square root of a number and want to do so using Newton’s algori
 <p>You can then use this function to get the square root of a number:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt_newton</span>(<span class="dv">16</span>, <span class="dv">2</span>)</code></pre>
 <pre><code>## [1] 4.00122</code></pre>
-<p>We are using a <code>while</code> loop inside the body. The <em>body</em> of a function are the instructions that
-define the function. You can get the body of a function with <code>body(some_func)</code> of the function.
-In <em>pure</em> functional programming languages, like Haskell, you don’t have loops. How can you
+<p>We are using a <code>while</code> loop inside the body of the function. The <em>body</em> of a function are the
+instructions that define the function. You can get the body of a function with <code>body(some_func)</code>.
+In <em>pure</em> functional programming languages, like Haskell, loops do not exist. How can you
 program without loops, you may ask? In functional programming, loops are replaced by recursion,
 which we already discussed in the previous chapter. Let’s rewrite our little example above
 with recursion:</p>
@@ -400,7 +403,7 @@ I won’t got into the details of what tail-call optimization is but just rememb
 performance is important a loop will be faster. However, sometimes, it is easier to write a
 function using recursion. I personally tend to avoid loops if performance is not important,
 because I find that code that avoids loops is easier to read and debug. However, knowing that
-you can use loops is reassuring, and encapsulating loos inside functions gives you the benefits of
+you can use loops is reassuring, and encapsulating loops inside functions gives you the benefits of
 both using functions, and loops. In the coming sections I will show you some built-in functions
 that make it possible to avoid writing loops and that don’t rely on recursion, so performance
 won’t be penalized.</p>
@@ -408,8 +411,8 @@ won’t be penalized.</p>
 <div id="properties-of-functions" class="section level2">
 <h2><span class="header-section-number">8.2</span> Properties of functions</h2>
 <p>Mathematical functions have a nice property: we always get the same output for a given input. This
-is called referential transparency and we should aim to write our R functions in such a way.</p>
-<p>For example, the following function:</p>
+is called referential transparency and we should aim to write our R functions in such a way.
+For example, the following function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">increment &lt;-<span class="st"> </span><span class="cf">function</span>(x){
     x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
 }</code></pre>
@@ -428,7 +431,7 @@ this function.</p>
 
 <span class="kw">increment_opaque</span>(<span class="dv">10</span>)</code></pre>
 <pre><code>## [1] 11</code></pre>
-<p>will only produce <code>11</code> if <code>spam = 1</code>. But what if <code>spam = 19</code>?</p>
+<p>will produce <code>11</code> if <code>spam = 1</code>. But what if <code>spam = 19</code>?</p>
 <pre class="sourceCode r"><code class="sourceCode r">spam &lt;-<span class="st"> </span><span class="dv">19</span>
 
 <span class="kw">increment_opaque</span>(<span class="dv">10</span>)</code></pre>
@@ -482,11 +485,12 @@ took to get the result:</p>
 outside its scope. But this cannot be avoided since you <em>want</em> to write to disk.
 Just remember: try to avoid having functions changing variables in the global environment unless
 you have a very good reason of doing so.</p>
-<p>Very long scripts that don’t use functions and but use a lot of global variables with loops changing
-the values are a nightmare to debug. If something goes wrong, it might be very difficult to pinpoint
-where the problem is. Is there an error in one of the loops? Is your code running for a particular
-value of a particular variable in the global environment, but not for other values? Which values? And
-of which variables? It can be very difficult to know what is wrong with such a script.
+<p>Very long scripts that don’t use functions and use a lot of global variables with loops changing
+the values of global variables are a nightmare to debug. If something goes wrong, it might be very
+difficult to pinpoint where the problem is. Is there an error in one of the loops?
+Is your code running for a particular value of a particular variable in the global environment, but
+not for other values? Which values? And of which variables? It can be very difficult to know what
+is wrong with such a script.
 With functional programming, you can avoid a lot of this pain for free (well not entirely for free,
 it still requires some effort, since R is not a pure functional language). Writing functions also
 makes it easier to parallelize your code. We are going to learn about that later in this chapter too.</p>
@@ -506,15 +510,16 @@ improves readability and maintainability of your code.</p>
 <h2><span class="header-section-number">8.3</span> Functional programming with <code>{purrr}</code></h2>
 <p>I mentioned it several times already, but R is not a pure functional programming language. It is
 possible to write R code using the functional programming paradigm, but some effort is required.
-The <code>{purrr}</code> package, extends R’s base functional programming capabilities with some very interesting
+The <code>{purrr}</code> package extends R’s base functional programming capabilities with some very interesting
 functions. We have already seen <code>map()</code> and <code>reduce()</code>, which we are going to see in more detail now.
 Then, we are going to learn about some other functions included in <code>{purrr}</code> that make functional
 programming easier in R.</p>
 <div id="doing-away-with-loops-the-map-family-of-functions" class="section level3">
 <h3><span class="header-section-number">8.3.1</span> Doing away with loops: the <code>map*()</code> family of functions</h3>
-<p>Instead of using loops, pure functional programming languages use functions that perform the achieve
+<p>Instead of using loops, pure functional programming languages use functions that achieve
 the same result. These functions are often called <code>Map</code> or <code>Reduce</code> (also called <code>Fold</code>). R comes
-with the <code>*apply()</code> family of functions, as well as <code>Reduce()</code> for functional programming.</p>
+with the <code>*apply()</code> family of functions (which are implementations of <code>Map</code>),
+as well as <code>Reduce()</code> for functional programming.</p>
 <p>Within this family, you can find <code>lapply()</code>, <code>sapply()</code>, <code>vapply()</code>, <code>tapply()</code>, <code>mapply()</code>, <code>rapply()</code>,
 <code>eapply()</code> and <code>apply()</code> (I might have forgotten one or the other, but that’s not important).
 Each version of an <code>*apply()</code> function has a different purpose, but it is not very easy to
@@ -522,11 +527,11 @@ remember which does what exactly. To add even more confusion, the arguments are 
 each of these.</p>
 <p>In the <code>{purrr}</code> package, these functions are replaced by the <code>map*()</code> family of functions. As you will
 shortly see, they are very consistent, and thus easier to use.
-The first part of these functions’ names all start
-with <code>map_</code> and the second part tells you what this function is going to return. For example, if
-you want <code>double</code>s out, you would use <code>map_dbl()</code>. If you are working on data frames and want a data
-frame back, you would use <code>map_df()</code>. Let’s start with the basic <code>map()</code> function. The following
-gif (source: <a href="https://en.wikipedia.org/wiki/Map_(higher-order_function)">Wikipedia</a>) illustrates
+The first part of these functions’ names all start with <code>map_</code> and the second part tells you what
+this function is going to return. For example, if you want <code>double</code>s out, you would use <code>map_dbl()</code>.
+If you are working on data frames and want a data frame back, you would use <code>map_df()</code>. Let’s start
+with the basic <code>map()</code> function. The following gif
+(source: <a href="https://en.wikipedia.org/wiki/Map_(higher-order_function)">Wikipedia</a>) illustrates
 what <code>map()</code> does fairly well:</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Mapping-steps-loillibe-new.gif" /><!-- --></p>
 <p><span class="math inline">\(X\)</span> is a vector composed of the following scalars: <span class="math inline">\((0, 5, 8, 3, 2, 1)\)</span>. The function we want to
@@ -588,7 +593,7 @@ my_results</code></pre>
 ## [1] 7</code></pre>
 <p>Now I don’t know about you, but I prefer the first option. Using functional programming, you don’t
 need to create an empty list to hold your results, and the code is more concise. Plus,
-it is less error prone. While writing the for-loop, and I had to try several times to get it right
+it is less error prone. I had to try several times to get the loop right
 (and I’ve using R for almost 10 years now). Why? Well, first of all I used <code>%in%</code> instead of <code>in</code>.
 Then, I forgot about <code>seq_along()</code>. After that, I made a typo, <code>plos_one()</code> instead of <code>plus_one()</code>
 (ok, that one is unrelated to the loop). Let’s also see how this works using base R:</p>
@@ -627,8 +632,8 @@ my_results &lt;-<span class="st"> </span><span class="kw">map_dbl</span>(numbers
 
 my_results</code></pre>
 <pre><code>## [1] 1 6 9 4 3 2</code></pre>
-<p>We’re going to discuss these functions below, but know that in base R, not every function has an
-equivalent, at least as far as I know.</p>
+<p>We’re going to discuss these functions below, but know that in base R, outputting something else
+involves more effort.</p>
 <p>Let’s go back to our <code>sqrt_newton()</code> function. This function has more than one parameter. Often,
 we would like to map functions with more than one parameter to a list, while holding constant
 some of the functions parameters. This is easily achieved like so:</p>
@@ -793,7 +798,7 @@ mean of the means, which should return something close to the expected value of 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1000</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))</code></pre>
 <pre><code>## [1] 3.511</code></pre>
 <p>but the point was to illustrate that <code>rerun()</code> can run any arbitrarily complex expression, and that it is good
-practice to put the result in a data frame or list, for easy further manipulation.</p>
+practice to put the result in a data frame or list, for easier further manipulation.</p>
 <p>You now know the standard <code>map()</code> function, and also <code>rerun()</code>, which return lists, but there are a
 number of variants of this function. <code>map_dbl()</code> returns an atomic vector of doubles, as seen
 we’ve seen before. A little reminder below:</p>
@@ -1516,7 +1521,7 @@ the minimum between two numbers:</p>
     }
 }</code></pre>
 <p>You could use <code>reduce()</code> to get the minimum of a list of numbers:</p>
-<pre class="sourceCode r"><code class="sourceCode r">numbers2 =<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">-8</span>, <span class="dv">9</span>)
+<pre class="sourceCode r"><code class="sourceCode r">numbers2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">-8</span>, <span class="dv">9</span>)
 
 <span class="kw">reduce</span>(numbers2, my_min)</code></pre>
 <pre><code>## [1] -8</code></pre>
@@ -1524,7 +1529,7 @@ the minimum between two numbers:</p>
 output. So how could <code>reduce()</code> help us with merging all the datasets that are in the list? <code>dplyr</code>
 comes with a lot of function to merge <em>two</em> datasets. Remember that I said before that <code>reduce()</code>
 allows you to generalize a function of two arguments? Let’s try it with our list of datasets:</p>
-<pre class="sourceCode r"><code class="sourceCode r">unemp_lux =<span class="st"> </span><span class="kw">reduce</span>(all_datasets, full_join)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">unemp_lux &lt;-<span class="st"> </span><span class="kw">reduce</span>(all_datasets, full_join)</code></pre>
 <pre><code>## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)
 ## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)
 ## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)</code></pre>
@@ -1758,18 +1763,20 @@ function by first grouping, filtering, etc…</p>
 </div>
 <div id="exercises-6" class="section level2">
 <h2><span class="header-section-number">8.5</span> Exercises</h2>
-<ol style="list-style-type: decimal">
-<li><p>Suppose you have an Excel workbook that contains data on three sheets. Create a function that
+<div id="exercise-1-6" class="section level3 unnumbered">
+<h3>Exercise 1</h3>
+<p>Suppose you have an Excel workbook that contains data on three sheets. Create a function that
 reads entire workbooks, and that returns a list of tibbles, where each tibble is the data of one
 sheet (download the example Excel workbook, <code>example_workbook.xlsx</code>, from the <code>assets</code> folder on
-the books github).</p></li>
-<li><p>Use one of the <code>map()</code> functions to combine two lists into one. Consider the following two lists:</p></li>
-</ol>
+the books github).</p>
+</div>
+<div id="exercise-2-4" class="section level3 unnumbered">
+<h3>Exercise 2</h3>
+<p>Use one of the <code>map()</code> functions to combine two lists into one. Consider the following two lists:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mediterranean &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;humous&quot;</span>, <span class="st">&quot;lasagna&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;sardines&quot;</span>, <span class="st">&quot;olives&quot;</span>))
 
 continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pea soup&quot;</span>, <span class="st">&quot;terrine&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;frikadelle&quot;</span>, <span class="st">&quot;sauerkraut&quot;</span>))</code></pre>
-<p>The result we’d like to have would look like this:
-<!-- map2(mediterranean, continental, append) --></p>
+<p>The result we’d like to have would look like this:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="op">$</span>starters
 <span class="op">$</span>starters[[<span class="dv">1</span>]]
 [<span class="dv">1</span>] <span class="st">&quot;humous&quot;</span>
@@ -1797,6 +1804,7 @@ continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span cla
 <span class="op">$</span>dishes[[<span class="dv">4</span>]]
 [<span class="dv">1</span>] <span class="st">&quot;sauerkraut&quot;</span></code></pre>
 
+</div>
 </div>
 </div>
 <div class="footnotes">

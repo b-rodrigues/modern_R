@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-05-26" />
+<meta name="date" content="2019-05-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functional-programming.html"><a href="functional-programming.html"><i class="fa fa-check"></i><b>8</b> Functional programming</a><ul>
-<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#functions-definition"><i class="fa fa-check"></i><b>8.1</b> Functions definition</a></li>
+<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#function-definitions"><i class="fa fa-check"></i><b>8.1</b> Function definitions</a></li>
 <li class="chapter" data-level="8.2" data-path="functional-programming.html"><a href="functional-programming.html#properties-of-functions"><i class="fa fa-check"></i><b>8.2</b> Properties of functions</a></li>
 <li class="chapter" data-level="8.3" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>8.3</b> Functional programming with <code>{purrr}</code></a><ul>
 <li class="chapter" data-level="8.3.1" data-path="functional-programming.html"><a href="functional-programming.html#doing-away-with-loops-the-map-family-of-functions"><i class="fa fa-check"></i><b>8.3.1</b> Doing away with loops: the <code>map*()</code> family of functions</a></li>
@@ -321,7 +321,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.1" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>8.4.1</b> Functional programming and plotting</a></li>
 <li class="chapter" data-level="8.4.2" data-path="functional-programming.html"><a href="functional-programming.html#modeling-with-functional-programming"><i class="fa fa-check"></i><b>8.4.2</b> Modeling with functional programming</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
@@ -3122,15 +3125,6 @@ something very useful, which is rename all the columns in bulk:</p>
 ## # … with 332 more rows</code></pre>
 <p>You can apply any arbitrary function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">gasoline <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_all</span>(<span class="kw">funs</span>(<span class="kw">paste0</span>(<span class="st">&quot;hello_&quot;</span>, .)))</code></pre>
-<pre><code>## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## please use list() instead
-## 
-##   # Before:
-##   funs(name = f(.))
-## 
-##   # After: 
-##   list(name = ~ f(.))
-## This warning is displayed once per session.</code></pre>
 <pre><code>## # A tibble: 342 x 6
 ##    hello_country hello_year hello_lgaspcar hello_lincomep hello_lrpmg
 ##    &lt;fct&gt;              &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;
@@ -3935,13 +3929,9 @@ for “year-month-day”. If, however the column is “2012-21-11”, then you w
 a few of these helper functions, and they can handle a lot of different formats for dates. In our case,
 having the name of the month instead of the number might seem quite problematic, but it turns out
 that this is a case that <code>{lubridate}</code> handles painfully:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     date</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
+
+independence &lt;-<span class="st"> </span>independence <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">independence_date =</span> <span class="kw">dmy</span>(independence_date))</code></pre>
 <pre><code>## Warning: 5 failed to parse.</code></pre>
 <p>Some dates failed to parse, for instance for Morocco. This is because these countries have several
@@ -4006,16 +3996,16 @@ two dates, using the <code>interval()</code> column:</p>
 <pre><code>## # A tibble: 54 x 2
 ##    country      independent_since             
 ##    &lt;chr&gt;        &lt;Interval&gt;                    
-##  1 Liberia      1847-07-26 UTC--2019-05-26 UTC
-##  2 South Africa 1910-05-31 UTC--2019-05-26 UTC
-##  3 Egypt        1922-02-28 UTC--2019-05-26 UTC
-##  4 Eritrea      1947-02-10 UTC--2019-05-26 UTC
-##  5 Libya        1951-12-24 UTC--2019-05-26 UTC
-##  6 Sudan        1956-01-01 UTC--2019-05-26 UTC
-##  7 Tunisia      1956-03-20 UTC--2019-05-26 UTC
+##  1 Liberia      1847-07-26 UTC--2019-05-31 UTC
+##  2 South Africa 1910-05-31 UTC--2019-05-31 UTC
+##  3 Egypt        1922-02-28 UTC--2019-05-31 UTC
+##  4 Eritrea      1947-02-10 UTC--2019-05-31 UTC
+##  5 Libya        1951-12-24 UTC--2019-05-31 UTC
+##  6 Sudan        1956-01-01 UTC--2019-05-31 UTC
+##  7 Tunisia      1956-03-20 UTC--2019-05-31 UTC
 ##  8 Morocco      NA--NA                        
-##  9 Ghana        1957-03-06 UTC--2019-05-26 UTC
-## 10 Guinea       1958-10-02 UTC--2019-05-26 UTC
+##  9 Ghana        1957-03-06 UTC--2019-05-31 UTC
+## 10 Guinea       1958-10-02 UTC--2019-05-31 UTC
 ## # … with 44 more rows</code></pre>
 <p>The <code>independent_since</code> column now contains an <em>interval</em> object that we can convert to years:</p>
 <pre class="sourceCode r"><code class="sourceCode r">independence <span class="op">%&gt;%</span>
@@ -4026,16 +4016,16 @@ two dates, using the <code>interval()</code> column:</p>
 <pre><code>## # A tibble: 54 x 3
 ##    country      independent_since              years_independent
 ##    &lt;chr&gt;        &lt;Interval&gt;                                 &lt;dbl&gt;
-##  1 Liberia      1847-07-26 UTC--2019-05-26 UTC             172. 
-##  2 South Africa 1910-05-31 UTC--2019-05-26 UTC             109. 
-##  3 Egypt        1922-02-28 UTC--2019-05-26 UTC              97.2
-##  4 Eritrea      1947-02-10 UTC--2019-05-26 UTC              72.3
-##  5 Libya        1951-12-24 UTC--2019-05-26 UTC              67.4
-##  6 Sudan        1956-01-01 UTC--2019-05-26 UTC              63.4
-##  7 Tunisia      1956-03-20 UTC--2019-05-26 UTC              63.2
+##  1 Liberia      1847-07-26 UTC--2019-05-31 UTC             172. 
+##  2 South Africa 1910-05-31 UTC--2019-05-31 UTC             109. 
+##  3 Egypt        1922-02-28 UTC--2019-05-31 UTC              97.3
+##  4 Eritrea      1947-02-10 UTC--2019-05-31 UTC              72.3
+##  5 Libya        1951-12-24 UTC--2019-05-31 UTC              67.4
+##  6 Sudan        1956-01-01 UTC--2019-05-31 UTC              63.4
+##  7 Tunisia      1956-03-20 UTC--2019-05-31 UTC              63.2
 ##  8 Morocco      NA--NA                                      NA  
-##  9 Ghana        1957-03-06 UTC--2019-05-26 UTC              62.2
-## 10 Guinea       1958-10-02 UTC--2019-05-26 UTC              60.6
+##  9 Ghana        1957-03-06 UTC--2019-05-31 UTC              62.2
+## 10 Guinea       1958-10-02 UTC--2019-05-31 UTC              60.7
 ## # … with 44 more rows</code></pre>
 <p>We can now see for how long the last country to gain independence has been independent.
 Because the data is not tidy (in some cases, an African country was colonized by two powers,
@@ -4052,7 +4042,7 @@ see Libya), I will only focus on 4 European colonial powers: Belgium, France, Po
 ##   &lt;chr&gt;                                &lt;dbl&gt;
 ## 1 Belgium                               56.9
 ## 2 France                                41.9
-## 3 Portugal                              43.5
+## 3 Portugal                              43.6
 ## 4 United Kingdom                        42.9</code></pre>
 </div>
 <div id="arithmetic-with-dates" class="section level4">
@@ -4439,8 +4429,6 @@ to a tibble first:</p>
 <pre class="sourceCode r"><code class="sourceCode r">winchester_content &lt;-<span class="st"> </span>winchester_content <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(V1))</code></pre>
-<pre><code>## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
-## This warning is displayed once per session.</code></pre>
 <p>Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
 gets automatically called <code>V1</code>. This is why I filter on this column. Let’s take a look at the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(winchester_content)</code></pre>

@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-05-26" />
+<meta name="date" content="2019-05-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functional-programming.html"><a href="functional-programming.html"><i class="fa fa-check"></i><b>8</b> Functional programming</a><ul>
-<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#functions-definition"><i class="fa fa-check"></i><b>8.1</b> Functions definition</a></li>
+<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#function-definitions"><i class="fa fa-check"></i><b>8.1</b> Function definitions</a></li>
 <li class="chapter" data-level="8.2" data-path="functional-programming.html"><a href="functional-programming.html#properties-of-functions"><i class="fa fa-check"></i><b>8.2</b> Properties of functions</a></li>
 <li class="chapter" data-level="8.3" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>8.3</b> Functional programming with <code>{purrr}</code></a><ul>
 <li class="chapter" data-level="8.3.1" data-path="functional-programming.html"><a href="functional-programming.html#doing-away-with-loops-the-map-family-of-functions"><i class="fa fa-check"></i><b>8.3.1</b> Doing away with loops: the <code>map*()</code> family of functions</a></li>
@@ -321,7 +321,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.1" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>8.4.1</b> Functional programming and plotting</a></li>
 <li class="chapter" data-level="8.4.2" data-path="functional-programming.html"><a href="functional-programming.html#modeling-with-functional-programming"><i class="fa fa-check"></i><b>8.4.2</b> Modeling with functional programming</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
@@ -375,10 +378,9 @@ explore this second option later.</p>
 <div id="the-swiss-army-knife-of-data-import-and-export-rio" class="section level2">
 <h2><span class="header-section-number">3.1</span> The swiss army knife of data import and export: <code>{rio}</code></h2>
 <p>To import data with <code>{rio}</code>, <code>import()</code> is all you need:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)</code></pre>
-<pre><code>## The following rio suggested packages are not installed: &#39;csvy&#39;, &#39;feather&#39;, &#39;fst&#39;, &#39;hexView&#39;, &#39;readODS&#39;, &#39;rmatio&#39;
-## Use &#39;install_formats()&#39; to install them</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.csv&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)
+
+mtcars &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.csv&quot;</span>)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre>
 <pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4

@@ -103,9 +103,9 @@ It is also possible to do computations using for loops. Let's compute the sum of
 100 integers:
 
 ```{r, cache=TRUE}
-result = 0
+result <- 0
 for (i in 1:100){
-  result = result + i
+  result <- result + i
 }
 
 print(result)
@@ -134,8 +134,8 @@ While loops are very similar to for loops. The instructions inside a while loop 
 certain condition holds true. Let's consider the sum of the first 100 integers again:
 
 ```{r, cache=TRUE}
-result = 0
-i = 1
+result <- 0
+i <- 1
 while (i<=100){
   result = result + i
   i = i + 1

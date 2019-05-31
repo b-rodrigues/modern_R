@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-05-26" />
+<meta name="date" content="2019-05-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functional-programming.html"><a href="functional-programming.html"><i class="fa fa-check"></i><b>8</b> Functional programming</a><ul>
-<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#functions-definition"><i class="fa fa-check"></i><b>8.1</b> Functions definition</a></li>
+<li class="chapter" data-level="8.1" data-path="functional-programming.html"><a href="functional-programming.html#function-definitions"><i class="fa fa-check"></i><b>8.1</b> Function definitions</a></li>
 <li class="chapter" data-level="8.2" data-path="functional-programming.html"><a href="functional-programming.html#properties-of-functions"><i class="fa fa-check"></i><b>8.2</b> Properties of functions</a></li>
 <li class="chapter" data-level="8.3" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>8.3</b> Functional programming with <code>{purrr}</code></a><ul>
 <li class="chapter" data-level="8.3.1" data-path="functional-programming.html"><a href="functional-programming.html#doing-away-with-loops-the-map-family-of-functions"><i class="fa fa-check"></i><b>8.3.1</b> Doing away with loops: the <code>map*()</code> family of functions</a></li>
@@ -321,7 +321,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.1" data-path="functional-programming.html"><a href="functional-programming.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>8.4.1</b> Functional programming and plotting</a></li>
 <li class="chapter" data-level="8.4.2" data-path="functional-programming.html"><a href="functional-programming.html#modeling-with-functional-programming"><i class="fa fa-check"></i><b>8.4.2</b> Modeling with functional programming</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.5" data-path="functional-programming.html"><a href="functional-programming.html#exercises-6"><i class="fa fa-check"></i><b>8.5</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="functional-programming.html"><a href="functional-programming.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
@@ -431,9 +434,9 @@ It is easier to use <code>dplyr::case_when()</code>:</p>
 ## [1] &quot;hello&quot;</code></pre>
 <p>It is also possible to do computations using for loops. Let’s compute the sum of the first
 100 integers:</p>
-<pre class="sourceCode r"><code class="sourceCode r">result =<span class="st"> </span><span class="dv">0</span>
+<pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="dv">0</span>
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){
-  result =<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i
+  result &lt;-<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i
 }
 
 <span class="kw">print</span>(result)</code></pre>
@@ -456,8 +459,8 @@ such as <code>purrr::map()</code> or <code>purrr::reduce()</code>.</p>
 <h3><span class="header-section-number">7.1.3</span> While loops</h3>
 <p>While loops are very similar to for loops. The instructions inside a while loop are repeated while a
 certain condition holds true. Let’s consider the sum of the first 100 integers again:</p>
-<pre class="sourceCode r"><code class="sourceCode r">result =<span class="st"> </span><span class="dv">0</span>
-i =<span class="st"> </span><span class="dv">1</span>
+<pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="dv">0</span>
+i &lt;-<span class="st"> </span><span class="dv">1</span>
 <span class="cf">while</span> (i<span class="op">&lt;=</span><span class="dv">100</span>){
   result =<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i
   i =<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>

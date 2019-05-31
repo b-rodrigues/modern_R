@@ -1,14 +1,14 @@
 # Functional programming
 
 Functional programming is a paradigm that I find very suitable for data science. In functional
-programming, your code is organised into functions that you can call when needed. Your scripts
-will only be a sequence of calls to these functions, making it easier to understand. R is not a pure
+programming, your code is organised into functions that perform the operations you need. Your scripts
+will only be a sequence of calls to these functions, making them easier to understand. R is not a pure
 functional programming language, so we need some self-discipline to apply pure functional programming
 principles. However, these efforts are worth it, because pure functions are easier to debug, extend
 and document. In this chapter, we are going to learn about functional programming principles that you
 can adopt and start using to make your code better.
 
-## Functions definition
+## Function definitions
 
 You should now be familiar with function definitions in R. Let's suppose you want to write a function
 to compute the square root of a number and want to do so using Newton's algorithm:
@@ -28,9 +28,9 @@ You can then use this function to get the square root of a number:
 sqrt_newton(16, 2)
 ```
 
-We are using a `while` loop inside the body. The *body* of a function are the instructions that
-define the function. You can get the body of a function with `body(some_func)` of the function.
-In *pure* functional programming languages, like Haskell, you don't have loops. How can you
+We are using a `while` loop inside the body of the function. The *body* of a function are the 
+instructions that define the function. You can get the body of a function with `body(some_func)`. 
+In *pure* functional programming languages, like Haskell, loops do not exist. How can you
 program without loops, you may ask? In functional programming, loops are replaced by recursion,
 which we already discussed in the previous chapter. Let's rewrite our little example above
 with recursion:
@@ -58,7 +58,7 @@ I won't got into the details of what tail-call optimization is but just remember
 performance is important a loop will be faster. However, sometimes, it is easier to write a
 function using recursion. I personally tend to avoid loops if performance is not important,
 because I find that code that avoids loops is easier to read and debug. However, knowing that
-you can use loops is reassuring, and encapsulating loos inside functions gives you the benefits of
+you can use loops is reassuring, and encapsulating loops inside functions gives you the benefits of
 both using functions, and loops. In the coming sections I will show you some built-in functions
 that make it possible to avoid writing loops and that don't rely on recursion, so performance
 won't be penalized.
@@ -67,7 +67,6 @@ won't be penalized.
 
 Mathematical functions have a nice property: we always get the same output for a given input. This
 is called referential transparency and we should aim to write our R functions in such a way.
-
 For example, the following function:
 
 ```{r}
@@ -103,7 +102,7 @@ spam <- 1
 increment_opaque(10)
 ```
 
-will only produce `11` if `spam = 1`. But what if `spam = 19`?
+will produce `11` if `spam = 1`. But what if `spam = 19`?
 
 ```{r}
 spam <- 19
@@ -184,11 +183,12 @@ outside its scope. But this cannot be avoided since you *want* to write to disk.
 Just remember: try to avoid having functions changing variables in the global environment unless
 you have a very good reason of doing so.
 
-Very long scripts that don't use functions and but use a lot of global variables with loops changing
-the values are a nightmare to debug. If something goes wrong, it might be very difficult to pinpoint
-where the problem is. Is there an error in one of the loops? Is your code running for a particular
-value of a particular variable in the global environment, but not for other values? Which values? And
-of which variables? It can be very difficult to know what is wrong with such a script.
+Very long scripts that don't use functions and use a lot of global variables with loops changing
+the values of global variables are a nightmare to debug. If something goes wrong, it might be very 
+difficult to pinpoint where the problem is. Is there an error in one of the loops? 
+Is your code running for a particular value of a particular variable in the global environment, but
+not for other values? Which values? And of which variables? It can be very difficult to know what 
+is wrong with such a script.
 With functional programming, you can avoid a lot of this pain for free (well not entirely for free,
 it still requires some effort, since R is not a pure functional language). Writing functions also
 makes it easier to parallelize your code. We are going to learn about that later in this chapter too.
@@ -210,16 +210,17 @@ improves readability and maintainability of your code.
 
 I mentioned it several times already, but R is not a pure functional programming language. It is
 possible to write R code using the functional programming paradigm, but some effort is required.
-The `{purrr}` package, extends R's base functional programming capabilities with some very interesting
+The `{purrr}` package extends R's base functional programming capabilities with some very interesting
 functions. We have already seen `map()` and `reduce()`, which we are going to see in more detail now.
 Then, we are going to learn about some other functions included in `{purrr}` that make functional
 programming easier in R.
 
 ### Doing away with loops: the `map*()` family of functions
 
-Instead of using loops, pure functional programming languages use functions that perform the achieve
+Instead of using loops, pure functional programming languages use functions that achieve
 the same result. These functions are often called `Map` or `Reduce` (also called `Fold`). R comes
-with the `*apply()` family of functions, as well as `Reduce()` for functional programming.
+with the `*apply()` family of functions (which are implementations of `Map`), 
+as well as `Reduce()` for functional programming.
 
 Within this family, you can find `lapply()`, `sapply()`, `vapply()`, `tapply()`, `mapply()`, `rapply()`,
 `eapply()` and `apply()` (I might have forgotten one or the other, but that's not important).
@@ -229,11 +230,11 @@ each of these.
 
 In the `{purrr}` package, these functions are replaced by the `map*()` family of functions. As you will
 shortly see, they are very consistent, and thus easier to use.
-The first part of these functions' names all start
-with `map_` and the second part tells you what this function is going to return. For example, if
-you want `double`s out, you would use `map_dbl()`. If you are working on data frames and want a data
-frame back, you would use `map_df()`. Let's start with the basic `map()` function. The following
-gif (source: [Wikipedia](https://en.wikipedia.org/wiki/Map_(higher-order_function))) illustrates
+The first part of these functions' names all start with `map_` and the second part tells you what 
+this function is going to return. For example, if you want `double`s out, you would use `map_dbl()`. 
+If you are working on data frames and want a data frame back, you would use `map_df()`. Let's start 
+with the basic `map()` function. The following gif 
+(source: [Wikipedia](https://en.wikipedia.org/wiki/Map_(higher-order_function))) illustrates
 what `map()` does fairly well:
 
 ```{r, echo=FALSE}
@@ -273,7 +274,7 @@ my_results
 
 Now I don't know about you, but I prefer the first option. Using functional programming, you don't
 need to create an empty list to hold your results, and the code is more concise. Plus,
-it is less error prone. While writing the for-loop, and I had to try several times to get it right
+it is less error prone. I had to try several times to get the loop right
 (and I've using R for almost 10 years now). Why? Well, first of all I used `%in%` instead of `in`.
 Then, I forgot about `seq_along()`. After that, I made a typo, `plos_one()` instead of `plus_one()`
 (ok, that one is unrelated to the loop). Let's also see how this works using base R:
@@ -302,8 +303,8 @@ my_results <- map_dbl(numbers, plus_one)
 my_results
 ```
 
-We're going to discuss these functions below, but know that in base R, not every function has an
-equivalent, at least as far as I know.
+We're going to discuss these functions below, but know that in base R, outputting something else 
+involves more effort.
 
 Let's go back to our `sqrt_newton()` function. This function has more than one parameter. Often,
 we would like to map functions with more than one parameter to a list, while holding constant
@@ -361,7 +362,7 @@ mean_var_throws <- function(n){
 }
 
 mean_var_throws(5)
-````
+```
 
 `mean_var_throws()` returns a `tibble` object with mean of points and the variance of the points. Now suppose
 I want to compute the expected value of the distribution of throwing dice. We know from theory that it should
@@ -406,13 +407,12 @@ bind_rows(simulations) %>%
 
 Pretty close! Now of course, one could have simply done something like this:
 
-
 ```{r, cache = TRUE}
 mean(sample(1:6, 1000, replace = TRUE))
 ```
 
 but the point was to illustrate that `rerun()` can run any arbitrarily complex expression, and that it is good
-practice to put the result in a data frame or list, for easy further manipulation.
+practice to put the result in a data frame or list, for easier further manipulation.
 
 You now know the standard `map()` function, and also `rerun()`, which return lists, but there are a 
 number of variants of this function. `map_dbl()` returns an atomic vector of doubles, as seen 
@@ -978,7 +978,7 @@ my_min <- function(a, b){
 You could use `reduce()` to get the minimum of a list of numbers:
 
 ```{r, cache=TRUE}
-numbers2 = c(3, 1, -8, 9)
+numbers2 <- c(3, 1, -8, 9)
 
 reduce(numbers2, my_min)
 ```
@@ -990,7 +990,7 @@ allows you to generalize a function of two arguments? Let's try it with our list
 
 
 ```{r, cache=TRUE}
-unemp_lux = reduce(all_datasets, full_join)
+unemp_lux <- reduce(all_datasets, full_join)
 
 glimpse(unemp_lux)
 ```
@@ -1155,12 +1155,16 @@ TO BE WRITTEN
 
 ## Exercises
 
-1. Suppose you have an Excel workbook that contains data on three sheets. Create a function that
-   reads entire workbooks, and that returns a list of tibbles, where each tibble is the data of one
-   sheet (download the example Excel workbook, `example_workbook.xlsx`, from the `assets` folder on
-   the books github).
+### Exercise 1 {-}
 
-2. Use one of the `map()` functions to combine two lists into one. Consider the following two lists:
+Suppose you have an Excel workbook that contains data on three sheets. Create a function that
+reads entire workbooks, and that returns a list of tibbles, where each tibble is the data of one
+sheet (download the example Excel workbook, `example_workbook.xlsx`, from the `assets` folder on
+the books github).
+
+### Exercise 2 {-}
+
+Use one of the `map()` functions to combine two lists into one. Consider the following two lists:
 
 ```{r, eval = FALSE}
 mediterranean <- list("starters" = list("humous", "lasagna"), "dishes" = list("sardines", "olives"))
@@ -1169,7 +1173,10 @@ continental <- list("starters" = list("pea soup", "terrine"), "dishes" = list("f
 ```
 
 The result we'd like to have would look like this:
-<!-- map2(mediterranean, continental, append) -->
+
+```{r, eval = FALSE, include = FALSE}
+map2(mediterranean, continental, append)
+```
 
 
 ```{r, eval = FALSE}
