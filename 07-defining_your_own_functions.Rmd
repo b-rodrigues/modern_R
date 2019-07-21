@@ -570,6 +570,8 @@ The `...` are very useful when writing wrappers such as `my_func()`.
 
 ## Functions that take columns of data as arguments
 
+### The `enquo() - !!()` approach
+
 In many situations, you will want to write functions that look similar to this:
 
 ```{r, eval=FALSE}
@@ -624,13 +626,12 @@ This is because R is literally looking for the variable `"dist"` somewhere in th
 environment, and not as a column of the data. R does not understand that you are refering to the
 column `"dist"` that is inside the dataset. So how can we make R understands what you mean?
 
-To be able to do that, we need to use a framework that was introduced recently in the `{tidyverse}`,
+To be able to do that, we need to use a framework that was introduced in the `{tidyverse}`,
 called `{tidyeval}`. This discussion can get very technical, so I will spare you the details.
 However, you can read about it [here](http://dplyr.tidyverse.org/articles/programming.html) and
 [here](https://cran.r-project.org/web/packages/rlang/vignettes/tidy-evaluation.html). The
 discussion can get complicated, but using `{tidyeval}` is actually quite easy, and you can get a
 cookbook approach to it. Take a look at the code below:
-
 
 ```{r}
 simple_function <- function(dataset, col_name){
@@ -645,8 +646,8 @@ simple_function(mtcars, cyl)
 ```
 
 As you can see, the previous idea we had, which was using `as.name()` was not very far away from
-the solution. The solution, with `tidyeval`, consists in using `enquo()`, which for our purposes,
-let's say that this function does something similar to `as.name()` (in truth, it doesn't). Now that
+the solution. The solution, with `tidyeval`, consists in using `enquo()`, which (for our purposes),
+does something similar to `as.name()` (in truth, it doesn't). Now that
 `col_name` is (R programmers call it) quoted, we need to tell `group_by()` to evaluate the input as
 is. This is done with `!!()`, which is another `{tidyeval}` function. I say it again;
 don't worry if you don't understand everything. Just remember to use `enquo()` on your column names
@@ -676,6 +677,7 @@ and not:
 ```{r, eval=FALSE}
 filter(!!col_name == value)
 ```
+
 I have enclosed `!!col_name` inside parentheses. This is because operators such as `==` have
 precedence over `!!`, so you have to be explicit. Also, notice that I didn't have to quote `1`.
 This is because it's *standard* variable, not a column inside the dataset. Let’s make this function
@@ -731,8 +733,8 @@ simple_function <- function(dataset, cols, funcs){
 }
 ```
 
-You might be wondering where the `quos()` went? Well because now we are passing two lists of, a list
-columns that we have to quote, and a list of functions, that we have to quote, we need to use `quos()`
+You might be wondering where the `quos()` went? Well because now we are passing two lists, a list of
+columns that we have to quote, and a list of functions, that we also have to quote, we need to use `quos()`
 when calling the function:
 
 ```{r}
@@ -740,7 +742,136 @@ simple_function(mtcars, quos(am, cyl, mpg), quos(mean, sd, sum))
 ```
 
 This works, but I don't think you'll need to have that much flexibility; either the columns
-are variable, or the functions, but rarely both at the same time.
+are variables, or the functions, but rarely both at the same time.
+
+To conclude this function, I should also talk about `as_label()` which allows you to change the 
+name of a variable, for instance if you want to call the resulting column `mean_mpg` when you
+compute the mean of the `mpg` column:
+
+```{r}
+simple_function <- function(dataset, filter_col, mean_col, value){
+
+  filter_col <- enquo(filter_col)
+  mean_col <- enquo(mean_col)
+  mean_name <- paste0("mean_", as_label(mean_col))
+  
+  dataset %>%
+    filter((!!filter_col) == value) %>%
+    summarise(!!(mean_name) := mean((!!mean_col)))
+}
+```
+
+Pay attention to the `:=` operator in the last line. This is needed when using `as_label()`.
+
+### Curly Curly, a simplified approach to the `enquo()` and `!!()` framework
+
+The previous section might have been a bit difficult to grasp, but there is a simplified way of doing it,
+which consists in using `{{}}`, introduced in `{rlang}` version 0.4.0.
+ The suggested pronunciation of `{{}}` is *curly-curly*, but there is no 
+[consensus yet](https://twitter.com/JonTheGeek/status/1144815369766547456).
+
+
+Let's suppose that I need to write a function that takes a data frame, as well as a column from 
+this data frame as arguments, just like before:
+
+```{r}
+how_many_na <- function(dataframe, column_name){
+  dataframe %>%
+    filter(is.na(column_name)) %>%
+    count()
+}
+```
+
+Let's try this function out on the `starwars` data:
+
+```{r}
+data(starwars)
+
+head(starwars)
+```
+
+As you can see, there are missing values in the `hair_color` column. Let's try to count how many
+missing values are in this column:
+
+```{r, eval=FALSE}
+how_many_na(starwars, hair_color)
+```
+
+```
+Error: object 'hair_color' not found
+```
+
+Just as expected, this does not work. The issue is that the column is inside the dataframe, 
+but when calling the function with `hair_color` as the second argument, R is looking for a 
+variable called `hair_color` that does not exist. What about trying with `"hair_color"`?
+
+```{r}
+how_many_na(starwars, "hair_color")
+```
+
+Now we get something, but something wrong! 
+
+One way to solve this issue, is to not use the `filter()` function, and instead rely on base R:
+
+```{r}
+how_many_na_base <- function(dataframe, column_name){
+  na_index <- is.na(dataframe[, column_name])
+  nrow(dataframe[na_index, column_name])
+}
+
+how_many_na_base(starwars, "hair_color")
+```
+
+This works, but not using the `{tidyverse}` at all is not always an option. For instance,
+the next function, which uses a grouping variable, would be difficult to implement without the 
+`{tidyverse}`:
+
+```{r}
+summarise_groups <- function(dataframe, grouping_var, column_name){
+  dataframe %>%
+    group_by(grouping_var) %>%  
+    summarise(mean(column_name, na.rm = TRUE))
+}
+```
+
+Calling this function results in the following error message, as expected:
+
+```
+Error: Column `grouping_var` is unknown
+```
+
+In the previous section, we solved the issue like so:
+
+```{r}
+summarise_groups <- function(dataframe, grouping_var, column_name){
+
+  grouping_var <- enquo(grouping_var)
+  column_name <- enquo(column_name)
+  mean_name <- paste0("mean_", as_label(column_name))
+
+  dataframe %>%
+    group_by(!!grouping_var) %>%  
+    summarise(!!(mean_name) := mean(!!column_name, na.rm = TRUE))
+}
+```
+
+The core of the function remained very similar to the version from before, but now one has to 
+use the `enquo()`-`!!` syntax.
+
+Now this can be simplified using the new `{{}}` syntax:
+
+```{r}
+summarise_groups <- function(dataframe, grouping_var, column_name){
+
+  dataframe %>%
+    group_by({{grouping_var}}) %>%  
+    summarise({{column_name}} := mean({{column_name}}, na.rm = TRUE))
+}
+```
+
+Much easier and cleaner! You still have to use the `:=` operator instead of `=` for the column name
+however, and if you want to modify the column names, for instance in this
+case return `"mean_height"` instead of `height` you have to keep using the `enquo()`-`!!` syntax.
 
 ## Functions that use loops
 
