@@ -775,7 +775,7 @@ where I throw a die 5 times, and compute the mean of the points obtained, as wel
 <pre><code>## # A tibble: 1 x 2
 ##   mean_throws var_throws
 ##         &lt;dbl&gt;      &lt;dbl&gt;
-## 1         2.8        4.2</code></pre>
+## 1           4        1.5</code></pre>
 <p><code>mean_var_throws()</code> returns a <code>tibble</code> object with mean of points and the variance of the points. Now suppose
 I want to compute the expected value of the distribution of throwing dice. We know from theory that it should
 be equal to <span class="math inline">\(3.5 (= 1*1/6 + 2*1/6 + 3*1/6 + 4*1/6 + 5*1/6 + 6*1/6)\)</span>.</p>
@@ -804,10 +804,10 @@ mean of the means, which should return something close to the expected value of 
 <pre><code>## # A tibble: 1 x 1
 ##   expected_value
 ##            &lt;dbl&gt;
-## 1           3.60</code></pre>
+## 1           3.62</code></pre>
 <p>Pretty close! Now of course, one could have simply done something like this:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">mean</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1000</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<pre><code>## [1] 3.611</code></pre>
+<pre><code>## [1] 3.521</code></pre>
 <p>but the point was to illustrate that <code>rerun()</code> can run any arbitrarily complex expression, and that it is good
 practice to put the result in a data frame or list, for easier further manipulation.</p>
 <p>You now know the standard <code>map()</code> function, and also <code>rerun()</code>, which return lists, but there are a
@@ -947,37 +947,38 @@ Let’s see what <code>pmap()</code> does. Can you guess from the code below wha
 <a class="sourceLine" id="cb74-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb74-3" data-line-number="3"><span class="kw">pmap</span>(<span class="kw">list</span>(a, b, n), rnorm)</a></code></pre></div>
 <pre><code>## [[1]]
-## [1] 0.2169604
+## [1] 2.00516
 ## 
 ## [[2]]
-## [1] 2.420820 2.912873
+## [1] 3.229737 2.970102
 ## 
 ## [[3]]
-## [1] -5.113471  4.200897  1.927493
+## [1] 3.497225 1.356441 1.832748
 ## 
 ## [[4]]
-## [1]  0.3395756  2.8627259  5.1171680 -1.4217010
+## [1] -0.3698701  7.4460999 -2.0558704  4.8482684
 ## 
 ## [[5]]
-## [1]  6.0322192 -0.4326434  5.3717750 -0.7181150 -2.9552353
+## [1]  4.713511  8.470294  8.464697 -2.709069  7.889945
 ## 
 ## [[6]]
-## [1]  7.4886340  9.0272532  3.1957805  7.2657806  0.6950029 -3.2407316
+## [1] -6.701363693 -5.115516838 -0.008209204 12.019609621  3.301686150
+## [6] -5.871164780
 ## 
 ## [[7]]
-## [1] -3.070378  8.059791  8.132503  6.958589 -4.492457  2.777101  5.432852
+## [1]  2.323266 -3.406175  4.589135  4.981891 -1.696440 13.675207 -2.973368
 ## 
 ## [[8]]
-## [1]  2.2716408 15.0367193 -0.6268257 -3.7623478 -0.4459458 -0.6822644
-## [7] -4.6282679 -3.7783329
+## [1] -2.796297 -3.476672 22.505643 10.300245  6.289472 -2.651021  1.534090
+## [8] -3.295116
 ## 
 ## [[9]]
-## [1]  5.625056  6.620836 17.964068 10.506905 -7.332423 -2.402091 -2.375239
-## [8] -3.863081 -3.995782
+## [1]  5.645880  4.152008 15.981891  3.483145  1.833010  9.139179  9.723263
+## [8] -6.749582  4.243470
 ## 
 ## [[10]]
-##  [1]  11.4442948 -13.2329579   2.3657442  -3.6421861  10.9786433
-##  [6]   0.6314512  -9.6772530   9.4095606  -1.8674643  -2.6224143</code></pre>
+##  [1]  12.706480  -5.339504  -5.411660  17.099237 -12.681410 -14.384717
+##  [7]  22.482334   5.893820   5.176075  12.652491</code></pre>
 <p>Let’s take a closer look at what <code>a</code>, <code>b</code> and <code>n</code> look like, when they are place next to each other:</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">cbind</span>(a, b, n)</a></code></pre></div>
 <pre><code>##        a        b  n
@@ -1570,7 +1571,7 @@ commune, you need one unemployment plot, per commune:</p>
 <a class="sourceLine" id="cb154-4" data-line-number="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb154-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Luxembourg&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb154-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <p>and then you would write the same for “Esch-sur-Alzette” and also for “Wiltz”. If you only have to
 make to make these 3 plots, copy and pasting the above lines is no big deal:</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1">unemp_lux_data <span class="op">%&gt;%</span></a>
@@ -1579,14 +1580,14 @@ make to make these 3 plots, copy and pasting the above lines is no big deal:</p>
 <a class="sourceLine" id="cb155-4" data-line-number="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb155-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb155-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1">unemp_lux_data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb156-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Wiltz&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb156-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb156-4" data-line-number="4"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb156-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Unemployment in Esch-sur-Alzette&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb156-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-126-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-79-2.png" width="672" /></p>
 <p>But copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
 have to create the above plots for all 108 Luxembourguish communes? That’s a lot of copy pasting.
 What if, once you are done copy pasting, you have to change something, for example, the theme? You
@@ -1745,13 +1746,13 @@ is enough to use <code>pull()</code>:</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">plots_tibble <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb167-2" data-line-number="2"><span class="st">  </span><span class="kw">pull</span>(plot)</a></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-133-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-86-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-133-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-86-3.png" width="672" /></p>
 <p>And if we want to save these plots, we can do so using <code>map2()</code>:</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="kw">map2</span>(<span class="kw">paste0</span>(plots_tibble<span class="op">$</span>division, <span class="st">&quot;.pdf&quot;</span>), plots_tibble<span class="op">$</span>plot, ggsave)</a></code></pre></div>
 <pre><code>Saving 7 x 5 in image
@@ -1772,44 +1773,344 @@ function by first grouping, filtering, etc…</p>
 <p>As written just above, <code>map()</code> simply applies a function to a list of inputs, and in the previous
 section we mapped <code>ggplot()</code> to generate many plots at once. This approach can also be used to
 map any modeling functions, for instance <code>lm()</code> to a list of datasets.</p>
-<p>For instance, suppose that you wish to perform a Monte Carlo simulation. You would like to look at
-the empirical distributions of the estimates of a linear probability model. For this, you first
-need a function that generates data. The function below generate 10 datasets of size 100
-(the code is inspired by this <a href="https://stats.stackexchange.com/a/46525">StackExchange answer</a>):</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">generate_datasets &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">coefs =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dt">sample_size =</span> <span class="dv">100</span>, <span class="dt">repeats =</span> <span class="dv">10</span>){</a>
-<a class="sourceLine" id="cb173-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb173-3" data-line-number="3">  generate_one_dataset &lt;-<span class="st"> </span><span class="cf">function</span>(coefs, sample_size){</a>
-<a class="sourceLine" id="cb173-4" data-line-number="4">  x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(sample_size)</a>
-<a class="sourceLine" id="cb173-5" data-line-number="5">  x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(sample_size)</a>
-<a class="sourceLine" id="cb173-6" data-line-number="6">  </a>
-<a class="sourceLine" id="cb173-7" data-line-number="7">  z &lt;-<span class="st"> </span>coefs[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>coefs[<span class="dv">2</span>]<span class="op">*</span>x1 <span class="op">+</span><span class="st"> </span>coefs[<span class="dv">3</span>]<span class="op">*</span>x2</a>
+<p>For instance, suppose that you wish to perform a Monte Carlo simulation. Suppose that you are
+dealing with a binary choice problem; usually, you would use a logistic regression for this.</p>
+<p>However, in certain disciplines, especially in the social sciences, the so-called Linear Probability
+Model is often used as well. The LPM is a simple linear regression, but unlike the standard setting
+of a linear regression, the dependent variable, or target, is a binary variable, and not a continuous
+variable. Before you yell “Wait, that’s illegal”, you should know that in practice LPMs do a good
+job of estimating marginal effects, which is what social scientists and econometricians are often
+interested in. Marginal effects are another way of interpreting models, giving how the outcome
+(or the target) changes given a change in a independent variable (or a feature). For instance,
+a marginal effect of 0.10 for age would mean that probability of success would increase by 10% for
+each added year of age.</p>
+<p>There has been a lot of discussion on logistic regression vs LPMs, and there are pros and cons
+of using LPMs. Micro-econometricians are still fond of LPMs, even though the pros of LPMs are
+not really convincing. However, quoting Angrist and Pischke:</p>
+<p>“While a nonlinear model may fit the CEF (population conditional expectation function) for LDVs
+(limited dependent variables) more closely than a linear model, when it comes to marginal effects,
+this probably matters little” (source: <em>Mostly Harmless Econometrics</em>)</p>
+<p>so LPMs are still used for estimating marginal effects.</p>
+<p>Let us check this assessment with one example. First, we simulate some data, then
+run a logistic regression and compute the marginal effects, and then compare with a LPM:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb173-2" data-line-number="2">x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb173-3" data-line-number="3">x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb173-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb173-5" data-line-number="5">z &lt;-<span class="st"> </span><span class="fl">.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>x1 <span class="op">+</span><span class="st"> </span><span class="dv">4</span><span class="op">*</span>x2</a>
+<a class="sourceLine" id="cb173-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb173-7" data-line-number="7">p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z))</a>
 <a class="sourceLine" id="cb173-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb173-9" data-line-number="9">  p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z))</a>
+<a class="sourceLine" id="cb173-9" data-line-number="9">y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, p)</a>
 <a class="sourceLine" id="cb173-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb173-11" data-line-number="11">  y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(sample_size, <span class="dv">1</span>, p)</a>
-<a class="sourceLine" id="cb173-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb173-13" data-line-number="13">  df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">y =</span> y, <span class="dt">x1 =</span> x1, <span class="dt">x2 =</span> x2)</a>
-<a class="sourceLine" id="cb173-14" data-line-number="14">  }</a>
-<a class="sourceLine" id="cb173-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb173-16" data-line-number="16"> simulations &lt;-<span class="st"> </span><span class="kw">rerun</span>(<span class="dt">.n =</span> repeats, <span class="kw">generate_one_dataset</span>(coefs, sample_size))</a>
-<a class="sourceLine" id="cb173-17" data-line-number="17"> </a>
-<a class="sourceLine" id="cb173-18" data-line-number="18"> <span class="kw">tibble</span>(<span class="st">&quot;sample_size&quot;</span> =<span class="st"> </span>sample_size, <span class="st">&quot;repeats&quot;</span> =<span class="st"> </span>repeats, <span class="st">&quot;simulations&quot;</span> =<span class="st"> </span><span class="kw">list</span>(simulations))</a>
-<a class="sourceLine" id="cb173-19" data-line-number="19">}</a></code></pre></div>
-<p>We can now generate 10 datasets of size 100:</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">many_datasets &lt;-<span class="st"> </span><span class="kw">generate_datasets</span>()</a></code></pre></div>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1">many_datasets <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">models =</span> <span class="kw">modify_depth</span>(simulations, <span class="dv">2</span>, <span class="op">~</span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .x))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">models =</span> <span class="kw">modify_depth</span>(models, <span class="dv">2</span>, broom<span class="op">::</span>tidy)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">models =</span> <span class="kw">modify_depth</span>(models, <span class="dv">2</span>, <span class="op">~</span><span class="kw">select</span>(., term, estimate))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">models =</span> <span class="kw">map</span>(models, bind_rows)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">plot =</span> <span class="kw">map</span>(models, <span class="op">~</span><span class="kw">ggplot</span>(<span class="dt">data =</span> .) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-7" data-line-number="7"><span class="st">           </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(estimate)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-8" data-line-number="8"><span class="st">           </span><span class="kw">facet_grid</span>(<span class="op">~</span>term) <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-9" data-line-number="9"><span class="st">           </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste0</span>(<span class="st">&quot;Sample size: &quot;</span>, sample_size, <span class="st">&quot; - Repeats: &quot;</span>, repeats))))</a></code></pre></div>
-<pre><code>## # A tibble: 1 x 5
-##   sample_size repeats simulations models            plot  
-##         &lt;dbl&gt;   &lt;dbl&gt; &lt;list&gt;      &lt;list&gt;            &lt;list&gt;
-## 1         100      10 &lt;list [10]&gt; &lt;tibble [30 × 2]&gt; &lt;gg&gt;</code></pre>
+<a class="sourceLine" id="cb173-11" data-line-number="11">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">y =</span> y, <span class="dt">x1 =</span> x1, <span class="dt">x2 =</span> x2)</a></code></pre></div>
+<p>This data generating process generates data from a binary choice model. Fitting the model using a
+logistic regression allows us to recover the structural parameters:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">logistic_regression &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>))</a></code></pre></div>
+<p>Let’s see a summary of the model fit:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="kw">summary</span>(logistic_regression)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ ., family = binomial(link = &quot;logit&quot;), data = df)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -2.91941  -0.44872   0.00038   0.42843   2.55426  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.0960     0.3293   0.292 0.770630    
+## x1            1.6625     0.4628   3.592 0.000328 ***
+## x2            3.6582     0.8059   4.539 5.64e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 138.629  on 99  degrees of freedom
+## Residual deviance:  60.576  on 97  degrees of freedom
+## AIC: 66.576
+## 
+## Number of Fisher Scoring iterations: 7</code></pre>
+<p>We do recover the parameters that generated the data, but what about the marginal effects? We can
+get the marginal effects easily using the <code>{margins}</code> package:</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">library</span>(margins)</a>
+<a class="sourceLine" id="cb177-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb177-3" data-line-number="3"><span class="kw">margins</span>(logistic_regression)</a></code></pre></div>
+<pre><code>## Average marginal effects</code></pre>
+<pre><code>## glm(formula = y ~ ., family = binomial(link = &quot;logit&quot;), data = df)</code></pre>
+<pre><code>##      x1     x2
+##  0.1598 0.3516</code></pre>
+<p>Or, even better, we can compute the <em>true</em> marginal effects, since we know the data
+generating process:</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1">meffects &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, coefs){</a>
+<a class="sourceLine" id="cb181-2" data-line-number="2">  X &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb181-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>y) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb181-4" data-line-number="4"><span class="st">  </span><span class="kw">as.matrix</span>()</a>
+<a class="sourceLine" id="cb181-5" data-line-number="5">  </a>
+<a class="sourceLine" id="cb181-6" data-line-number="6">  dydx_x1 &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">dlogis</span>(X<span class="op">%*%</span><span class="kw">c</span>(coefs[<span class="dv">2</span>], coefs[<span class="dv">3</span>]))<span class="op">*</span>coefs[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb181-7" data-line-number="7">  dydx_x2 &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">dlogis</span>(X<span class="op">%*%</span><span class="kw">c</span>(coefs[<span class="dv">2</span>], coefs[<span class="dv">3</span>]))<span class="op">*</span>coefs[<span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb181-8" data-line-number="8">  </a>
+<a class="sourceLine" id="cb181-9" data-line-number="9">  <span class="kw">tribble</span>(<span class="op">~</span>term, <span class="op">~</span>true_effect,</a>
+<a class="sourceLine" id="cb181-10" data-line-number="10">          <span class="st">&quot;x1&quot;</span>, dydx_x1,</a>
+<a class="sourceLine" id="cb181-11" data-line-number="11">          <span class="st">&quot;x2&quot;</span>, dydx_x2)</a>
+<a class="sourceLine" id="cb181-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb181-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb181-14" data-line-number="14">(true_meffects &lt;-<span class="st"> </span><span class="kw">meffects</span>(df, <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">4</span>)))</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##   term  true_effect
+##   &lt;chr&gt;       &lt;dbl&gt;
+## 1 x1          0.175
+## 2 x2          0.350</code></pre>
+<p>Ok, so now what about using this infamous Linear Probability Model to estimate the marginal effects?</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">lpm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df)</a>
+<a class="sourceLine" id="cb183-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb183-3" data-line-number="3"><span class="kw">summary</span>(lpm)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ ., data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.83953 -0.31588 -0.02885  0.28774  0.77407 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.51340    0.03587  14.314  &lt; 2e-16 ***
+## x1           0.16771    0.03545   4.732 7.58e-06 ***
+## x2           0.31250    0.03449   9.060 1.43e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3541 on 97 degrees of freedom
+## Multiple R-squared:  0.5135, Adjusted R-squared:  0.5034 
+## F-statistic: 51.18 on 2 and 97 DF,  p-value: 6.693e-16</code></pre>
+<p>It’s not too bad, but maybe it could have been better in other circumstances. Perhaps if we had more
+observations, or perhaps for a different set of structural parameters the results of the LPM
+would have been closer. The LPM estimates the marginal effect of <code>x1</code> to be
+0.1677134 vs 0.1597956
+for the logistic regression and for <code>x2</code>, the LPM estimation is 0.3124966
+vs 0.351607. The <em>true</em> marginal effects are
+0.1750963 and 0.3501926 for <code>x1</code> and <code>x2</code> respectively.</p>
+<p>Just as to assess the accuracy of a model data scientists perform cross-validation, a Monte Carlo
+study can be performed to asses how close the estimation of the marginal effects using a LPM is
+to the marginal effects derived from a logistic regression. It will allow us to test with datasets
+of different sizes, and generated using different structural parameters.</p>
+<p>First, let’s write a function that generates data. The function below generates 10 datasets of size
+100 (the code is inspired by this <a href="https://stats.stackexchange.com/a/46525">StackExchange answer</a>):</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1">generate_datasets &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">coefs =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dt">sample_size =</span> <span class="dv">100</span>, <span class="dt">repeats =</span> <span class="dv">10</span>){</a>
+<a class="sourceLine" id="cb185-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb185-3" data-line-number="3">  generate_one_dataset &lt;-<span class="st"> </span><span class="cf">function</span>(coefs, sample_size){</a>
+<a class="sourceLine" id="cb185-4" data-line-number="4">  x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(sample_size)</a>
+<a class="sourceLine" id="cb185-5" data-line-number="5">  x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(sample_size)</a>
+<a class="sourceLine" id="cb185-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb185-7" data-line-number="7">  z &lt;-<span class="st"> </span>coefs[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>coefs[<span class="dv">2</span>]<span class="op">*</span>x1 <span class="op">+</span><span class="st"> </span>coefs[<span class="dv">3</span>]<span class="op">*</span>x2</a>
+<a class="sourceLine" id="cb185-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb185-9" data-line-number="9">  p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z))</a>
+<a class="sourceLine" id="cb185-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb185-11" data-line-number="11">  y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(sample_size, <span class="dv">1</span>, p)</a>
+<a class="sourceLine" id="cb185-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb185-13" data-line-number="13">  df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">y =</span> y, <span class="dt">x1 =</span> x1, <span class="dt">x2 =</span> x2)</a>
+<a class="sourceLine" id="cb185-14" data-line-number="14">  }</a>
+<a class="sourceLine" id="cb185-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb185-16" data-line-number="16">  simulations &lt;-<span class="st"> </span><span class="kw">rerun</span>(<span class="dt">.n =</span> repeats, <span class="kw">generate_one_dataset</span>(coefs, sample_size))</a>
+<a class="sourceLine" id="cb185-17" data-line-number="17"> </a>
+<a class="sourceLine" id="cb185-18" data-line-number="18">  <span class="kw">tibble</span>(<span class="st">&quot;coefs&quot;</span> =<span class="st"> </span><span class="kw">list</span>(coefs), <span class="st">&quot;sample_size&quot;</span> =<span class="st"> </span>sample_size, <span class="st">&quot;repeats&quot;</span> =<span class="st"> </span>repeats, <span class="st">&quot;simulations&quot;</span> =<span class="st"> </span><span class="kw">list</span>(simulations))</a>
+<a class="sourceLine" id="cb185-19" data-line-number="19">}</a></code></pre></div>
+<p>Let’s first generate one dataset:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1">one_dataset &lt;-<span class="st"> </span><span class="kw">generate_datasets</span>(<span class="dt">repeats =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p>Let’s take a look at <code>one_dataset</code>:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1">one_dataset</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 4
+##   coefs     sample_size repeats simulations
+##   &lt;list&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;list&gt;     
+## 1 &lt;dbl [3]&gt;         100       1 &lt;list [1]&gt;</code></pre>
+<p>As you can see, the tibble with the simulated data is inside a list-column called <code>simulations</code>.
+Let’s take a closer look:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="kw">str</span>(one_dataset<span class="op">$</span>simulations)</a></code></pre></div>
+<pre><code>## List of 1
+##  $ :List of 1
+##   ..$ :Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;: 100 obs. of  3 variables:
+##   .. ..$ y : int [1:100] 0 1 1 1 0 1 1 0 0 1 ...
+##   .. ..$ x1: num [1:100] 0.437 1.06 0.452 0.663 -1.136 ...
+##   .. ..$ x2: num [1:100] -2.316 0.562 -0.784 -0.226 -1.587 ...</code></pre>
+<p>The structure is quite complex, and it’s important to understand this, because it will have an
+impact on the next lines of code; it is a list, containing a list, containing a dataset! No worries
+though, we can still map over the datasets directly, by using <code>modify_depth()</code> instead of <code>map()</code>.</p>
+<p>Now, let’s fit a LPM and compare the estimation of the marginal effects with the <em>true</em> marginal
+effects. In order to have some confidence in our results,
+we will not simply run a linear regression on that single dataset, but will instead simulate hundreds,
+then thousands and ten of thousands of data sets, get the marginal effects and compare
+them to the true ones (but here I won’t simulate more than 500 datasets).</p>
+<p>Let’s first generate 10 datasets:</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1">many_datasets &lt;-<span class="st"> </span><span class="kw">generate_datasets</span>()</a></code></pre></div>
+<p>Now comes the tricky part. I have this object, <code>many_datasets</code> looking like this:</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1">many_datasets</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 4
+##   coefs     sample_size repeats simulations
+##   &lt;list&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;list&gt;     
+## 1 &lt;dbl [3]&gt;         100      10 &lt;list [10]&gt;</code></pre>
+<p>I would like to fit LPMs to the 10 datasets. For this, I will need to use all the power of functional
+programming and the <code>{tidyverse}</code>. I will be adding columns to this data frame using <code>mutate()</code>
+and mapping over the <code>simulations</code> list-column using <code>modify_depth()</code>. The list of data frames is
+at the second level (remember, it’s a list containing a list containing data frames).</p>
+<p>I’ll start by fitting the LPMs, then using <code>broom::tidy()</code> I will get a nice data frame of the
+estimated parameters. I will then only select what I need, and then bind the rows of all the
+data frames. I will do the same for the <em>true</em> marginal effects.</p>
+<p>I highly suggest that you run the following lines, one after another. It is complicated to understand
+what’s going on if you are not used to such workflows. However, I hope to convince you that once
+it will click, it’ll be much more intuitive than doing all this inside a loop. Here’s the code:</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1">results &lt;-<span class="st"> </span>many_datasets <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">modify_depth</span>(simulations, <span class="dv">2</span>, <span class="op">~</span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .x))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">modify_depth</span>(lpm, <span class="dv">2</span>, broom<span class="op">::</span>tidy)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">modify_depth</span>(lpm, <span class="dv">2</span>, <span class="op">~</span><span class="kw">select</span>(., term, estimate))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">modify_depth</span>(lpm, <span class="dv">2</span>, <span class="op">~</span><span class="kw">filter</span>(., term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">map</span>(lpm, bind_rows)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">true_effect =</span> <span class="kw">modify_depth</span>(simulations, <span class="dv">2</span>, <span class="op">~</span><span class="kw">meffects</span>(., <span class="dt">coefs =</span> coefs[[<span class="dv">1</span>]]))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">true_effect =</span> <span class="kw">map</span>(true_effect, bind_rows))</a></code></pre></div>
+<p>This is how results looks like:</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1">results</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 6
+##   coefs     sample_size repeats simulations lpm             true_effect    
+##   &lt;list&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;list&gt;      &lt;list&gt;          &lt;list&gt;         
+## 1 &lt;dbl [3]&gt;         100      10 &lt;list [10]&gt; &lt;tibble [20 × … &lt;tibble [20 × …</code></pre>
+<p>Let’s take a closer look to the <code>lpm</code> and <code>true_effect</code> columns:</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1">results<span class="op">$</span>lpm</a></code></pre></div>
+<pre><code>## [[1]]
+## # A tibble: 20 x 2
+##    term  estimate
+##    &lt;chr&gt;    &lt;dbl&gt;
+##  1 x1       0.228
+##  2 x2       0.353
+##  3 x1       0.180
+##  4 x2       0.361
+##  5 x1       0.165
+##  6 x2       0.374
+##  7 x1       0.182
+##  8 x2       0.358
+##  9 x1       0.125
+## 10 x2       0.345
+## 11 x1       0.171
+## 12 x2       0.331
+## 13 x1       0.122
+## 14 x2       0.309
+## 15 x1       0.129
+## 16 x2       0.332
+## 17 x1       0.102
+## 18 x2       0.374
+## 19 x1       0.176
+## 20 x2       0.410</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1">results<span class="op">$</span>true_effect</a></code></pre></div>
+<pre><code>## [[1]]
+## # A tibble: 20 x 2
+##    term  true_effect
+##    &lt;chr&gt;       &lt;dbl&gt;
+##  1 x1          0.183
+##  2 x2          0.366
+##  3 x1          0.166
+##  4 x2          0.331
+##  5 x1          0.174
+##  6 x2          0.348
+##  7 x1          0.169
+##  8 x2          0.339
+##  9 x1          0.167
+## 10 x2          0.335
+## 11 x1          0.173
+## 12 x2          0.345
+## 13 x1          0.157
+## 14 x2          0.314
+## 15 x1          0.170
+## 16 x2          0.340
+## 17 x1          0.182
+## 18 x2          0.365
+## 19 x1          0.161
+## 20 x2          0.321</code></pre>
+<p>Let’s bind the columns, and compute the difference between the <em>true</em> and estimated marginal
+effects:</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">simulation_results &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">difference =</span> <span class="kw">map2</span>(<span class="dt">.x =</span> lpm, <span class="dt">.y =</span> true_effect, bind_cols)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb201-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">difference =</span> <span class="kw">map</span>(difference, <span class="op">~</span><span class="kw">mutate</span>(., <span class="dt">difference =</span> true_effect <span class="op">-</span><span class="st"> </span>estimate))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb201-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">difference =</span> <span class="kw">map</span>(difference, <span class="op">~</span><span class="kw">select</span>(., term, difference))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb201-5" data-line-number="5"><span class="st">  </span><span class="kw">pull</span>(difference) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb201-6" data-line-number="6"><span class="st">  </span>.[[<span class="dv">1</span>]]</a></code></pre></div>
+<p>Let’s take a look at the simulation results:</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">simulation_results <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb202-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(term) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb202-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(difference), </a>
+<a class="sourceLine" id="cb202-4" data-line-number="4">            <span class="dt">sd =</span> <span class="kw">sd</span>(difference))</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   term     mean     sd
+##   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 x1     0.0122 0.0370
+## 2 x2    -0.0141 0.0306</code></pre>
+<p>Already with only 10 simulated datasets, the difference in means is not significant. Let’s rerun
+the analysis, but for difference sizes. In order to make things easier, we can put all the code
+into a nifty function:</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">monte_carlo &lt;-<span class="st"> </span><span class="cf">function</span>(coefs, sample_size, repeats){</a>
+<a class="sourceLine" id="cb204-2" data-line-number="2">  many_datasets &lt;-<span class="st"> </span><span class="kw">generate_datasets</span>(coefs, sample_size, repeats)</a>
+<a class="sourceLine" id="cb204-3" data-line-number="3">  </a>
+<a class="sourceLine" id="cb204-4" data-line-number="4">  results &lt;-<span class="st"> </span>many_datasets <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-5" data-line-number="5"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">modify_depth</span>(simulations, <span class="dv">2</span>, <span class="op">~</span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .x))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-6" data-line-number="6"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">modify_depth</span>(lpm, <span class="dv">2</span>, broom<span class="op">::</span>tidy)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-7" data-line-number="7"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">modify_depth</span>(lpm, <span class="dv">2</span>, <span class="op">~</span><span class="kw">select</span>(., term, estimate))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-8" data-line-number="8"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">modify_depth</span>(lpm, <span class="dv">2</span>, <span class="op">~</span><span class="kw">filter</span>(., term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-9" data-line-number="9"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">lpm =</span> <span class="kw">map</span>(lpm, bind_rows)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-10" data-line-number="10"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">true_effect =</span> <span class="kw">modify_depth</span>(simulations, <span class="dv">2</span>, <span class="op">~</span><span class="kw">meffects</span>(., <span class="dt">coefs =</span> coefs[[<span class="dv">1</span>]]))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-11" data-line-number="11"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">true_effect =</span> <span class="kw">map</span>(true_effect, bind_rows))</a>
+<a class="sourceLine" id="cb204-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb204-13" data-line-number="13">  simulation_results &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-14" data-line-number="14"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">difference =</span> <span class="kw">map2</span>(<span class="dt">.x =</span> lpm, <span class="dt">.y =</span> true_effect, bind_cols)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-15" data-line-number="15"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">difference =</span> <span class="kw">map</span>(difference, <span class="op">~</span><span class="kw">mutate</span>(., <span class="dt">difference =</span> true_effect <span class="op">-</span><span class="st"> </span>estimate))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-16" data-line-number="16"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">difference =</span> <span class="kw">map</span>(difference, <span class="op">~</span><span class="kw">select</span>(., term, difference))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-17" data-line-number="17"><span class="st">    </span><span class="kw">pull</span>(difference) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-18" data-line-number="18"><span class="st">    </span>.[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb204-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb204-20" data-line-number="20">  simulation_results <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-21" data-line-number="21"><span class="st">    </span><span class="kw">group_by</span>(term) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-22" data-line-number="22"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(difference), </a>
+<a class="sourceLine" id="cb204-23" data-line-number="23">              <span class="dt">sd =</span> <span class="kw">sd</span>(difference))</a>
+<a class="sourceLine" id="cb204-24" data-line-number="24">}</a></code></pre></div>
+<p>And now, let’s run the simulation for different parameters and sizes:</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1"><span class="kw">monte_carlo</span>(<span class="kw">c</span>(.<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dv">100</span>, <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   term      mean     sd
+##   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1 x1    -0.00826 0.0291
+## 2 x2    -0.00732 0.0412</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">monte_carlo</span>(<span class="kw">c</span>(.<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dv">100</span>, <span class="dv">100</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   term     mean     sd
+##   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 x1    0.00360 0.0392
+## 2 x2    0.00517 0.0446</code></pre>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1"><span class="kw">monte_carlo</span>(<span class="kw">c</span>(.<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dv">100</span>, <span class="dv">500</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   term       mean     sd
+##   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+## 1 x1    -0.00152  0.0371
+## 2 x2    -0.000701 0.0423</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1"><span class="kw">monte_carlo</span>(<span class="kw">c</span>(pi, <span class="dv">6</span>, <span class="dv">9</span>), <span class="dv">100</span>, <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   term      mean     sd
+##   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1 x1    -0.00829 0.0546
+## 2 x2     0.00178 0.0370</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">monte_carlo</span>(<span class="kw">c</span>(pi, <span class="dv">6</span>, <span class="dv">9</span>), <span class="dv">100</span>, <span class="dv">100</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   term     mean     sd
+##   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 x1    0.0107  0.0608
+## 2 x2    0.00831 0.0804</code></pre>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="kw">monte_carlo</span>(<span class="kw">c</span>(pi, <span class="dv">6</span>, <span class="dv">9</span>), <span class="dv">100</span>, <span class="dv">500</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   term     mean     sd
+##   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 x1    0.00879 0.0522
+## 2 x2    0.0113  0.0668</code></pre>
+<p>We see that, at least for this set of parameters, the LPM does a good job of estimating marginal
+effects.</p>
+<p>Now, this study might in itself not be very interesting to you, but I believe the general approach
+is quite useful and flexible enough to be adapted to all kinds of use-cases.</p>
 </div>
 </div>
 <div id="exercises-5" class="section level2">
@@ -1824,36 +2125,36 @@ the books github).</p>
 <div id="exercise-2-3" class="section level3 unnumbered">
 <h3>Exercise 2</h3>
 <p>Use one of the <code>map()</code> functions to combine two lists into one. Consider the following two lists:</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1">mediterranean &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;humous&quot;</span>, <span class="st">&quot;lasagna&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;sardines&quot;</span>, <span class="st">&quot;olives&quot;</span>))</a>
-<a class="sourceLine" id="cb177-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb177-3" data-line-number="3">continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pea soup&quot;</span>, <span class="st">&quot;terrine&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;frikadelle&quot;</span>, <span class="st">&quot;sauerkraut&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1">mediterranean &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;humous&quot;</span>, <span class="st">&quot;lasagna&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;sardines&quot;</span>, <span class="st">&quot;olives&quot;</span>))</a>
+<a class="sourceLine" id="cb217-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb217-3" data-line-number="3">continental &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;starters&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pea soup&quot;</span>, <span class="st">&quot;terrine&quot;</span>), <span class="st">&quot;dishes&quot;</span> =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;frikadelle&quot;</span>, <span class="st">&quot;sauerkraut&quot;</span>))</a></code></pre></div>
 <p>The result we’d like to have would look like this:</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="op">$</span>starters</a>
-<a class="sourceLine" id="cb178-2" data-line-number="2"><span class="op">$</span>starters[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb178-3" data-line-number="3">[<span class="dv">1</span>] <span class="st">&quot;humous&quot;</span></a>
-<a class="sourceLine" id="cb178-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb178-5" data-line-number="5"><span class="op">$</span>starters[[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb178-6" data-line-number="6">[<span class="dv">1</span>] <span class="st">&quot;olives&quot;</span></a>
-<a class="sourceLine" id="cb178-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb178-8" data-line-number="8"><span class="op">$</span>starters[[<span class="dv">3</span>]]</a>
-<a class="sourceLine" id="cb178-9" data-line-number="9">[<span class="dv">1</span>] <span class="st">&quot;pea soup&quot;</span></a>
-<a class="sourceLine" id="cb178-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb178-11" data-line-number="11"><span class="op">$</span>starters[[<span class="dv">4</span>]]</a>
-<a class="sourceLine" id="cb178-12" data-line-number="12">[<span class="dv">1</span>] <span class="st">&quot;terrine&quot;</span></a>
-<a class="sourceLine" id="cb178-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb178-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb178-15" data-line-number="15"><span class="op">$</span>dishes</a>
-<a class="sourceLine" id="cb178-16" data-line-number="16"><span class="op">$</span>dishes[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb178-17" data-line-number="17">[<span class="dv">1</span>] <span class="st">&quot;sardines&quot;</span></a>
-<a class="sourceLine" id="cb178-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb178-19" data-line-number="19"><span class="op">$</span>dishes[[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb178-20" data-line-number="20">[<span class="dv">1</span>] <span class="st">&quot;lasagna&quot;</span></a>
-<a class="sourceLine" id="cb178-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb178-22" data-line-number="22"><span class="op">$</span>dishes[[<span class="dv">3</span>]]</a>
-<a class="sourceLine" id="cb178-23" data-line-number="23">[<span class="dv">1</span>] <span class="st">&quot;frikadelle&quot;</span></a>
-<a class="sourceLine" id="cb178-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb178-25" data-line-number="25"><span class="op">$</span>dishes[[<span class="dv">4</span>]]</a>
-<a class="sourceLine" id="cb178-26" data-line-number="26">[<span class="dv">1</span>] <span class="st">&quot;sauerkraut&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="op">$</span>starters</a>
+<a class="sourceLine" id="cb218-2" data-line-number="2"><span class="op">$</span>starters[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb218-3" data-line-number="3">[<span class="dv">1</span>] <span class="st">&quot;humous&quot;</span></a>
+<a class="sourceLine" id="cb218-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb218-5" data-line-number="5"><span class="op">$</span>starters[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb218-6" data-line-number="6">[<span class="dv">1</span>] <span class="st">&quot;olives&quot;</span></a>
+<a class="sourceLine" id="cb218-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb218-8" data-line-number="8"><span class="op">$</span>starters[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb218-9" data-line-number="9">[<span class="dv">1</span>] <span class="st">&quot;pea soup&quot;</span></a>
+<a class="sourceLine" id="cb218-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb218-11" data-line-number="11"><span class="op">$</span>starters[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb218-12" data-line-number="12">[<span class="dv">1</span>] <span class="st">&quot;terrine&quot;</span></a>
+<a class="sourceLine" id="cb218-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb218-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb218-15" data-line-number="15"><span class="op">$</span>dishes</a>
+<a class="sourceLine" id="cb218-16" data-line-number="16"><span class="op">$</span>dishes[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb218-17" data-line-number="17">[<span class="dv">1</span>] <span class="st">&quot;sardines&quot;</span></a>
+<a class="sourceLine" id="cb218-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb218-19" data-line-number="19"><span class="op">$</span>dishes[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb218-20" data-line-number="20">[<span class="dv">1</span>] <span class="st">&quot;lasagna&quot;</span></a>
+<a class="sourceLine" id="cb218-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb218-22" data-line-number="22"><span class="op">$</span>dishes[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb218-23" data-line-number="23">[<span class="dv">1</span>] <span class="st">&quot;frikadelle&quot;</span></a>
+<a class="sourceLine" id="cb218-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb218-25" data-line-number="25"><span class="op">$</span>dishes[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb218-26" data-line-number="26">[<span class="dv">1</span>] <span class="st">&quot;sauerkraut&quot;</span></a></code></pre></div>
 
 </div>
 </div>

@@ -2908,7 +2908,7 @@ everything I write):</p>
 <div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> survey_data_id1) <span class="op">+</span></a>
 <a class="sourceLine" id="cb455-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> value, <span class="dt">x =</span> date, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb455-3" data-line-number="3"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;id 1&quot;</span>)</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-272-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-279-1.png" width="672" /></p>
 <p>Ok great. But now I want to create this plot for each <code>id</code>… so I have to copy paste this 3 times.
 But copy-pasting is error prone. So there are two alternatives; I either write a function that
 takes as argument the data and the <code>id</code> I want to plot and run it for each <code>id</code> (we will learn to
@@ -2951,16 +2951,16 @@ column. It is a list, where each element is of type <code>S3: gg</code>. Yes, yo
 that list-column is a ggplot! If you now want to take a look at the plots, it is enough to do this:</p>
 <div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1">my_plots<span class="op">$</span>plot</a></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-283-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-2.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-283-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-3.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-283-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-276-4.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-283-4.png" width="672" /></p>
 <p>Ok, that was quite complicated, but again, this was only to introduce <code>nest()</code> and give you a taste
 of the power of the <code>{tidyverse}</code>. By the end of Chapter 9, you’ll be used to this.</p>
 <p>That was it for a first introduction to <code>{tidyr}</code>. Now, it’s time to learn about <em>scoped</em> verbs.</p>
@@ -3894,7 +3894,7 @@ understand all the code for now:</p>
 <a class="sourceLine" id="cb558-3" data-line-number="3"><span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb558-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb558-5" data-line-number="5"><span class="st">    </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-326-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-333-1.png" width="672" /></p>
 <p>It would be much better if the categories were ordered by frequency. This is easy to do with
 <code>fct_reorder()</code>:</p>
 <div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
@@ -3903,7 +3903,7 @@ understand all the code for now:</p>
 <a class="sourceLine" id="cb559-4" data-line-number="4"><span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb559-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n, <span class="dt">x =</span> marital)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb559-6" data-line-number="6"><span class="st">    </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-327-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-334-1.png" width="672" /></p>
 <p>Much better! In Chapter 6, we are going to learn about <code>{ggplot2}</code>.</p>
 <p><code>{forcats}</code> contains other very useful functions, so I urge you to go through the documentation.</p>
 </div>
@@ -4845,7 +4845,7 @@ that by the current value of <code>N</code> column:</p>
 <div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" data-line-number="1"><span class="kw">ggplot</span>(points) <span class="op">+</span></a>
 <a class="sourceLine" id="cb703-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> estimate, <span class="dt">x =</span> N)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb703-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> pi)</a></code></pre></div>
-<p><img src="modern_R_files/figure-html/unnamed-chunk-404-1.png" width="672" /></p>
+<p><img src="modern_R_files/figure-html/unnamed-chunk-411-1.png" width="672" /></p>
 <p>In the next chapter, we are going to learn all about <code>{ggplot2}</code>, the package I used in the lines
 above to create this plot.</p>
 <p>As the number of tries grows, the estimation of <span class="math inline">\(\pi\)</span> gets better.</p>
