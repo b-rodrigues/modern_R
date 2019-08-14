@@ -955,7 +955,8 @@ the years 2016 and 2017, these columns do not appear in the data. But suppose th
 these columns, so that a colleague from another department can fill in the values. This is possible
 by providing a data frame with the detailed specifications of the result data frame. This optional 
 data frame must have at least two columns, `.name`, which are the column names you want, and 
-`.value` which contains the values.
+`.value` which contains the values. Also, the function that uses this spec is a `pivot_wider_spect()`,
+and not `pivot_wider()`.
 
 ```{r, include=FALSE}
 unemp_spec <- unemp_lux_data %>% 
@@ -973,25 +974,13 @@ unemp_spec <- unemp_lux_data %>%
 unemp_spec
 ```
 
-The spec has more rows than the data frame (80 vs 48), so this will cause issues if you try to use
-the specification directly:
-
-```{r, eval=FALSE}
-unemp_lux_data  %>% 
-  pivot_wider(spec = unemp_spec)
-```
-
-```
-Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 80, 48
-```
-
-So to make it work, we first need to create a column that uniquely identifies each row:
+To make it work, we still need to create a column that uniquely identifies each row in the data:
 
 ```{r}
 unemp_lux_data4 <- unemp_lux_data %>% 
   select(division, year, unemployment_rate_in_percent) %>% 
   rowid_to_column() %>% 
-  pivot_wider(spec = unemp_spec) 
+  pivot_wider_spec(spec = unemp_spec) 
 
 unemp_lux_data4
 ```
@@ -1024,7 +1013,7 @@ mtcars_spec
 ```{r, eval=FALSE}
 data(mtcars)
 mtcars_spec <- mtcars %>% 
-    expand(am, cyl, .value = "mpg") %>%
+    tidyr::expand(am, cyl, .value = "mpg") %>%
     unite(".name", am, cyl, remove = FALSE)
 
 mtcars_spec
@@ -1034,21 +1023,17 @@ We can now transform the data:
 
 ```{r}
 mtcars %>% 
-    pivot_wider(spec = mtcars_spec)
+    pivot_wider_spec(spec = mtcars_spec)
 ```
 
 As you can see, there are several values of "mpg" for some combinations of "am" times "cyl". If 
-we remove the other columns, each row will not be uniquely identified anymore, and thus an error will be 
-returned:
+we remove the other columns, each row will not be uniquely identified anymore. This results in a 
+warning message, and a tibble that contains list-columns:
 
-```{r, eval=FALSE}
+```{r}
 mtcars %>% 
   select(am, cyl, mpg) %>% 
-  pivot_wider(spec = mtcars_spec)
-```
-
-```
-Error in data.frame(row = row_id, col = col_id) : arguments imply differing number of rows: 6, 32
+  pivot_wider_spec(spec = mtcars_spec)
 ```
 
 So you have to be careful with this.
@@ -1110,7 +1095,7 @@ Now for a more advanced example, let's suppose that we are dealing with the foll
 
 ```{r}
 mtcars_wide <- mtcars %>% 
-    pivot_wider(spec = mtcars_spec)
+    pivot_wider_spec(spec = mtcars_spec)
 
 mtcars_wide
 ```
@@ -1134,11 +1119,12 @@ mtcars_wide %>%
   select(am, cyl, mpg, everything())
 ```
 
-It is also possible to construct a specification data frame, just like for `pivot_wider()`:
+It is also possible to construct a specification data frame, just like for `pivot_wider_spec()`. 
+This time, I'm using the `build_longer_spec()` function that makes it easy to build specifications:
 
 ```{r}
 mtcars_spec_long <- mtcars_wide %>% 
-  pivot_longer_spec(matches("0|1"), values_to = "mpg") %>% 
+  build_longer_spec(matches("0|1"), values_to = "mpg") %>% 
   separate(name, c("am", "cyl"), sep = "_")
 
 mtcars_spec_long
@@ -1148,7 +1134,7 @@ This spec can now be specified to `pivot_longer()`:
 
 ```{r}
 mtcars_wide %>% 
-  pivot_longer(spec = mtcars_spec_long, values_drop_na = TRUE) %>% 
+  pivot_longer_spec(spec = mtcars_spec_long, values_drop_na = TRUE) %>% 
   select(am, cyl, mpg, everything())
 ```
 
@@ -2288,7 +2274,7 @@ again, but using complex regular expressions to get all the content in one go.
 
 First of all, let us read in the file:
 
-```{r, cache=TRUE}
+```{r}
 winchester <- read_lines("https://gist.githubusercontent.com/b-rodrigues/5139560e7d0f2ecebe5da1df3629e015/raw/e3031d894ffb97217ddbad1ade1b307c9937d2c8/gistfile1.txt")
 ```
 

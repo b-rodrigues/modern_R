@@ -48,7 +48,7 @@ barplots.
 
 To follow the examples below, load the following libraries:
 
-```{r, cache=TRUE}
+```{r}
 library(ggplot2)
 library(ggthemes)
 ```
@@ -58,7 +58,7 @@ to read the books to start using it. If we go back to the Star Wars data (contai
 and wish to draw a barplot of the gender, the following lines are enough:
 
 
-```{r, cache=TRUE}
+```{r}
 ggplot(starwars, aes(gender)) +
   geom_bar()
 ```
@@ -70,7 +70,7 @@ function creates a barplot of `gender` variable.
 You can get different kind of plots by using different `geom_` functions. You can also provide the
 `aes()` argument to the `geom_*()` function:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(starwars) +
   geom_bar(aes(gender))
 ```
@@ -82,7 +82,7 @@ to different `geom_*()` functions. This will become clear in a later example.
 
 You can add options to your plots, for instance, you can change the coordinate system in your barplot:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(starwars, aes(gender)) +
   geom_bar() +
   coord_flip()
@@ -122,7 +122,7 @@ line that goes through the scatter plot, but first, let's discover some other `g
 
 `geom_density()` is the *geom* that allows you to get density plots:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(starwars, aes(height)) +
   geom_density()
 ```
@@ -141,7 +141,7 @@ The above lines do the filtering; only keep gender if gender is in the vector `"
 This is much easier than having to write `gender == "female" | gender == "male"`. Then, we pipe
 this dataset to `ggplot`:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   filter(gender %in% c("female", "male")) %>%
   ggplot(aes(height, fill = gender)) +
@@ -160,7 +160,7 @@ An alternative way to write this code is first to save the filtered data in a va
 the aesthetics inside the `geom_density()` function:
 
 
-```{r, cache=TRUE}
+```{r}
 filtered_data <- starwars %>%
   filter(gender %in% c("female", "male"))
 
@@ -178,7 +178,7 @@ http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950
 
 Let's plot the unemployment for the canton of Luxembourg only:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data <- import("datasets/unemployment/all/unemployment_lux_all.csv")
 
 unemp_lux_data %>%
@@ -191,7 +191,7 @@ Because line plots are 2D, you need to specify the y and x axes. There is also a
 need to add, `group = 1`. This is to tell `aes()` that the dots have to be connected with a single
 line. What if you want to plot more than one commune?
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette")) %>%
   ggplot(aes(x = year, y = unemployment_rate_in_percent, group = division, colour = division)) +
@@ -204,7 +204,7 @@ illustrates how `{ggplot2}` is actually brilliant; if you need to add a third co
 need to specify anything else; no need to add anything to the legend, no need to specify a third
 colour etc:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(x = year, y = unemployment_rate_in_percent, group = division, colour = division)) +
@@ -221,7 +221,7 @@ categories. If you want to have a plot per category you can use the `facet_grid(
 Careful though, this function does not take a variable as an argument, but a formula, hence the `~`
 symbol in the code below:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   mutate(human = case_when(species == "Human" ~ "Human",
                            species != "Human" ~ "Not Human")) %>%
@@ -234,7 +234,7 @@ starwars %>%
 I first created a factor variable that specifies if a Star Wars character is human or not, and then
 use it for facetting. By changing the formula, you change how the facetting is done:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   mutate(human = case_when(species == "Human" ~ "Human",
                            species != "Human" ~ "Not Human")) %>%
@@ -247,7 +247,7 @@ starwars %>%
 Recall the categorical variable `more_1` that we computed in the previous chapter? Let's use it as
 a faceting variable:
 
-```{r, cache=TRUE}
+```{r}
 starwars %>%
   rowwise() %>%
   mutate(n_films = length(films)) %>%
@@ -268,7 +268,7 @@ can create pie charts.
 First, let's create a mock dataset with the function `tibble::tribble()` which allows you to create a
 dataset line by line:
 
-```{r, cache=TRUE}
+```{r}
 test_data <- tribble(
   ~id, ~var1, ~var2,  ~var3, ~var4, ~var5,
   "a", 26.5, 38, 30, 32, 34,
@@ -280,14 +280,14 @@ test_data <- tribble(
 This data is not in the right format though, which is wide. We need to have it in the long format
 for it to work with `{ggplot2}`. For this, let's use `tidyr::gather()` as seen in the previous chapter:
 
-```{r, cache=TRUE}
+```{r}
 test_data_long = test_data %>%
   gather(variable, value, starts_with("var"))
 ```
 
 Now, let's plot this data, first by creating 3 bar plots:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity")
@@ -304,7 +304,7 @@ To do this, we first group by `id`, then compute the total. Then we use a new fu
 After using `ungroup()` all the computations are done on the whole dataset instead of by group, which
 is what we need to compute the share:
 
-```{r, cache=TRUE}
+```{r}
 test_data_long <- test_data_long %>%
   group_by(id) %>%
   mutate(total = sum(value)) %>%
@@ -314,7 +314,7 @@ test_data_long <- test_data_long %>%
 
 Let's take a look to see if this is what we wanted:
 
-```{r, cache=TRUE}
+```{r}
 print(test_data_long)
 ```
 
@@ -323,7 +323,7 @@ output.
 
 To plot the pie chart, we create a barplot again, but specify polar coordinates:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(y = share, x = "", fill = variable), stat = "identity") +
@@ -335,7 +335,7 @@ As you can see, this typical pie chart is not very easy to read; compared to the
 is not easy to distinguish if `a` has a higher share than `b` or `c`. You can change the look of the
 pie chart, for example by specifying `variable` as the `x`:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(y = share, x = variable, fill = variable), stat = "identity") +
@@ -351,7 +351,7 @@ said proportions.
 
 Sometimes you might want to add some text to your plots. This is possible with `geom_text()`:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -361,7 +361,7 @@ ggplot(test_data_long) +
 You can put anything after `label = ` but in general what you want are the values, so that's what
 I put there. But you can also refine it, imagine the values are actually in euros:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -370,7 +370,7 @@ ggplot(test_data_long) +
 
 You can also achieve something similar with `geom_label()`:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -391,7 +391,7 @@ The name of this subsection is quite long, but this is because everything is kin
 start by learning what the `labs()` function does. To change the title of the plot, and of the axes,
 you need to pass the names to the `labs()` function:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -401,7 +401,7 @@ unemp_lux_data %>%
 
 What if you want to make the lines thicker?
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -474,7 +474,7 @@ modify it a bit. For example, the legend placement is actually a feature of the 
 that if you want to change where the legend is placed you need to modify this feature from the
 theme. This is done with the function `theme()`:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -485,7 +485,7 @@ unemp_lux_data %>%
 
 What I also like to do is remove the title of the legend, because it is often superfluous:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -498,7 +498,7 @@ The legend title has to be an `element_text` object.`element_text` objects are u
 specify how text should be displayed. `element_blank()` draws nothing and assigns no space (not
 even blank space). If you want to keep the legend title but change it, you need to use `element_text()`:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -510,7 +510,7 @@ unemp_lux_data %>%
 If you want to change the word "division" to something else, you can do so by providing the `colour` argument
 to the `labs()` function:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -522,7 +522,7 @@ unemp_lux_data %>%
 
 You could modify every feature of the theme like that, but there are built-in themes that you can use:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -535,7 +535,7 @@ unemp_lux_data %>%
 For example in the code above, I have used `theme_minimal()` which I like quite a lot. You can also
 use themes from the `ggthemes` package, which even contains a STATA theme, if you like it:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -548,7 +548,7 @@ As you can see, `theme_stata()` has the legend on the bottom by default, because
 legend position is defined within the theme. However the legend title is still there. Let's remove
 it:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -560,7 +560,7 @@ unemp_lux_data %>%
 
 `ggthemes` even features an Excel 2003 theme (don't use it though):
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -581,7 +581,7 @@ functions. `scale_colour_*()` functions are used for continuous variables, while
 functions for discrete variables (so for barplots for example). A colour scheme I like is the
 [Highcharts](https://www.highcharts.com/) colour scheme.
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -594,7 +594,7 @@ unemp_lux_data %>%
 
 An example with a barplot:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -608,7 +608,7 @@ It is also possible to define and use your own palette.
 To use your own colours you can use `scale_colour_manual()` and `scale_fill_manual()` and specify
 the html codes of the colours you want to use.
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -626,13 +626,13 @@ pick colours from with RStudio. Also, you do not even need to load it to use
 it, since it comes with an Addin:
 
 
-```{r, cache=TRUE, echo=FALSE}
+```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_colourpicker.gif")
 ```
 
 For a barplot you would do the same:
 
-```{r, cache=TRUE}
+```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -666,7 +666,7 @@ There are two ways to save plots on disk; one through the *Plots* plane in RStud
 `ggsave()` function. Using RStudio, navigate to the *Plots* pane and click on *Export*. You can
 then choose where to save the plot and other various options:
 
-```{r, cache=TRUE}
+```{r}
 knitr::include_graphics("pics/rstudio_save_plots.gif")
 ```
 
@@ -675,7 +675,7 @@ is less tedious to use the `ggsave()` function:
 
 ```{r, eval=FALSE}
 
-my_plot1 = ggplot(my_data) +
+my_plot1 <- ggplot(my_data) +
   geom_bar(aes(variable))
 
 ggsave("path/you/want/to/save/the/plot/to/my_plot1.pdf", my_plot1)
@@ -700,7 +700,7 @@ Load the `Bwages` dataset from the `Ecdat` package. Your first task is to create
 Use `case_when()` for this.
 
 ```{r, eval=FALSE, echo=FALSE}
-bwages = Bwages %>%
+bwages <- Bwages %>%
   mutate(educ_level = case_when(educ == 1 ~ "Primary School",
                                 educ == 2 ~ "High School",
                                 educ == 3 ~ "Some university",

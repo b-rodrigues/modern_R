@@ -16,7 +16,7 @@ programming languages would be very limited.
 Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical
 problem that requires the `if ... else ...` construct. For instance:
 
-```{r, cache=TRUE}
+```{r}
 a <- 4
 b <- 5
 ```
@@ -24,7 +24,7 @@ b <- 5
 Suppose that if `a > b` then `f` should be equal to 20, else `f` should be equal to 10. Using ```if ... else
 ...``` you can achieve this like so:
 
-```{r, cache=TRUE}
+```{r}
 if (a > b) {
   f <- 20
     } else {
@@ -34,7 +34,7 @@ if (a > b) {
 
 Obviously, here `f = 10`. Another way to achieve this is by using the `ifelse()` function:
 
-```{r, cache=TRUE}
+```{r}
 f <- ifelse(a > b, 20, 10)
 ```
 
@@ -68,7 +68,7 @@ ifelse(any(c(1,2,4) > c(3, 1, 0)), "at least one element is greater", "no elemen
 These are the basics. But sometimes, you might need to test for more complex conditions, which can lead to using
 nested `if...else...` constructs. These, however, can get messy:
 
-```{r, cache=TRUE}
+```{r}
 if (10 %% 3 == 0) {
   print("10 is divisible by 3")
   } else if (10 %% 2 == 0) {
@@ -93,7 +93,7 @@ Let's now discuss loops.
 
 For loops make it possible to repeat a set of instructions `i` times. For example, try the following:
 
-```{r, cache=TRUE}
+```{r}
 for (i in 1:10){
   print("hello")
 }
@@ -102,7 +102,7 @@ for (i in 1:10){
 It is also possible to do computations using for loops. Let's compute the sum of the first
 100 integers:
 
-```{r, cache=TRUE}
+```{r}
 result <- 0
 for (i in 1:100){
   result <- result + i
@@ -133,7 +133,7 @@ such as `purrr::map()` or `purrr::reduce()`.
 While loops are very similar to for loops. The instructions inside a while loop are repeated while a
 certain condition holds true. Let's consider the sum of the first 100 integers again:
 
-```{r, cache=TRUE}
+```{r}
 result <- 0
 i <- 1
 while (i<=100){
@@ -164,7 +164,7 @@ need to write your own. In this section we are going to learn how to write our o
 Suppose you want to create the following function: \(f(x) = \dfrac{1}{\sqrt{x}}\).
 Writing this in R is quite simple:
 
-```{r, cache=TRUE}
+```{r}
 my_function <- function(x){
 1/sqrt(x)
 }
@@ -174,7 +174,7 @@ The argument of the function, `x`, gets passed to the... `function()` function a
 the function (more on that in the next Chapter) contains the function definition. Of course, 
 you could define functions that use more than one input:
 
-```{r, cache=TRUE}
+```{r}
 my_function <- function(x, y){
 1/sqrt(x + y)
 }
@@ -182,7 +182,7 @@ my_function <- function(x, y){
 
 or inputs with names longer than one character:
 
-```{r, cache=TRUE}
+```{r}
 my_function <- function(argument1, argument2){
 1/sqrt(argument1 + argument2)
 }
@@ -190,27 +190,27 @@ my_function <- function(argument1, argument2){
 
 Functions written by the user get called just the same way as functions included in R:
 
-```{r, cache=TRUE}
+```{r}
 my_function(1, 10)
 ```
 
 It is also possible to provide default values to the function's arguments. Values that are used
 if the user omits them:
 
-```{r, cache=TRUE}
+```{r}
 my_function <- function(argument1, argument2 = 10){
 1/sqrt(argument1 + argument2)
 }
 ```
 
-```{r, cache=TRUE}
+```{r}
 my_function(1)
 ```
 
 This is especially useful for functions with many arguments, or to allow users to choose between
 different methods:
 
-```{r, cache=TRUE}
+```{r}
 my_function <- function(argument1, argument2, method = "foo"){
   
   x <- argument1 + argument2
@@ -230,14 +230,14 @@ my_function(10, 11, "bar")
 As you see, depending on the "method" chosen, the returned result is either a numeric, or a string.
 What happens if the user provides a "method" that is neither "foo" nor "bar"?
 
-```{r, cache=TRUE}
+```{r}
 my_function(10, 11, "spam")
 ```
 
 As you can see nothing happens. It is possible to add safeguards to your function to avoid such
 situations:
 
-```{r, cache=TRUE}
+```{r}
 my_function <- function(argument1, argument2, method = "foo"){
   
   if(!(method %in% c("foo", "bar"))){
@@ -279,7 +279,7 @@ they can only return one value. However, sometimes, you may need to return more 
 To be able to do this, you must put your values in a list, and return the list of values. For example:
 
 
-```{r, cache=TRUE}
+```{r}
 average_and_sd <- function(x){
 c(mean(x), sd(x))
 }
@@ -289,7 +289,7 @@ average_and_sd(c(1, 3, 8, 9, 10, 12))
 
 You're still returning a single object, but it's a vector. You can also return a named list:
 
-```{r, cache=TRUE}
+```{r}
 average_and_sd <- function(x){
 list("mean_x" =  mean(x), "sd_x" = sd(x))
 }
@@ -299,7 +299,7 @@ average_and_sd(c(1, 3, 8, 9, 10, 12))
 
 As described before, you can use `return()` at the end of your functions:
 
-```{r, cache=TRUE}
+```{r}
 average_and_sd <- function(x){
   result <- c(mean(x), sd(x))
 return(result)
@@ -310,7 +310,7 @@ average_and_sd(c(1, 3, 8, 9, 10, 12))
 
 But this is only needed if you need to return a value early:
 
-```{r, cache=TRUE}
+```{r}
 average_and_sd <- function(x){
 if(any(is.na(x))){
     return(NA)
@@ -392,7 +392,7 @@ to run the algorithm on a sheet of paper, step by step.
 The above algorithm is called an iterative algorithm, because it uses a loop to compute the result.
 Let's look at another way to think about the problem, with a so-called recursive function:
 
-```{r, cache=TRUE}
+```{r}
 fibo_recur <- function(n){
  if (n == 0 || n == 1){
    return(n)
@@ -408,14 +408,14 @@ This algorithm should be easier to understand: if `n = 0` or `n = 1` the functio
 mathematical definition of the fibonacci sequence. So why not use only recursive algorithms
 then? Try to run the following:
 
-```{r, cache=TRUE}
+```{r}
 system.time(my_fibo(30))
 ```
 
 The result should be printed very fast (the `system.time()` function returns the time that it took
 to execute `my_fibo(30)`). Let's try with the recursive version:
 
-```{r, cache=TRUE}
+```{r}
 system.time(fibo_recur(30))
 ```
 

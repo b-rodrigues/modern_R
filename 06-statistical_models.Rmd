@@ -979,7 +979,7 @@ my_rf <- function(mtry, trees, split, id){
     
     analysis_processed <- bake(analysis_prep, new_data = analysis_set)
     
-    model <- rand_forest(mtry = mtry, trees = trees) %>%
+    model <- rand_forest(mode = "regression", mtry = mtry, trees = trees) %>%
         set_engine("ranger", importance = 'impurity') %>%
         fit(price ~ ., data = analysis_processed)
 
@@ -1002,7 +1002,7 @@ function and change the `engine` argument to the one you want (`ranger`, `random
 
 Let's try this function:
 
-```{r, cache=TRUE}
+```{r}
 results_example <- map2_df(.x = validation_data$splits,
                            .y = validation_data$id,
                            ~my_rf(mtry = 3, trees = 200, split = .x, id = .y))
@@ -1053,7 +1053,7 @@ tuning <- function(param, validation_data){
 This is exactly the code from before, but it now returns the RMSE. Let's try the function
 with the values from before:
 
-```{r, cache=TRUE}
+```{r}
 tuning(c(3, 200), validation_data)
 ```
 
@@ -1143,7 +1143,7 @@ train_data <- bake(training_rec, new_data = housing_train)
 Let's now train our final model and predict the prices:
 
 ```{r}
-final_model <- rand_forest(mtry = result$x$x1, trees = result$x$x2) %>%
+final_model <- rand_forest(mode = "regression", mtry = result$x$x1, trees = result$x$x2) %>%
         set_engine("ranger", importance = 'impurity') %>%
         fit(price ~ ., data = train_data)
 
@@ -1159,7 +1159,7 @@ cbind(price_predict * sd(housing_train$price) + mean(housing_train$price),
 
 Let's now compute the RMSE:
 
-```{r, cache=TRUE}
+```{r}
 tibble::tibble("truth" = test_data$price,
         "prediction" = unlist(price_predict)) %>% 
     yardstick::rmse(truth, prediction)

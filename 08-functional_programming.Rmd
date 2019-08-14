@@ -350,7 +350,7 @@ We see this side effect 10 times, plus then the list created with `map()`.
 `rerun()` is useful if you want to run simulation. For instance, let's suppose that I perform a simulation
 where I throw a die 5 times, and compute the mean of the points obtained, as well as the variance:
 
-```{r, cache = TRUE}
+```{r}
 mean_var_throws <- function(n){
   throws <- sample(1:6, n, replace = TRUE)
 
@@ -370,7 +370,7 @@ be equal to $3.5 (= 1*1/6 + 2*1/6 + 3*1/6 + 4*1/6 + 5*1/6 + 6*1/6)$.
 
 Let's rerun the simulation 50 times:
 
-```{r, cache = TRUE}
+```{r}
 simulations <- rerun(50, mean_var_throws(5))
 ```
 
@@ -400,14 +400,14 @@ str(simulations)
 `simulations` is a list of 50 data frames. We can easily combine them into a single data frame, and compute the
 mean of the means, which should return something close to the expected value of 3.5:
 
-```{r, cache = TRUE}
+```{r}
 bind_rows(simulations) %>%
   summarise(expected_value = mean(mean_throws))
 ```
 
 Pretty close! Now of course, one could have simply done something like this:
 
-```{r, cache = TRUE}
+```{r}
 mean(sample(1:6, 1000, replace = TRUE))
 ```
 
@@ -830,15 +830,9 @@ special. You can use them just as any other.
 Now, let's step back for a bit and think about what we learned up until now, and especially
 the `map()` family of functions.
 
-```
-TO BE FINALIZED
-```
-
-
 Let's read the list of datasets from the previous chapter:
 
-
-```{r, cache=TRUE}
+```{r}
 paths <- Sys.glob("datasets/unemployment/*.csv")
 
 all_datasets <- import_list(paths)
@@ -867,7 +861,7 @@ and I would get a dataset with column names in lowercase and spaces replaced by 
 corrections). How can I apply, or map, this function to each dataset in the list? To do this I need
 to use `purrr::map()`:
 
-```{r, cache=TRUE}
+```{r}
 library(purrr)
 
 all_datasets <- all_datasets %>%
@@ -887,7 +881,7 @@ one_dataset %>%
 
 But for a list of datasets, `map()` is needed (and as you will see, that is not all that is needed):
 
-```{r, cache=TRUE}
+```{r}
 all_datasets %>%
   map(~filter(., unemployment_rate_in_percent < 3))
 ```
@@ -920,7 +914,7 @@ year. It would also be helpful if gave names to these datasets. For this task, w
 `purrr::set_names()`:
 
 ```{r, eval=FALSE}
-all_datasets = set_names(all_datasets, as.character(seq(2013, 2016)))
+all_datasets <- set_names(all_datasets, as.character(seq(2013, 2016)))
 ```
 
 Let's take a look at the list now:
@@ -944,8 +938,8 @@ a function that you can find in other programming languages, but sometimes it is
 
 I think that the following example illustrates the power of `reduce()` well:
 
-```{r, cache=TRUE}
-numbers = seq(1, 5) # Create a vector with the numbers 1 to 5
+```{r}
+numbers <- seq(1, 5) # Create a vector with the numbers 1 to 5
 
 reduce(numbers, `+`, .init = 0)
 ```
@@ -965,7 +959,7 @@ cases it might be useful to start the computations at another value than `0`.`re
 generalizes functions that only take two arguments. If you were to write a function that returns
 the minimum between two numbers:
 
-```{r, cache=TRUE}
+```{r}
 my_min <- function(a, b){
     if(a < b){
         return(a)
@@ -977,7 +971,7 @@ my_min <- function(a, b){
 
 You could use `reduce()` to get the minimum of a list of numbers:
 
-```{r, cache=TRUE}
+```{r}
 numbers2 <- c(3, 1, -8, 9)
 
 reduce(numbers2, my_min)
@@ -989,7 +983,7 @@ comes with a lot of function to merge *two* datasets. Remember that I said befor
 allows you to generalize a function of two arguments? Let's try it with our list of datasets:
 
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux <- reduce(all_datasets, full_join)
 
 glimpse(unemp_lux)
@@ -999,7 +993,7 @@ glimpse(unemp_lux)
 useful depending on the kind of join operation you need. Let's write this data to disk as we're
 going to keep using it for the next chapters:
 
-```{r, cache=TRUE}
+```{r}
 export(unemp_lux, "datasets/unemp_lux.csv")
 ```
 
@@ -1013,7 +1007,7 @@ but what comes next is also what makes R, and the functional programming paradig
 For example, suppose that instead of wanting a single plot with the unemployment rate of each
 commune, you need one unemployment plot, per commune:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division == "Luxembourg") %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division)) +
@@ -1025,7 +1019,7 @@ unemp_lux_data %>%
 and then you would write the same for "Esch-sur-Alzette" and also for "Wiltz". If you only have to
 make to make these 3 plots, copy and pasting the above lines is no big deal:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division == "Esch-sur-Alzette") %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division)) +
@@ -1041,21 +1035,21 @@ unemp_lux_data %>%
   geom_line()
 ```
 
-Put copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
+But copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
 have to create the above plots for all 108 Luxembourguish communes? That's a lot of copy pasting.
 What if, once you are done copy pasting, you have to change something, for example, the theme? You
 could use the search and replace function of RStudio, true, but sometimes search and replace can
 also introduce bugs and typos. You can avoid all these issues by using `purrr::map()`. What do you
 need to map over? The commune names. So let's create a vector of commune names:
 
-```{r, cache=TRUE}
+```{r}
 communes <- list("Luxembourg", "Esch-sur-Alzette", "Wiltz")
 ```
 
 Now we can create the graphs using `map()`, or `map2()` to be exact:
 
-```{r, cache=TRUE}
-plots_tibble = unemp_lux_data %>%
+```{r}
+plots_tibble <- unemp_lux_data %>%
   filter(division %in% communes) %>%
   group_by(division) %>%
   nest() %>%
@@ -1069,7 +1063,7 @@ Let's study this line by line: the first line is easy, we simply use `filter()` 
 communes we are interested in. Then we group by `division` and use `tidyr::nest()`. As a refresher,
 let's take a look at what this does:
 
-```{r, cache=TRUE}
+```{r}
 unemp_lux_data %>%
   filter(division %in% communes) %>%
   group_by(division) %>%
@@ -1082,7 +1076,7 @@ because now we can pass these tibbles to `map2()`, to generate the plots. But wh
 what's the difference with `map()`? `map2()` works the same way as `map()`, but maps over two
 inputs:
 
-```{r, cache=TRUE}
+```{r}
 numbers1 <- list(1, 2, 3, 4, 5)
 
 numbers2 <- list(9, 8, 7, 6, 5)
@@ -1096,7 +1090,7 @@ second input of `map2()`, the commune names contained in variable `division`.
 
 So what happened? We now have a tibble called `plots_tibble` that looks like this:
 
-```{r, cache=TRUE}
+```{r}
 print(plots_tibble)
 ```
 
@@ -1106,7 +1100,7 @@ tibbles). `plot` is a list-column, with elements... being plots! Yes you read th
 elements of the column `plot` are literally plots. This is what I meant with list columns.
 Let's see what is inside the `data` and the `plot` columns exactly:
 
-```{r, cache=TRUE}
+```{r}
 plots_tibble %>%
   pull(data)
 ```
@@ -1119,7 +1113,7 @@ plot multiple lines in the same graph, you need to write `group = division`).
 But more interestingly, how can you actually see the plots? If you want to simply look at them, it
 is enough to use `pull()`:
 
-```{r, cache=TRUE}
+```{r}
 plots_tibble %>%
   pull(plot)
 ```
@@ -1149,9 +1143,56 @@ function by first grouping, filtering, etc...
 
 ### Modeling with functional programming
 
+As written just above, `map()` simply applies a function to a list of inputs, and in the previous
+section we mapped `ggplot()` to generate many plots at once. This approach can also be used to 
+map any modeling functions, for instance `lm()` to a list of datasets.
+
+For instance, suppose that you wish to perform a Monte Carlo simulation. You would like to look at
+the empirical distributions of the estimates of a linear probability model. For this, you first
+need a function that generates data. The function below generate 10 datasets of size 100 
+(the code is inspired by this [StackExchange answer](https://stats.stackexchange.com/a/46525)):
+
+```{r}
+generate_datasets <- function(coefs = c(.5, 2, 4), sample_size = 100, repeats = 10){
+
+  generate_one_dataset <- function(coefs, sample_size){
+  x1 <- rnorm(sample_size)
+  x2 <- rnorm(sample_size)
+  
+  z <- coefs[1] + coefs[2]*x1 + coefs[3]*x2
+
+  p <- 1/(1 + exp(-z))
+
+  y <- rbinom(sample_size, 1, p)
+
+  df <- tibble(y = y, x1 = x1, x2 = x2)
+  }
+
+ simulations <- rerun(.n = repeats, generate_one_dataset(coefs, sample_size))
+ 
+ tibble("sample_size" = sample_size, "repeats" = repeats, "simulations" = list(simulations))
+}
 ```
-TO BE WRITTEN
+
+We can now generate 10 datasets of size 100:
+
+```{r}
+many_datasets <- generate_datasets()
 ```
+
+```{r}
+many_datasets %>% 
+  mutate(models = modify_depth(simulations, 2, ~lm(y ~ ., data = .x))) %>% 
+  mutate(models = modify_depth(models, 2, broom::tidy)) %>% 
+  mutate(models = modify_depth(models, 2, ~select(., term, estimate))) %>% 
+  mutate(models = map(models, bind_rows)) %>% 
+  mutate(plot = map(models, ~ggplot(data = .) + 
+           geom_density(aes(estimate)) + 
+           facet_grid(~term) +
+           labs(title = paste0("Sample size: ", sample_size, " - Repeats: ", repeats))))
+```
+
+
 
 ## Exercises
 
