@@ -215,8 +215,8 @@ all(one & two)
 `any()` checks whether any of the vector's elements are `TRUE` and `all()` checks if all elements of the vector are
 `TRUE`.
 
-As a final note, you should know that is possible to use `T` for `TRUE` and `F` for `FALSE` but I would advise against
-doing this, because it is not very explicit.
+As a final note, you should know that is possible to use `T` for `TRUE` and `F` for `FALSE` but I 
+would advise against doing this, because it is not very explicit.
 
 ## Vectors and matrices
 

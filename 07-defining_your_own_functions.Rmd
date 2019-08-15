@@ -2,8 +2,9 @@
 
 In this section we are going to learn some advanced concepts that are going to make you into a
 full-fledged R programmer. Before this chapter you only used whatever R came with, as well as the
-R packages. This already allowed you to do a lot of things and solve a variety of problems!
-The next step is now to learn how to actually build your own functions.
+functions contained in packages. We did define some functions ourselves in Chapter 6 already, but 
+without going into many details. In this chapter, we will learn about building functions ourselves, 
+and do so in greater detail than what we did before.
 
 ## Control flow
 
@@ -65,8 +66,8 @@ You also remember the `any()` function:
 ifelse(any(c(1,2,4) > c(3, 1, 0)), "at least one element is greater", "no element greater")
 ```
 
-These are the basics. But sometimes, you might need to test for more complex conditions, which can lead to using
-nested `if...else...` constructs. These, however, can get messy:
+These are the basics. But sometimes, you might need to test for more complex conditions, which can 
+lead to using nested `if...else...` constructs. These, however, can get messy:
 
 ```{r}
 if (10 %% 3 == 0) {
@@ -166,17 +167,17 @@ Writing this in R is quite simple:
 
 ```{r}
 my_function <- function(x){
-1/sqrt(x)
+  1/sqrt(x)
 }
 ```
 
-The argument of the function, `x`, gets passed to the... `function()` function and the *body* of 
+The argument of the function, `x`, gets passed to the `function()` function and the *body* of 
 the function (more on that in the next Chapter) contains the function definition. Of course, 
 you could define functions that use more than one input:
 
 ```{r}
 my_function <- function(x, y){
-1/sqrt(x + y)
+  1/sqrt(x + y)
 }
 ```
 
@@ -184,7 +185,7 @@ or inputs with names longer than one character:
 
 ```{r}
 my_function <- function(argument1, argument2){
-1/sqrt(argument1 + argument2)
+  1/sqrt(argument1 + argument2)
 }
 ```
 
@@ -194,7 +195,7 @@ Functions written by the user get called just the same way as functions included
 my_function(1, 10)
 ```
 
-It is also possible to provide default values to the function's arguments. Values that are used
+It is also possible to provide default values to the function's arguments, which are values that are used
 if the user omits them:
 
 ```{r}
@@ -207,8 +208,8 @@ my_function <- function(argument1, argument2 = 10){
 my_function(1)
 ```
 
-This is especially useful for functions with many arguments, or to allow users to choose between
-different methods:
+This is especially useful for functions with many arguments. Consider also the following, example,
+where the function has a default method:
 
 ```{r}
 my_function <- function(argument1, argument2, method = "foo"){
@@ -264,7 +265,7 @@ Notice that I have used `return()` inside my first `if` statement. This is to im
 evaluation of the function and return a value. If I had omitted it, evaluation would have 
 continued, as it is always the last expression that gets evaluated. Remove `return()` and run the
 function again, and see what happens. Later, we are going to learn how to add better safeguards to 
-your functions, to avoid runtime errors.
+your functions and to avoid runtime errors.
 
 While in general, it is a good idea to add comments to your functions to explain what they do, I
 would avoid adding comments to functions that do things that are very obvious, such as with this
@@ -331,8 +332,8 @@ my_sum <- function(a_vector){
 }
 ```
 
-However, if you need to use more than one function, this can become tedious. A quick and dirty
-(more dirty than quick, really) way of doing that, is to use `library(package_name)`, inside the function:
+However, if you need to use more than one function, this can become tedious. A quick and dirty 
+way of doing that, is to use `library(package_name)`, inside the function:
 
 ```{r}
 my_sum <- function(a_vector){
@@ -357,7 +358,7 @@ The Fibonacci sequence is the following:
 
 $$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...$$
 
-Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the $n^{th}$ my_fibonacci number:
+Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the $n^{th}$ fibonacci number:
 
 ```{r}
 my_fibo <- function(n){
@@ -382,11 +383,11 @@ useful. Let's try to understand what happens inside this loop:
 * We assign the sum of `a` and `temp` to `a`.
 * When the loop is finished, we return `a`.
 
-What happens if we want the 3rd my_fibonacci number? At `n = 1` we have first `a = 0` and `b = 1`,
+What happens if we want the 3rd fibonacci number? At `n = 1` we have first `a = 0` and `b = 1`,
 then `temp = 1`, `b = 0` and `a = 0 + 1`. Then `n = 2`. Now `b = 0` and `temp = 0`. The previous
 result, `a = 0 + 1` is now assigned to `b`, so `b = 1`. Then, `a = 1 + 0`. Finally, `n = 3`. `temp
 = 1` (because `b = 1`), the previous result `a = 1` is assigned to `b` and finally, `a = 1 + 1`. So
-the third my_fibonacci number equals 2. Reading this might be a bit confusing; I strongly advise you
+the third fibonacci number equals 2. Reading this might be a bit confusing; I strongly advise you
 to run the algorithm on a sheet of paper, step by step.
 
 The above algorithm is called an iterative algorithm, because it uses a loop to compute the result.
@@ -421,7 +422,7 @@ system.time(fibo_recur(30))
 
 It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
 critical, it's best to avoid recursive algorithms. Also, in `fibo_recur()` try to remove this line:
-`if (n == 0 || n == 1)` and try to run `fibo_recur(5)` for example and see what happens. You should
+`if (n == 0 || n == 1)` and try to run `fibo_recur(5)` and see what happens. You should
 get an error: this is because for recursive algorithms you need a stopping condition, or else,
 it would run forever. This is not the case for iterative algorithms, because the stopping
 condition is the last step of the loop.
@@ -549,7 +550,7 @@ my_func(c(1, 8, 1, NA, 8), mean, remove_na = TRUE)
 
 This is one solution, but `mean()` also has another argument called `trim`. What if some other
 user needs this argument? Should you also add it to your function? Surely there's a way to avoid
-this problem? Yes, there is, and it's the *dots*. The `...` simply mean "any other
+this problem? Yes, there is, and it by using the *dots*. The `...` simply mean "any other
 argument as needed", and it's very easy to use:
 
 ```{r}
@@ -630,7 +631,7 @@ To be able to do that, we need to use a framework that was introduced in the `{t
 called `{tidyeval}`. This discussion can get very technical, so I will spare you the details.
 However, you can read about it [here](http://dplyr.tidyverse.org/articles/programming.html) and
 [here](https://cran.r-project.org/web/packages/rlang/vignettes/tidy-evaluation.html). The
-discussion can get complicated, but using `{tidyeval}` is actually quite easy, and you can get a
+discussion can get complicated, but using `{tidyeval}` is actually quite easy, and you can have a
 cookbook approach to it. Take a look at the code below:
 
 ```{r}
@@ -647,7 +648,7 @@ simple_function(mtcars, cyl)
 
 As you can see, the previous idea we had, which was using `as.name()` was not very far away from
 the solution. The solution, with `tidyeval`, consists in using `enquo()`, which (for our purposes),
-does something similar to `as.name()` (in truth, it doesn't). Now that
+does something similar to `as.name()`. Now that
 `col_name` is (R programmers call it) quoted, we need to tell `group_by()` to evaluate the input as
 is. This is done with `!!()`, which is another `{tidyeval}` function. I say it again;
 don't worry if you don't understand everything. Just remember to use `enquo()` on your column names
@@ -767,9 +768,8 @@ Pay attention to the `:=` operator in the last line. This is needed when using `
 
 The previous section might have been a bit difficult to grasp, but there is a simplified way of doing it,
 which consists in using `{{}}`, introduced in `{rlang}` version 0.4.0.
- The suggested pronunciation of `{{}}` is *curly-curly*, but there is no 
+The suggested pronunciation of `{{}}` is *curly-curly*, but there is no 
 [consensus yet](https://twitter.com/JonTheGeek/status/1144815369766547456).
-
 
 Let's suppose that I need to write a function that takes a data frame, as well as a column from 
 this data frame as arguments, just like before:
@@ -919,7 +919,7 @@ map(c(1,2,3,4), function(x){1/sqrt(x)})
 ```
 
 These anonymous functions get defined in a very similar way to regular functions, you just skip the
-name and that's it. `tidyverse` functions also support formulas; these get converted to anonymous functions:
+name and that's it. `{tidyverse}` functions also support formulas; these get converted to anonymous functions:
 
 ```{r}
 map(c(1,2,3,4), ~{1/sqrt(.)})

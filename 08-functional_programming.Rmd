@@ -772,16 +772,6 @@ One could also use the `%>%` operator:
 ```
 
 
-### Type safety with `{checkmate}`
-
-### `is_*()` `as_*()`
-
-Remember in Chapter 3, when I introduced `is.*()` and `as.*()` functions? I told you then that we
-were going to learn about `is_*()` and `as_*()` in Chapter 9. This is it!
-
-These functions actually reside in the `{rlang}` package, but are made available to the user once
-`{purrr}` is loaded.
-
 ### «Transposing lists»
 
 Another interesting function is `transpose()`. It is not an alternative to the function `t()` from
@@ -1158,7 +1148,7 @@ job of estimating marginal effects, which is what social scientists and economet
 interested in. Marginal effects are another way of interpreting models, giving how the outcome 
 (or the target) changes given a change in a independent variable (or a feature). For instance,
 a marginal effect of 0.10 for age would mean that probability of success would increase by 10% for
-each added year of age.
+each added year of age. We already discussed marginal effects in Chapter 6.
 
 There has been a lot of discussion on logistic regression vs LPMs, and there are pros and cons
 of using LPMs. Micro-econometricians are still fond of LPMs, even though the pros of LPMs are 

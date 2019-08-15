@@ -17,8 +17,8 @@ a way to tune the hyper-parameters of models that features them.
 Before continuing discussing about statistical models and model fitting it is worthwhile to discuss
 terminology a little bit. Depending on your background, you might call an explanatory variable a 
 feature or the dependent variable the target. These are the same objects. The matrix of features
-is usually called a design matrix, and the what statisticians call the intercept in a linear regression
-machine learning engineers call the bias. Calling the intercept the bias is unfortunate, as bias
+is usually called a design matrix, and what statisticians call the intercept is what
+machine learning engineers call the bias. Referring to the intercept by bias is unfortunate, as bias
 also has a very different meaning; bias is also what we call the error in a model that may cause
 *biased* estimates. To finish up, the estimated parameters of the model may be called coefficients
 or weights. Here again, I don't like the using *weight* as weight as a very different meaning in
@@ -143,13 +143,14 @@ I ran the following regression:
 \]
 
 where \(\beta_0, \beta_1\) and \(\beta_2\) are three parameters to estimate. To take a look at the
-results, you can use the `summary()` method (not to be confused with `dplyr::summarise()`:
+results, you can use the `summary()` method (not to be confused with `dplyr::summarise()`):
 
 ```{r}
 summary(model1)
 ```
 
-if you wish to remove the intercept (\(alpha\)) from your model, you can do so with `-1`:
+if you wish to remove the intercept (\(\beta_0\) in the above equation) from your model, you can 
+do so with `-1`:
 
 ```{r}
 model2 <- lm(price ~ -1 + lotsize + bedrooms, data = Housing)
@@ -157,7 +158,7 @@ model2 <- lm(price ~ -1 + lotsize + bedrooms, data = Housing)
 summary(model2)
 ```
 
-or if you want to use all the columns inside `Housing`:
+or if you want to use all the columns inside `Housing`, replacing the column names by `.`:
 
 ```{r}
 model3 <- lm(price ~ ., data = Housing)
@@ -165,8 +166,7 @@ model3 <- lm(price ~ ., data = Housing)
 summary(model3)
 ```
 
-You can access different elements of `model3` (for example) with `$`, because the result of `lm()`
-is a list:
+You can access different elements of `model3` with `$`, because the result of `lm()` is a list:
 
 ```{r}
 print(model3$coefficients)
@@ -183,7 +183,7 @@ glimpse(results3)
 
 I explicitely write `broom::tidy()` because `tidy()` is a popular function name. For instance,
 it is also a function from the `{yardstick}` package, which does not do the same thing at all. Since
-I will also be using `{yardstick}` I prefer explicitely writing `broom::tidy()` to avoid conflicts.
+I will also be using `{yardstick}` I prefer to explicitely write `broom::tidy()` to avoid conflicts.
 
 Using `broom::tidy()` is useful, because you can then work on the results easily, for example if 
 you wish to only keep results that are significant at the 5\% level:
@@ -234,7 +234,7 @@ glance(model3)
 ```
 
 You can also plot the usual diagnostics plots using `ggfortify::autoplot()` which uses the
-`ggplot2` package under the hood:
+`{ggplot2}` package under the hood:
 
 ```{r}
 library(ggfortify)
@@ -316,10 +316,11 @@ by filtering `prank > 0.99` we get the top 1% of outliers according to Cook's di
 
 ## Interpreting models
 
-Model interpretation is essential in the social sciences. If one wants to know the effect of
-variable `x` on the dependent variable `y`, marginal effects have to be computed. This is easily
-done in R with the `{margins}`  package, which aims to provide the same functionality as the
-`margins` command in STATA:
+Model interpretation is essential in the social sciences, but it is also getting very important
+in machine learning. As usual, the terminology is different; in machine learning, we speak about
+explainability. If one wants to know the effect of variable `x` on the dependent variable `y`, 
+marginal effects have to be computed. This is easily done in R with the `{margins}` package, which 
+aims to provide the same functionality as the `margins` command in STATA:
 
 ```{r}
 library(margins)
@@ -336,9 +337,9 @@ plot(effects_model3)
 ```
 
 This uses the basic R plotting capabilities, which is useful because it is a simple call to the
-function `plot()` but if you've been using `ggplot2` and want this graph to have the same feel as
-the others made with `ggplot2` you first need to save the summary in a variable.
-`summary(effects_model3)` is a `data.frame` with many more details. Let's overwrite this
+function `plot()` but if you've been using `{ggplot2}` and want this graph to have the same feel as
+the others made with `{ggplot2}` you first need to save the summary in a variable.
+`summary(effects_model3)` is a `data.frame` with many details. Let's overwrite this
 `effects_model3` with its summary:
 
 ```{r}
@@ -358,7 +359,7 @@ ggplot(data = effects_model3) +
 
 Of course for `model3`, the marginal effects are the same as the coefficients, so let's estimate a
 logit model and compute the marginal effects. Logit models can be estimated using the `glm()` function.
-As an example, we are going to use the `Participation` data, also from the `Ecdat` package:
+As an example, we are going to use the `Participation` data, also from the `{Ecdat}` package:
 
 ```{r}
 data(Participation)
@@ -426,9 +427,9 @@ See Also:
      ‘Index.Observations’
 ```
 
-The variable of interest is lfp: whether the individual participates in the labour force. To know
-which variables are relevant in the decision to participate in the labour force, one could estimate
-a logit model, using glm().
+The variable of interest is `lfp`: whether the individual participates in the labour force or not. 
+To know which variables are relevant in the decision to participate in the labour force, one could 
+train a logit model, using `glm()`:
 
 ```{r}
 logit_participation <- glm(lfp ~ ., data = Participation, family = "binomial")
@@ -457,7 +458,7 @@ ggplot(data = effects_logit_participation) +
   theme(axis.text.x = element_text(angle = 45))
 ```
 
-So an infinitesimal increase, in say, non-labour income (lnnlinc) of 0.001 is associated with a
+So an infinitesimal increase, in say, non-labour income (`lnnlinc`) of 0.001 is associated with a
 decrease of the probability of labour force participation by 0.001*17 percentage points.
 
 You can also extract the marginal effects of a single variable:
@@ -469,16 +470,16 @@ head(dydx(Participation, logit_participation, "lnnlinc"))
 Which makes it possible to extract the effect for a list of individuals that you can create yourself:
 
 ```{r}
-my_subjects = tribble(
+my_subjects <- tribble(
     ~lfp,  ~lnnlinc, ~age, ~educ, ~nyc, ~noc, ~foreign,
     "yes",   10.780,  7.0,     4,    1,   1,     "yes",
-     "no",     1.30,  9.0,     1,    4,   1,     "yes"
+    "no",      1.30,  9.0,     1,    4,   1,     "yes"
 )
 
 dydx(my_subjects, logit_participation, "lnnlinc")
 ```
 
-I used the `tribble()` function from the tibble package to create this test data set, row by row.
+I used the `tribble()` function from the `{tibble}` package to create this test data set, row by row.
 Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these two individuals.
 
 ## Comparing models
@@ -546,13 +547,13 @@ autoplot(model_log, which = 1:6) + theme_minimal()
 
 Once you estimated a model, you might want to use it for prediction. This is easily done using the
 `predict()` function that works with most models. Prediction is also useful as a way to test the
-accuracy of your model: split your data into a training set (used for estimation) and a testing
+accuracy of your model: split your data into a training set (used for training) and a testing
 set (used for the pseudo-prediction) and see if your model overfits the data. We are going to see
 how to do that in a later section; for now, let's just get acquainted with `predict()` and other
 functions. I insist, keep in mind that this section is only to get acquainted with these functions. 
 We are going to explore prediction, overfitting and tuning of models in a later section.
 
-Let's go back to the models we estimated in the previous section, `model3` and `model_log`. Let's also
+Let's go back to the models we trained in the previous section, `model3` and `model_log`. Let's also
 take a subsample of data, which we will be using for prediction:
 
 ```{r}
@@ -562,7 +563,7 @@ pred_set <- Housing %>%
   sample_n(20)
 ```
 
-so that we get always the same `pred_set` I set the random seed first. Let's take a look at the
+In order to always get the same `pred_set`, I set the random seed first. Let's take a look at the
 data:
 
 ```{r}
@@ -597,9 +598,9 @@ rmse2 <- pred_set %>%
 ```
 
 Don't forget to exponentiate the predictions, remember you're dealing with a log-linear model! `model_log`'s
-RMSE is `r rmse2` which is lower than `model3`'s. However, keep in mind that the model was estimated
+RMSE is `r rmse2` which is lower than `model3`'s. However, keep in mind that the model was trained
 on the whole data, and then the prediction quality was assessed using a subsample of the data the
-model was estimated on... so actually we can't really say if `model_log`'s predictions are very useful.
+model was trained on... so actually we can't really say if `model_log`'s predictions are very useful.
 Of course, this is the same for `model3`.
 In a later section we are going to learn how to do cross validation to avoid this issue.
 
@@ -637,20 +638,19 @@ Nonparametric regression     `np`                                               
 
 I put neural networks in the table, but you can also find packages for regression trees, naive
 bayes, and pretty much any machine learning method out there! The same goes for Bayesian methods.
-Popular packages include `rstan`, `rjags` which link R to STAN and JAGS (two other pieces of software
+Popular packages include `{rstan}`, `{rjags}` which link R to STAN and JAGS (two other pieces of software
 that do the Gibbs sampling for you) which are tools that allow you to fit very general models. It
-is also possible to estimate models using Bayesian inference without the need of external tools,
-with the `bayesm` package which estimates the usual micro-econometric models.
+is also possible to train models using Bayesian inference without the need of external tools,
+with the `{bayesm}` package which estimates the usual micro-econometric models.
 There really are a lot of packages available for Bayesian inference, and you can find them all in the
 [related CRAN Task View](https://cran.r-project.org/web/views/Bayesian.html).
-
 
 ## Hyper-parameters
 
 Hyper-parameters are parameters of the model that cannot be directly learned from the data. 
 A linear regression does not have any hyper-parameters, but a random forest for instance has several.
 You might have heard of ridge regression, lasso and elasticnet. These are 
-extensions to linear models that avoid over-fitting by penalizing *large* models. These 
+extensions of linear models that avoid over-fitting by penalizing *large* models. These 
 extensions of the linear regression have hyper-parameters that the practitioner has to tune. There
 are several ways one can tune these parameters, for example, by doing a grid-search, or a random 
 search over the grid or using more elaborate methods. To introduce hyper-parameters, let's get
@@ -793,13 +793,10 @@ According to `cv.glmnet()` the best value for `lambda` is `r best_model$lambda.m
 next section, we will implement cross validation ourselves, in order to find the hyper-parameters
 of a random forest.
 
-
 ## Training, validating, and testing models
 
 Cross-validation is an important procedure which is used to compare models but also to tune the
-hyper-parameters of a model. 
-
-In this section, we are going to use several packages from the
+hyper-parameters of a model. In this section, we are going to use several packages from the
 [`{tidymodels}`](https://github.com/tidymodels) collection of packages, namely
 [`{recipes}`](https://tidymodels.github.io/recipes/), 
 [`{rsample}`](https://tidymodels.github.io/rsample/) and 
@@ -831,13 +828,13 @@ library("brotools")
 library("mlbench")
 ```
 
-Load the data, included in the `{mlrbench}` package:
+Load the data which is included in the `{mlrbench}` package:
 
 ```{r}
 data("BostonHousing2")
 ```
 
-I will train a random forest to predict the housing price, which is the `cmedv` column:
+I will train a random forest to predict the housing prices, which is the `cmedv` column:
 
 ```{r}
 head(BostonHousing2)
@@ -914,8 +911,8 @@ the *analysis* and the *assessment* sets:
 blogdown::shortcode("tweet", "1066131042615140353")
 ```
 
-Now, in order to continue I need pre-process the data. I will do this in three steps.
-The first and the second step are used to center and scale the numeric variables and the third step 
+Now, in order to continue I need to pre-process the data. I will do this in three steps.
+The first and the second steps are used to center and scale the numeric variables and the third step 
 converts character and factor variables to dummy variables. This is needed because I will train a 
 random forest, which cannot handle factor variables directly. Let's define a recipe to do that, 
 and start by pre-processing the testing set. I write a wrapper function around the recipe,
@@ -929,6 +926,11 @@ simple_recipe <- function(dataset){
         step_dummy(all_nominal())
 }
 ```
+
+We have not learned yet about writing functions, and will do so in the next chapter. However, for 
+now, you only need to know that you can write your own functions, and that these functions can 
+take any arguments you need. In the case of the above function, which we called `simple_recipe()`,
+we only need one argument, which is a dataset, and which we called `dataset`.
 
 Once the recipe is defined, I can use the `prep()` function, which estimates the parameters from 
 the data which are needed to process the data. For example, for centering, `prep()` estimates 
@@ -966,7 +968,7 @@ broom::augment(linreg_model, newdata = test_data) %>%
 
 `broom::augment()` adds the predictions to the `test_data` in a new column, `.fitted`. I won't
 use this trick with the random forest, because there is no `augment()` method for random forests
-from the `{ranger}` which I'll use. I'll add the predictions to the data myself.
+from the `{ranger}` package which I'll use. I'll add the predictions to the data myself.
 
 Ok, now let's go back to the random forest and write the big function:
 
@@ -995,7 +997,7 @@ my_rf <- function(mtry, trees, split, id){
 }
 ```
 
-The `rand_forest()` function is available from the `{parsnip}` package. This package provides an 
+The `rand_forest()` function is available in the `{parsnip}` package. This package provides an 
 unified interface to a lot of other machine learning packages. This means that instead of having to 
 learn the syntax of `range()` and `randomForest()` and, and... you can simply use the `rand_forest()`
 function and change the `engine` argument to the one you want (`ranger`, `randomForest`, etc).
@@ -1058,11 +1060,17 @@ tuning(c(3, 200), validation_data)
 ```
 
 I now follow the code that can be found in the [arxiv](https://arxiv.org/abs/1703.03373) paper to 
-run the optimization. I think I got the gist of the paper, but I did not understand everything yet.
-For now, I am still experimenting with the library at the moment, but from what I understand, a 
-simpler model, called the surrogate model, is used to look for promising points and to evaluate the
-value of the function at these points. This seems somewhat similar (in spirit) to the 
-*Indirect Inference* method as described in [Gourieroux, Monfort, Renault](https://www.jstor.org/stable/2285076).
+run the optimization. A simpler model, called the surrogate model, is used to look for promising 
+points and to evaluate the value of the function at these points. This seems somewhat similar 
+(in spirit) to the *Indirect Inference* method as described in 
+[Gourieroux, Monfort, Renault](https://www.jstor.org/stable/2285076).
+
+If you don't really get what follows, no worries, it is not really important as such. The idea
+is simply to look for hyper-parameters in an efficient way, and bayesian optimisation provides
+this efficient way. However, you could use another method, for example a grid search. This would not
+change anything to the general approach. So I will not spend too much time explaining what is 
+going on below, as you can read the details in the paper cited above as well as the package's 
+documentation.
 
 Let's first load the package and create the function to optimize:
 
@@ -1085,7 +1093,7 @@ This function is based on the function I defined before. The parameters to optim
 defined as are their bounds. I will look for `mtry` between the values of 3 and 8, and `trees` 
 between 50 and 500.
 
-Now comes the part I didn't quite get.
+We still need to define some other objects before continuing:
 
 ```{r}
 # Create initial random Latin Hypercube Design of 10 points
@@ -1093,11 +1101,8 @@ library(lhs)# for randomLHS
 des <- generateDesign(n = 5L * 2L, getParamSet(fn), fun = randomLHS)
 ```
 
-I think this means that these 10 points are the points used to start the whole process. I did not
-understand why they have to be sampled from a hypercube, but ok. Then I choose the surrogate model,
-a random forest too, and predict the standard error. Here also, I did not quite get why the 
-standard error can be an option.
- 
+Then we choose the surrogate model, a random forest too:
+
 ```{r}
 # Specify kriging model with standard error estimation
 surrogate <- makeLearner("regr.ranger", predict.type = "se", keep.inbag = TRUE)
@@ -1164,3 +1169,7 @@ tibble::tibble("truth" = test_data$price,
         "prediction" = unlist(price_predict)) %>% 
     yardstick::rmse(truth, prediction)
 ```
+
+As I mentioned above, all the part about looking for hyper-parameters could be changed to something
+else. The general approach though remains what I have described, and can be applied for any models
+that have hyper-parameters.
