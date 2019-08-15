@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-08-15" />
+<meta name="date" content="2019-08-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,46 +373,46 @@ programming languages would be very limited.</p>
 <h3><span class="header-section-number">7.1.1</span> If-else</h3>
 <p>Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical
 problem that requires the <code>if ... else ...</code> construct. For instance:</p>
-<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb889-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb889-2" data-line-number="2">b &lt;-<span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb904-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb904-2" data-line-number="2">b &lt;-<span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <p>Suppose that if <code>a &gt; b</code> then <code>f</code> should be equal to 20, else <code>f</code> should be equal to 10. Using <code>if ... else ...</code> you can achieve this like so:</p>
-<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb890-1" data-line-number="1"><span class="cf">if</span> (a <span class="op">&gt;</span><span class="st"> </span>b) {</a>
-<a class="sourceLine" id="cb890-2" data-line-number="2">  f &lt;-<span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb890-3" data-line-number="3">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb890-4" data-line-number="4">  f &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb890-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb905"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb905-1" data-line-number="1"><span class="cf">if</span> (a <span class="op">&gt;</span><span class="st"> </span>b) {</a>
+<a class="sourceLine" id="cb905-2" data-line-number="2">  f &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb905-3" data-line-number="3">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb905-4" data-line-number="4">  f &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb905-5" data-line-number="5">}</a></code></pre></div>
 <p>Obviously, here <code>f = 10</code>. Another way to achieve this is by using the <code>ifelse()</code> function:</p>
-<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb891-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">ifelse</span>(a <span class="op">&gt;</span><span class="st"> </span>b, <span class="dv">20</span>, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb906-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">ifelse</span>(a <span class="op">&gt;</span><span class="st"> </span>b, <span class="dv">20</span>, <span class="dv">10</span>)</a></code></pre></div>
 <p><code>if...else...</code> and <code>ifelse()</code> might seem interchangeable, but they’re not. <code>ifelse()</code> is vectorized, while
 <code>if...else..</code> is not. Let’s try the following:</p>
-<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb892-1" data-line-number="1"><span class="kw">ifelse</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="op">&gt;</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb907-1" data-line-number="1"><span class="kw">ifelse</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="op">&gt;</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;no&quot;  &quot;yes&quot; &quot;yes&quot;</code></pre>
 <p>The result is a vector. Now, let’s see what happens if we use <code>if...else...</code> instead of <code>ifelse()</code>:</p>
-<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb894-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="op">&gt;</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="kw">print</span>(<span class="st">&quot;yes&quot;</span>) <span class="cf">else</span> <span class="kw">print</span>(<span class="st">&quot;no&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb909"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb909-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="op">&gt;</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="kw">print</span>(<span class="st">&quot;yes&quot;</span>) <span class="cf">else</span> <span class="kw">print</span>(<span class="st">&quot;no&quot;</span>)</a></code></pre></div>
 <pre><code>## Warning in if (c(1, 2, 4) &gt; c(3, 1, 0)) print(&quot;yes&quot;) else print(&quot;no&quot;): the
 ## condition has length &gt; 1 and only the first element will be used</code></pre>
 <pre><code>## [1] &quot;no&quot;</code></pre>
 <p>Only the first element of my atomic vector is used for the comparison. This is very important to keep in mind.
 Suppose that you want an expression to be evaluated, only if every element is <code>TRUE</code>. In this case, you should
 use the <code>all()</code> function, as seen previously in Chapter 2:</p>
-<div class="sourceCode" id="cb897"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb897-1" data-line-number="1"><span class="kw">ifelse</span>(<span class="kw">all</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="op">&gt;</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)), <span class="st">&quot;all elements are greater&quot;</span>, <span class="st">&quot;not all elements are greater&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb912"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb912-1" data-line-number="1"><span class="kw">ifelse</span>(<span class="kw">all</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="op">&gt;</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)), <span class="st">&quot;all elements are greater&quot;</span>, <span class="st">&quot;not all elements are greater&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;not all elements are greater&quot;</code></pre>
 <p>You also remember the <code>any()</code> function:</p>
-<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb899-1" data-line-number="1"><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="op">&gt;</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)), <span class="st">&quot;at least one element is greater&quot;</span>, <span class="st">&quot;no element greater&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb914-1" data-line-number="1"><span class="kw">ifelse</span>(<span class="kw">any</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="op">&gt;</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)), <span class="st">&quot;at least one element is greater&quot;</span>, <span class="st">&quot;no element greater&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;at least one element is greater&quot;</code></pre>
 <p>These are the basics. But sometimes, you might need to test for more complex conditions, which can
 lead to using nested <code>if...else...</code> constructs. These, however, can get messy:</p>
-<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb901-1" data-line-number="1"><span class="cf">if</span> (<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb901-2" data-line-number="2">  <span class="kw">print</span>(<span class="st">&quot;10 is divisible by 3&quot;</span>)</a>
-<a class="sourceLine" id="cb901-3" data-line-number="3">  } <span class="cf">else</span> <span class="cf">if</span> (<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb901-4" data-line-number="4">    <span class="kw">print</span>(<span class="st">&quot;10 is divisible by 2&quot;</span>)</a>
-<a class="sourceLine" id="cb901-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb916-1" data-line-number="1"><span class="cf">if</span> (<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb916-2" data-line-number="2">  <span class="kw">print</span>(<span class="st">&quot;10 is divisible by 3&quot;</span>)</a>
+<a class="sourceLine" id="cb916-3" data-line-number="3">  } <span class="cf">else</span> <span class="cf">if</span> (<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb916-4" data-line-number="4">    <span class="kw">print</span>(<span class="st">&quot;10 is divisible by 2&quot;</span>)</a>
+<a class="sourceLine" id="cb916-5" data-line-number="5">}</a></code></pre></div>
 <pre><code>## [1] &quot;10 is divisible by 2&quot;</code></pre>
 <p>10 being obviously divisible by 2 and not 3, it is the second phrase that will be printed. The
 <code>%%</code> operator is the modulus operator, which gives the rest of the division of 10 by 2.
 It is easier to use <code>dplyr::case_when()</code>:</p>
-<div class="sourceCode" id="cb903"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb903-1" data-line-number="1"><span class="kw">case_when</span>(<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;10 is divisible by 3&quot;</span>,</a>
-<a class="sourceLine" id="cb903-2" data-line-number="2">          <span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;10 is divisible by 2&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb918-1" data-line-number="1"><span class="kw">case_when</span>(<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;10 is divisible by 3&quot;</span>,</a>
+<a class="sourceLine" id="cb918-2" data-line-number="2">          <span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;10 is divisible by 2&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;10 is divisible by 2&quot;</code></pre>
 <p>We have already encountered this function in Chapter 4, inside a <code>dplyr::mutate()</code> call to create a new column.</p>
 <p>Let’s now discuss loops.</p>
@@ -420,9 +420,9 @@ It is easier to use <code>dplyr::case_when()</code>:</p>
 <div id="for-loops" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> For loops</h3>
 <p>For loops make it possible to repeat a set of instructions <code>i</code> times. For example, try the following:</p>
-<div class="sourceCode" id="cb905"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb905-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){</a>
-<a class="sourceLine" id="cb905-2" data-line-number="2">  <span class="kw">print</span>(<span class="st">&quot;hello&quot;</span>)</a>
-<a class="sourceLine" id="cb905-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb920-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){</a>
+<a class="sourceLine" id="cb920-2" data-line-number="2">  <span class="kw">print</span>(<span class="st">&quot;hello&quot;</span>)</a>
+<a class="sourceLine" id="cb920-3" data-line-number="3">}</a></code></pre></div>
 <pre><code>## [1] &quot;hello&quot;
 ## [1] &quot;hello&quot;
 ## [1] &quot;hello&quot;
@@ -435,12 +435,12 @@ It is easier to use <code>dplyr::case_when()</code>:</p>
 ## [1] &quot;hello&quot;</code></pre>
 <p>It is also possible to do computations using for loops. Let’s compute the sum of the first
 100 integers:</p>
-<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb907-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb907-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){</a>
-<a class="sourceLine" id="cb907-3" data-line-number="3">  result &lt;-<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i</a>
-<a class="sourceLine" id="cb907-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb907-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb907-6" data-line-number="6"><span class="kw">print</span>(result)</a></code></pre></div>
+<div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb922-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb922-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){</a>
+<a class="sourceLine" id="cb922-3" data-line-number="3">  result &lt;-<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i</a>
+<a class="sourceLine" id="cb922-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb922-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb922-6" data-line-number="6"><span class="kw">print</span>(result)</a></code></pre></div>
 <pre><code>## [1] 5050</code></pre>
 <p><code>result</code> is equal to 5050, the expected result. What happened in that loop? First, we defined a
 variable called <code>result</code> and set it to 0. Then, when the loops starts, <code>i</code> equals 1, so we add
@@ -448,7 +448,7 @@ variable called <code>result</code> and set it to 0. Then, when the loops starts
 <code>result</code> equals 1 and <code>i</code> equals 2, so now <code>result</code> equals 3, and we repeat this until <code>i</code>
 equals 100. As explained in the introduction, this is not my preferred way of doing something like
 that. I actually use loops very rarely. I would solve the above problem using <code>purrr::reduce()</code>:</p>
-<div class="sourceCode" id="cb909"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb909-1" data-line-number="1"><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb924-1" data-line-number="1"><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a></code></pre></div>
 <pre><code>## [1] 5050</code></pre>
 <p>This might look more complex, but once you’re used to it, you will not use many loops again.
 You might wonder then, why use loops at all in this case? I refer you to the following
@@ -460,14 +460,14 @@ such as <code>purrr::map()</code> or <code>purrr::reduce()</code>.</p>
 <h3><span class="header-section-number">7.1.3</span> While loops</h3>
 <p>While loops are very similar to for loops. The instructions inside a while loop are repeated while a
 certain condition holds true. Let’s consider the sum of the first 100 integers again:</p>
-<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb911-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb911-2" data-line-number="2">i &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb911-3" data-line-number="3"><span class="cf">while</span> (i<span class="op">&lt;=</span><span class="dv">100</span>){</a>
-<a class="sourceLine" id="cb911-4" data-line-number="4">  result =<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i</a>
-<a class="sourceLine" id="cb911-5" data-line-number="5">  i =<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb911-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb911-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb911-8" data-line-number="8"><span class="kw">print</span>(result)</a></code></pre></div>
+<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb926-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb926-2" data-line-number="2">i &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb926-3" data-line-number="3"><span class="cf">while</span> (i<span class="op">&lt;=</span><span class="dv">100</span>){</a>
+<a class="sourceLine" id="cb926-4" data-line-number="4">  result =<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i</a>
+<a class="sourceLine" id="cb926-5" data-line-number="5">  i =<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb926-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb926-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb926-8" data-line-number="8"><span class="kw">print</span>(result)</a></code></pre></div>
 <pre><code>## [1] 5050</code></pre>
 <p>Here, we first set <code>result</code> and <code>i</code> to 0. Then, while <code>i</code> is less than, or equal to 100, we add <code>i</code>
 to <code>result</code>. Notice that there is one more line than in the for loop: we need to increment the value
@@ -487,71 +487,71 @@ need to write your own. In this section we are going to learn how to write our o
 <h3><span class="header-section-number">7.2.1</span> Declaring functions in R</h3>
 <p>Suppose you want to create the following function: <span class="math inline">\(f(x) = \dfrac{1}{\sqrt{x}}\)</span>.
 Writing this in R is quite simple:</p>
-<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb913-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb913-2" data-line-number="2">  <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)</a>
-<a class="sourceLine" id="cb913-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb928-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb928-2" data-line-number="2">  <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)</a>
+<a class="sourceLine" id="cb928-3" data-line-number="3">}</a></code></pre></div>
 <p>The argument of the function, <code>x</code>, gets passed to the <code>function()</code> function and the <em>body</em> of
 the function (more on that in the next Chapter) contains the function definition. Of course,
 you could define functions that use more than one input:</p>
-<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb914-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</a>
-<a class="sourceLine" id="cb914-2" data-line-number="2">  <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x <span class="op">+</span><span class="st"> </span>y)</a>
-<a class="sourceLine" id="cb914-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb929-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</a>
+<a class="sourceLine" id="cb929-2" data-line-number="2">  <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x <span class="op">+</span><span class="st"> </span>y)</a>
+<a class="sourceLine" id="cb929-3" data-line-number="3">}</a></code></pre></div>
 <p>or inputs with names longer than one character:</p>
-<div class="sourceCode" id="cb915"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb915-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2){</a>
-<a class="sourceLine" id="cb915-2" data-line-number="2">  <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(argument1 <span class="op">+</span><span class="st"> </span>argument2)</a>
-<a class="sourceLine" id="cb915-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb930-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2){</a>
+<a class="sourceLine" id="cb930-2" data-line-number="2">  <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(argument1 <span class="op">+</span><span class="st"> </span>argument2)</a>
+<a class="sourceLine" id="cb930-3" data-line-number="3">}</a></code></pre></div>
 <p>Functions written by the user get called just the same way as functions included in R:</p>
-<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb916-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">1</span>, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb931-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">1</span>, <span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1] 0.3015113</code></pre>
 <p>It is also possible to provide default values to the function’s arguments, which are values that are used
 if the user omits them:</p>
-<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb918-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, <span class="dt">argument2 =</span> <span class="dv">10</span>){</a>
-<a class="sourceLine" id="cb918-2" data-line-number="2"><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(argument1 <span class="op">+</span><span class="st"> </span>argument2)</a>
-<a class="sourceLine" id="cb918-3" data-line-number="3">}</a></code></pre></div>
-<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb919-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb933-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, <span class="dt">argument2 =</span> <span class="dv">10</span>){</a>
+<a class="sourceLine" id="cb933-2" data-line-number="2"><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(argument1 <span class="op">+</span><span class="st"> </span>argument2)</a>
+<a class="sourceLine" id="cb933-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb934-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.3015113</code></pre>
 <p>This is especially useful for functions with many arguments. Consider also the following, example,
 where the function has a default method:</p>
-<div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb921-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2, <span class="dt">method =</span> <span class="st">&quot;foo&quot;</span>){</a>
-<a class="sourceLine" id="cb921-2" data-line-number="2">  </a>
-<a class="sourceLine" id="cb921-3" data-line-number="3">  x &lt;-<span class="st"> </span>argument1 <span class="op">+</span><span class="st"> </span>argument2</a>
-<a class="sourceLine" id="cb921-4" data-line-number="4">  </a>
-<a class="sourceLine" id="cb921-5" data-line-number="5">  <span class="cf">if</span>(method <span class="op">==</span><span class="st"> &quot;foo&quot;</span>){</a>
-<a class="sourceLine" id="cb921-6" data-line-number="6">    <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)</a>
-<a class="sourceLine" id="cb921-7" data-line-number="7">  } <span class="cf">else</span> <span class="cf">if</span> (method <span class="op">==</span><span class="st"> &quot;bar&quot;</span>){</a>
-<a class="sourceLine" id="cb921-8" data-line-number="8">    <span class="st">&quot;this is a string&quot;</span></a>
-<a class="sourceLine" id="cb921-9" data-line-number="9">    }</a>
-<a class="sourceLine" id="cb921-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb921-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb921-12" data-line-number="12"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb936-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2, <span class="dt">method =</span> <span class="st">&quot;foo&quot;</span>){</a>
+<a class="sourceLine" id="cb936-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb936-3" data-line-number="3">  x &lt;-<span class="st"> </span>argument1 <span class="op">+</span><span class="st"> </span>argument2</a>
+<a class="sourceLine" id="cb936-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb936-5" data-line-number="5">  <span class="cf">if</span>(method <span class="op">==</span><span class="st"> &quot;foo&quot;</span>){</a>
+<a class="sourceLine" id="cb936-6" data-line-number="6">    <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)</a>
+<a class="sourceLine" id="cb936-7" data-line-number="7">  } <span class="cf">else</span> <span class="cf">if</span> (method <span class="op">==</span><span class="st"> &quot;bar&quot;</span>){</a>
+<a class="sourceLine" id="cb936-8" data-line-number="8">    <span class="st">&quot;this is a string&quot;</span></a>
+<a class="sourceLine" id="cb936-9" data-line-number="9">    }</a>
+<a class="sourceLine" id="cb936-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb936-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb936-12" data-line-number="12"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>)</a></code></pre></div>
 <pre><code>## [1] 0.2182179</code></pre>
-<div class="sourceCode" id="cb923"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb923-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;bar&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb938-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;bar&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;this is a string&quot;</code></pre>
 <p>As you see, depending on the “method” chosen, the returned result is either a numeric, or a string.
 What happens if the user provides a “method” that is neither “foo” nor “bar”?</p>
-<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb925-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;spam&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb940-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;spam&quot;</span>)</a></code></pre></div>
 <p>As you can see nothing happens. It is possible to add safeguards to your function to avoid such
 situations:</p>
-<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb926-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2, <span class="dt">method =</span> <span class="st">&quot;foo&quot;</span>){</a>
-<a class="sourceLine" id="cb926-2" data-line-number="2">  </a>
-<a class="sourceLine" id="cb926-3" data-line-number="3">  <span class="cf">if</span>(<span class="op">!</span>(method <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>))){</a>
-<a class="sourceLine" id="cb926-4" data-line-number="4">    <span class="kw">return</span>(<span class="st">&quot;Method must be either &#39;foo&#39; or &#39;bar&#39;&quot;</span>)</a>
-<a class="sourceLine" id="cb926-5" data-line-number="5">  }</a>
-<a class="sourceLine" id="cb926-6" data-line-number="6">  </a>
-<a class="sourceLine" id="cb926-7" data-line-number="7">  x &lt;-<span class="st"> </span>argument1 <span class="op">+</span><span class="st"> </span>argument2</a>
-<a class="sourceLine" id="cb926-8" data-line-number="8">  </a>
-<a class="sourceLine" id="cb926-9" data-line-number="9">  <span class="cf">if</span>(method <span class="op">==</span><span class="st"> &quot;foo&quot;</span>){</a>
-<a class="sourceLine" id="cb926-10" data-line-number="10">    <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)</a>
-<a class="sourceLine" id="cb926-11" data-line-number="11">  } <span class="cf">else</span> <span class="cf">if</span> (method <span class="op">==</span><span class="st"> &quot;bar&quot;</span>){</a>
-<a class="sourceLine" id="cb926-12" data-line-number="12">    <span class="st">&quot;this is a string&quot;</span></a>
-<a class="sourceLine" id="cb926-13" data-line-number="13">    }</a>
-<a class="sourceLine" id="cb926-14" data-line-number="14">}</a>
-<a class="sourceLine" id="cb926-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb926-16" data-line-number="16"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb941-1" data-line-number="1">my_function &lt;-<span class="st"> </span><span class="cf">function</span>(argument1, argument2, <span class="dt">method =</span> <span class="st">&quot;foo&quot;</span>){</a>
+<a class="sourceLine" id="cb941-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb941-3" data-line-number="3">  <span class="cf">if</span>(<span class="op">!</span>(method <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>))){</a>
+<a class="sourceLine" id="cb941-4" data-line-number="4">    <span class="kw">return</span>(<span class="st">&quot;Method must be either &#39;foo&#39; or &#39;bar&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb941-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb941-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb941-7" data-line-number="7">  x &lt;-<span class="st"> </span>argument1 <span class="op">+</span><span class="st"> </span>argument2</a>
+<a class="sourceLine" id="cb941-8" data-line-number="8">  </a>
+<a class="sourceLine" id="cb941-9" data-line-number="9">  <span class="cf">if</span>(method <span class="op">==</span><span class="st"> &quot;foo&quot;</span>){</a>
+<a class="sourceLine" id="cb941-10" data-line-number="10">    <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)</a>
+<a class="sourceLine" id="cb941-11" data-line-number="11">  } <span class="cf">else</span> <span class="cf">if</span> (method <span class="op">==</span><span class="st"> &quot;bar&quot;</span>){</a>
+<a class="sourceLine" id="cb941-12" data-line-number="12">    <span class="st">&quot;this is a string&quot;</span></a>
+<a class="sourceLine" id="cb941-13" data-line-number="13">    }</a>
+<a class="sourceLine" id="cb941-14" data-line-number="14">}</a>
+<a class="sourceLine" id="cb941-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb941-16" data-line-number="16"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>)</a></code></pre></div>
 <pre><code>## [1] 0.2182179</code></pre>
-<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb928-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;bar&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb943"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb943-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;bar&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;this is a string&quot;</code></pre>
-<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb930-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;foobar&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb945-1" data-line-number="1"><span class="kw">my_function</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="st">&quot;foobar&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Method must be either &#39;foo&#39; or &#39;bar&#39;&quot;</code></pre>
 <p>Notice that I have used <code>return()</code> inside my first <code>if</code> statement. This is to immediately stop
 evaluation of the function and return a value. If I had omitted it, evaluation would have
@@ -568,54 +568,54 @@ function just as if it was built-in into R.</p>
 <p>They have one limitation though (which is shared with R’s native function): just like in math,
 they can only return one value. However, sometimes, you may need to return more than one value.
 To be able to do this, you must put your values in a list, and return the list of values. For example:</p>
-<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb932-1" data-line-number="1">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb932-2" data-line-number="2"><span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))</a>
-<a class="sourceLine" id="cb932-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb932-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb932-5" data-line-number="5"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb947"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb947-1" data-line-number="1">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb947-2" data-line-number="2"><span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))</a>
+<a class="sourceLine" id="cb947-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb947-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb947-5" data-line-number="5"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
 <pre><code>## [1] 7.166667 4.262237</code></pre>
 <p>You’re still returning a single object, but it’s a vector. You can also return a named list:</p>
-<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb934-1" data-line-number="1">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb934-2" data-line-number="2"><span class="kw">list</span>(<span class="st">&quot;mean_x&quot;</span> =<span class="st">  </span><span class="kw">mean</span>(x), <span class="st">&quot;sd_x&quot;</span> =<span class="st"> </span><span class="kw">sd</span>(x))</a>
-<a class="sourceLine" id="cb934-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb934-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb934-5" data-line-number="5"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb949"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb949-1" data-line-number="1">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb949-2" data-line-number="2"><span class="kw">list</span>(<span class="st">&quot;mean_x&quot;</span> =<span class="st">  </span><span class="kw">mean</span>(x), <span class="st">&quot;sd_x&quot;</span> =<span class="st"> </span><span class="kw">sd</span>(x))</a>
+<a class="sourceLine" id="cb949-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb949-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb949-5" data-line-number="5"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
 <pre><code>## $mean_x
 ## [1] 7.166667
 ## 
 ## $sd_x
 ## [1] 4.262237</code></pre>
 <p>As described before, you can use <code>return()</code> at the end of your functions:</p>
-<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb936-1" data-line-number="1">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb936-2" data-line-number="2">  result &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))</a>
-<a class="sourceLine" id="cb936-3" data-line-number="3"><span class="kw">return</span>(result)</a>
-<a class="sourceLine" id="cb936-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb936-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb936-6" data-line-number="6"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb951-1" data-line-number="1">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb951-2" data-line-number="2">  result &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))</a>
+<a class="sourceLine" id="cb951-3" data-line-number="3"><span class="kw">return</span>(result)</a>
+<a class="sourceLine" id="cb951-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb951-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb951-6" data-line-number="6"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
 <pre><code>## [1] 7.166667 4.262237</code></pre>
 <p>But this is only needed if you need to return a value early:</p>
-<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb938-1" data-line-number="1">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb938-2" data-line-number="2"><span class="cf">if</span>(<span class="kw">any</span>(<span class="kw">is.na</span>(x))){</a>
-<a class="sourceLine" id="cb938-3" data-line-number="3">    <span class="kw">return</span>(<span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb938-4" data-line-number="4">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb938-5" data-line-number="5">    <span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))</a>
-<a class="sourceLine" id="cb938-6" data-line-number="6">    }</a>
-<a class="sourceLine" id="cb938-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb938-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb938-9" data-line-number="9"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb953"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb953-1" data-line-number="1">average_and_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb953-2" data-line-number="2"><span class="cf">if</span>(<span class="kw">any</span>(<span class="kw">is.na</span>(x))){</a>
+<a class="sourceLine" id="cb953-3" data-line-number="3">    <span class="kw">return</span>(<span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb953-4" data-line-number="4">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb953-5" data-line-number="5">    <span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))</a>
+<a class="sourceLine" id="cb953-6" data-line-number="6">    }</a>
+<a class="sourceLine" id="cb953-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb953-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb953-9" data-line-number="9"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
 <pre><code>## [1] 7.166667 4.262237</code></pre>
-<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb940-1" data-line-number="1"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="ot">NA</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb955"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb955-1" data-line-number="1"><span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="ot">NA</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</a></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>If you need to use a function from a package inside your function use <code>::</code>:</p>
-<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb942-1" data-line-number="1">my_sum &lt;-<span class="st"> </span><span class="cf">function</span>(a_vector){</a>
-<a class="sourceLine" id="cb942-2" data-line-number="2">  purrr<span class="op">::</span><span class="kw">reduce</span>(a_vector, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb942-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb957"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb957-1" data-line-number="1">my_sum &lt;-<span class="st"> </span><span class="cf">function</span>(a_vector){</a>
+<a class="sourceLine" id="cb957-2" data-line-number="2">  purrr<span class="op">::</span><span class="kw">reduce</span>(a_vector, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb957-3" data-line-number="3">}</a></code></pre></div>
 <p>However, if you need to use more than one function, this can become tedious. A quick and dirty
 way of doing that, is to use <code>library(package_name)</code>, inside the function:</p>
-<div class="sourceCode" id="cb943"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb943-1" data-line-number="1">my_sum &lt;-<span class="st"> </span><span class="cf">function</span>(a_vector){</a>
-<a class="sourceLine" id="cb943-2" data-line-number="2">  <span class="kw">library</span>(purrr)</a>
-<a class="sourceLine" id="cb943-3" data-line-number="3">  <span class="kw">reduce</span>(a_vector, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb943-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb958-1" data-line-number="1">my_sum &lt;-<span class="st"> </span><span class="cf">function</span>(a_vector){</a>
+<a class="sourceLine" id="cb958-2" data-line-number="2">  <span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb958-3" data-line-number="3">  <span class="kw">reduce</span>(a_vector, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb958-4" data-line-number="4">}</a></code></pre></div>
 <p>Loading the library inside the function has the advantage that you will be sure that the package
 upon which your function depends will be loaded. If the package is already loaded, it will not be
 loaded again, thus not impact performance, but if you forgot to load it at the beginning of your
@@ -630,16 +630,16 @@ returns Fionacci numbers.</p>
 <p>The Fibonacci sequence is the following:</p>
 <p><span class="math display">\[1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...\]</span></p>
 <p>Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the <span class="math inline">\(n^{th}\)</span> fibonacci number:</p>
-<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb944-1" data-line-number="1">my_fibo &lt;-<span class="st"> </span><span class="cf">function</span>(n){</a>
-<a class="sourceLine" id="cb944-2" data-line-number="2"> a &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb944-3" data-line-number="3"> b &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb944-4" data-line-number="4"> <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</a>
-<a class="sourceLine" id="cb944-5" data-line-number="5">  temp &lt;-<span class="st"> </span>b</a>
-<a class="sourceLine" id="cb944-6" data-line-number="6">  b &lt;-<span class="st"> </span>a</a>
-<a class="sourceLine" id="cb944-7" data-line-number="7">  a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>temp</a>
-<a class="sourceLine" id="cb944-8" data-line-number="8"> }</a>
-<a class="sourceLine" id="cb944-9" data-line-number="9"> a</a>
-<a class="sourceLine" id="cb944-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb959-1" data-line-number="1">my_fibo &lt;-<span class="st"> </span><span class="cf">function</span>(n){</a>
+<a class="sourceLine" id="cb959-2" data-line-number="2"> a &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb959-3" data-line-number="3"> b &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb959-4" data-line-number="4"> <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</a>
+<a class="sourceLine" id="cb959-5" data-line-number="5">  temp &lt;-<span class="st"> </span>b</a>
+<a class="sourceLine" id="cb959-6" data-line-number="6">  b &lt;-<span class="st"> </span>a</a>
+<a class="sourceLine" id="cb959-7" data-line-number="7">  a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>temp</a>
+<a class="sourceLine" id="cb959-8" data-line-number="8"> }</a>
+<a class="sourceLine" id="cb959-9" data-line-number="9"> a</a>
+<a class="sourceLine" id="cb959-10" data-line-number="10">}</a></code></pre></div>
 <p>Inside the loop, we defined a variable called <code>temp</code>. Defining temporary variables is usually very
 useful. Let’s try to understand what happens inside this loop:</p>
 <ul>
@@ -657,26 +657,26 @@ the third fibonacci number equals 2. Reading this might be a bit confusing; I st
 to run the algorithm on a sheet of paper, step by step.</p>
 <p>The above algorithm is called an iterative algorithm, because it uses a loop to compute the result.
 Let’s look at another way to think about the problem, with a so-called recursive function:</p>
-<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb945-1" data-line-number="1">fibo_recur &lt;-<span class="st"> </span><span class="cf">function</span>(n){</a>
-<a class="sourceLine" id="cb945-2" data-line-number="2"> <span class="cf">if</span> (n <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>n <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</a>
-<a class="sourceLine" id="cb945-3" data-line-number="3">   <span class="kw">return</span>(n)</a>
-<a class="sourceLine" id="cb945-4" data-line-number="4">   } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb945-5" data-line-number="5">   <span class="kw">fibo_recur</span>(n<span class="dv">-1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fibo_recur</span>(n<span class="dv">-2</span>)</a>
-<a class="sourceLine" id="cb945-6" data-line-number="6">   }</a>
-<a class="sourceLine" id="cb945-7" data-line-number="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb960-1" data-line-number="1">fibo_recur &lt;-<span class="st"> </span><span class="cf">function</span>(n){</a>
+<a class="sourceLine" id="cb960-2" data-line-number="2"> <span class="cf">if</span> (n <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>n <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</a>
+<a class="sourceLine" id="cb960-3" data-line-number="3">   <span class="kw">return</span>(n)</a>
+<a class="sourceLine" id="cb960-4" data-line-number="4">   } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb960-5" data-line-number="5">   <span class="kw">fibo_recur</span>(n<span class="dv">-1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fibo_recur</span>(n<span class="dv">-2</span>)</a>
+<a class="sourceLine" id="cb960-6" data-line-number="6">   }</a>
+<a class="sourceLine" id="cb960-7" data-line-number="7">}</a></code></pre></div>
 <p>This algorithm should be easier to understand: if <code>n = 0</code> or <code>n = 1</code> the function should return <code>n</code>
 (0 or 1). If <code>n</code> is strictly bigger than <code>1</code>, <code>fibo_recur()</code> should return the sum of
 <code>fibo_recur(n-1)</code> and <code>fibo_recur(n-2)</code>. This version of the function is very much the same as the
 mathematical definition of the fibonacci sequence. So why not use only recursive algorithms
 then? Try to run the following:</p>
-<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb946-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">my_fibo</span>(<span class="dv">30</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb961-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">my_fibo</span>(<span class="dv">30</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##    0.01    0.00    0.01</code></pre>
+##   0.005   0.004   0.009</code></pre>
 <p>The result should be printed very fast (the <code>system.time()</code> function returns the time that it took
 to execute <code>my_fibo(30)</code>). Let’s try with the recursive version:</p>
-<div class="sourceCode" id="cb948"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb948-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">fibo_recur</span>(<span class="dv">30</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb963-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">fibo_recur</span>(<span class="dv">30</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.184   0.000   1.185</code></pre>
+##   1.124   0.005   1.130</code></pre>
 <p>It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
 critical, it’s best to avoid recursive algorithms. Also, in <code>fibo_recur()</code> try to remove this line:
 <code>if (n == 0 || n == 1)</code> and try to run <code>fibo_recur(5)</code> and see what happens. You should
@@ -712,44 +712,44 @@ loop, using a recursive function, and using a functional:</p>
 <p>Functions that take functions as arguments are very powerful and useful tools. You already know a
 couple, <code>purrr::map()</code> and <code>purrr::reduce()</code>, discussed briefly in Chapter 4.
 But you can also write your own! A very simple example would be the following:</p>
-<div class="sourceCode" id="cb950"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb950-1" data-line-number="1">my_func &lt;-<span class="st"> </span><span class="cf">function</span>(x, func){</a>
-<a class="sourceLine" id="cb950-2" data-line-number="2">  <span class="kw">func</span>(x)</a>
-<a class="sourceLine" id="cb950-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb965"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb965-1" data-line-number="1">my_func &lt;-<span class="st"> </span><span class="cf">function</span>(x, func){</a>
+<a class="sourceLine" id="cb965-2" data-line-number="2">  <span class="kw">func</span>(x)</a>
+<a class="sourceLine" id="cb965-3" data-line-number="3">}</a></code></pre></div>
 <p><code>my_func()</code> is a very simple function that takes <code>x</code> and <code>func()</code> as arguments and that simply
 executes <code>func(x)</code>. This might not seem very useful (after all, you could simply use <code>func(x)!</code>) but
 this is just for illustration purposes, in practice, your functions would be more useful than that!
 Let’s try to use <code>my_func()</code>:</p>
-<div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb951-1" data-line-number="1"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">8</span>), mean)</a></code></pre></div>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb966-1" data-line-number="1"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">8</span>), mean)</a></code></pre></div>
 <pre><code>## [1] 3.6</code></pre>
 <p>As expected, this returns the mean of the given vector. But now suppose the following:</p>
-<div class="sourceCode" id="cb953"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb953-1" data-line-number="1"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean)</a></code></pre></div>
+<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb968-1" data-line-number="1"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean)</a></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>Because one element of the list is <code>NA</code>, the whole mean is <code>NA</code>. <code>mean()</code> has a <code>na.rm</code> argument
 that you can set to <code>TRUE</code> to ignore the <code>NA</code>s in the vector. However, here, there is no way to
 provide this argument to the function <code>mean()</code>! Let’s see what happens when we try to:</p>
-<div class="sourceCode" id="cb955"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb955-1" data-line-number="1"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb970-1" data-line-number="1"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>Error in my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE) :
   unused argument (na.rm = TRUE)</code></pre>
 <p>So what you could do is pass the value <code>TRUE</code> to the <code>na.rm</code> argument of <code>mean()</code> from your own
 function:</p>
-<div class="sourceCode" id="cb957"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb957-1" data-line-number="1">my_func &lt;-<span class="st"> </span><span class="cf">function</span>(x, func, remove_na){</a>
-<a class="sourceLine" id="cb957-2" data-line-number="2">  <span class="kw">func</span>(x, <span class="dt">na.rm =</span> remove_na)</a>
-<a class="sourceLine" id="cb957-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb957-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb957-5" data-line-number="5"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">remove_na =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb972-1" data-line-number="1">my_func &lt;-<span class="st"> </span><span class="cf">function</span>(x, func, remove_na){</a>
+<a class="sourceLine" id="cb972-2" data-line-number="2">  <span class="kw">func</span>(x, <span class="dt">na.rm =</span> remove_na)</a>
+<a class="sourceLine" id="cb972-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb972-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb972-5" data-line-number="5"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">remove_na =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] 4.5</code></pre>
 <p>This is one solution, but <code>mean()</code> also has another argument called <code>trim</code>. What if some other
 user needs this argument? Should you also add it to your function? Surely there’s a way to avoid
 this problem? Yes, there is, and it by using the <em>dots</em>. The <code>...</code> simply mean “any other
 argument as needed”, and it’s very easy to use:</p>
-<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb959-1" data-line-number="1">my_func &lt;-<span class="st"> </span><span class="cf">function</span>(x, func, ...){</a>
-<a class="sourceLine" id="cb959-2" data-line-number="2">  <span class="kw">func</span>(x, ...)</a>
-<a class="sourceLine" id="cb959-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb959-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb959-5" data-line-number="5"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb974"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb974-1" data-line-number="1">my_func &lt;-<span class="st"> </span><span class="cf">function</span>(x, func, ...){</a>
+<a class="sourceLine" id="cb974-2" data-line-number="2">  <span class="kw">func</span>(x, ...)</a>
+<a class="sourceLine" id="cb974-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb974-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb974-5" data-line-number="5"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] 4.5</code></pre>
 <p>or, now, if you need the <code>trim</code> argument:</p>
-<div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb961-1" data-line-number="1"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">trim =</span> <span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb976-1" data-line-number="1"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">trim =</span> <span class="fl">0.1</span>)</a></code></pre></div>
 <pre><code>## [1] 4.5</code></pre>
 <p>The <code>...</code> are very useful when writing wrappers such as <code>my_func()</code>.</p>
 </div>
@@ -758,35 +758,35 @@ argument as needed”, and it’s very easy to use:</p>
 <div id="the-enquo---approach" class="section level3">
 <h3><span class="header-section-number">7.5.1</span> The <code>enquo() - !!()</code> approach</h3>
 <p>In many situations, you will want to write functions that look similar to this:</p>
-<div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb963-1" data-line-number="1"><span class="kw">my_function</span>(my_data, one_column_inside_data)</a></code></pre></div>
+<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb978-1" data-line-number="1"><span class="kw">my_function</span>(my_data, one_column_inside_data)</a></code></pre></div>
 <p>Such a function would be useful in situation where you have to apply a certain number of operations
 to columns for different data frames. For example if you need to create tables of descriptive
 statistics or graphs periodically, it might be very interesting to put these operations inside a
 function and then call the function whenever you need it, on the fresh batch of data.</p>
 <p>However, if you try to write something like that, something that might seem unexpected, at first,
 will happen:</p>
-<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb964-1" data-line-number="1"><span class="kw">data</span>(mtcars)</a>
-<a class="sourceLine" id="cb964-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb964-3" data-line-number="3">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){</a>
-<a class="sourceLine" id="cb964-4" data-line-number="4">  dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb964-5" data-line-number="5"><span class="st">    </span><span class="kw">group_by</span>(col_name) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb964-6" data-line-number="6"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_speed =</span> <span class="kw">mean</span>(speed))</a>
-<a class="sourceLine" id="cb964-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb964-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb964-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb964-10" data-line-number="10"><span class="kw">simple_function</span>(cars, <span class="st">&quot;dist&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb979"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb979-1" data-line-number="1"><span class="kw">data</span>(mtcars)</a>
+<a class="sourceLine" id="cb979-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb979-3" data-line-number="3">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){</a>
+<a class="sourceLine" id="cb979-4" data-line-number="4">  dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb979-5" data-line-number="5"><span class="st">    </span><span class="kw">group_by</span>(col_name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb979-6" data-line-number="6"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_speed =</span> <span class="kw">mean</span>(speed))</a>
+<a class="sourceLine" id="cb979-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb979-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb979-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb979-10" data-line-number="10"><span class="kw">simple_function</span>(cars, <span class="st">&quot;dist&quot;</span>)</a></code></pre></div>
 <pre><code>Error: unknown variable to group by : col_name</code></pre>
 <p>The variable <code>col_name</code> is passed to <code>simple_function()</code> as a string, but <code>group_by()</code> requires a
 variable name. So why not try to convert <code>col_name</code> to a name?</p>
-<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb966-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){</a>
-<a class="sourceLine" id="cb966-2" data-line-number="2">  col_name &lt;-<span class="st"> </span><span class="kw">as.name</span>(col_name)</a>
-<a class="sourceLine" id="cb966-3" data-line-number="3">  dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb966-4" data-line-number="4"><span class="st">    </span><span class="kw">group_by</span>(col_name) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb966-5" data-line-number="5"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_speed =</span> <span class="kw">mean</span>(speed))</a>
-<a class="sourceLine" id="cb966-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb966-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb966-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb966-9" data-line-number="9"><span class="kw">simple_function</span>(cars, <span class="st">&quot;dist&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb981"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb981-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){</a>
+<a class="sourceLine" id="cb981-2" data-line-number="2">  col_name &lt;-<span class="st"> </span><span class="kw">as.name</span>(col_name)</a>
+<a class="sourceLine" id="cb981-3" data-line-number="3">  dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb981-4" data-line-number="4"><span class="st">    </span><span class="kw">group_by</span>(col_name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb981-5" data-line-number="5"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_speed =</span> <span class="kw">mean</span>(speed))</a>
+<a class="sourceLine" id="cb981-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb981-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb981-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb981-9" data-line-number="9"><span class="kw">simple_function</span>(cars, <span class="st">&quot;dist&quot;</span>)</a></code></pre></div>
 <pre><code>Error: unknown variable to group by : col_name</code></pre>
 <p>This is because R is literally looking for the variable <code>&quot;dist&quot;</code> somewhere in the global
 environment, and not as a column of the data. R does not understand that you are refering to the
@@ -797,15 +797,15 @@ However, you can read about it <a href="http://dplyr.tidyverse.org/articles/prog
 <a href="https://cran.r-project.org/web/packages/rlang/vignettes/tidy-evaluation.html">here</a>. The
 discussion can get complicated, but using <code>{tidyeval}</code> is actually quite easy, and you can have a
 cookbook approach to it. Take a look at the code below:</p>
-<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb968-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){</a>
-<a class="sourceLine" id="cb968-2" data-line-number="2">  col_name &lt;-<span class="st"> </span><span class="kw">enquo</span>(col_name)</a>
-<a class="sourceLine" id="cb968-3" data-line-number="3">  dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb968-4" data-line-number="4"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!</span>col_name) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb968-5" data-line-number="5"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_mpg =</span> <span class="kw">mean</span>(mpg))</a>
-<a class="sourceLine" id="cb968-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb968-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb968-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb968-9" data-line-number="9"><span class="kw">simple_function</span>(mtcars, cyl)</a></code></pre></div>
+<div class="sourceCode" id="cb983"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb983-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){</a>
+<a class="sourceLine" id="cb983-2" data-line-number="2">  col_name &lt;-<span class="st"> </span><span class="kw">enquo</span>(col_name)</a>
+<a class="sourceLine" id="cb983-3" data-line-number="3">  dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb983-4" data-line-number="4"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!</span>col_name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb983-5" data-line-number="5"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_mpg =</span> <span class="kw">mean</span>(mpg))</a>
+<a class="sourceLine" id="cb983-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb983-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb983-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb983-9" data-line-number="9"><span class="kw">simple_function</span>(mtcars, cyl)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##     cyl mean_mpg
 ##   &lt;dbl&gt;    &lt;dbl&gt;
@@ -820,45 +820,45 @@ is. This is done with <code>!!()</code>, which is another <code>{tidyeval}</code
 don’t worry if you don’t understand everything. Just remember to use <code>enquo()</code> on your column names
 and then <code>!!()</code> inside the <code>{dplyr}</code> function you want to use.</p>
 <p>Let’s see some other examples:</p>
-<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb970-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name, value){</a>
-<a class="sourceLine" id="cb970-2" data-line-number="2">  col_name &lt;-<span class="st"> </span><span class="kw">enquo</span>(col_name)</a>
-<a class="sourceLine" id="cb970-3" data-line-number="3">  dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb970-4" data-line-number="4"><span class="st">    </span><span class="kw">filter</span>((<span class="op">!!</span>col_name) <span class="op">==</span><span class="st"> </span>value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb970-5" data-line-number="5"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_cyl =</span> <span class="kw">mean</span>(cyl))</a>
-<a class="sourceLine" id="cb970-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb970-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb970-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb970-9" data-line-number="9"><span class="kw">simple_function</span>(mtcars, am, <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb985"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb985-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name, value){</a>
+<a class="sourceLine" id="cb985-2" data-line-number="2">  col_name &lt;-<span class="st"> </span><span class="kw">enquo</span>(col_name)</a>
+<a class="sourceLine" id="cb985-3" data-line-number="3">  dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb985-4" data-line-number="4"><span class="st">    </span><span class="kw">filter</span>((<span class="op">!!</span>col_name) <span class="op">==</span><span class="st"> </span>value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb985-5" data-line-number="5"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_cyl =</span> <span class="kw">mean</span>(cyl))</a>
+<a class="sourceLine" id="cb985-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb985-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb985-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb985-9" data-line-number="9"><span class="kw">simple_function</span>(mtcars, am, <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>##   mean_cyl
 ## 1 5.076923</code></pre>
 <p>Notice that I’ve written:</p>
-<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb972-1" data-line-number="1"><span class="kw">filter</span>((<span class="op">!!</span>col_name) <span class="op">==</span><span class="st"> </span>value)</a></code></pre></div>
+<div class="sourceCode" id="cb987"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb987-1" data-line-number="1"><span class="kw">filter</span>((<span class="op">!!</span>col_name) <span class="op">==</span><span class="st"> </span>value)</a></code></pre></div>
 <p>and not:</p>
-<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb973-1" data-line-number="1"><span class="kw">filter</span>(<span class="op">!!</span>col_name <span class="op">==</span><span class="st"> </span>value)</a></code></pre></div>
+<div class="sourceCode" id="cb988"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb988-1" data-line-number="1"><span class="kw">filter</span>(<span class="op">!!</span>col_name <span class="op">==</span><span class="st"> </span>value)</a></code></pre></div>
 <p>I have enclosed <code>!!col_name</code> inside parentheses. This is because operators such as <code>==</code> have
 precedence over <code>!!</code>, so you have to be explicit. Also, notice that I didn’t have to quote <code>1</code>.
 This is because it’s <em>standard</em> variable, not a column inside the dataset. Let’s make this function
 a bit more general. I hard-coded the variable cyl inside the body of the function, but maybe you’d
 like the mean of another variable?</p>
-<div class="sourceCode" id="cb974"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb974-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, filter_col, mean_col, value){</a>
-<a class="sourceLine" id="cb974-2" data-line-number="2">  filter_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(filter_col)</a>
-<a class="sourceLine" id="cb974-3" data-line-number="3">  mean_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(mean_col)</a>
-<a class="sourceLine" id="cb974-4" data-line-number="4">  dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb974-5" data-line-number="5"><span class="st">    </span><span class="kw">filter</span>((<span class="op">!!</span>filter_col) <span class="op">==</span><span class="st"> </span>value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb974-6" data-line-number="6"><span class="st">    </span><span class="kw">summarise</span>(<span class="kw">mean</span>((<span class="op">!!</span>mean_col)))</a>
-<a class="sourceLine" id="cb974-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb974-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb974-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb974-10" data-line-number="10"><span class="kw">simple_function</span>(mtcars, am, cyl, <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb989"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb989-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, filter_col, mean_col, value){</a>
+<a class="sourceLine" id="cb989-2" data-line-number="2">  filter_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(filter_col)</a>
+<a class="sourceLine" id="cb989-3" data-line-number="3">  mean_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(mean_col)</a>
+<a class="sourceLine" id="cb989-4" data-line-number="4">  dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb989-5" data-line-number="5"><span class="st">    </span><span class="kw">filter</span>((<span class="op">!!</span>filter_col) <span class="op">==</span><span class="st"> </span>value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb989-6" data-line-number="6"><span class="st">    </span><span class="kw">summarise</span>(<span class="kw">mean</span>((<span class="op">!!</span>mean_col)))</a>
+<a class="sourceLine" id="cb989-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb989-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb989-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb989-10" data-line-number="10"><span class="kw">simple_function</span>(mtcars, am, cyl, <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>##   mean(cyl)
 ## 1  5.076923</code></pre>
 <p>Notice that I had to quote <code>mean_col</code> too.</p>
 <p>Using the <code>...</code> that we discovered in the previous section, we can pass more than one column:</p>
-<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb976-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, ...){</a>
-<a class="sourceLine" id="cb976-2" data-line-number="2">  col_vars &lt;-<span class="st"> </span><span class="kw">quos</span>(...)</a>
-<a class="sourceLine" id="cb976-3" data-line-number="3">  dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb976-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">!!!</span>col_vars), <span class="kw">funs</span>(mean, sd))</a>
-<a class="sourceLine" id="cb976-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb991"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb991-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, ...){</a>
+<a class="sourceLine" id="cb991-2" data-line-number="2">  col_vars &lt;-<span class="st"> </span><span class="kw">quos</span>(...)</a>
+<a class="sourceLine" id="cb991-3" data-line-number="3">  dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb991-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">!!!</span>col_vars), <span class="kw">funs</span>(mean, sd))</a>
+<a class="sourceLine" id="cb991-5" data-line-number="5">}</a></code></pre></div>
 <p>Because these <em>dots</em> contain more than one variable, you have to use <code>quos()</code> instead of <code>enquo()</code>.
 This will put the arguments provided via the dots in a list. Then, because we have a list of
 columns, we have to use <code>summarise_at()</code>, which you should know if you did the exercices of
@@ -866,20 +866,20 @@ Chapter 4. So if you didn’t do them, go back to them and finish them first. Do
 also teach you what <code>vars()</code> and <code>funs()</code> are. The last thing you have to pay attention to is to
 use <code>!!!()</code> if you used <code>quos()</code>. So 3 <code>!</code> instead of only 2. This allows you to then do things
 like this:</p>
-<div class="sourceCode" id="cb977"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb977-1" data-line-number="1"><span class="kw">simple_function</span>(mtcars, am, cyl, mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb992"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb992-1" data-line-number="1"><span class="kw">simple_function</span>(mtcars, am, cyl, mpg)</a></code></pre></div>
 <pre><code>##   am_mean cyl_mean mpg_mean     am_sd   cyl_sd   mpg_sd
 ## 1 0.40625   6.1875 20.09062 0.4989909 1.785922 6.026948</code></pre>
 <p>Using <code>...</code> with <code>!!!()</code> allows you to write very flexible functions.</p>
 <p>If you need to be even more general, you can also provide the summary functions as arguments of
 your function, but you have to rewrite your function a little bit:</p>
-<div class="sourceCode" id="cb979"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb979-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, cols, funcs){</a>
-<a class="sourceLine" id="cb979-2" data-line-number="2">  dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb979-3" data-line-number="3"><span class="st">    </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">!!!</span>cols), <span class="kw">funs</span>(<span class="op">!!!</span>funcs))</a>
-<a class="sourceLine" id="cb979-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb994"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb994-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, cols, funcs){</a>
+<a class="sourceLine" id="cb994-2" data-line-number="2">  dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb994-3" data-line-number="3"><span class="st">    </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">!!!</span>cols), <span class="kw">funs</span>(<span class="op">!!!</span>funcs))</a>
+<a class="sourceLine" id="cb994-4" data-line-number="4">}</a></code></pre></div>
 <p>You might be wondering where the <code>quos()</code> went? Well because now we are passing two lists, a list of
 columns that we have to quote, and a list of functions, that we also have to quote, we need to use <code>quos()</code>
 when calling the function:</p>
-<div class="sourceCode" id="cb980"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb980-1" data-line-number="1"><span class="kw">simple_function</span>(mtcars, <span class="kw">quos</span>(am, cyl, mpg), <span class="kw">quos</span>(mean, sd, sum))</a></code></pre></div>
+<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb995-1" data-line-number="1"><span class="kw">simple_function</span>(mtcars, <span class="kw">quos</span>(am, cyl, mpg), <span class="kw">quos</span>(mean, sd, sum))</a></code></pre></div>
 <pre><code>##   am_mean cyl_mean mpg_mean     am_sd   cyl_sd   mpg_sd am_sum cyl_sum
 ## 1 0.40625   6.1875 20.09062 0.4989909 1.785922 6.026948     13     198
 ##   mpg_sum
@@ -889,16 +889,16 @@ are variables, or the functions, but rarely both at the same time.</p>
 <p>To conclude this function, I should also talk about <code>as_label()</code> which allows you to change the
 name of a variable, for instance if you want to call the resulting column <code>mean_mpg</code> when you
 compute the mean of the <code>mpg</code> column:</p>
-<div class="sourceCode" id="cb982"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb982-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, filter_col, mean_col, value){</a>
-<a class="sourceLine" id="cb982-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb982-3" data-line-number="3">  filter_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(filter_col)</a>
-<a class="sourceLine" id="cb982-4" data-line-number="4">  mean_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(mean_col)</a>
-<a class="sourceLine" id="cb982-5" data-line-number="5">  mean_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;mean_&quot;</span>, <span class="kw">as_label</span>(mean_col))</a>
-<a class="sourceLine" id="cb982-6" data-line-number="6">  </a>
-<a class="sourceLine" id="cb982-7" data-line-number="7">  dataset <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb982-8" data-line-number="8"><span class="st">    </span><span class="kw">filter</span>((<span class="op">!!</span>filter_col) <span class="op">==</span><span class="st"> </span>value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb982-9" data-line-number="9"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>(mean_name) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>((<span class="op">!!</span>mean_col)))</a>
-<a class="sourceLine" id="cb982-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb997"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb997-1" data-line-number="1">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, filter_col, mean_col, value){</a>
+<a class="sourceLine" id="cb997-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb997-3" data-line-number="3">  filter_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(filter_col)</a>
+<a class="sourceLine" id="cb997-4" data-line-number="4">  mean_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(mean_col)</a>
+<a class="sourceLine" id="cb997-5" data-line-number="5">  mean_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;mean_&quot;</span>, <span class="kw">as_label</span>(mean_col))</a>
+<a class="sourceLine" id="cb997-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb997-7" data-line-number="7">  dataset <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb997-8" data-line-number="8"><span class="st">    </span><span class="kw">filter</span>((<span class="op">!!</span>filter_col) <span class="op">==</span><span class="st"> </span>value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb997-9" data-line-number="9"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>(mean_name) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>((<span class="op">!!</span>mean_col)))</a>
+<a class="sourceLine" id="cb997-10" data-line-number="10">}</a></code></pre></div>
 <p>Pay attention to the <code>:=</code> operator in the last line. This is needed when using <code>as_label()</code>.</p>
 </div>
 <div id="curly-curly-a-simplified-approach-to-the-enquo-and-framework" class="section level3">
@@ -909,15 +909,15 @@ The suggested pronunciation of <code>{{}}</code> is <em>curly-curly</em>, but th
 <a href="https://twitter.com/JonTheGeek/status/1144815369766547456">consensus yet</a>.</p>
 <p>Let’s suppose that I need to write a function that takes a data frame, as well as a column from
 this data frame as arguments, just like before:</p>
-<div class="sourceCode" id="cb983"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb983-1" data-line-number="1">how_many_na &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, column_name){</a>
-<a class="sourceLine" id="cb983-2" data-line-number="2">  dataframe <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb983-3" data-line-number="3"><span class="st">    </span><span class="kw">filter</span>(<span class="kw">is.na</span>(column_name)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb983-4" data-line-number="4"><span class="st">    </span><span class="kw">count</span>()</a>
-<a class="sourceLine" id="cb983-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb998"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb998-1" data-line-number="1">how_many_na &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, column_name){</a>
+<a class="sourceLine" id="cb998-2" data-line-number="2">  dataframe <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb998-3" data-line-number="3"><span class="st">    </span><span class="kw">filter</span>(<span class="kw">is.na</span>(column_name)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb998-4" data-line-number="4"><span class="st">    </span><span class="kw">count</span>()</a>
+<a class="sourceLine" id="cb998-5" data-line-number="5">}</a></code></pre></div>
 <p>Let’s try this function out on the <code>starwars</code> data:</p>
-<div class="sourceCode" id="cb984"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb984-1" data-line-number="1"><span class="kw">data</span>(starwars)</a>
-<a class="sourceLine" id="cb984-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb984-3" data-line-number="3"><span class="kw">head</span>(starwars)</a></code></pre></div>
+<div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb999-1" data-line-number="1"><span class="kw">data</span>(starwars)</a>
+<a class="sourceLine" id="cb999-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb999-3" data-line-number="3"><span class="kw">head</span>(starwars)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 13
 ##   name  height  mass hair_color skin_color eye_color birth_year gender
 ##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
@@ -931,55 +931,55 @@ this data frame as arguments, just like before:</p>
 ## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 <p>As you can see, there are missing values in the <code>hair_color</code> column. Let’s try to count how many
 missing values are in this column:</p>
-<div class="sourceCode" id="cb986"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb986-1" data-line-number="1"><span class="kw">how_many_na</span>(starwars, hair_color)</a></code></pre></div>
+<div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1001-1" data-line-number="1"><span class="kw">how_many_na</span>(starwars, hair_color)</a></code></pre></div>
 <pre><code>Error: object &#39;hair_color&#39; not found</code></pre>
 <p>Just as expected, this does not work. The issue is that the column is inside the dataframe,
 but when calling the function with <code>hair_color</code> as the second argument, R is looking for a
 variable called <code>hair_color</code> that does not exist. What about trying with <code>&quot;hair_color&quot;</code>?</p>
-<div class="sourceCode" id="cb988"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb988-1" data-line-number="1"><span class="kw">how_many_na</span>(starwars, <span class="st">&quot;hair_color&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1003"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1003-1" data-line-number="1"><span class="kw">how_many_na</span>(starwars, <span class="st">&quot;hair_color&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
 ##       n
 ##   &lt;int&gt;
 ## 1     0</code></pre>
 <p>Now we get something, but something wrong!</p>
 <p>One way to solve this issue, is to not use the <code>filter()</code> function, and instead rely on base R:</p>
-<div class="sourceCode" id="cb990"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb990-1" data-line-number="1">how_many_na_base &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, column_name){</a>
-<a class="sourceLine" id="cb990-2" data-line-number="2">  na_index &lt;-<span class="st"> </span><span class="kw">is.na</span>(dataframe[, column_name])</a>
-<a class="sourceLine" id="cb990-3" data-line-number="3">  <span class="kw">nrow</span>(dataframe[na_index, column_name])</a>
-<a class="sourceLine" id="cb990-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb990-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb990-6" data-line-number="6"><span class="kw">how_many_na_base</span>(starwars, <span class="st">&quot;hair_color&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1005"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1005-1" data-line-number="1">how_many_na_base &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, column_name){</a>
+<a class="sourceLine" id="cb1005-2" data-line-number="2">  na_index &lt;-<span class="st"> </span><span class="kw">is.na</span>(dataframe[, column_name])</a>
+<a class="sourceLine" id="cb1005-3" data-line-number="3">  <span class="kw">nrow</span>(dataframe[na_index, column_name])</a>
+<a class="sourceLine" id="cb1005-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb1005-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1005-6" data-line-number="6"><span class="kw">how_many_na_base</span>(starwars, <span class="st">&quot;hair_color&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>This works, but not using the <code>{tidyverse}</code> at all is not always an option. For instance,
 the next function, which uses a grouping variable, would be difficult to implement without the
 <code>{tidyverse}</code>:</p>
-<div class="sourceCode" id="cb992"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb992-1" data-line-number="1">summarise_groups &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, grouping_var, column_name){</a>
-<a class="sourceLine" id="cb992-2" data-line-number="2">  dataframe <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb992-3" data-line-number="3"><span class="st">    </span><span class="kw">group_by</span>(grouping_var) <span class="op">%&gt;%</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb992-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="kw">mean</span>(column_name, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb992-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb1007"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1007-1" data-line-number="1">summarise_groups &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, grouping_var, column_name){</a>
+<a class="sourceLine" id="cb1007-2" data-line-number="2">  dataframe <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1007-3" data-line-number="3"><span class="st">    </span><span class="kw">group_by</span>(grouping_var) <span class="op">%&gt;%</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb1007-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="kw">mean</span>(column_name, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1007-5" data-line-number="5">}</a></code></pre></div>
 <p>Calling this function results in the following error message, as expected:</p>
 <pre><code>Error: Column `grouping_var` is unknown</code></pre>
 <p>In the previous section, we solved the issue like so:</p>
-<div class="sourceCode" id="cb994"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb994-1" data-line-number="1">summarise_groups &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, grouping_var, column_name){</a>
-<a class="sourceLine" id="cb994-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb994-3" data-line-number="3">  grouping_var &lt;-<span class="st"> </span><span class="kw">enquo</span>(grouping_var)</a>
-<a class="sourceLine" id="cb994-4" data-line-number="4">  column_name &lt;-<span class="st"> </span><span class="kw">enquo</span>(column_name)</a>
-<a class="sourceLine" id="cb994-5" data-line-number="5">  mean_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;mean_&quot;</span>, <span class="kw">as_label</span>(column_name))</a>
-<a class="sourceLine" id="cb994-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb994-7" data-line-number="7">  dataframe <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb994-8" data-line-number="8"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!</span>grouping_var) <span class="op">%&gt;%</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb994-9" data-line-number="9"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>(mean_name) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(<span class="op">!!</span>column_name, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb994-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb1009"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1009-1" data-line-number="1">summarise_groups &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, grouping_var, column_name){</a>
+<a class="sourceLine" id="cb1009-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1009-3" data-line-number="3">  grouping_var &lt;-<span class="st"> </span><span class="kw">enquo</span>(grouping_var)</a>
+<a class="sourceLine" id="cb1009-4" data-line-number="4">  column_name &lt;-<span class="st"> </span><span class="kw">enquo</span>(column_name)</a>
+<a class="sourceLine" id="cb1009-5" data-line-number="5">  mean_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;mean_&quot;</span>, <span class="kw">as_label</span>(column_name))</a>
+<a class="sourceLine" id="cb1009-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1009-7" data-line-number="7">  dataframe <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1009-8" data-line-number="8"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!</span>grouping_var) <span class="op">%&gt;%</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb1009-9" data-line-number="9"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>(mean_name) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(<span class="op">!!</span>column_name, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1009-10" data-line-number="10">}</a></code></pre></div>
 <p>The core of the function remained very similar to the version from before, but now one has to
 use the <code>enquo()</code>-<code>!!</code> syntax.</p>
 <p>Now this can be simplified using the new <code>{{}}</code> syntax:</p>
-<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb995-1" data-line-number="1">summarise_groups &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, grouping_var, column_name){</a>
-<a class="sourceLine" id="cb995-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb995-3" data-line-number="3">  dataframe <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb995-4" data-line-number="4"><span class="st">    </span><span class="kw">group_by</span>({{grouping_var}}) <span class="op">%&gt;%</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb995-5" data-line-number="5"><span class="st">    </span><span class="kw">summarise</span>({{column_name}} <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>({{column_name}}, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb995-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb1010"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1010-1" data-line-number="1">summarise_groups &lt;-<span class="st"> </span><span class="cf">function</span>(dataframe, grouping_var, column_name){</a>
+<a class="sourceLine" id="cb1010-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1010-3" data-line-number="3">  dataframe <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1010-4" data-line-number="4"><span class="st">    </span><span class="kw">group_by</span>({{grouping_var}}) <span class="op">%&gt;%</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb1010-5" data-line-number="5"><span class="st">    </span><span class="kw">summarise</span>({{column_name}} <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>({{column_name}}, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1010-6" data-line-number="6">}</a></code></pre></div>
 <p>Much easier and cleaner! You still have to use the <code>:=</code> operator instead of <code>=</code> for the column name
 however, and if you want to modify the column names, for instance in this
 case return <code>&quot;mean_height&quot;</code> instead of <code>height</code> you have to keep using the <code>enquo()</code>-<code>!!</code> syntax.</p>
@@ -989,20 +989,20 @@ case return <code>&quot;mean_height&quot;</code> instead of <code>height</code> 
 <h2><span class="header-section-number">7.6</span> Functions that use loops</h2>
 <p>It is entirely possible to put a loop inside a function. For example, consider the following
 function that return the square root of a number using Newton’s algorithm:</p>
-<div class="sourceCode" id="cb996"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb996-1" data-line-number="1">sqrt_newton &lt;-<span class="st"> </span><span class="cf">function</span>(a, <span class="dt">init =</span> <span class="dv">1</span>, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
-<a class="sourceLine" id="cb996-2" data-line-number="2">    <span class="kw">stopifnot</span>(a <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb996-3" data-line-number="3">    <span class="cf">while</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>eps){</a>
-<a class="sourceLine" id="cb996-4" data-line-number="4">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
-<a class="sourceLine" id="cb996-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb996-6" data-line-number="6">    init</a>
-<a class="sourceLine" id="cb996-7" data-line-number="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb1011"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1011-1" data-line-number="1">sqrt_newton &lt;-<span class="st"> </span><span class="cf">function</span>(a, <span class="dt">init =</span> <span class="dv">1</span>, <span class="dt">eps =</span> <span class="fl">0.01</span>){</a>
+<a class="sourceLine" id="cb1011-2" data-line-number="2">    <span class="kw">stopifnot</span>(a <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1011-3" data-line-number="3">    <span class="cf">while</span>(<span class="kw">abs</span>(init<span class="op">**</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>eps){</a>
+<a class="sourceLine" id="cb1011-4" data-line-number="4">        init &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span>(init <span class="op">+</span><span class="st"> </span>a<span class="op">/</span>init)</a>
+<a class="sourceLine" id="cb1011-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb1011-6" data-line-number="6">    init</a>
+<a class="sourceLine" id="cb1011-7" data-line-number="7">}</a></code></pre></div>
 <p>This functions contains a while loop inside its body. Let’s see if it works:</p>
-<div class="sourceCode" id="cb997"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb997-1" data-line-number="1"><span class="kw">sqrt_newton</span>(<span class="dv">16</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1012"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1012-1" data-line-number="1"><span class="kw">sqrt_newton</span>(<span class="dv">16</span>)</a></code></pre></div>
 <pre><code>## [1] 4.000001</code></pre>
 <p>In the definition of the function, I wrote <code>init = 1</code> and <code>eps = 0.01</code> which means that this
 argument can be omitted and will have the provided value (0.01) as the default. You can then use
 this function as any other, for example with <code>map()</code>:</p>
-<div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb999-1" data-line-number="1"><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">12</span>), sqrt_newton)</a></code></pre></div>
+<div class="sourceCode" id="cb1014"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1014-1" data-line-number="1"><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">12</span>), sqrt_newton)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 4.000001
 ## 
@@ -1027,7 +1027,7 @@ in the next chapter.</p>
 <h2><span class="header-section-number">7.7</span> Anonymous functions</h2>
 <p>As the name implies, anonymous functions are functions that do not have a name. These are useful inside
 functions that have functions as arguments, such as <code>purrr::map()</code> or <code>purrr::reduce()</code>:</p>
-<div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1001-1" data-line-number="1"><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="cf">function</span>(x){<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)})</a></code></pre></div>
+<div class="sourceCode" id="cb1016"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1016-1" data-line-number="1"><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="cf">function</span>(x){<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)})</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -1041,7 +1041,7 @@ functions that have functions as arguments, such as <code>purrr::map()</code> or
 ## [1] 0.5</code></pre>
 <p>These anonymous functions get defined in a very similar way to regular functions, you just skip the
 name and that’s it. <code>{tidyverse}</code> functions also support formulas; these get converted to anonymous functions:</p>
-<div class="sourceCode" id="cb1003"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1003-1" data-line-number="1"><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="op">~</span>{<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(.)})</a></code></pre></div>
+<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1018-1" data-line-number="1"><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="op">~</span>{<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(.)})</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -1056,7 +1056,7 @@ name and that’s it. <code>{tidyverse}</code> functions also support formulas; 
 <p>Using a formula instead of an anonymous function is less verbose; you use <code>~</code> instead of <code>function(x)</code>
 and a single dot <code>.</code> instead of <code>x</code>. What if you need an anonymous function that requires more than
 one argument? This is not a problem:</p>
-<div class="sourceCode" id="cb1005"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1005-1" data-line-number="1"><span class="kw">map2</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>), <span class="cf">function</span>(x, y){(x<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>y})</a></code></pre></div>
+<div class="sourceCode" id="cb1020"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1020-1" data-line-number="1"><span class="kw">map2</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>), <span class="cf">function</span>(x, y){(x<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>y})</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 0.1111111
 ## 
@@ -1072,7 +1072,7 @@ one argument? This is not a problem:</p>
 ## [[5]]
 ## [1] 5</code></pre>
 <p>or, using a formula:</p>
-<div class="sourceCode" id="cb1007"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1007-1" data-line-number="1"><span class="kw">map2</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>), <span class="op">~</span>{(.x<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>.y})</a></code></pre></div>
+<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1022-1" data-line-number="1"><span class="kw">map2</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>), <span class="op">~</span>{(.x<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>.y})</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 0.1111111
 ## 

@@ -25,10 +25,11 @@ This book is still being written. Chapters 1 to 8 are almost ready, but more con
 (especially to chapter 8). 9 and 10 are empty for now. Some exercises might be at the wrong place 
 too and more are coming.
 
+You can purchase an ebook version of this book on [leanpub](https://leanpub.com/modern_tidyverse).
+
 If you already like what you read, you can support 
 me by [buying me a coffee](https://www.buymeacoffee.com/brodriguesco)
 or [paypal.me](https://www.paypal.me/brodriguesco).
-
 
 ## What is R? {-}
 
@@ -206,11 +207,14 @@ knitr::include_graphics("pics/rstudio_install_packages.gif")
 
 My name is Bruno Rodrigues and I program almost exclusively in R and have been teaching some R
 courses for a few years now. I first started teaching for students at the University of Strasbourg 
-while working on my PhD.
-These notes are an update of those I used at the time, plus a lot of things I've learned about R
-since then in my jobs.
+while working on my PhD. I hold a PhD in economics, with a focus on quantitative methods.
+I'm currently working as a manager in the data science team of PwC Luxembourg.
+
+This book is an adaptation of notes I've used in the past during my time as a teacher, but also
+a lot of things I've learned about R since I left academia.
 In my free time I like cooking, working out and [blogging](https://www.brodrigues.co), while listening to
-[Fip](http://www.fipradio.fr/player) or [Vaporwave](https://www.youtube.com/watch?v=u5qwtO_ABPM). 
+[Fip](http://www.fipradio.fr/player) or 
+[Chillsky Radio](https://tunein.com/radio/Lofi-HipHop-Radio--Chillsky-s288329/). 
 I also like to get my butt handed to me by playing roguelikes
 such as [NetHack](http://nethack.wikia.com/wiki/NetHack), for which I wrote a 
 [package](https://github.com/b-rodrigues/nethack) that contains functions to analyze the data that 
