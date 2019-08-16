@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-08-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -328,7 +328,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
-<li class="chapter" data-level="9.2" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>9.2</b> Unit testing your package</a></li>
+<li class="chapter" data-level="9.2" data-path="package-development.html"><a href="package-development.html#starting-easy-creating-a-package-to-share-data"><i class="fa fa-check"></i><b>9.2</b> Starting easy: creating a package to share data</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="package-development.html"><a href="package-development.html#setting-up-github-account"><i class="fa fa-check"></i><b>9.2.1</b> Setting up Github account</a></li>
+<li class="chapter" data-level="9.2.2" data-path="package-development.html"><a href="package-development.html#starting-your-package"><i class="fa fa-check"></i><b>9.2.2</b> Starting your package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="package-development.html"><a href="package-development.html#adding-functions-to-your-package"><i class="fa fa-check"></i><b>9.3</b> Adding functions to your package</a></li>
+<li class="chapter" data-level="9.4" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>9.4</b> Unit testing your package</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="further-topics.html"><a href="further-topics.html"><i class="fa fa-check"></i><b>10</b> Further topics</a><ul>
 <li class="chapter" data-level="10.1" data-path="further-topics.html"><a href="further-topics.html#using-python-from-r-with-reticulate"><i class="fa fa-check"></i><b>10.1</b> Using Python from R with <code>{reticulate}</code></a></li>
@@ -361,10 +366,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 9</span> Package development</h1>
 <div id="why-you-need-to-write-your-own-package" class="section level2">
 <h2><span class="header-section-number">9.1</span> Why you need to write your own package</h2>
+<p>One of the reasons you might have tried R in the first place is the abundance of packages. As I’m
+writing these lines (in August 2019) 14762 packages are available on CRAN (in August 2016, when
+I first wrote the number of packages down for my first ebook, it was 8922 packages).</p>
+<p>This is a staggering amount of packages and to help you look for the right ones, you can check
+out <a href="https://cran.r-project.org/">CRAN Task Views</a>.</p>
+<p>You might wonder why the heck should you write your own packages? After all, with 14762 packages
+you’re sure to find something that suits your needs, right? Well, it depends. Of course, you will
+not need to write you own function to perform non-linear regression, or to train a neural network.
+But as time will go, you will start writing your own functions, functions that fit your needs, and
+that you use daily. It may be functions that prepare and shape data that you use at work for
+analysis. Or maybe you want to deliver an analysis to a client, with data and source code, so
+you decide to deliver a package that contains everything (something I’ve already done in the
+past).</p>
+<p>Ok, but is it necessary to write a package? Why not just write functions inside some scripts and
+then simply run or share these scripts? This seems like a valid solution at first. However,
+it quickly becomes tedious, especially if you have multiple scripts scattered around your computer
+or inside different subfolders. You’ll also have to write the documentation on separate files and
+these can easily get lost or become outdated. Relying on scripts does not scale well; even if you
+are not sharing your code outside of your computer (maybe you’re working on super secret projects
+at NASA), you always have to think about future you. And in general, future you thinks that past you
+is an asshole, exactly because you put 0 effort in documenting, testing and making your code
+easy to use. Having everything inside a package takes care of these headaches for you, and will
+make future you proud of past you. And if you have to share your code, or deliver to a client,
+believe me, it will make things a thousand times easier.</p>
+<p>Code that is inside packages is very easy to document and test, especially if you’re using Rstudio.
+It also makes it possible to use the wonderful <code>{covr}</code> package, which tells you which lines in
+which functions are called by your tests. If some lines are missing, write tests that invoke them and increase the coverage of your tests! Documenting and testing your code is very important; it gives
+you assurance that the code your writing works, but most importantly, it gives <em>others</em> assurance
+that what you wrote works. And I include future you in these <em>others</em> too.</p>
+<p>In order to share this package with these <em>others</em> we are going to use git. If you’re familiar with
+git, great, you’ll be able to skip some sections. If not, then buckle up, you’re in for a wild ride.</p>
+<p>As I mentioned in the introduction, if you want to learn much more than I’ll show about packages
+read <span class="citation">Wickham (<a href="#ref-wickham2014">2014</a>)</span>. I will only show you the basics, but it should be enough to get you productive.</p>
+</div>
+<div id="starting-easy-creating-a-package-to-share-data" class="section level2">
+<h2><span class="header-section-number">9.2</span> Starting easy: creating a package to share data</h2>
+<p>We will start a package from scratch, in order to share data with the world. For this, we are first
+going to scrape a table off Wikipedia, prepare the data and then include it in a package. To make
+distributing this package easy, we’re going to put it up on Github, so you’ll need a Github account.</p>
+<p>Let’s start by creating a Github account.</p>
+<div id="setting-up-github-account" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> Setting up Github account</h3>
+</div>
+<div id="starting-your-package" class="section level3">
+<h3><span class="header-section-number">9.2.2</span> Starting your package</h3>
+<p><img src="pics/new_package.gif" /><!-- --></p>
+<p>To start writing a package, the easiest way is to load up Rstudio and start a new project, under the
+<em>File</em> menu. If you’re starting from scratch, just choose the first option, <em>New Directory</em> and then
+<em>R package</em>. Give a new to your package, for example <code>myFirstPackage</code> and you can also choose to use
+git for version control. Now if you check the folder where you chose to save your package, you will
+see a folder with the same name as your package, and inside this folder a lot of new files and other
+folders. The most important folder for now is the <code>R</code> folder. This is the folder that will hold your
+<code>.R</code> source code files. You can also see these files and folders inside the <em>Files</em> panel from within
+Rstudio. Rstudio will also have <code>hello.R</code> opened, which is a single demo source file inside the <code>R</code>
+folder. You can get rid of this file.</p>
+</div>
+</div>
+<div id="adding-functions-to-your-package" class="section level2">
+<h2><span class="header-section-number">9.3</span> Adding functions to your package</h2>
 </div>
 <div id="unit-testing-your-package" class="section level2">
-<h2><span class="header-section-number">9.2</span> Unit testing your package</h2>
+<h2><span class="header-section-number">9.4</span> Unit testing your package</h2>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-wickham2014">
+<p>Wickham, Hadley. 2014. <em>Advanced R</em>. CRC Press.</p>
 </div>
 </div>
             </section>

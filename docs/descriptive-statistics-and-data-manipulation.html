@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-08-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -328,7 +328,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="9" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>9</b> Package development</a><ul>
 <li class="chapter" data-level="9.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>9.1</b> Why you need to write your own package</a></li>
-<li class="chapter" data-level="9.2" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>9.2</b> Unit testing your package</a></li>
+<li class="chapter" data-level="9.2" data-path="package-development.html"><a href="package-development.html#starting-easy-creating-a-package-to-share-data"><i class="fa fa-check"></i><b>9.2</b> Starting easy: creating a package to share data</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="package-development.html"><a href="package-development.html#setting-up-github-account"><i class="fa fa-check"></i><b>9.2.1</b> Setting up Github account</a></li>
+<li class="chapter" data-level="9.2.2" data-path="package-development.html"><a href="package-development.html#starting-your-package"><i class="fa fa-check"></i><b>9.2.2</b> Starting your package</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="package-development.html"><a href="package-development.html#adding-functions-to-your-package"><i class="fa fa-check"></i><b>9.3</b> Adding functions to your package</a></li>
+<li class="chapter" data-level="9.4" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>9.4</b> Unit testing your package</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="further-topics.html"><a href="further-topics.html"><i class="fa fa-check"></i><b>10</b> Further topics</a><ul>
 <li class="chapter" data-level="10.1" data-path="further-topics.html"><a href="further-topics.html#using-python-from-r-with-reticulate"><i class="fa fa-check"></i><b>10.1</b> Using Python from R with <code>{reticulate}</code></a></li>
@@ -4016,16 +4021,16 @@ two dates, using the <code>interval()</code> column:</p>
 <pre><code>## # A tibble: 54 x 2
 ##    country      independent_since             
 ##    &lt;chr&gt;        &lt;Interval&gt;                    
-##  1 Liberia      1847-07-26 UTC--2019-08-16 UTC
-##  2 South Africa 1910-05-31 UTC--2019-08-16 UTC
-##  3 Egypt        1922-02-28 UTC--2019-08-16 UTC
-##  4 Eritrea      1947-02-10 UTC--2019-08-16 UTC
-##  5 Libya        1951-12-24 UTC--2019-08-16 UTC
-##  6 Sudan        1956-01-01 UTC--2019-08-16 UTC
-##  7 Tunisia      1956-03-20 UTC--2019-08-16 UTC
+##  1 Liberia      1847-07-26 UTC--2019-08-17 UTC
+##  2 South Africa 1910-05-31 UTC--2019-08-17 UTC
+##  3 Egypt        1922-02-28 UTC--2019-08-17 UTC
+##  4 Eritrea      1947-02-10 UTC--2019-08-17 UTC
+##  5 Libya        1951-12-24 UTC--2019-08-17 UTC
+##  6 Sudan        1956-01-01 UTC--2019-08-17 UTC
+##  7 Tunisia      1956-03-20 UTC--2019-08-17 UTC
 ##  8 Morocco      NA--NA                        
-##  9 Ghana        1957-03-06 UTC--2019-08-16 UTC
-## 10 Guinea       1958-10-02 UTC--2019-08-16 UTC
+##  9 Ghana        1957-03-06 UTC--2019-08-17 UTC
+## 10 Guinea       1958-10-02 UTC--2019-08-17 UTC
 ## # … with 44 more rows</code></pre>
 <p>The <code>independent_since</code> column now contains an <em>interval</em> object that we can convert to years:</p>
 <div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb577-1" data-line-number="1">independence <span class="op">%&gt;%</span></a>
@@ -4036,16 +4041,16 @@ two dates, using the <code>interval()</code> column:</p>
 <pre><code>## # A tibble: 54 x 3
 ##    country      independent_since              years_independent
 ##    &lt;chr&gt;        &lt;Interval&gt;                                 &lt;dbl&gt;
-##  1 Liberia      1847-07-26 UTC--2019-08-16 UTC             172. 
-##  2 South Africa 1910-05-31 UTC--2019-08-16 UTC             109. 
-##  3 Egypt        1922-02-28 UTC--2019-08-16 UTC              97.5
-##  4 Eritrea      1947-02-10 UTC--2019-08-16 UTC              72.5
-##  5 Libya        1951-12-24 UTC--2019-08-16 UTC              67.6
-##  6 Sudan        1956-01-01 UTC--2019-08-16 UTC              63.6
-##  7 Tunisia      1956-03-20 UTC--2019-08-16 UTC              63.4
+##  1 Liberia      1847-07-26 UTC--2019-08-17 UTC             172. 
+##  2 South Africa 1910-05-31 UTC--2019-08-17 UTC             109. 
+##  3 Egypt        1922-02-28 UTC--2019-08-17 UTC              97.5
+##  4 Eritrea      1947-02-10 UTC--2019-08-17 UTC              72.5
+##  5 Libya        1951-12-24 UTC--2019-08-17 UTC              67.6
+##  6 Sudan        1956-01-01 UTC--2019-08-17 UTC              63.6
+##  7 Tunisia      1956-03-20 UTC--2019-08-17 UTC              63.4
 ##  8 Morocco      NA--NA                                      NA  
-##  9 Ghana        1957-03-06 UTC--2019-08-16 UTC              62.4
-## 10 Guinea       1958-10-02 UTC--2019-08-16 UTC              60.9
+##  9 Ghana        1957-03-06 UTC--2019-08-17 UTC              62.4
+## 10 Guinea       1958-10-02 UTC--2019-08-17 UTC              60.9
 ## # … with 44 more rows</code></pre>
 <p>We can now see for how long the last country to gain independence has been independent.
 Because the data is not tidy (in some cases, an African country was colonized by two powers,

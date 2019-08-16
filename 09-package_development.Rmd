@@ -2,4 +2,74 @@
 
 ## Why you need to write your own package
 
+One of the reasons you might have tried R in the first place is the abundance of packages. As I'm
+writing these lines (in August 2019) 14762 packages are available on CRAN (in August 2016, when 
+I first wrote the number of packages down for my first ebook, it was 8922 packages).
+
+This is a staggering amount of packages and to help you look for the right ones, you can check 
+out [CRAN Task Views](https://cran.r-project.org/).
+
+You might wonder why the heck should you write your own packages? After all, with 14762 packages 
+you're sure to find something that suits your needs, right? Well, it depends. Of course, you will
+not need to write you own function to perform non-linear regression, or to train a neural network.
+But as time will go, you will start writing your own functions, functions that fit your needs, and 
+that you use daily. It may be functions that prepare and shape data that you use at work for 
+analysis. Or maybe you want to deliver an analysis to a client, with data and source code, so 
+you decide to deliver a package that contains everything (something I've already done in the 
+past).
+
+Ok, but is it necessary to write a package? Why not just write functions inside some scripts and
+then simply run or share these scripts? This seems like a valid solution at first. However, 
+it quickly becomes tedious, especially if you have multiple scripts scattered around your computer
+or inside different subfolders. You'll also have to write the documentation on separate files and 
+these can easily get lost or become outdated. Relying on scripts does not scale well; even if you
+are not sharing your code outside of your computer (maybe you're working on super secret projects
+at NASA), you always have to think about future you. And in general, future you thinks that past you
+is an asshole, exactly because you put 0 effort in documenting, testing and making your code
+easy to use. Having everything inside a package takes care of these headaches for you, and will 
+make future you proud of past you. And if you have to share your code, or deliver to a client,
+believe me, it will make things a thousand times easier.
+
+Code that is inside packages is very easy to document and test, especially if you're using Rstudio. 
+It also makes it possible to use the wonderful `{covr}` package, which tells you which lines in 
+which functions are called by your tests. If some lines are missing, write tests that invoke them and increase the coverage of your tests! Documenting and testing your code is very important; it gives
+you assurance that the code your writing works, but most importantly, it gives *others* assurance
+that what you wrote works. And I include future you in these *others* too.
+
+In order to share this package with these *others* we are going to use git. If you're familiar with
+git, great, you'll be able to skip some sections. If not, then buckle up, you're in for a wild ride.
+
+As I mentioned in the introduction, if you want to learn much more than I'll show about packages
+read @wickham2014. I will only show you the basics, but it should be enough to get you productive.
+
+## Starting easy: creating a package to share data
+
+We will start a package from scratch, in order to share data with the world. For this, we are first
+going to scrape a table off Wikipedia, prepare the data and then include it in a package. To make
+distributing this package easy, we're going to put it up on Github, so you'll need a Github account.
+
+Let's start by creating a Github account.
+
+### Setting up Github account
+
+### Starting your package
+
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/new_package.gif")
+```
+
+To start writing a package, the easiest way is to load up Rstudio and start a new project, under the
+*File* menu. If you're starting from scratch, just choose the first option, *New Directory* and then
+*R package*. Give a new to your package, for example `myFirstPackage` and you can also choose to use
+git for version control. Now if you check the folder where you chose to save your package, you will
+see a folder with the same name as your package, and inside this folder a lot of new files and other
+folders. The most important folder for now is the `R` folder. This is the folder that will hold your
+`.R` source code files. You can also see these files and folders inside the *Files* panel from within
+Rstudio. Rstudio will also have `hello.R` opened, which is a single demo source file inside the `R`
+folder. You can get rid of this file.
+
+
+## Adding functions to your package
+
 ## Unit testing your package
