@@ -318,7 +318,34 @@ by filtering `prank > 0.99` we get the top 1% of outliers according to Cook's di
 
 Model interpretation is essential in the social sciences, but it is also getting very important
 in machine learning. As usual, the terminology is different; in machine learning, we speak about
-explainability. If one wants to know the effect of variable `x` on the dependent variable `y`, 
+explainability. There is a very important aspect that one has to understand when it comes to 
+interpretability/explainability: *classical, parametric* models, and *black-box* models. This
+is very well explained in @breiman2001, an absolute must read (link to paper, in PDF format:
+[click here](https://projecteuclid.org/download/pdf_1/euclid.ss/1009213726)). The gist of the paper
+is that there are two cultures of statistical modeling; one culture relies on modeling the data 
+generating process, for instance, by considering that a variable y (independent variable, or target)
+is a linear combination of input variables x (dependent variables, or features) plus some noise. The
+other culture uses complex algorithms (random forests, neural networks)
+to model the relationship between y and x. The author argues that most statisticians have relied
+for too long on modeling data generating processes and do not use all the potential offered by 
+these complex algorithms. I think that a lot of things have changed since then, and that nowadays
+any practitioner that uses data is open to use any type of model or algorithm, as long as it does
+the job. However, the paper is very interesting, and the discussion on trade-off between 
+simplicity of the model and interpretability/explainability is still relevant today.
+
+In this section, I will explain how one can go about interpreting or explaining models from these
+two cultures.
+
+Also, it is important to note here that the discussion that will follow will be heavily influenced
+by my econometrics background. I will focus on marginal effects as way to interpret parametric
+models (models from the first culture described above), but depending on the field, practitioners
+might use something else (for instance by computing odds ratios in a logistic regression).
+
+I will start by interpretability of *classical* statistical models.
+
+### Marginal effects
+
+If one wants to know the effect of variable `x` on the dependent variable `y`, 
 marginal effects have to be computed. This is easily done in R with the `{margins}` package, which 
 aims to provide the same functionality as the `margins` command in STATA:
 
@@ -358,7 +385,10 @@ ggplot(data = effects_model3) +
 ```
 
 Of course for `model3`, the marginal effects are the same as the coefficients, so let's estimate a
-logit model and compute the marginal effects. Logit models can be estimated using the `glm()` function.
+logit model and compute the marginal effects. You might know logit models as *logistic regression*.
+Logit models can be estimated using the `glm()` function, which stands for generalized linear
+models.
+
 As an example, we are going to use the `Participation` data, also from the `{Ecdat}` package:
 
 ```{r}
@@ -481,6 +511,10 @@ dydx(my_subjects, logit_participation, "lnnlinc")
 
 I used the `tribble()` function from the `{tibble}` package to create this test data set, row by row.
 Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these two individuals.
+
+### Explainability of *black-box* models
+
+
 
 ## Comparing models
 
