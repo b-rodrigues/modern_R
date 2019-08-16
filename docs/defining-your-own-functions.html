@@ -265,7 +265,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="statistical-models.html"><a href="statistical-models.html#terminology"><i class="fa fa-check"></i><b>6.1</b> Terminology</a></li>
 <li class="chapter" data-level="6.2" data-path="statistical-models.html"><a href="statistical-models.html#fitting-a-model-to-data"><i class="fa fa-check"></i><b>6.2</b> Fitting a model to data</a></li>
 <li class="chapter" data-level="6.3" data-path="statistical-models.html"><a href="statistical-models.html#diagnostics"><i class="fa fa-check"></i><b>6.3</b> Diagnostics</a></li>
-<li class="chapter" data-level="6.4" data-path="statistical-models.html"><a href="statistical-models.html#interpreting-models"><i class="fa fa-check"></i><b>6.4</b> Interpreting models</a></li>
+<li class="chapter" data-level="6.4" data-path="statistical-models.html"><a href="statistical-models.html#interpreting-models"><i class="fa fa-check"></i><b>6.4</b> Interpreting models</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="statistical-models.html"><a href="statistical-models.html#marginal-effects"><i class="fa fa-check"></i><b>6.4.1</b> Marginal effects</a></li>
+<li class="chapter" data-level="6.4.2" data-path="statistical-models.html"><a href="statistical-models.html#explainability-of-black-box-models"><i class="fa fa-check"></i><b>6.4.2</b> Explainability of <em>black-box</em> models</a></li>
+</ul></li>
 <li class="chapter" data-level="6.5" data-path="statistical-models.html"><a href="statistical-models.html#comparing-models"><i class="fa fa-check"></i><b>6.5</b> Comparing models</a></li>
 <li class="chapter" data-level="6.6" data-path="statistical-models.html"><a href="statistical-models.html#using-a-model-for-prediction"><i class="fa fa-check"></i><b>6.6</b> Using a model for prediction</a></li>
 <li class="chapter" data-level="6.7" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>6.7</b> Beyond linear regression</a></li>
@@ -676,12 +679,12 @@ mathematical definition of the fibonacci sequence. So why not use only recursive
 then? Try to run the following:</p>
 <div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb961-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">my_fibo</span>(<span class="dv">30</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.005   0.000   0.005</code></pre>
+##    0.01    0.00    0.01</code></pre>
 <p>The result should be printed very fast (the <code>system.time()</code> function returns the time that it took
 to execute <code>my_fibo(30)</code>). Let’s try with the recursive version:</p>
 <div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb963-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">fibo_recur</span>(<span class="dv">30</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.128   0.001   1.129</code></pre>
+##   1.129   0.000   1.130</code></pre>
 <p>It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
 critical, it’s best to avoid recursive algorithms. Also, in <code>fibo_recur()</code> try to remove this line:
 <code>if (n == 0 || n == 1)</code> and try to run <code>fibo_recur(5)</code> and see what happens. You should
