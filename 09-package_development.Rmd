@@ -109,12 +109,12 @@ knitr::include_graphics("pics/new_package.gif")
 To start writing a package, the easiest way is to load up Rstudio and start a new project, under the
 *File* menu. If you're starting from scratch, just choose the first option, *New Directory* and then
 *R package*. Give a new to your package, for example `castles` (you'll see why in a bit) and you can
-also choose to use git for version control. Now if you check the folder where you chose to save your package, you will
-see a folder with the same name as your package, and inside this folder a lot of new files and other
-folders. The most important folder for now is the `R` folder. This is the folder that will hold your
-`.R` source code files. You can also see these files and folders inside the *Files* panel from within
-Rstudio. Rstudio will also have `hello.R` opened, which is a single demo source file inside the `R`
-folder. You can get rid of this file.
+also choose to use git for version control. Now if you check the folder where you chose to save 
+your package, you will see a folder with the same name as your package, and inside this folder a 
+lot of new files and other folders. The most important folder for now is the `R` folder. This is 
+the folder that will hold your `.R` source code files. You can also see these files and folders 
+inside the *Files* panel from within Rstudio. Rstudio will also have `hello.R` opened, which is a 
+single demo source file inside the `R` folder. You can get rid of this file.
 
 Now, 
 
