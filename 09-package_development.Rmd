@@ -32,7 +32,8 @@ believe me, it will make things a thousand times easier.
 
 Code that is inside packages is very easy to document and test, especially if you're using Rstudio. 
 It also makes it possible to use the wonderful `{covr}` package, which tells you which lines in 
-which functions are called by your tests. If some lines are missing, write tests that invoke them and increase the coverage of your tests! Documenting and testing your code is very important; it gives
+which functions are called by your tests. If some lines are missing, write tests that invoke them and
+increase the coverage of your tests! Documenting and testing your code is very important; it gives
 you assurance that the code your writing works, but most importantly, it gives *others* assurance
 that what you wrote works. And I include future you in these *others* too.
 
@@ -50,10 +51,56 @@ distributing this package easy, we're going to put it up on Github, so you'll ne
 
 Let's start by creating a Github account.
 
-### Setting up Github account
+### Setting up a Github account
+
+Setting up a Github account is very easy; just go over to [https://github.com/](https://github.com/)
+and simply sign up!
+
+Then you will need to generate a ssh key on your computer. This is a way for you to securely
+interact with your Github account, and push your code to the repository without having to always
+type your password. I will assume you never created any ssh
+keys before, because if you already did, you could skip these steps. I will also assume that you are
+on a GNU+Linux or macOS system; if you're using windows, the instructions are very similar, but 
+you'll first need to install Git available [here](https://git-scm.com/downloads). Git is available
+by default on any GNU+Linux system, and as far as I know also on macOS, but I might be wrong and
+you might also need to install git on macOS (but then the instructions are the same whether 
+you're using GNU+Linux or macOS). If you have trouble installing git, read the following section
+from the [Pro Git book](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+Then, open a terminal (or the git command line on Windows) and type the following:
+
+```
+ssh-keygen
+```
+
+This command will generate several files in the `.ssh` directory inside your `HOME` directory. Look
+for the file that ends with the `.pub` extension, and copy its contents. You will need to paste
+these contents on Github.
+
+So now sign in to Github; once you are signed in, go to settings and then `SSH and GPG keys`:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/github_ssh.png")
+```
+
+In the screenshot above, you see my ssh key associated with my account; this will be empty for you.
+Click on the top right, *New SSH key*:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/github_add_ssh.png")
+```
+
+Give your key a name, and paste the key you generated before. You're done! You can now configure
+git a bit more by telling it who you are. Open a terminal, adapt and type the following commands:
+
+```
+git config --global user.name "Harold Zurcher"
+git config --global user.email harold.zurcher@madisonbus.com
+```
+
+You're ready to go!
 
 ### Starting your package
-
 
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/new_package.gif")
@@ -61,13 +108,15 @@ knitr::include_graphics("pics/new_package.gif")
 
 To start writing a package, the easiest way is to load up Rstudio and start a new project, under the
 *File* menu. If you're starting from scratch, just choose the first option, *New Directory* and then
-*R package*. Give a new to your package, for example `myFirstPackage` and you can also choose to use
-git for version control. Now if you check the folder where you chose to save your package, you will
+*R package*. Give a new to your package, for example `castles` (you'll see why in a bit) and you can
+also choose to use git for version control. Now if you check the folder where you chose to save your package, you will
 see a folder with the same name as your package, and inside this folder a lot of new files and other
 folders. The most important folder for now is the `R` folder. This is the folder that will hold your
 `.R` source code files. You can also see these files and folders inside the *Files* panel from within
 Rstudio. Rstudio will also have `hello.R` opened, which is a single demo source file inside the `R`
 folder. You can get rid of this file.
+
+Now, 
 
 
 ## Adding functions to your package
