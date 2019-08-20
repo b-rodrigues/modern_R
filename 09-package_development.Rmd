@@ -4,7 +4,7 @@
 
 One of the reasons you might have tried R in the first place is the abundance of packages. As I'm
 writing these lines (in August 2019) 14762 packages are available on CRAN (in August 2016, when 
-I first wrote the number of packages down for my first ebook, it was 8922 packages).
+I first wrote the number of packages down for my first ebook, it was 8922 packages).
 
 This is a staggering amount of packages and to help you look for the right ones, you can check 
 out [CRAN Task Views](https://cran.r-project.org/).
@@ -98,7 +98,11 @@ git config --global user.name "Harold Zurcher"
 git config --global user.email harold.zurcher@madisonbus.com
 ```
 
-You're ready to go!
+You're ready to go! You can now push code to github to share it with the world. Or if you do not want
+to share you package (for confidentiality reasons for instance), you can still benefit from using
+git, as it possible to have an internal git server that could be managed by your company's IT team.
+There is also the possibility to set up corporate, and thus private git servers by buying the service 
+from github, or other providers such as gitlab.
 
 ### Starting your package
 
@@ -116,9 +120,77 @@ the folder that will hold your `.R` source code files. You can also see these fi
 inside the *Files* panel from within Rstudio. Rstudio will also have `hello.R` opened, which is a 
 single demo source file inside the `R` folder. You can get rid of this file.
 
-Now, 
+Now, to start working on your package, the best is to use a package called `{usethis}`. `{usethis}`
+is a package that makes writing packages very easy; it includes functions that create the required
+subfolders and necessary template files so that you do not need to constantly check how file so-and-so
+should be placed or named.
+
+Let's start by adding a readme file. This is easily achieved by using the following function from 
+`{usethis}`:
+
+```{r, eval=FALSE}
+usethis::use_readme_md()
+```
+
+This creates a template README.md file in the root directory of your package. You can now edit this
+file accordingly, and that's it.
+
+The next step could be setting up your package to work with `{roxygen2}`, which will help write
+the documentation of your package:
+
+
+```{r, eval=FALSE}
+usethis::use_roxygen_md()
+```
+
+The output tells you to run `devtools::document()`, we will do this later.
+
+Since you have learned about the tidyverse by reading this book, I am willing to bet that you will
+want to use the `%>%` operator inside the function you will be writing. To do this without issues,
+which wil become apparent later, use the following command:
+
+
+```{r, eval=FALSE}
+usethis::use_pipe()
+```
+
+This will make the `%>%` operator available internally to your package's functions, but also to the
+user that will load the package.
+
+We are almost done setting up the package. If you plan on distributing data with your package, 
+you might want to also share the code that prepared the data. For instance, if you receive the 
+data from your finance department, but this data needs some cleaning before being useful, you could
+write a script to do so and then distribute this script also with the package, for reproducibility
+purposes. These scripts, wile not central to the package, could still be of interest to the users.
+The directory to place them is called `data-raw`:
+
+```{r, eval=FALSE}
+usethis::use_data_raw()
+```
+
+One final folder is `inst`. You can add files to this folder, and they will be available to the users 
+that install the package. Users can find the files in the folder where packages get installed. On
+GNU+Linux systems, that would be somewhere like: `/home/user/R/amd64-linux-gnu-library/3.6`. There,
+you will find the installation folders of all the packages. If the package you make is called `{spam}`,
+you will find the files you put inside the `inst` folder on the root of the installation folder of 
+`spam`.
+
+Finally, the last step is to give your package a license; this again is only useful if you plan on
+distributing it to the world. If you are writing your own package for yourself, or for purposes 
+internal to your company, this is probably superfluous. I won't discuss the particularities of 
+licenses, so let's just say that for the sake of this example package we are writing, we are going 
+to use the MIT license:
+
+
+```{r, eval=FALSE}
+usethis::use_mit_license()
+```
+
+This again creates the right file at the right spot.
 
 
 ## Adding functions to your package
+
+## Documenting your package
 
 ## Unit testing your package
