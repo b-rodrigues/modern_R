@@ -118,7 +118,7 @@ your package, you will see a folder with the same name as your package, and insi
 lot of new files and other folders. The most important folder for now is the `R` folder. This is 
 the folder that will hold your `.R` source code files. You can also see these files and folders 
 inside the *Files* panel from within Rstudio. Rstudio will also have `hello.R` opened, which is a 
-single demo source file inside the `R` folder. You can get rid of this file.
+single demo source file inside the `R` folder. You can get rid of this file, or keep it and edit it.
 
 Now, to start working on your package, the best is to use a package called `{usethis}`. `{usethis}`
 is a package that makes writing packages very easy; it includes functions that create the required
@@ -173,7 +173,12 @@ that install the package. Users can find the files in the folder where packages 
 GNU+Linux systems, that would be somewhere like: `/home/user/R/amd64-linux-gnu-library/3.6`. There,
 you will find the installation folders of all the packages. If the package you make is called `{spam}`,
 you will find the files you put inside the `inst` folder on the root of the installation folder of 
-`spam`.
+`spam`. You can simply create the `inst` folder yourself, or use the following command:
+
+
+```{r, eval=FALSE}
+usethis::use_directory("inst")
+```
 
 Finally, the last step is to give your package a license; this again is only useful if you plan on
 distributing it to the world. If you are writing your own package for yourself, or for purposes 
@@ -186,10 +191,19 @@ to use the MIT license:
 usethis::use_mit_license()
 ```
 
-This again creates the right file at the right spot.
+This again creates the right file at the right spot. There are other interesting functions inside
+the `{usethis}` package, and we will come back to it later.
+
+
+## Including data inside the package
+
 
 
 ## Adding functions to your package
+
+Functions will be added inside the `R` package. In there, you will find the `hello.R` file. You can
+edit this file if you kept it or you can create a new scrit. This script can hold 1 function, or 
+several functions.
 
 ## Documenting your package
 
