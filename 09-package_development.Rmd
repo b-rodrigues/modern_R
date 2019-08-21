@@ -202,7 +202,7 @@ the `{usethis}` package, and we will come back to it later.
 ## Adding functions to your package
 
 Functions will be added inside the `R` package. In there, you will find the `hello.R` file. You can
-edit this file if you kept it or you can create a new scrit. This script can hold 1 function, or 
+edit this file if you kept it or you can create a new scrit. This script can hold one function, or 
 several functions.
 
 ## Documenting your package

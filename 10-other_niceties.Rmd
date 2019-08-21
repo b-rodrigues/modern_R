@@ -1,6 +1,12 @@
 # Further topics
 
+This chapter is a collection of short section that show some of the very nice things you can use
+R for. These sections are based on past blog posts.
+
 ## Using Python from R with `{reticulate}`
+
+
+
 
 ## Generating Pdf or Word reports with R
 
