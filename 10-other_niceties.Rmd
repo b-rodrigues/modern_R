@@ -5,8 +5,18 @@ R for. These sections are based on past blog posts.
 
 ## Using Python from R with `{reticulate}`
 
+There is a lot of discussion online about the benefits of Python over and vice-versa. When it comes
+to data science, they are for the most part interchangeable. I would say that R has an advantage
+over Python when it comes to offering specialized packages for certain topics such as 
+econometrics, bioinformatics, actuarial sciences, etc... while Python seems to offer more possibilities
+when it comes to integrating a machine learning model into an app. 
+However, if most of your work is data analysis/machine learning, both languages are practically
+interchangeable. But it can happen that you need access to a very specific library with no R
+equivalent. Well, in that case, no need to completely switch to Python, as you can call Python code
+from R using the `{reticulate}` package.
 
-
+`{reticulate}` allows you to seamlessly call Python functions from an R session. An easy way to use
+`{reticulate}` is to start a a new notebook. Rstudio notebooks
 
 ## Generating Pdf or Word reports with R
 
