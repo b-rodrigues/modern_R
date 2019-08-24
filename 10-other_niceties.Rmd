@@ -16,7 +16,19 @@ equivalent. Well, in that case, no need to completely switch to Python, as you c
 from R using the `{reticulate}` package.
 
 `{reticulate}` allows you to seamlessly call Python functions from an R session. An easy way to use
-`{reticulate}` is to start a a new notebook. Rstudio notebooks
+`{reticulate}` is to start a a new notebook, but you can also use `{reticulate}` and the included
+functions interactively. However, I find that Rstudio notebooks work very well for this particular
+use-case, because you can write R and Python chunks, and thus differentiate the different
+specific lines of code really well.
+
+Let's see how this works. First of all, you might need to specify the path to your Python executable,
+in my case, because I've installed Python using Anaconda, I need to specify it:
+
+```
+# This is an R chunk
+use_python("~/miniconda3/bin/python")
+```
+
 
 ## Generating Pdf or Word reports with R
 
