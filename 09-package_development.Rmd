@@ -112,7 +112,7 @@ knitr::include_graphics("pics/new_package.gif")
 
 To start writing a package, the easiest way is to load up Rstudio and start a new project, under the
 *File* menu. If you're starting from scratch, just choose the first option, *New Directory* and then
-*R package*. Give a new to your package, for example `castles` (you'll see why in a bit) and you can
+*R package*. Give a new to your package, for example `arcade` (you'll see why in a bit) and you can
 also choose to use git for version control. Now if you check the folder where you chose to save 
 your package, you will see a folder with the same name as your package, and inside this folder a 
 lot of new files and other folders. The most important folder for now is the `R` folder. This is 
@@ -161,7 +161,7 @@ We are almost done setting up the package. If you plan on distributing data with
 you might want to also share the code that prepared the data. For instance, if you receive the 
 data from your finance department, but this data needs some cleaning before being useful, you could
 write a script to do so and then distribute this script also with the package, for reproducibility
-purposes. These scripts, wile not central to the package, could still be of interest to the users.
+purposes. These scripts, while not central to the package, could still be of interest to the users.
 The directory to place them is called `data-raw`:
 
 ```{r, eval=FALSE}
@@ -194,10 +194,49 @@ usethis::use_mit_license()
 This again creates the right file at the right spot. There are other interesting functions inside
 the `{usethis}` package, and we will come back to it later.
 
-
 ## Including data inside the package
 
+Many packages include data and we are going to learn how to do it. I'll assume that we already
+have a dataset on hand that we have to share. This is quite simple to do, first let's simply
+load the data:
 
+```{r, eval=FALSE}
+arcade <- readr::read_csv("~/path/to/data/arcade.csv")
+```
+
+and then use, once again, `{usethis}` comes to our rescue:
+
+```{r, eval=FALSE}
+usethis::use_data(arcade, compress = "xz")
+```
+
+that's it! Well almost. We still need to write a little script that will allow users of your 
+package to load the data. This script is simply called `data.R` and contains the following lines:
+
+```{r, eval=FALSE}
+#' List of highest-grossing games
+#'
+#' Source: https://en.wikipedia.org/wiki/Arcade_game#List_of_highest-grossing_games
+#'
+#' @format A data frame with 6 variables: \code{game}, \code{release_year},
+#'   \code{hardware_units_sold}, \code{comment_hardware}, \code{estimated_gross_revenue}, 
+#'   \code{comment_revenue}
+#' \describe{
+#' \item{game}{The name of the game}
+#' \item{release_year}{The year the game was released}
+#' \item{hardware_units_sold}{The amount of hardware units sold}
+#' \item{comment_hardware}{Comment accompanying the amount of hardware units sold}
+#' \item{estimated_gross_revenue}{Estimated gross revenue in US$ with 2019 inflation}
+#' \item{comment_revenue}{Comment accompanying the amount of hardware units sold}
+#' }
+"arcade"
+```
+
+Basically a description of the data, and the name with which the user will invoke the data. To 
+conclude this part, remember the `data-raw` folder? If you used a script to scrape/get the data
+from somewhere, or if you had to write code to prepare the data to make it fit for sharing, this
+is where you can put that script. I have written such a script, I will discuss it in the next 
+chapter, where I'll show you how to scrape data from the internet.
 
 ## Adding functions to your package
 

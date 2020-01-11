@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Modern R with the tidyverse</title>
   <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2019-08-17" />
+<meta name="date" content="2020-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="getting-to-know-rstudio.html">
+<link rel="next" href="getting-to-know-rstudio.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -335,8 +338,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.1" data-path="package-development.html"><a href="package-development.html#setting-up-a-github-account"><i class="fa fa-check"></i><b>9.2.1</b> Setting up a Github account</a></li>
 <li class="chapter" data-level="9.2.2" data-path="package-development.html"><a href="package-development.html#starting-your-package"><i class="fa fa-check"></i><b>9.2.2</b> Starting your package</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="package-development.html"><a href="package-development.html#adding-functions-to-your-package"><i class="fa fa-check"></i><b>9.3</b> Adding functions to your package</a></li>
-<li class="chapter" data-level="9.4" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>9.4</b> Unit testing your package</a></li>
+<li class="chapter" data-level="9.3" data-path="package-development.html"><a href="package-development.html#including-data-inside-the-package"><i class="fa fa-check"></i><b>9.3</b> Including data inside the package</a></li>
+<li class="chapter" data-level="9.4" data-path="package-development.html"><a href="package-development.html#adding-functions-to-your-package"><i class="fa fa-check"></i><b>9.4</b> Adding functions to your package</a></li>
+<li class="chapter" data-level="9.5" data-path="package-development.html"><a href="package-development.html#documenting-your-package"><i class="fa fa-check"></i><b>9.5</b> Documenting your package</a></li>
+<li class="chapter" data-level="9.6" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>9.6</b> Unit testing your package</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="further-topics.html"><a href="further-topics.html"><i class="fa fa-check"></i><b>10</b> Further topics</a><ul>
 <li class="chapter" data-level="10.1" data-path="further-topics.html"><a href="further-topics.html#using-python-from-r-with-reticulate"><i class="fa fa-check"></i><b>10.1</b> Using Python from R with <code>{reticulate}</code></a></li>
@@ -368,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Modern R with the tidyverse</h1>
 <p class="author"><em>Bruno Rodrigues</em></p>
-<p class="date"><em>2019-08-17</em></p>
+<p class="date"><em>2020-01-11</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -523,7 +528,7 @@ popular. As of November 2018, R has over 13000 packages.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;rsample&quot;</span>, <span class="st">&quot;recipes&quot;</span>, <span class="st">&quot;blogdown&quot;</span> ,<span class="st">&quot;yardstick&quot;</span>, <span class="st">&quot;parsnip&quot;</span>, <span class="st">&quot;plm&quot;</span>, <span class="st">&quot;pwt9&quot;</span>, </a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">                   <span class="st">&quot;checkpoint&quot;</span>, <span class="st">&quot;Ecdat&quot;</span>, <span class="st">&quot;ggthemes&quot;</span>, <span class="st">&quot;ggfortify&quot;</span>, <span class="st">&quot;margins&quot;</span>, <span class="st">&quot;janitor&quot;</span>, <span class="st">&quot;rio&quot;</span>, </a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">                   <span class="st">&quot;colourpicker&quot;</span>, <span class="st">&quot;glmnet&quot;</span>, <span class="st">&quot;lhs&quot;</span>, <span class="st">&quot;mrlMBO&quot;</span>, <span class="st">&quot;mlbench&quot;</span>, <span class="st">&quot;ranger&quot;</span>))</a></code></pre></div>
-<p><img src="pics/install_packages.png" /><!-- --></p>
+<p><img src="pics/install_packages.png" width="536" /></p>
 <p>or go to the <strong>Packages</strong> pane and then click on <em>Install</em>:</p>
 <p><img src="pics/rstudio_install_packages.gif" /><!-- --></p>
 </div>
@@ -547,13 +552,6 @@ what’s happening in Luxembourg.</p>
 
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>In this book we are going
-to focus on R’s functional programming capabilities<a href="index.html#fnref1" class="footnote-back">↩</a></p></li>
-</ol>
-</div>
             </section>
 
           </div>
@@ -565,11 +563,13 @@ to focus on R’s functional programming capabilities<a href="index.html#fnref1"
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -577,12 +577,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -594,6 +593,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -612,8 +615,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
