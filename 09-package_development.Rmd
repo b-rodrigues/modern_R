@@ -263,27 +263,29 @@ Create a new R script, or edit the `hello.R` file, and add in the following code
 #' }
 describe_numeric <- function(df, ...){
 
-  if (nargs() > 1) df <- select(df, ...)
+    if (nargs() > 1) df <- select(df, ...)
 
-  df %>%
-    select_if(is.numeric) %>%
-    gather(variable, value) %>%
-    group_by(variable) %>%
-    summarise_all(list(mean = ~mean(., na.rm = TRUE),
-                       sd = ~sd(., na.rm = TRUE),
-                       nobs = ~length(.),
-                       min = ~min(., na.rm = TRUE),
-                       max = ~max(., na.rm = TRUE),
-                       q05 = ~quantile(., 0.05, na.rm = TRUE),
-                       q25 = ~quantile(., 0.25, na.rm = TRUE),
-                       mode = ~as.character(brotools::sample_mode(.), na.rm = TRUE),
-                       median = ~quantile(., 0.5, na.rm = TRUE),
-                       q75 = ~quantile(., 0.75, na.rm = TRUE),
-                       q95 = ~quantile(., 0.95, na.rm = TRUE),
-                       n_missing = ~sum(is.na(.)))) %>%
-    mutate(type = "Numeric")
+    df %>%
+        select_if(is.numeric) %>%
+        gather(variable, value) %>%
+        group_by(variable) %>%
+        summarise_all(list(mean = ~mean(., na.rm = TRUE),
+                           sd = ~sd(., na.rm = TRUE),
+                           nobs = ~length(.),
+                           min = ~min(., na.rm = TRUE),
+                           max = ~max(., na.rm = TRUE),
+                           q05 = ~quantile(., 0.05, na.rm = TRUE),
+                           q25 = ~quantile(., 0.25, na.rm = TRUE),
+                           mode = ~as.character(brotools::sample_mode(.), na.rm = TRUE),
+                           median = ~quantile(., 0.5, na.rm = TRUE),
+                           q75 = ~quantile(., 0.75, na.rm = TRUE),
+                           q95 = ~quantile(., 0.95, na.rm = TRUE),
+                           n_missing = ~sum(is.na(.)))) %>%
+        mutate(type = "Numeric")
 }
 ```
+
+Save the script under the name `describe.R`.
 
 This function shows you pretty much you need to know when writing functions for packages. First,
 there's the comment lines, that start with `#'` and not with `#`. These lines will be converted
@@ -303,6 +305,32 @@ other functions but never be used by anyone directly. It is still possible to ac
 private, functions by using `:::`, as in, `package:::private_function()`.
 - `@examples`: lists examples in the documentation. The `\dontrun{}` tag is used for when you do
 not want these examples to run when building the package.
+
+As explained before, if the function depends on function from other packages, then `@import` or
+`@importFrom` must be used. But it is also possible to use the `package::function()` syntax like
+I did on the following line:
+
+```{r, eval=FALSE}
+mode = ~as.character(brotools::sample_mode(.), na.rm = TRUE),
+```
+
+This function uses the `sample_mode()` function from my `{brotools}` package. Since it is the only
+function that I am using, I don't import the whole package with `@import`. I could have done the 
+same for `gather()` from `{tidyr}` instead of using `@importFrom`, but I wanted to showcase
+`@importFrom`, which can also be use to import several functions:
+
+```
+@importFrom package function_1 function_2 function_3
+```
+
+By the way, if you want to install my package, which contains some useful functions I use a lot,
+you can install it with the following command line:
+
+```{r, eval=FALSE}
+devtools::install_github("b-rodrigues/brotools")
+```
+
+if not, you can simple comment or remove the lines in the function that call this function.
 
 Now comes the function itself. The function is written in pretty much the same way as usual, but
 there are some particularities. First of all, the second argument of the function is the `...`, which
@@ -334,7 +362,132 @@ then `nargs()` will return 2 (in this case). And does, this piece of code will b
 df <- select(df, ...)
 ```
 
+which selects the columns `hp` and `mpg` from the `mtcars` dataset. This reduced data set is then
+the one that is being summarized. 
+
+### Many functions inside a script
+
+If you need to add more functions, you can add more in the same
+script, or create one script per function. The advantage of writing more than one function per
+script is that you can keep functions that are conceptually similar in the same place. For instance,
+if you want to add a function called `describe_character()` to your package, adding it to the same
+script where `describe_numeric()` is might be a good idea, so let's do just that:
+
+```{r, eval=FALSE}
+#' Compute descriptive statistics for the numeric columns of a data frame.
+#' @param df The data frame to summarise.
+#' @param ... Optional. Columns in the data frame
+#' @return A data frame with descriptive statistics. If you are only interested in certain columns
+#' you can add these columns.
+#' @import dplyr
+#' @importFrom tidyr gather
+#' @export
+#' @examples
+#' \dontrun{
+#' describe(dataset)
+#' describe(dataset, col1, col2)
+#' }
+describe_numeric <- function(df, ...){
+
+    if (nargs() > 1) df <- select(df, ...)
+
+    df %>%
+        select_if(is.numeric) %>%
+        gather(variable, value) %>%
+        group_by(variable) %>%
+        summarise_all(list(mean = ~mean(., na.rm = TRUE),
+                           sd = ~sd(., na.rm = TRUE),
+                           nobs = ~length(.),
+                           min = ~min(., na.rm = TRUE),
+                           max = ~max(., na.rm = TRUE),
+                           q05 = ~quantile(., 0.05, na.rm = TRUE),
+                           q25 = ~quantile(., 0.25, na.rm = TRUE),
+                           mode = ~as.character(brotools::sample_mode(.), na.rm = TRUE),
+                           median = ~quantile(., 0.5, na.rm = TRUE),
+                           q75 = ~quantile(., 0.75, na.rm = TRUE),
+                           q95 = ~quantile(., 0.95, na.rm = TRUE),
+                           n_missing = ~sum(is.na(.)))) %>%
+        mutate(type = "Numeric")
+}
+
+#' Compute descriptive statistics for the character or factor columns of a data frame.
+#' @param df The data frame to summarise.
+#' @return A data frame with a description of the character or factor columns.
+#' @import dplyr
+#' @importFrom tidyr gather
+describe_character_or_factors <- function(df, type){
+    df %>%
+        gather(variable, value) %>%
+        group_by(variable) %>%
+        summarise_all(funs(mode = brotools::sample_mode(value, na.rm = TRUE),
+                           nobs = length(value),
+                           n_missing = sum(is.na(value)),
+                           n_unique = length(unique(value)))) %>%
+        mutate(type = type)
+}
+
+#' Compute descriptive statistics for the character columns of a data frame.
+#' @param df The data frame to summarise.
+#' @return A data frame with a description of the character columns.
+#' @import dplyr
+#' @importFrom tidyr gather
+#' @export
+#' @examples
+#' \dontrun{
+#' describe(dataset)
+#' }
+describe_character <- function(df){
+    df %>%
+        select_if(is.character) %>%
+        describe_character_or_factors(type = "Character")
+}
+```
+
+Let's now continue on to the next section, where we will learn to document the package.
 
 ## Documenting your package
+
+There are several files that you must edit to fully document the package; for now, only the functions
+are documented. The first of these files is the `DESCRIPTION` file.
+
+### Description
+
+By default, the `DESCRIPTION` file, which you can find in the root of your package project, contains
+the following lines:
+
+```
+Package: arcade
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2
+```
+
+Each section is quite self-explanatory. This is how it could look like once you're done editing it:
+
+```
+Package: arcade
+Type: Package
+Title: List of highest-grossing Arcade Games
+Version: 0.1.0
+Author: person("Harold", "Zurcher", email = "harold.zurcher@madisonbus.com", role = c("aut", "cre"))
+Description: This package contains data about the highest-grossing arcade games from the 70's until
+    2010's. Also contains some functions to summarize data.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2
+```
+
+The `Author` and `Maintainer` need some further explanations; I have added Harold Zurcher as
+the athor and creator, with the `role = c("aut", "cre")` bit. `"cre"` can also be used for 
+maintainer, so I removed the `Maintainer` line.
 
 ## Unit testing your package
