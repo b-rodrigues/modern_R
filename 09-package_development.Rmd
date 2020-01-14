@@ -146,9 +146,8 @@ usethis::use_roxygen_md()
 The output tells you to run `devtools::document()`, we will do this later.
 
 Since you have learned about the tidyverse by reading this book, I am willing to bet that you will
-want to use the `%>%` operator inside the function you will be writing. To do this without issues,
+want to use the `%>%` operator inside the functions contained in your package. To do this without issues,
 which wil become apparent later, use the following command:
-
 
 ```{r, eval=FALSE}
 usethis::use_pipe()
@@ -174,7 +173,6 @@ GNU+Linux systems, that would be somewhere like: `/home/user/R/amd64-linux-gnu-l
 you will find the installation folders of all the packages. If the package you make is called `{spam}`,
 you will find the files you put inside the `inst` folder on the root of the installation folder of 
 `spam`. You can simply create the `inst` folder yourself, or use the following command:
-
 
 ```{r, eval=FALSE}
 usethis::use_directory("inst")
@@ -232,7 +230,7 @@ package to load the data. This script is simply called `data.R` and contains the
 "arcade"
 ```
 
-Basically a description of the data, and the name with which the user will invoke the data. To 
+Basically this is a description of the data, and the name with which the user will invoke the data. To 
 conclude this part, remember the `data-raw` folder? If you used a script to scrape/get the data
 from somewhere, or if you had to write code to prepare the data to make it fit for sharing, this
 is where you can put that script. I have written such a script, I will discuss it in the next 
@@ -241,8 +239,101 @@ chapter, where I'll show you how to scrape data from the internet.
 ## Adding functions to your package
 
 Functions will be added inside the `R` package. In there, you will find the `hello.R` file. You can
-edit this file if you kept it or you can create a new scrit. This script can hold one function, or 
+edit this file if you kept it or you can create a new script. This script can hold one function, or 
 several functions.
+Let's start with the simplest case; one function inside one script.
+
+### One function inside one script
+
+Create a new R script, or edit the `hello.R` file, and add in the following code:
+
+```{r, eval=FALSE}
+#' Compute descriptive statistics for the numeric columns of a data frame.
+#' @param df The data frame to summarise.
+#' @param ... Optional. Columns in the data frame
+#' @return A data frame with descriptive statistics. If you are only interested in certain columns
+#' you can add these columns.
+#' @import dplyr
+#' @importFrom tidyr gather
+#' @export
+#' @examples
+#' \dontrun{
+#' describe(dataset)
+#' describe(dataset, col1, col2)
+#' }
+describe_numeric <- function(df, ...){
+
+  if (nargs() > 1) df <- select(df, ...)
+
+  df %>%
+    select_if(is.numeric) %>%
+    gather(variable, value) %>%
+    group_by(variable) %>%
+    summarise_all(list(mean = ~mean(., na.rm = TRUE),
+                       sd = ~sd(., na.rm = TRUE),
+                       nobs = ~length(.),
+                       min = ~min(., na.rm = TRUE),
+                       max = ~max(., na.rm = TRUE),
+                       q05 = ~quantile(., 0.05, na.rm = TRUE),
+                       q25 = ~quantile(., 0.25, na.rm = TRUE),
+                       mode = ~as.character(brotools::sample_mode(.), na.rm = TRUE),
+                       median = ~quantile(., 0.5, na.rm = TRUE),
+                       q75 = ~quantile(., 0.75, na.rm = TRUE),
+                       q95 = ~quantile(., 0.95, na.rm = TRUE),
+                       n_missing = ~sum(is.na(.)))) %>%
+    mutate(type = "Numeric")
+}
+```
+
+This function shows you pretty much you need to know when writing functions for packages. First,
+there's the comment lines, that start with `#'` and not with `#`. These lines will be converted
+into the function's documentation which you and your package's users will be able to read in 
+Rstudio's *Help* pane. Notice the keywords that start with `@`. These are quite important:
+
+- `@param`: used to define the function's parameters.
+- `@return`: used to define the object returned by the functiong.
+- `@import`: if the function needs functions from another package, in the present case `{dplyr}`, 
+then this is where you would define these. Separate several package with a space.
+- `@importFrom`: if the function only needs one function from a package, define it here. Read it as
+*from tidyr import gather*, very similar to how it is done in Python.
+- `@export`: makes the function available to the users. If you omit this, this function will not
+be available to the users and only available internally to the other functions of the package. Not
+making functions available to users can be useful if you need to write functions that are used by
+other functions but never be used by anyone directly. It is still possible to access these internal,
+private, functions by using `:::`, as in, `package:::private_function()`.
+- `@examples`: lists examples in the documentation. The `\dontrun{}` tag is used for when you do
+not want these examples to run when building the package.
+
+Now comes the function itself. The function is written in pretty much the same way as usual, but
+there are some particularities. First of all, the second argument of the function is the `...`, which
+were already covered in Chapter 7. I want to give the option to my users to specify any columns to
+summarise only these columns, instead of all of them, which is the default behaviour. But because 
+I cannot know how many columns the user wants to summarize beforehand, and also because I do not
+want to limit the user to 2 or 3 columns, I use the `...`.
+But what if the user wants to summarize all the columns? This is taken care of in this line:
+
+```{r, eval=FALSE}
+  if (nargs() > 1) df <- select(df, ...)
+```
+
+`nargs()` counts the number of arguments of the function. If the user calls the function like so:
+
+```{r, eval=FALSE}
+describe_numeric(mtcars)
+```
+
+`nargs()` will return 1. If, instead, the user calls the function with one or more columns:
+
+```{r, eval=FALSE}
+describe_numeric(mtcars, hp, mpg)
+```
+
+then `nargs()` will return 2 (in this case). And does, this piece of code will be executed:
+
+```{r, eval=FALSE}
+df <- select(df, ...)
+```
+
 
 ## Documenting your package
 
