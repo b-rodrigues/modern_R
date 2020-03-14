@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Statistical models | Modern R with the tidyverse</title>
   <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Statistical models | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2020-01-14" />
+<meta name="date" content="2020-03-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1002,8 +1002,7 @@ distribution of prices:</p>
 <a class="sourceLine" id="cb822-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;log-lin model&quot;</span>)</a>
 <a class="sourceLine" id="cb822-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb822-11" data-line-number="11">diagnostics_models &lt;-<span class="st"> </span><span class="kw">full_join</span>(diag_lm, diag_log)</a></code></pre></div>
-<pre><code>## Joining, by = c(&quot;r.squared&quot;, &quot;adj.r.squared&quot;, &quot;sigma&quot;, &quot;statistic&quot;, &quot;p.value&quot;,
-## &quot;df&quot;, &quot;logLik&quot;, &quot;AIC&quot;, &quot;BIC&quot;, &quot;deviance&quot;, &quot;df.residual&quot;, &quot;model&quot;)</code></pre>
+<pre><code>## Joining, by = c(&quot;r.squared&quot;, &quot;adj.r.squared&quot;, &quot;sigma&quot;, &quot;statistic&quot;, &quot;p.value&quot;, &quot;df&quot;, &quot;logLik&quot;, &quot;AIC&quot;, &quot;BIC&quot;, &quot;deviance&quot;, &quot;df.residual&quot;, &quot;model&quot;)</code></pre>
 <div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb824-1" data-line-number="1"><span class="kw">print</span>(diagnostics_models)</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 12
 ##   r.squared adj.r.squared   sigma statistic   p.value    df  logLik    AIC
@@ -1520,7 +1519,7 @@ function and change the <code>engine</code> argument to the one you want (<code>
 <a class="sourceLine" id="cb870-3" data-line-number="3"><span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb870-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_rmse =</span> <span class="kw">mean</span>(.estimate)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb870-5" data-line-number="5"><span class="st">    </span>pull</a></code></pre></div>
-<pre><code>## [1] 0.6105356</code></pre>
+<pre><code>## [1] 0.6105358</code></pre>
 <p>The random forest has already lower RMSE than the linear regression. The goal now is to lower this
 RMSE by tuning the <code>mtry</code> and <code>trees</code> hyperparameters. For this, I will use Bayesian Optimization
 methods implemented in the <code>{mlrMBO}</code> package.</p>
@@ -1547,7 +1546,7 @@ to returning the metric I want to minimize by tuning the hyperparameters, the RM
 <p>This is exactly the code from before, but it now returns the RMSE. Let’s try the function
 with the values from before:</p>
 <div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb873-1" data-line-number="1"><span class="kw">tuning</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">200</span>), validation_data)</a></code></pre></div>
-<pre><code>## [1] 0.6064237</code></pre>
+<pre><code>## [1] 0.6064163</code></pre>
 <p>I now follow the code that can be found in the <a href="https://arxiv.org/abs/1703.03373">arxiv</a> paper to
 run the optimization. A simpler model, called the surrogate model, is used to look for promising
 points and to evaluate the value of the function at these points. This seems somewhat similar
@@ -1631,56 +1630,56 @@ training data</p>
 <div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb885-1" data-line-number="1"><span class="kw">cbind</span>(price_predict <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(housing_train<span class="op">$</span>price) <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(housing_train<span class="op">$</span>price), </a>
 <a class="sourceLine" id="cb885-2" data-line-number="2">      housing_test<span class="op">$</span>price)</a></code></pre></div>
 <pre><code>##       .pred housing_test$price
-## 1  20.96034               16.5
-## 2  21.68968               18.9
-## 3  17.72526               14.5
-## 4  22.55790               20.0
+## 1  20.96687               16.5
+## 2  21.69664               18.9
+## 3  17.71811               14.5
+## 4  22.56920               20.0
 ## 5  32.89044               26.6
-## 6  21.87593               19.4
-## 7  24.64060               19.4
-## 8  33.41603               28.7
-## 9  25.08696               22.9
-## 10 21.07804               18.6
-## 11 21.00591               19.3
-## 12 19.40768               18.3
-## 13 21.04855               19.2
-## 14 19.14319               17.3
-## 15 19.04456               19.6
+## 6  21.87967               19.4
+## 7  24.67348               19.4
+## 8  33.41635               28.7
+## 9  25.09534               22.9
+## 10 21.08003               18.6
+## 11 21.00843               19.3
+## 12 19.40443               18.3
+## 13 21.04723               19.2
+## 14 19.13301               17.3
+## 15 19.04811               19.6
 ## 16 17.37219               13.8
-## 17 20.15995               15.3
+## 17 20.13769               15.3
 ## 18 17.96205               19.4
 ## 19 40.04755               50.0
 ## 20 21.56691               25.0
-## 21 21.28502               23.8
-## 22 28.19695               26.4
+## 21 21.29800               23.8
+## 22 28.24463               26.4
 ## 23 31.22712               30.3
-## 24 21.48888               21.7
+## 24 21.49262               21.7
 ## 25 37.12705               46.7
 ## 26 35.24885               30.1
 ## 27 37.14262               50.0
-## 28 34.21900               33.2
-## 29 23.88894               23.9
-## 30 20.90597               19.4
-## 31 23.65346               20.4
-## 32 22.25659               22.2
-## 33 22.39752               18.5
+## 28 34.22166               33.2
+## 29 23.90327               23.9
+## 30 20.90466               19.4
+## 31 23.66351               20.4
+## 32 22.26033               22.2
+## 33 22.38585               18.5
 ## 34 26.18525               16.5
-## 35 28.12241               23.1
-## 36 24.79439               18.6
+## 35 28.14685               23.1
+## 36 24.82497               18.6
 ## 37 21.30455               25.0
-## 38 28.44648               50.0
+## 38 28.42422               50.0
 ## 39 11.78735               10.5
-## 40 15.47773               15.1
+## 40 15.47879               15.1
 ## 41 11.38912                5.0
 ## 42 19.55224               15.0
 ## 43 13.47125               10.5
-## 44 19.58692               19.9
+## 44 19.58582               19.9
 ## 45 18.66857               20.1
 ## 46 17.93450               21.4
-## 47 21.07210               23.0
-## 48 20.85616               21.8
-## 49 20.17755               20.6
-## 50 16.05127               15.2</code></pre>
+## 47 21.07043               23.0
+## 48 20.84800               21.8
+## 49 20.17279               20.6
+## 50 16.05437               15.2</code></pre>
 <p>Let’s now compute the RMSE:</p>
 <div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb887-1" data-line-number="1">tibble<span class="op">::</span><span class="kw">tibble</span>(<span class="st">&quot;truth&quot;</span> =<span class="st"> </span>test_data<span class="op">$</span>price,</a>
 <a class="sourceLine" id="cb887-2" data-line-number="2">        <span class="st">&quot;prediction&quot;</span> =<span class="st"> </span><span class="kw">unlist</span>(price_predict)) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -1688,7 +1687,7 @@ training data</p>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-## 1 rmse    standard       0.543</code></pre>
+## 1 rmse    standard       0.544</code></pre>
 <p>As I mentioned above, all the part about looking for hyper-parameters could be changed to something
 else. The general approach though remains what I have described, and can be applied for any models
 that have hyper-parameters.</p>

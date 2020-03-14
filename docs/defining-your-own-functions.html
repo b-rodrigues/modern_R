@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Defining your own functions | Modern R with the tidyverse</title>
   <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Defining your own functions | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2020-01-14" />
+<meta name="date" content="2020-03-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -689,12 +689,12 @@ mathematical definition of the fibonacci sequence. So why not use only recursive
 then? Try to run the following:</p>
 <div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb946-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">my_fibo</span>(<span class="dv">30</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.005   0.000   0.005</code></pre>
+##   0.004   0.000   0.005</code></pre>
 <p>The result should be printed very fast (the <code>system.time()</code> function returns the time that it took
 to execute <code>my_fibo(30)</code>). Let’s try with the recursive version:</p>
 <div class="sourceCode" id="cb948"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb948-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw">fibo_recur</span>(<span class="dv">30</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.059   0.008   1.067</code></pre>
+##   1.110   0.004   1.115</code></pre>
 <p>It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
 critical, it’s best to avoid recursive algorithms. Also, in <code>fibo_recur()</code> try to remove this line:
 <code>if (n == 0 || n == 1)</code> and try to run <code>fibo_recur(5)</code> and see what happens. You should

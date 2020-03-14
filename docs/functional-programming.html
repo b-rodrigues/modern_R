@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Functional programming | Modern R with the tidyverse</title>
   <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Functional programming | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2020-01-14" />
+<meta name="date" content="2020-03-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1535,15 +1535,9 @@ output. So how could <code>reduce()</code> help us with merging all the datasets
 comes with a lot of function to merge <em>two</em> datasets. Remember that I said before that <code>reduce()</code>
 allows you to generalize a function of two arguments? Let’s try it with our list of datasets:</p>
 <div class="sourceCode" id="cb1157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1157-1" data-line-number="1">unemp_lux &lt;-<span class="st"> </span><span class="kw">reduce</span>(all_datasets, full_join)</a></code></pre></div>
-<pre><code>## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;,
-## &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;,
-## &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)Joining,
-## by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;,
-## &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;,
-## &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)Joining, by = c(&quot;commune&quot;,
-## &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;,
-## &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;,
-## &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)</code></pre>
+<pre><code>## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)
+## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)
+## Joining, by = c(&quot;commune&quot;, &quot;total_employed_population&quot;, &quot;of_which_wage_earners&quot;, &quot;of_which_non_wage_earners&quot;, &quot;unemployed&quot;, &quot;active_population&quot;, &quot;unemployment_rate_in_percent&quot;, &quot;year&quot;)</code></pre>
 <div class="sourceCode" id="cb1159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1159-1" data-line-number="1"><span class="kw">glimpse</span>(unemp_lux)</a></code></pre></div>
 <pre><code>## Observations: 472
 ## Variables: 8
@@ -1614,11 +1608,11 @@ let’s take a look at what this does:</p>
 <a class="sourceLine" id="cb1167-4" data-line-number="4"><span class="st">  </span><span class="kw">nest</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ## # Groups:   division [3]
-##   division                   data
-##   &lt;chr&gt;            &lt;list&lt;df[,7]&gt;&gt;
-## 1 Esch-sur-Alzette       [15 × 7]
-## 2 Luxembourg             [15 × 7]
-## 3 Wiltz                  [15 × 7]</code></pre>
+##   division         data             
+##   &lt;chr&gt;            &lt;list&gt;           
+## 1 Esch-sur-Alzette &lt;tibble [15 × 7]&gt;
+## 2 Luxembourg       &lt;tibble [15 × 7]&gt;
+## 3 Wiltz            &lt;tibble [15 × 7]&gt;</code></pre>
 <p>This creates a tibble with two columns, <code>division</code> and <code>data</code>, where each individual (or
 commune in this case) is another tibble with all the original variables. This is very useful,
 because now we can pass these tibbles to <code>map2()</code>, to generate the plots. But why <code>map2()</code> and
@@ -1650,11 +1644,11 @@ second input of <code>map2()</code>, the commune names contained in variable <co
 <div class="sourceCode" id="cb1171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1171-1" data-line-number="1"><span class="kw">print</span>(plots_tibble)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ## # Groups:   division [3]
-##   division                   data plot  
-##   &lt;chr&gt;            &lt;list&lt;df[,7]&gt;&gt; &lt;list&gt;
-## 1 Esch-sur-Alzette       [15 × 7] &lt;gg&gt;  
-## 2 Luxembourg             [15 × 7] &lt;gg&gt;  
-## 3 Wiltz                  [15 × 7] &lt;gg&gt;</code></pre>
+##   division         data              plot  
+##   &lt;chr&gt;            &lt;list&gt;            &lt;list&gt;
+## 1 Esch-sur-Alzette &lt;tibble [15 × 7]&gt; &lt;gg&gt;  
+## 2 Luxembourg       &lt;tibble [15 × 7]&gt; &lt;gg&gt;  
+## 3 Wiltz            &lt;tibble [15 × 7]&gt; &lt;gg&gt;</code></pre>
 <p>This tibble contains three columns, <code>division</code>, <code>data</code> and now a new one called <code>plot</code>, that we
 created before using the last line <code>mutate(plot = ...)</code> (remember that <code>mutate()</code> adds columns to
 tibbles). <code>plot</code> is a list-column, with elements… being plots! Yes you read that right, the
@@ -1662,18 +1656,7 @@ elements of the column <code>plot</code> are literally plots. This is what I mea
 Let’s see what is inside the <code>data</code> and the <code>plot</code> columns exactly:</p>
 <div class="sourceCode" id="cb1173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1173-1" data-line-number="1">plots_tibble <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb1173-2" data-line-number="2"><span class="st">  </span><span class="kw">pull</span>(data)</a></code></pre></div>
-<pre><code>## &lt;list_of&lt;
-##   tbl_df&lt;
-##     year                        : integer
-##     active_population           : double
-##     of_which_non_wage_earners   : double
-##     of_which_wage_earners       : double
-##     total_employed_population   : double
-##     unemployed                  : double
-##     unemployment_rate_in_percent: double
-##   &gt;
-## &gt;[3]&gt;
-## [[1]]
+<pre><code>## [[1]]
 ## # A tibble: 15 x 7
 ##     year active_populati… of_which_non_wa… of_which_wage_e… total_employed_…
 ##    &lt;int&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;

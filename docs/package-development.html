@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Package development | Modern R with the tidyverse</title>
   <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Package development | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2020-01-14" />
+<meta name="date" content="2020-03-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -412,7 +412,7 @@ that what you wrote works. And I include future you in these <em>others</em> too
 <p>In order to share this package with these <em>others</em> we are going to use git. If you’re familiar with
 git, great, you’ll be able to skip some sections. If not, then buckle up, you’re in for a wild ride.</p>
 <p>As I mentioned in the introduction, if you want to learn much more than I’ll show about packages
-read <span class="citation">Wickham (<a href="#ref-wickham2014">2014</a>)</span>. I will only show you the basics, but it should be enough to get you productive.</p>
+read <span class="citation">Wickham (<a href="#ref-wickham2015">2015</a>)</span>. I will only show you the basics, but it should be enough to get you productive.</p>
 </div>
 <div id="starting-easy-creating-a-package-to-share-data" class="section level2">
 <h2><span class="header-section-number">9.2</span> Starting easy: creating a package to share data</h2>
@@ -448,7 +448,8 @@ Click on the top right, <em>New SSH key</em>:</p>
 git a bit more by telling it who you are. Open a terminal, adapt and type the following commands:</p>
 <pre><code>git config --global user.name &quot;Harold Zurcher&quot;
 git config --global user.email harold.zurcher@madisonbus.com</code></pre>
-<p>You’re ready to go! You can now push code to github to share it with the world. Or if you do not want
+<p>You’re ready to go!<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>
+You can now push code to github to share it with the world. Or if you do not want
 to share you package (for confidentiality reasons for instance), you can still benefit from using
 git, as it possible to have an internal git server that could be managed by your company’s IT team.
 There is also the possibility to set up corporate, and thus private git servers by buying the service
@@ -756,9 +757,15 @@ maintainer, so I removed the <code>Maintainer</code> line.</p>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-wickham2014">
-<p>Wickham, Hadley. 2014. <em>Advanced R</em>. CRC Press.</p>
+<div id="ref-wickham2015">
+<p>Wickham, Hadley. 2015. <em>R Packages</em>. 1st ed. O’Reilly. <a href="http://r-pkgs.had.co.nz/" class="uri">http://r-pkgs.had.co.nz/</a>.</p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="9">
+<li id="fn9"><p>If you know who Harold Zurcher is, you da real MVP<a href="package-development.html#fnref9" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 

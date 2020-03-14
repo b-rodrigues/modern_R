@@ -41,7 +41,7 @@ In order to share this package with these *others* we are going to use git. If y
 git, great, you'll be able to skip some sections. If not, then buckle up, you're in for a wild ride.
 
 As I mentioned in the introduction, if you want to learn much more than I'll show about packages
-read @wickham2014. I will only show you the basics, but it should be enough to get you productive.
+read @wickham2015. I will only show you the basics, but it should be enough to get you productive.
 
 ## Starting easy: creating a package to share data
 
@@ -98,7 +98,8 @@ git config --global user.name "Harold Zurcher"
 git config --global user.email harold.zurcher@madisonbus.com
 ```
 
-You're ready to go! You can now push code to github to share it with the world. Or if you do not want
+You're ready to go!^[If you know who Harold Zurcher is, you da real MVP]
+You can now push code to github to share it with the world. Or if you do not want
 to share you package (for confidentiality reasons for instance), you can still benefit from using
 git, as it possible to have an internal git server that could be managed by your company's IT team.
 There is also the possibility to set up corporate, and thus private git servers by buying the service 

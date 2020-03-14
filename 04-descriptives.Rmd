@@ -115,25 +115,25 @@ Error in tapply(starwars, list(starwars$species), mean) :
 In both cases, you can only specify one function. So if you need the average and the standard
 deviation you have to do it in two steps.
 
-Let's continue now, by only computing the average height by species, but for males:
+Let's continue now, by only computing the average height by species, but for masculines:
 
 ```{r}
-starwars_males <- subset(starwars, gender == "male")
+starwars_masculines <- subset(starwars, gender == "masculine")
 
-aggregate(starwars_males$height,
-          by = list(Species = starwars_males$species),
+aggregate(starwars_masculines$height,
+          by = list(Species = starwars_masculines$species),
           mean)
 ```
 
-I first use `subset()` to create a subset of the data in which I only kept males. Then, I rerun
+I first use `subset()` to create a subset of the data in which I only kept masculines. Then, I rerun
 the analysis from before again. `subset()` can also be used to select columns. So if you want
-the average of the height and mass for males, you could do something like this:
+the average of the height and mass for masculines, you could do something like this:
 
 ```{r}
-starwars_males_height_mass <- subset(starwars, gender == "male", select = c(height, mass, species))
+starwars_masculines_height_mass <- subset(starwars, gender == "masculine", select = c(height, mass, species))
 
-aggregate(starwars_males_height_mass,
-          by = list(Species = starwars_males_height_mass$species),
+aggregate(starwars_masculines_height_mass,
+          by = list(Species = starwars_masculines_height_mass$species),
           mean)
 ```
 
@@ -292,11 +292,11 @@ summarise(group_by(starwars, species), mean(height))
 ```
 
 as you can clearly see, it is much more difficult to read. Imagine now that I want the average height
-by species, but only for males. Again, this is very easy using `%>%`:
+by species, but only for masculines. Again, this is very easy using `%>%`:
 
 ```{r}
 starwars %>%
-  filter(gender == "male") %>%
+  filter(gender == "masculine") %>%
   group_by(species) %>%
   summarise(mean(height))
 ```
@@ -304,16 +304,16 @@ starwars %>%
 Again, the `%>%` makes the above lines of code very easy to read. Without it, one would need to write:
 
 ```{r}
-summarise(group_by(filter(starwars, gender == "male"), species), mean(height))
+summarise(group_by(filter(starwars, gender == "masculine"), species), mean(height))
 ```
 
 I think you agree with me that this is not very readable. One way to make it more readable would
 be to save intermediary variables:
 
 ```{r}
-filtered_data <- filter(starwars, gender == "male")
+filtered_data <- filter(starwars, gender == "masculine")
 
-grouped_data <- group_by(filter(starwars, gender == "male"), species)
+grouped_data <- group_by(filter(starwars, gender == "masculine"), species)
 
 summarise(grouped_data, mean(height))
 ```
@@ -1484,15 +1484,16 @@ my_plots$plot
 Ok, that was quite complicated, but again, this was only to introduce `nest()` and give you a taste
 of the power of the `{tidyverse}`. By the end of Chapter 9, you'll be used to this.
 
-That was it for a first introduction to `{tidyr}`. Now, it's time to learn about *scoped* verbs.
+That was it for a first introduction to `{tidyr}`. In the next section, we will be learning
+how to apply these verbs to several columns at once. 
 
-## Scoped `{tidyverse}` verbs
+## Working on many columns with `across()`
 
-Scoped verbs are special versions of the verbs you are now familiar with.
+Let's start with the most complicated cases, using `across()` with `filter()`.
 
-### filter_*()
+### `filter()` and `across()`
 
-Let's go back to the `gasoline` data from the `{plm}` package.
+Let's go back to the `gasoline` data from the `{Ecdat}` package.
 
 `filter()` is not the only *filtering* verb there is. Suppose that we have a condition that we want
 to use to filter out a lot of columns at once. For example, for every column that is of type
@@ -1500,42 +1501,53 @@ to use to filter out a lot of columns at once. For example, for every column tha
 that:
 
 ```{r}
-gasoline %>% filter_if( ~all(is.numeric(.)), all_vars(. > -8))
+gasoline %>%
+  filter(across(is.numeric, ~`>`(., -8)))
 ```
 
-This is a bit more complicated than before, but let's go through it, step by step.
-`filter_if()` needs 3 arguments to work; the data, a
-predicate function (a function that returns `TRUE`, or `FALSE`) which will select the columns we
-want to work on, and then the condition. The condition can be applied to *all* the columns that
-were selected by the predicate function (hence the `all_vars()`) or only to at least one (you'd use
-`any_vars()` then). Try to change the condition, or the predicate function, to figure out how
-`filter_if()` works. The dot is a placeholder that stands for whatever columns where selected.
+The above code is using the `across()` function, which is included since `{dplyr}` version 1.0. You
+can think of `across()` as a function that helps you select the columns to which to apply the 
+verb. You can read the code above like this:
 
-Another scoped `filter()` verb is `filter_at()`; it allows the user to filter columns by position:
+*Start with the gasoline data, then filter rows that are greater than -8 across the columns 
+which are numeric*
+
+or similar. `across()` makes operations like these very easy to achieve. 
+
+Sometimes, you'd want to filter rows from columns that end their labels with a letter, for instance
+`"p"`. This can again be achieved using `across()`:
 
 ```{r}
-gasoline %>% filter_at(vars(ends_with("p")), all_vars(. > -8))
+gasoline %>%
+  filter(across(ends_with("p"), ~`>`(., -8)))
 ```
 
-we already know about `ends_with()` and `starts_with()`. So the above line means "for the columns
+We already know about `ends_with()` and `starts_with()`. So the above line means "for the columns
 whose name end with a 'p' only keep the lines where, for all the selected columns, the values are
-strictly superior to `-8`". Again, this is not very easy the first time you deal with that, so
-play around with it for a bit.
+strictly superior to `-8`". You can use any of these helper functions inside `across()`:
 
-Finally, there is also `filter_all()` which, as the name implies, uses all the variables for
-the filtering step.
+```{r}
+gasoline %>%
+  select(is.numeric) %>%  
+  filter(across(everything(), ~`!=`(., 0)))
+```
 
-`filter_if()` and `filter_at()` are very useful when you have very large datasets with a lot of
-variables and you want to apply a filtering function only to a subset of them. `filter_all()` is
-useful if, for example, you only want to keep the positive values for all the columns.
+This would get you every row where the values are different from 0 for all columns at the
+same time (but first I need to select only columns of type `numeric`; this will be discussed 
+in the next section). 
 
-### select_\*() and rename_\*()
+That's basically all there is to it. I think that `across()` is quite intuitive, and by trying out
+a few examples, I feel confident that you will think the same.
+
+### Selecting and renaming with `across()`
+
+TBD
 
 Just as with `filter()`, `select()` also has scoped versions. `select_if()` makes it easy to
 select columns that satisfy a criterium:
 
 ```{r}
-gasoline %>% select_if(is.numeric)
+gasoline %>% select(is.numeric)
 ```
 
 You can even pass a further function to `select_if()` that will be applied to the selected columns:
