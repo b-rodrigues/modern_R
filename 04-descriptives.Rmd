@@ -508,7 +508,8 @@ gasoline %>% select(country, date = year, lrpmg)
 There's also `rename()`:
 
 ```{r}
-gasoline %>% rename(date = year)
+gasoline %>%
+  rename(date = year)
 ```
 
 `rename()` does not do any kind of selection, but just renames.
@@ -1541,68 +1542,48 @@ a few examples, I feel confident that you will think the same.
 
 ### Selecting and renaming with `across()`
 
-TBD
-
-Just as with `filter()`, `select()` also has scoped versions. `select_if()` makes it easy to
-select columns that satisfy a criterium:
+In the previous section, the very last example used the following bit of code `select(is.numeric)`.
+Unlike `filter()`, `select()` does not need the help of `across()`:
 
 ```{r}
-gasoline %>% select(is.numeric)
+gasoline %>%
+  select(is.numeric)
 ```
 
-You can even pass a further function to `select_if()` that will be applied to the selected columns:
+Selecting by column position is also possible:
 
 ```{r}
-gasoline %>% select_if(is.numeric, toupper)
+gasoline %>%
+  select(c(1, 2, 5))
 ```
 
-`select_at()` makes it easy to select all the variables that start with "l" for example:
+As is selecting columns starting or ending with a certain string of characters:
 
 ```{r}
-gasoline %>% select_at(vars(starts_with("l")))
+gasoline %>%
+  select(starts_with("l"))
 ```
 
-`select_at()` also works if you specify the position of the columns you're interested in:
+Bulk-renaming can be achieved using `rename_with()`
 
 ```{r}
-gasoline %>% select_at(vars(c(1,2,5)))
+gasoline %>%
+  rename_with(toupper, is.numeric)
 ```
 
-Notice that I use a new helper function, `vars()`, which allows me to specify which variables I want
-to select. This is similar to the helper functions we have seen before, `all_vars()`
-and `any_vars()`. So the way to read the above line would be something like "Start with the
-gasoline data, then select the variables at position 1, 2, 5". Knowing how to read your code makes
-it even easier to write.
-
-There is also a `select_all()`, and you might be wondering why it is useful:
+you can also pass formulas to `rename_with()`:
 
 ```{r}
-gasoline %>% select_all()
+gasoline %>%  
+  rename_with(~paste0("new_", .))
 ```
 
-This simply returns all the columns of the data frame... but wait, `selec_all()` allows you to do
-something very useful, which is rename all the columns in bulk:
+In the above formula I did not select any columns, so every columns gets renamed.
 
-```{r}
-gasoline %>% select_all(toupper)
-```
-
-You can apply any arbitrary function:
-
-```{r}
-gasoline %>% select_all(funs(paste0("hello_", .)))
-```
-
-I have passed the `paste0()` function to the `funs()` helper function of `select_all()`. `funs()` is
-used a lot with scoped verbs, just like `vars()`, which we have already seen.
-
-The scoped version of `rename()` work just as you expect. But I'll leave these for the exercices
-down below.
-
-### group_by_*()
+### `group_by()` and `across()`
 
 To illustrate `group_by_*()` I have to first modify the `gasoline` data a little bit. As you can
-see below, the data column is of type integer:
+see below, the `year` column is of type integer:
 
 ```{r}
 gasoline
@@ -1612,15 +1593,16 @@ Let's change that to character:
 
 ```{r}
 gasoline <- gasoline %>%
-    mutate(year = as.character(year))
+  mutate(year = as.character(year),
+         country = as.character(country))
 ```
 
-Now, this allows me to do the following:
+This now allows me to group by type of columns for instance:
 
 ```{r}
 gasoline %>%
-    group_by_if(is.character) %>%
-    summarise(mean(lincomep))
+  group_by(across(is.character)) %>%
+  summarise(mean(lincomep))
 ```
 
 This is faster than having to write:
@@ -1632,80 +1614,88 @@ gasoline %>%
 ```
 
 You may think that having two write the name of two variables is not a huge hassle, which is true.
-But imagine that you have dozens of character columns that you want to group by. This is the kind
-of situation where `group_by_if()` is very useful. If you prefer, you can specify the position of
-the columns instead of the name of the columns, with `group_by_at()`:
+But imagine that you have dozens of character columns that you want to group by. Using `across()`
+makes this very quick. It is also possible to `group_by()` position:
 
 ```{r}
 gasoline %>%
-    group_by_at(vars(1, 2)) %>%
+    group_by(across(c(1, 2))) %>%
     summarise(mean(lincomep))
 ```
 
-There is also a `group_by_all()`, but I fail to see the use case...
-
-### summarise_()
-
-Just like for `filter()`, `select()`, and `group_by()`, summarise()` comes with scoped versions:
+Using a sequence is also possible:
 
 ```{r}
 gasoline %>%
-  group_by(country) %>%
-  summarise_at(vars(starts_with("l")), mean)
+  group_by(across(seq(1:2))) %>%
+  summarise(mean(lincomep))
 ```
 
-See how I managed to summarise every variable in one simple call to `summarise_at()`? Simply by
-using `vars()` and specifying that I was interested in the ones that started with "l" and then I
-specified the function I wanted. But what if I wanted to use more than one function to summarise
-the data? Very easy:
+it is especially useful if you need to group by the first `N` columns for instance. 
+
+### `summarise()` across many columns
+
+Just like for `filter()`, and `group_by()`, `summarise()` supports `across()`:
 
 ```{r}
 gasoline %>%
   group_by(country) %>%
-  summarise_at(vars(starts_with("l")), funs(mean, sd, max, min))
+  summarise(across(starts_with("l"), mean))
 ```
 
-Just use `vars()` to specify the variables you want to summarise, and then `funs()` to list all the
-functions you want to use on each of the columns.
-
-But maybe you're just interested in descriptive statistics for some variables, but not all those
-that start with "l"? What if you want to use another pattern? Easy to do with the `contains()`
-helper:
+But where `summarise()` and `across()` really shine is when you want to apply several functions
+to many columns at once:
 
 ```{r}
 gasoline %>%
   group_by(country) %>%
-  summarise_at(vars(dplyr::contains("car")), funs(mean, sd, max, min))
+  summarise(across(starts_with("l"), tibble::lst(mean, sd, max, min), .names = "{fn}_{col}"))
+```
+
+Here, I first started by grouping by `country`, then I applied the `mean()`, `sd()`, `max()` and
+`min()` functions to every column starting with the character `"l"`. `tibble::lst()` allows you to
+create a list just like with `list()` but names its arguments automatically. So the `mean()` function
+gets name `"mean"`, and so on. Finally, I use the `.names = ` argument to create the template for
+the new column names. ``{fn}_{col}`` creates new column names of the form *function name _ column name*.
+
+As mentioned before, `across()` works with other helper functions:
+
+```{r}
+gasoline %>%
+  group_by(country) %>%
+  summarise(across(dplyr::contains("car"), tibble::lst(mean, sd, max, min), .names = "{fn}_{col}"))
 ```
 
 I used `dplyr::contains()` instead of simply `contains()` because there's also a
 `purrr::contains()`. If you load `purrr` after `dplyr`, `contains()` will actually be
 `purrr::contains()` and not `dplyr::contains()` which causes the above code to fail.
 
-There's also `summarise_if()`:
+There's also a way to *summarise if*:
 
 ```{r}
 gasoline %>%
   group_by(country) %>%
-  summarise_if(is.double, funs(mean, sd, min, max))
+  summarise(across(is.numeric, tibble::lst(mean, sd, min, max), .names = "{fn}_{col}"))
 ```
 
 This allows you to summarise every column that contain real numbers. The difference between
 `is.double()` and `is.numeric()` is that `is.numeric()` returns `TRUE` for integers too, whereas
 `is.double()` returns `TRUE` for real numbers only (integers are real numbers too, but you know
-what I mean). To go faster, you can also use `summarise_all()`:
+what I mean). It is also possible to summarise every column at once:
 
 ```{r}
 gasoline %>%
   select(-year) %>%
   group_by(country) %>%
-  summarise_all(funs(mean, sd, min, max))
+  summarise(across(everything, tibble::lst(mean, sd, min, max), .names = "{fn}_{col}"))
 ```
 
 I removed the `year` variable because it's not a variable for which we want to have descriptive
 statistics.
 
 ### mutate_*()
+
+TBD
 
 Of course, `mutate()` and `transmute()` also come with scoped versions:
 

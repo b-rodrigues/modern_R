@@ -2057,7 +2057,8 @@ gasoline %>% select(country, date = year, lrpmg)
 There's also `rename()`:
 
 ```{r}
-gasoline %>% rename(date = year)
+gasoline %>%
+  rename(date = year)
 ```
 
 `rename()` does not do any kind of selection, but just renames.
@@ -3090,68 +3091,48 @@ a few examples, I feel confident that you will think the same.
 
 ### Selecting and renaming with `across()`
 
-TBD
-
-Just as with `filter()`, `select()` also has scoped versions. `select_if()` makes it easy to
-select columns that satisfy a criterium:
+In the previous section, the very last example used the following bit of code `select(is.numeric)`.
+Unlike `filter()`, `select()` does not need the help of `across()`:
 
 ```{r}
-gasoline %>% select(is.numeric)
+gasoline %>%
+  select(is.numeric)
 ```
 
-You can even pass a further function to `select_if()` that will be applied to the selected columns:
+Selecting by column position is also possible:
 
 ```{r}
-gasoline %>% select_if(is.numeric, toupper)
+gasoline %>%
+  select(c(1, 2, 5))
 ```
 
-`select_at()` makes it easy to select all the variables that start with "l" for example:
+As is selecting columns starting or ending with a certain string of characters:
 
 ```{r}
-gasoline %>% select_at(vars(starts_with("l")))
+gasoline %>%
+  select(starts_with("l"))
 ```
 
-`select_at()` also works if you specify the position of the columns you're interested in:
+Bulk-renaming can be achieved using `rename_with()`
 
 ```{r}
-gasoline %>% select_at(vars(c(1,2,5)))
+gasoline %>%
+  rename_with(toupper, is.numeric)
 ```
 
-Notice that I use a new helper function, `vars()`, which allows me to specify which variables I want
-to select. This is similar to the helper functions we have seen before, `all_vars()`
-and `any_vars()`. So the way to read the above line would be something like "Start with the
-gasoline data, then select the variables at position 1, 2, 5". Knowing how to read your code makes
-it even easier to write.
-
-There is also a `select_all()`, and you might be wondering why it is useful:
+you can also pass formulas to `rename_with()`:
 
 ```{r}
-gasoline %>% select_all()
+gasoline %>%  
+  rename_with(~paste0("new_", .))
 ```
 
-This simply returns all the columns of the data frame... but wait, `selec_all()` allows you to do
-something very useful, which is rename all the columns in bulk:
-
-```{r}
-gasoline %>% select_all(toupper)
-```
-
-You can apply any arbitrary function:
-
-```{r}
-gasoline %>% select_all(funs(paste0("hello_", .)))
-```
-
-I have passed the `paste0()` function to the `funs()` helper function of `select_all()`. `funs()` is
-used a lot with scoped verbs, just like `vars()`, which we have already seen.
-
-The scoped version of `rename()` work just as you expect. But I'll leave these for the exercices
-down below.
+In the above formula I did not select any columns, so every columns gets renamed.
 
 ### group_by_*()
 
 To illustrate `group_by_*()` I have to first modify the `gasoline` data a little bit. As you can
-see below, the data column is of type integer:
+see below, the `year` column is of type integer:
 
 ```{r}
 gasoline
@@ -3161,15 +3142,16 @@ Let's change that to character:
 
 ```{r}
 gasoline <- gasoline %>%
-    mutate(year = as.character(year))
+  mutate(year = as.character(year),
+         country = as.character(country))
 ```
 
-Now, this allows me to do the following:
+This now allows me to group by type of columns for instance:
 
 ```{r}
 gasoline %>%
-    group_by_if(is.character) %>%
-    summarise(mean(lincomep))
+  group_by(across(is.character)) %>%
+  summarise(mean(lincomep))
 ```
 
 This is faster than having to write:
@@ -3181,17 +3163,24 @@ gasoline %>%
 ```
 
 You may think that having two write the name of two variables is not a huge hassle, which is true.
-But imagine that you have dozens of character columns that you want to group by. This is the kind
-of situation where `group_by_if()` is very useful. If you prefer, you can specify the position of
-the columns instead of the name of the columns, with `group_by_at()`:
+But imagine that you have dozens of character columns that you want to group by. Using `across()`
+makes this very quick. It is also possible to `group_by()` position:
 
 ```{r}
 gasoline %>%
-    group_by_at(vars(1, 2)) %>%
+    group_by(across(c(1, 2))) %>%
     summarise(mean(lincomep))
 ```
 
-There is also a `group_by_all()`, but I fail to see the use case...
+Using a sequence is also possible:
+
+```{r}
+gasoline %>%
+  group_by(across(seq(1:2))) %>%
+  summarise(mean(lincomep))
+```
+
+it is especially useful if you need to group by the first `N` columns for instance. 
 
 ### summarise_()
 
