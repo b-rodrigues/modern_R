@@ -1,4 +1,4 @@
-# Functional programming
+ %>% # Functional programming
 
 Functional programming is a paradigm that I find very suitable for data science. In functional
 programming, your code is organised into functions that perform the operations you need. Your scripts
@@ -1349,7 +1349,7 @@ effects:
 
 ```{r}
 simulation_results <- results %>% 
-  mutate(difference = map2(.x = lpm, .y = true_effect, bind_cols)) %>% 
+  mutate(difference = map2(.x = lpm, .y = true_effect, full_join)) %>%  
   mutate(difference = map(difference, ~mutate(., difference = true_effect - estimate))) %>% 
   mutate(difference = map(difference, ~select(., term, difference))) %>% 
   pull(difference) %>% 
@@ -1383,7 +1383,7 @@ monte_carlo <- function(coefs, sample_size, repeats){
     mutate(true_effect = map(true_effect, bind_rows))
 
   simulation_results <- results %>% 
-    mutate(difference = map2(.x = lpm, .y = true_effect, bind_cols)) %>% 
+    mutate(difference = map2(.x = lpm, .y = true_effect, full_join)) %>% 
     mutate(difference = map(difference, ~mutate(., difference = true_effect - estimate))) %>% 
     mutate(difference = map(difference, ~select(., term, difference))) %>% 
     pull(difference) %>% 

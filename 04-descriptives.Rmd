@@ -1687,35 +1687,12 @@ what I mean). It is also possible to summarise every column at once:
 gasoline %>%
   select(-year) %>%
   group_by(country) %>%
-  summarise(across(everything, tibble::lst(mean, sd, min, max), .names = "{fn}_{col}"))
+  summarise(across(everything(), tibble::lst(mean, sd, min, max), .names = "{fn}_{col}"))
 ```
 
 I removed the `year` variable because it's not a variable for which we want to have descriptive
 statistics.
 
-### mutate_*()
-
-TBD
-
-Of course, `mutate()` and `transmute()` also come with scoped versions:
-
-```{r}
-gasoline %>%
-  mutate_if(is.double, exp)
-```
-
-```{r}
-gasoline %>%
-  mutate_at(vars(starts_with("l")), exp)
-```
-
-```{r}
-gasoline %>%
-  mutate_all(as.character)
-```
-
-I think that by now, you are able to understand the above lines quite easily. If not, try some other
-functions, or mutating other variables and you'll see that it is not that complicated!
 
 ## Other useful `{tidyverse}` functions
 
@@ -2897,6 +2874,29 @@ are the central objects and where the analyst operates over them with functional
 
 ### Exercise 1 {-}
 
+* Combine `mutate()` with `across()` to exponentiate every column of type `double`.
+
+```{r, eval = FALSE, include = FALSE}
+gasoline %>%
+  mutate(across(is.double, exp))
+```
+
+* Exponeniate columns starting with the character `"l"`.
+
+```{r, eval = FALSE, include = FALSE}
+gasoline %>%
+  mutate(across(starts_with("l"), exp))
+```
+
+* Convert all columns' classes into the character class.
+
+```{r, eval = FALSE, include = FALSE}
+gasoline %>%
+  mutate(across(everything(), as.character))
+```
+
+### Exercise 2 {-}
+
 Load the `LaborSupply` dataset from the `Ecdat` package and answer the following questions:
 
 * Compute the average annual hours worked by year (plus standard deviation)
@@ -2949,31 +2949,28 @@ LaborSupply %>%
   filter(year == 1980) %>%
   group_by(no_kids) %>%
   summarise(mean(lnwg), sd(lnwg), n())
-
 ```
 
-### Exercise 2 {-}
+### Exercise 3 {-}
 
 * What does the following code do? Copy and paste it in an R interpreter to find out!
 
 ```{r, eval=FALSE}
 LaborSupply %>%
   group_by(id) %>%
-  mutate_at(vars(starts_with("l")), funs(lag, lead))
+  mutate(across(starts_with("l"), tibble::lst(lag, lead)))
 ```
 
-`mutate_at()` is a scoped version of `mutate()` which allows you to specify a number of columns and
-functions in one go. This also exists for `summarise()`.
 
-* Using `summarise_at()`, compute the mean, standard deviation and number of individuals of `lnhr` and `lnwg` for each individual.
+* Using `summarise()` and `across()`, compute the mean, standard deviation and number of individuals of `lnhr` and `lnwg` for each individual.
 
 ```{r, eval=FALSE, include = FALSE}
 LaborSupply %>%
   group_by(id) %>%
-  summarise_at(vars(starts_with("l"), funs(mean, sd)))
+  summarise(across(starts_with("l"), tibble::lst(mean, sd, n)))
 ```
 
-### Exercise 3 {-}
+### Exercise 4 {-}
 
 * In the dataset folder you downloaded at the beginning of the chapter, there is a folder called
 "unemployment". I used the data in the section about working with lists of datasets. Using

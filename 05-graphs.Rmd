@@ -127,23 +127,23 @@ ggplot(starwars, aes(height)) +
   geom_density()
 ```
 
-Let's go into more detail now; what if you would like to plot the densities for females and males
+Let's go into more detail now; what if you would like to plot the densities for feminines and masculines
 only (removing the droids from the data first)? This can be done by first filtering the data using
 `dplyr` and then separating the dataset by gender:
 
 
 ```{r, eval=FALSE}
 starwars %>%
-  filter(gender %in% c("female", "male"))
+  filter(gender %in% c("feminine", "masculine"))
 ```
 
-The above lines do the filtering; only keep gender if gender is in the vector `"female", "male"`.
-This is much easier than having to write `gender == "female" | gender == "male"`. Then, we pipe
+The above lines do the filtering; only keep gender if gender is in the vector `"feminine", "masculine"`.
+This is much easier than having to write `gender == "feminine" | gender == "masculine"`. Then, we pipe
 this dataset to `ggplot`:
 
 ```{r}
 starwars %>%
-  filter(gender %in% c("female", "male")) %>%
+  filter(gender %in% c("feminine", "masculine")) %>%
   ggplot(aes(height, fill = gender)) +
   geom_density()
 ```
@@ -151,7 +151,7 @@ starwars %>%
 Let's take a closer look to the `aes()` function: I've added `fill = gender`. This means that
 there will be one density plot for each gender in the data, and each will be coloured accordingly.
 This is where `{ggplot2}` might be confusing; there is no need to write explicitly (even if it is
-possible) that you want the *female* density to be red and the *male* density to be blue. You just
+possible) that you want the *feminine* density to be red and the *masculine* density to be blue. You just
 map the variable `gender` to this particular aesthetic. You conclude the plot by adding
 `geom_density()` which is this case is the plot you want. We will see later how to change the
 colours of your plot.
@@ -162,7 +162,7 @@ the aesthetics inside the `geom_density()` function:
 
 ```{r}
 filtered_data <- starwars %>%
-  filter(gender %in% c("female", "male"))
+  filter(gender %in% c("feminine", "masculine"))
 
 ggplot(filtered_data) +
   geom_density(aes(height, fill = gender))
@@ -225,7 +225,7 @@ symbol in the code below:
 starwars %>%
   mutate(human = case_when(species == "Human" ~ "Human",
                            species != "Human" ~ "Not Human")) %>%
-  filter(gender %in% c("female", "male"), !is.na(human)) %>%
+  filter(gender %in% c("feminine", "masculine"), !is.na(human)) %>%
   ggplot(aes(height, fill = gender)) +
   facet_grid(. ~ human) + #<--- this is a formula
   geom_density()
@@ -238,7 +238,7 @@ use it for facetting. By changing the formula, you change how the facetting is d
 starwars %>%
   mutate(human = case_when(species == "Human" ~ "Human",
                            species != "Human" ~ "Not Human")) %>%
-  filter(gender %in% c("female", "male"), !is.na(human)) %>%
+  filter(gender %in% c("feminine", "masculine"), !is.na(human)) %>%
   ggplot(aes(height, fill = gender)) +
   facet_grid(human ~ .) +
   geom_density()
@@ -255,7 +255,7 @@ starwars %>%
                             n_films != 1 ~ "More than 1 movie")) %>%
   mutate(human = case_when(species == "Human" ~ "Human",
                            species != "Human" ~ "Not Human")) %>%
-  filter(gender %in% c("female", "male"), !is.na(human)) %>%
+  filter(gender %in% c("feminine", "masculine"), !is.na(human)) %>%
   ggplot(aes(height, fill = gender)) +
   facet_grid(human ~ more_1) +
   geom_density()
@@ -466,7 +466,7 @@ starwars %>%
     geom_smooth(aes(height, mass, colour = gender))
 ```
 
-Because there are only a few observations for females and `NA`s the regression lines are not very informative,
+Because there are only a few observations for feminines and `NA`s the regression lines are not very informative,
 but this was only an example to show you some options of `geom_smooth()`.
 
 Let's go back to the unemployment line plots. For now, let's keep the base `{ggplot2}` theme, but
