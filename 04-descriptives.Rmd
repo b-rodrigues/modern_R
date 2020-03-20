@@ -1564,6 +1564,46 @@ gasoline %>%
   select(starts_with("l"))
 ```
 
+Another very neat trick is selecting columns that may or may not exist in your data frame. For this quick examples
+let's use the `mtcars` dataset:
+
+```{r}
+sort(colnames(mtcars))
+```
+
+Let's create a vector with some column names:
+
+```{r}
+cols_to_select <- c("mpg", "cyl", "am", "nonsense")
+```
+
+The following selects the columns that exist
+in the data frame but shows a warning for the column that does not exist:
+
+```{r}
+mtcars %>%
+  select(one_of(cols_to_select))
+```
+
+If you don't want a warning to show, use `any_of()` insetad:
+
+```{r}
+mtcars %>%
+  select(any_of(cols_to_select))
+```
+
+and finally, if you want it to fail, don't use any helper:
+
+```{r, eval = FALSE}
+mtcars %>%
+  select(cols_to_select)
+```
+
+```
+Error: Can't subset columns that don't exist.
+The column `nonsense` doesn't exist.
+```
+
 Bulk-renaming can be achieved using `rename_with()`
 
 ```{r}
