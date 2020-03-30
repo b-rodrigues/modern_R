@@ -1,3 +1,103 @@
+---
+title: "Modern R with the tidyverse"
+author: "Bruno Rodrigues"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+#documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed."
+---
+
+# Preface {-}
+
+Placeholder
+
+
+## Note to the reader {-}
+## What is R? {-}
+## Who is this book for? {-}
+## Why this book? {-}
+## Why *modern* R? {-}
+## What is RStudio? {-}
+## What to expect from this book? {-}
+## Prerequisites {-}
+## What are packages? {-}
+## The author {-}
+
+<!--chapter:end:index.Rmd-->
+
+
+# Getting to know RStudio
+
+Placeholder
+
+
+## Panes
+## Console
+## Scripts
+### The help pane
+### The Environment pane
+## Options
+## Keyboard shortcuts
+## Projects
+## History
+## Plots
+## Addins
+## Packages
+## Exercises
+### Exercise 1 {-}
+
+<!--chapter:end:01-rstudio.Rmd-->
+
+
+# Objects, types and useful R functions to get started
+
+Placeholder
+
+
+## The `numeric` class
+## The `character` class
+## The `factor` class
+## The `Date` class
+## The `logical` class
+## Vectors and matrices
+### The `c()` function
+### `cbind()` and `rbind()`
+### The `matrix` class
+## The `list` class
+## The `data.frame` and `tibble` classes
+## Formulas
+## Models
+## NULL, NA and NaN
+## Useful functions to get you started
+### Sequences
+### Basic string manipulation
+## Exercises
+### Exercise 1 {-}
+### Exercise 2 {-}
+### Exercise 3 {-}
+### Exercise 4 {-}
+### Exercise 5 {-}
+### Exercise 6 {-}
+### Exercise 7 {-}
+### Exercise 8 {-}
+
+<!--chapter:end:02-data_types.Rmd-->
+
+
+# Reading and writing data
+
+Placeholder
+
+
+## The swiss army knife of data import and export: `{rio}`
+## Writing any object to disk
+## Using RStudio projects to manage paths
+
+<!--chapter:end:03-reading_writing_data.Rmd-->
+
 # Descriptive statistics and data manipulation
 
 Now that we are familiar with some R objects and know how to import data, it is time to write some
@@ -3038,3 +3138,142 @@ This is not an easy exercise; so here are some hints:
 all_datasets %>%
   map(~mutate(., lcommune = tolower(.$commune)))
 ```
+
+<!--chapter:end:04-descriptives.Rmd-->
+
+
+# Graphs
+
+Placeholder
+
+
+## Resources
+## Examples
+### Barplots
+### Scatter plots
+### Density
+### Line plots
+### Facets
+### Pie Charts
+### Adding text to plots
+## Customization
+### Changing titles, axes labels, options, mixing geoms and changing themes
+### Colour schemes
+## Saving plots to disk
+## Exercises
+### Exercise 1 {-}
+
+<!--chapter:end:05-graphs.Rmd-->
+
+
+# Statistical models
+
+Placeholder
+
+
+## Terminology
+## Fitting a model to data
+## Diagnostics
+## Interpreting models
+### Marginal effects
+### Explainability of *black-box* models
+## Comparing models
+## Using a model for prediction
+## Beyond linear regression
+## Hyper-parameters
+### Ridge regression
+## Training, validating, and testing models
+### Set up
+### Bayesian hyperparameter optimization
+
+<!--chapter:end:06-statistical_models.Rmd-->
+
+
+# Defining your own functions
+
+Placeholder
+
+
+## Control flow
+### If-else
+### For loops
+### While loops
+## Writing your own functions
+### Declaring functions in R
+### Fibonacci numbers
+## Exercises
+### Exercise 1 {-}
+### Exercise 2 {-}
+### Exercise 3 {-}
+## Functions that take functions as arguments: writing your own higher-order functions
+## Functions that take columns of data as arguments
+### The `enquo() - !!()` approach
+### Curly Curly, a simplified approach to the `enquo()` and `!!()` framework
+## Functions that use loops
+## Anonymous functions
+## Exercises
+### Exercise 1 {-}
+### Exercise 2 {-}
+### Exercise 3 {-}
+### Exercise 4 {-}
+
+<!--chapter:end:07-defining_your_own_functions.Rmd-->
+
+
+
+## Function definitions
+## Properties of functions
+## Functional programming with `{purrr}`
+### Doing away with loops: the `map*()` family of functions
+### Reducing with `purrr`
+### Error handling with `safely()` and `possibly()`
+### Partial applications with `partial()`
+### Function composition using `compose`
+### «Transposing lists»
+## List-based workflows for efficiency
+### Functional programming and plotting
+### Modeling with functional programming
+## Exercises
+### Exercise 1 {-}
+### Exercise 2 {-}
+
+<!--chapter:end:08-functional_programming.Rmd-->
+
+
+# Package development
+
+Placeholder
+
+
+## Why you need to write your own package
+## Starting easy: creating a package to share data
+### Setting up a Github account
+### Starting your package
+## Including data inside the package
+## Adding functions to your package
+### One function inside one script
+### Many functions inside a script
+## Documenting your package
+### Description
+## Unit testing your package
+
+<!--chapter:end:09-package_development.Rmd-->
+
+
+# Further topics
+
+Placeholder
+
+
+## Using Python from R with `{reticulate}`
+## Generating Pdf or Word reports with R
+## Scraping the internet
+## Regular expressions
+## Setting up a blog with `{blogdown}`
+
+<!--chapter:end:10-other_niceties.Rmd-->
+
+`r if (knitr:::is_html_output()) '# References {-}'`
+
+<!--chapter:end:11-references.Rmd-->
+
