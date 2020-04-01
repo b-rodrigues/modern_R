@@ -1599,13 +1599,14 @@ The column `nonsense` doesn't exist.
 
 or use `all_of()`:
 
-```{r}
+```{r, eval = FALSE}
 mtcars %>%
   select(all_of(cols_to_select))
 ```
 
-
-
+```{r, eval = FALSE}
+✖ Column `nonsense` doesn't exist.
+``` 
 
 Bulk-renaming can be achieved using `rename_with()`
 
@@ -1625,8 +1626,8 @@ In the above formula I did not select any columns, so every columns gets renamed
 
 ### `group_by()` and `across()`
 
-To illustrate `group_by_*()` I have to first modify the `gasoline` data a little bit. As you can
-see below, the `year` column is of type integer:
+To illustrate how `group_by()` works with `across()` I have to first modify the 
+`gasoline` data a little bit. As you can see below, the `year` column is of type integer:
 
 ```{r}
 gasoline
@@ -1709,7 +1710,7 @@ gasoline %>%
   summarise(across(dplyr::contains("car"), tibble::lst(mean, sd, max, min), .names = "{fn}_{col}"))
 ```
 
-I used `dplyr::contains()` instead of simply `contains()` because there's also a
+I write `dplyr::contains()` instead of simply `contains()` because there's also a
 `purrr::contains()`. If you load `purrr` after `dplyr`, `contains()` will actually be
 `purrr::contains()` and not `dplyr::contains()` which causes the above code to fail.
 
@@ -1735,7 +1736,6 @@ gasoline %>%
 
 I removed the `year` variable because it's not a variable for which we want to have descriptive
 statistics.
-
 
 ## Other useful `{tidyverse}` functions
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2020-03-30" />
+<meta name="date" content="2020-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -471,17 +471,17 @@ subfolders and necessary template files so that you do not need to constantly ch
 should be placed or named.</p>
 <p>Let’s start by adding a readme file. This is easily achieved by using the following function from
 <code>{usethis}</code>:</p>
-<div class="sourceCode" id="cb1229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1229-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_readme_md</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1227-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_readme_md</span>()</a></code></pre></div>
 <p>This creates a template README.md file in the root directory of your package. You can now edit this
 file accordingly, and that’s it.</p>
 <p>The next step could be setting up your package to work with <code>{roxygen2}</code>, which will help write
 the documentation of your package:</p>
-<div class="sourceCode" id="cb1230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1230-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_roxygen_md</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1228-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_roxygen_md</span>()</a></code></pre></div>
 <p>The output tells you to run <code>devtools::document()</code>, we will do this later.</p>
 <p>Since you have learned about the tidyverse by reading this book, I am willing to bet that you will
 want to use the <code>%&gt;%</code> operator inside the functions contained in your package. To do this without issues,
 which wil become apparent later, use the following command:</p>
-<div class="sourceCode" id="cb1231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1231-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_pipe</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1229-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_pipe</span>()</a></code></pre></div>
 <p>This will make the <code>%&gt;%</code> operator available internally to your package’s functions, but also to the
 user that will load the package.</p>
 <p>We are almost done setting up the package. If you plan on distributing data with your package,
@@ -490,20 +490,20 @@ data from your finance department, but this data needs some cleaning before bein
 write a script to do so and then distribute this script also with the package, for reproducibility
 purposes. These scripts, while not central to the package, could still be of interest to the users.
 The directory to place them is called <code>data-raw</code>:</p>
-<div class="sourceCode" id="cb1232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1232-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_data_raw</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1230-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_data_raw</span>()</a></code></pre></div>
 <p>One final folder is <code>inst</code>. You can add files to this folder, and they will be available to the users
 that install the package. Users can find the files in the folder where packages get installed. On
 GNU+Linux systems, that would be somewhere like: <code>/home/user/R/amd64-linux-gnu-library/3.6</code>. There,
 you will find the installation folders of all the packages. If the package you make is called <code>{spam}</code>,
 you will find the files you put inside the <code>inst</code> folder on the root of the installation folder of
 <code>spam</code>. You can simply create the <code>inst</code> folder yourself, or use the following command:</p>
-<div class="sourceCode" id="cb1233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1233-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_directory</span>(<span class="st">&quot;inst&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1231-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_directory</span>(<span class="st">&quot;inst&quot;</span>)</a></code></pre></div>
 <p>Finally, the last step is to give your package a license; this again is only useful if you plan on
 distributing it to the world. If you are writing your own package for yourself, or for purposes
 internal to your company, this is probably superfluous. I won’t discuss the particularities of
 licenses, so let’s just say that for the sake of this example package we are writing, we are going
 to use the MIT license:</p>
-<div class="sourceCode" id="cb1234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1234-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_mit_license</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1232-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_mit_license</span>()</a></code></pre></div>
 <p>This again creates the right file at the right spot. There are other interesting functions inside
 the <code>{usethis}</code> package, and we will come back to it later.</p>
 </div>
@@ -513,27 +513,27 @@ the <code>{usethis}</code> package, and we will come back to it later.</p>
 <p>Many packages include data and we are going to learn how to do it. I’ll assume that we already
 have a dataset on hand that we have to share. This is quite simple to do, first let’s simply
 load the data:</p>
-<div class="sourceCode" id="cb1235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1235-1" data-line-number="1">arcade &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;~/path/to/data/arcade.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1233-1" data-line-number="1">arcade &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;~/path/to/data/arcade.csv&quot;</span>)</a></code></pre></div>
 <p>and then use, once again, <code>{usethis}</code> comes to our rescue:</p>
-<div class="sourceCode" id="cb1236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1236-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_data</span>(arcade, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1234-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_data</span>(arcade, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a></code></pre></div>
 <p>that’s it! Well almost. We still need to write a little script that will allow users of your
 package to load the data. This script is simply called <code>data.R</code> and contains the following lines:</p>
-<div class="sourceCode" id="cb1237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1237-1" data-line-number="1"><span class="co">#&#39; List of highest-grossing games</span></a>
-<a class="sourceLine" id="cb1237-2" data-line-number="2"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb1237-3" data-line-number="3"><span class="co">#&#39; Source: https://en.wikipedia.org/wiki/Arcade_game#List_of_highest-grossing_games</span></a>
-<a class="sourceLine" id="cb1237-4" data-line-number="4"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb1237-5" data-line-number="5"><span class="co">#&#39; @format A data frame with 6 variables: \code{game}, \code{release_year},</span></a>
-<a class="sourceLine" id="cb1237-6" data-line-number="6"><span class="co">#&#39;   \code{hardware_units_sold}, \code{comment_hardware}, \code{estimated_gross_revenue}, </span></a>
-<a class="sourceLine" id="cb1237-7" data-line-number="7"><span class="co">#&#39;   \code{comment_revenue}</span></a>
-<a class="sourceLine" id="cb1237-8" data-line-number="8"><span class="co">#&#39; \describe{</span></a>
-<a class="sourceLine" id="cb1237-9" data-line-number="9"><span class="co">#&#39; \item{game}{The name of the game}</span></a>
-<a class="sourceLine" id="cb1237-10" data-line-number="10"><span class="co">#&#39; \item{release_year}{The year the game was released}</span></a>
-<a class="sourceLine" id="cb1237-11" data-line-number="11"><span class="co">#&#39; \item{hardware_units_sold}{The amount of hardware units sold}</span></a>
-<a class="sourceLine" id="cb1237-12" data-line-number="12"><span class="co">#&#39; \item{comment_hardware}{Comment accompanying the amount of hardware units sold}</span></a>
-<a class="sourceLine" id="cb1237-13" data-line-number="13"><span class="co">#&#39; \item{estimated_gross_revenue}{Estimated gross revenue in US$ with 2019 inflation}</span></a>
-<a class="sourceLine" id="cb1237-14" data-line-number="14"><span class="co">#&#39; \item{comment_revenue}{Comment accompanying the amount of hardware units sold}</span></a>
-<a class="sourceLine" id="cb1237-15" data-line-number="15"><span class="co">#&#39; }</span></a>
-<a class="sourceLine" id="cb1237-16" data-line-number="16"><span class="st">&quot;arcade&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb1235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1235-1" data-line-number="1"><span class="co">#&#39; List of highest-grossing games</span></a>
+<a class="sourceLine" id="cb1235-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb1235-3" data-line-number="3"><span class="co">#&#39; Source: https://en.wikipedia.org/wiki/Arcade_game#List_of_highest-grossing_games</span></a>
+<a class="sourceLine" id="cb1235-4" data-line-number="4"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb1235-5" data-line-number="5"><span class="co">#&#39; @format A data frame with 6 variables: \code{game}, \code{release_year},</span></a>
+<a class="sourceLine" id="cb1235-6" data-line-number="6"><span class="co">#&#39;   \code{hardware_units_sold}, \code{comment_hardware}, \code{estimated_gross_revenue}, </span></a>
+<a class="sourceLine" id="cb1235-7" data-line-number="7"><span class="co">#&#39;   \code{comment_revenue}</span></a>
+<a class="sourceLine" id="cb1235-8" data-line-number="8"><span class="co">#&#39; \describe{</span></a>
+<a class="sourceLine" id="cb1235-9" data-line-number="9"><span class="co">#&#39; \item{game}{The name of the game}</span></a>
+<a class="sourceLine" id="cb1235-10" data-line-number="10"><span class="co">#&#39; \item{release_year}{The year the game was released}</span></a>
+<a class="sourceLine" id="cb1235-11" data-line-number="11"><span class="co">#&#39; \item{hardware_units_sold}{The amount of hardware units sold}</span></a>
+<a class="sourceLine" id="cb1235-12" data-line-number="12"><span class="co">#&#39; \item{comment_hardware}{Comment accompanying the amount of hardware units sold}</span></a>
+<a class="sourceLine" id="cb1235-13" data-line-number="13"><span class="co">#&#39; \item{estimated_gross_revenue}{Estimated gross revenue in US$ with 2019 inflation}</span></a>
+<a class="sourceLine" id="cb1235-14" data-line-number="14"><span class="co">#&#39; \item{comment_revenue}{Comment accompanying the amount of hardware units sold}</span></a>
+<a class="sourceLine" id="cb1235-15" data-line-number="15"><span class="co">#&#39; }</span></a>
+<a class="sourceLine" id="cb1235-16" data-line-number="16"><span class="st">&quot;arcade&quot;</span></a></code></pre></div>
 <p>Basically this is a description of the data, and the name with which the user will invoke the data. To
 conclude this part, remember the <code>data-raw</code> folder? If you used a script to scrape/get the data
 from somewhere, or if you had to write code to prepare the data to make it fit for sharing, this
@@ -549,41 +549,41 @@ Let’s start with the simplest case; one function inside one script.</p>
 <div id="one-function-inside-one-script" class="section level3">
 <h3><span class="header-section-number">8.4.1</span> One function inside one script</h3>
 <p>Create a new R script, or edit the <code>hello.R</code> file, and add in the following code:</p>
-<div class="sourceCode" id="cb1238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1238-1" data-line-number="1"><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></a>
-<a class="sourceLine" id="cb1238-2" data-line-number="2"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
-<a class="sourceLine" id="cb1238-3" data-line-number="3"><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></a>
-<a class="sourceLine" id="cb1238-4" data-line-number="4"><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></a>
-<a class="sourceLine" id="cb1238-5" data-line-number="5"><span class="co">#&#39; you can add these columns.</span></a>
-<a class="sourceLine" id="cb1238-6" data-line-number="6"><span class="co">#&#39; @import dplyr</span></a>
-<a class="sourceLine" id="cb1238-7" data-line-number="7"><span class="co">#&#39; @importFrom tidyr gather</span></a>
-<a class="sourceLine" id="cb1238-8" data-line-number="8"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb1238-9" data-line-number="9"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb1238-10" data-line-number="10"><span class="co">#&#39; \dontrun{</span></a>
-<a class="sourceLine" id="cb1238-11" data-line-number="11"><span class="co">#&#39; describe(dataset)</span></a>
-<a class="sourceLine" id="cb1238-12" data-line-number="12"><span class="co">#&#39; describe(dataset, col1, col2)</span></a>
-<a class="sourceLine" id="cb1238-13" data-line-number="13"><span class="co">#&#39; }</span></a>
-<a class="sourceLine" id="cb1238-14" data-line-number="14">describe_numeric &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...){</a>
-<a class="sourceLine" id="cb1238-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb1238-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a>
-<a class="sourceLine" id="cb1238-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1238-18" data-line-number="18">    df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1238-19" data-line-number="19"><span class="st">        </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1238-20" data-line-number="20"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1238-21" data-line-number="21"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1238-22" data-line-number="22"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-23" data-line-number="23">                           <span class="dt">sd =</span> <span class="op">~</span><span class="kw">sd</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-24" data-line-number="24">                           <span class="dt">nobs =</span> <span class="op">~</span><span class="kw">length</span>(.),</a>
-<a class="sourceLine" id="cb1238-25" data-line-number="25">                           <span class="dt">min =</span> <span class="op">~</span><span class="kw">min</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-26" data-line-number="26">                           <span class="dt">max =</span> <span class="op">~</span><span class="kw">max</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-27" data-line-number="27">                           <span class="dt">q05 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.05</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-28" data-line-number="28">                           <span class="dt">q25 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.25</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-29" data-line-number="29">                           <span class="dt">mode =</span> <span class="op">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-30" data-line-number="30">                           <span class="dt">median =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.5</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-31" data-line-number="31">                           <span class="dt">q75 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.75</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-32" data-line-number="32">                           <span class="dt">q95 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.95</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1238-33" data-line-number="33">                           <span class="dt">n_missing =</span> <span class="op">~</span><span class="kw">sum</span>(<span class="kw">is.na</span>(.)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1238-34" data-line-number="34"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;Numeric&quot;</span>)</a>
-<a class="sourceLine" id="cb1238-35" data-line-number="35">}</a></code></pre></div>
+<div class="sourceCode" id="cb1236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1236-1" data-line-number="1"><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></a>
+<a class="sourceLine" id="cb1236-2" data-line-number="2"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
+<a class="sourceLine" id="cb1236-3" data-line-number="3"><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></a>
+<a class="sourceLine" id="cb1236-4" data-line-number="4"><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></a>
+<a class="sourceLine" id="cb1236-5" data-line-number="5"><span class="co">#&#39; you can add these columns.</span></a>
+<a class="sourceLine" id="cb1236-6" data-line-number="6"><span class="co">#&#39; @import dplyr</span></a>
+<a class="sourceLine" id="cb1236-7" data-line-number="7"><span class="co">#&#39; @importFrom tidyr gather</span></a>
+<a class="sourceLine" id="cb1236-8" data-line-number="8"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb1236-9" data-line-number="9"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb1236-10" data-line-number="10"><span class="co">#&#39; \dontrun{</span></a>
+<a class="sourceLine" id="cb1236-11" data-line-number="11"><span class="co">#&#39; describe(dataset)</span></a>
+<a class="sourceLine" id="cb1236-12" data-line-number="12"><span class="co">#&#39; describe(dataset, col1, col2)</span></a>
+<a class="sourceLine" id="cb1236-13" data-line-number="13"><span class="co">#&#39; }</span></a>
+<a class="sourceLine" id="cb1236-14" data-line-number="14">describe_numeric &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...){</a>
+<a class="sourceLine" id="cb1236-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb1236-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a>
+<a class="sourceLine" id="cb1236-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb1236-18" data-line-number="18">    df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1236-19" data-line-number="19"><span class="st">        </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1236-20" data-line-number="20"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1236-21" data-line-number="21"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1236-22" data-line-number="22"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-23" data-line-number="23">                           <span class="dt">sd =</span> <span class="op">~</span><span class="kw">sd</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-24" data-line-number="24">                           <span class="dt">nobs =</span> <span class="op">~</span><span class="kw">length</span>(.),</a>
+<a class="sourceLine" id="cb1236-25" data-line-number="25">                           <span class="dt">min =</span> <span class="op">~</span><span class="kw">min</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-26" data-line-number="26">                           <span class="dt">max =</span> <span class="op">~</span><span class="kw">max</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-27" data-line-number="27">                           <span class="dt">q05 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.05</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-28" data-line-number="28">                           <span class="dt">q25 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.25</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-29" data-line-number="29">                           <span class="dt">mode =</span> <span class="op">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-30" data-line-number="30">                           <span class="dt">median =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.5</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-31" data-line-number="31">                           <span class="dt">q75 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.75</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-32" data-line-number="32">                           <span class="dt">q95 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.95</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1236-33" data-line-number="33">                           <span class="dt">n_missing =</span> <span class="op">~</span><span class="kw">sum</span>(<span class="kw">is.na</span>(.)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1236-34" data-line-number="34"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;Numeric&quot;</span>)</a>
+<a class="sourceLine" id="cb1236-35" data-line-number="35">}</a></code></pre></div>
 <p>Save the script under the name <code>describe.R</code>.</p>
 <p>This function shows you pretty much you need to know when writing functions for packages. First,
 there’s the comment lines, that start with <code>#'</code> and not with <code>#</code>. These lines will be converted
@@ -607,7 +607,7 @@ not want these examples to run when building the package.</li>
 <p>As explained before, if the function depends on function from other packages, then <code>@import</code> or
 <code>@importFrom</code> must be used. But it is also possible to use the <code>package::function()</code> syntax like
 I did on the following line:</p>
-<div class="sourceCode" id="cb1239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1239-1" data-line-number="1">mode =<span class="st"> </span><span class="er">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a></code></pre></div>
+<div class="sourceCode" id="cb1237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1237-1" data-line-number="1">mode =<span class="st"> </span><span class="er">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a></code></pre></div>
 <p>This function uses the <code>sample_mode()</code> function from my <code>{brotools}</code> package. Since it is the only
 function that I am using, I don’t import the whole package with <code>@import</code>. I could have done the
 same for <code>gather()</code> from <code>{tidyr}</code> instead of using <code>@importFrom</code>, but I wanted to showcase
@@ -615,7 +615,7 @@ same for <code>gather()</code> from <code>{tidyr}</code> instead of using <code>
 <pre><code>@importFrom package function_1 function_2 function_3</code></pre>
 <p>By the way, if you want to install my package, which contains some useful functions I use a lot,
 you can install it with the following command line:</p>
-<div class="sourceCode" id="cb1241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1241-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;b-rodrigues/brotools&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1239-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;b-rodrigues/brotools&quot;</span>)</a></code></pre></div>
 <p>if not, you can simple comment or remove the lines in the function that call this function.</p>
 <p>Now comes the function itself. The function is written in pretty much the same way as usual, but
 there are some particularities. First of all, the second argument of the function is the <code>...</code>, which
@@ -624,13 +624,13 @@ summarise only these columns, instead of all of them, which is the default behav
 I cannot know how many columns the user wants to summarize beforehand, and also because I do not
 want to limit the user to 2 or 3 columns, I use the <code>...</code>.
 But what if the user wants to summarize all the columns? This is taken care of in this line:</p>
-<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1242-1" data-line-number="1">  <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a></code></pre></div>
+<div class="sourceCode" id="cb1240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1240-1" data-line-number="1">  <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a></code></pre></div>
 <p><code>nargs()</code> counts the number of arguments of the function. If the user calls the function like so:</p>
-<div class="sourceCode" id="cb1243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1243-1" data-line-number="1"><span class="kw">describe_numeric</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb1241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1241-1" data-line-number="1"><span class="kw">describe_numeric</span>(mtcars)</a></code></pre></div>
 <p><code>nargs()</code> will return 1. If, instead, the user calls the function with one or more columns:</p>
-<div class="sourceCode" id="cb1244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1244-1" data-line-number="1"><span class="kw">describe_numeric</span>(mtcars, hp, mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1242-1" data-line-number="1"><span class="kw">describe_numeric</span>(mtcars, hp, mpg)</a></code></pre></div>
 <p>then <code>nargs()</code> will return 2 (in this case). And does, this piece of code will be executed:</p>
-<div class="sourceCode" id="cb1245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1245-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a></code></pre></div>
+<div class="sourceCode" id="cb1243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1243-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a></code></pre></div>
 <p>which selects the columns <code>hp</code> and <code>mpg</code> from the <code>mtcars</code> dataset. This reduced data set is then
 the one that is being summarized.</p>
 </div>
@@ -641,73 +641,73 @@ script, or create one script per function. The advantage of writing more than on
 script is that you can keep functions that are conceptually similar in the same place. For instance,
 if you want to add a function called <code>describe_character()</code> to your package, adding it to the same
 script where <code>describe_numeric()</code> is might be a good idea, so let’s do just that:</p>
-<div class="sourceCode" id="cb1246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1246-1" data-line-number="1"><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></a>
-<a class="sourceLine" id="cb1246-2" data-line-number="2"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
-<a class="sourceLine" id="cb1246-3" data-line-number="3"><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></a>
-<a class="sourceLine" id="cb1246-4" data-line-number="4"><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></a>
-<a class="sourceLine" id="cb1246-5" data-line-number="5"><span class="co">#&#39; you can add these columns.</span></a>
-<a class="sourceLine" id="cb1246-6" data-line-number="6"><span class="co">#&#39; @import dplyr</span></a>
-<a class="sourceLine" id="cb1246-7" data-line-number="7"><span class="co">#&#39; @importFrom tidyr gather</span></a>
-<a class="sourceLine" id="cb1246-8" data-line-number="8"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb1246-9" data-line-number="9"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb1246-10" data-line-number="10"><span class="co">#&#39; \dontrun{</span></a>
-<a class="sourceLine" id="cb1246-11" data-line-number="11"><span class="co">#&#39; describe(dataset)</span></a>
-<a class="sourceLine" id="cb1246-12" data-line-number="12"><span class="co">#&#39; describe(dataset, col1, col2)</span></a>
-<a class="sourceLine" id="cb1246-13" data-line-number="13"><span class="co">#&#39; }</span></a>
-<a class="sourceLine" id="cb1246-14" data-line-number="14">describe_numeric &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...){</a>
-<a class="sourceLine" id="cb1246-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb1246-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a>
-<a class="sourceLine" id="cb1246-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1246-18" data-line-number="18">    df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-19" data-line-number="19"><span class="st">        </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-20" data-line-number="20"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-21" data-line-number="21"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-22" data-line-number="22"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-23" data-line-number="23">                           <span class="dt">sd =</span> <span class="op">~</span><span class="kw">sd</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-24" data-line-number="24">                           <span class="dt">nobs =</span> <span class="op">~</span><span class="kw">length</span>(.),</a>
-<a class="sourceLine" id="cb1246-25" data-line-number="25">                           <span class="dt">min =</span> <span class="op">~</span><span class="kw">min</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-26" data-line-number="26">                           <span class="dt">max =</span> <span class="op">~</span><span class="kw">max</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-27" data-line-number="27">                           <span class="dt">q05 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.05</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-28" data-line-number="28">                           <span class="dt">q25 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.25</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-29" data-line-number="29">                           <span class="dt">mode =</span> <span class="op">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-30" data-line-number="30">                           <span class="dt">median =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.5</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-31" data-line-number="31">                           <span class="dt">q75 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.75</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-32" data-line-number="32">                           <span class="dt">q95 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.95</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-33" data-line-number="33">                           <span class="dt">n_missing =</span> <span class="op">~</span><span class="kw">sum</span>(<span class="kw">is.na</span>(.)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-34" data-line-number="34"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;Numeric&quot;</span>)</a>
-<a class="sourceLine" id="cb1246-35" data-line-number="35">}</a>
-<a class="sourceLine" id="cb1246-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb1246-37" data-line-number="37"><span class="co">#&#39; Compute descriptive statistics for the character or factor columns of a data frame.</span></a>
-<a class="sourceLine" id="cb1246-38" data-line-number="38"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
-<a class="sourceLine" id="cb1246-39" data-line-number="39"><span class="co">#&#39; @return A data frame with a description of the character or factor columns.</span></a>
-<a class="sourceLine" id="cb1246-40" data-line-number="40"><span class="co">#&#39; @import dplyr</span></a>
-<a class="sourceLine" id="cb1246-41" data-line-number="41"><span class="co">#&#39; @importFrom tidyr gather</span></a>
-<a class="sourceLine" id="cb1246-42" data-line-number="42">describe_character_or_factors &lt;-<span class="st"> </span><span class="cf">function</span>(df, type){</a>
-<a class="sourceLine" id="cb1246-43" data-line-number="43">    df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-44" data-line-number="44"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-45" data-line-number="45"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-46" data-line-number="46"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(<span class="dt">mode =</span> brotools<span class="op">::</span><span class="kw">sample_mode</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1246-47" data-line-number="47">                           <span class="dt">nobs =</span> <span class="kw">length</span>(value),</a>
-<a class="sourceLine" id="cb1246-48" data-line-number="48">                           <span class="dt">n_missing =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(value)),</a>
-<a class="sourceLine" id="cb1246-49" data-line-number="49">                           <span class="dt">n_unique =</span> <span class="kw">length</span>(<span class="kw">unique</span>(value)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-50" data-line-number="50"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> type)</a>
-<a class="sourceLine" id="cb1246-51" data-line-number="51">}</a>
-<a class="sourceLine" id="cb1246-52" data-line-number="52"></a>
-<a class="sourceLine" id="cb1246-53" data-line-number="53"><span class="co">#&#39; Compute descriptive statistics for the character columns of a data frame.</span></a>
-<a class="sourceLine" id="cb1246-54" data-line-number="54"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
-<a class="sourceLine" id="cb1246-55" data-line-number="55"><span class="co">#&#39; @return A data frame with a description of the character columns.</span></a>
-<a class="sourceLine" id="cb1246-56" data-line-number="56"><span class="co">#&#39; @import dplyr</span></a>
-<a class="sourceLine" id="cb1246-57" data-line-number="57"><span class="co">#&#39; @importFrom tidyr gather</span></a>
-<a class="sourceLine" id="cb1246-58" data-line-number="58"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb1246-59" data-line-number="59"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb1246-60" data-line-number="60"><span class="co">#&#39; \dontrun{</span></a>
-<a class="sourceLine" id="cb1246-61" data-line-number="61"><span class="co">#&#39; describe(dataset)</span></a>
-<a class="sourceLine" id="cb1246-62" data-line-number="62"><span class="co">#&#39; }</span></a>
-<a class="sourceLine" id="cb1246-63" data-line-number="63">describe_character &lt;-<span class="st"> </span><span class="cf">function</span>(df){</a>
-<a class="sourceLine" id="cb1246-64" data-line-number="64">    df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-65" data-line-number="65"><span class="st">        </span><span class="kw">select_if</span>(is.character) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1246-66" data-line-number="66"><span class="st">        </span><span class="kw">describe_character_or_factors</span>(<span class="dt">type =</span> <span class="st">&quot;Character&quot;</span>)</a>
-<a class="sourceLine" id="cb1246-67" data-line-number="67">}</a></code></pre></div>
+<div class="sourceCode" id="cb1244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1244-1" data-line-number="1"><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></a>
+<a class="sourceLine" id="cb1244-2" data-line-number="2"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
+<a class="sourceLine" id="cb1244-3" data-line-number="3"><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></a>
+<a class="sourceLine" id="cb1244-4" data-line-number="4"><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></a>
+<a class="sourceLine" id="cb1244-5" data-line-number="5"><span class="co">#&#39; you can add these columns.</span></a>
+<a class="sourceLine" id="cb1244-6" data-line-number="6"><span class="co">#&#39; @import dplyr</span></a>
+<a class="sourceLine" id="cb1244-7" data-line-number="7"><span class="co">#&#39; @importFrom tidyr gather</span></a>
+<a class="sourceLine" id="cb1244-8" data-line-number="8"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb1244-9" data-line-number="9"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb1244-10" data-line-number="10"><span class="co">#&#39; \dontrun{</span></a>
+<a class="sourceLine" id="cb1244-11" data-line-number="11"><span class="co">#&#39; describe(dataset)</span></a>
+<a class="sourceLine" id="cb1244-12" data-line-number="12"><span class="co">#&#39; describe(dataset, col1, col2)</span></a>
+<a class="sourceLine" id="cb1244-13" data-line-number="13"><span class="co">#&#39; }</span></a>
+<a class="sourceLine" id="cb1244-14" data-line-number="14">describe_numeric &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...){</a>
+<a class="sourceLine" id="cb1244-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb1244-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a>
+<a class="sourceLine" id="cb1244-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb1244-18" data-line-number="18">    df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-19" data-line-number="19"><span class="st">        </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-20" data-line-number="20"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-21" data-line-number="21"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-22" data-line-number="22"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-23" data-line-number="23">                           <span class="dt">sd =</span> <span class="op">~</span><span class="kw">sd</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-24" data-line-number="24">                           <span class="dt">nobs =</span> <span class="op">~</span><span class="kw">length</span>(.),</a>
+<a class="sourceLine" id="cb1244-25" data-line-number="25">                           <span class="dt">min =</span> <span class="op">~</span><span class="kw">min</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-26" data-line-number="26">                           <span class="dt">max =</span> <span class="op">~</span><span class="kw">max</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-27" data-line-number="27">                           <span class="dt">q05 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.05</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-28" data-line-number="28">                           <span class="dt">q25 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.25</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-29" data-line-number="29">                           <span class="dt">mode =</span> <span class="op">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-30" data-line-number="30">                           <span class="dt">median =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.5</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-31" data-line-number="31">                           <span class="dt">q75 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.75</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-32" data-line-number="32">                           <span class="dt">q95 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.95</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-33" data-line-number="33">                           <span class="dt">n_missing =</span> <span class="op">~</span><span class="kw">sum</span>(<span class="kw">is.na</span>(.)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-34" data-line-number="34"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;Numeric&quot;</span>)</a>
+<a class="sourceLine" id="cb1244-35" data-line-number="35">}</a>
+<a class="sourceLine" id="cb1244-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb1244-37" data-line-number="37"><span class="co">#&#39; Compute descriptive statistics for the character or factor columns of a data frame.</span></a>
+<a class="sourceLine" id="cb1244-38" data-line-number="38"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
+<a class="sourceLine" id="cb1244-39" data-line-number="39"><span class="co">#&#39; @return A data frame with a description of the character or factor columns.</span></a>
+<a class="sourceLine" id="cb1244-40" data-line-number="40"><span class="co">#&#39; @import dplyr</span></a>
+<a class="sourceLine" id="cb1244-41" data-line-number="41"><span class="co">#&#39; @importFrom tidyr gather</span></a>
+<a class="sourceLine" id="cb1244-42" data-line-number="42">describe_character_or_factors &lt;-<span class="st"> </span><span class="cf">function</span>(df, type){</a>
+<a class="sourceLine" id="cb1244-43" data-line-number="43">    df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-44" data-line-number="44"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-45" data-line-number="45"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-46" data-line-number="46"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(<span class="dt">mode =</span> brotools<span class="op">::</span><span class="kw">sample_mode</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1244-47" data-line-number="47">                           <span class="dt">nobs =</span> <span class="kw">length</span>(value),</a>
+<a class="sourceLine" id="cb1244-48" data-line-number="48">                           <span class="dt">n_missing =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(value)),</a>
+<a class="sourceLine" id="cb1244-49" data-line-number="49">                           <span class="dt">n_unique =</span> <span class="kw">length</span>(<span class="kw">unique</span>(value)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-50" data-line-number="50"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> type)</a>
+<a class="sourceLine" id="cb1244-51" data-line-number="51">}</a>
+<a class="sourceLine" id="cb1244-52" data-line-number="52"></a>
+<a class="sourceLine" id="cb1244-53" data-line-number="53"><span class="co">#&#39; Compute descriptive statistics for the character columns of a data frame.</span></a>
+<a class="sourceLine" id="cb1244-54" data-line-number="54"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
+<a class="sourceLine" id="cb1244-55" data-line-number="55"><span class="co">#&#39; @return A data frame with a description of the character columns.</span></a>
+<a class="sourceLine" id="cb1244-56" data-line-number="56"><span class="co">#&#39; @import dplyr</span></a>
+<a class="sourceLine" id="cb1244-57" data-line-number="57"><span class="co">#&#39; @importFrom tidyr gather</span></a>
+<a class="sourceLine" id="cb1244-58" data-line-number="58"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb1244-59" data-line-number="59"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb1244-60" data-line-number="60"><span class="co">#&#39; \dontrun{</span></a>
+<a class="sourceLine" id="cb1244-61" data-line-number="61"><span class="co">#&#39; describe(dataset)</span></a>
+<a class="sourceLine" id="cb1244-62" data-line-number="62"><span class="co">#&#39; }</span></a>
+<a class="sourceLine" id="cb1244-63" data-line-number="63">describe_character &lt;-<span class="st"> </span><span class="cf">function</span>(df){</a>
+<a class="sourceLine" id="cb1244-64" data-line-number="64">    df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-65" data-line-number="65"><span class="st">        </span><span class="kw">select_if</span>(is.character) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1244-66" data-line-number="66"><span class="st">        </span><span class="kw">describe_character_or_factors</span>(<span class="dt">type =</span> <span class="st">&quot;Character&quot;</span>)</a>
+<a class="sourceLine" id="cb1244-67" data-line-number="67">}</a></code></pre></div>
 <p>Let’s now continue on to the next section, where we will learn to document the package.</p>
 </div>
 </div>
