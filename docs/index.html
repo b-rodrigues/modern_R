@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Modern R with the tidyverse</title>
   <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2020-03-31" />
+<meta name="date" content="2020-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 
 <link rel="next" href="getting-to-know-rstudio.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,28 +51,30 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +83,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -131,7 +134,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Modern R with the tidyverse</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#note-to-the-reader"><i class="fa fa-check"></i>Note to the reader</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#who-is-this-book-for"><i class="fa fa-check"></i>Who is this book for?</a></li>
@@ -143,10 +147,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a><ul>
+<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
 <li class="chapter" data-level="1.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>1.2</b> Console</a></li>
-<li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a><ul>
+<li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.1</b> The help pane</a></li>
 <li class="chapter" data-level="1.3.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.2</b> The Environment pane</a></li>
 </ul></li>
@@ -157,17 +163,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#plots"><i class="fa fa-check"></i><b>1.8</b> Plots</a></li>
 <li class="chapter" data-level="1.9" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#addins"><i class="fa fa-check"></i><b>1.9</b> Addins</a></li>
 <li class="chapter" data-level="1.10" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#packages"><i class="fa fa-check"></i><b>1.10</b> Packages</a></li>
-<li class="chapter" data-level="1.11" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#exercises"><i class="fa fa-check"></i><b>1.11</b> Exercises</a><ul>
+<li class="chapter" data-level="1.11" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#exercises"><i class="fa fa-check"></i><b>1.11</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#exercise-1"><i class="fa fa-check"></i>Exercise 1</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html"><i class="fa fa-check"></i><b>2</b> Objects, types and useful R functions to get started</a><ul>
+<li class="chapter" data-level="2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html"><i class="fa fa-check"></i><b>2</b> Objects, types and useful R functions to get started</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-numeric-class"><i class="fa fa-check"></i><b>2.1</b> The <code>numeric</code> class</a></li>
 <li class="chapter" data-level="2.2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-character-class"><i class="fa fa-check"></i><b>2.2</b> The <code>character</code> class</a></li>
 <li class="chapter" data-level="2.3" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-factor-class"><i class="fa fa-check"></i><b>2.3</b> The <code>factor</code> class</a></li>
 <li class="chapter" data-level="2.4" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-date-class"><i class="fa fa-check"></i><b>2.4</b> The <code>Date</code> class</a></li>
 <li class="chapter" data-level="2.5" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-logical-class"><i class="fa fa-check"></i><b>2.5</b> The <code>logical</code> class</a></li>
-<li class="chapter" data-level="2.6" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#vectors-and-matrices"><i class="fa fa-check"></i><b>2.6</b> Vectors and matrices</a><ul>
+<li class="chapter" data-level="2.6" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#vectors-and-matrices"><i class="fa fa-check"></i><b>2.6</b> Vectors and matrices</a>
+<ul>
 <li class="chapter" data-level="2.6.1" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-c-function"><i class="fa fa-check"></i><b>2.6.1</b> The <code>c()</code> function</a></li>
 <li class="chapter" data-level="2.6.2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#cbind-and-rbind"><i class="fa fa-check"></i><b>2.6.2</b> <code>cbind()</code> and <code>rbind()</code></a></li>
 <li class="chapter" data-level="2.6.3" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-matrix-class"><i class="fa fa-check"></i><b>2.6.3</b> The <code>matrix</code> class</a></li>
@@ -177,11 +186,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#formulas"><i class="fa fa-check"></i><b>2.9</b> Formulas</a></li>
 <li class="chapter" data-level="2.10" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#models"><i class="fa fa-check"></i><b>2.10</b> Models</a></li>
 <li class="chapter" data-level="2.11" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#null-na-and-nan"><i class="fa fa-check"></i><b>2.11</b> NULL, NA and NaN</a></li>
-<li class="chapter" data-level="2.12" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#useful-functions-to-get-you-started"><i class="fa fa-check"></i><b>2.12</b> Useful functions to get you started</a><ul>
+<li class="chapter" data-level="2.12" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#useful-functions-to-get-you-started"><i class="fa fa-check"></i><b>2.12</b> Useful functions to get you started</a>
+<ul>
 <li class="chapter" data-level="2.12.1" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#sequences"><i class="fa fa-check"></i><b>2.12.1</b> Sequences</a></li>
 <li class="chapter" data-level="2.12.2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#basic-string-manipulation"><i class="fa fa-check"></i><b>2.12.2</b> Basic string manipulation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.13" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercises-1"><i class="fa fa-check"></i><b>2.13</b> Exercises</a><ul>
+<li class="chapter" data-level="2.13" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercises-1"><i class="fa fa-check"></i><b>2.13</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-1-1"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-3"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -192,15 +203,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-8"><i class="fa fa-check"></i>Exercise 8</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>3</b> Reading and writing data</a><ul>
+<li class="chapter" data-level="3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>3</b> Reading and writing data</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>3.1</b> The swiss army knife of data import and export: <code>{rio}</code></a></li>
 <li class="chapter" data-level="3.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>3.2</b> Writing any object to disk</a></li>
 <li class="chapter" data-level="3.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>3.3</b> Using RStudio projects to manage paths</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html"><i class="fa fa-check"></i><b>4</b> Descriptive statistics and data manipulation</a><ul>
+<li class="chapter" data-level="4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html"><i class="fa fa-check"></i><b>4</b> Descriptive statistics and data manipulation</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-data-exploration-exercice-using-base-r"><i class="fa fa-check"></i><b>4.1</b> A data exploration exercice using <em>base</em> R</a></li>
 <li class="chapter" data-level="4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#smoking-is-bad-for-you-but-pipes-are-your-friend"><i class="fa fa-check"></i><b>4.2</b> Smoking is bad for you, but pipes are your friend</a></li>
-<li class="chapter" data-level="4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#the-tidyverses-enfant-prodige-dplyr"><i class="fa fa-check"></i><b>4.3</b> The <code>{tidyverse}</code>’s <em>enfant prodige</em>: <code>{dplyr}</code></a><ul>
+<li class="chapter" data-level="4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#the-tidyverses-enfant-prodige-dplyr"><i class="fa fa-check"></i><b>4.3</b> The <code>{tidyverse}</code>’s <em>enfant prodige</em>: <code>{dplyr}</code></a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-first-taste-of-data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>4.3.1</b> A first taste of data manipulation with <code>{dplyr}</code></a></li>
 <li class="chapter" data-level="4.3.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter-the-rows-of-a-dataset-with-filter"><i class="fa fa-check"></i><b>4.3.2</b> Filter the rows of a dataset with <code>filter()</code></a></li>
 <li class="chapter" data-level="4.3.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select-columns-with-select"><i class="fa fa-check"></i><b>4.3.3</b> Select columns with <code>select()</code></a></li>
@@ -209,27 +223,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#adding-columns-with-mutate-and-transmute"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns with <code>mutate()</code> and <code>transmute()</code></a></li>
 <li class="chapter" data-level="4.3.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.3.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wider-and-pivot_longer"><i class="fa fa-check"></i><b>4.4.1</b> <code>pivot_wider()</code> and <code>pivot_longer()</code></a></li>
 <li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.2</b> <code>spread()</code> and <code>gather()</code></a></li>
 <li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.3</b> <code>fill()</code> and <code>full_seq()</code></a></li>
 <li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.4</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
 <li class="chapter" data-level="4.4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-8-nest"><i class="fa fa-check"></i><b>4.4.5</b> A sneak peek to Chapter 8; <code>nest()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#working-on-many-columns-with-across"><i class="fa fa-check"></i><b>4.5</b> Working on many columns with <code>across()</code></a><ul>
+<li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#working-on-many-columns-with-across"><i class="fa fa-check"></i><b>4.5</b> Working on many columns with <code>across()</code></a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter-and-across"><i class="fa fa-check"></i><b>4.5.1</b> <code>filter()</code> and <code>across()</code></a></li>
 <li class="chapter" data-level="4.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#selecting-and-renaming-with-across"><i class="fa fa-check"></i><b>4.5.2</b> Selecting and renaming with <code>across()</code></a></li>
 <li class="chapter" data-level="4.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group_by-and-across"><i class="fa fa-check"></i><b>4.5.3</b> <code>group_by()</code> and <code>across()</code></a></li>
 <li class="chapter" data-level="4.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise-across-many-columns"><i class="fa fa-check"></i><b>4.5.4</b> <code>summarise()</code> across many columns</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>4.6</b> Other useful <code>{tidyverse}</code> functions</a><ul>
+<li class="chapter" data-level="4.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>4.6</b> Other useful <code>{tidyverse}</code> functions</a>
+<ul>
 <li class="chapter" data-level="4.6.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#if_else-case_when-and-recode"><i class="fa fa-check"></i><b>4.6.1</b> <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code></a></li>
 <li class="chapter" data-level="4.6.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#lead-and-lag"><i class="fa fa-check"></i><b>4.6.2</b> <code>lead()</code> and <code>lag()</code></a></li>
 <li class="chapter" data-level="4.6.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#ntile"><i class="fa fa-check"></i><b>4.6.3</b> <code>ntile()</code></a></li>
 <li class="chapter" data-level="4.6.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#arrange"><i class="fa fa-check"></i><b>4.6.4</b> <code>arrange()</code></a></li>
 <li class="chapter" data-level="4.6.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tally-and-count"><i class="fa fa-check"></i><b>4.6.5</b> <code>tally()</code> and <code>count()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>4.7</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a><ul>
+<li class="chapter" data-level="4.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>4.7</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a>
+<ul>
 <li class="chapter" data-level="4.7.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#section"><i class="fa fa-check"></i><b>4.7.1</b> 🐈🐈🐈🐈</a></li>
 <li class="chapter" data-level="4.7.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-your-dates-right-with-lubridate"><i class="fa fa-check"></i><b>4.7.2</b> Get your dates right with <code>{lubridate}</code></a></li>
 <li class="chapter" data-level="4.7.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>4.7.3</b> Manipulate strings with <code>{stringr}</code></a></li>
@@ -237,16 +255,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>4.8</b> List-columns</a></li>
 <li class="chapter" data-level="4.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#going-beyond-descriptive-statistics-and-data-manipulation"><i class="fa fa-check"></i><b>4.9</b> Going beyond descriptive statistics and data manipulation</a></li>
-<li class="chapter" data-level="4.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>4.10</b> Exercises</a><ul>
+<li class="chapter" data-level="4.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>4.10</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a><ul>
+<li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="graphs.html"><a href="graphs.html#resources"><i class="fa fa-check"></i><b>5.1</b> Resources</a></li>
-<li class="chapter" data-level="5.2" data-path="graphs.html"><a href="graphs.html#examples"><i class="fa fa-check"></i><b>5.2</b> Examples</a><ul>
+<li class="chapter" data-level="5.2" data-path="graphs.html"><a href="graphs.html#examples"><i class="fa fa-check"></i><b>5.2</b> Examples</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="graphs.html"><a href="graphs.html#barplots"><i class="fa fa-check"></i><b>5.2.1</b> Barplots</a></li>
 <li class="chapter" data-level="5.2.2" data-path="graphs.html"><a href="graphs.html#scatter-plots"><i class="fa fa-check"></i><b>5.2.2</b> Scatter plots</a></li>
 <li class="chapter" data-level="5.2.3" data-path="graphs.html"><a href="graphs.html#density"><i class="fa fa-check"></i><b>5.2.3</b> Density</a></li>
@@ -255,57 +276,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.6" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>5.2.6</b> Pie Charts</a></li>
 <li class="chapter" data-level="5.2.7" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>5.2.7</b> Adding text to plots</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>5.3</b> Customization</a><ul>
+<li class="chapter" data-level="5.3" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>5.3</b> Customization</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="graphs.html"><a href="graphs.html#changing-titles-axes-labels-options-mixing-geoms-and-changing-themes"><i class="fa fa-check"></i><b>5.3.1</b> Changing titles, axes labels, options, mixing geoms and changing themes</a></li>
 <li class="chapter" data-level="5.3.2" data-path="graphs.html"><a href="graphs.html#colour-schemes"><i class="fa fa-check"></i><b>5.3.2</b> Colour schemes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="graphs.html"><a href="graphs.html#saving-plots-to-disk"><i class="fa fa-check"></i><b>5.4</b> Saving plots to disk</a></li>
-<li class="chapter" data-level="5.5" data-path="graphs.html"><a href="graphs.html#exercises-3"><i class="fa fa-check"></i><b>5.5</b> Exercises</a><ul>
+<li class="chapter" data-level="5.5" data-path="graphs.html"><a href="graphs.html#exercises-3"><i class="fa fa-check"></i><b>5.5</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="graphs.html"><a href="graphs.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>6</b> Statistical models</a><ul>
+<li class="chapter" data-level="6" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>6</b> Statistical models</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="statistical-models.html"><a href="statistical-models.html#terminology"><i class="fa fa-check"></i><b>6.1</b> Terminology</a></li>
 <li class="chapter" data-level="6.2" data-path="statistical-models.html"><a href="statistical-models.html#fitting-a-model-to-data"><i class="fa fa-check"></i><b>6.2</b> Fitting a model to data</a></li>
 <li class="chapter" data-level="6.3" data-path="statistical-models.html"><a href="statistical-models.html#diagnostics"><i class="fa fa-check"></i><b>6.3</b> Diagnostics</a></li>
-<li class="chapter" data-level="6.4" data-path="statistical-models.html"><a href="statistical-models.html#interpreting-models"><i class="fa fa-check"></i><b>6.4</b> Interpreting models</a><ul>
+<li class="chapter" data-level="6.4" data-path="statistical-models.html"><a href="statistical-models.html#interpreting-models"><i class="fa fa-check"></i><b>6.4</b> Interpreting models</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="statistical-models.html"><a href="statistical-models.html#marginal-effects"><i class="fa fa-check"></i><b>6.4.1</b> Marginal effects</a></li>
 <li class="chapter" data-level="6.4.2" data-path="statistical-models.html"><a href="statistical-models.html#explainability-of-black-box-models"><i class="fa fa-check"></i><b>6.4.2</b> Explainability of <em>black-box</em> models</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="statistical-models.html"><a href="statistical-models.html#comparing-models"><i class="fa fa-check"></i><b>6.5</b> Comparing models</a></li>
 <li class="chapter" data-level="6.6" data-path="statistical-models.html"><a href="statistical-models.html#using-a-model-for-prediction"><i class="fa fa-check"></i><b>6.6</b> Using a model for prediction</a></li>
 <li class="chapter" data-level="6.7" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>6.7</b> Beyond linear regression</a></li>
-<li class="chapter" data-level="6.8" data-path="statistical-models.html"><a href="statistical-models.html#hyper-parameters"><i class="fa fa-check"></i><b>6.8</b> Hyper-parameters</a><ul>
+<li class="chapter" data-level="6.8" data-path="statistical-models.html"><a href="statistical-models.html#hyper-parameters"><i class="fa fa-check"></i><b>6.8</b> Hyper-parameters</a>
+<ul>
 <li class="chapter" data-level="6.8.1" data-path="statistical-models.html"><a href="statistical-models.html#ridge-regression"><i class="fa fa-check"></i><b>6.8.1</b> Ridge regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.9" data-path="statistical-models.html"><a href="statistical-models.html#training-validating-and-testing-models"><i class="fa fa-check"></i><b>6.9</b> Training, validating, and testing models</a><ul>
+<li class="chapter" data-level="6.9" data-path="statistical-models.html"><a href="statistical-models.html#training-validating-and-testing-models"><i class="fa fa-check"></i><b>6.9</b> Training, validating, and testing models</a>
+<ul>
 <li class="chapter" data-level="6.9.1" data-path="statistical-models.html"><a href="statistical-models.html#set-up"><i class="fa fa-check"></i><b>6.9.1</b> Set up</a></li>
 <li class="chapter" data-level="6.9.2" data-path="statistical-models.html"><a href="statistical-models.html#bayesian-hyperparameter-optimization"><i class="fa fa-check"></i><b>6.9.2</b> Bayesian hyperparameter optimization</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html"><i class="fa fa-check"></i><b>7</b> Defining your own functions</a><ul>
-<li class="chapter" data-level="7.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#control-flow"><i class="fa fa-check"></i><b>7.1</b> Control flow</a><ul>
+<li class="chapter" data-level="7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html"><i class="fa fa-check"></i><b>7</b> Defining your own functions</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#control-flow"><i class="fa fa-check"></i><b>7.1</b> Control flow</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#if-else"><i class="fa fa-check"></i><b>7.1.1</b> If-else</a></li>
 <li class="chapter" data-level="7.1.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#for-loops"><i class="fa fa-check"></i><b>7.1.2</b> For loops</a></li>
 <li class="chapter" data-level="7.1.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#while-loops"><i class="fa fa-check"></i><b>7.1.3</b> While loops</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>7.2</b> Writing your own functions</a><ul>
+<li class="chapter" data-level="7.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>7.2</b> Writing your own functions</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>7.2.1</b> Declaring functions in R</a></li>
 <li class="chapter" data-level="7.2.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#fibonacci-numbers"><i class="fa fa-check"></i><b>7.2.2</b> Fibonacci numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a><ul>
+<li class="chapter" data-level="7.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-functions-as-arguments-writing-your-own-higher-order-functions"><i class="fa fa-check"></i><b>7.4</b> Functions that take functions as arguments: writing your own higher-order functions</a></li>
-<li class="chapter" data-level="7.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>7.5</b> Functions that take columns of data as arguments</a><ul>
+<li class="chapter" data-level="7.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>7.5</b> Functions that take columns of data as arguments</a>
+<ul>
 <li class="chapter" data-level="7.5.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#the-enquo---approach"><i class="fa fa-check"></i><b>7.5.1</b> The <code>enquo() - !!()</code> approach</a></li>
 <li class="chapter" data-level="7.5.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#curly-curly-a-simplified-approach-to-the-enquo-and-framework"><i class="fa fa-check"></i><b>7.5.2</b> Curly Curly, a simplified approach to the <code>enquo()</code> and <code>!!()</code> framework</a></li>
 </ul></li>
 <li class="chapter" data-level="7.6" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-use-loops"><i class="fa fa-check"></i><b>7.6</b> Functions that use loops</a></li>
 <li class="chapter" data-level="7.7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#anonymous-functions"><i class="fa fa-check"></i><b>7.7</b> Anonymous functions</a></li>
-<li class="chapter" data-level="7.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-5"><i class="fa fa-check"></i><b>7.8</b> Exercises</a><ul>
+<li class="chapter" data-level="7.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-5"><i class="fa fa-check"></i><b>7.8</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -313,7 +346,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.9" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#function-definitions"><i class="fa fa-check"></i><b>7.9</b> Function definitions</a></li>
 <li class="chapter" data-level="7.10" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#properties-of-functions"><i class="fa fa-check"></i><b>7.10</b> Properties of functions</a></li>
-<li class="chapter" data-level="7.11" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>7.11</b> Functional programming with <code>{purrr}</code></a><ul>
+<li class="chapter" data-level="7.11" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>7.11</b> Functional programming with <code>{purrr}</code></a>
+<ul>
 <li class="chapter" data-level="7.11.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#doing-away-with-loops-the-map-family-of-functions"><i class="fa fa-check"></i><b>7.11.1</b> Doing away with loops: the <code>map*()</code> family of functions</a></li>
 <li class="chapter" data-level="7.11.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#reducing-with-purrr"><i class="fa fa-check"></i><b>7.11.2</b> Reducing with <code>purrr</code></a></li>
 <li class="chapter" data-level="7.11.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#error-handling-with-safely-and-possibly"><i class="fa fa-check"></i><b>7.11.3</b> Error handling with <code>safely()</code> and <code>possibly()</code></a></li>
@@ -321,32 +355,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.11.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#function-composition-using-compose"><i class="fa fa-check"></i><b>7.11.5</b> Function composition using <code>compose</code></a></li>
 <li class="chapter" data-level="7.11.6" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#transposing-lists"><i class="fa fa-check"></i><b>7.11.6</b> «Transposing lists»</a></li>
 </ul></li>
-<li class="chapter" data-level="7.12" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#list-based-workflows-for-efficiency"><i class="fa fa-check"></i><b>7.12</b> List-based workflows for efficiency</a><ul>
+<li class="chapter" data-level="7.12" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#list-based-workflows-for-efficiency"><i class="fa fa-check"></i><b>7.12</b> List-based workflows for efficiency</a>
+<ul>
 <li class="chapter" data-level="7.12.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>7.12.1</b> Functional programming and plotting</a></li>
 <li class="chapter" data-level="7.12.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#modeling-with-functional-programming"><i class="fa fa-check"></i><b>7.12.2</b> Modeling with functional programming</a></li>
 </ul></li>
-<li class="chapter" data-level="7.13" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-6"><i class="fa fa-check"></i><b>7.13</b> Exercises</a><ul>
+<li class="chapter" data-level="7.13" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-6"><i class="fa fa-check"></i><b>7.13</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>8</b> Package development</a><ul>
+<li class="chapter" data-level="8" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>8</b> Package development</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>8.1</b> Why you need to write your own package</a></li>
-<li class="chapter" data-level="8.2" data-path="package-development.html"><a href="package-development.html#starting-easy-creating-a-package-to-share-data"><i class="fa fa-check"></i><b>8.2</b> Starting easy: creating a package to share data</a><ul>
+<li class="chapter" data-level="8.2" data-path="package-development.html"><a href="package-development.html#starting-easy-creating-a-package-to-share-data"><i class="fa fa-check"></i><b>8.2</b> Starting easy: creating a package to share data</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="package-development.html"><a href="package-development.html#setting-up-a-github-account"><i class="fa fa-check"></i><b>8.2.1</b> Setting up a Github account</a></li>
 <li class="chapter" data-level="8.2.2" data-path="package-development.html"><a href="package-development.html#starting-your-package"><i class="fa fa-check"></i><b>8.2.2</b> Starting your package</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="package-development.html"><a href="package-development.html#including-data-inside-the-package"><i class="fa fa-check"></i><b>8.3</b> Including data inside the package</a></li>
-<li class="chapter" data-level="8.4" data-path="package-development.html"><a href="package-development.html#adding-functions-to-your-package"><i class="fa fa-check"></i><b>8.4</b> Adding functions to your package</a><ul>
+<li class="chapter" data-level="8.4" data-path="package-development.html"><a href="package-development.html#adding-functions-to-your-package"><i class="fa fa-check"></i><b>8.4</b> Adding functions to your package</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="package-development.html"><a href="package-development.html#one-function-inside-one-script"><i class="fa fa-check"></i><b>8.4.1</b> One function inside one script</a></li>
 <li class="chapter" data-level="8.4.2" data-path="package-development.html"><a href="package-development.html#many-functions-inside-a-script"><i class="fa fa-check"></i><b>8.4.2</b> Many functions inside a script</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="package-development.html"><a href="package-development.html#documenting-your-package"><i class="fa fa-check"></i><b>8.5</b> Documenting your package</a><ul>
+<li class="chapter" data-level="8.5" data-path="package-development.html"><a href="package-development.html#documenting-your-package"><i class="fa fa-check"></i><b>8.5</b> Documenting your package</a>
+<ul>
 <li class="chapter" data-level="8.5.1" data-path="package-development.html"><a href="package-development.html#description"><i class="fa fa-check"></i><b>8.5.1</b> Description</a></li>
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>8.6</b> Unit testing your package</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="further-topics.html"><a href="further-topics.html"><i class="fa fa-check"></i><b>9</b> Further topics</a><ul>
+<li class="chapter" data-level="9" data-path="further-topics.html"><a href="further-topics.html"><i class="fa fa-check"></i><b>9</b> Further topics</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="further-topics.html"><a href="further-topics.html#using-python-from-r-with-reticulate"><i class="fa fa-check"></i><b>9.1</b> Using Python from R with <code>{reticulate}</code></a></li>
 <li class="chapter" data-level="9.2" data-path="further-topics.html"><a href="further-topics.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>9.2</b> Generating Pdf or Word reports with R</a></li>
 <li class="chapter" data-level="9.3" data-path="further-topics.html"><a href="further-topics.html#scraping-the-internet"><i class="fa fa-check"></i><b>9.3</b> Scraping the internet</a></li>
@@ -376,11 +417,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Modern R with the tidyverse</h1>
 <p class="author"><em>Bruno Rodrigues</em></p>
-<p class="date"><em>2020-03-31</em></p>
+<p class="date"><em>2020-06-22</em></p>
 </div>
-<div id="preface" class="section level1 unnumbered">
+<div id="preface" class="section level1 unnumbered" number="">
 <h1>Preface</h1>
-<div id="note-to-the-reader" class="section level2 unnumbered">
+<div id="note-to-the-reader" class="section level2 unnumbered" number="">
 <h2>Note to the reader</h2>
 <p>This book is still being written. Chapters 1 to 8 are almost ready, but more content is being added
 (especially to chapter 8). 9 and 10 are empty for now. Some exercises might be at the wrong place
@@ -390,7 +431,7 @@ too and more are coming.</p>
 me by <a href="https://www.buymeacoffee.com/brodriguesco">buying me a coffee</a>
 or <a href="https://www.paypal.me/brodriguesco">paypal.me</a>.</p>
 </div>
-<div id="what-is-r" class="section level2 unnumbered">
+<div id="what-is-r" class="section level2 unnumbered" number="">
 <h2>What is R?</h2>
 <p>Read R’s official answer to this question
 <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-is-R_003f">here</a>. To make it short: R is a
@@ -400,7 +441,7 @@ as official statistics, economics, finance, data science, machine learning, etc.
 simplicity, I will use the word “statistics” as a general term that encompasses all these fields and
 disciplines for the remainder of this book.</p>
 </div>
-<div id="who-is-this-book-for" class="section level2 unnumbered">
+<div id="who-is-this-book-for" class="section level2 unnumbered" number="">
 <h2>Who is this book for?</h2>
 <p>This book can be useful to different audiences. If you have never used R in your life, and want
 to start, start with Chapter 1 of this book. Chapter 1 to 3 are the very basics, and should be
@@ -413,7 +454,7 @@ what the <code>{tidyverse}</code> is), then you can start with Chapter 4. If you
 <code>{tidyverse}</code> and functional programming, you might still be interested in this book, especially
 Chapter 9 and 10, which deal with package development and further advanced topics respectively.</p>
 </div>
-<div id="why-this-book" class="section level2 unnumbered">
+<div id="why-this-book" class="section level2 unnumbered" number="">
 <h2>Why this book?</h2>
 <p>This book is first and foremost for myself. This book is the result of years of using and teaching
 R at university and then at my jobs. During my university time, I wrote some notes to help me
@@ -433,7 +474,7 @@ useful to you, no harm done (unless you paid for it before reading it, in which 
 to have wasted your time). But I am quite sure you’ll find some of the things written here useful,
 regardless of your current experience level with R.</p>
 </div>
-<div id="why-modern-r" class="section level2 unnumbered">
+<div id="why-modern-r" class="section level2 unnumbered" number="">
 <h2>Why <em>modern</em> R?</h2>
 <p><em>Modern</em> R instead of “just” R because we are going to learn how to use modern packages (mostly
 those from the <a href="https://www.tidyverse.org/">tidyverse</a>) and concepts, such as functional
@@ -451,15 +492,15 @@ notation, you would write something like:</p>
 \sum_{i = 1}^{100} x_{i}
 \]</span></p>
 <p>where <span class="math inline">\(x\)</span> is a vector of length 100. Solving this using a loop would look something like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)){</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  res &lt;-<span class="st"> </span>x[i] <span class="op">+</span><span class="st"> </span>res</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a>res &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb1-2"><a href="index.html#cb1-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)){</span>
+<span id="cb1-3"><a href="index.html#cb1-3"></a>  res &lt;-<span class="st"> </span>x[i] <span class="op">+</span><span class="st"> </span>res</span>
+<span id="cb1-4"><a href="index.html#cb1-4"></a>}</span></code></pre></div>
 <p>This does not look like the math notation at all! You have to define a variable that will hold
 the result outside of the loop, and then you have to define <code>res</code> as something plus <code>res</code> inside
 the body of the loop. This is really unnatural. The functional programming approach is much
 easier:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">Reduce</span>(<span class="st">`</span><span class="dt">+</span><span class="st">`</span>, x)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1"></a><span class="kw">Reduce</span>(<span class="st">`</span><span class="dt">+</span><span class="st">`</span>, x)</span></code></pre></div>
 <p>We will learn about <code>Reduce()</code> later (to be more precise, we will learn about <code>purrr::reduce()</code>,
 the “tidy” version of <code>Reduce()</code>), but already you see that the notation looks a lot more
 like the mathematical notation.</p>
@@ -481,7 +522,7 @@ are very useful for very specific situations that will be discussed at that poin
 developing with R. We are going to learn about creating one’s own package. If you do not know what
 packages are, don’t worry, this will be discussed just below.</p>
 </div>
-<div id="what-is-rstudio" class="section level2 unnumbered">
+<div id="what-is-rstudio" class="section level2 unnumbered" number="">
 <h2>What is RStudio?</h2>
 <p>RStudio is a modern IDE that makes writing R code easier. The first thing we are going to learn is
 how to use it.
@@ -489,7 +530,7 @@ R and RStudio are both open source: this means that the source code is freely av
 the internet and contributions by anyone are welcome and integrated; provided they are meaningful
 and useful.</p>
 </div>
-<div id="what-to-expect-from-this-book" class="section level2 unnumbered">
+<div id="what-to-expect-from-this-book" class="section level2 unnumbered" number="">
 <h2>What to expect from this book?</h2>
 <p>The idea of Chapters 1 to 7 is to make you efficient with R as quickly as possible, especially if
 you already have prior programming knowledge. Starting with Chapter 8 you will learn more advanced
@@ -508,7 +549,7 @@ the language, and the latest news, I advise you read blogs, especially
 discussing R.</p>
 <p>So what you can expect from this book is that this book is not the only one you should read.</p>
 </div>
-<div id="prerequisites" class="section level2 unnumbered">
+<div id="prerequisites" class="section level2 unnumbered" number="">
 <h2>Prerequisites</h2>
 <p>R and RStudio are the two main pieces of software that we are going to use. R is the programming
 language and RStudio is a modern IDE for it. You can use R without RStudio; but you cannot use
@@ -521,21 +562,21 @@ For macOS, follow <a href="https://cloud.r-project.org/bin/macosx/">this one</a>
 distribution, you can install R using the system’s package manager. On Ubuntu, install <code>r-base</code>.</p>
 <p>For RStudio, look for your operating system <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>.</p>
 </div>
-<div id="what-are-packages" class="section level2 unnumbered">
+<div id="what-are-packages" class="section level2 unnumbered" number="">
 <h2>What are packages?</h2>
 <p>There is one more step; we are going to install some packages. Packages are additional pieces of
 code that can be installed from within R with the following function: <code>install.packages()</code>. These
 packages extend R’s capabilities significantly, and are probably one of the main reasons R is so
 popular. As of November 2018, R has over 13000 packages.</p>
 <p>To install the packages we need, first open RStudio and then copy and paste this line in the console:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;rsample&quot;</span>, <span class="st">&quot;recipes&quot;</span>, <span class="st">&quot;blogdown&quot;</span> ,<span class="st">&quot;yardstick&quot;</span>, <span class="st">&quot;parsnip&quot;</span>, <span class="st">&quot;plm&quot;</span>, <span class="st">&quot;pwt9&quot;</span>, </a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">                   <span class="st">&quot;checkpoint&quot;</span>, <span class="st">&quot;Ecdat&quot;</span>, <span class="st">&quot;ggthemes&quot;</span>, <span class="st">&quot;ggfortify&quot;</span>, <span class="st">&quot;margins&quot;</span>, <span class="st">&quot;janitor&quot;</span>, <span class="st">&quot;rio&quot;</span>, </a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">                   <span class="st">&quot;colourpicker&quot;</span>, <span class="st">&quot;glmnet&quot;</span>, <span class="st">&quot;lhs&quot;</span>, <span class="st">&quot;mrlMBO&quot;</span>, <span class="st">&quot;mlbench&quot;</span>, <span class="st">&quot;ranger&quot;</span>))</a></code></pre></div>
-<p><img src="pics/install_packages.png" width="536" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1"></a><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;rsample&quot;</span>, <span class="st">&quot;recipes&quot;</span>, <span class="st">&quot;blogdown&quot;</span> ,<span class="st">&quot;yardstick&quot;</span>, <span class="st">&quot;parsnip&quot;</span>, <span class="st">&quot;plm&quot;</span>, <span class="st">&quot;pwt9&quot;</span>, </span>
+<span id="cb3-2"><a href="index.html#cb3-2"></a>                   <span class="st">&quot;checkpoint&quot;</span>, <span class="st">&quot;Ecdat&quot;</span>, <span class="st">&quot;ggthemes&quot;</span>, <span class="st">&quot;ggfortify&quot;</span>, <span class="st">&quot;margins&quot;</span>, <span class="st">&quot;janitor&quot;</span>, <span class="st">&quot;rio&quot;</span>, </span>
+<span id="cb3-3"><a href="index.html#cb3-3"></a>                   <span class="st">&quot;colourpicker&quot;</span>, <span class="st">&quot;glmnet&quot;</span>, <span class="st">&quot;lhs&quot;</span>, <span class="st">&quot;mrlMBO&quot;</span>, <span class="st">&quot;mlbench&quot;</span>, <span class="st">&quot;ranger&quot;</span>))</span></code></pre></div>
+<p><img src="pics/install_packages.png" /><!-- --></p>
 <p>or go to the <strong>Packages</strong> pane and then click on <em>Install</em>:</p>
 <p><img src="pics/rstudio_install_packages.gif" /><!-- --></p>
 </div>
-<div id="the-author" class="section level2 unnumbered">
+<div id="the-author" class="section level2 unnumbered" number="">
 <h2>The author</h2>
 <p>My name is Bruno Rodrigues and I program almost exclusively in R and have been teaching some R
 courses for a few years now. I first started teaching for students at the University of Strasbourg
@@ -554,6 +595,13 @@ is saved on your computer after you win or lose (it will be lose 99% of the time
 what’s happening in Luxembourg.</p>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>In this book we are going
+to focus on R’s functional programming capabilities<a href="index.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

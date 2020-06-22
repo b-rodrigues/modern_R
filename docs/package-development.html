@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Package development | Modern R with the tidyverse</title>
   <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Package development | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2020-03-31" />
+<meta name="date" content="2020-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="defining-your-own-functions.html"/>
 <link rel="next" href="further-topics.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,28 +51,30 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +83,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -131,7 +134,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Modern R with the tidyverse</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#note-to-the-reader"><i class="fa fa-check"></i>Note to the reader</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#who-is-this-book-for"><i class="fa fa-check"></i>Who is this book for?</a></li>
@@ -143,10 +147,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a><ul>
+<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
 <li class="chapter" data-level="1.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>1.2</b> Console</a></li>
-<li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a><ul>
+<li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.1</b> The help pane</a></li>
 <li class="chapter" data-level="1.3.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.2</b> The Environment pane</a></li>
 </ul></li>
@@ -157,17 +163,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#plots"><i class="fa fa-check"></i><b>1.8</b> Plots</a></li>
 <li class="chapter" data-level="1.9" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#addins"><i class="fa fa-check"></i><b>1.9</b> Addins</a></li>
 <li class="chapter" data-level="1.10" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#packages"><i class="fa fa-check"></i><b>1.10</b> Packages</a></li>
-<li class="chapter" data-level="1.11" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#exercises"><i class="fa fa-check"></i><b>1.11</b> Exercises</a><ul>
+<li class="chapter" data-level="1.11" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#exercises"><i class="fa fa-check"></i><b>1.11</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#exercise-1"><i class="fa fa-check"></i>Exercise 1</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html"><i class="fa fa-check"></i><b>2</b> Objects, types and useful R functions to get started</a><ul>
+<li class="chapter" data-level="2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html"><i class="fa fa-check"></i><b>2</b> Objects, types and useful R functions to get started</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-numeric-class"><i class="fa fa-check"></i><b>2.1</b> The <code>numeric</code> class</a></li>
 <li class="chapter" data-level="2.2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-character-class"><i class="fa fa-check"></i><b>2.2</b> The <code>character</code> class</a></li>
 <li class="chapter" data-level="2.3" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-factor-class"><i class="fa fa-check"></i><b>2.3</b> The <code>factor</code> class</a></li>
 <li class="chapter" data-level="2.4" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-date-class"><i class="fa fa-check"></i><b>2.4</b> The <code>Date</code> class</a></li>
 <li class="chapter" data-level="2.5" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-logical-class"><i class="fa fa-check"></i><b>2.5</b> The <code>logical</code> class</a></li>
-<li class="chapter" data-level="2.6" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#vectors-and-matrices"><i class="fa fa-check"></i><b>2.6</b> Vectors and matrices</a><ul>
+<li class="chapter" data-level="2.6" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#vectors-and-matrices"><i class="fa fa-check"></i><b>2.6</b> Vectors and matrices</a>
+<ul>
 <li class="chapter" data-level="2.6.1" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-c-function"><i class="fa fa-check"></i><b>2.6.1</b> The <code>c()</code> function</a></li>
 <li class="chapter" data-level="2.6.2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#cbind-and-rbind"><i class="fa fa-check"></i><b>2.6.2</b> <code>cbind()</code> and <code>rbind()</code></a></li>
 <li class="chapter" data-level="2.6.3" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#the-matrix-class"><i class="fa fa-check"></i><b>2.6.3</b> The <code>matrix</code> class</a></li>
@@ -177,11 +186,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#formulas"><i class="fa fa-check"></i><b>2.9</b> Formulas</a></li>
 <li class="chapter" data-level="2.10" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#models"><i class="fa fa-check"></i><b>2.10</b> Models</a></li>
 <li class="chapter" data-level="2.11" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#null-na-and-nan"><i class="fa fa-check"></i><b>2.11</b> NULL, NA and NaN</a></li>
-<li class="chapter" data-level="2.12" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#useful-functions-to-get-you-started"><i class="fa fa-check"></i><b>2.12</b> Useful functions to get you started</a><ul>
+<li class="chapter" data-level="2.12" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#useful-functions-to-get-you-started"><i class="fa fa-check"></i><b>2.12</b> Useful functions to get you started</a>
+<ul>
 <li class="chapter" data-level="2.12.1" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#sequences"><i class="fa fa-check"></i><b>2.12.1</b> Sequences</a></li>
 <li class="chapter" data-level="2.12.2" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#basic-string-manipulation"><i class="fa fa-check"></i><b>2.12.2</b> Basic string manipulation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.13" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercises-1"><i class="fa fa-check"></i><b>2.13</b> Exercises</a><ul>
+<li class="chapter" data-level="2.13" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercises-1"><i class="fa fa-check"></i><b>2.13</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-1-1"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-3"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -192,15 +203,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="objects-types-and-useful-r-functions-to-get-started.html"><a href="objects-types-and-useful-r-functions-to-get-started.html#exercise-8"><i class="fa fa-check"></i>Exercise 8</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>3</b> Reading and writing data</a><ul>
+<li class="chapter" data-level="3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>3</b> Reading and writing data</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>3.1</b> The swiss army knife of data import and export: <code>{rio}</code></a></li>
 <li class="chapter" data-level="3.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>3.2</b> Writing any object to disk</a></li>
 <li class="chapter" data-level="3.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>3.3</b> Using RStudio projects to manage paths</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html"><i class="fa fa-check"></i><b>4</b> Descriptive statistics and data manipulation</a><ul>
+<li class="chapter" data-level="4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html"><i class="fa fa-check"></i><b>4</b> Descriptive statistics and data manipulation</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-data-exploration-exercice-using-base-r"><i class="fa fa-check"></i><b>4.1</b> A data exploration exercice using <em>base</em> R</a></li>
 <li class="chapter" data-level="4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#smoking-is-bad-for-you-but-pipes-are-your-friend"><i class="fa fa-check"></i><b>4.2</b> Smoking is bad for you, but pipes are your friend</a></li>
-<li class="chapter" data-level="4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#the-tidyverses-enfant-prodige-dplyr"><i class="fa fa-check"></i><b>4.3</b> The <code>{tidyverse}</code>’s <em>enfant prodige</em>: <code>{dplyr}</code></a><ul>
+<li class="chapter" data-level="4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#the-tidyverses-enfant-prodige-dplyr"><i class="fa fa-check"></i><b>4.3</b> The <code>{tidyverse}</code>’s <em>enfant prodige</em>: <code>{dplyr}</code></a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-first-taste-of-data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>4.3.1</b> A first taste of data manipulation with <code>{dplyr}</code></a></li>
 <li class="chapter" data-level="4.3.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter-the-rows-of-a-dataset-with-filter"><i class="fa fa-check"></i><b>4.3.2</b> Filter the rows of a dataset with <code>filter()</code></a></li>
 <li class="chapter" data-level="4.3.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#select-columns-with-select"><i class="fa fa-check"></i><b>4.3.3</b> Select columns with <code>select()</code></a></li>
@@ -209,27 +223,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#adding-columns-with-mutate-and-transmute"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns with <code>mutate()</code> and <code>transmute()</code></a></li>
 <li class="chapter" data-level="4.3.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#joining-tibbles-with-full_join-left_join-right_join-and-all-the-others"><i class="fa fa-check"></i><b>4.3.7</b> Joining <code>tibble</code>s with <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code> and all the others</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>4.4</b> Reshaping data with <code>tidyr</code></a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#pivot_wider-and-pivot_longer"><i class="fa fa-check"></i><b>4.4.1</b> <code>pivot_wider()</code> and <code>pivot_longer()</code></a></li>
 <li class="chapter" data-level="4.4.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#spread-and-gather"><i class="fa fa-check"></i><b>4.4.2</b> <code>spread()</code> and <code>gather()</code></a></li>
 <li class="chapter" data-level="4.4.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#fill-and-full_seq"><i class="fa fa-check"></i><b>4.4.3</b> <code>fill()</code> and <code>full_seq()</code></a></li>
 <li class="chapter" data-level="4.4.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows"><i class="fa fa-check"></i><b>4.4.4</b> Put order in your columns with <code>separate()</code>, <code>unite()</code>, and in your rows with <code>separate_rows()</code></a></li>
 <li class="chapter" data-level="4.4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#a-sneak-peek-to-chapter-8-nest"><i class="fa fa-check"></i><b>4.4.5</b> A sneak peek to Chapter 8; <code>nest()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#working-on-many-columns-with-across"><i class="fa fa-check"></i><b>4.5</b> Working on many columns with <code>across()</code></a><ul>
+<li class="chapter" data-level="4.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#working-on-many-columns-with-across"><i class="fa fa-check"></i><b>4.5</b> Working on many columns with <code>across()</code></a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#filter-and-across"><i class="fa fa-check"></i><b>4.5.1</b> <code>filter()</code> and <code>across()</code></a></li>
 <li class="chapter" data-level="4.5.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#selecting-and-renaming-with-across"><i class="fa fa-check"></i><b>4.5.2</b> Selecting and renaming with <code>across()</code></a></li>
 <li class="chapter" data-level="4.5.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#group_by-and-across"><i class="fa fa-check"></i><b>4.5.3</b> <code>group_by()</code> and <code>across()</code></a></li>
 <li class="chapter" data-level="4.5.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#summarise-across-many-columns"><i class="fa fa-check"></i><b>4.5.4</b> <code>summarise()</code> across many columns</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>4.6</b> Other useful <code>{tidyverse}</code> functions</a><ul>
+<li class="chapter" data-level="4.6" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#other-useful-tidyverse-functions"><i class="fa fa-check"></i><b>4.6</b> Other useful <code>{tidyverse}</code> functions</a>
+<ul>
 <li class="chapter" data-level="4.6.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#if_else-case_when-and-recode"><i class="fa fa-check"></i><b>4.6.1</b> <code>if_else()</code>, <code>case_when()</code> and <code>recode()</code></a></li>
 <li class="chapter" data-level="4.6.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#lead-and-lag"><i class="fa fa-check"></i><b>4.6.2</b> <code>lead()</code> and <code>lag()</code></a></li>
 <li class="chapter" data-level="4.6.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#ntile"><i class="fa fa-check"></i><b>4.6.3</b> <code>ntile()</code></a></li>
 <li class="chapter" data-level="4.6.4" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#arrange"><i class="fa fa-check"></i><b>4.6.4</b> <code>arrange()</code></a></li>
 <li class="chapter" data-level="4.6.5" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#tally-and-count"><i class="fa fa-check"></i><b>4.6.5</b> <code>tally()</code> and <code>count()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>4.7</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a><ul>
+<li class="chapter" data-level="4.7" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#special-packages-for-special-kinds-of-data-forcats-lubridate-and-stringr"><i class="fa fa-check"></i><b>4.7</b> Special packages for special kinds of data: <code>{forcats}</code>, <code>{lubridate}</code>, and <code>{stringr}</code></a>
+<ul>
 <li class="chapter" data-level="4.7.1" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#section"><i class="fa fa-check"></i><b>4.7.1</b> 🐈🐈🐈🐈</a></li>
 <li class="chapter" data-level="4.7.2" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#get-your-dates-right-with-lubridate"><i class="fa fa-check"></i><b>4.7.2</b> Get your dates right with <code>{lubridate}</code></a></li>
 <li class="chapter" data-level="4.7.3" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#manipulate-strings-with-stringr"><i class="fa fa-check"></i><b>4.7.3</b> Manipulate strings with <code>{stringr}</code></a></li>
@@ -237,16 +255,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#list-columns"><i class="fa fa-check"></i><b>4.8</b> List-columns</a></li>
 <li class="chapter" data-level="4.9" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#going-beyond-descriptive-statistics-and-data-manipulation"><i class="fa fa-check"></i><b>4.9</b> Going beyond descriptive statistics and data manipulation</a></li>
-<li class="chapter" data-level="4.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>4.10</b> Exercises</a><ul>
+<li class="chapter" data-level="4.10" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercises-2"><i class="fa fa-check"></i><b>4.10</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a><ul>
+<li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="graphs.html"><a href="graphs.html#resources"><i class="fa fa-check"></i><b>5.1</b> Resources</a></li>
-<li class="chapter" data-level="5.2" data-path="graphs.html"><a href="graphs.html#examples"><i class="fa fa-check"></i><b>5.2</b> Examples</a><ul>
+<li class="chapter" data-level="5.2" data-path="graphs.html"><a href="graphs.html#examples"><i class="fa fa-check"></i><b>5.2</b> Examples</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="graphs.html"><a href="graphs.html#barplots"><i class="fa fa-check"></i><b>5.2.1</b> Barplots</a></li>
 <li class="chapter" data-level="5.2.2" data-path="graphs.html"><a href="graphs.html#scatter-plots"><i class="fa fa-check"></i><b>5.2.2</b> Scatter plots</a></li>
 <li class="chapter" data-level="5.2.3" data-path="graphs.html"><a href="graphs.html#density"><i class="fa fa-check"></i><b>5.2.3</b> Density</a></li>
@@ -255,57 +276,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.6" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>5.2.6</b> Pie Charts</a></li>
 <li class="chapter" data-level="5.2.7" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>5.2.7</b> Adding text to plots</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>5.3</b> Customization</a><ul>
+<li class="chapter" data-level="5.3" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>5.3</b> Customization</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="graphs.html"><a href="graphs.html#changing-titles-axes-labels-options-mixing-geoms-and-changing-themes"><i class="fa fa-check"></i><b>5.3.1</b> Changing titles, axes labels, options, mixing geoms and changing themes</a></li>
 <li class="chapter" data-level="5.3.2" data-path="graphs.html"><a href="graphs.html#colour-schemes"><i class="fa fa-check"></i><b>5.3.2</b> Colour schemes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="graphs.html"><a href="graphs.html#saving-plots-to-disk"><i class="fa fa-check"></i><b>5.4</b> Saving plots to disk</a></li>
-<li class="chapter" data-level="5.5" data-path="graphs.html"><a href="graphs.html#exercises-3"><i class="fa fa-check"></i><b>5.5</b> Exercises</a><ul>
+<li class="chapter" data-level="5.5" data-path="graphs.html"><a href="graphs.html#exercises-3"><i class="fa fa-check"></i><b>5.5</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="graphs.html"><a href="graphs.html#exercise-1-3"><i class="fa fa-check"></i>Exercise 1</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>6</b> Statistical models</a><ul>
+<li class="chapter" data-level="6" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>6</b> Statistical models</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="statistical-models.html"><a href="statistical-models.html#terminology"><i class="fa fa-check"></i><b>6.1</b> Terminology</a></li>
 <li class="chapter" data-level="6.2" data-path="statistical-models.html"><a href="statistical-models.html#fitting-a-model-to-data"><i class="fa fa-check"></i><b>6.2</b> Fitting a model to data</a></li>
 <li class="chapter" data-level="6.3" data-path="statistical-models.html"><a href="statistical-models.html#diagnostics"><i class="fa fa-check"></i><b>6.3</b> Diagnostics</a></li>
-<li class="chapter" data-level="6.4" data-path="statistical-models.html"><a href="statistical-models.html#interpreting-models"><i class="fa fa-check"></i><b>6.4</b> Interpreting models</a><ul>
+<li class="chapter" data-level="6.4" data-path="statistical-models.html"><a href="statistical-models.html#interpreting-models"><i class="fa fa-check"></i><b>6.4</b> Interpreting models</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="statistical-models.html"><a href="statistical-models.html#marginal-effects"><i class="fa fa-check"></i><b>6.4.1</b> Marginal effects</a></li>
 <li class="chapter" data-level="6.4.2" data-path="statistical-models.html"><a href="statistical-models.html#explainability-of-black-box-models"><i class="fa fa-check"></i><b>6.4.2</b> Explainability of <em>black-box</em> models</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="statistical-models.html"><a href="statistical-models.html#comparing-models"><i class="fa fa-check"></i><b>6.5</b> Comparing models</a></li>
 <li class="chapter" data-level="6.6" data-path="statistical-models.html"><a href="statistical-models.html#using-a-model-for-prediction"><i class="fa fa-check"></i><b>6.6</b> Using a model for prediction</a></li>
 <li class="chapter" data-level="6.7" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>6.7</b> Beyond linear regression</a></li>
-<li class="chapter" data-level="6.8" data-path="statistical-models.html"><a href="statistical-models.html#hyper-parameters"><i class="fa fa-check"></i><b>6.8</b> Hyper-parameters</a><ul>
+<li class="chapter" data-level="6.8" data-path="statistical-models.html"><a href="statistical-models.html#hyper-parameters"><i class="fa fa-check"></i><b>6.8</b> Hyper-parameters</a>
+<ul>
 <li class="chapter" data-level="6.8.1" data-path="statistical-models.html"><a href="statistical-models.html#ridge-regression"><i class="fa fa-check"></i><b>6.8.1</b> Ridge regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.9" data-path="statistical-models.html"><a href="statistical-models.html#training-validating-and-testing-models"><i class="fa fa-check"></i><b>6.9</b> Training, validating, and testing models</a><ul>
+<li class="chapter" data-level="6.9" data-path="statistical-models.html"><a href="statistical-models.html#training-validating-and-testing-models"><i class="fa fa-check"></i><b>6.9</b> Training, validating, and testing models</a>
+<ul>
 <li class="chapter" data-level="6.9.1" data-path="statistical-models.html"><a href="statistical-models.html#set-up"><i class="fa fa-check"></i><b>6.9.1</b> Set up</a></li>
 <li class="chapter" data-level="6.9.2" data-path="statistical-models.html"><a href="statistical-models.html#bayesian-hyperparameter-optimization"><i class="fa fa-check"></i><b>6.9.2</b> Bayesian hyperparameter optimization</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html"><i class="fa fa-check"></i><b>7</b> Defining your own functions</a><ul>
-<li class="chapter" data-level="7.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#control-flow"><i class="fa fa-check"></i><b>7.1</b> Control flow</a><ul>
+<li class="chapter" data-level="7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html"><i class="fa fa-check"></i><b>7</b> Defining your own functions</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#control-flow"><i class="fa fa-check"></i><b>7.1</b> Control flow</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#if-else"><i class="fa fa-check"></i><b>7.1.1</b> If-else</a></li>
 <li class="chapter" data-level="7.1.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#for-loops"><i class="fa fa-check"></i><b>7.1.2</b> For loops</a></li>
 <li class="chapter" data-level="7.1.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#while-loops"><i class="fa fa-check"></i><b>7.1.3</b> While loops</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>7.2</b> Writing your own functions</a><ul>
+<li class="chapter" data-level="7.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>7.2</b> Writing your own functions</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>7.2.1</b> Declaring functions in R</a></li>
 <li class="chapter" data-level="7.2.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#fibonacci-numbers"><i class="fa fa-check"></i><b>7.2.2</b> Fibonacci numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a><ul>
+<li class="chapter" data-level="7.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-functions-as-arguments-writing-your-own-higher-order-functions"><i class="fa fa-check"></i><b>7.4</b> Functions that take functions as arguments: writing your own higher-order functions</a></li>
-<li class="chapter" data-level="7.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>7.5</b> Functions that take columns of data as arguments</a><ul>
+<li class="chapter" data-level="7.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>7.5</b> Functions that take columns of data as arguments</a>
+<ul>
 <li class="chapter" data-level="7.5.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#the-enquo---approach"><i class="fa fa-check"></i><b>7.5.1</b> The <code>enquo() - !!()</code> approach</a></li>
 <li class="chapter" data-level="7.5.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#curly-curly-a-simplified-approach-to-the-enquo-and-framework"><i class="fa fa-check"></i><b>7.5.2</b> Curly Curly, a simplified approach to the <code>enquo()</code> and <code>!!()</code> framework</a></li>
 </ul></li>
 <li class="chapter" data-level="7.6" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functions-that-use-loops"><i class="fa fa-check"></i><b>7.6</b> Functions that use loops</a></li>
 <li class="chapter" data-level="7.7" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#anonymous-functions"><i class="fa fa-check"></i><b>7.7</b> Anonymous functions</a></li>
-<li class="chapter" data-level="7.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-5"><i class="fa fa-check"></i><b>7.8</b> Exercises</a><ul>
+<li class="chapter" data-level="7.8" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-5"><i class="fa fa-check"></i><b>7.8</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -313,7 +346,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.9" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#function-definitions"><i class="fa fa-check"></i><b>7.9</b> Function definitions</a></li>
 <li class="chapter" data-level="7.10" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#properties-of-functions"><i class="fa fa-check"></i><b>7.10</b> Properties of functions</a></li>
-<li class="chapter" data-level="7.11" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>7.11</b> Functional programming with <code>{purrr}</code></a><ul>
+<li class="chapter" data-level="7.11" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functional-programming-with-purrr"><i class="fa fa-check"></i><b>7.11</b> Functional programming with <code>{purrr}</code></a>
+<ul>
 <li class="chapter" data-level="7.11.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#doing-away-with-loops-the-map-family-of-functions"><i class="fa fa-check"></i><b>7.11.1</b> Doing away with loops: the <code>map*()</code> family of functions</a></li>
 <li class="chapter" data-level="7.11.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#reducing-with-purrr"><i class="fa fa-check"></i><b>7.11.2</b> Reducing with <code>purrr</code></a></li>
 <li class="chapter" data-level="7.11.3" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#error-handling-with-safely-and-possibly"><i class="fa fa-check"></i><b>7.11.3</b> Error handling with <code>safely()</code> and <code>possibly()</code></a></li>
@@ -321,32 +355,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.11.5" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#function-composition-using-compose"><i class="fa fa-check"></i><b>7.11.5</b> Function composition using <code>compose</code></a></li>
 <li class="chapter" data-level="7.11.6" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#transposing-lists"><i class="fa fa-check"></i><b>7.11.6</b> «Transposing lists»</a></li>
 </ul></li>
-<li class="chapter" data-level="7.12" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#list-based-workflows-for-efficiency"><i class="fa fa-check"></i><b>7.12</b> List-based workflows for efficiency</a><ul>
+<li class="chapter" data-level="7.12" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#list-based-workflows-for-efficiency"><i class="fa fa-check"></i><b>7.12</b> List-based workflows for efficiency</a>
+<ul>
 <li class="chapter" data-level="7.12.1" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#functional-programming-and-plotting"><i class="fa fa-check"></i><b>7.12.1</b> Functional programming and plotting</a></li>
 <li class="chapter" data-level="7.12.2" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#modeling-with-functional-programming"><i class="fa fa-check"></i><b>7.12.2</b> Modeling with functional programming</a></li>
 </ul></li>
-<li class="chapter" data-level="7.13" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-6"><i class="fa fa-check"></i><b>7.13</b> Exercises</a><ul>
+<li class="chapter" data-level="7.13" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercises-6"><i class="fa fa-check"></i><b>7.13</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-6"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-4"><i class="fa fa-check"></i>Exercise 2</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>8</b> Package development</a><ul>
+<li class="chapter" data-level="8" data-path="package-development.html"><a href="package-development.html"><i class="fa fa-check"></i><b>8</b> Package development</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="package-development.html"><a href="package-development.html#why-you-need-to-write-your-own-package"><i class="fa fa-check"></i><b>8.1</b> Why you need to write your own package</a></li>
-<li class="chapter" data-level="8.2" data-path="package-development.html"><a href="package-development.html#starting-easy-creating-a-package-to-share-data"><i class="fa fa-check"></i><b>8.2</b> Starting easy: creating a package to share data</a><ul>
+<li class="chapter" data-level="8.2" data-path="package-development.html"><a href="package-development.html#starting-easy-creating-a-package-to-share-data"><i class="fa fa-check"></i><b>8.2</b> Starting easy: creating a package to share data</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="package-development.html"><a href="package-development.html#setting-up-a-github-account"><i class="fa fa-check"></i><b>8.2.1</b> Setting up a Github account</a></li>
 <li class="chapter" data-level="8.2.2" data-path="package-development.html"><a href="package-development.html#starting-your-package"><i class="fa fa-check"></i><b>8.2.2</b> Starting your package</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="package-development.html"><a href="package-development.html#including-data-inside-the-package"><i class="fa fa-check"></i><b>8.3</b> Including data inside the package</a></li>
-<li class="chapter" data-level="8.4" data-path="package-development.html"><a href="package-development.html#adding-functions-to-your-package"><i class="fa fa-check"></i><b>8.4</b> Adding functions to your package</a><ul>
+<li class="chapter" data-level="8.4" data-path="package-development.html"><a href="package-development.html#adding-functions-to-your-package"><i class="fa fa-check"></i><b>8.4</b> Adding functions to your package</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="package-development.html"><a href="package-development.html#one-function-inside-one-script"><i class="fa fa-check"></i><b>8.4.1</b> One function inside one script</a></li>
 <li class="chapter" data-level="8.4.2" data-path="package-development.html"><a href="package-development.html#many-functions-inside-a-script"><i class="fa fa-check"></i><b>8.4.2</b> Many functions inside a script</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="package-development.html"><a href="package-development.html#documenting-your-package"><i class="fa fa-check"></i><b>8.5</b> Documenting your package</a><ul>
+<li class="chapter" data-level="8.5" data-path="package-development.html"><a href="package-development.html#documenting-your-package"><i class="fa fa-check"></i><b>8.5</b> Documenting your package</a>
+<ul>
 <li class="chapter" data-level="8.5.1" data-path="package-development.html"><a href="package-development.html#description"><i class="fa fa-check"></i><b>8.5.1</b> Description</a></li>
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="package-development.html"><a href="package-development.html#unit-testing-your-package"><i class="fa fa-check"></i><b>8.6</b> Unit testing your package</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="further-topics.html"><a href="further-topics.html"><i class="fa fa-check"></i><b>9</b> Further topics</a><ul>
+<li class="chapter" data-level="9" data-path="further-topics.html"><a href="further-topics.html"><i class="fa fa-check"></i><b>9</b> Further topics</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="further-topics.html"><a href="further-topics.html#using-python-from-r-with-reticulate"><i class="fa fa-check"></i><b>9.1</b> Using Python from R with <code>{reticulate}</code></a></li>
 <li class="chapter" data-level="9.2" data-path="further-topics.html"><a href="further-topics.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>9.2</b> Generating Pdf or Word reports with R</a></li>
 <li class="chapter" data-level="9.3" data-path="further-topics.html"><a href="further-topics.html#scraping-the-internet"><i class="fa fa-check"></i><b>9.3</b> Scraping the internet</a></li>
@@ -373,9 +414,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="package-development" class="section level1">
+<div id="package-development" class="section level1" number="8">
 <h1><span class="header-section-number">Chapter 8</span> Package development</h1>
-<div id="why-you-need-to-write-your-own-package" class="section level2">
+<div id="why-you-need-to-write-your-own-package" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Why you need to write your own package</h2>
 <p>One of the reasons you might have tried R in the first place is the abundance of packages. As I’m
 writing these lines (in August 2019) 14762 packages are available on CRAN (in August 2016, when
@@ -410,17 +451,17 @@ that what you wrote works. And I include future you in these <em>others</em> too
 <p>In order to share this package with these <em>others</em> we are going to use git. If you’re familiar with
 git, great, you’ll be able to skip some sections. If not, then buckle up, you’re in for a wild ride.</p>
 <p>As I mentioned in the introduction, if you want to learn much more than I’ll show about packages
-read <span class="citation">Wickham (<a href="#ref-wickham2015">2015</a>)</span>. I will only show you the basics, but it should be enough to get you productive.</p>
+read <span class="citation">Wickham (<a href="#ref-wickham2015" role="doc-biblioref">2015</a>)</span>. I will only show you the basics, but it should be enough to get you productive.</p>
 </div>
-<div id="starting-easy-creating-a-package-to-share-data" class="section level2">
+<div id="starting-easy-creating-a-package-to-share-data" class="section level2" number="8.2">
 <h2><span class="header-section-number">8.2</span> Starting easy: creating a package to share data</h2>
 <p>We will start a package from scratch, in order to share data with the world. For this, we are first
 going to scrape a table off Wikipedia, prepare the data and then include it in a package. To make
 distributing this package easy, we’re going to put it up on Github, so you’ll need a Github account.</p>
 <p>Let’s start by creating a Github account.</p>
-<div id="setting-up-a-github-account" class="section level3">
+<div id="setting-up-a-github-account" class="section level3" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> Setting up a Github account</h3>
-<p>Setting up a Github account is very easy; just go over to <a href="https://github.com/" class="uri">https://github.com/</a>
+<p>Setting up a Github account is very easy; just go over to <a href="https://github.com/">https://github.com/</a>
 and simply sign up!</p>
 <p>Then you will need to generate a ssh key on your computer. This is a way for you to securely
 interact with your Github account, and push your code to the repository without having to always
@@ -438,10 +479,10 @@ from the <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"
 for the file that ends with the <code>.pub</code> extension, and copy its contents. You will need to paste
 these contents on Github.</p>
 <p>So now sign in to Github; once you are signed in, go to settings and then <code>SSH and GPG keys</code>:</p>
-<p><img src="pics/github_ssh.png" width="515" /></p>
+<p><img src="pics/github_ssh.png" /><!-- --></p>
 <p>In the screenshot above, you see my ssh key associated with my account; this will be empty for you.
 Click on the top right, <em>New SSH key</em>:</p>
-<p><img src="pics/github_add_ssh.png" width="516" /></p>
+<p><img src="pics/github_add_ssh.png" /><!-- --></p>
 <p>Give your key a name, and paste the key you generated before. You’re done! You can now configure
 git a bit more by telling it who you are. Open a terminal, adapt and type the following commands:</p>
 <pre><code>git config --global user.name &quot;Harold Zurcher&quot;
@@ -453,7 +494,7 @@ git, as it possible to have an internal git server that could be managed by your
 There is also the possibility to set up corporate, and thus private git servers by buying the service
 from github, or other providers such as gitlab.</p>
 </div>
-<div id="starting-your-package" class="section level3">
+<div id="starting-your-package" class="section level3" number="8.2.2">
 <h3><span class="header-section-number">8.2.2</span> Starting your package</h3>
 <p><img src="pics/new_package.gif" /><!-- --></p>
 <p>To start writing a package, the easiest way is to load up Rstudio and start a new project, under the
@@ -471,17 +512,17 @@ subfolders and necessary template files so that you do not need to constantly ch
 should be placed or named.</p>
 <p>Let’s start by adding a readme file. This is easily achieved by using the following function from
 <code>{usethis}</code>:</p>
-<div class="sourceCode" id="cb1227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1227-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_readme_md</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1248-1"><a href="package-development.html#cb1248-1"></a>usethis<span class="op">::</span><span class="kw">use_readme_md</span>()</span></code></pre></div>
 <p>This creates a template README.md file in the root directory of your package. You can now edit this
 file accordingly, and that’s it.</p>
 <p>The next step could be setting up your package to work with <code>{roxygen2}</code>, which will help write
 the documentation of your package:</p>
-<div class="sourceCode" id="cb1228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1228-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_roxygen_md</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1249-1"><a href="package-development.html#cb1249-1"></a>usethis<span class="op">::</span><span class="kw">use_roxygen_md</span>()</span></code></pre></div>
 <p>The output tells you to run <code>devtools::document()</code>, we will do this later.</p>
 <p>Since you have learned about the tidyverse by reading this book, I am willing to bet that you will
 want to use the <code>%&gt;%</code> operator inside the functions contained in your package. To do this without issues,
 which wil become apparent later, use the following command:</p>
-<div class="sourceCode" id="cb1229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1229-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_pipe</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1250-1"><a href="package-development.html#cb1250-1"></a>usethis<span class="op">::</span><span class="kw">use_pipe</span>()</span></code></pre></div>
 <p>This will make the <code>%&gt;%</code> operator available internally to your package’s functions, but also to the
 user that will load the package.</p>
 <p>We are almost done setting up the package. If you plan on distributing data with your package,
@@ -490,100 +531,100 @@ data from your finance department, but this data needs some cleaning before bein
 write a script to do so and then distribute this script also with the package, for reproducibility
 purposes. These scripts, while not central to the package, could still be of interest to the users.
 The directory to place them is called <code>data-raw</code>:</p>
-<div class="sourceCode" id="cb1230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1230-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_data_raw</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1251-1"><a href="package-development.html#cb1251-1"></a>usethis<span class="op">::</span><span class="kw">use_data_raw</span>()</span></code></pre></div>
 <p>One final folder is <code>inst</code>. You can add files to this folder, and they will be available to the users
 that install the package. Users can find the files in the folder where packages get installed. On
 GNU+Linux systems, that would be somewhere like: <code>/home/user/R/amd64-linux-gnu-library/3.6</code>. There,
 you will find the installation folders of all the packages. If the package you make is called <code>{spam}</code>,
 you will find the files you put inside the <code>inst</code> folder on the root of the installation folder of
 <code>spam</code>. You can simply create the <code>inst</code> folder yourself, or use the following command:</p>
-<div class="sourceCode" id="cb1231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1231-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_directory</span>(<span class="st">&quot;inst&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1252-1"><a href="package-development.html#cb1252-1"></a>usethis<span class="op">::</span><span class="kw">use_directory</span>(<span class="st">&quot;inst&quot;</span>)</span></code></pre></div>
 <p>Finally, the last step is to give your package a license; this again is only useful if you plan on
 distributing it to the world. If you are writing your own package for yourself, or for purposes
 internal to your company, this is probably superfluous. I won’t discuss the particularities of
 licenses, so let’s just say that for the sake of this example package we are writing, we are going
 to use the MIT license:</p>
-<div class="sourceCode" id="cb1232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1232-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_mit_license</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1253-1"><a href="package-development.html#cb1253-1"></a>usethis<span class="op">::</span><span class="kw">use_mit_license</span>()</span></code></pre></div>
 <p>This again creates the right file at the right spot. There are other interesting functions inside
 the <code>{usethis}</code> package, and we will come back to it later.</p>
 </div>
 </div>
-<div id="including-data-inside-the-package" class="section level2">
+<div id="including-data-inside-the-package" class="section level2" number="8.3">
 <h2><span class="header-section-number">8.3</span> Including data inside the package</h2>
 <p>Many packages include data and we are going to learn how to do it. I’ll assume that we already
 have a dataset on hand that we have to share. This is quite simple to do, first let’s simply
 load the data:</p>
-<div class="sourceCode" id="cb1233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1233-1" data-line-number="1">arcade &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;~/path/to/data/arcade.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1254-1"><a href="package-development.html#cb1254-1"></a>arcade &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;~/path/to/data/arcade.csv&quot;</span>)</span></code></pre></div>
 <p>and then use, once again, <code>{usethis}</code> comes to our rescue:</p>
-<div class="sourceCode" id="cb1234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1234-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_data</span>(arcade, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1255-1"><a href="package-development.html#cb1255-1"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(arcade, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</span></code></pre></div>
 <p>that’s it! Well almost. We still need to write a little script that will allow users of your
 package to load the data. This script is simply called <code>data.R</code> and contains the following lines:</p>
-<div class="sourceCode" id="cb1235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1235-1" data-line-number="1"><span class="co">#&#39; List of highest-grossing games</span></a>
-<a class="sourceLine" id="cb1235-2" data-line-number="2"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb1235-3" data-line-number="3"><span class="co">#&#39; Source: https://en.wikipedia.org/wiki/Arcade_game#List_of_highest-grossing_games</span></a>
-<a class="sourceLine" id="cb1235-4" data-line-number="4"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb1235-5" data-line-number="5"><span class="co">#&#39; @format A data frame with 6 variables: \code{game}, \code{release_year},</span></a>
-<a class="sourceLine" id="cb1235-6" data-line-number="6"><span class="co">#&#39;   \code{hardware_units_sold}, \code{comment_hardware}, \code{estimated_gross_revenue}, </span></a>
-<a class="sourceLine" id="cb1235-7" data-line-number="7"><span class="co">#&#39;   \code{comment_revenue}</span></a>
-<a class="sourceLine" id="cb1235-8" data-line-number="8"><span class="co">#&#39; \describe{</span></a>
-<a class="sourceLine" id="cb1235-9" data-line-number="9"><span class="co">#&#39; \item{game}{The name of the game}</span></a>
-<a class="sourceLine" id="cb1235-10" data-line-number="10"><span class="co">#&#39; \item{release_year}{The year the game was released}</span></a>
-<a class="sourceLine" id="cb1235-11" data-line-number="11"><span class="co">#&#39; \item{hardware_units_sold}{The amount of hardware units sold}</span></a>
-<a class="sourceLine" id="cb1235-12" data-line-number="12"><span class="co">#&#39; \item{comment_hardware}{Comment accompanying the amount of hardware units sold}</span></a>
-<a class="sourceLine" id="cb1235-13" data-line-number="13"><span class="co">#&#39; \item{estimated_gross_revenue}{Estimated gross revenue in US$ with 2019 inflation}</span></a>
-<a class="sourceLine" id="cb1235-14" data-line-number="14"><span class="co">#&#39; \item{comment_revenue}{Comment accompanying the amount of hardware units sold}</span></a>
-<a class="sourceLine" id="cb1235-15" data-line-number="15"><span class="co">#&#39; }</span></a>
-<a class="sourceLine" id="cb1235-16" data-line-number="16"><span class="st">&quot;arcade&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb1256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1256-1"><a href="package-development.html#cb1256-1"></a><span class="co">#&#39; List of highest-grossing games</span></span>
+<span id="cb1256-2"><a href="package-development.html#cb1256-2"></a><span class="co">#&#39;</span></span>
+<span id="cb1256-3"><a href="package-development.html#cb1256-3"></a><span class="co">#&#39; Source: https://en.wikipedia.org/wiki/Arcade_game#List_of_highest-grossing_games</span></span>
+<span id="cb1256-4"><a href="package-development.html#cb1256-4"></a><span class="co">#&#39;</span></span>
+<span id="cb1256-5"><a href="package-development.html#cb1256-5"></a><span class="co">#&#39; @format A data frame with 6 variables: \code{game}, \code{release_year},</span></span>
+<span id="cb1256-6"><a href="package-development.html#cb1256-6"></a><span class="co">#&#39;   \code{hardware_units_sold}, \code{comment_hardware}, \code{estimated_gross_revenue}, </span></span>
+<span id="cb1256-7"><a href="package-development.html#cb1256-7"></a><span class="co">#&#39;   \code{comment_revenue}</span></span>
+<span id="cb1256-8"><a href="package-development.html#cb1256-8"></a><span class="co">#&#39; \describe{</span></span>
+<span id="cb1256-9"><a href="package-development.html#cb1256-9"></a><span class="co">#&#39; \item{game}{The name of the game}</span></span>
+<span id="cb1256-10"><a href="package-development.html#cb1256-10"></a><span class="co">#&#39; \item{release_year}{The year the game was released}</span></span>
+<span id="cb1256-11"><a href="package-development.html#cb1256-11"></a><span class="co">#&#39; \item{hardware_units_sold}{The amount of hardware units sold}</span></span>
+<span id="cb1256-12"><a href="package-development.html#cb1256-12"></a><span class="co">#&#39; \item{comment_hardware}{Comment accompanying the amount of hardware units sold}</span></span>
+<span id="cb1256-13"><a href="package-development.html#cb1256-13"></a><span class="co">#&#39; \item{estimated_gross_revenue}{Estimated gross revenue in US$ with 2019 inflation}</span></span>
+<span id="cb1256-14"><a href="package-development.html#cb1256-14"></a><span class="co">#&#39; \item{comment_revenue}{Comment accompanying the amount of hardware units sold}</span></span>
+<span id="cb1256-15"><a href="package-development.html#cb1256-15"></a><span class="co">#&#39; }</span></span>
+<span id="cb1256-16"><a href="package-development.html#cb1256-16"></a><span class="st">&quot;arcade&quot;</span></span></code></pre></div>
 <p>Basically this is a description of the data, and the name with which the user will invoke the data. To
 conclude this part, remember the <code>data-raw</code> folder? If you used a script to scrape/get the data
 from somewhere, or if you had to write code to prepare the data to make it fit for sharing, this
 is where you can put that script. I have written such a script, I will discuss it in the next
 chapter, where I’ll show you how to scrape data from the internet.</p>
 </div>
-<div id="adding-functions-to-your-package" class="section level2">
+<div id="adding-functions-to-your-package" class="section level2" number="8.4">
 <h2><span class="header-section-number">8.4</span> Adding functions to your package</h2>
 <p>Functions will be added inside the <code>R</code> package. In there, you will find the <code>hello.R</code> file. You can
 edit this file if you kept it or you can create a new script. This script can hold one function, or
 several functions.
 Let’s start with the simplest case; one function inside one script.</p>
-<div id="one-function-inside-one-script" class="section level3">
+<div id="one-function-inside-one-script" class="section level3" number="8.4.1">
 <h3><span class="header-section-number">8.4.1</span> One function inside one script</h3>
 <p>Create a new R script, or edit the <code>hello.R</code> file, and add in the following code:</p>
-<div class="sourceCode" id="cb1236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1236-1" data-line-number="1"><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></a>
-<a class="sourceLine" id="cb1236-2" data-line-number="2"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
-<a class="sourceLine" id="cb1236-3" data-line-number="3"><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></a>
-<a class="sourceLine" id="cb1236-4" data-line-number="4"><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></a>
-<a class="sourceLine" id="cb1236-5" data-line-number="5"><span class="co">#&#39; you can add these columns.</span></a>
-<a class="sourceLine" id="cb1236-6" data-line-number="6"><span class="co">#&#39; @import dplyr</span></a>
-<a class="sourceLine" id="cb1236-7" data-line-number="7"><span class="co">#&#39; @importFrom tidyr gather</span></a>
-<a class="sourceLine" id="cb1236-8" data-line-number="8"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb1236-9" data-line-number="9"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb1236-10" data-line-number="10"><span class="co">#&#39; \dontrun{</span></a>
-<a class="sourceLine" id="cb1236-11" data-line-number="11"><span class="co">#&#39; describe(dataset)</span></a>
-<a class="sourceLine" id="cb1236-12" data-line-number="12"><span class="co">#&#39; describe(dataset, col1, col2)</span></a>
-<a class="sourceLine" id="cb1236-13" data-line-number="13"><span class="co">#&#39; }</span></a>
-<a class="sourceLine" id="cb1236-14" data-line-number="14">describe_numeric &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...){</a>
-<a class="sourceLine" id="cb1236-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb1236-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a>
-<a class="sourceLine" id="cb1236-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1236-18" data-line-number="18">    df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1236-19" data-line-number="19"><span class="st">        </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1236-20" data-line-number="20"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1236-21" data-line-number="21"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1236-22" data-line-number="22"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-23" data-line-number="23">                           <span class="dt">sd =</span> <span class="op">~</span><span class="kw">sd</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-24" data-line-number="24">                           <span class="dt">nobs =</span> <span class="op">~</span><span class="kw">length</span>(.),</a>
-<a class="sourceLine" id="cb1236-25" data-line-number="25">                           <span class="dt">min =</span> <span class="op">~</span><span class="kw">min</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-26" data-line-number="26">                           <span class="dt">max =</span> <span class="op">~</span><span class="kw">max</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-27" data-line-number="27">                           <span class="dt">q05 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.05</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-28" data-line-number="28">                           <span class="dt">q25 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.25</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-29" data-line-number="29">                           <span class="dt">mode =</span> <span class="op">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-30" data-line-number="30">                           <span class="dt">median =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.5</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-31" data-line-number="31">                           <span class="dt">q75 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.75</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-32" data-line-number="32">                           <span class="dt">q95 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.95</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1236-33" data-line-number="33">                           <span class="dt">n_missing =</span> <span class="op">~</span><span class="kw">sum</span>(<span class="kw">is.na</span>(.)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1236-34" data-line-number="34"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;Numeric&quot;</span>)</a>
-<a class="sourceLine" id="cb1236-35" data-line-number="35">}</a></code></pre></div>
+<div class="sourceCode" id="cb1257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1257-1"><a href="package-development.html#cb1257-1"></a><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></span>
+<span id="cb1257-2"><a href="package-development.html#cb1257-2"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
+<span id="cb1257-3"><a href="package-development.html#cb1257-3"></a><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></span>
+<span id="cb1257-4"><a href="package-development.html#cb1257-4"></a><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></span>
+<span id="cb1257-5"><a href="package-development.html#cb1257-5"></a><span class="co">#&#39; you can add these columns.</span></span>
+<span id="cb1257-6"><a href="package-development.html#cb1257-6"></a><span class="co">#&#39; @import dplyr</span></span>
+<span id="cb1257-7"><a href="package-development.html#cb1257-7"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
+<span id="cb1257-8"><a href="package-development.html#cb1257-8"></a><span class="co">#&#39; @export</span></span>
+<span id="cb1257-9"><a href="package-development.html#cb1257-9"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb1257-10"><a href="package-development.html#cb1257-10"></a><span class="co">#&#39; \dontrun{</span></span>
+<span id="cb1257-11"><a href="package-development.html#cb1257-11"></a><span class="co">#&#39; describe(dataset)</span></span>
+<span id="cb1257-12"><a href="package-development.html#cb1257-12"></a><span class="co">#&#39; describe(dataset, col1, col2)</span></span>
+<span id="cb1257-13"><a href="package-development.html#cb1257-13"></a><span class="co">#&#39; }</span></span>
+<span id="cb1257-14"><a href="package-development.html#cb1257-14"></a>describe_numeric &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...){</span>
+<span id="cb1257-15"><a href="package-development.html#cb1257-15"></a></span>
+<span id="cb1257-16"><a href="package-development.html#cb1257-16"></a>    <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</span>
+<span id="cb1257-17"><a href="package-development.html#cb1257-17"></a></span>
+<span id="cb1257-18"><a href="package-development.html#cb1257-18"></a>    df <span class="op">%&gt;%</span></span>
+<span id="cb1257-19"><a href="package-development.html#cb1257-19"></a><span class="st">        </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></span>
+<span id="cb1257-20"><a href="package-development.html#cb1257-20"></a><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></span>
+<span id="cb1257-21"><a href="package-development.html#cb1257-21"></a><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></span>
+<span id="cb1257-22"><a href="package-development.html#cb1257-22"></a><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-23"><a href="package-development.html#cb1257-23"></a>                           <span class="dt">sd =</span> <span class="op">~</span><span class="kw">sd</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-24"><a href="package-development.html#cb1257-24"></a>                           <span class="dt">nobs =</span> <span class="op">~</span><span class="kw">length</span>(.),</span>
+<span id="cb1257-25"><a href="package-development.html#cb1257-25"></a>                           <span class="dt">min =</span> <span class="op">~</span><span class="kw">min</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-26"><a href="package-development.html#cb1257-26"></a>                           <span class="dt">max =</span> <span class="op">~</span><span class="kw">max</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-27"><a href="package-development.html#cb1257-27"></a>                           <span class="dt">q05 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.05</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-28"><a href="package-development.html#cb1257-28"></a>                           <span class="dt">q25 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.25</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-29"><a href="package-development.html#cb1257-29"></a>                           <span class="dt">mode =</span> <span class="op">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-30"><a href="package-development.html#cb1257-30"></a>                           <span class="dt">median =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.5</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-31"><a href="package-development.html#cb1257-31"></a>                           <span class="dt">q75 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.75</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-32"><a href="package-development.html#cb1257-32"></a>                           <span class="dt">q95 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.95</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1257-33"><a href="package-development.html#cb1257-33"></a>                           <span class="dt">n_missing =</span> <span class="op">~</span><span class="kw">sum</span>(<span class="kw">is.na</span>(.)))) <span class="op">%&gt;%</span></span>
+<span id="cb1257-34"><a href="package-development.html#cb1257-34"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;Numeric&quot;</span>)</span>
+<span id="cb1257-35"><a href="package-development.html#cb1257-35"></a>}</span></code></pre></div>
 <p>Save the script under the name <code>describe.R</code>.</p>
 <p>This function shows you pretty much you need to know when writing functions for packages. First,
 there’s the comment lines, that start with <code>#'</code> and not with <code>#</code>. These lines will be converted
@@ -607,7 +648,7 @@ not want these examples to run when building the package.</li>
 <p>As explained before, if the function depends on function from other packages, then <code>@import</code> or
 <code>@importFrom</code> must be used. But it is also possible to use the <code>package::function()</code> syntax like
 I did on the following line:</p>
-<div class="sourceCode" id="cb1237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1237-1" data-line-number="1">mode =<span class="st"> </span><span class="er">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a></code></pre></div>
+<div class="sourceCode" id="cb1258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1258-1"><a href="package-development.html#cb1258-1"></a>mode =<span class="st"> </span><span class="er">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span></code></pre></div>
 <p>This function uses the <code>sample_mode()</code> function from my <code>{brotools}</code> package. Since it is the only
 function that I am using, I don’t import the whole package with <code>@import</code>. I could have done the
 same for <code>gather()</code> from <code>{tidyr}</code> instead of using <code>@importFrom</code>, but I wanted to showcase
@@ -615,7 +656,7 @@ same for <code>gather()</code> from <code>{tidyr}</code> instead of using <code>
 <pre><code>@importFrom package function_1 function_2 function_3</code></pre>
 <p>By the way, if you want to install my package, which contains some useful functions I use a lot,
 you can install it with the following command line:</p>
-<div class="sourceCode" id="cb1239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1239-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;b-rodrigues/brotools&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1260-1"><a href="package-development.html#cb1260-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;b-rodrigues/brotools&quot;</span>)</span></code></pre></div>
 <p>if not, you can simple comment or remove the lines in the function that call this function.</p>
 <p>Now comes the function itself. The function is written in pretty much the same way as usual, but
 there are some particularities. First of all, the second argument of the function is the <code>...</code>, which
@@ -624,98 +665,98 @@ summarise only these columns, instead of all of them, which is the default behav
 I cannot know how many columns the user wants to summarize beforehand, and also because I do not
 want to limit the user to 2 or 3 columns, I use the <code>...</code>.
 But what if the user wants to summarize all the columns? This is taken care of in this line:</p>
-<div class="sourceCode" id="cb1240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1240-1" data-line-number="1">  <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a></code></pre></div>
+<div class="sourceCode" id="cb1261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1261-1"><a href="package-development.html#cb1261-1"></a>  <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</span></code></pre></div>
 <p><code>nargs()</code> counts the number of arguments of the function. If the user calls the function like so:</p>
-<div class="sourceCode" id="cb1241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1241-1" data-line-number="1"><span class="kw">describe_numeric</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb1262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1262-1"><a href="package-development.html#cb1262-1"></a><span class="kw">describe_numeric</span>(mtcars)</span></code></pre></div>
 <p><code>nargs()</code> will return 1. If, instead, the user calls the function with one or more columns:</p>
-<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1242-1" data-line-number="1"><span class="kw">describe_numeric</span>(mtcars, hp, mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb1263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1263-1"><a href="package-development.html#cb1263-1"></a><span class="kw">describe_numeric</span>(mtcars, hp, mpg)</span></code></pre></div>
 <p>then <code>nargs()</code> will return 2 (in this case). And does, this piece of code will be executed:</p>
-<div class="sourceCode" id="cb1243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1243-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a></code></pre></div>
+<div class="sourceCode" id="cb1264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1264-1"><a href="package-development.html#cb1264-1"></a>df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</span></code></pre></div>
 <p>which selects the columns <code>hp</code> and <code>mpg</code> from the <code>mtcars</code> dataset. This reduced data set is then
 the one that is being summarized.</p>
 </div>
-<div id="many-functions-inside-a-script" class="section level3">
+<div id="many-functions-inside-a-script" class="section level3" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> Many functions inside a script</h3>
 <p>If you need to add more functions, you can add more in the same
 script, or create one script per function. The advantage of writing more than one function per
 script is that you can keep functions that are conceptually similar in the same place. For instance,
 if you want to add a function called <code>describe_character()</code> to your package, adding it to the same
 script where <code>describe_numeric()</code> is might be a good idea, so let’s do just that:</p>
-<div class="sourceCode" id="cb1244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1244-1" data-line-number="1"><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></a>
-<a class="sourceLine" id="cb1244-2" data-line-number="2"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
-<a class="sourceLine" id="cb1244-3" data-line-number="3"><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></a>
-<a class="sourceLine" id="cb1244-4" data-line-number="4"><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></a>
-<a class="sourceLine" id="cb1244-5" data-line-number="5"><span class="co">#&#39; you can add these columns.</span></a>
-<a class="sourceLine" id="cb1244-6" data-line-number="6"><span class="co">#&#39; @import dplyr</span></a>
-<a class="sourceLine" id="cb1244-7" data-line-number="7"><span class="co">#&#39; @importFrom tidyr gather</span></a>
-<a class="sourceLine" id="cb1244-8" data-line-number="8"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb1244-9" data-line-number="9"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb1244-10" data-line-number="10"><span class="co">#&#39; \dontrun{</span></a>
-<a class="sourceLine" id="cb1244-11" data-line-number="11"><span class="co">#&#39; describe(dataset)</span></a>
-<a class="sourceLine" id="cb1244-12" data-line-number="12"><span class="co">#&#39; describe(dataset, col1, col2)</span></a>
-<a class="sourceLine" id="cb1244-13" data-line-number="13"><span class="co">#&#39; }</span></a>
-<a class="sourceLine" id="cb1244-14" data-line-number="14">describe_numeric &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...){</a>
-<a class="sourceLine" id="cb1244-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb1244-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</a>
-<a class="sourceLine" id="cb1244-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1244-18" data-line-number="18">    df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-19" data-line-number="19"><span class="st">        </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-20" data-line-number="20"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-21" data-line-number="21"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-22" data-line-number="22"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-23" data-line-number="23">                           <span class="dt">sd =</span> <span class="op">~</span><span class="kw">sd</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-24" data-line-number="24">                           <span class="dt">nobs =</span> <span class="op">~</span><span class="kw">length</span>(.),</a>
-<a class="sourceLine" id="cb1244-25" data-line-number="25">                           <span class="dt">min =</span> <span class="op">~</span><span class="kw">min</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-26" data-line-number="26">                           <span class="dt">max =</span> <span class="op">~</span><span class="kw">max</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-27" data-line-number="27">                           <span class="dt">q05 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.05</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-28" data-line-number="28">                           <span class="dt">q25 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.25</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-29" data-line-number="29">                           <span class="dt">mode =</span> <span class="op">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-30" data-line-number="30">                           <span class="dt">median =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.5</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-31" data-line-number="31">                           <span class="dt">q75 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.75</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-32" data-line-number="32">                           <span class="dt">q95 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.95</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-33" data-line-number="33">                           <span class="dt">n_missing =</span> <span class="op">~</span><span class="kw">sum</span>(<span class="kw">is.na</span>(.)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-34" data-line-number="34"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;Numeric&quot;</span>)</a>
-<a class="sourceLine" id="cb1244-35" data-line-number="35">}</a>
-<a class="sourceLine" id="cb1244-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb1244-37" data-line-number="37"><span class="co">#&#39; Compute descriptive statistics for the character or factor columns of a data frame.</span></a>
-<a class="sourceLine" id="cb1244-38" data-line-number="38"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
-<a class="sourceLine" id="cb1244-39" data-line-number="39"><span class="co">#&#39; @return A data frame with a description of the character or factor columns.</span></a>
-<a class="sourceLine" id="cb1244-40" data-line-number="40"><span class="co">#&#39; @import dplyr</span></a>
-<a class="sourceLine" id="cb1244-41" data-line-number="41"><span class="co">#&#39; @importFrom tidyr gather</span></a>
-<a class="sourceLine" id="cb1244-42" data-line-number="42">describe_character_or_factors &lt;-<span class="st"> </span><span class="cf">function</span>(df, type){</a>
-<a class="sourceLine" id="cb1244-43" data-line-number="43">    df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-44" data-line-number="44"><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-45" data-line-number="45"><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-46" data-line-number="46"><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(<span class="dt">mode =</span> brotools<span class="op">::</span><span class="kw">sample_mode</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1244-47" data-line-number="47">                           <span class="dt">nobs =</span> <span class="kw">length</span>(value),</a>
-<a class="sourceLine" id="cb1244-48" data-line-number="48">                           <span class="dt">n_missing =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(value)),</a>
-<a class="sourceLine" id="cb1244-49" data-line-number="49">                           <span class="dt">n_unique =</span> <span class="kw">length</span>(<span class="kw">unique</span>(value)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-50" data-line-number="50"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> type)</a>
-<a class="sourceLine" id="cb1244-51" data-line-number="51">}</a>
-<a class="sourceLine" id="cb1244-52" data-line-number="52"></a>
-<a class="sourceLine" id="cb1244-53" data-line-number="53"><span class="co">#&#39; Compute descriptive statistics for the character columns of a data frame.</span></a>
-<a class="sourceLine" id="cb1244-54" data-line-number="54"><span class="co">#&#39; @param df The data frame to summarise.</span></a>
-<a class="sourceLine" id="cb1244-55" data-line-number="55"><span class="co">#&#39; @return A data frame with a description of the character columns.</span></a>
-<a class="sourceLine" id="cb1244-56" data-line-number="56"><span class="co">#&#39; @import dplyr</span></a>
-<a class="sourceLine" id="cb1244-57" data-line-number="57"><span class="co">#&#39; @importFrom tidyr gather</span></a>
-<a class="sourceLine" id="cb1244-58" data-line-number="58"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb1244-59" data-line-number="59"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb1244-60" data-line-number="60"><span class="co">#&#39; \dontrun{</span></a>
-<a class="sourceLine" id="cb1244-61" data-line-number="61"><span class="co">#&#39; describe(dataset)</span></a>
-<a class="sourceLine" id="cb1244-62" data-line-number="62"><span class="co">#&#39; }</span></a>
-<a class="sourceLine" id="cb1244-63" data-line-number="63">describe_character &lt;-<span class="st"> </span><span class="cf">function</span>(df){</a>
-<a class="sourceLine" id="cb1244-64" data-line-number="64">    df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-65" data-line-number="65"><span class="st">        </span><span class="kw">select_if</span>(is.character) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1244-66" data-line-number="66"><span class="st">        </span><span class="kw">describe_character_or_factors</span>(<span class="dt">type =</span> <span class="st">&quot;Character&quot;</span>)</a>
-<a class="sourceLine" id="cb1244-67" data-line-number="67">}</a></code></pre></div>
+<div class="sourceCode" id="cb1265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1265-1"><a href="package-development.html#cb1265-1"></a><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></span>
+<span id="cb1265-2"><a href="package-development.html#cb1265-2"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
+<span id="cb1265-3"><a href="package-development.html#cb1265-3"></a><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></span>
+<span id="cb1265-4"><a href="package-development.html#cb1265-4"></a><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></span>
+<span id="cb1265-5"><a href="package-development.html#cb1265-5"></a><span class="co">#&#39; you can add these columns.</span></span>
+<span id="cb1265-6"><a href="package-development.html#cb1265-6"></a><span class="co">#&#39; @import dplyr</span></span>
+<span id="cb1265-7"><a href="package-development.html#cb1265-7"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
+<span id="cb1265-8"><a href="package-development.html#cb1265-8"></a><span class="co">#&#39; @export</span></span>
+<span id="cb1265-9"><a href="package-development.html#cb1265-9"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb1265-10"><a href="package-development.html#cb1265-10"></a><span class="co">#&#39; \dontrun{</span></span>
+<span id="cb1265-11"><a href="package-development.html#cb1265-11"></a><span class="co">#&#39; describe(dataset)</span></span>
+<span id="cb1265-12"><a href="package-development.html#cb1265-12"></a><span class="co">#&#39; describe(dataset, col1, col2)</span></span>
+<span id="cb1265-13"><a href="package-development.html#cb1265-13"></a><span class="co">#&#39; }</span></span>
+<span id="cb1265-14"><a href="package-development.html#cb1265-14"></a>describe_numeric &lt;-<span class="st"> </span><span class="cf">function</span>(df, ...){</span>
+<span id="cb1265-15"><a href="package-development.html#cb1265-15"></a></span>
+<span id="cb1265-16"><a href="package-development.html#cb1265-16"></a>    <span class="cf">if</span> (<span class="kw">nargs</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) df &lt;-<span class="st"> </span><span class="kw">select</span>(df, ...)</span>
+<span id="cb1265-17"><a href="package-development.html#cb1265-17"></a></span>
+<span id="cb1265-18"><a href="package-development.html#cb1265-18"></a>    df <span class="op">%&gt;%</span></span>
+<span id="cb1265-19"><a href="package-development.html#cb1265-19"></a><span class="st">        </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></span>
+<span id="cb1265-20"><a href="package-development.html#cb1265-20"></a><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></span>
+<span id="cb1265-21"><a href="package-development.html#cb1265-21"></a><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></span>
+<span id="cb1265-22"><a href="package-development.html#cb1265-22"></a><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="kw">mean</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-23"><a href="package-development.html#cb1265-23"></a>                           <span class="dt">sd =</span> <span class="op">~</span><span class="kw">sd</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-24"><a href="package-development.html#cb1265-24"></a>                           <span class="dt">nobs =</span> <span class="op">~</span><span class="kw">length</span>(.),</span>
+<span id="cb1265-25"><a href="package-development.html#cb1265-25"></a>                           <span class="dt">min =</span> <span class="op">~</span><span class="kw">min</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-26"><a href="package-development.html#cb1265-26"></a>                           <span class="dt">max =</span> <span class="op">~</span><span class="kw">max</span>(., <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-27"><a href="package-development.html#cb1265-27"></a>                           <span class="dt">q05 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.05</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-28"><a href="package-development.html#cb1265-28"></a>                           <span class="dt">q25 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.25</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-29"><a href="package-development.html#cb1265-29"></a>                           <span class="dt">mode =</span> <span class="op">~</span><span class="kw">as.character</span>(brotools<span class="op">::</span><span class="kw">sample_mode</span>(.), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-30"><a href="package-development.html#cb1265-30"></a>                           <span class="dt">median =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.5</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-31"><a href="package-development.html#cb1265-31"></a>                           <span class="dt">q75 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.75</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-32"><a href="package-development.html#cb1265-32"></a>                           <span class="dt">q95 =</span> <span class="op">~</span><span class="kw">quantile</span>(., <span class="fl">0.95</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-33"><a href="package-development.html#cb1265-33"></a>                           <span class="dt">n_missing =</span> <span class="op">~</span><span class="kw">sum</span>(<span class="kw">is.na</span>(.)))) <span class="op">%&gt;%</span></span>
+<span id="cb1265-34"><a href="package-development.html#cb1265-34"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;Numeric&quot;</span>)</span>
+<span id="cb1265-35"><a href="package-development.html#cb1265-35"></a>}</span>
+<span id="cb1265-36"><a href="package-development.html#cb1265-36"></a></span>
+<span id="cb1265-37"><a href="package-development.html#cb1265-37"></a><span class="co">#&#39; Compute descriptive statistics for the character or factor columns of a data frame.</span></span>
+<span id="cb1265-38"><a href="package-development.html#cb1265-38"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
+<span id="cb1265-39"><a href="package-development.html#cb1265-39"></a><span class="co">#&#39; @return A data frame with a description of the character or factor columns.</span></span>
+<span id="cb1265-40"><a href="package-development.html#cb1265-40"></a><span class="co">#&#39; @import dplyr</span></span>
+<span id="cb1265-41"><a href="package-development.html#cb1265-41"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
+<span id="cb1265-42"><a href="package-development.html#cb1265-42"></a>describe_character_or_factors &lt;-<span class="st"> </span><span class="cf">function</span>(df, type){</span>
+<span id="cb1265-43"><a href="package-development.html#cb1265-43"></a>    df <span class="op">%&gt;%</span></span>
+<span id="cb1265-44"><a href="package-development.html#cb1265-44"></a><span class="st">        </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span></span>
+<span id="cb1265-45"><a href="package-development.html#cb1265-45"></a><span class="st">        </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></span>
+<span id="cb1265-46"><a href="package-development.html#cb1265-46"></a><span class="st">        </span><span class="kw">summarise_all</span>(<span class="kw">funs</span>(<span class="dt">mode =</span> brotools<span class="op">::</span><span class="kw">sample_mode</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb1265-47"><a href="package-development.html#cb1265-47"></a>                           <span class="dt">nobs =</span> <span class="kw">length</span>(value),</span>
+<span id="cb1265-48"><a href="package-development.html#cb1265-48"></a>                           <span class="dt">n_missing =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(value)),</span>
+<span id="cb1265-49"><a href="package-development.html#cb1265-49"></a>                           <span class="dt">n_unique =</span> <span class="kw">length</span>(<span class="kw">unique</span>(value)))) <span class="op">%&gt;%</span></span>
+<span id="cb1265-50"><a href="package-development.html#cb1265-50"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">type =</span> type)</span>
+<span id="cb1265-51"><a href="package-development.html#cb1265-51"></a>}</span>
+<span id="cb1265-52"><a href="package-development.html#cb1265-52"></a></span>
+<span id="cb1265-53"><a href="package-development.html#cb1265-53"></a><span class="co">#&#39; Compute descriptive statistics for the character columns of a data frame.</span></span>
+<span id="cb1265-54"><a href="package-development.html#cb1265-54"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
+<span id="cb1265-55"><a href="package-development.html#cb1265-55"></a><span class="co">#&#39; @return A data frame with a description of the character columns.</span></span>
+<span id="cb1265-56"><a href="package-development.html#cb1265-56"></a><span class="co">#&#39; @import dplyr</span></span>
+<span id="cb1265-57"><a href="package-development.html#cb1265-57"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
+<span id="cb1265-58"><a href="package-development.html#cb1265-58"></a><span class="co">#&#39; @export</span></span>
+<span id="cb1265-59"><a href="package-development.html#cb1265-59"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb1265-60"><a href="package-development.html#cb1265-60"></a><span class="co">#&#39; \dontrun{</span></span>
+<span id="cb1265-61"><a href="package-development.html#cb1265-61"></a><span class="co">#&#39; describe(dataset)</span></span>
+<span id="cb1265-62"><a href="package-development.html#cb1265-62"></a><span class="co">#&#39; }</span></span>
+<span id="cb1265-63"><a href="package-development.html#cb1265-63"></a>describe_character &lt;-<span class="st"> </span><span class="cf">function</span>(df){</span>
+<span id="cb1265-64"><a href="package-development.html#cb1265-64"></a>    df <span class="op">%&gt;%</span></span>
+<span id="cb1265-65"><a href="package-development.html#cb1265-65"></a><span class="st">        </span><span class="kw">select_if</span>(is.character) <span class="op">%&gt;%</span></span>
+<span id="cb1265-66"><a href="package-development.html#cb1265-66"></a><span class="st">        </span><span class="kw">describe_character_or_factors</span>(<span class="dt">type =</span> <span class="st">&quot;Character&quot;</span>)</span>
+<span id="cb1265-67"><a href="package-development.html#cb1265-67"></a>}</span></code></pre></div>
 <p>Let’s now continue on to the next section, where we will learn to document the package.</p>
 </div>
 </div>
-<div id="documenting-your-package" class="section level2">
+<div id="documenting-your-package" class="section level2" number="8.5">
 <h2><span class="header-section-number">8.5</span> Documenting your package</h2>
 <p>There are several files that you must edit to fully document the package; for now, only the functions
 are documented. The first of these files is the <code>DESCRIPTION</code> file.</p>
-<div id="description" class="section level3">
+<div id="description" class="section level3" number="8.5.1">
 <h3><span class="header-section-number">8.5.1</span> Description</h3>
 <p>By default, the <code>DESCRIPTION</code> file, which you can find in the root of your package project, contains
 the following lines:</p>
@@ -744,11 +785,11 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2</code></pre>
 <p>The <code>Author</code> and <code>Maintainer</code> need some further explanations; I have added Harold Zurcher as
-the athor and creator, with the <code>role = c(&quot;aut&quot;, &quot;cre&quot;)</code> bit. <code>&quot;cre&quot;</code> can also be used for
+the athor and creator, with the <code>role = c("aut", "cre")</code> bit. <code>"cre"</code> can also be used for
 maintainer, so I removed the <code>Maintainer</code> line.</p>
 </div>
 </div>
-<div id="unit-testing-your-package" class="section level2">
+<div id="unit-testing-your-package" class="section level2" number="8.6">
 <h2><span class="header-section-number">8.6</span> Unit testing your package</h2>
 
 </div>
@@ -756,13 +797,13 @@ maintainer, so I removed the <code>Maintainer</code> line.</p>
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-wickham2015">
-<p>Wickham, Hadley. 2015. <em>R Packages</em>. 1st ed. O’Reilly. <a href="http://r-pkgs.had.co.nz/" class="uri">http://r-pkgs.had.co.nz/</a>.</p>
+<p>Wickham, Hadley. 2015. <em>R Packages</em>. 1st ed. O’Reilly. <a href="http://r-pkgs.had.co.nz/">http://r-pkgs.had.co.nz/</a>.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="9">
-<li id="fn9"><p>If you know who Harold Zurcher is, you da real MVP<a href="package-development.html#fnref9" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p>If you know who Harold Zurcher is, you da real MVP<a href="package-development.html#fnref9" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
