@@ -25,7 +25,7 @@ resources that I keep coming back to:
 
 * [Tufte in R](http://motioninsocial.com/tufte/)
 
-* [ggplot2 extensions](http://www.ggplot2-exts.org/gallery/)
+* [ggplot2 extensions](https://exts.ggplot2.tidyverse.org/)
 
 * [ggthemes Vignette](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html)
 
