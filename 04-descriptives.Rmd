@@ -1435,7 +1435,7 @@ Ok great. But now I want to create this plot for each `id`... so I have to copy 
 But copy-pasting is error prone. So there are two alternatives; I either write a function that
 takes as argument the data and the `id` I want to plot and run it for each `id` (we will learn to
 do this in Chapter 8), or I can use `tidyr::nest()`, combined with `purrr::map()`. `{purrr}` is
-another very useful `{tidevyrse}` package, and we are going to learn about it in Chapter 9. Again,
+another very useful `{tidyverse}` package, and we are going to learn about it in Chapter 8. Again,
 just follow along for now:
 
 ```{r}
@@ -1448,14 +1448,14 @@ my_plots <- nested_survey_data %>%
 ```
 
 This is some very advanced stuff, and again, do not worry if you don't understand everything now.
-We are going to learn about this in detail in Chapter 9. Let's go through each line.
-In the first line, I have started from my clean data `nested_survey_data` and then, using the `%>%`
+We are going to learn about this in detail in Chapter 8. Let's go through each line.
+In the first line, I have started from my clean data `nested_survey_data` and then, using `%>%`
 and `mutate()` I create a new column called `plot`. Inside the `mutate()` function, I called `map2`.
 `map2` is a `{purrr}` function that takes three inputs: `.x`, `.y` and a function. `.x` is the `id`
 column from my data, and `.y` is the `data` column from `nested_survey_data`. The function is the
 ggplot I created before. Think of `map2()` has a loop over two lists, all while applying a function.
 
-The following illustration, taken from @vaudor_purrr_2018 by
+The following illustration (used with permission), taken from @vaudor_purrr_2018 by
 [Lise Vaudor](https://twitter.com/LVaudor), illustrates this perfectly:
 
 ```{r, echo=FALSE}

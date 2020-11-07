@@ -1,4 +1,4 @@
- %>% # Functional programming
+# Functional programming
 
 Functional programming is a paradigm that I find very suitable for data science. In functional
 programming, your code is organised into functions that perform the operations you need. Your scripts
