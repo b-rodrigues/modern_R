@@ -1963,7 +1963,16 @@ To import data with \texttt{\{rio\}}, \texttt{import()} is all you need:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(rio)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## The following rio suggested packages are not installed: 'csvy', 'feather', 'fst', 'hexView', 'readODS', 'rmatio'
+## Use 'install_formats()' to install them
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{mtcars \textless{}{-}}\StringTok{ }\KeywordTok{import}\NormalTok{(}\StringTok{"datasets/mtcars.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -6192,7 +6201,7 @@ Ok great. But now I want to create this plot for each \texttt{id}\ldots{} so I h
 But copy-pasting is error prone. So there are two alternatives; I either write a function that
 takes as argument the data and the \texttt{id} I~want to plot and run it for each \texttt{id} (we will learn to
 do this in Chapter 8), or I can use \texttt{tidyr::nest()}, combined with \texttt{purrr::map()}. \texttt{\{purrr\}} is
-another very useful \texttt{\{tidevyrse\}} package, and we are going to learn about it in Chapter 9. Again,
+another very useful \texttt{\{tidyverse\}} package, and we are going to learn about it in Chapter 8. Again,
 just follow along for now:
 
 \begin{Shaded}
@@ -6207,14 +6216,14 @@ just follow along for now:
 \end{Shaded}
 
 This is some very advanced stuff, and again, do not worry if you don't understand everything now.
-We are going to learn about this in detail in Chapter 9. Let's go through each line.
-In the first line, I have started from my clean data \texttt{nested\_survey\_data} and then, using the \texttt{\%\textgreater{}\%}
+We are going to learn about this in detail in Chapter 8. Let's go through each line.
+In the first line, I have started from my clean data \texttt{nested\_survey\_data} and then, using \texttt{\%\textgreater{}\%}
 and \texttt{mutate()} I create a new column called \texttt{plot}. Inside the \texttt{mutate()} function, I called \texttt{map2}.
 \texttt{map2} is a \texttt{\{purrr\}} function that takes three inputs: \texttt{.x}, \texttt{.y} and a function. \texttt{.x} is the \texttt{id}
 column from my data, and \texttt{.y} is the \texttt{data} column from \texttt{nested\_survey\_data}. The function is the
 ggplot I created before. Think of \texttt{map2()} has a loop over two lists, all while applying a function.
 
-The following illustration, taken from \citet{vaudor_purrr_2018} by
+The following illustration (used with permission), taken from \citet{vaudor_purrr_2018} by
 \href{https://twitter.com/LVaudor}{Lise Vaudor}, illustrates this perfectly:
 
 \includegraphics{assets/purrr3.png}
@@ -6308,6 +6317,19 @@ that:
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{across}\NormalTok{(is.numeric, }\OperatorTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\DataTypeTok{\textgreater{}}\StringTok{\textasciigrave{}}\NormalTok{(., }\DecValTok{{-}8}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Warning: Predicate functions must be wrapped in `where()`.
+## 
+##   # Bad
+##   data %>% select(is.numeric)
+## 
+##   # Good
+##   data %>% select(where(is.numeric))
+## 
+## i Please update your code.
+## This message is displayed once per session.
+\end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 30 x 6
@@ -6679,6 +6701,19 @@ This now allows me to group by type of columns for instance:
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{mean}\NormalTok{(lincomep))}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Warning: Predicate functions must be wrapped in `where()`.
+## 
+##   # Bad
+##   data %>% select(is.character)
+## 
+##   # Good
+##   data %>% select(where(is.character))
+## 
+## i Please update your code.
+## This message is displayed once per session.
+\end{verbatim}
 
 \begin{verbatim}
 ## `summarise()` regrouping output by 'country' (override with `.groups` argument)
@@ -7781,7 +7816,22 @@ that this is a case that \texttt{\{lubridate\}} handles painfully:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{independence \textless{}{-}}\StringTok{ }\NormalTok{independence }\OperatorTok{\%\textgreater{}\%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{independence\_date =} \KeywordTok{dmy}\NormalTok{(independence\_date))}
 \end{Highlighting}
@@ -8685,6 +8735,21 @@ to a tibble first:
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(V1))}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Warning: `as.tibble()` is deprecated as of tibble 2.0.0.
+## Please use `as_tibble()` instead.
+## The signature and semantics have changed, see `?as_tibble`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: The `x` argument of `as_tibble.matrix()` must have column names if `.name_repair` is omitted as of tibble 2.0.0.
+## Using compatibility `.name_repair`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+\end{verbatim}
 
 Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
 gets automatically called \texttt{V1}. This is why I filter on this column. Let's take a look at the data:
@@ -11734,6 +11799,14 @@ You can also plot the usual diagnostics plots using \texttt{ggfortify::autoplot(
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Warning: `arrange_()` is deprecated as of dplyr 0.7.0.
+## Please use `arrange()` instead.
+## See vignette('programming') for more help
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+\end{verbatim}
+
 \includegraphics{modern_R_files/figure-latex/unnamed-chunk-484-1.pdf}
 
 \texttt{which=1:6} is an additional option that shows you all the diagnostics plot. If you omit this
@@ -12536,7 +12609,30 @@ a formula. Design matrices can be created using the \texttt{model.matrix()} func
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(}\StringTok{"glmnet"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:tidyr':
+## 
+##     expand, pack, unpack
+\end{verbatim}
+
+\begin{verbatim}
+## Loaded glmnet 4.0-2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{train\_matrix \textless{}{-}}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(train\_y }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ train\_x)}
 
 \NormalTok{test\_matrix \textless{}{-}}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(test\_y }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ test\_x)}
@@ -13839,7 +13935,7 @@ then? Try to run the following:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.005   0.000   0.005
+##   0.005   0.000   0.006
 \end{verbatim}
 
 The result should be printed very fast (the \texttt{system.time()} function returns the time that it took
@@ -13853,7 +13949,7 @@ to execute \texttt{my\_fibo(30)}). Let's try with the recursive version:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   1.259   0.000   1.260
+##   1.321   0.000   1.322
 \end{verbatim}
 
 It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
@@ -14199,6 +14295,22 @@ like this:
 \end{Shaded}
 
 \begin{verbatim}
+## Warning: `funs()` is deprecated as of dplyr 0.8.0.
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+\end{verbatim}
+
+\begin{verbatim}
 ##   am_mean cyl_mean mpg_mean     am_sd   cyl_sd   mpg_sd
 ## 1 0.40625   6.1875 20.09062 0.4989909 1.785922 6.026948
 \end{verbatim}
@@ -14345,6 +14457,13 @@ One way to solve this issue, is to not use the \texttt{filter()} function, and i
 \KeywordTok{how\_many\_na\_base}\NormalTok{(starwars, }\StringTok{"hair\_color"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Warning: The `i` argument of ``[`()` can't be a matrix as of tibble 3.0.0.
+## Convert to a vector.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+\end{verbatim}
 
 \begin{verbatim}
 ## [1] 5

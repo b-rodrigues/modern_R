@@ -3,32 +3,35 @@
 ## Why you need to write your own package
 
 One of the reasons you might have tried R in the first place is the abundance of packages. As I'm
-writing these lines (in August 2019) 14762 packages are available on CRAN (in August 2016, when 
-I first wrote the number of packages down for my first ebook, it was 8922 packages).
+writing these lines (in November 2020) 16523 packages are available on CRAN (in August 2019, there
+were 14762, and in August 2016, when I first wrote the number of packages down for my first ebook,
+it was 8922 packages).
 
 This is a staggering amount of packages and to help you look for the right ones, you can check 
 out [CRAN Task Views](https://cran.r-project.org/).
 
-You might wonder why the heck should you write your own packages? After all, with 14762 packages 
+You might wonder why the heck should you write your own packages? After all, with so many packages 
 you're sure to find something that suits your needs, right? Well, it depends. Of course, you will
 not need to write you own function to perform non-linear regression, or to train a neural network.
 But as time will go, you will start writing your own functions, functions that fit your needs, and 
 that you use daily. It may be functions that prepare and shape data that you use at work for 
 analysis. Or maybe you want to deliver an analysis to a client, with data and source code, so 
 you decide to deliver a package that contains everything (something I've already done in the 
-past).
+past). Maybe you want to develop a Shiny applications using the `{golem}` framework, which allows
+you to build apps as packages.
 
 Ok, but is it necessary to write a package? Why not just write functions inside some scripts and
-then simply run or share these scripts? This seems like a valid solution at first. However, 
-it quickly becomes tedious, especially if you have multiple scripts scattered around your computer
-or inside different subfolders. You'll also have to write the documentation on separate files and 
-these can easily get lost or become outdated. Relying on scripts does not scale well; even if you
-are not sharing your code outside of your computer (maybe you're working on super secret projects
-at NASA), you always have to think about future you. And in general, future you thinks that past you
-is an asshole, exactly because you put 0 effort in documenting, testing and making your code
-easy to use. Having everything inside a package takes care of these headaches for you, and will 
-make future you proud of past you. And if you have to share your code, or deliver to a client,
-believe me, it will make things a thousand times easier.
+then simply run or share these scripts (and in the case of Shiny, you don't have to use `{golem}`)?
+This seems like a valid solution at first. However, it quickly becomes tedious, especially if you
+have multiple scripts scattered around your computer or inside different subfolders. You'll also
+have to write the documentation on separate files and these can easily get lost or become outdated.
+Relying on scripts does not scale well; even if you are not sharing your code outside of your
+computer (maybe you're working on super secret projects at NASA), you always have to think about
+future you. And in general, future you thinks that past you is an asshole, exactly because you put
+0 effort in documenting, testing and making your code easy to use. Having everything inside a
+package takes care of these headaches for you, and will make future you proud of past you. And if
+you have to share your code, or deliver to a client, believe me, it will make things a thousand
+times easier.
 
 Code that is inside packages is very easy to document and test, especially if you're using Rstudio. 
 It also makes it possible to use the wonderful `{covr}` package, which tells you which lines in 
@@ -37,8 +40,8 @@ increase the coverage of your tests! Documenting and testing your code is very i
 you assurance that the code your writing works, but most importantly, it gives *others* assurance
 that what you wrote works. And I include future you in these *others* too.
 
-In order to share this package with these *others* we are going to use git. If you're familiar with
-git, great, you'll be able to skip some sections. If not, then buckle up, you're in for a wild ride.
+In order to share this package with these *others* we are going to use Git. If you're familiar with
+Git, great, you'll be able to skip some sections. If not, then buckle up, you're in for a wild ride.
 
 As I mentioned in the introduction, if you want to learn much more than I'll show about packages
 read @wickham2015. I will only show you the basics, but it should be enough to get you productive.
@@ -293,17 +296,17 @@ there's the comment lines, that start with `#'` and not with `#`. These lines wi
 into the function's documentation which you and your package's users will be able to read in 
 Rstudio's *Help* pane. Notice the keywords that start with `@`. These are quite important:
 
-- `@param`: used to define the function's parameters.
-- `@return`: used to define the object returned by the functiong.
-- `@import`: if the function needs functions from another package, in the present case `{dplyr}`, 
-then this is where you would define these. Separate several package with a space.
+- `@param`: used to define the function's parameters;
+- `@return`: used to define the object returned by the function;
+- `@import`: if the function needs functions from another package, in the present case `{dplyr}`;
+then this is where you would define these. Separate several package with a space;
 - `@importFrom`: if the function only needs one function from a package, define it here. Read it as
-*from tidyr import gather*, very similar to how it is done in Python.
+*from tidyr import gather*, very similar to how it is done in Python;
 - `@export`: makes the function available to the users. If you omit this, this function will not
 be available to the users and only available internally to the other functions of the package. Not
 making functions available to users can be useful if you need to write functions that are used by
 other functions but never be used by anyone directly. It is still possible to access these internal,
-private, functions by using `:::`, as in, `package:::private_function()`.
+private, functions by using `:::`, as in, `package:::private_function()`;
 - `@examples`: lists examples in the documentation. The `\dontrun{}` tag is used for when you do
 not want these examples to run when building the package.
 
@@ -324,14 +327,20 @@ same for `gather()` from `{tidyr}` instead of using `@importFrom`, but I wanted 
 @importFrom package function_1 function_2 function_3
 ```
 
-By the way, if you want to install my package, which contains some useful functions I use a lot,
-you can install it with the following command line:
+The way I'm doing this however is not optimal. If your package depends on many functions from
+other packages that are not available on CRAN, but rather on Github, you might want to do that
+in a cleaner way. The cleaner way is to add a "Remotes" field in the package's NAMESPACE (this is 
+a very important file that gets generated automatically by `devtools::document()`) I won't
+cover this here, but you can read more about it [here](https://cran.r-project.org/web/packages/devtools/vignettes/dependencies.html).
+
+Because I'm doing that in this hacky way, my `{brotools}` package should be installed:
 
 ```{r, eval=FALSE}
 devtools::install_github("b-rodrigues/brotools")
 ```
 
-if not, you can simple comment or remove the lines in the function that call this function.
+Again, I want to emphasize that this is not the best way of doing it. However, using the "REMOTES"
+field as described in the document I linked above is not complicated.
 
 Now comes the function itself. The function is written in pretty much the same way as usual, but
 there are some particularities. First of all, the second argument of the function is the `...`, which

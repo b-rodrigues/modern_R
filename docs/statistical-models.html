@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Statistical models | Modern R with the tidyverse</title>
-  <meta name="description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="description" content="This book will teach you how to use R to solve your statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Statistical models | Modern R with the tidyverse" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
+  <meta property="og:description" content="This book will teach you how to use R to solve your statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 6 Statistical models | Modern R with the tidyverse" />
   
-  <meta name="twitter:description" content="This book will teach you how to use R to solve you statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
+  <meta name="twitter:description" content="This book will teach you how to use R to solve your statistical, data science and machine learning problems. Importing data, computing descriptive statistics, running regressions (or more complex machine learning models) and generating reports are some of the topics covered. No previous experience with R is needed." />
   
 
 <meta name="author" content="Bruno Rodrigues" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="graphs.html"/>
 <link rel="next" href="defining-your-own-functions.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -52,6 +52,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -449,11 +451,11 @@ However, I will talk of <em>training</em> a model, instead of <em>estimating</em
 <h2><span class="header-section-number">6.2</span> Fitting a model to data</h2>
 <p>Suppose you have a variable <code>y</code> that you wish to explain using a set of other variables <code>x1</code>, <code>x2</code>,
 <code>x3</code>, etc. Let’s take a look at the <code>Housing</code> dataset from the <code>Ecdat</code> package:</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb775-1"><a href="statistical-models.html#cb775-1"></a><span class="kw">library</span>(Ecdat)</span>
-<span id="cb775-2"><a href="statistical-models.html#cb775-2"></a></span>
-<span id="cb775-3"><a href="statistical-models.html#cb775-3"></a><span class="kw">data</span>(Housing)</span></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="statistical-models.html#cb777-1"></a><span class="kw">library</span>(Ecdat)</span>
+<span id="cb777-2"><a href="statistical-models.html#cb777-2"></a></span>
+<span id="cb777-3"><a href="statistical-models.html#cb777-3"></a><span class="kw">data</span>(Housing)</span></code></pre></div>
 <p>You can read a description of the dataset by running:</p>
-<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="statistical-models.html#cb776-1"></a>?Housing</span></code></pre></div>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="statistical-models.html#cb778-1"></a>?Housing</span></code></pre></div>
 <pre><code>Housing                 package:Ecdat                  R Documentation
 
 Sales Prices of Houses in the City of Windsor
@@ -520,7 +522,7 @@ See Also:
      ‘Index.Observations’</code></pre>
 <p>or by looking for <code>Housing</code> in the help pane of RStudio. Usually, you would take a look a the data
 before doing any modeling:</p>
-<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="statistical-models.html#cb778-1"></a><span class="kw">glimpse</span>(Housing)</span></code></pre></div>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="statistical-models.html#cb780-1"></a><span class="kw">glimpse</span>(Housing)</span></code></pre></div>
 <pre><code>## Rows: 546
 ## Columns: 12
 ## $ price    &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69000, 8380…
@@ -539,7 +541,7 @@ before doing any modeling:</p>
 and so on. If you believe that housing prices depend linearly on a set of explanatory variables,
 you will want to estimate a linear model. To estimate a <em>linear model</em>, you will need to use the
 built-in <code>lm()</code> function:</p>
-<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="statistical-models.html#cb780-1"></a>model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>lotsize <span class="op">+</span><span class="st"> </span>bedrooms, <span class="dt">data =</span> Housing)</span></code></pre></div>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="statistical-models.html#cb782-1"></a>model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>lotsize <span class="op">+</span><span class="st"> </span>bedrooms, <span class="dt">data =</span> Housing)</span></code></pre></div>
 <p><code>lm()</code> takes a formula as an argument, which defines the model you want to estimate. In this case,
 I ran the following regression:</p>
 <p><span class="math display">\[
@@ -547,7 +549,7 @@ I ran the following regression:</p>
 \]</span></p>
 <p>where <span class="math inline">\(\beta_0, \beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> are three parameters to estimate. To take a look at the
 results, you can use the <code>summary()</code> method (not to be confused with <code>dplyr::summarise()</code>):</p>
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="statistical-models.html#cb781-1"></a><span class="kw">summary</span>(model1)</span></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="statistical-models.html#cb783-1"></a><span class="kw">summary</span>(model1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = price ~ lotsize + bedrooms, data = Housing)
@@ -569,9 +571,9 @@ results, you can use the <code>summary()</code> method (not to be confused with 
 ## F-statistic: 159.6 on 2 and 543 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>if you wish to remove the intercept (<span class="math inline">\(\beta_0\)</span> in the above equation) from your model, you can
 do so with <code>-1</code>:</p>
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="statistical-models.html#cb783-1"></a>model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span><span class="dv">-1</span> <span class="op">+</span><span class="st"> </span>lotsize <span class="op">+</span><span class="st"> </span>bedrooms, <span class="dt">data =</span> Housing)</span>
-<span id="cb783-2"><a href="statistical-models.html#cb783-2"></a></span>
-<span id="cb783-3"><a href="statistical-models.html#cb783-3"></a><span class="kw">summary</span>(model2)</span></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="statistical-models.html#cb785-1"></a>model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span><span class="dv">-1</span> <span class="op">+</span><span class="st"> </span>lotsize <span class="op">+</span><span class="st"> </span>bedrooms, <span class="dt">data =</span> Housing)</span>
+<span id="cb785-2"><a href="statistical-models.html#cb785-2"></a></span>
+<span id="cb785-3"><a href="statistical-models.html#cb785-3"></a><span class="kw">summary</span>(model2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = price ~ -1 + lotsize + bedrooms, data = Housing)
@@ -591,9 +593,9 @@ do so with <code>-1</code>:</p>
 ## Multiple R-squared:  0.916,  Adjusted R-squared:  0.9157 
 ## F-statistic:  2965 on 2 and 544 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>or if you want to use all the columns inside <code>Housing</code>, replacing the column names by <code>.</code>:</p>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="statistical-models.html#cb785-1"></a>model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)</span>
-<span id="cb785-2"><a href="statistical-models.html#cb785-2"></a></span>
-<span id="cb785-3"><a href="statistical-models.html#cb785-3"></a><span class="kw">summary</span>(model3)</span></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="statistical-models.html#cb787-1"></a>model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)</span>
+<span id="cb787-2"><a href="statistical-models.html#cb787-2"></a></span>
+<span id="cb787-3"><a href="statistical-models.html#cb787-3"></a><span class="kw">summary</span>(model3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = price ~ ., data = Housing)
@@ -623,16 +625,16 @@ do so with <code>-1</code>:</p>
 ## Multiple R-squared:  0.6731, Adjusted R-squared:  0.6664 
 ## F-statistic: 99.97 on 11 and 534 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>You can access different elements of <code>model3</code> with <code>$</code>, because the result of <code>lm()</code> is a list:</p>
-<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="statistical-models.html#cb787-1"></a><span class="kw">print</span>(model3<span class="op">$</span>coefficients)</span></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="statistical-models.html#cb789-1"></a><span class="kw">print</span>(model3<span class="op">$</span>coefficients)</span></code></pre></div>
 <pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories  drivewayyes 
 ## -4038.350425     3.546303  1832.003466 14335.558468  6556.945711  6687.778890 
 ##   recroomyes  fullbaseyes     gashwyes     aircoyes     garagepl  prefareayes 
 ##  4511.283826  5452.385539 12831.406266 12632.890405  4244.829004  9369.513239</code></pre>
 <p>but I prefer to use the <code>{broom}</code> package, and more specifically the <code>tidy()</code> function, which
 converts <code>model3</code> into a neat <code>data.frame</code>:</p>
-<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="statistical-models.html#cb789-1"></a>results3 &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model3)</span>
-<span id="cb789-2"><a href="statistical-models.html#cb789-2"></a></span>
-<span id="cb789-3"><a href="statistical-models.html#cb789-3"></a><span class="kw">glimpse</span>(results3)</span></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="statistical-models.html#cb791-1"></a>results3 &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model3)</span>
+<span id="cb791-2"><a href="statistical-models.html#cb791-2"></a></span>
+<span id="cb791-3"><a href="statistical-models.html#cb791-3"></a><span class="kw">glimpse</span>(results3)</span></code></pre></div>
 <pre><code>## Rows: 12
 ## Columns: 5
 ## $ term      &lt;chr&gt; &quot;(Intercept)&quot;, &quot;lotsize&quot;, &quot;bedrooms&quot;, &quot;bathrms&quot;, &quot;stories&quot;,…
@@ -645,8 +647,8 @@ it is also a function from the <code>{yardstick}</code> package, which does not 
 I will also be using <code>{yardstick}</code> I prefer to explicitely write <code>broom::tidy()</code> to avoid conflicts.</p>
 <p>Using <code>broom::tidy()</code> is useful, because you can then work on the results easily, for example if
 you wish to only keep results that are significant at the 5% level:</p>
-<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="statistical-models.html#cb791-1"></a>results3 <span class="op">%&gt;%</span></span>
-<span id="cb791-2"><a href="statistical-models.html#cb791-2"></a><span class="st">  </span><span class="kw">filter</span>(p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="statistical-models.html#cb793-1"></a>results3 <span class="op">%&gt;%</span></span>
+<span id="cb793-2"><a href="statistical-models.html#cb793-2"></a><span class="st">  </span><span class="kw">filter</span>(p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 5
 ##    term        estimate std.error statistic  p.value
 ##    &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -661,9 +663,9 @@ you wish to only keep results that are significant at the 5% level:</p>
 ##  9 garagepl     4245.     841.         5.05 6.07e- 7
 ## 10 prefareayes  9370.    1669.         5.61 3.19e- 8</code></pre>
 <p>You can even add new columns, such as the confidence intervals:</p>
-<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="statistical-models.html#cb793-1"></a>results3 &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model3, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb793-2"><a href="statistical-models.html#cb793-2"></a></span>
-<span id="cb793-3"><a href="statistical-models.html#cb793-3"></a><span class="kw">print</span>(results3)</span></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="statistical-models.html#cb795-1"></a>results3 &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model3, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb795-2"><a href="statistical-models.html#cb795-2"></a></span>
+<span id="cb795-3"><a href="statistical-models.html#cb795-3"></a><span class="kw">print</span>(results3)</span></code></pre></div>
 <pre><code>## # A tibble: 12 x 7
 ##    term        estimate std.error statistic  p.value  conf.low conf.high
 ##    &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -680,10 +682,10 @@ you wish to only keep results that are significant at the 5% level:</p>
 ## 11 garagepl     4245.     841.         5.05 6.07e- 7   2594.     5896.  
 ## 12 prefareayes  9370.    1669.         5.61 3.19e- 8   6091.    12648.</code></pre>
 <p>Going back to model estimation, you can of course use <code>lm()</code> in a pipe workflow:</p>
-<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="statistical-models.html#cb795-1"></a>Housing <span class="op">%&gt;%</span></span>
-<span id="cb795-2"><a href="statistical-models.html#cb795-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>driveway, <span class="op">-</span>stories) <span class="op">%&gt;%</span></span>
-<span id="cb795-3"><a href="statistical-models.html#cb795-3"></a><span class="st">  </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .) <span class="op">%&gt;%</span></span>
-<span id="cb795-4"><a href="statistical-models.html#cb795-4"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb797-1"><a href="statistical-models.html#cb797-1"></a>Housing <span class="op">%&gt;%</span></span>
+<span id="cb797-2"><a href="statistical-models.html#cb797-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>driveway, <span class="op">-</span>stories) <span class="op">%&gt;%</span></span>
+<span id="cb797-3"><a href="statistical-models.html#cb797-3"></a><span class="st">  </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .) <span class="op">%&gt;%</span></span>
+<span id="cb797-4"><a href="statistical-models.html#cb797-4"></a><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 5
 ##    term        estimate std.error statistic  p.value
 ##    &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -701,7 +703,7 @@ you wish to only keep results that are significant at the 5% level:</p>
 (minus <code>driveway</code> and <code>stories</code> which I removed using <code>select()</code> and the <code>-</code> sign), and the second <code>.</code> is
 used to <em>place</em> the result from the two <code>dplyr</code> instructions that preceded is to be placed there.
 The picture below should help you understand:</p>
-<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb797-1"><a href="statistical-models.html#cb797-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;pics/pipe_to_second_position.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb799-1"><a href="statistical-models.html#cb799-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;pics/pipe_to_second_position.png&quot;</span>)</span></code></pre></div>
 <p><img src="pics/pipe_to_second_position.png" /><!-- --></p>
 <p>You have to specify this, because by default, when using <code>%&gt;%</code> the left hand side argument gets
 passed as the first argument of the function on the right hand side.</p>
@@ -712,7 +714,7 @@ passed as the first argument of the function on the right hand side.</p>
 the <span class="math inline">\(R^2\)</span> at the bottom of the summary (when running <code>summary(my_model)</code>), but if you want to do
 more than simply reading these diagnostics from RStudio, you can put those in a <code>data.frame</code> too,
 using <code>broom::glance()</code>:</p>
-<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="statistical-models.html#cb798-1"></a><span class="kw">glance</span>(model3)</span></code></pre></div>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="statistical-models.html#cb800-1"></a><span class="kw">glance</span>(model3)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 11
 ##   r.squared adj.r.squared  sigma statistic   p.value    df logLik    AIC    BIC
 ##       &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -720,19 +722,19 @@ using <code>broom::glance()</code>:</p>
 ## # … with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
 <p>You can also plot the usual diagnostics plots using <code>ggfortify::autoplot()</code> which uses the
 <code>{ggplot2}</code> package under the hood:</p>
-<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="statistical-models.html#cb800-1"></a><span class="kw">library</span>(ggfortify)</span>
-<span id="cb800-2"><a href="statistical-models.html#cb800-2"></a></span>
-<span id="cb800-3"><a href="statistical-models.html#cb800-3"></a><span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb802-1"><a href="statistical-models.html#cb802-1"></a><span class="kw">library</span>(ggfortify)</span>
+<span id="cb802-2"><a href="statistical-models.html#cb802-2"></a></span>
+<span id="cb802-3"><a href="statistical-models.html#cb802-3"></a><span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-484-1.png" width="672" /></p>
 <p><code>which=1:6</code> is an additional option that shows you all the diagnostics plot. If you omit this
 option, you will only get 4 of them.</p>
 <p>You can also get the residuals of the regression in two ways; either you grab them directly from
 the model fit:</p>
-<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb801-1"><a href="statistical-models.html#cb801-1"></a>resi3 &lt;-<span class="st"> </span><span class="kw">residuals</span>(model3)</span></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="statistical-models.html#cb803-1"></a>resi3 &lt;-<span class="st"> </span><span class="kw">residuals</span>(model3)</span></code></pre></div>
 <p>or you can augment the original data with a residuals column, using <code>broom::augment()</code>:</p>
-<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb802-1"><a href="statistical-models.html#cb802-1"></a>housing_aug &lt;-<span class="st"> </span><span class="kw">augment</span>(model3)</span></code></pre></div>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="statistical-models.html#cb804-1"></a>housing_aug &lt;-<span class="st"> </span><span class="kw">augment</span>(model3)</span></code></pre></div>
 <p>Let’s take a look at <code>housing_aug</code>:</p>
-<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="statistical-models.html#cb803-1"></a><span class="kw">glimpse</span>(housing_aug)</span></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="statistical-models.html#cb805-1"></a><span class="kw">glimpse</span>(housing_aug)</span></code></pre></div>
 <pre><code>## Rows: 546
 ## Columns: 19
 ## $ price      &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69000, 83…
@@ -756,25 +758,25 @@ the model fit:</p>
 ## $ .std.resid &lt;dbl&gt; -1.56917096, -0.18823924, 0.62621736, -0.20903274, 0.73253…</code></pre>
 <p>A few columns have been added to the original data, among them <code>.resid</code> which contains the
 residuals. Let’s plot them:</p>
-<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="statistical-models.html#cb805-1"></a><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span></span>
-<span id="cb805-2"><a href="statistical-models.html#cb805-2"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</span></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="statistical-models.html#cb807-1"></a><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span></span>
+<span id="cb807-2"><a href="statistical-models.html#cb807-2"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</span></code></pre></div>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-489-1.png" width="672" /></p>
 <p>Fitted values are also added to the original data, under the variable <code>.fitted</code>. It would also have
 been possible to get the fitted values with:</p>
-<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb806-1"><a href="statistical-models.html#cb806-1"></a>fit3 &lt;-<span class="st"> </span><span class="kw">fitted</span>(model3)</span></code></pre></div>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="statistical-models.html#cb808-1"></a>fit3 &lt;-<span class="st"> </span><span class="kw">fitted</span>(model3)</span></code></pre></div>
 <p>but I prefer using <code>augment()</code>, because the columns get merged to the original data, which then
 makes it easier to find specific individuals, for example, you might want to know for which housing
 units the model underestimates the price:</p>
-<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="statistical-models.html#cb807-1"></a>total_pos &lt;-<span class="st"> </span>housing_aug <span class="op">%&gt;%</span></span>
-<span id="cb807-2"><a href="statistical-models.html#cb807-2"></a><span class="st">  </span><span class="kw">filter</span>(.resid <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
-<span id="cb807-3"><a href="statistical-models.html#cb807-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></span>
-<span id="cb807-4"><a href="statistical-models.html#cb807-4"></a><span class="st">  </span><span class="kw">pull</span>(total)</span></code></pre></div>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="statistical-models.html#cb809-1"></a>total_pos &lt;-<span class="st"> </span>housing_aug <span class="op">%&gt;%</span></span>
+<span id="cb809-2"><a href="statistical-models.html#cb809-2"></a><span class="st">  </span><span class="kw">filter</span>(.resid <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb809-3"><a href="statistical-models.html#cb809-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb809-4"><a href="statistical-models.html#cb809-4"></a><span class="st">  </span><span class="kw">pull</span>(total)</span></code></pre></div>
 <p>we find 261 individuals where the residuals are positive. It is also easier to
 extract outliers:</p>
-<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="statistical-models.html#cb808-1"></a>housing_aug <span class="op">%&gt;%</span></span>
-<span id="cb808-2"><a href="statistical-models.html#cb808-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prank =</span> <span class="kw">cume_dist</span>(.cooksd)) <span class="op">%&gt;%</span></span>
-<span id="cb808-3"><a href="statistical-models.html#cb808-3"></a><span class="st">  </span><span class="kw">filter</span>(prank <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.99</span>) <span class="op">%&gt;%</span></span>
-<span id="cb808-4"><a href="statistical-models.html#cb808-4"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="statistical-models.html#cb810-1"></a>housing_aug <span class="op">%&gt;%</span></span>
+<span id="cb810-2"><a href="statistical-models.html#cb810-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prank =</span> <span class="kw">cume_dist</span>(.cooksd)) <span class="op">%&gt;%</span></span>
+<span id="cb810-3"><a href="statistical-models.html#cb810-3"></a><span class="st">  </span><span class="kw">filter</span>(prank <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.99</span>) <span class="op">%&gt;%</span></span>
+<span id="cb810-4"><a href="statistical-models.html#cb810-4"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 6
 ## Columns: 20
 ## $ price      &lt;dbl&gt; 163000, 125000, 132000, 175000, 190000, 174500
@@ -799,8 +801,8 @@ extract outliers:</p>
 ## $ prank      &lt;dbl&gt; 0.9963370, 1.0000000, 0.9945055, 0.9981685, 0.9926740, 0.9…</code></pre>
 <p><code>prank</code> is a variable I created with <code>cume_dist()</code> which is a <code>dplyr</code> function that returns the
 proportion of all values less than or equal to the current rank. For example:</p>
-<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="statistical-models.html#cb810-1"></a>example &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="fl">4.6</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="dv">0</span>, <span class="dv">-1</span>)</span>
-<span id="cb810-2"><a href="statistical-models.html#cb810-2"></a><span class="kw">cume_dist</span>(example)</span></code></pre></div>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="statistical-models.html#cb812-1"></a>example &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="fl">4.6</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="dv">0</span>, <span class="dv">-1</span>)</span>
+<span id="cb812-2"><a href="statistical-models.html#cb812-2"></a><span class="kw">cume_dist</span>(example)</span></code></pre></div>
 <pre><code>## [1] 1.0000000 0.8571429 0.7142857 0.5714286 0.4285714 0.2857143 0.1428571</code></pre>
 <p>by filtering <code>prank &gt; 0.99</code> we get the top 1% of outliers according to Cook’s distance.</p>
 </div>
@@ -834,11 +836,11 @@ might use something else (for instance by computing odds ratios in a logistic re
 <p>If one wants to know the effect of variable <code>x</code> on the dependent variable <code>y</code>,
 marginal effects have to be computed. This is easily done in R with the <code>{margins}</code> package, which
 aims to provide the same functionality as the <code>margins</code> command in STATA:</p>
-<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="statistical-models.html#cb812-1"></a><span class="kw">library</span>(margins)</span>
-<span id="cb812-2"><a href="statistical-models.html#cb812-2"></a></span>
-<span id="cb812-3"><a href="statistical-models.html#cb812-3"></a>effects_model3 &lt;-<span class="st"> </span><span class="kw">margins</span>(model3)</span>
-<span id="cb812-4"><a href="statistical-models.html#cb812-4"></a></span>
-<span id="cb812-5"><a href="statistical-models.html#cb812-5"></a><span class="kw">summary</span>(effects_model3)</span></code></pre></div>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="statistical-models.html#cb814-1"></a><span class="kw">library</span>(margins)</span>
+<span id="cb814-2"><a href="statistical-models.html#cb814-2"></a></span>
+<span id="cb814-3"><a href="statistical-models.html#cb814-3"></a>effects_model3 &lt;-<span class="st"> </span><span class="kw">margins</span>(model3)</span>
+<span id="cb814-4"><a href="statistical-models.html#cb814-4"></a></span>
+<span id="cb814-5"><a href="statistical-models.html#cb814-5"></a><span class="kw">summary</span>(effects_model3)</span></code></pre></div>
 <pre><code>##       factor        AME        SE       z      p      lower      upper
 ##     aircoyes 12632.8904 1555.0329  8.1239 0.0000  9585.0819 15680.6989
 ##      bathrms 14335.5585 1493.2618  9.6002 0.0000 11408.8192 17262.2978
@@ -852,29 +854,29 @@ aims to provide the same functionality as the <code>margins</code> command in ST
 ##   recroomyes  4511.2838 1899.9722  2.3744 0.0176   787.4068  8235.1608
 ##      stories  6556.9457  921.1921  7.1179 0.0000  4751.4424  8362.4490</code></pre>
 <p>It is also possible to plot the results:</p>
-<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="statistical-models.html#cb814-1"></a><span class="kw">plot</span>(effects_model3)</span></code></pre></div>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="statistical-models.html#cb816-1"></a><span class="kw">plot</span>(effects_model3)</span></code></pre></div>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-495-1.png" width="672" /></p>
 <p>This uses the basic R plotting capabilities, which is useful because it is a simple call to the
 function <code>plot()</code> but if you’ve been using <code>{ggplot2}</code> and want this graph to have the same feel as
 the others made with <code>{ggplot2}</code> you first need to save the summary in a variable.
 <code>summary(effects_model3)</code> is a <code>data.frame</code> with many details. Let’s overwrite this
 <code>effects_model3</code> with its summary:</p>
-<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb815-1"><a href="statistical-models.html#cb815-1"></a>effects_model3 &lt;-<span class="st"> </span><span class="kw">summary</span>(effects_model3)</span></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="statistical-models.html#cb817-1"></a>effects_model3 &lt;-<span class="st"> </span><span class="kw">summary</span>(effects_model3)</span></code></pre></div>
 <p>And now it is possible to use <code>ggplot2</code> to have the same plot:</p>
-<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="statistical-models.html#cb816-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> effects_model3) <span class="op">+</span></span>
-<span id="cb816-2"><a href="statistical-models.html#cb816-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(factor, AME)) <span class="op">+</span></span>
-<span id="cb816-3"><a href="statistical-models.html#cb816-3"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> factor, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper)) <span class="op">+</span></span>
-<span id="cb816-4"><a href="statistical-models.html#cb816-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
-<span id="cb816-5"><a href="statistical-models.html#cb816-5"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
-<span id="cb816-6"><a href="statistical-models.html#cb816-6"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="statistical-models.html#cb818-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> effects_model3) <span class="op">+</span></span>
+<span id="cb818-2"><a href="statistical-models.html#cb818-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(factor, AME)) <span class="op">+</span></span>
+<span id="cb818-3"><a href="statistical-models.html#cb818-3"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> factor, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper)) <span class="op">+</span></span>
+<span id="cb818-4"><a href="statistical-models.html#cb818-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb818-5"><a href="statistical-models.html#cb818-5"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb818-6"><a href="statistical-models.html#cb818-6"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</span></code></pre></div>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-497-1.png" width="672" /></p>
 <p>Of course for <code>model3</code>, the marginal effects are the same as the coefficients, so let’s estimate a
 logit model and compute the marginal effects. You might know logit models as <em>logistic regression</em>.
 Logit models can be estimated using the <code>glm()</code> function, which stands for generalized linear
 models.</p>
 <p>As an example, we are going to use the <code>Participation</code> data, also from the <code>{Ecdat}</code> package:</p>
-<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="statistical-models.html#cb817-1"></a><span class="kw">data</span>(Participation)</span></code></pre></div>
-<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="statistical-models.html#cb818-1"></a>?Particpation</span></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="statistical-models.html#cb819-1"></a><span class="kw">data</span>(Participation)</span></code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="statistical-models.html#cb820-1"></a>?Particpation</span></code></pre></div>
 <pre><code>Participation              package:Ecdat               R Documentation
 
 Labor Force Participation
@@ -933,9 +935,9 @@ See Also:
 <p>The variable of interest is <code>lfp</code>: whether the individual participates in the labour force or not.
 To know which variables are relevant in the decision to participate in the labour force, one could
 train a logit model, using <code>glm()</code>:</p>
-<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="statistical-models.html#cb820-1"></a>logit_participation &lt;-<span class="st"> </span><span class="kw">glm</span>(lfp <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Participation, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb820-2"><a href="statistical-models.html#cb820-2"></a></span>
-<span id="cb820-3"><a href="statistical-models.html#cb820-3"></a>broom<span class="op">::</span><span class="kw">tidy</span>(logit_participation)</span></code></pre></div>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="statistical-models.html#cb822-1"></a>logit_participation &lt;-<span class="st"> </span><span class="kw">glm</span>(lfp <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Participation, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb822-2"><a href="statistical-models.html#cb822-2"></a></span>
+<span id="cb822-3"><a href="statistical-models.html#cb822-3"></a>broom<span class="op">::</span><span class="kw">tidy</span>(logit_participation)</span></code></pre></div>
 <pre><code>## # A tibble: 7 x 5
 ##   term        estimate std.error statistic  p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -948,10 +950,10 @@ train a logit model, using <code>glm()</code>:</p>
 ## 7 foreignyes    1.31      0.200      6.56  5.38e-11</code></pre>
 <p>From the results above, one can only interpret the sign of the coefficients. To know how much a
 variable influences the labour force participation, one has to use <code>margins()</code>:</p>
-<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="statistical-models.html#cb822-1"></a>effects_logit_participation &lt;-<span class="st"> </span><span class="kw">margins</span>(logit_participation) <span class="op">%&gt;%</span></span>
-<span id="cb822-2"><a href="statistical-models.html#cb822-2"></a><span class="st">  </span><span class="kw">summary</span>()</span>
-<span id="cb822-3"><a href="statistical-models.html#cb822-3"></a></span>
-<span id="cb822-4"><a href="statistical-models.html#cb822-4"></a><span class="kw">print</span>(effects_logit_participation)</span></code></pre></div>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="statistical-models.html#cb824-1"></a>effects_logit_participation &lt;-<span class="st"> </span><span class="kw">margins</span>(logit_participation) <span class="op">%&gt;%</span></span>
+<span id="cb824-2"><a href="statistical-models.html#cb824-2"></a><span class="st">  </span><span class="kw">summary</span>()</span>
+<span id="cb824-3"><a href="statistical-models.html#cb824-3"></a></span>
+<span id="cb824-4"><a href="statistical-models.html#cb824-4"></a><span class="kw">print</span>(effects_logit_participation)</span></code></pre></div>
 <pre><code>##      factor     AME     SE       z      p   lower   upper
 ##         age -0.1064 0.0176 -6.0494 0.0000 -0.1409 -0.0719
 ##        educ  0.0066 0.0060  1.0955 0.2733 -0.0052  0.0185
@@ -960,17 +962,17 @@ variable influences the labour force participation, one has to use <code>margins
 ##         noc -0.0046 0.0154 -0.2981 0.7656 -0.0347  0.0256
 ##         nyc -0.2775 0.0333 -8.3433 0.0000 -0.3426 -0.2123</code></pre>
 <p>We can use the previous code to plot the marginal effects:</p>
-<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="statistical-models.html#cb824-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> effects_logit_participation) <span class="op">+</span></span>
-<span id="cb824-2"><a href="statistical-models.html#cb824-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(factor, AME)) <span class="op">+</span></span>
-<span id="cb824-3"><a href="statistical-models.html#cb824-3"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> factor, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper)) <span class="op">+</span></span>
-<span id="cb824-4"><a href="statistical-models.html#cb824-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
-<span id="cb824-5"><a href="statistical-models.html#cb824-5"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
-<span id="cb824-6"><a href="statistical-models.html#cb824-6"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="statistical-models.html#cb826-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> effects_logit_participation) <span class="op">+</span></span>
+<span id="cb826-2"><a href="statistical-models.html#cb826-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(factor, AME)) <span class="op">+</span></span>
+<span id="cb826-3"><a href="statistical-models.html#cb826-3"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> factor, <span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper)) <span class="op">+</span></span>
+<span id="cb826-4"><a href="statistical-models.html#cb826-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb826-5"><a href="statistical-models.html#cb826-5"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb826-6"><a href="statistical-models.html#cb826-6"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</span></code></pre></div>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-502-1.png" width="672" /></p>
 <p>So an infinitesimal increase, in say, non-labour income (<code>lnnlinc</code>) of 0.001 is associated with a
 decrease of the probability of labour force participation by 0.001*17 percentage points.</p>
 <p>You can also extract the marginal effects of a single variable:</p>
-<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb825-1"><a href="statistical-models.html#cb825-1"></a><span class="kw">head</span>(<span class="kw">dydx</span>(Participation, logit_participation, <span class="st">&quot;lnnlinc&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="statistical-models.html#cb827-1"></a><span class="kw">head</span>(<span class="kw">dydx</span>(Participation, logit_participation, <span class="st">&quot;lnnlinc&quot;</span>))</span></code></pre></div>
 <pre><code>##   dydx_lnnlinc
 ## 1  -0.15667764
 ## 2  -0.20014487
@@ -979,13 +981,13 @@ decrease of the probability of labour force participation by 0.001*17 percentage
 ## 5  -0.18710476
 ## 6  -0.19586986</code></pre>
 <p>Which makes it possible to extract the effect for a list of individuals that you can create yourself:</p>
-<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="statistical-models.html#cb827-1"></a>my_subjects &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb827-2"><a href="statistical-models.html#cb827-2"></a>    <span class="op">~</span>lfp,  <span class="op">~</span>lnnlinc, <span class="op">~</span>age, <span class="op">~</span>educ, <span class="op">~</span>nyc, <span class="op">~</span>noc, <span class="op">~</span>foreign,</span>
-<span id="cb827-3"><a href="statistical-models.html#cb827-3"></a>    <span class="st">&quot;yes&quot;</span>,   <span class="fl">10.780</span>,  <span class="fl">7.0</span>,     <span class="dv">4</span>,    <span class="dv">1</span>,   <span class="dv">1</span>,     <span class="st">&quot;yes&quot;</span>,</span>
-<span id="cb827-4"><a href="statistical-models.html#cb827-4"></a>    <span class="st">&quot;no&quot;</span>,      <span class="fl">1.30</span>,  <span class="fl">9.0</span>,     <span class="dv">1</span>,    <span class="dv">4</span>,   <span class="dv">1</span>,     <span class="st">&quot;yes&quot;</span></span>
-<span id="cb827-5"><a href="statistical-models.html#cb827-5"></a>)</span>
-<span id="cb827-6"><a href="statistical-models.html#cb827-6"></a></span>
-<span id="cb827-7"><a href="statistical-models.html#cb827-7"></a><span class="kw">dydx</span>(my_subjects, logit_participation, <span class="st">&quot;lnnlinc&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="statistical-models.html#cb829-1"></a>my_subjects &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb829-2"><a href="statistical-models.html#cb829-2"></a>    <span class="op">~</span>lfp,  <span class="op">~</span>lnnlinc, <span class="op">~</span>age, <span class="op">~</span>educ, <span class="op">~</span>nyc, <span class="op">~</span>noc, <span class="op">~</span>foreign,</span>
+<span id="cb829-3"><a href="statistical-models.html#cb829-3"></a>    <span class="st">&quot;yes&quot;</span>,   <span class="fl">10.780</span>,  <span class="fl">7.0</span>,     <span class="dv">4</span>,    <span class="dv">1</span>,   <span class="dv">1</span>,     <span class="st">&quot;yes&quot;</span>,</span>
+<span id="cb829-4"><a href="statistical-models.html#cb829-4"></a>    <span class="st">&quot;no&quot;</span>,      <span class="fl">1.30</span>,  <span class="fl">9.0</span>,     <span class="dv">1</span>,    <span class="dv">4</span>,   <span class="dv">1</span>,     <span class="st">&quot;yes&quot;</span></span>
+<span id="cb829-5"><a href="statistical-models.html#cb829-5"></a>)</span>
+<span id="cb829-6"><a href="statistical-models.html#cb829-6"></a></span>
+<span id="cb829-7"><a href="statistical-models.html#cb829-7"></a><span class="kw">dydx</span>(my_subjects, logit_participation, <span class="st">&quot;lnnlinc&quot;</span>)</span></code></pre></div>
 <pre><code>##   dydx_lnnlinc
 ## 1  -0.09228119
 ## 2  -0.17953451</code></pre>
@@ -1001,15 +1003,15 @@ Then, using <code>dydx()</code>, I get the marginal effect of variable <code>lnn
 <p>Let’s estimate another model on the same data; prices are only positive, so a linear regression
 might not be the best model, because the model could predict negative prices. Let’s look at the
 distribution of prices:</p>
-<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="statistical-models.html#cb829-1"></a><span class="kw">ggplot</span>(Housing) <span class="op">+</span></span>
-<span id="cb829-2"><a href="statistical-models.html#cb829-2"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</span></code></pre></div>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="statistical-models.html#cb831-1"></a><span class="kw">ggplot</span>(Housing) <span class="op">+</span></span>
+<span id="cb831-2"><a href="statistical-models.html#cb831-2"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</span></code></pre></div>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-505-1.png" width="672" /></p>
 <p>it looks like modeling the log of <code>price</code> might provide a better fit:</p>
-<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="statistical-models.html#cb830-1"></a>model_log &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)</span>
-<span id="cb830-2"><a href="statistical-models.html#cb830-2"></a></span>
-<span id="cb830-3"><a href="statistical-models.html#cb830-3"></a>result_log &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model_log)</span>
-<span id="cb830-4"><a href="statistical-models.html#cb830-4"></a></span>
-<span id="cb830-5"><a href="statistical-models.html#cb830-5"></a><span class="kw">print</span>(result_log)</span></code></pre></div>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="statistical-models.html#cb832-1"></a>model_log &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)</span>
+<span id="cb832-2"><a href="statistical-models.html#cb832-2"></a></span>
+<span id="cb832-3"><a href="statistical-models.html#cb832-3"></a>result_log &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model_log)</span>
+<span id="cb832-4"><a href="statistical-models.html#cb832-4"></a></span>
+<span id="cb832-5"><a href="statistical-models.html#cb832-5"></a><span class="kw">print</span>(result_log)</span></code></pre></div>
 <pre><code>## # A tibble: 12 x 5
 ##    term          estimate  std.error statistic  p.value
 ##    &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -1026,26 +1028,26 @@ distribution of prices:</p>
 ## 11 garagepl     0.0508    0.0116          4.36 1.58e- 5
 ## 12 prefareayes  0.127     0.0231          5.50 6.02e- 8</code></pre>
 <p>Let’s take a look at the diagnostics:</p>
-<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="statistical-models.html#cb832-1"></a><span class="kw">glance</span>(model_log)</span></code></pre></div>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="statistical-models.html#cb834-1"></a><span class="kw">glance</span>(model_log)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 11
 ##   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
 ##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     0.677         0.670 0.214      102. 3.67e-123    12   73.9 -122. -65.8
 ## # … with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
 <p>Let’s compare these to the ones from the previous model:</p>
-<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="statistical-models.html#cb834-1"></a>diag_lm &lt;-<span class="st"> </span><span class="kw">glance</span>(model3)</span>
-<span id="cb834-2"><a href="statistical-models.html#cb834-2"></a></span>
-<span id="cb834-3"><a href="statistical-models.html#cb834-3"></a>diag_lm &lt;-<span class="st"> </span>diag_lm <span class="op">%&gt;%</span></span>
-<span id="cb834-4"><a href="statistical-models.html#cb834-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;lin-lin model&quot;</span>)</span>
-<span id="cb834-5"><a href="statistical-models.html#cb834-5"></a></span>
-<span id="cb834-6"><a href="statistical-models.html#cb834-6"></a>diag_log &lt;-<span class="st"> </span><span class="kw">glance</span>(model_log)</span>
-<span id="cb834-7"><a href="statistical-models.html#cb834-7"></a></span>
-<span id="cb834-8"><a href="statistical-models.html#cb834-8"></a>diag_log  &lt;-<span class="st"> </span>diag_log <span class="op">%&gt;%</span></span>
-<span id="cb834-9"><a href="statistical-models.html#cb834-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;log-lin model&quot;</span>)</span>
-<span id="cb834-10"><a href="statistical-models.html#cb834-10"></a></span>
-<span id="cb834-11"><a href="statistical-models.html#cb834-11"></a>diagnostics_models &lt;-<span class="st"> </span><span class="kw">full_join</span>(diag_lm, diag_log)</span></code></pre></div>
+<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb836-1"><a href="statistical-models.html#cb836-1"></a>diag_lm &lt;-<span class="st"> </span><span class="kw">glance</span>(model3)</span>
+<span id="cb836-2"><a href="statistical-models.html#cb836-2"></a></span>
+<span id="cb836-3"><a href="statistical-models.html#cb836-3"></a>diag_lm &lt;-<span class="st"> </span>diag_lm <span class="op">%&gt;%</span></span>
+<span id="cb836-4"><a href="statistical-models.html#cb836-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;lin-lin model&quot;</span>)</span>
+<span id="cb836-5"><a href="statistical-models.html#cb836-5"></a></span>
+<span id="cb836-6"><a href="statistical-models.html#cb836-6"></a>diag_log &lt;-<span class="st"> </span><span class="kw">glance</span>(model_log)</span>
+<span id="cb836-7"><a href="statistical-models.html#cb836-7"></a></span>
+<span id="cb836-8"><a href="statistical-models.html#cb836-8"></a>diag_log  &lt;-<span class="st"> </span>diag_log <span class="op">%&gt;%</span></span>
+<span id="cb836-9"><a href="statistical-models.html#cb836-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;log-lin model&quot;</span>)</span>
+<span id="cb836-10"><a href="statistical-models.html#cb836-10"></a></span>
+<span id="cb836-11"><a href="statistical-models.html#cb836-11"></a>diagnostics_models &lt;-<span class="st"> </span><span class="kw">full_join</span>(diag_lm, diag_log)</span></code></pre></div>
 <pre><code>## Joining, by = c(&quot;r.squared&quot;, &quot;adj.r.squared&quot;, &quot;sigma&quot;, &quot;statistic&quot;, &quot;p.value&quot;, &quot;df&quot;, &quot;logLik&quot;, &quot;AIC&quot;, &quot;BIC&quot;, &quot;deviance&quot;, &quot;df.residual&quot;, &quot;model&quot;)</code></pre>
-<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb836-1"><a href="statistical-models.html#cb836-1"></a><span class="kw">print</span>(diagnostics_models)</span></code></pre></div>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="statistical-models.html#cb838-1"></a><span class="kw">print</span>(diagnostics_models)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 12
 ##   r.squared adj.r.squared   sigma statistic   p.value    df  logLik    AIC
 ##       &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -1059,7 +1061,7 @@ distribution of prices:</p>
 <p>As you can see, the model with the logarithm of the prices as the dependent variable has a higher
 likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the
 diagnostics plots:</p>
-<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="statistical-models.html#cb838-1"></a><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="statistical-models.html#cb840-1"></a><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-510-1.png" width="672" /></p>
 </div>
 <div id="using-a-model-for-prediction" class="section level2" number="6.6">
@@ -1073,13 +1075,13 @@ functions. I insist, keep in mind that this section is only to get acquainted wi
 We are going to explore prediction, overfitting and tuning of models in a later section.</p>
 <p>Let’s go back to the models we trained in the previous section, <code>model3</code> and <code>model_log</code>. Let’s also
 take a subsample of data, which we will be using for prediction:</p>
-<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="statistical-models.html#cb839-1"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb839-2"><a href="statistical-models.html#cb839-2"></a></span>
-<span id="cb839-3"><a href="statistical-models.html#cb839-3"></a>pred_set &lt;-<span class="st"> </span>Housing <span class="op">%&gt;%</span></span>
-<span id="cb839-4"><a href="statistical-models.html#cb839-4"></a><span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="statistical-models.html#cb841-1"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb841-2"><a href="statistical-models.html#cb841-2"></a></span>
+<span id="cb841-3"><a href="statistical-models.html#cb841-3"></a>pred_set &lt;-<span class="st"> </span>Housing <span class="op">%&gt;%</span></span>
+<span id="cb841-4"><a href="statistical-models.html#cb841-4"></a><span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>In order to always get the same <code>pred_set</code>, I set the random seed first. Let’s take a look at the
 data:</p>
-<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="statistical-models.html#cb840-1"></a><span class="kw">print</span>(pred_set)</span></code></pre></div>
+<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="statistical-models.html#cb842-1"></a><span class="kw">print</span>(pred_set)</span></code></pre></div>
 <pre><code>##      price lotsize bedrooms bathrms stories driveway recroom fullbase gashw
 ## 284  45000    6750        2       1       1      yes      no       no    no
 ## 101  57000    4500        3       2       2       no      no      yes    no
@@ -1123,7 +1125,7 @@ data:</p>
 ## 108    no        0       no
 ## 131    no        0       no</code></pre>
 <p>If we wish to use it for prediction, this is easily done with <code>predict()</code>:</p>
-<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="statistical-models.html#cb842-1"></a><span class="kw">predict</span>(model3, pred_set)</span></code></pre></div>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="statistical-models.html#cb844-1"></a><span class="kw">predict</span>(model3, pred_set)</span></code></pre></div>
 <pre><code>##       284       101       400        98       103       326        79       270 
 ##  51143.48  77286.31  93204.28  76481.82  77688.37 103751.72  66760.79  66486.26 
 ##       382       184         4       212       195       511       479       510 
@@ -1132,16 +1134,16 @@ data:</p>
 ##  55177.75  77741.03  62980.84  50926.99</code></pre>
 <p>This returns a vector of predicted prices. This can then be used to compute the Root Mean Squared Error
 for instance. Let’s do it within a <code>tidyverse</code> pipeline:</p>
-<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="statistical-models.html#cb844-1"></a>rmse &lt;-<span class="st"> </span>pred_set <span class="op">%&gt;%</span></span>
-<span id="cb844-2"><a href="statistical-models.html#cb844-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> <span class="kw">predict</span>(model3, .)) <span class="op">%&gt;%</span></span>
-<span id="cb844-3"><a href="statistical-models.html#cb844-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">sqrt</span>(<span class="kw">sum</span>(predictions <span class="op">-</span><span class="st"> </span>price)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="kw">n</span>()))</span></code></pre></div>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="statistical-models.html#cb846-1"></a>rmse &lt;-<span class="st"> </span>pred_set <span class="op">%&gt;%</span></span>
+<span id="cb846-2"><a href="statistical-models.html#cb846-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> <span class="kw">predict</span>(model3, .)) <span class="op">%&gt;%</span></span>
+<span id="cb846-3"><a href="statistical-models.html#cb846-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">sqrt</span>(<span class="kw">sum</span>(predictions <span class="op">-</span><span class="st"> </span>price)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="kw">n</span>()))</span></code></pre></div>
 <p>The root mean square error of <code>model3</code> is 3646.0817347.</p>
 <p>I also used the <code>n()</code> function which returns the number of observations in a group (or all the
 observations, if the data is not grouped). Let’s compare <code>model3</code> ’s RMSE with the one from
 <code>model_log</code>:</p>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="statistical-models.html#cb845-1"></a>rmse2 &lt;-<span class="st"> </span>pred_set <span class="op">%&gt;%</span></span>
-<span id="cb845-2"><a href="statistical-models.html#cb845-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> <span class="kw">exp</span>(<span class="kw">predict</span>(model_log, .))) <span class="op">%&gt;%</span></span>
-<span id="cb845-3"><a href="statistical-models.html#cb845-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">sqrt</span>(<span class="kw">sum</span>(predictions <span class="op">-</span><span class="st"> </span>price)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="kw">n</span>()))</span></code></pre></div>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="statistical-models.html#cb847-1"></a>rmse2 &lt;-<span class="st"> </span>pred_set <span class="op">%&gt;%</span></span>
+<span id="cb847-2"><a href="statistical-models.html#cb847-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> <span class="kw">exp</span>(<span class="kw">predict</span>(model_log, .))) <span class="op">%&gt;%</span></span>
+<span id="cb847-3"><a href="statistical-models.html#cb847-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">sqrt</span>(<span class="kw">sum</span>(predictions <span class="op">-</span><span class="st"> </span>price)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="kw">n</span>()))</span></code></pre></div>
 <p>Don’t forget to exponentiate the predictions, remember you’re dealing with a log-linear model! <code>model_log</code>’s
 RMSE is 1.2125133^{4} which is lower than <code>model3</code>’s. However, keep in mind that the model was trained
 on the whole data, and then the prediction quality was assessed using a subsample of the data the
@@ -1288,36 +1290,36 @@ This formula above is the closed form solution to the following optimisation pro
 the <code>alpha</code> argument to 0 (setting it to 1 would do LASSO, and setting it to a number between
 0 and 1 would do elasticnet). But in order to compare linear regression and ridge regression,
 let me first divide the data into a training set and a testing set:</p>
-<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="statistical-models.html#cb846-1"></a>index &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Housing)</span>
-<span id="cb846-2"><a href="statistical-models.html#cb846-2"></a></span>
-<span id="cb846-3"><a href="statistical-models.html#cb846-3"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb846-4"><a href="statistical-models.html#cb846-4"></a>train_index &lt;-<span class="st"> </span><span class="kw">sample</span>(index, <span class="kw">round</span>(<span class="fl">0.90</span><span class="op">*</span><span class="kw">nrow</span>(Housing)), <span class="dt">replace =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb846-5"><a href="statistical-models.html#cb846-5"></a></span>
-<span id="cb846-6"><a href="statistical-models.html#cb846-6"></a>test_index &lt;-<span class="st"> </span><span class="kw">setdiff</span>(index, train_index)</span>
-<span id="cb846-7"><a href="statistical-models.html#cb846-7"></a></span>
-<span id="cb846-8"><a href="statistical-models.html#cb846-8"></a>train_x &lt;-<span class="st"> </span>Housing[train_index, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb846-9"><a href="statistical-models.html#cb846-9"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>price)</span>
-<span id="cb846-10"><a href="statistical-models.html#cb846-10"></a></span>
-<span id="cb846-11"><a href="statistical-models.html#cb846-11"></a>train_y &lt;-<span class="st"> </span>Housing[train_index, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb846-12"><a href="statistical-models.html#cb846-12"></a><span class="st">    </span><span class="kw">pull</span>(price)</span>
-<span id="cb846-13"><a href="statistical-models.html#cb846-13"></a></span>
-<span id="cb846-14"><a href="statistical-models.html#cb846-14"></a>test_x &lt;-<span class="st"> </span>Housing[test_index, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb846-15"><a href="statistical-models.html#cb846-15"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>price)</span>
-<span id="cb846-16"><a href="statistical-models.html#cb846-16"></a></span>
-<span id="cb846-17"><a href="statistical-models.html#cb846-17"></a>test_y &lt;-<span class="st"> </span>Housing[test_index, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb846-18"><a href="statistical-models.html#cb846-18"></a><span class="st">    </span><span class="kw">pull</span>(price)</span></code></pre></div>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="statistical-models.html#cb848-1"></a>index &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Housing)</span>
+<span id="cb848-2"><a href="statistical-models.html#cb848-2"></a></span>
+<span id="cb848-3"><a href="statistical-models.html#cb848-3"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb848-4"><a href="statistical-models.html#cb848-4"></a>train_index &lt;-<span class="st"> </span><span class="kw">sample</span>(index, <span class="kw">round</span>(<span class="fl">0.90</span><span class="op">*</span><span class="kw">nrow</span>(Housing)), <span class="dt">replace =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb848-5"><a href="statistical-models.html#cb848-5"></a></span>
+<span id="cb848-6"><a href="statistical-models.html#cb848-6"></a>test_index &lt;-<span class="st"> </span><span class="kw">setdiff</span>(index, train_index)</span>
+<span id="cb848-7"><a href="statistical-models.html#cb848-7"></a></span>
+<span id="cb848-8"><a href="statistical-models.html#cb848-8"></a>train_x &lt;-<span class="st"> </span>Housing[train_index, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb848-9"><a href="statistical-models.html#cb848-9"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>price)</span>
+<span id="cb848-10"><a href="statistical-models.html#cb848-10"></a></span>
+<span id="cb848-11"><a href="statistical-models.html#cb848-11"></a>train_y &lt;-<span class="st"> </span>Housing[train_index, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb848-12"><a href="statistical-models.html#cb848-12"></a><span class="st">    </span><span class="kw">pull</span>(price)</span>
+<span id="cb848-13"><a href="statistical-models.html#cb848-13"></a></span>
+<span id="cb848-14"><a href="statistical-models.html#cb848-14"></a>test_x &lt;-<span class="st"> </span>Housing[test_index, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb848-15"><a href="statistical-models.html#cb848-15"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>price)</span>
+<span id="cb848-16"><a href="statistical-models.html#cb848-16"></a></span>
+<span id="cb848-17"><a href="statistical-models.html#cb848-17"></a>test_y &lt;-<span class="st"> </span>Housing[test_index, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb848-18"><a href="statistical-models.html#cb848-18"></a><span class="st">    </span><span class="kw">pull</span>(price)</span></code></pre></div>
 <p>I do the train/test split this way, because <code>glmnet()</code> requires a design matrix as input, and not
 a formula. Design matrices can be created using the <code>model.matrix()</code> function:</p>
-<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="statistical-models.html#cb847-1"></a><span class="kw">library</span>(<span class="st">&quot;glmnet&quot;</span>)</span>
-<span id="cb847-2"><a href="statistical-models.html#cb847-2"></a></span>
-<span id="cb847-3"><a href="statistical-models.html#cb847-3"></a>train_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(train_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_x)</span>
-<span id="cb847-4"><a href="statistical-models.html#cb847-4"></a></span>
-<span id="cb847-5"><a href="statistical-models.html#cb847-5"></a>test_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(test_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> test_x)</span></code></pre></div>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb849-1"><a href="statistical-models.html#cb849-1"></a><span class="kw">library</span>(<span class="st">&quot;glmnet&quot;</span>)</span>
+<span id="cb849-2"><a href="statistical-models.html#cb849-2"></a></span>
+<span id="cb849-3"><a href="statistical-models.html#cb849-3"></a>train_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(train_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_x)</span>
+<span id="cb849-4"><a href="statistical-models.html#cb849-4"></a></span>
+<span id="cb849-5"><a href="statistical-models.html#cb849-5"></a>test_matrix &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(test_y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> test_x)</span></code></pre></div>
 <p>Let’s now run a linear regression, by setting the penalty to 0:</p>
-<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="statistical-models.html#cb848-1"></a>model_lm_ridge &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">y =</span> train_y, <span class="dt">x =</span> train_matrix, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">lambda =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="statistical-models.html#cb850-1"></a>model_lm_ridge &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">y =</span> train_y, <span class="dt">x =</span> train_matrix, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">lambda =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p>The model above provides the same result as a linear regression, because I set <code>lambda</code> to 0. Let’s
 compare the coefficients between the two:</p>
-<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb849-1"><a href="statistical-models.html#cb849-1"></a><span class="kw">coef</span>(model_lm_ridge)</span></code></pre></div>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="statistical-models.html#cb851-1"></a><span class="kw">coef</span>(model_lm_ridge)</span></code></pre></div>
 <pre><code>## 13 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                       s0
 ## (Intercept) -2667.542863
@@ -1335,30 +1337,30 @@ compare the coefficients between the two:</p>
 ## prefareayes 10260.781753</code></pre>
 <p>and now the coefficients of the linear regression (because I provide a design matrix, I have to use
 <code>lm.fit()</code> instead of <code>lm()</code> which requires a formula, not a matrix.)</p>
-<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="statistical-models.html#cb851-1"></a><span class="kw">coef</span>(<span class="kw">lm.fit</span>(<span class="dt">x =</span> train_matrix, <span class="dt">y =</span> train_y))</span></code></pre></div>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="statistical-models.html#cb853-1"></a><span class="kw">coef</span>(<span class="kw">lm.fit</span>(<span class="dt">x =</span> train_matrix, <span class="dt">y =</span> train_y))</span></code></pre></div>
 <pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories  drivewayyes 
 ## -2667.052098     3.397629  2081.344118 13293.707725  6400.416730  6529.972544 
 ##   recroomyes  fullbaseyes     gashwyes     aircoyes     garagepl  prefareayes 
 ##  5388.871137  4899.024787 12575.970220 13077.988867  4155.269629 10261.056772</code></pre>
 <p>as you can see, the coefficients are the same. Let’s compute the RMSE for the unpenalized linear
 regression:</p>
-<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="statistical-models.html#cb853-1"></a>preds_lm &lt;-<span class="st"> </span><span class="kw">predict</span>(model_lm_ridge, test_matrix)</span>
-<span id="cb853-2"><a href="statistical-models.html#cb853-2"></a></span>
-<span id="cb853-3"><a href="statistical-models.html#cb853-3"></a>rmse_lm &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">mean</span>(preds_lm <span class="op">-</span><span class="st"> </span>test_y)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb855-1"><a href="statistical-models.html#cb855-1"></a>preds_lm &lt;-<span class="st"> </span><span class="kw">predict</span>(model_lm_ridge, test_matrix)</span>
+<span id="cb855-2"><a href="statistical-models.html#cb855-2"></a></span>
+<span id="cb855-3"><a href="statistical-models.html#cb855-3"></a>rmse_lm &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">mean</span>(preds_lm <span class="op">-</span><span class="st"> </span>test_y)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
 <p>The RMSE for the linear unpenalized regression is equal to 1731.5553157.</p>
 <p>Let’s now run a ridge regression, with <code>lambda</code> equal to 100, and see if the RMSE is smaller:</p>
-<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb854-1"><a href="statistical-models.html#cb854-1"></a>model_ridge &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">y =</span> train_y, <span class="dt">x =</span> train_matrix, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">lambda =</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb856-1"><a href="statistical-models.html#cb856-1"></a>model_ridge &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">y =</span> train_y, <span class="dt">x =</span> train_matrix, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">lambda =</span> <span class="dv">100</span>)</span></code></pre></div>
 <p>and let’s compute the RMSE again:</p>
-<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb855-1"><a href="statistical-models.html#cb855-1"></a>preds &lt;-<span class="st"> </span><span class="kw">predict</span>(model_ridge, test_matrix)</span>
-<span id="cb855-2"><a href="statistical-models.html#cb855-2"></a></span>
-<span id="cb855-3"><a href="statistical-models.html#cb855-3"></a>rmse &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">mean</span>(preds <span class="op">-</span><span class="st"> </span>test_y)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb857-1"><a href="statistical-models.html#cb857-1"></a>preds &lt;-<span class="st"> </span><span class="kw">predict</span>(model_ridge, test_matrix)</span>
+<span id="cb857-2"><a href="statistical-models.html#cb857-2"></a></span>
+<span id="cb857-3"><a href="statistical-models.html#cb857-3"></a>rmse &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">mean</span>(preds <span class="op">-</span><span class="st"> </span>test_y)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
 <p>The RMSE for the linear penalized regression is equal to 1726.7632312, which is smaller than before.
 But which value of <code>lambda</code> gives smallest RMSE? To find out, one must run model over a grid of
 <code>lambda</code> values and pick the model with lowest RMSE. This procedure is available in the <code>cv.glmnet()</code>
 function, which picks the best value for <code>lambda</code>:</p>
-<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb856-1"><a href="statistical-models.html#cb856-1"></a>best_model &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(train_matrix, train_y)</span>
-<span id="cb856-2"><a href="statistical-models.html#cb856-2"></a><span class="co"># lambda that minimises the MSE</span></span>
-<span id="cb856-3"><a href="statistical-models.html#cb856-3"></a>best_model<span class="op">$</span>lambda.min</span></code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="statistical-models.html#cb858-1"></a>best_model &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(train_matrix, train_y)</span>
+<span id="cb858-2"><a href="statistical-models.html#cb858-2"></a><span class="co"># lambda that minimises the MSE</span></span>
+<span id="cb858-3"><a href="statistical-models.html#cb858-3"></a>best_model<span class="op">$</span>lambda.min</span></code></pre></div>
 <pre><code>## [1] 61.42681</code></pre>
 <p>According to <code>cv.glmnet()</code> the best value for <code>lambda</code> is 61.4268059. In the
 next section, we will implement cross validation ourselves, in order to find the hyper-parameters
@@ -1377,17 +1379,17 @@ also use <a href="http://mlrmbo.mlr-org.com/"><code>{mlrMBO}</code></a> to tune 
 <div id="set-up" class="section level3" number="6.9.1">
 <h3><span class="header-section-number">6.9.1</span> Set up</h3>
 <p>Let’s load the needed packages:</p>
-<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="statistical-models.html#cb858-1"></a><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
-<span id="cb858-2"><a href="statistical-models.html#cb858-2"></a><span class="kw">library</span>(<span class="st">&quot;recipes&quot;</span>)</span>
-<span id="cb858-3"><a href="statistical-models.html#cb858-3"></a><span class="kw">library</span>(<span class="st">&quot;rsample&quot;</span>)</span>
-<span id="cb858-4"><a href="statistical-models.html#cb858-4"></a><span class="kw">library</span>(<span class="st">&quot;parsnip&quot;</span>)</span>
-<span id="cb858-5"><a href="statistical-models.html#cb858-5"></a><span class="kw">library</span>(<span class="st">&quot;yardstick&quot;</span>)</span>
-<span id="cb858-6"><a href="statistical-models.html#cb858-6"></a><span class="kw">library</span>(<span class="st">&quot;brotools&quot;</span>)</span>
-<span id="cb858-7"><a href="statistical-models.html#cb858-7"></a><span class="kw">library</span>(<span class="st">&quot;mlbench&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb860-1"><a href="statistical-models.html#cb860-1"></a><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb860-2"><a href="statistical-models.html#cb860-2"></a><span class="kw">library</span>(<span class="st">&quot;recipes&quot;</span>)</span>
+<span id="cb860-3"><a href="statistical-models.html#cb860-3"></a><span class="kw">library</span>(<span class="st">&quot;rsample&quot;</span>)</span>
+<span id="cb860-4"><a href="statistical-models.html#cb860-4"></a><span class="kw">library</span>(<span class="st">&quot;parsnip&quot;</span>)</span>
+<span id="cb860-5"><a href="statistical-models.html#cb860-5"></a><span class="kw">library</span>(<span class="st">&quot;yardstick&quot;</span>)</span>
+<span id="cb860-6"><a href="statistical-models.html#cb860-6"></a><span class="kw">library</span>(<span class="st">&quot;brotools&quot;</span>)</span>
+<span id="cb860-7"><a href="statistical-models.html#cb860-7"></a><span class="kw">library</span>(<span class="st">&quot;mlbench&quot;</span>)</span></code></pre></div>
 <p>Load the data which is included in the <code>{mlrbench}</code> package:</p>
-<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb859-1"><a href="statistical-models.html#cb859-1"></a><span class="kw">data</span>(<span class="st">&quot;BostonHousing2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb861-1"><a href="statistical-models.html#cb861-1"></a><span class="kw">data</span>(<span class="st">&quot;BostonHousing2&quot;</span>)</span></code></pre></div>
 <p>I will train a random forest to predict the housing prices, which is the <code>cmedv</code> column:</p>
-<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb860-1"><a href="statistical-models.html#cb860-1"></a><span class="kw">head</span>(BostonHousing2)</span></code></pre></div>
+<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb862-1"><a href="statistical-models.html#cb862-1"></a><span class="kw">head</span>(BostonHousing2)</span></code></pre></div>
 <pre><code>##         town tract      lon     lat medv cmedv    crim zn indus chas   nox
 ## 1     Nahant  2011 -70.9550 42.2550 24.0  24.0 0.00632 18  2.31    0 0.538
 ## 2 Swampscott  2021 -70.9500 42.2875 21.6  21.6 0.02731  0  7.07    0 0.469
@@ -1403,19 +1405,19 @@ also use <a href="http://mlrmbo.mlr-org.com/"><code>{mlrMBO}</code></a> to tune 
 ## 5 7.147 54.2 6.0622   3 222    18.7 396.90  5.33
 ## 6 6.430 58.7 6.0622   3 222    18.7 394.12  5.21</code></pre>
 <p>Only keep relevant columns:</p>
-<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb862-1"><a href="statistical-models.html#cb862-1"></a>boston &lt;-<span class="st"> </span>BostonHousing2 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb862-2"><a href="statistical-models.html#cb862-2"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>medv, <span class="op">-</span>tract, <span class="op">-</span>lon, <span class="op">-</span>lat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb862-3"><a href="statistical-models.html#cb862-3"></a><span class="st">    </span><span class="kw">rename</span>(<span class="dt">price =</span> cmedv)</span></code></pre></div>
+<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb864-1"><a href="statistical-models.html#cb864-1"></a>boston &lt;-<span class="st"> </span>BostonHousing2 <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb864-2"><a href="statistical-models.html#cb864-2"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>medv, <span class="op">-</span>tract, <span class="op">-</span>lon, <span class="op">-</span>lat) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb864-3"><a href="statistical-models.html#cb864-3"></a><span class="st">    </span><span class="kw">rename</span>(<span class="dt">price =</span> cmedv)</span></code></pre></div>
 <p>I remove <code>tract</code>, <code>lat</code> and <code>lon</code> because the information contained in the column <code>town</code> is enough.</p>
 <p>To train and evaluate the model’s performance, I split the data in two.
 One data set, called the training set, will be further split into two down below. I won’t
 touch the second data set, the test set, until the very end, to finally assess the model’s
 performance.</p>
-<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="statistical-models.html#cb863-1"></a>train_test_split &lt;-<span class="st"> </span><span class="kw">initial_split</span>(boston, <span class="dt">prop =</span> <span class="fl">0.9</span>)</span>
-<span id="cb863-2"><a href="statistical-models.html#cb863-2"></a></span>
-<span id="cb863-3"><a href="statistical-models.html#cb863-3"></a>housing_train &lt;-<span class="st"> </span><span class="kw">training</span>(train_test_split)</span>
-<span id="cb863-4"><a href="statistical-models.html#cb863-4"></a></span>
-<span id="cb863-5"><a href="statistical-models.html#cb863-5"></a>housing_test &lt;-<span class="st"> </span><span class="kw">testing</span>(train_test_split)</span></code></pre></div>
+<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="statistical-models.html#cb865-1"></a>train_test_split &lt;-<span class="st"> </span><span class="kw">initial_split</span>(boston, <span class="dt">prop =</span> <span class="fl">0.9</span>)</span>
+<span id="cb865-2"><a href="statistical-models.html#cb865-2"></a></span>
+<span id="cb865-3"><a href="statistical-models.html#cb865-3"></a>housing_train &lt;-<span class="st"> </span><span class="kw">training</span>(train_test_split)</span>
+<span id="cb865-4"><a href="statistical-models.html#cb865-4"></a></span>
+<span id="cb865-5"><a href="statistical-models.html#cb865-5"></a>housing_test &lt;-<span class="st"> </span><span class="kw">testing</span>(train_test_split)</span></code></pre></div>
 <p><code>initial_split()</code>, <code>training()</code> and <code>testing()</code> are functions from the <code>{rsample}</code> package.</p>
 <p>I will train a random forest on the training data, but the question, is <em>which</em> random forest?
 Because random forests have several hyper-parameters, and as explained in the intro these
@@ -1434,9 +1436,9 @@ compute the average RMSE, which implies training 30 models for each combination 
 hyperparameters.</p>
 <p>First, let’s split the training data again, using the <code>mc_cv()</code> function from <code>{rsample}</code> package.
 This function implements Monte Carlo cross-validation:</p>
-<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb864-1"><a href="statistical-models.html#cb864-1"></a>validation_data &lt;-<span class="st"> </span><span class="kw">mc_cv</span>(housing_train, <span class="dt">prop =</span> <span class="fl">0.9</span>, <span class="dt">times =</span> <span class="dv">30</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb866-1"><a href="statistical-models.html#cb866-1"></a>validation_data &lt;-<span class="st"> </span><span class="kw">mc_cv</span>(housing_train, <span class="dt">prop =</span> <span class="fl">0.9</span>, <span class="dt">times =</span> <span class="dv">30</span>)</span></code></pre></div>
 <p>What does <code>validation_data</code> look like?</p>
-<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="statistical-models.html#cb865-1"></a>validation_data</span></code></pre></div>
+<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="statistical-models.html#cb867-1"></a>validation_data</span></code></pre></div>
 <pre><code>## # Monte Carlo cross-validation (0.9/0.1) with 30 resamples  
 ## # A tibble: 30 x 2
 ##    splits           id        
@@ -1453,7 +1455,7 @@ This function implements Monte Carlo cross-validation:</p>
 ## 10 &lt;split [411/45]&gt; Resample10
 ## # … with 20 more rows</code></pre>
 <p>Let’s look further down:</p>
-<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="statistical-models.html#cb867-1"></a>validation_data<span class="op">$</span>splits[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="statistical-models.html#cb869-1"></a>validation_data<span class="op">$</span>splits[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## &lt;Analysis/Assess/Total&gt;
 ## &lt;411/45/456&gt;</code></pre>
 <p>The first value is the number of rows of the first set, the second value of the second, and the third
@@ -1467,12 +1469,12 @@ converts character and factor variables to dummy variables. This is needed becau
 random forest, which cannot handle factor variables directly. Let’s define a recipe to do that,
 and start by pre-processing the testing set. I write a wrapper function around the recipe,
 because I will need to apply this recipe to various data sets:</p>
-<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="statistical-models.html#cb869-1"></a>simple_recipe &lt;-<span class="st"> </span><span class="cf">function</span>(dataset){</span>
-<span id="cb869-2"><a href="statistical-models.html#cb869-2"></a>    <span class="kw">recipe</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dataset) <span class="op">%&gt;%</span></span>
-<span id="cb869-3"><a href="statistical-models.html#cb869-3"></a><span class="st">        </span><span class="kw">step_center</span>(<span class="kw">all_numeric</span>()) <span class="op">%&gt;%</span></span>
-<span id="cb869-4"><a href="statistical-models.html#cb869-4"></a><span class="st">        </span><span class="kw">step_scale</span>(<span class="kw">all_numeric</span>()) <span class="op">%&gt;%</span></span>
-<span id="cb869-5"><a href="statistical-models.html#cb869-5"></a><span class="st">        </span><span class="kw">step_dummy</span>(<span class="kw">all_nominal</span>())</span>
-<span id="cb869-6"><a href="statistical-models.html#cb869-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="statistical-models.html#cb871-1"></a>simple_recipe &lt;-<span class="st"> </span><span class="cf">function</span>(dataset){</span>
+<span id="cb871-2"><a href="statistical-models.html#cb871-2"></a>    <span class="kw">recipe</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> dataset) <span class="op">%&gt;%</span></span>
+<span id="cb871-3"><a href="statistical-models.html#cb871-3"></a><span class="st">        </span><span class="kw">step_center</span>(<span class="kw">all_numeric</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb871-4"><a href="statistical-models.html#cb871-4"></a><span class="st">        </span><span class="kw">step_scale</span>(<span class="kw">all_numeric</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb871-5"><a href="statistical-models.html#cb871-5"></a><span class="st">        </span><span class="kw">step_dummy</span>(<span class="kw">all_nominal</span>())</span>
+<span id="cb871-6"><a href="statistical-models.html#cb871-6"></a>}</span></code></pre></div>
 <p>We have not learned yet about writing functions, and will do so in the next chapter. However, for
 now, you only need to know that you can write your own functions, and that these functions can
 take any arguments you need. In the case of the above function, which we called <code>simple_recipe()</code>,
@@ -1481,9 +1483,9 @@ we only need one argument, which is a dataset, and which we called <code>dataset
 the data which are needed to process the data. For example, for centering, <code>prep()</code> estimates
 the mean which will then be subtracted from the variables. With <code>bake()</code> the estimates are then
 applied on the data:</p>
-<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="statistical-models.html#cb870-1"></a>testing_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_test), <span class="dt">testing =</span> housing_test)</span>
-<span id="cb870-2"><a href="statistical-models.html#cb870-2"></a></span>
-<span id="cb870-3"><a href="statistical-models.html#cb870-3"></a>test_data &lt;-<span class="st"> </span><span class="kw">bake</span>(testing_rec, <span class="dt">new_data =</span> housing_test)</span></code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="statistical-models.html#cb872-1"></a>testing_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_test), <span class="dt">testing =</span> housing_test)</span>
+<span id="cb872-2"><a href="statistical-models.html#cb872-2"></a></span>
+<span id="cb872-3"><a href="statistical-models.html#cb872-3"></a>test_data &lt;-<span class="st"> </span><span class="kw">bake</span>(testing_rec, <span class="dt">new_data =</span> housing_test)</span></code></pre></div>
 <p>It is important to split the data before using <code>prep()</code> and <code>bake()</code>, because if not, you will
 use observations from the test set in the <code>prep()</code> step, and thus introduce knowledge from the test
 set into the training data. This is called data leakage, and must be avoided. This is why it is
@@ -1494,14 +1496,14 @@ the analysis and assessment sets from the <code>validation_data</code> object, a
 the model, and returns the RMSE. This will be a big function, at the center of the analysis.</p>
 <p>But before that, let’s run a simple linear regression, as a benchmark. For the linear regression, I will
 not use any CV, so let’s pre-process the training set:</p>
-<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="statistical-models.html#cb871-1"></a>trainlm_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_train), <span class="dt">testing =</span> housing_train)</span>
-<span id="cb871-2"><a href="statistical-models.html#cb871-2"></a></span>
-<span id="cb871-3"><a href="statistical-models.html#cb871-3"></a>trainlm_data &lt;-<span class="st"> </span><span class="kw">bake</span>(trainlm_rec, <span class="dt">new_data =</span> housing_train)</span>
-<span id="cb871-4"><a href="statistical-models.html#cb871-4"></a></span>
-<span id="cb871-5"><a href="statistical-models.html#cb871-5"></a>linreg_model &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> trainlm_data)</span>
-<span id="cb871-6"><a href="statistical-models.html#cb871-6"></a></span>
-<span id="cb871-7"><a href="statistical-models.html#cb871-7"></a>broom<span class="op">::</span><span class="kw">augment</span>(linreg_model, <span class="dt">newdata =</span> test_data) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb871-8"><a href="statistical-models.html#cb871-8"></a><span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(price, .fitted)</span></code></pre></div>
+<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb873-1"><a href="statistical-models.html#cb873-1"></a>trainlm_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_train), <span class="dt">testing =</span> housing_train)</span>
+<span id="cb873-2"><a href="statistical-models.html#cb873-2"></a></span>
+<span id="cb873-3"><a href="statistical-models.html#cb873-3"></a>trainlm_data &lt;-<span class="st"> </span><span class="kw">bake</span>(trainlm_rec, <span class="dt">new_data =</span> housing_train)</span>
+<span id="cb873-4"><a href="statistical-models.html#cb873-4"></a></span>
+<span id="cb873-5"><a href="statistical-models.html#cb873-5"></a>linreg_model &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> trainlm_data)</span>
+<span id="cb873-6"><a href="statistical-models.html#cb873-6"></a></span>
+<span id="cb873-7"><a href="statistical-models.html#cb873-7"></a>broom<span class="op">::</span><span class="kw">augment</span>(linreg_model, <span class="dt">newdata =</span> test_data) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb873-8"><a href="statistical-models.html#cb873-8"></a><span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(price, .fitted)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
@@ -1510,37 +1512,37 @@ not use any CV, so let’s pre-process the training set:</p>
 use this trick with the random forest, because there is no <code>augment()</code> method for random forests
 from the <code>{ranger}</code> package which I’ll use. I’ll add the predictions to the data myself.</p>
 <p>Ok, now let’s go back to the random forest and write the big function:</p>
-<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb873-1"><a href="statistical-models.html#cb873-1"></a>my_rf &lt;-<span class="st"> </span><span class="cf">function</span>(mtry, trees, split, id){</span>
-<span id="cb873-2"><a href="statistical-models.html#cb873-2"></a>    </span>
-<span id="cb873-3"><a href="statistical-models.html#cb873-3"></a>    analysis_set &lt;-<span class="st"> </span><span class="kw">analysis</span>(split)</span>
-<span id="cb873-4"><a href="statistical-models.html#cb873-4"></a>    </span>
-<span id="cb873-5"><a href="statistical-models.html#cb873-5"></a>    analysis_prep &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(analysis_set), <span class="dt">training =</span> analysis_set)</span>
-<span id="cb873-6"><a href="statistical-models.html#cb873-6"></a>    </span>
-<span id="cb873-7"><a href="statistical-models.html#cb873-7"></a>    analysis_processed &lt;-<span class="st"> </span><span class="kw">bake</span>(analysis_prep, <span class="dt">new_data =</span> analysis_set)</span>
-<span id="cb873-8"><a href="statistical-models.html#cb873-8"></a>    </span>
-<span id="cb873-9"><a href="statistical-models.html#cb873-9"></a>    model &lt;-<span class="st"> </span><span class="kw">rand_forest</span>(<span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>, <span class="dt">mtry =</span> mtry, <span class="dt">trees =</span> trees) <span class="op">%&gt;%</span></span>
-<span id="cb873-10"><a href="statistical-models.html#cb873-10"></a><span class="st">        </span><span class="kw">set_engine</span>(<span class="st">&quot;ranger&quot;</span>, <span class="dt">importance =</span> <span class="st">&#39;impurity&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb873-11"><a href="statistical-models.html#cb873-11"></a><span class="st">        </span><span class="kw">fit</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> analysis_processed)</span>
-<span id="cb873-12"><a href="statistical-models.html#cb873-12"></a></span>
-<span id="cb873-13"><a href="statistical-models.html#cb873-13"></a>    assessment_set &lt;-<span class="st"> </span><span class="kw">assessment</span>(split)</span>
-<span id="cb873-14"><a href="statistical-models.html#cb873-14"></a>    </span>
-<span id="cb873-15"><a href="statistical-models.html#cb873-15"></a>    assessment_prep &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(assessment_set), <span class="dt">testing =</span> assessment_set)</span>
-<span id="cb873-16"><a href="statistical-models.html#cb873-16"></a>    </span>
-<span id="cb873-17"><a href="statistical-models.html#cb873-17"></a>    assessment_processed &lt;-<span class="st"> </span><span class="kw">bake</span>(assessment_prep, <span class="dt">new_data =</span> assessment_set)</span>
-<span id="cb873-18"><a href="statistical-models.html#cb873-18"></a></span>
-<span id="cb873-19"><a href="statistical-models.html#cb873-19"></a>    tibble<span class="op">::</span><span class="kw">tibble</span>(<span class="st">&quot;id&quot;</span> =<span class="st"> </span>id,</span>
-<span id="cb873-20"><a href="statistical-models.html#cb873-20"></a>        <span class="st">&quot;truth&quot;</span> =<span class="st"> </span>assessment_processed<span class="op">$</span>price,</span>
-<span id="cb873-21"><a href="statistical-models.html#cb873-21"></a>        <span class="st">&quot;prediction&quot;</span> =<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">predict</span>(model, <span class="dt">new_data =</span> assessment_processed)))</span>
-<span id="cb873-22"><a href="statistical-models.html#cb873-22"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="statistical-models.html#cb875-1"></a>my_rf &lt;-<span class="st"> </span><span class="cf">function</span>(mtry, trees, split, id){</span>
+<span id="cb875-2"><a href="statistical-models.html#cb875-2"></a>    </span>
+<span id="cb875-3"><a href="statistical-models.html#cb875-3"></a>    analysis_set &lt;-<span class="st"> </span><span class="kw">analysis</span>(split)</span>
+<span id="cb875-4"><a href="statistical-models.html#cb875-4"></a>    </span>
+<span id="cb875-5"><a href="statistical-models.html#cb875-5"></a>    analysis_prep &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(analysis_set), <span class="dt">training =</span> analysis_set)</span>
+<span id="cb875-6"><a href="statistical-models.html#cb875-6"></a>    </span>
+<span id="cb875-7"><a href="statistical-models.html#cb875-7"></a>    analysis_processed &lt;-<span class="st"> </span><span class="kw">bake</span>(analysis_prep, <span class="dt">new_data =</span> analysis_set)</span>
+<span id="cb875-8"><a href="statistical-models.html#cb875-8"></a>    </span>
+<span id="cb875-9"><a href="statistical-models.html#cb875-9"></a>    model &lt;-<span class="st"> </span><span class="kw">rand_forest</span>(<span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>, <span class="dt">mtry =</span> mtry, <span class="dt">trees =</span> trees) <span class="op">%&gt;%</span></span>
+<span id="cb875-10"><a href="statistical-models.html#cb875-10"></a><span class="st">        </span><span class="kw">set_engine</span>(<span class="st">&quot;ranger&quot;</span>, <span class="dt">importance =</span> <span class="st">&#39;impurity&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb875-11"><a href="statistical-models.html#cb875-11"></a><span class="st">        </span><span class="kw">fit</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> analysis_processed)</span>
+<span id="cb875-12"><a href="statistical-models.html#cb875-12"></a></span>
+<span id="cb875-13"><a href="statistical-models.html#cb875-13"></a>    assessment_set &lt;-<span class="st"> </span><span class="kw">assessment</span>(split)</span>
+<span id="cb875-14"><a href="statistical-models.html#cb875-14"></a>    </span>
+<span id="cb875-15"><a href="statistical-models.html#cb875-15"></a>    assessment_prep &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(assessment_set), <span class="dt">testing =</span> assessment_set)</span>
+<span id="cb875-16"><a href="statistical-models.html#cb875-16"></a>    </span>
+<span id="cb875-17"><a href="statistical-models.html#cb875-17"></a>    assessment_processed &lt;-<span class="st"> </span><span class="kw">bake</span>(assessment_prep, <span class="dt">new_data =</span> assessment_set)</span>
+<span id="cb875-18"><a href="statistical-models.html#cb875-18"></a></span>
+<span id="cb875-19"><a href="statistical-models.html#cb875-19"></a>    tibble<span class="op">::</span><span class="kw">tibble</span>(<span class="st">&quot;id&quot;</span> =<span class="st"> </span>id,</span>
+<span id="cb875-20"><a href="statistical-models.html#cb875-20"></a>        <span class="st">&quot;truth&quot;</span> =<span class="st"> </span>assessment_processed<span class="op">$</span>price,</span>
+<span id="cb875-21"><a href="statistical-models.html#cb875-21"></a>        <span class="st">&quot;prediction&quot;</span> =<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">predict</span>(model, <span class="dt">new_data =</span> assessment_processed)))</span>
+<span id="cb875-22"><a href="statistical-models.html#cb875-22"></a>}</span></code></pre></div>
 <p>The <code>rand_forest()</code> function is available in the <code>{parsnip}</code> package. This package provides an
 unified interface to a lot of other machine learning packages. This means that instead of having to
 learn the syntax of <code>range()</code> and <code>randomForest()</code> and, and… you can simply use the <code>rand_forest()</code>
 function and change the <code>engine</code> argument to the one you want (<code>ranger</code>, <code>randomForest</code>, etc).</p>
 <p>Let’s try this function:</p>
-<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="statistical-models.html#cb874-1"></a>results_example &lt;-<span class="st"> </span><span class="kw">map2_df</span>(<span class="dt">.x =</span> validation_data<span class="op">$</span>splits,</span>
-<span id="cb874-2"><a href="statistical-models.html#cb874-2"></a>                           <span class="dt">.y =</span> validation_data<span class="op">$</span>id,</span>
-<span id="cb874-3"><a href="statistical-models.html#cb874-3"></a>                           <span class="op">~</span><span class="kw">my_rf</span>(<span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">200</span>, <span class="dt">split =</span> .x, <span class="dt">id =</span> .y))</span></code></pre></div>
-<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="statistical-models.html#cb875-1"></a><span class="kw">head</span>(results_example)</span></code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="statistical-models.html#cb876-1"></a>results_example &lt;-<span class="st"> </span><span class="kw">map2_df</span>(<span class="dt">.x =</span> validation_data<span class="op">$</span>splits,</span>
+<span id="cb876-2"><a href="statistical-models.html#cb876-2"></a>                           <span class="dt">.y =</span> validation_data<span class="op">$</span>id,</span>
+<span id="cb876-3"><a href="statistical-models.html#cb876-3"></a>                           <span class="op">~</span><span class="kw">my_rf</span>(<span class="dt">mtry =</span> <span class="dv">3</span>, <span class="dt">trees =</span> <span class="dv">200</span>, <span class="dt">split =</span> .x, <span class="dt">id =</span> .y))</span></code></pre></div>
+<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb877-1"><a href="statistical-models.html#cb877-1"></a><span class="kw">head</span>(results_example)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   id           truth prediction
 ##   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
@@ -1551,11 +1553,11 @@ function and change the <code>engine</code> argument to the one you want (<code>
 ## 5 Resample01  0.0593     0.367 
 ## 6 Resample01  1.10       0.975</code></pre>
 <p>I can now compute the RMSE when <code>mtry</code> = 3 and <code>trees</code> = 200:</p>
-<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb877-1"><a href="statistical-models.html#cb877-1"></a>results_example <span class="op">%&gt;%</span></span>
-<span id="cb877-2"><a href="statistical-models.html#cb877-2"></a><span class="st">    </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></span>
-<span id="cb877-3"><a href="statistical-models.html#cb877-3"></a><span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span></span>
-<span id="cb877-4"><a href="statistical-models.html#cb877-4"></a><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_rmse =</span> <span class="kw">mean</span>(.estimate)) <span class="op">%&gt;%</span></span>
-<span id="cb877-5"><a href="statistical-models.html#cb877-5"></a><span class="st">    </span>pull</span></code></pre></div>
+<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb879-1"><a href="statistical-models.html#cb879-1"></a>results_example <span class="op">%&gt;%</span></span>
+<span id="cb879-2"><a href="statistical-models.html#cb879-2"></a><span class="st">    </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></span>
+<span id="cb879-3"><a href="statistical-models.html#cb879-3"></a><span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span></span>
+<span id="cb879-4"><a href="statistical-models.html#cb879-4"></a><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_rmse =</span> <span class="kw">mean</span>(.estimate)) <span class="op">%&gt;%</span></span>
+<span id="cb879-5"><a href="statistical-models.html#cb879-5"></a><span class="st">    </span>pull</span></code></pre></div>
 <pre><code>## [1] 0.6105358</code></pre>
 <p>The random forest has already lower RMSE than the linear regression. The goal now is to lower this
 RMSE by tuning the <code>mtry</code> and <code>trees</code> hyperparameters. For this, I will use Bayesian Optimization
@@ -1565,24 +1567,24 @@ methods implemented in the <code>{mlrMBO}</code> package.</p>
 <h3><span class="header-section-number">6.9.2</span> Bayesian hyperparameter optimization</h3>
 <p>I will re-use the code from above, and define a function that does everything from pre-processing
 to returning the metric I want to minimize by tuning the hyperparameters, the RMSE:</p>
-<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb879-1"><a href="statistical-models.html#cb879-1"></a>tuning &lt;-<span class="st"> </span><span class="cf">function</span>(param, validation_data){</span>
-<span id="cb879-2"><a href="statistical-models.html#cb879-2"></a></span>
-<span id="cb879-3"><a href="statistical-models.html#cb879-3"></a>    mtry &lt;-<span class="st"> </span>param[<span class="dv">1</span>]</span>
-<span id="cb879-4"><a href="statistical-models.html#cb879-4"></a>    trees &lt;-<span class="st"> </span>param[<span class="dv">2</span>]</span>
-<span id="cb879-5"><a href="statistical-models.html#cb879-5"></a></span>
-<span id="cb879-6"><a href="statistical-models.html#cb879-6"></a>    results &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map2_df</span>(<span class="dt">.x =</span> validation_data<span class="op">$</span>splits,</span>
-<span id="cb879-7"><a href="statistical-models.html#cb879-7"></a>                       <span class="dt">.y =</span> validation_data<span class="op">$</span>id,</span>
-<span id="cb879-8"><a href="statistical-models.html#cb879-8"></a>                       <span class="op">~</span><span class="kw">my_rf</span>(<span class="dt">mtry =</span> mtry, <span class="dt">trees =</span> trees, <span class="dt">split =</span> .x, <span class="dt">id =</span> .y))</span>
-<span id="cb879-9"><a href="statistical-models.html#cb879-9"></a></span>
-<span id="cb879-10"><a href="statistical-models.html#cb879-10"></a>    results <span class="op">%&gt;%</span></span>
-<span id="cb879-11"><a href="statistical-models.html#cb879-11"></a><span class="st">        </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></span>
-<span id="cb879-12"><a href="statistical-models.html#cb879-12"></a><span class="st">        </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span></span>
-<span id="cb879-13"><a href="statistical-models.html#cb879-13"></a><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean_rmse =</span> <span class="kw">mean</span>(.estimate)) <span class="op">%&gt;%</span></span>
-<span id="cb879-14"><a href="statistical-models.html#cb879-14"></a><span class="st">        </span>pull</span>
-<span id="cb879-15"><a href="statistical-models.html#cb879-15"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb881-1"><a href="statistical-models.html#cb881-1"></a>tuning &lt;-<span class="st"> </span><span class="cf">function</span>(param, validation_data){</span>
+<span id="cb881-2"><a href="statistical-models.html#cb881-2"></a></span>
+<span id="cb881-3"><a href="statistical-models.html#cb881-3"></a>    mtry &lt;-<span class="st"> </span>param[<span class="dv">1</span>]</span>
+<span id="cb881-4"><a href="statistical-models.html#cb881-4"></a>    trees &lt;-<span class="st"> </span>param[<span class="dv">2</span>]</span>
+<span id="cb881-5"><a href="statistical-models.html#cb881-5"></a></span>
+<span id="cb881-6"><a href="statistical-models.html#cb881-6"></a>    results &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map2_df</span>(<span class="dt">.x =</span> validation_data<span class="op">$</span>splits,</span>
+<span id="cb881-7"><a href="statistical-models.html#cb881-7"></a>                       <span class="dt">.y =</span> validation_data<span class="op">$</span>id,</span>
+<span id="cb881-8"><a href="statistical-models.html#cb881-8"></a>                       <span class="op">~</span><span class="kw">my_rf</span>(<span class="dt">mtry =</span> mtry, <span class="dt">trees =</span> trees, <span class="dt">split =</span> .x, <span class="dt">id =</span> .y))</span>
+<span id="cb881-9"><a href="statistical-models.html#cb881-9"></a></span>
+<span id="cb881-10"><a href="statistical-models.html#cb881-10"></a>    results <span class="op">%&gt;%</span></span>
+<span id="cb881-11"><a href="statistical-models.html#cb881-11"></a><span class="st">        </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span></span>
+<span id="cb881-12"><a href="statistical-models.html#cb881-12"></a><span class="st">        </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction) <span class="op">%&gt;%</span></span>
+<span id="cb881-13"><a href="statistical-models.html#cb881-13"></a><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean_rmse =</span> <span class="kw">mean</span>(.estimate)) <span class="op">%&gt;%</span></span>
+<span id="cb881-14"><a href="statistical-models.html#cb881-14"></a><span class="st">        </span>pull</span>
+<span id="cb881-15"><a href="statistical-models.html#cb881-15"></a>}</span></code></pre></div>
 <p>This is exactly the code from before, but it now returns the RMSE. Let’s try the function
 with the values from before:</p>
-<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb880-1"><a href="statistical-models.html#cb880-1"></a><span class="kw">tuning</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">200</span>), validation_data)</span></code></pre></div>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="statistical-models.html#cb882-1"></a><span class="kw">tuning</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">200</span>), validation_data)</span></code></pre></div>
 <pre><code>## [1] 0.6064163</code></pre>
 <p>I now follow the code that can be found in the <a href="https://arxiv.org/abs/1703.03373">arxiv</a> paper to
 run the optimization. A simpler model, called the surrogate model, is used to look for promising
@@ -1596,30 +1598,30 @@ change anything to the general approach. So I will not spend too much time expla
 going on below, as you can read the details in the paper cited above as well as the package’s
 documentation.</p>
 <p>Let’s first load the package and create the function to optimize:</p>
-<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="statistical-models.html#cb882-1"></a><span class="kw">library</span>(<span class="st">&quot;mlrMBO&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb883-1"><a href="statistical-models.html#cb883-1"></a>fn &lt;-<span class="st"> </span><span class="kw">makeSingleObjectiveFunction</span>(<span class="dt">name =</span> <span class="st">&quot;tuning&quot;</span>,</span>
-<span id="cb883-2"><a href="statistical-models.html#cb883-2"></a>                                 <span class="dt">fn =</span> tuning,</span>
-<span id="cb883-3"><a href="statistical-models.html#cb883-3"></a>                                 <span class="dt">par.set =</span> <span class="kw">makeParamSet</span>(<span class="kw">makeIntegerParam</span>(<span class="st">&quot;x1&quot;</span>, <span class="dt">lower =</span> <span class="dv">3</span>, <span class="dt">upper =</span> <span class="dv">8</span>),</span>
-<span id="cb883-4"><a href="statistical-models.html#cb883-4"></a>                                                        <span class="kw">makeIntegerParam</span>(<span class="st">&quot;x2&quot;</span>, <span class="dt">lower =</span> <span class="dv">100</span>, <span class="dt">upper =</span> <span class="dv">500</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="statistical-models.html#cb884-1"></a><span class="kw">library</span>(<span class="st">&quot;mlrMBO&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb885-1"><a href="statistical-models.html#cb885-1"></a>fn &lt;-<span class="st"> </span><span class="kw">makeSingleObjectiveFunction</span>(<span class="dt">name =</span> <span class="st">&quot;tuning&quot;</span>,</span>
+<span id="cb885-2"><a href="statistical-models.html#cb885-2"></a>                                 <span class="dt">fn =</span> tuning,</span>
+<span id="cb885-3"><a href="statistical-models.html#cb885-3"></a>                                 <span class="dt">par.set =</span> <span class="kw">makeParamSet</span>(<span class="kw">makeIntegerParam</span>(<span class="st">&quot;x1&quot;</span>, <span class="dt">lower =</span> <span class="dv">3</span>, <span class="dt">upper =</span> <span class="dv">8</span>),</span>
+<span id="cb885-4"><a href="statistical-models.html#cb885-4"></a>                                                        <span class="kw">makeIntegerParam</span>(<span class="st">&quot;x2&quot;</span>, <span class="dt">lower =</span> <span class="dv">100</span>, <span class="dt">upper =</span> <span class="dv">500</span>)))</span></code></pre></div>
 <p>This function is based on the function I defined before. The parameters to optimize are also
 defined as are their bounds. I will look for <code>mtry</code> between the values of 3 and 8, and <code>trees</code>
 between 50 and 500.</p>
 <p>We still need to define some other objects before continuing:</p>
-<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="statistical-models.html#cb884-1"></a><span class="co"># Create initial random Latin Hypercube Design of 10 points</span></span>
-<span id="cb884-2"><a href="statistical-models.html#cb884-2"></a><span class="kw">library</span>(lhs)<span class="co"># for randomLHS</span></span>
-<span id="cb884-3"><a href="statistical-models.html#cb884-3"></a>des &lt;-<span class="st"> </span><span class="kw">generateDesign</span>(<span class="dt">n =</span> 5L <span class="op">*</span><span class="st"> </span>2L, <span class="kw">getParamSet</span>(fn), <span class="dt">fun =</span> randomLHS)</span></code></pre></div>
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="statistical-models.html#cb886-1"></a><span class="co"># Create initial random Latin Hypercube Design of 10 points</span></span>
+<span id="cb886-2"><a href="statistical-models.html#cb886-2"></a><span class="kw">library</span>(lhs)<span class="co"># for randomLHS</span></span>
+<span id="cb886-3"><a href="statistical-models.html#cb886-3"></a>des &lt;-<span class="st"> </span><span class="kw">generateDesign</span>(<span class="dt">n =</span> 5L <span class="op">*</span><span class="st"> </span>2L, <span class="kw">getParamSet</span>(fn), <span class="dt">fun =</span> randomLHS)</span></code></pre></div>
 <p>Then we choose the surrogate model, a random forest too:</p>
-<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb885-1"><a href="statistical-models.html#cb885-1"></a><span class="co"># Specify kriging model with standard error estimation</span></span>
-<span id="cb885-2"><a href="statistical-models.html#cb885-2"></a>surrogate &lt;-<span class="st"> </span><span class="kw">makeLearner</span>(<span class="st">&quot;regr.ranger&quot;</span>, <span class="dt">predict.type =</span> <span class="st">&quot;se&quot;</span>, <span class="dt">keep.inbag =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb887-1"><a href="statistical-models.html#cb887-1"></a><span class="co"># Specify kriging model with standard error estimation</span></span>
+<span id="cb887-2"><a href="statistical-models.html#cb887-2"></a>surrogate &lt;-<span class="st"> </span><span class="kw">makeLearner</span>(<span class="st">&quot;regr.ranger&quot;</span>, <span class="dt">predict.type =</span> <span class="st">&quot;se&quot;</span>, <span class="dt">keep.inbag =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Here I define some options:</p>
-<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="statistical-models.html#cb886-1"></a><span class="co"># Set general controls</span></span>
-<span id="cb886-2"><a href="statistical-models.html#cb886-2"></a>ctrl &lt;-<span class="st"> </span><span class="kw">makeMBOControl</span>()</span>
-<span id="cb886-3"><a href="statistical-models.html#cb886-3"></a>ctrl &lt;-<span class="st"> </span><span class="kw">setMBOControlTermination</span>(ctrl, <span class="dt">iters =</span> 10L)</span>
-<span id="cb886-4"><a href="statistical-models.html#cb886-4"></a>ctrl &lt;-<span class="st"> </span><span class="kw">setMBOControlInfill</span>(ctrl, <span class="dt">crit =</span> <span class="kw">makeMBOInfillCritEI</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="statistical-models.html#cb888-1"></a><span class="co"># Set general controls</span></span>
+<span id="cb888-2"><a href="statistical-models.html#cb888-2"></a>ctrl &lt;-<span class="st"> </span><span class="kw">makeMBOControl</span>()</span>
+<span id="cb888-3"><a href="statistical-models.html#cb888-3"></a>ctrl &lt;-<span class="st"> </span><span class="kw">setMBOControlTermination</span>(ctrl, <span class="dt">iters =</span> 10L)</span>
+<span id="cb888-4"><a href="statistical-models.html#cb888-4"></a>ctrl &lt;-<span class="st"> </span><span class="kw">setMBOControlInfill</span>(ctrl, <span class="dt">crit =</span> <span class="kw">makeMBOInfillCritEI</span>())</span></code></pre></div>
 <p>And this is the optimization part:</p>
-<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb887-1"><a href="statistical-models.html#cb887-1"></a><span class="co"># Start optimization</span></span>
-<span id="cb887-2"><a href="statistical-models.html#cb887-2"></a>result &lt;-<span class="st"> </span><span class="kw">mbo</span>(fn, des, surrogate, ctrl, <span class="dt">more.args =</span> <span class="kw">list</span>(<span class="st">&quot;validation_data&quot;</span> =<span class="st"> </span>validation_data))</span></code></pre></div>
-<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="statistical-models.html#cb888-1"></a>result</span></code></pre></div>
+<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb889-1"><a href="statistical-models.html#cb889-1"></a><span class="co"># Start optimization</span></span>
+<span id="cb889-2"><a href="statistical-models.html#cb889-2"></a>result &lt;-<span class="st"> </span><span class="kw">mbo</span>(fn, des, surrogate, ctrl, <span class="dt">more.args =</span> <span class="kw">list</span>(<span class="st">&quot;validation_data&quot;</span> =<span class="st"> </span>validation_data))</span></code></pre></div>
+<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="statistical-models.html#cb890-1"></a>result</span></code></pre></div>
 <pre><code>## Recommended parameters:
 ## x1=8; x2=314
 ## Objective: y = 0.484
@@ -1654,18 +1656,18 @@ The value of the RMSE is lower than before, and equals 0.4839817. It can be acce
 <code>result$y</code>.
 Let’s now train the random forest on the training data with this values. First, I pre-process the
 training data</p>
-<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="statistical-models.html#cb890-1"></a>training_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_train), <span class="dt">testing =</span> housing_train)</span>
-<span id="cb890-2"><a href="statistical-models.html#cb890-2"></a></span>
-<span id="cb890-3"><a href="statistical-models.html#cb890-3"></a>train_data &lt;-<span class="st"> </span><span class="kw">bake</span>(training_rec, <span class="dt">new_data =</span> housing_train)</span></code></pre></div>
+<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="statistical-models.html#cb892-1"></a>training_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(<span class="kw">simple_recipe</span>(housing_train), <span class="dt">testing =</span> housing_train)</span>
+<span id="cb892-2"><a href="statistical-models.html#cb892-2"></a></span>
+<span id="cb892-3"><a href="statistical-models.html#cb892-3"></a>train_data &lt;-<span class="st"> </span><span class="kw">bake</span>(training_rec, <span class="dt">new_data =</span> housing_train)</span></code></pre></div>
 <p>Let’s now train our final model and predict the prices:</p>
-<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb891-1"><a href="statistical-models.html#cb891-1"></a>final_model &lt;-<span class="st"> </span><span class="kw">rand_forest</span>(<span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>, <span class="dt">mtry =</span> result<span class="op">$</span>x<span class="op">$</span>x1, <span class="dt">trees =</span> result<span class="op">$</span>x<span class="op">$</span>x2) <span class="op">%&gt;%</span></span>
-<span id="cb891-2"><a href="statistical-models.html#cb891-2"></a><span class="st">        </span><span class="kw">set_engine</span>(<span class="st">&quot;ranger&quot;</span>, <span class="dt">importance =</span> <span class="st">&#39;impurity&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb891-3"><a href="statistical-models.html#cb891-3"></a><span class="st">        </span><span class="kw">fit</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_data)</span>
-<span id="cb891-4"><a href="statistical-models.html#cb891-4"></a></span>
-<span id="cb891-5"><a href="statistical-models.html#cb891-5"></a>price_predict &lt;-<span class="st"> </span><span class="kw">predict</span>(final_model, <span class="dt">new_data =</span> <span class="kw">select</span>(test_data, <span class="op">-</span>price))</span></code></pre></div>
+<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="statistical-models.html#cb893-1"></a>final_model &lt;-<span class="st"> </span><span class="kw">rand_forest</span>(<span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>, <span class="dt">mtry =</span> result<span class="op">$</span>x<span class="op">$</span>x1, <span class="dt">trees =</span> result<span class="op">$</span>x<span class="op">$</span>x2) <span class="op">%&gt;%</span></span>
+<span id="cb893-2"><a href="statistical-models.html#cb893-2"></a><span class="st">        </span><span class="kw">set_engine</span>(<span class="st">&quot;ranger&quot;</span>, <span class="dt">importance =</span> <span class="st">&#39;impurity&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb893-3"><a href="statistical-models.html#cb893-3"></a><span class="st">        </span><span class="kw">fit</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_data)</span>
+<span id="cb893-4"><a href="statistical-models.html#cb893-4"></a></span>
+<span id="cb893-5"><a href="statistical-models.html#cb893-5"></a>price_predict &lt;-<span class="st"> </span><span class="kw">predict</span>(final_model, <span class="dt">new_data =</span> <span class="kw">select</span>(test_data, <span class="op">-</span>price))</span></code></pre></div>
 <p>Let’s transform the data back and compare the predicted prices to the true ones visually:</p>
-<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="statistical-models.html#cb892-1"></a><span class="kw">cbind</span>(price_predict <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(housing_train<span class="op">$</span>price) <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(housing_train<span class="op">$</span>price), </span>
-<span id="cb892-2"><a href="statistical-models.html#cb892-2"></a>      housing_test<span class="op">$</span>price)</span></code></pre></div>
+<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="statistical-models.html#cb894-1"></a><span class="kw">cbind</span>(price_predict <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(housing_train<span class="op">$</span>price) <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(housing_train<span class="op">$</span>price), </span>
+<span id="cb894-2"><a href="statistical-models.html#cb894-2"></a>      housing_test<span class="op">$</span>price)</span></code></pre></div>
 <pre><code>##       .pred housing_test$price
 ## 1  20.96687               16.5
 ## 2  21.69664               18.9
@@ -1718,9 +1720,9 @@ training data</p>
 ## 49 20.17279               20.6
 ## 50 16.05437               15.2</code></pre>
 <p>Let’s now compute the RMSE:</p>
-<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="statistical-models.html#cb894-1"></a>tibble<span class="op">::</span><span class="kw">tibble</span>(<span class="st">&quot;truth&quot;</span> =<span class="st"> </span>test_data<span class="op">$</span>price,</span>
-<span id="cb894-2"><a href="statistical-models.html#cb894-2"></a>        <span class="st">&quot;prediction&quot;</span> =<span class="st"> </span><span class="kw">unlist</span>(price_predict)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb894-3"><a href="statistical-models.html#cb894-3"></a><span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction)</span></code></pre></div>
+<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="statistical-models.html#cb896-1"></a>tibble<span class="op">::</span><span class="kw">tibble</span>(<span class="st">&quot;truth&quot;</span> =<span class="st"> </span>test_data<span class="op">$</span>price,</span>
+<span id="cb896-2"><a href="statistical-models.html#cb896-2"></a>        <span class="st">&quot;prediction&quot;</span> =<span class="st"> </span><span class="kw">unlist</span>(price_predict)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb896-3"><a href="statistical-models.html#cb896-3"></a><span class="st">    </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(truth, prediction)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
