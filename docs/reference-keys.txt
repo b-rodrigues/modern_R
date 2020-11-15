@@ -159,4 +159,3 @@ generating-pdf-or-word-reports-with-r
 scraping-the-internet
 regular-expressions
 setting-up-a-blog-with-blogdown
-groups-country-18

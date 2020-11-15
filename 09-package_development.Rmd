@@ -399,25 +399,27 @@ script where `describe_numeric()` is might be a good idea, so let's do just that
 #' }
 describe_numeric <- function(df, ...){
 
-    if (nargs() > 1) df <- select(df, ...)
+  if (nargs() > 1) df <- select(df, ...)
 
-    df %>%
-        select_if(is.numeric) %>%
-        gather(variable, value) %>%
-        group_by(variable) %>%
-        summarise_all(list(mean = ~mean(., na.rm = TRUE),
-                           sd = ~sd(., na.rm = TRUE),
-                           nobs = ~length(.),
-                           min = ~min(., na.rm = TRUE),
-                           max = ~max(., na.rm = TRUE),
-                           q05 = ~quantile(., 0.05, na.rm = TRUE),
-                           q25 = ~quantile(., 0.25, na.rm = TRUE),
-                           mode = ~as.character(brotools::sample_mode(.), na.rm = TRUE),
-                           median = ~quantile(., 0.5, na.rm = TRUE),
-                           q75 = ~quantile(., 0.75, na.rm = TRUE),
-                           q95 = ~quantile(., 0.95, na.rm = TRUE),
-                           n_missing = ~sum(is.na(.)))) %>%
-        mutate(type = "Numeric")
+  df %>%
+    select(is.numeric) %>%
+    pivot_longer(cols = everything(),
+                 names_to = "variable", values_to = "value") %>%
+    group_by(variable) %>%
+    summarise(across(everything(),
+                     tibble::lst(mean = ~mean(., na.rm = TRUE),
+                       sd = ~sd(., na.rm = TRUE),
+                       nobs = ~length(.),
+                       min = ~min(., na.rm = TRUE),
+                       max = ~max(., na.rm = TRUE),
+                       q05 = ~quantile(., 0.05, na.rm = TRUE),
+                       q25 = ~quantile(., 0.25, na.rm = TRUE),
+                       mode = ~as.character(brotools::sample_mode(.), na.rm = TRUE),
+                       median = ~quantile(., 0.5, na.rm = TRUE),
+                       q75 = ~quantile(., 0.75, na.rm = TRUE),
+                       q95 = ~quantile(., 0.95, na.rm = TRUE),
+                       n_missing = ~sum(is.na(.))))) %>%
+    mutate(type = "Numeric")
 }
 
 #' Compute descriptive statistics for the character or factor columns of a data frame.
@@ -426,30 +428,31 @@ describe_numeric <- function(df, ...){
 #' @import dplyr
 #' @importFrom tidyr gather
 describe_character_or_factors <- function(df, type){
-    df %>%
-        gather(variable, value) %>%
-        group_by(variable) %>%
-        summarise_all(funs(mode = brotools::sample_mode(value, na.rm = TRUE),
-                           nobs = length(value),
-                           n_missing = sum(is.na(value)),
-                           n_unique = length(unique(value)))) %>%
-        mutate(type = type)
+  df %>%
+    pivot_longer(cols = everything(),
+                 names_to = "variable", values_to = "value") %>%
+    group_by(variable) %>%
+    summarise(across(everything(),
+                     funs(mode = brotools::sample_mode(value, na.rm = TRUE),
+                     nobs = length(value),
+                     n_missing = sum(is.na(value)),
+                     n_unique = length(unique(value))))) %>%
+    mutate(type = type)
 }
 
 #' Compute descriptive statistics for the character columns of a data frame.
 #' @param df The data frame to summarise.
 #' @return A data frame with a description of the character columns.
 #' @import dplyr
-#' @importFrom tidyr gather
 #' @export
 #' @examples
 #' \dontrun{
 #' describe(dataset)
 #' }
 describe_character <- function(df){
-    df %>%
-        select_if(is.character) %>%
-        describe_character_or_factors(type = "Character")
+  df %>%
+    select(where(is.character)) %>%
+    describe_character_or_factors(type = "Character")
 }
 ```
 
