@@ -123,6 +123,9 @@ lot of new files and other folders. The most important folder for now is the `R`
 the folder that will hold your `.R` source code files. You can also see these files and folders 
 inside the *Files* panel from within Rstudio. Rstudio will also have `hello.R` opened, which is a 
 single demo source file inside the `R` folder. You can get rid of this file, or keep it and edit it.
+I would advise you keep it and even distribute it inside your package. You can save this file
+in a special directory called `data-raw`. You don't need to manually create this folder now, we will
+do so in a bit. For now, just follow along.
 
 Now, to start working on your package, the best is to use a package called `{usethis}`. `{usethis}`
 is a package that makes writing packages very easy; it includes functions that create the required
@@ -238,7 +241,8 @@ Basically this is a description of the data, and the name with which the user wi
 conclude this part, remember the `data-raw` folder? If you used a script to scrape/get the data
 from somewhere, or if you had to write code to prepare the data to make it fit for sharing, this
 is where you can put that script. I have written such a script, I will discuss it in the next 
-chapter, where I'll show you how to scrape data from the internet.
+chapter, where I'll show you how to scrape data from the internet. You can also save the file 
+where you wrote all your calls to `{usethis}` functions if you want.
 
 ## Adding functions to your package
 
@@ -332,6 +336,8 @@ other packages that are not available on CRAN, but rather on Github, you might w
 in a cleaner way. The cleaner way is to add a "Remotes" field in the package's NAMESPACE (this is 
 a very important file that gets generated automatically by `devtools::document()`) I won't
 cover this here, but you can read more about it [here](https://cran.r-project.org/web/packages/devtools/vignettes/dependencies.html).
+What I will cover is how to declare dependencies to other CRAN packages. These dependencies also
+get declared inside the 'Description' file, which we will cover in the next section.
 
 Because I'm doing that in this hacky way, my `{brotools}` package should be installed:
 
