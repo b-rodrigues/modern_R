@@ -514,6 +514,8 @@ Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these 
 
 ### Explainability of *black-box* models
 
+Just read Christoph Molnar's 
+[Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/).
 
 
 ## Comparing models
@@ -939,9 +941,9 @@ The first value is the number of rows of the first set, the second value of the 
 was the original amount of values in the training data, before splitting again.
 
 How should we call these two new data sets? The author of `{rsample}`, Max Kuhn, talks about 
-the *analysis* and the *assessment* sets:
+the *analysis* and the *assessment* sets, and I'm going to use this terminology as well.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, include = FALSE}
 blogdown::shortcode("tweet", "1066131042615140353")
 ```
 
@@ -1104,7 +1106,8 @@ is simply to look for hyper-parameters in an efficient way, and bayesian optimis
 this efficient way. However, you could use another method, for example a grid search. This would not
 change anything to the general approach. So I will not spend too much time explaining what is 
 going on below, as you can read the details in the paper cited above as well as the package's 
-documentation.
+documentation. The focus here is not on this particular method, but rather showing you how you can
+use various packages to solve a data science problem.
 
 Let's first load the package and create the function to optimize:
 

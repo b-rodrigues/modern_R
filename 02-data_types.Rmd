@@ -423,6 +423,9 @@ or, for named lists:
 list4$c
 ```
 
+The `$` operator is very useful, because it also allows you to access entire columns
+of `data.frame` objects, which we are going to get to know in the next section.
+
 Lists are used extensively because they are so flexible. You can build lists of datasets and apply
 functions to all the datasets at once, build lists of models, lists of plots, etc... In the later
 chapters we are going to learn all about them. Lists are central objects in a functional programming

@@ -48,11 +48,16 @@ ifelse(c(1,2,4) > c(3, 1, 0), "yes", "no")
 
 The result is a vector. Now, let's see what happens if we use `if...else...` instead of `ifelse()`:
 
-```{r}
+```{r, eval = F}
 if (c(1, 2, 4) > c(3, 1, 0)) print("yes") else print("no")
 ```
 
-Only the first element of my atomic vector is used for the comparison. This is very important to keep in mind.
+```{r, eval = F}
+> Error in if (c(1, 2, 4) > c(3, 1, 0)) print("yes") else print("no") : 
+  the condition has length > 1
+```
+
+This results in an error (in previous R version, only the first element of the vector would get used).
 Suppose that you want an expression to be evaluated, only if every element is `TRUE`. In this case, you should
 use the `all()` function, as seen previously in Chapter 2:
 
@@ -567,7 +572,95 @@ or, now, if you need the `trim` argument:
 my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE, trim = 0.1)
 ```
 
-The `...` are very useful when writing wrappers such as `my_func()`.
+The `...` are very useful when writing higher-order functions such as `my_func()`, because it allows
+you to pass arguments *down* to the underlying functions.
+
+## Functions that return functions
+
+The example from before, `my_func()` took three arguments, some `x`, a function `func`, and `...` (dots). `my_func()`
+was a kind of wrapper that evaluated `func` on its arguments `x` and `...`. But sometimes this is not quite what you 
+need or want. It is sometimes useful to write a function that returns a modified function. This type of function 
+is called a function factory, as it *builds* functions. For instance, suppose that we want to time how long functions
+take to run. An idea would be to proceed like this:
+
+```{r, eval = FALSE}
+tic <- Sys.time()
+very_slow_function(x)
+toc <- Sys.time()
+
+running_time <- toc - tic
+```
+
+but if you want to time several functions, this gets very tedious. It would be much easier if functions would 
+time *themselves*. We could achieve this by writing a wrapper, like this:
+
+```{r, eval = FALSE}
+timed_very_slow_function <- function(...){
+
+  tic <- Sys.time()
+  result <- very_slow_function(x)
+  toc <- Sys.time()
+
+  running_time <- toc - tic
+
+  list("result" = result,
+       "running_time" = running_time)
+
+}
+```
+
+The problem here is that we have to change each function we need to time. But thanks to the concept of function 
+factories, we can write a function that does this for us:
+
+```{r}
+time_f <- function(.f, ...){
+
+  function(...){
+
+    tic <- Sys.time()
+    result <- .f(...)
+    toc <- Sys.time()
+
+    running_time <- toc - tic
+
+    list("result" = result,
+         "running_time" = running_time)
+
+  }
+}
+```
+
+`time_f()` is a function that returns a function, a function factory. Calling it on a function returns, as expected,
+a function:
+
+```{r}
+t_mean <- time_f(mean)
+
+t_mean
+```
+
+This function can now be used like any other function:
+
+```{r}
+output <- t_mean(seq(-500000, 500000))
+```
+
+`output` is a list of two elements, the first being simply the result of `mean(seq(-500000, 500000))`, and the other
+being the running time.
+
+This approach is super flexible. For instance, imagine that there is an `NA` in the vector. This would result in
+the mean of this vector being `NA`:
+
+```{r}
+t_mean(c(NA, seq(-500000, 500000)))
+```
+
+But because we use the `...` in the definition of `time_f()`, we can now simply pass `mean()`'s option down to it:
+
+```{r}
+t_mean(c(NA, seq(-500000, 500000)), na.rm = TRUE)
+```
+
 
 ## Functions that take columns of data as arguments
 
@@ -942,8 +1035,26 @@ map2(c(1, 2, 3, 4, 5), c(9, 8, 7, 6, 5), ~{(.x**2)/.y})
 Because you have now two arguments, a single dot could not work, so instead you use `.x` and `.y` to
 avoid confusion.
 
-You now know a lot about writing your own functions. In the next chapter, we are going to learn about
-functional programming, the programming paradigm I described in the introduction of this book.
+Since version 4.1, R introduced a short-hand for defining anonymous functions:
+
+```{r}
+map(c(1,2,3,4), \(x)(1/sqrt(x)))
+
+```
+
+`\(x)` is supposed to look like this notation: $\lambda(x)$. This is a notation comes from lambda calculus, where functions
+are defined like this:
+
+$$
+\lambda(x).1/sqrt(x)
+$$
+
+which is equivalent to $f(x) = 1/sqrt(x)$. You can use `\(x)` or `function(x)` interchangeably.
+
+
+You now know a lot about writing your own functions. In the next chapter, we are going to learn
+about functional programming, the programming paradigm I described in the introduction of this
+book.
 
 ## Exercises
 

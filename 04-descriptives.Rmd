@@ -2,25 +2,24 @@
 
 Now that we are familiar with some R objects and know how to import data, it is time to write some
 code. In this chapter, we are going to compute descriptive statistics for a single dataset, but
-also for a list of datasets. However, I will not give a list of functions to compute descriptive
-statistics; if you need a specific function you can find easily in the *Help* pane in Rstudio or
-using any modern internet search engine. What I will do is show you a workflow that allows you to
-compute the descripitive statisics you need fast.
-R has a lot of built-in functions for descriptive statistics; however, if you want to compute
-statistics by, say, gender, some more complex manipulations are needed. At least this was true in
-the past. Nowadays, thanks to the packages from the `tidyverse`, it is very easy and fast to
-compute descriptive statistics by any stratifying variable(s). The package we are going to use for
-this is called `dplyr`. `dplyr` contains a lot of functions that make manipulating
-data and computing descriptive statistics very easy. To make things easier for now, we are going to
-use example data included with `dplyr`. So no need to import an external dataset; this does not
-change anything to the example that we are going to study here; the source of the data does not
-matter for this. Using `dplyr` is possible only if the data you are working with is already in
-a useful shape. When data is more messy, you will need to first manipulate it to bring it a *tidy*
-format. For this, we will use `tidyr`, which is very useful package to reshape data and to do
-advanced cleaning of your data.
-All these tidyverse functions are also called *verbs*. However, before getting to know these verbs,
-let's do an analysis using standard, or *base* R functions. This will be the benchmark against
-which we are going to measure a `{tidyverse}` workflow.
+also for a list of datasets later in the chapter. However, I will not give a list of functions to
+compute descriptive statistics; if you need a specific function you can find easily in the *Help*
+pane in Rstudio or using any modern internet search engine. What I will do is show you a workflow
+that allows you to compute the descripitive statisics you need fast. R has a lot of built-in
+functions for descriptive statistics; however, if you want to compute statistics for different
+sub-groups, some more complex manipulations are needed. At least this was true in the past.
+Nowadays, thanks to the packages from the `{tidyverse}`, it is very easy and fast to compute
+descriptive statistics by any stratifying variable(s). The package we are going to use for this is
+called `{dplyr}`. `{dplyr}` contains a lot of functions that make manipulating data and computing
+descriptive statistics very easy. To make things easier for now, we are going to use example data
+included with `{dplyr}`. So no need to import an external dataset; this does not change anything to
+the example that we are going to study here; the source of the data does not matter for this. Using
+`dplyr` is possible only if the data you are working with is already in a useful shape. When data
+is more messy, you will need to first manipulate it to bring it a *tidy* format. For this, we will
+use `{tidyr}`, which is very useful package to reshape data and to do advanced cleaning of your
+data. All these tidyverse functions are also called *verbs*. However, before getting to know these
+verbs, let's do an analysis using standard, or *base* R functions. This will be the benchmark
+against which we are going to measure a `{tidyverse}` workflow.
 
 ## A data exploration exercice using *base* R
 
@@ -44,6 +43,8 @@ to find the average height of the characters:
 mean(starwars$height)
 ```
 
+As discussed in Chapter 2, `$` allows you to access columns of a `data.frame` objects.
+
 Because there are `NA` values in the data, the result is also `NA`. To get the result, you need to
 add an option to `mean()`:
 
@@ -57,92 +58,180 @@ Let's also take a look at the standard deviation:
 sd(starwars$height, na.rm = TRUE)
 ```
 
-It might be more informative to compute these two statistics by species, so for this, we are going
+It might be more informative to compute these two statistics by sex, so for this, we are going
 to use `aggregate()`:
 
 ```{r}
 aggregate(starwars$height,
-          by = list(Species = starwars$species),
+          by = list(sex = starwars$sex),
           mean)
 ```
 
-Even if you are not familiar with `aggregate()`, I believe the above lines are quite self-explanatory.
-You need to provide `aggregate()` with 3 things; the variable you want to summarize (or only the
-data frame, if you want to summarize all variables), a list of grouping variables and then the
-function that will be applied to each subset. You can easily add another grouping variable:
+Oh, shoot! Most groups have missing values in them, so we get `NA` back. We need to use `na.rm = TRUE`
+just like before. Thankfully, it is possible to pass this option to `mean()` inside `aggregate()` as well:
 
 ```{r}
 aggregate(starwars$height,
-          by = list(Species = starwars$species,
-                    Homeworld = starwars$homeworld),
+          by = list(sex = starwars$sex),
+          mean, na.rm = TRUE)
+```
+
+Later in the book, we are also going to see how to define our own functions (with the default options that
+are useful to us), and this will also help in this sort of situation.
+Even though we can use `na.rm = TRUE`, let's also use `subset()` to filter out the `NA` values beforehand:
+
+```{r}
+starwars_no_nas <- subset(starwars,
+                          !is.na(height))
+
+aggregate(starwars_no_nas$height,
+          by = list(sex = starwars_no_nas$sex),
+          mean)
+```
+
+(`aggregate()` also has a `subset = ` option, but I prefer to explicitely subset the data set with `subset()`).
+
+Even if you are not familiar with `aggregate()`, I believe the above lines are quite
+self-explanatory. You need to provide `aggregate()` with 3 things; the variable you want to
+summarize (or only the data frame, if you want to summarize all variables), a list of grouping
+variables and then the function that will be applied to each subgroup. And by the way, to test for
+`NA`, one uses the function `is.na()` not something like `species == "NA"` or anything like that.
+`!is.na()` does the opposite (`!` reverses booleans, so `!TRUE` becomes `FALSE` and vice-versa).
+
+You can easily add another grouping variable:
+
+```{r}
+aggregate(starwars_no_nas$height,
+          by = list(Sex = starwars_no_nas$sex,
+                    `Hair color` = starwars_no_nas$hair_color),
           mean)
 ```
 
 or use another function:
 
 ```{r}
-aggregate(starwars$height,
-          by = list(Species = starwars$species),
+aggregate(starwars_no_nas$height,
+          by = list(Sex = starwars_no_nas$sex),
           sd)
 ```
 
-`aggregate()` returns a `data.frame` object:
+(let's ignore the `NA`s). It is important to note that `aggregate()` returns a `data.frame` object.
+
+You can only give one function to `aggregate()`, so if you need the mean and the standard deviation of `height`,
+you must do it in two steps.
+
+Since R 4.1, a new infix operator `|>` has been introduced, which is really handy for writing the kind of 
+code we've been looking at in this chapter. `|>` is also called a pipe, or the *base* pipe to distinguish
+it from *another* pipe that we'll discuss in the next section. For now, let's learn about `|>`.
+Consider the following:
 
 ```{r}
-class(aggregate(starwars$height, by = list(Species = starwars$species), mean))
+10 |> sqrt()
 ```
 
-`tapply()` is another *base* R alternative:
+This computes `sqrt(10)`; so what  `|>` does, is pass the left hand side (`10`, in the example above) to the
+right hand side (`sqrt()`). Using `|>` might seem more complicated and verbose than not using it, but you
+will see in a bit why it can be useful. The next function I would like to introduce at this point is `with()`.
+`with()` makes it possible to apply functions on `data.frame` columns without having to write `$` all the time.
+For example, consider this:
 
 ```{r}
-tapply(starwars$height, list(starwars$species), mean)
+mean(starwars$height, na.rm = TRUE)
+
+with(starwars,
+     mean(height, na.rm = TRUE))
 ```
 
-which returns an `array` object, which is similar to a vector.
-
-However, `tapply()` does not work if you want the mean by species for all the variables in the
-data frame:
-
-```{r, eval=FALSE}
-tapply(starwars, list(starwars$species), mean)
-```
-
-```
-Error in tapply(starwars, list(starwars$species), mean) :
-  arguments must have same length
-```
-
-In both cases, you can only specify one function. So if you need the average and the standard
-deviation you have to do it in two steps.
-
-Let's continue now, by only computing the average height by species, but for masculines:
+The advantage of using `with()` is that we can directly reference `height` without using `$`. Here again, this
+is more verbose than simply using `$`... so why bother with it? It turns out that by combining `|>` and `with()`,
+we can write very clean and concise code. Let's go back to a previous example to illustrate this idea:
 
 ```{r}
-starwars_masculines <- subset(starwars, gender == "masculine")
+starwars_no_nas <- subset(starwars,
+                          !is.na(height))
 
-aggregate(starwars_masculines$height,
-          by = list(Species = starwars_masculines$species),
+aggregate(starwars_no_nas$height,
+          by = list(sex = starwars_no_nas$sex),
           mean)
 ```
 
-I first use `subset()` to create a subset of the data in which I only kept masculines. Then, I rerun
-the analysis from before again. `subset()` can also be used to select columns. So if you want
-the average of the height and mass for masculines, you could do something like this:
+First, we created a new dataset where we filtered out rows where `height` is `NA`. This dataset is useless otherwise,
+but we need it for the next part, where we actually do what we want (computing the average `height` by `sex`).
+Using `|>` and `with()`, we can write this in one go:
 
 ```{r}
-starwars_masculines_height_mass <- subset(starwars, gender == "masculine", select = c(height, mass, species))
+starwars |>
+  subset(!is.na(sex)) |>
+  with(aggregate(height,
+                 by = list(Species = species,
+                           Sex = sex),
+                 mean))
 
-aggregate(starwars_masculines_height_mass,
-          by = list(Species = starwars_masculines_height_mass$species),
-          mean)
 ```
 
-This is starting to get a bit verbose, but it is quite easy to follow and very powerful. It certainly
-beats having to write loops to achieve the same thing.
+So let's unpack this. In the first two rows, using `|>`, we pass the `starwars` `data.frame` to `subset()`:
 
-Let's now consider this new dataset:
+```{r}
+starwars |>
+  subset(!is.na(sex))
+```
 
-```{r, include=FALSE}
+as I explained before, this is exactly the same as `subset(starwars, !is.na(sex))`. Then, we pass the result of 
+`subset()` to the next function, `with()`. The first argument of `with()` must be a `data.frame`, and this is exactly
+what `subset()` returns! So now the output of `subset()` is passed down to `with()`, which makes it now possible
+to reference the columns of the `data.frame` in `aggregate()` directly. If you have a hard time understanding what 
+is going on, you can use `quote()` to see what's going on. `quote()` returns an expression with evaluating it:
+
+```{r}
+quote(log(10))
+```
+
+Why am I bring this up? Well, since `a |> f()` is exactly equal to `f(a)`, quoting the code above will return
+an expression with `|>`. For instance:
+
+```{r}
+quote(10 |> log())
+```
+
+So let's quote the big block of code from above:
+
+```{r}
+quote(
+  starwars |>
+  subset(!is.na(sex)) |>
+  with(aggregate(height,
+                 by = list(Species = species,
+                           Sex = sex),
+                 mean))
+)
+
+```
+
+I think now you see why using `|>` makes code much clearer; the nested expression you would need to write otherwise
+is much less readable, unless you define intermediate objects. And without `with()`, this is what you
+would need to write:
+
+```{r, eval = F}
+b <- subset(starwars, !is.na(height))
+
+aggregate(b$height, by = list(Species = b$species, Sex = b$sex), mean)
+```
+
+To finish this section, let's say that you wanted to have the average `height` and `mass` by sex. In this case
+you need to specify the columns in `aggregate()` with `cbind()` (let's use `na.rm = TRUE` again instead of 
+`subset()`ing the data beforehand):
+
+```{r}
+starwars |>
+  with(aggregate(cbind(height, mass),
+       by = list(Sex = sex),
+       FUN = mean, na.rm = TRUE))
+
+```
+
+Let's now continue with some more advanced operations using this fake dataset:
+
+```{r}
 survey_data_base <- as.data.frame(
     tibble::tribble(
         ~id, ~var1, ~var2, ~var3,
@@ -158,8 +247,19 @@ survey_data_base <- as.data.frame(
 survey_data_base
 ```
 
-I will explain later where this comes from. Depending on what you want to do with this data, it is
-not in the right shape. So let's reshape it, using the aptly-called `reshape()` command:
+Depending on what you want to do with this data, it is not in the right shape. For example, it
+would not be possible to simply compute the average of `var1`, `var2` and `var3` for each `id`.
+This is because this would require running `mean()` by row, but this is not very easy. This is
+because R is not suited to row-based workflows. Well I'm lying a little bit here, it turns here
+that R comes with a `rowMeans()` function. So this would work:
+
+```{r}
+survey_data_base |>
+  transform(mean_id = rowMeans(cbind(var1, var2, var3))) #transform adds a column to a data.frame
+```
+
+But there is no `rowSD()` or `rowMax()`, etc... so it is much better to reshape the data and put it in a
+format that gives us maximum flexibility. To reshape the data, we'll be using the aptly-called `reshape()` command:
 
 ```{r}
 survey_data_long <- reshape(survey_data_base,
@@ -174,13 +274,25 @@ aggregate(survey_data_long$variable,
           mean)
 ```
 
-There is also the possiblity to merge two datasets with `merge()`. I won't go into that however.
+or any other variable:
+
+```{r}
+aggregate(survey_data_long$variable,
+          by = list(Id = survey_data_long$id),
+          max)
+```
+
 As you can see, R comes with very powerful functions right out of the box, ready to use. When I was
 studying, unfortunately, my professors had been brought up on FORTRAN loops, so we had to do to all
 this using loops (not reshaping, thankfully), which was not so easy.
 Now that we have seen how *base* R works, let's redo the analysis using `{tidyverse}` verbs.
-But before deep diving into the `{tidyverse}`, let's take a moment to discuss about our lord and
-saviour, `%>%`.
+The `{tidyverse}` provides many more functions, each of them doing only one single thing. You will
+shortly see why this is quite important; by focusing on just one task, and by focusing on the data frame
+as the central object, it becomes possible to build really complex workflows, piece by piece,
+very easily.
+
+But before deep diving into the `{tidyverse}`, let's take a moment to discuss about another infix
+operator, `%>%`.
 
 ## Smoking is bad for you, but pipes are your friend
 
@@ -194,14 +306,12 @@ knitr::include_graphics("assets/pas_une_pipe.png")
 ```
 
 It turns out there's an R package from the `tidyverse` that is called `magrittr`. What does this
-package do? It brings *pipes* to R. Pipes are a concept from the Unix operating system; if you're
-using a GNU+Linux distribution or macOS, you're basically using a *modern* unix (that's an
-oversimplification, but I'm an economist by training, and outrageously oversimplifying things is
-what we do, deal with it).
-
-The idea of pipes is to take the output of a command, and *feed* it as the input of another
-command. The `magrittr` package brings pipes to R, by using the weird looking `%>%`. Try the
-following:
+package do? This package introduced *pipes* to R, way before `|>` in R 4.1. Pipes are a concept
+from the Unix operating system; if you're using a GNU+Linux distribution or macOS, you're basically
+using a *modern* unix (that's an oversimplification, but I'm an economist by training, and
+outrageously oversimplifying things is what we do, deal with it). The *magrittr* pipe is written as
+`%>%`. Just like `|>`, `%>%` takes the left hand side to feed it as the first argument of the
+function in the right hand side. Try the following:
 
 ```{r, include = FALSE}
 library(magrittr)
@@ -215,23 +325,48 @@ library(magrittr)
 16 %>% sqrt
 ```
 
-This looks quite weird, but you probably understand what happened; `16` got *fed* as the first
-argument of the function `sqrt()`. You can chain multiple functions:
+You can chain multiple functions, as you can with `|>`:
+
+```{r}
+16 %>%
+  sqrt %>%
+  log
+```
+
+But unlike with `|>`, you can omit `()`. `%>%` also has other features. For example, you can 
+pipe things to other infix operators. For example, `+`. You can use `+` as usual:
+
+```{r}
+2 + 12
+```
+
+Or as a prefix operator:
+
+```{r}
+`+`(2, 12)
+```
+
+You can use this notation with `%>%`:
 
 ```{r}
 16 %>% sqrt %>% `+`(18)
 ```
 
-The output of `16` (`16`) got fed to `sqrt()`, and the output of `sqrt(16)` (4) got fed to `+(18)`
-(22). Without `%>%` you'd write the line just above like this:
+This also works using `|>` since R version 4.2, but only if you use the `_` pipe placeholder:
+
+```{r}
+16 |> sqrt() |> `+`(x = _, 18)
+```
+
+The output of `16` (`16`) got fed to `sqrt()`, and the output of `sqrt(16)` (4) got fed to `+(18)` 
+(so we got `+(4, 18)` = 22). Without `%>%` you'd write the line just above like this:
 
 ```{r}
 sqrt(16) + 18
 ```
 
-It might not be very clear right now why this is useful, but the `%>%` is probably one of the
-most useful infix operators, because when using packages from the `tidyverse`, you will
-naturally want to chain a lot of functions together. Without the `%>%` it would become messy very fast.
+Just like before, with `|>`, this might seem overly complicated, but using these pipes will
+make our code much more readable. I'm sure you'll be convinced by the end of this chapter.
 
 `%>%` is not the only pipe operator in `magrittr`. There's `%T%`, `%<>%` and `%$%`. All have their
 uses, but are basically shortcuts to some common tasks with `%>%` plus another function. Which
@@ -239,17 +374,17 @@ means that you can live without them, and because of this, I will not discuss th
 
 ## The `{tidyverse}`'s *enfant prodige*: `{dplyr}`
 
-The best way to get started with the tidyverse packages is to get to know `{dplyr}`. `{dplyr}` provides
-a lot of very useful functions that makes it very easy to get discriptive statistics or add new columns
-to your data.
+The best way to get started with the tidyverse packages is to get to know `{dplyr}`. `{dplyr}`
+provides a lot of very useful functions that makes it very easy to get discriptive statistics or
+add new columns to your data.
 
 ### A first taste of data manipulation with `{dplyr}`
 
 This section will walk you through a typical analysis using `{dplyr}` funcitons. Just go with it; I
 will give more details in the next sections.
 
-First, let's load `dplyr` and the included `starwars` dataset. Let's also take a look at the first 5
-lines of the dataset:
+First, let's load `{dplyr}` and the included `starwars` dataset. Let's also take a look at the
+first 5 lines of the dataset:
 
 ```{r}
 library(dplyr)
@@ -259,52 +394,54 @@ data(starwars)
 head(starwars)
 ```
 
-`data(starwars)` loads the example dataset called `starwars` that is included in the package `dplyr`.
-As I said earlier, this is just an example; you could have loaded an external dataset, from a
-`.csv` file for instance. This does not matter for what comes next.
+`data(starwars)` loads the example dataset called `starwars` that is included in the package
+`dplyr`. As I said earlier, this is just an example; you could have loaded an external dataset,
+from a `.csv` file for instance. This does not matter for what comes next.
 
-R includes a lot of functions for descriptive statistics, such as `mean()`, `sd()`, `cov()`, and many
-more. What `dplyr` brings to the table (among other niceties) is the possibility to apply these
-functions to the dataset easily. For example, imagine you want the average height of everyone in
-the dataset. Using the basic R functions, you could write this:
+Like we saw earlier, R includes a lot of functions for descriptive statistics, such as `mean()`,
+`sd()`, `cov()`, and many more. What `dplyr` brings to the table (among other niceties) is the
 
-```{r}
-mean(starwars$height)
-```
-
-`starwars$height` means that the user wants to access the column called `height` from the dataset
-`starwars`. Remember that the `$` symbol is how you access elements of a named list. This is the
-same for columns of datasets as you can see. This is then given as an argument to the function
-`mean()`. But what if the user wants the average height by species? Before `dplyr`, a solution to
-this simple problem would have required more than a single command. Now this is as easy as:
+Just like before, we are going to compute the average height by `sex`:
 
 ```{r}
 starwars %>%
-  group_by(species) %>%
-  summarise(mean(height))
+  group_by(sex) %>%
+  summarise(mean_height = mean(height, na.rm = TRUE))
 ```
 
-The usefulness of the `%>%` (pipe operator) becomes apparent now. Without it, one would write
-instead:
+The very nice thing about using `%>%` and `{dplyr}` verbs/functions, is that this is really
+readable. The above three lines can be translated like so in English:
+
+*Take the starwars dataset, then group by sex, then compute the mean height (for each subgroup) by
+omitting missing values.*
+
+`%>%` can be translated by "then". Without `%>%` you would need to change the code to:
 
 ```{r}
-summarise(group_by(starwars, species), mean(height))
+summarise(group_by(starwars, sex), mean(height, na.rm = TRUE))
 ```
 
-as you can clearly see, it is much more difficult to read. Imagine now that I want the average height
-by species, but only for masculines. Again, this is very easy using `%>%`:
+Unlike with the *base* approach, each function does only one thing. With the base function
+`aggregate()` was used to also define the subgroups. This is not the case with `{dplyr}`; one
+function to create the groups (`group_by()`) and then one function to compute the summaries
+(`summarise()`). Also, `group_by()` creates a specific subgroup for individuals where `sex` is
+missing. This is the last line in the data frame, where `sex` is `NA`. Another nice thing is that
+you can specify the column containing the average height. I chose to name it `mean_height`.
+
+Now, let's suppose that we want to filter some data first:
 
 ```{r}
 starwars %>%
   filter(gender == "masculine") %>%
-  group_by(species) %>%
-  summarise(mean(height))
+  group_by(sex) %>%
+  summarise(mean_height = mean(height, na.rm = TRUE))
 ```
 
-Again, the `%>%` makes the above lines of code very easy to read. Without it, one would need to write:
+Again, the `%>%` makes the above lines of code very easy to read. Without it, one would need to
+write:
 
 ```{r}
-summarise(group_by(filter(starwars, gender == "masculine"), species), mean(height))
+summarise(group_by(filter(starwars, gender == "masculine"), sex), mean(height, na.rm = TRUE))
 ```
 
 I think you agree with me that this is not very readable. One way to make it more readable would
@@ -313,7 +450,7 @@ be to save intermediary variables:
 ```{r}
 filtered_data <- filter(starwars, gender == "masculine")
 
-grouped_data <- group_by(filter(starwars, gender == "masculine"), species)
+grouped_data <- group_by(filter(starwars, gender == "masculine"), sex)
 
 summarise(grouped_data, mean(height))
 ```
@@ -321,17 +458,16 @@ summarise(grouped_data, mean(height))
 But this can get very tedious. Once you're used to `%>%`, you won't go back to not use it.
 
 Before continuing and to make things clearer; `filter()`, `group_by()` and `summarise()` are
-functions that are included in `dplyr`. `%>%` is actually a function from `magrittr`, but this
-package gets loaded on the fly when you load `dplyr`, so you do not need to worry about it.
-`mean()` is a function *native* to R.
+functions that are included in `{dplyr}`. `%>%` is actually a function from `{magrittr}`, but this
+package gets loaded on the fly when you load `{dplyr}`, so you do not need to worry about it.
 
-The result of all these operations that use `dplyr` functions are actually other datasets, or
-`tibbles`. This means that you can save them in variable, and then work with these as any other
-datasets.
+The result of all these operations that use `{dplyr}` functions are actually other datasets, or
+`tibbles`. This means that you can save them in variable, or write them to disk, and then work with
+these as any other datasets.
 
 ```{r}
 mean_height <- starwars %>%
-  group_by(species) %>%
+  group_by(sex) %>%
   summarise(mean(height))
 
 class(mean_height)
@@ -339,80 +475,71 @@ class(mean_height)
 head(mean_height)
 ```
 
-You could then write this data to disk using `rio::export()` for instance. If you need more than the
-mean of the height, you can keep adding as many functions as needed:
+You could then write this data to disk using `rio::export()` for instance. If you need more than
+the mean of the height, you can keep adding as many functions as needed (another advantage over
+`aggregate()`:
 
 ```{r}
 summary_table <- starwars %>%
-  group_by(species) %>%
-  summarise(ave_height = mean(height), var_height = var(height), n_obs = n())
+  group_by(sex) %>%
+  summarise(mean_height = mean(height, na.rm = TRUE),
+            var_height = var(height, na.rm = TRUE),
+            n_obs = n())
 
-print(summary_table)
+summary_table
 ```
 
 I've added more functions, namely `var()`, to get the variance of height, and `n()`, which
-is a function from `dplyr`, not base R, to get the number of observations. This is quite useful,
-because we see that for a lot of species we only have one single individual! Let's focus on the
-species for which we have more than 1 individual. Since we save all the previous operations (which
+is a function from `{dplyr}`, not base R, to get the number of observations. This is quite useful,
+because we see that there is a group with only one individual. Let's focus on the
+sexes for which we have more than 1 individual. Since we save all the previous operations (which
 produce a `tibble`) in a variable, we can keep going from there:
 
 ```{r}
 summary_table2 <- summary_table %>%
   filter(n_obs > 1)
 
-print(summary_table2)
+summary_table2
 ```
 
-There's a lot of `NA`s; this is because by default, `mean()` and `var()` return `NA` if even one
-single observation is `NA`. This is good, because it forces you to look at the data
-to see what is going on. If you would get a number, even if there were `NA`s you could very easily
-miss these missing values. It is better for functions to fail early and often than the opposite.
-`mean()` and `var()` have a `na.rm` option that the user can set to `TRUE` to get the result by
-ignoring the `NA`s:
+As mentioned before, there's a lot of `NA`s; this is because by default, `mean()` and `var()`
+return `NA` if even one single observation is `NA`. This is good, because it forces you to look at
+the data to see what is going on. If you would get a number, even if there were `NA`s you could
+very easily miss these missing values. It is better for functions to fail early and often than the
+opposite. This is way we keep using `na.rm = TRUE` for `mean()` and `var()`.
+
+Now let's actually take a look at the rows where `sex` is `NA`:
 
 ```{r}
 starwars %>%
-  group_by(species) %>%
-  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
+  filter(is.na(sex))
+
+```
+
+There's only 4 rows where `sex` is `NA`. Let's ignore them:
+
+```{r}
+starwars %>%
+  filter(!is.na(sex)) %>%
+  group_by(sex) %>%
+  summarise(ave_height = mean(height, na.rm = TRUE),
+            var_height = var(height, na.rm = TRUE),
+            n_obs = n()) %>%
   filter(n_obs > 1)
-```
 
-In the code above, I have combined the two previous steps to get the result I'm interested in. There's
-a line in the final output that says `NA` for the species. Let's go back to the raw data and find
-these lines:
-
-```{r}
-starwars %>%
-  filter(is.na(species))
-```
-
-To test for `NA`, one uses the function `is.na()` not something like `species == "NA"` or anything
-like that. `!is.na()` does the opposite:
-
-```{r}
-starwars %>%
-  filter(!is.na(species))
-```
-
-The `!` function negates a predicate function (a predicate function is a function that returns
-`TRUE` or `FALSE`). We can then rerun our analysis from before:
-
-```{r}
-starwars %>%
-  filter(!is.na(species)) %>%
-  group_by(species) %>%
-  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
-  filter(n_obs > 1)
 ```
 
 And why not compute the same table, but first add another stratifying variable?
 
 ```{r}
 starwars %>%
-  filter(!is.na(species)) %>%
-  group_by(species, gender) %>%
-  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
+  filter(!is.na(sex)) %>%
+  group_by(sex, eye_color) %>%
+  summarise(ave_height = mean(height, na.rm = TRUE),
+            var_height = var(height, na.rm = TRUE),
+            n_obs = n()) %>%
   filter(n_obs > 1)
+
 ```
 
 Ok, that's it for a first taste. We have already discovered some very useful `{dplyr}` functions,
@@ -441,13 +568,17 @@ library(dplyr)
 ```
 
 This dataset gives the consumption of gasoline for 18 countries from 1960 to 1978. When you load
-the data like this, it is a standard `data.frame`. `dplyr` functions can be used on standard
+the data like this, it is a standard `data.frame`. `{dplyr}` functions can be used on standard
 `data.frame` objects, but also on `tibble`s. `tibble`s are just like data frame, but with a better
 print method (and other niceties). I'll discuss the `{tibble}` package later, but for now, let's
-convert the data to a `tibble` and change its name:
+convert the data to a `tibble` and change its name, and also transform the `country` column to 
+lower case:
 
 ```{r}
 gasoline <- as_tibble(Gasoline)
+
+gasoline <- gasoline %>%
+  mutate(country = tolower(country))
 ```
 
 `filter()` is pretty straightforward. What if you would like to subset the data to focus on the
@@ -460,49 +591,55 @@ filter(gasoline, year == 1969)
 Let's use `%>%`, since we're familiar with it now:
 
 ```{r}
-gasoline %>% filter(year == 1969)
+gasoline %>%
+  filter(year == 1969)
 ```
 
 You can also filter more than just one year, by using the `%in%` operator:
 
 ```{r}
-gasoline %>% filter(year %in% seq(1969, 1973))
+gasoline %>%
+  filter(year %in% seq(1969, 1973))
 ```
 
 It is also possible use `between()`, a helper function:
 
 ```{r}
-gasoline %>% filter(between(year, 1969, 1973))
+gasoline %>%
+  filter(between(year, 1969, 1973))
 ```
 
 To select non-consecutive years:
 
 ```{r}
-gasoline %>% filter(year %in% c(1969, 1973, 1977))
+gasoline %>%
+  filter(year %in% c(1969, 1973, 1977))
 ```
 
 `%in%` tests if an object is part of a set.
 
-
 ### Select columns with `select()`
 
-While `filter()` allows you to keep or discard rows of data, `select()`
-allows you to keep or discard entire columns. To keep columns:
+While `filter()` allows you to keep or discard rows of data, `select()` allows you to keep or
+discard entire columns. To keep columns:
 
 ```{r}
-gasoline %>% select(country, year, lrpmg)
+gasoline %>%
+  select(country, year, lrpmg)
 ```
 
 To discard them:
 
 ```{r}
-gasoline %>% select(-country, -year, -lrpmg)
+gasoline %>%
+  select(-country, -year, -lrpmg)
 ```
 
 To rename them:
 
 ```{r}
-gasoline %>% select(country, date = year, lrpmg)
+gasoline %>%
+  select(country, date = year, lrpmg)
 ```
 
 There's also `rename()`:
@@ -517,34 +654,40 @@ gasoline %>%
 You can also use `select()` to re-order columns:
 
 ```{r}
-gasoline %>% select(year, country, lrpmg, everything())
+gasoline %>%
+  select(year, country, lrpmg, everything())
 ```
 
-`everything()` is a helper function, and there's also `starts_with()`,
-and `ends_with()`. For example, what if we are only interested
-in columns whose name start with "l"?
+`everything()` is a helper function, and there's also `starts_with()`, and `ends_with()`. For
+example, what if we are only interested in columns whose name start with "l"?
 
 ```{r}
-gasoline %>% select(starts_with("l"))
+gasoline %>%
+  select(starts_with("l"))
 ```
 
 `ends_with()` works in a similar fashion. There is also `contains()`:
 
 ```{r}
-gasoline %>% select(country, year, contains("car"))
+gasoline %>%
+  select(country, year, contains("car"))
 ```
 
 Another verb, similar to `select()`, is `pull()`. Let's compare the two:
 
 ```{r}
-gasoline %>% select(lrpmg)
+gasoline %>%
+  select(lrpmg)
 ```
 
 ```{r}
-gasoline %>% pull(lrpmg)
+gasoline %>%
+  pull(lrpmg) %>%
+  head() # using head() because there's 337 elements in total
 ```
 
-`pull()`, unlike `select()`, does not return a `tibble`, but only the column you want.
+`pull()`, unlike `select()`, does not return a `tibble`, but only the column you want, as a
+vector.
 
 ### Group the observations of your dataset with `group_by()`
 
@@ -553,7 +696,8 @@ for example, compute descriptive statistics by groups. For example, let's group 
 country:
 
 ```{r}
-gasoline %>% group_by(country)
+gasoline %>%
+  group_by(country)
 ```
 
 It looks like nothing much happened, but if you look at the second line of the output you can read
@@ -567,13 +711,16 @@ this means that the data is grouped, and every computation you will do now will 
 into account. It is also possible to group by more than one variable:
 
 ```{r}
-gasoline %>% group_by(country, year)
+gasoline %>%
+  group_by(country, year)
 ```
 
 and so on. You can then also ungroup:
 
 ```{r}
-gasoline %>% group_by(country, year) %>% ungroup()
+gasoline %>%
+  group_by(country, year) %>%
+  ungroup()
 ```
 
 Once your data is grouped, the operations that will follow will be executed inside each group.
@@ -590,9 +737,9 @@ gasoline %>%
   summarise(mean(lgaspcar))
 ```
 
-`mean()` was given as an argument to `summarise()`, which is a `dplyr` verb. What we get is another
-tibble, that contains the variable we used to group, as well as the average per country. We can
-also rename this column:
+`mean()` was given as an argument to `summarise()`, which is a `{dplyr}` verb. What we get is
+another `tibble`, that contains the variable we used to group, as well as the average per country.
+We can also rename this column:
 
 ```{r}
 gasoline %>%
@@ -600,7 +747,7 @@ gasoline %>%
   summarise(mean_gaspcar = mean(lgaspcar))
 ```
 
-and because the output is a `tibble`, we can continue to use `dplyr` verbs on it:
+and because the output is a `tibble`, we can continue to use `{dplyr}` verbs on it:
 
 ```{r}
 gasoline %>%
@@ -646,10 +793,9 @@ desc_gasoline %>%
   filter(min(mean_gaspcar) == mean_gaspcar)
 ```
 
-Because the output of `dplyr` verbs is a tibble, it is possible to continue working with it. This
-is one shortcoming of using the base `summary()` function. The object returned by that function
-is not very easy to manipulate.
-
+Because the output of `{dplyr}` verbs is a tibble, it is possible to continue working with it. This
+is one shortcoming of using the base `summary()` function. The object returned by that function is
+not very easy to manipulate.
 
 ### Adding columns with `mutate()` and `transmute()`
 
@@ -682,7 +828,7 @@ gasoline %>%
 
 `transmute()` is the same as `mutate()`, but only returns the created variable:
 
-````{r}
+```{r}
 gasoline %>%
   group_by(country) %>%
   transmute(spam = exp(lgaspcar + lincomep))
@@ -693,6 +839,11 @@ gasoline %>%
 I will end this section on `dplyr` with the very useful verbs: the `*_join()` verbs. Let's first
 start by loading another dataset from the `plm` package. `SumHes` and let's convert it to `tibble`
 and rename it:
+
+```{r, include = FALSE}
+gasoline <- as_tibble(Gasoline) %>%  
+  mutate(country = tolower(country))
+```
 
 ```{r}
 data(SumHes, package = "plm")
@@ -740,7 +891,9 @@ As you probably guessed, the variables from `gasoline` that are not included in 
 ```{r}
 gas_pwt_inner <- gasoline %>%
   inner_join(pwt, by = c("country", "year"))
+
 ```
+
 Let's use the `tabyl()` from the `janitor` packages which is a very nice alternative to the `table()`
 function from base R:
 
@@ -749,6 +902,7 @@ library(janitor)
 
 gas_pwt_inner %>%
   tabyl(country)
+
 ```
 
 Only countries with values in both datasets were returned. It's almost every country from `gasoline`,
@@ -763,7 +917,6 @@ The variables from both datasets are in the joined data.
 
 Contrast this to `semi_join()`:
 
-
 ```{r}
 gas_pwt_semi <- gasoline %>%
   semi_join(pwt, by = c("country", "year"))
@@ -776,7 +929,6 @@ gas_pwt_semi %>%
 
 Only columns of `gasoline` are returned, and only rows of `gasoline` that were matched with rows
 from `pwt`. `semi_join()` is not a commutative operation:
-
 
 ```{r}
 pwt_gas_semi <- pwt %>%
@@ -808,7 +960,8 @@ gas_pwt_right <- gasoline %>%
   right_join(pwt, by = c("country", "year"))
 
 gas_pwt_right %>%
-  tabyl(country)
+  tabyl(country) %>%
+  head()
 ```
 
 The last merge function is `anti_join()`:
@@ -828,22 +981,16 @@ that is not in `pwt`: "germany".
 
 That was it for the basic `{dplyr}` verbs. Next, we're going to learn about `{tidyr}`.
 
-## Reshaping data with `tidyr`
+## Reshaping and sprucing up data with `{tidyr}`
 
-Another important package from the `tidyverse` that goes hand in hand with `dplyr` is `tidyr`. `tidyr`
-is the package you need when it's time to reshape data. As of March 2019, the development version 
-of `tidyr` introduced two new functions that make reshaping data easier, `pivot_longer()` and `pivot_wider()`.
-To install the development version of `tidyr`, use the following line:
+Note: this section is going to be a lot harder than anything you've seen until now. Reshaping
+data is tricky, and to really grok it, you need time, and you need to run each line, and see what
+happens. Take your time, and don't be discouraged. 
 
-```{r, eval=FALSE}
-devtools::install_github("tidyverse/tidyr")
-```
+Another important package from the `{tidyverse}` that goes hand in hand with `{dplyr}` is `{tidyr}`.
+`{tidyr}` is the package you need when it's time to reshape data. 
 
-The legacy functions, `spread()` and `gather()` will remain in the package but their use will be 
-discouraged.
-
-I will start by presenting `pivot_wider()` and `pivot_longer()`, and then, for reference, will show
-how to solve the similar problems using `gather()` and `spread()`.
+I will start by presenting `pivot_wider()` and `pivot_longer()`.
 
 ### `pivot_wider()` and `pivot_longer()`
 
@@ -882,7 +1029,9 @@ Because the data set will be wide, meaning, having more columns than rows.
 
 ```{r}
 survey_data %>% 
-  pivot_wider(id_cols = id, names_from = variable, values_from = value)
+  pivot_wider(id_cols = id,
+              names_from = variable,
+              values_from = value)
 ```
 
 Let's go through `pivot_wider()`'s arguments: the first is `id_cols = ` which requires the variable
@@ -898,7 +1047,10 @@ the missing values:
 
 ```{r}
 survey_data %>% 
-  pivot_wider(id_cols = id, names_from = variable, values_from = value, values_fill = list(value = 0))
+  pivot_wider(id_cols = id,
+              names_from = variable,
+              values_from = value,
+              values_fill = list(value = 0))
 ```
 
 A list of variables and their respective values to replace NA's with must be supplied to `values_fill`. 
@@ -910,32 +1062,38 @@ canton from 2001 to 2015. We will come back to this data later on to learn how t
 let's use it to learn more about `{tidyr}`.
 
 ```{r}
-unemp_lux_data <- rio::import("datasets/unemployment/all/unemployment_lux_all.csv")
+unemp_lux_data <- rio::import(
+      "https://raw.githubusercontent.com/b-rodrigues/modern_R/master/datasets/unemployment/all/unemployment_lux_all.csv"
+                       )
 
 head(unemp_lux_data)
 ```
 
 Now, let's suppose that for our purposes, it would make more sense to have the data in a wide format,
 where columns are "divison times year" and the value is the unemployment rate. This can be easily done
-with providing more columns to `names_from = `. 
+with providing more columns to `names_from = `.
 
 ```{r}
 unemp_lux_data2 <- unemp_lux_data %>% 
-  filter(year %in% seq(2013, 2017), str_detect(division, ".*ange$"), !str_detect(division, ".*Canton.*")) %>% 
+  filter(year %in% seq(2013, 2017),
+         str_detect(division, ".*ange$"),
+         !str_detect(division, ".*Canton.*")) %>% 
   select(division, year, unemployment_rate_in_percent) %>% 
   rowid_to_column()
 
 unemp_lux_data2 %>% 
-  pivot_wider(names_from = c(division, year), values_from = unemployment_rate_in_percent)
+  pivot_wider(names_from = c(division, year),
+              values_from = unemployment_rate_in_percent)
 ```
 
-In the `filter()` statement, I only kept data from 2013 to 2017, "division"s ending with the string "ange"
-("division" can be a canton or a commune, for example "Canton Redange", a canton, or "Hesperange" a commune),
-and removed the cantons as I'm only interested in communes. 
-I then only kept the columns I'm interested in and pivoted the data to a wide format.
-Also, I needed to add a unique identifier to the data frame. For this, I used `rowid_to_column()` function, 
-from the `{tibble}` package, which adds a new column to the data frame with an id, going from 1 to
-the number of rows in the data frame. If I did not add this identifier, the statement would work still:
+In the `filter()` statement, I only kept data from 2013 to 2017, "division"s ending with the string
+"ange" ("division" can be a canton or a commune, for example "Canton Redange", a canton, or
+"Hesperange" a commune), and removed the cantons as I'm only interested in communes. If you don't
+understand this `filter()` statement, don't fret; this is not important for what follows. I then
+only kept the columns I'm interested in and pivoted the data to a wide format. Also, I needed to
+add a unique identifier to the data frame. For this, I used `rowid_to_column()` function, from the
+`{tibble}` package, which adds a new column to the data frame with an id, going from 1 to the
+number of rows in the data frame. If I did not add this identifier, the statement would work still:
 
 ```{r}
 unemp_lux_data3 <- unemp_lux_data %>% 
@@ -948,20 +1106,21 @@ unemp_lux_data3 %>%
 
 and actually look even better, but only because there are no repeated values; there is only one
 unemployment rate for each "commune times year". I will come back to this later on, with another
-example that might be clearer.
+example that might be clearer. These last two code blocks are intense; make sure you go through
+each lien step by step and understand what is going on.
 
-
-You might have noticed that because there is no data for 
-the years 2016 and 2017, these columns do not appear in the data. But suppose that we need to have 
-these columns, so that a colleague from another department can fill in the values. This is possible
-by providing a data frame with the detailed specifications of the result data frame. This optional 
-data frame must have at least two columns, `.name`, which are the column names you want, and 
-`.value` which contains the values. Also, the function that uses this spec is a `pivot_wider_spect()`,
-and not `pivot_wider()`.
+You might have noticed that because there is no data for the years 2016 and 2017, these columns do
+not appear in the data. But suppose that we need to have these columns, so that a colleague from
+another department can fill in the values. This is possible by providing a data frame with the
+detailed specifications of the result data frame. This optional data frame must have at least two
+columns, `.name`, which are the column names you want, and `.value` which contains the values.
+Also, the function that uses this spec is a `pivot_wider_spec()`, and not `pivot_wider()`.
 
 ```{r, include=FALSE}
 unemp_spec <- unemp_lux_data %>% 
-  tidyr::expand(division, year = c(year, 2016, 2017), .value = "unemployment_rate_in_percent") %>%
+  tidyr::expand(division,
+                year = c(year, 2016, 2017),
+                .value = "unemployment_rate_in_percent") %>%
   unite(".name", division, year, remove = FALSE)
 
 unemp_spec
@@ -969,11 +1128,16 @@ unemp_spec
 
 ```{r, eval=FALSE}
 unemp_spec <- unemp_lux_data %>% 
-  expand(division, year = c(year, 2016, 2017), .value = "unemployment_rate_in_percent") %>%
+  tidyr::expand(division,
+         year = c(year, 2016, 2017),
+         .value = "unemployment_rate_in_percent") %>%
   unite(".name", division, year, remove = FALSE)
 
 unemp_spec
 ```
+
+Here, I use another function, `tidyr::expand()`, which returns every combinations (cartesian product)
+of every variable from a dataset.
 
 To make it work, we still need to create a column that uniquely identifies each row in the data:
 
@@ -1037,13 +1201,16 @@ mtcars %>%
   pivot_wider_spec(spec = mtcars_spec)
 ```
 
+We are going to learn about list-columns in the next section. List-columns are very powerful, and
+mastering them will be important. But generally speaking, when reshaping data, if you get list-columns
+back it often means that something went wrong.
+
 So you have to be careful with this.
 
-`pivot_longer()` is used when you need to go from a wide to a long dataset, meaning, a dataset where 
-there are some columns that should not be columns, but rather, the levels of a factor variable. 
-Let's suppose that the "am" column is split into two columns, `1` for 
-automatic and `0` for manual transmissions, and that the values filling these colums are miles per
-gallon, "mpg":
+`pivot_longer()` is used when you need to go from a wide to a long dataset, meaning, a dataset
+where there are some columns that should not be columns, but rather, the levels of a factor
+variable. Let's suppose that the "am" column is split into two columns, `1` for automatic and `0`
+for manual transmissions, and that the values filling these colums are miles per gallon, "mpg":
 
 ```{r}
 mtcars_wide_am <- mtcars %>% 
@@ -1073,7 +1240,9 @@ can be achieved by listing the columns that must be excluded with `-` in front, 
 
 ```{r}
 mtcars_wide_am %>% 
-  pivot_longer(cols = -matches("^[[:alpha:]]"), names_to = "am", values_to = "mpg") %>% 
+  pivot_longer(cols = -matches("^[[:alpha:]]"),
+               names_to = "am",
+               values_to = "mpg") %>% 
   select(am, mpg, everything())
 ```
 
@@ -1107,7 +1276,10 @@ The first step is to first pivot the columns:
 
 ```{r}
 mtcars_wide %>% 
-  pivot_longer(cols = matches("0|1"), names_to = "am_cyl", values_to = "mpg", values_drop_na = TRUE) %>% 
+  pivot_longer(cols = matches("0|1"),
+               names_to = "am_cyl",
+               values_to = "mpg",
+               values_drop_na = TRUE) %>% 
   select(am_cyl, mpg, everything())
 ```
 
@@ -1115,7 +1287,10 @@ Now we only need to separate the "am_cyl" column into two new columns, "am" and 
 
 ```{r}
 mtcars_wide %>% 
-  pivot_longer(cols = matches("0|1"), names_to = "am_cyl", values_to = "mpg", values_drop_na = TRUE) %>% 
+  pivot_longer(cols = matches("0|1"),
+               names_to = "am_cyl",
+               values_to = "mpg",
+               values_drop_na = TRUE) %>% 
   separate(am_cyl, into = c("am", "cyl"), sep = "_") %>% 
   select(am, cyl, mpg, everything())
 ```
@@ -1124,8 +1299,9 @@ It is also possible to construct a specification data frame, just like for `pivo
 This time, I'm using the `build_longer_spec()` function that makes it easy to build specifications:
 
 ```{r}
-mtcars_spec_long <- mtcars_wide %>% 
-  build_longer_spec(matches("0|1"), values_to = "mpg") %>% 
+mtcars_spec_long <- mtcars_wide %>%
+  build_longer_spec(matches("0|1"),
+                    values_to = "mpg") %>%
   separate(name, c("am", "cyl"), sep = "_")
 
 mtcars_spec_long
@@ -1134,49 +1310,14 @@ mtcars_spec_long
 This spec can now be specified to `pivot_longer()`:
 
 ```{r}
-mtcars_wide %>% 
-  pivot_longer_spec(spec = mtcars_spec_long, values_drop_na = TRUE) %>% 
+mtcars_wide %>%
+  pivot_longer_spec(spec = mtcars_spec_long,
+                    values_drop_na = TRUE) %>%
   select(am, cyl, mpg, everything())
 ```
 
 Defining specifications give a lot of flexibility and in some complicated cases are the way to go.
 
-### `spread()` and `gather()`
-
-`spread()` and `gather()` are the original reshaping functions from the `{tidyr}` package. As I am
-writing these lines, in May 2019, there still the only ones in the released version of `{tidyr}` on
-CRAN. However, they will very likely become deprecated and superseded by `pivot_longer()` and 
-`pivot_wider()` in future releases of `{tidyr}`. But for now, unless you install the development
-version of `{tidyr}` you will need to use these functions to reshape your data.
-
-`survey_data` is a long dataset. We can reshape it to be wide using the `spread()` function:
-
-```{r}
-wide_data <- survey_data %>%
-  spread(variable, value)
-
-head(wide_data)
-```
-
-This means that we spread the column called "variable", which will produce one column per category
-of "variable". Then we fill in the rows with the data contained in the column "value".
-
-To go from a wide dataset to a long one, we use `gather()`:
-
-```{r}
-long_data <- wide_data %>%
-  gather(variable, value, var1, var2)
-
-print(long_data)
-```
-
-`long_data` and `survey_data` are the same datasets, but in a different order.
-
-In the `wide_data` `tibble`, we had 3 columns: `id`, `var1` and `var2`. We want to stack 'var1' and
-'var2' in a new column, that we choose to call "variable". This is the "key". For the value, we are
-using the values contained in `var1` and `var2`. Sometimes using `spread()` or `gather()` requires
-some trial and error. I have been using these functions literally for years and never get it right
-the first time I need to use them.
 
 ### `fill()` and `full_seq()`
 
@@ -1219,62 +1360,18 @@ it the data frame.
 
 Putting all these operations together:
 
-```{r, include=FALSE}
-survey_data %>%
-    tidyr::fill(.direction = "down", id) %>%
-    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
-    spread(variable, value)
-```
-
-
-```{r, eval=FALSE}
+```{r}
 survey_data %>%
     fill(.direction = "down", id) %>%
-    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
-    spread(variable, value)
+    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
 ```
 
-As you can see, this creates a lot of explicit `NA` values. The best would be to fill in the missing
-values and add the date column, and then work with that format. For example, to get the average
-of the values by date:
-
-```{r, include=FALSE}
-survey_data %>%
-    tidyr::fill(.direction = "down", id) %>%
-    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
-    group_by(date) %>%
-    summarise(mean(value))
-```
-
-
-```{r, eval=FALSE}
-survey_data %>%
-    fill(.direction = "down", id) %>%
-    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
-    group_by(date) %>%
-    summarise(mean(value))
-```
-
-Or by `date` and `variable`:
-
-
-```{r, include=FALSE}
-survey_data %>%
-    tidyr::fill(.direction = "down", id) %>%
-    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
-    group_by(date, variable) %>%
-    summarise(mean(value))
-```
-
-```{r, eval=FALSE}
-survey_data %>%
-    fill(.direction = "down", id) %>%
-    mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4)) %>%
-    group_by(date, variable) %>%
-    summarise(mean(value))
-```
-
-As you can see, you can chain any `{tidyverse}` verbs, wether they come from `{dplyr}` or `{tidyr}`.
+You should be careful when imputing missing values though. The method described above is called 
+`Last Observation Carried Forward`, and sometimes it makes sense, like here, but sometimes it doesn't and 
+doing this will introduce bias in your analysis. Discussing how to handle missing values in your analysis
+is outside of the scope of this book, but there are many resources available. You may want to check 
+out the vignettes of the `{mice}` [package](https://amices.org/mice/articles/overview.html), which
+lists many resources to get you started.
 
 ### Put order in your columns with `separate()`, `unite()`, and in your rows with `separate_rows()`
 
@@ -1378,115 +1475,6 @@ survey_data_from_hell %>%
 ```
 
 
-### A sneak peek to Chapter 8; `nest()`
-
-Let's take a look at our clean survey data:
-
-```{r}
-survey_data_clean
-```
-
-`{tidyr}` has another very useful function, called `nest()`:
-
-```{r}
-survey_data_clean %>%
-    nest(-id)
-```
-
-You can achieve the same result by using `group_by()` first:
-
-```{r}
-survey_data_clean %>%
-    group_by(id) %>%
-    nest()
-```
-
-This cerates a new tibble object, whith two columns, one with the `id` column, and a new one called
-`data`. Let's take a look at the first element of this column:
-
-```{r}
-nested_survey_data <- survey_data_clean %>%
-    group_by(id) %>%
-    nest()
-
-nested_survey_data$data[1]
-```
-
-As you can see, the first element of the `data` is also a tibble! You may wonder why this is useful;
-I will give you a small taste of what's waiting in chapter 9. Imagine that you want to create a
-barplot for each `id`. For instance, for the first `id` (we are going to learn about making plots
-with `{ggplot2}` in the next chapter. For now, just follow along, even if you don't understand
-everything I write):
-
-```{r}
-survey_data_id1 <- survey_data_clean %>%
-    filter(id == 1)
-```
-
-Now, let's create the plot:
-
-```{r}
-ggplot(data = survey_data_id1) +
-    geom_bar(aes(y = value, x = date, fill = variable), stat = "identity") +
-    ggtitle("id 1")
-```
-
-Ok great. But now I want to create this plot for each `id`... so I have to copy paste this 3 times.
-But copy-pasting is error prone. So there are two alternatives; I either write a function that
-takes as argument the data and the `id` I want to plot and run it for each `id` (we will learn to
-do this in Chapter 8), or I can use `tidyr::nest()`, combined with `purrr::map()`. `{purrr}` is
-another very useful `{tidyverse}` package, and we are going to learn about it in Chapter 8. Again,
-just follow along for now:
-
-```{r}
-my_plots <- nested_survey_data %>%
-    mutate(plot = map2(.x = id,
-                       .y = data,
-                       ~ggplot(data = .y) +
-                           geom_bar(aes(y = value, x = date, fill = variable), stat = "identity") +
-                           ggtitle(paste0("id", .x))))
-```
-
-This is some very advanced stuff, and again, do not worry if you don't understand everything now.
-We are going to learn about this in detail in Chapter 8. Let's go through each line.
-In the first line, I have started from my clean data `nested_survey_data` and then, using `%>%`
-and `mutate()` I create a new column called `plot`. Inside the `mutate()` function, I called `map2`.
-`map2` is a `{purrr}` function that takes three inputs: `.x`, `.y` and a function. `.x` is the `id`
-column from my data, and `.y` is the `data` column from `nested_survey_data`. The function is the
-ggplot I created before. Think of `map2()` has a loop over two lists, all while applying a function.
-
-The following illustration (used with permission), taken from @vaudor_purrr_2018 by
-[Lise Vaudor](https://twitter.com/LVaudor), illustrates this perfectly:
-
-```{r, echo=FALSE}
-knitr::include_graphics("assets/purrr3.png")
-```
-
-Two inputs go in at the same type, the factory, your function, does what it has to do, and an
-output comes out. Forget about the factory's chimney, which represents `walk2()` for now. We'll
-learn about it in due time. By the way, you really should read Lise's blog, her posts are really
-great and informative. It's in French, but that's not a problem, you know how to read R code, right?
-Here's a link to [her blog](http://perso.ens-lyon.fr/lise.vaudor/).
-
-Now, let's take a look at the result:
-
-```{r}
-my_plots
-```
-
-`my_plots` is a tibble with three columns: `id`, `data` and.. `plot`! `plot` is a very interesting
-column. It is a list, where each element is of type `S3: gg`. Yes, you guessed it, each element of
-that list-column is a ggplot! If you now want to take a look at the plots, it is enough to do this:
-
-```{r}
-my_plots$plot
-```
-
-Ok, that was quite complicated, but again, this was only to introduce `nest()` and give you a taste
-of the power of the `{tidyverse}`. By the end of Chapter 9, you'll be used to this.
-
-That was it for a first introduction to `{tidyr}`. In the next section, we will be learning
-how to apply these verbs to several columns at once. 
 
 ## Working on many columns with `across()`
 
@@ -2754,8 +2742,9 @@ starwars %>%
   glimpse()
 ```
 
-We see that the columns `films`, `vehicles` and `starships` are all lists, and in the case of
-`films`, it lists all the films where Luke Skywalker has appeared. What if you want to take a closer look at this list?
+We see that the columns `films`, `vehicles` and `starships` (at the bottom) are all lists, and in
+the case of `films`, it lists all the films where Luke Skywalker has appeared. What if you want to
+take a closer look at films where Luke Skywalker appeared?
 
 ```{r}
 starwars %>%
@@ -2763,12 +2752,37 @@ starwars %>%
   pull(films)
 ```
 
-`pull()` is a `dplyr` function that extract (pulls) the column you're interested in. It is quite
-useful when you want to inspect a column.
+`pull()` is a `{dplyr}` function that extract (pulls) the column you're interested in. It is quite
+useful when you want to inspect a column. Instead of just looking at Luke Skywalker's films,
+let's pull the complete `films` column instead:
 
-Suppose we want to create a categorical variable which counts the number of movies in which the
-characters have appeared. For this we need to compute the length of the list, or count the number
-of elements this list has. Let's try with `length()` a base R function:
+```{r}
+starwars %>%
+  head() %>%  # let's just look at the first six rows
+  pull(films) 
+```
+
+Let's stop here a moment. As you see, the `films` column contains several items in it. How is it
+possible that a single *cell* contains more than one film? This is because what is actually
+contained in the cell is not the seven films, as seven separate characters, but an atomic vector
+that happens to have seven elements. But it is still only one vector. *Zooming* in into the data
+frame helps understand:
+
+```{r}
+knitr::include_graphics("assets/zoom_list_columns.png", dpi = 80)
+```
+
+In the picture above we see three columns. The first two, `name` and `sex` are what you're used
+to see, just one element defining the characters `name` and `sex` respectively. The last one
+also contains only one element for each character, it just so happens to be a complete 
+vector of characters. Because what is inside the *cells* of a list-column can be very different
+things (as list can contain anything), you have to think a bit about it in order to extract
+insights from such columns. List-columns may seem arcane, but they are extremely powerful
+once you master them.
+
+As an example, suppose we want to create a numerical variable which counts the number of movies
+in which the characters have appeared. For this we need to compute the length of the list, or count
+the number of elements this list has. Let's try with `length()` a base R function:
 
 ```{r}
 starwars %>%
@@ -2777,53 +2791,94 @@ starwars %>%
   length()
 ```
 
-This might be surprising at first, because we know that Luke Skywalker has appeared in more than 1
-movie... the problem here is that for each individual, `films` is a list, whose single element is
-a vector of characters. This means that `length(films)` computes the length of the list, which is
-one, and not the length of the vector contained in the list! How can we get the length of the
-vector of characters contained in the list and for each character? For this we need to use
-`dplyr::rowwise()` and remove the `filter()` function and use `mutate()` to add this column to the
-dataset:
+This might be surprising, but remember that a list with only one element, has a length of 1:
 
+```{r}
+length(
+  list(words) # this creates a list which one element. This element is a list of 980 words.
+)
+```
+
+Even though `words` contain a vector of 980 words, if we put this very long vector inside the 
+first element of list, `length(list(words))` will this compute the length of the list. Let's 
+see what happens if we create a more complex list:
+
+```{r}
+numbers <- seq(1, 5)
+
+length(
+  list(words, # this creates a list which one element. This element is a list of 980 words.
+       numbers) # numbers contains numbers 1 through 5
+)
+```
+
+`list(words, numbers)` is now a list of two elements, `words` and `numbers`. If we want to compute
+the length of `words` and `numbers`, we need to learn about another powerful concept called
+*higher-order functions*. We are going to learn about this in greater detail in Chapter 8. For now,
+let's use the fact that our list `films` is contained inside of a data frame, and use a convenience
+function included in `{dplyr}` to handle situations like this:
 
 ```{r}
 starwars <- starwars %>%
-  rowwise() %>%
+  rowwise() %>% # <- Apply the next steps for each row individually
   mutate(n_films = length(films))
+
 ```
 
-`dplyr::rowwise()` is useful when working with list-columns: columns that have lists as elements.
+`dplyr::rowwise()` is useful when working with list-columns because whatever instructions follow
+get run on the single element contained in the list. The picture below illustrates this:
+
+```{r}
+knitr::include_graphics("assets/rowwise.png", dpi = 80)
+```
 
 Let's take a look at the characters and the number of films they have appeared in:
 
 ```{r}
 starwars %>%
-  select(name, n_films)
+  select(name, films, n_films)
 ```
 
-Now we can create a factor variable that groups characters by asking whether they appeared only in
+Now we can, for example, create a factor variable that groups characters by asking whether they appeared only in
 1 movie, or more:
 
 ```{r}
 starwars <- starwars %>%
   mutate(more_1 = case_when(n_films == 1 ~ "Exactly one movie",
-                            n_films != 1 ~ "More than 1 movie"))
+                            n_films >= 1 ~ "More than 1 movie"))
 ```
 
-`case_when()` is a `dplyr` function that works similarly to the standard `if..else..` construct of
-many programming languages (R also has this, we are going to learn about it in later chapters).
-
-You can also create list columns with your own datasets, by using `tidyr::nest()`. Remember the
-fake `survey_data` I created to illustrate `spread()` and `gather()`? Let's go back to that dataset
+You can also create list-columns with your own datasets, by using `tidyr::nest()`. Remember the
+fake `survey_data` I created to illustrate `pivot_longer()` and `pivot_wider()`? Let's go back to that dataset
 again:
 
 ```{r}
+survey_data <- tribble(
+  ~id, ~variable, ~value,
+  1, "var1", 1,
+  1, "var2", 0.2,
+  NA, "var3", 0.3,
+  2, "var1", 1.4,
+  2, "var2", 1.9,
+  2, "var3", 4.1,
+  3, "var1", 0.1,
+  3, "var2", 2.8,
+  3, "var3", 8.9,
+  4, "var1", 1.7,
+  NA, "var2", 1.9,
+  4, "var3", 7.6
+)
+
 print(survey_data)
+```
 
-nested_data = survey_data %>%
-  nest(variable, value)
 
-print(nested_data)
+```{r}
+nested_data <- survey_data %>%
+  group_by(id) %>%  
+  nest()
+
+glimpse(nested_data)
 ```
 
 This creates a new tibble, with columns `id` and `data`. `data` is a list-column that contains
@@ -2836,9 +2891,19 @@ nested_data %>%
 ```
 
 As you can see, for individual 1, the column data contains a 2x2 tibble with columns `variable` and
-`value`. You might be wondering why this is useful, because this seems to introduce an unnecessary
+`value`. Because `group_by()` followed by `nest()` is so useful, there is a wrapper around these two functions
+called `group_nest()`:
+
+```{r}
+survey_data %>%
+  group_nest(id)
+```
+
+You might be wondering why this is useful, because this seems to introduce an unnecessary
 layer of complexity. The usefulness of list-columns will become apparent in the next chapters,
-where we are going to learn how to repeat actions over, say, individuals.
+where we are going to learn how to repeat actions over, say, individuals. So if you've reached
+the end of this section and still didn't really grok list-columns, go take some fresh air and
+come back to this section again later on.
 
 ## Going beyond descriptive statistics and data manipulation
 
@@ -2940,7 +3005,7 @@ gasoline %>%
 
 ### Exercise 2 {-}
 
-Load the `LaborSupply` dataset from the `Ecdat` package and answer the following questions:
+Load the `LaborSupply` dataset from the `{Ecdat}` package and answer the following questions:
 
 * Compute the average annual hours worked by year (plus standard deviation)
 * What age group worked the most hours in the year 1982?

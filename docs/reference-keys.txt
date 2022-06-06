@@ -46,12 +46,10 @@ group-the-observations-of-your-dataset-with-group_by
 get-summary-statistics-with-summarise
 adding-columns-with-mutate-and-transmute
 joining-tibbles-with-full_join-left_join-right_join-and-all-the-others
-reshaping-data-with-tidyr
+reshaping-and-sprucing-up-data-with-tidyr
 pivot_wider-and-pivot_longer
-spread-and-gather
 fill-and-full_seq
 put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows
-a-sneak-peek-to-chapter-8-nest
 working-on-many-columns-with-across
 filter-and-across
 selecting-and-renaming-with-across
@@ -121,6 +119,7 @@ declaring-functions-in-r
 fibonacci-numbers
 exercises-4
 functions-that-take-functions-as-arguments-writing-your-own-higher-order-functions
+functions-that-return-functions
 functions-that-take-columns-of-data-as-arguments
 the-enquo---approach
 curly-curly-a-simplified-approach-to-the-enquo-and-framework

@@ -602,15 +602,33 @@ reduce(a, `+`, .init = 1000)
 purrr::accumulate(a, `-`, .init = 1000, .dir = "backward")
 ```
 
+`reduce()` generalizes functions that only take two arguments. If you were to write a function that returns
+the minimum between two numbers:
+
+```{r}
+my_min <- function(a, b){
+    if(a < b){
+        return(a)
+    } else {
+        return(b)
+    }
+}
+```
+
+You could use `reduce()` to get the minimum of a list of numbers:
+
+```{r}
+numbers2 <- c(3, 1, -8, 9)
+
+reduce(numbers2, my_min)
+```
+
 `map()` and `reduce()` are arguably the most useful higher-order functions, and perhaps also the 
 most famous one, true ambassadors of functional programming. You might have read about 
 [MapReduce](https://en.wikipedia.org/wiki/MapReduce), a programming model for processing big
 data in parallel. The way MapReduce works is inspired by both these `map()` and `reduce()` functions,
 which are always included in functional programming languages. This illustrates that the functional
-programming paradigm is very well suited to parallel computing. In the next chapter, we are going
-to explore parallel computing with the `{furrr}` package; as you will see, once you know about
-functional programming and are familiar with `{purrr}`, parallelizing your code with `{furrr}` is
-trivial. 
+programming paradigm is very well suited to parallel computing. 
 
 Something else that is very important to understand at this point; up until now, we only used these
 functions on lists, or atomic vectors, of numbers. However, `map()` and `reduce()`, and other 
@@ -618,7 +636,7 @@ higher-order functions for that matter, do not care about the contents of the li
 functions do, is take another functions, and make it do something to the elements of the list. 
 It does not matter if it's a list of numbers, of characters, of data frames, even of models. All that
 matters is that the function that will be applied to these elements, can operate on them.
-So if you have a list of fitted models, you can map `summary()` on this list to get the results of
+So if you have a list of fitted models, you can map `summary()` on this list to get summaries of
 each model. Or if you have a list of data frames, you can map a function that performs several 
 cleaning steps. This will be explored in a future section, but it is important to keep this in mind.
 
@@ -704,7 +722,11 @@ In file(file, ifelse(append, "a", "w")) :
 ```
 
 The warning message comes from the first time we try to write the `.csv`, inside the `if` 
-statement. In the exercises, you'll discover `quietly()`, which also captures warnings and messages.
+statement. Because this fails, we create the directory and then actually save the file.
+In the exercises, you'll discover `quietly()`, which also captures warnings and messages.
+
+To conclude this section: remember function factories? Turns out that `safely()`, `purely()` and `quietly()` are
+function factories.
 
 ### Partial applications with `partial()`
 
@@ -749,20 +771,19 @@ Function composition is another handy tool, which makes chaining equation much m
 compose(sqrt, log10, exp)(10)
 ```
 
-The above expression is equivalent to:
+You can read this expression as *`exp()` after `log10()` after `sqrt()`* and is equivalent to:
 
 ```{r}
 sqrt(log10(exp(10)))
 ```
 
-It is also possible to reverse the order the functions get called:
+It is also possible to reverse the order the functions get called using the `.dir = ` option:
 
 ```{r}
-compose(sqrt, log10, exp)(10)
-compose(sqrt, log10, exp, .dir="forward")(10)
+compose(sqrt, log10, exp, .dir = "forward")(10)
 ```
 
-One could also use the `%>%` operator:
+One could also use the `%>%` operator to achieve the same result:
 
 ```{r}
 10 %>%
@@ -771,6 +792,7 @@ One could also use the `%>%` operator:
   exp
 ```
 
+but strictly speaking, this is not function composition.
 
 ### «Transposing lists»
 
@@ -801,7 +823,7 @@ to data manipulation.
 
 ## List-based workflows for efficiency
 
-Once you wrote a function, you can easily use it inside a pipe workflow:
+You can use your own functions in pipe workflows:
 
 ```{r}
 double_number <- function(x){
@@ -811,11 +833,36 @@ double_number <- function(x){
 
 ```{r}
 mtcars %>%
+  head() %>%
   mutate(double_mpg = double_number(mpg))
 ```
 
-Granted this example is stupid, but it shows you, again, that functions you define are nothing
-special. You can use them just as any other.
+It is important to understand that your functions, and functions that are built-in into R, or that
+come from packages, are exactly the same thing. Every function is a first-class object in R, no 
+matter where they come from. The consequence of functions being first-class objects is that 
+functions can take functions as arguments, functions can return functions (the function factories
+from the previous chapter) and can be assigned to any variable:
+
+```{r}
+plop <- sqrt
+
+plop(4)
+```
+
+```{r}
+bacon <- function(.f){
+
+  message("Bacon is tasty")
+
+  .f
+
+}
+
+bacon(sqrt) # `bacon` is a function factory, as it returns a function (alongside an informative message)
+
+# To actually call it:
+bacon(sqrt)(4)
+```
 
 Now, let's step back for a bit and think about what we learned up until now, and especially
 the `map()` family of functions.
@@ -830,6 +877,7 @@ all_datasets <- import_list(paths)
 str(all_datasets)
 ```
 
+`all_datasets` is a list with `r length(all_datasets)` elements, each of them is a `data.frame`.
 
 The first thing we are going to do is use a function to clean the names of the datasets. These
 names are not very easy to work with; there are spaces, and it would be better if the names of the
@@ -849,7 +897,7 @@ one_dataset <- one_dataset %>%
 
 and I would get a dataset with column names in lowercase and spaces replaced by `_` (and other
 corrections). How can I apply, or map, this function to each dataset in the list? To do this I need
-to use `purrr::map()`:
+to use `purrr::map()`, which we've seen in the previous section:
 
 ```{r}
 library(purrr)
@@ -861,6 +909,8 @@ all_datasets %>%
   glimpse()
 ```
 
+Remember that `map(list, function)` simply evaluates `function` to each element of `list`.
+
 So now, what if I want to know, for each dataset, which *communes* have an unemployment rate that is
 less than, say, 3%? For a single dataset I would do something like this:
 
@@ -869,39 +919,71 @@ one_dataset %>%
   filter(unemployment_rate_in_percent < 3)
 ```
 
-But for a list of datasets, `map()` is needed (and as you will see, that is not all that is needed):
+but since we're dealing with a list of data sets, we cannot simply use `filter()` on it. This is because
+`filter()` expects a data frame, not a list of data frames. The way around this is to use `map()`.
 
 ```{r}
 all_datasets %>%
   map(~filter(., unemployment_rate_in_percent < 3))
 ```
 
-I know what you're thinking... *what the hell?*. Let me explain: `map()` needs a function to map to
-each element of the list. `all_datasets` is the list to which I want to map the function. But what
-function? `filter()` is the function I need, so why doesn't:
+`map()` needs a function to map to each element of the list. `all_datasets` is the list to which I
+want to map the function. But what function? `filter()` is the function I need, so why doesn't:
 
 ```{r, eval = FALSE}
 all_datasets %>%
   map(filter(unemployment_rate_in_percent < 3))
 ```
-work? This is a bit complicated, and has to do with what is called environments. If you try to run
-the code above, you will get this error message:
+
+work? This is what happens if we try it:
 
 ```
 Error in filter(unemployment_rate_in_percent < 3) :
   object 'unemployment_rate_in_percent' not found
 ```
 
-I won't go into details, but by writing `~filter(., unemployment_rate_in_percent < 3)`, which is a
-formula (`~` is the symbol to define formulas, more on this in the later chapters), `map()`
-converts it to a function that it can use. If you want to know more about this, you can read it in
-[Advanced R](http://adv-r.had.co.nz/Functional-programming.html#closures) by Hadley Wickham, but it
-is an advanced topic.
+This is because `filter()` needs both the data set, and a so-called predicate (a predicate
+is an expression that evaluates to `TRUE` or `FALSE`). But you need to make more explicit 
+what is the dataset and what is the predicate, because here, `filter()` thinks that the 
+dataset is `unemployment_rate_in_percent`. The way to do this is to use an anonymous
+function (discussed in Chapter 7), which allows you to explicitely state what is the
+dataset, and what is the predicate. As we've seen, there's three ways to define
+anonymous functions:
 
+- Using a formula (only works within `{tidyverse}` functions):
+
+```{r}
+all_datasets %>%
+  map(~filter(., unemployment_rate_in_percent < 3)) %>% 
+  glimpse()
+```
+
+(notice the `.` in the formula, making the position of the dataset as the first argument to `filter()` 
+explicit) or 
+
+- using an anonymous function (using the `function(x)` keyword):
+
+```{r}
+all_datasets %>%
+  map(function(x)filter(x, unemployment_rate_in_percent < 3)) %>%
+  glimpse()
+```
+
+- or, since R 4.1, using the shorthand `\(x)`:
+
+
+```{r}
+all_datasets %>%
+  map(\(x)filter(x, unemployment_rate_in_percent < 3)) %>%
+  glimpse()
+```
+
+As you see, everything is starting to come together: lists, to hold complex objects, over which anonymous
+functions are mapped using higher-order functions. Let's continue cleaning this dataset.
 
 Before merging these datasets together, we would need them to have a `year` column indicating the
-year. It would also be helpful if gave names to these datasets. For this task, we can use
-`purrr::set_names()`:
+year the data was measured in each data frame. It would also be helpful if gave names to these datasets, meaning
+converting the list to a named list. For this task, we can use `purrr::set_names()`:
 
 ```{r, eval=FALSE}
 all_datasets <- set_names(all_datasets, as.character(seq(2013, 2016)))
@@ -920,53 +1002,9 @@ access them with the `$` operator:
 knitr::include_graphics("pics/all_datasets_names.png")
 ```
 
-
 Using `map()` we now know how to apply a function to each dataset of a list. But maybe it would be
-easier to merge all the datasets first, and then manipulate them? Before that though, I am going to
-teach you how to use `purrr::reduce()`, another very powerful function that works on lists. This is
-a function that you can find in other programming languages, but sometimes it is called fold.
-
-I think that the following example illustrates the power of `reduce()` well:
-
-```{r}
-numbers <- seq(1, 5) # Create a vector with the numbers 1 to 5
-
-reduce(numbers, `+`, .init = 0)
-```
-
-`reduce()` takes a function as an argument, here the function `+`^[This is simply the `+` operator
-you're used to. Try this out: `` `+`(1, 5) `` and you'll see `+` is a function like any other. You
-just have to write backticks around the plus symbol to make it work.] and then does the following
-computation:
-
-```
-0 + numbers[1] + numbers[2] + numbers[3]...
-```
-
-It applies the user supplied function successively but has to start with something, so we give it
-the argument `init` also. This argument is actually optional, but I show it here because in some
-cases it might be useful to start the computations at another value than `0`.`reduce()`
-generalizes functions that only take two arguments. If you were to write a function that returns
-the minimum between two numbers:
-
-```{r}
-my_min <- function(a, b){
-    if(a < b){
-        return(a)
-    } else {
-        return(b)
-    }
-}
-```
-
-You could use `reduce()` to get the minimum of a list of numbers:
-
-```{r}
-numbers2 <- c(3, 1, -8, 9)
-
-reduce(numbers2, my_min)
-```
-
+easier to merge all the datasets first, and then manipulate them? This can be the case sometimes,
+but not always. 
 As long as you provide a function and a list of elements to `reduce()`, you will get a single
 output. So how could `reduce()` help us with merging all the datasets that are in the list? `dplyr`
 comes with a lot of function to merge *two* datasets. Remember that I said before that `reduce()`

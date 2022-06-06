@@ -711,7 +711,7 @@ bwages <- Bwages %>%
 Then, plot a scatter plot of wages on experience, by education level. Add a theme that you like,
 and remove the title of the legend.
 
-  ```{r, eval=FALSE, echo=FALSE}
+```{r, eval=FALSE, echo=FALSE}
 ggplot(bwages) +
   geom_point(aes(exper, wage, colour = educ_level)) +
   theme_minimal() +

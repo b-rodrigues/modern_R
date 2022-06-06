@@ -13,23 +13,38 @@ description: "This book will teach you how to use R to solve your statistical, d
 # Preface {-}
 
 ```{r, include=FALSE}
-library(tidyverse)
-library(broom)
-library(ggthemes)
-library(janitor)
+library("tidyverse")
+library("broom")
+library("ggthemes")
+library("janitor")
+library("mlbench")
+library("mlrMBO")
+library("lhs")
+library("tidymodels")
+library("glmnet")
+library("margins")
+library("ggfortify")
+library("Ecdat")
+library("stopwords")
+library("rio")
 ```
 
 ## Note to the reader {-}
+
+I have been working on this on and off for the past 4 years or so. In 2022, I have updated the
+contents of the book to reflect updates introduced with R 4.1 and in several packages (especially
+those from the `{tidyverse}`). I have also cut some content that I think is not that useful,
+especially in later chapters.
 
 This book is still being written. Chapters 1 to 8 are almost ready, but more content is being added 
 (especially to chapter 8). 9 and 10 are empty for now. Some exercises might be at the wrong place 
 too and more are coming.
 
 You can purchase an ebook version of this book on [leanpub](https://leanpub.com/modern_tidyverse).
-
-If you already like what you read, you can support 
-me by [buying me a coffee](https://www.buymeacoffee.com/brodriguesco)
-or [paypal.me](https://www.paypal.me/brodriguesco).
+The version on leanpub is quite out of date, so if you buy it, it's really just to send some money
+my money, so many thanks for that! You can also support me by [buying me a
+coffee](https://www.buymeacoffee.com/brodriguesco) or
+[paypal.me](https://www.paypal.me/brodriguesco).
 
 ## What is R? {-}
 
@@ -46,9 +61,9 @@ disciplines for the remainder of this book.
 
 This book can be useful to different audiences. If you have never used R in your life, and want
 to start, start with Chapter 1 of this book. Chapter 1 to 3 are the very basics, and should be 
-easy to follow up to Chapter 9.
-Starting with Chapter 9, it gets more technical, and will be harder to follow. But I suggest
-you keep on going, and do not hesitate to contact me for help if you struggle! Chapter 9
+easy to follow up to Chapter 7.
+Starting with Chapter 7, it gets more technical, and will be harder to follow. But I suggest
+you keep on going, and do not hesitate to contact me for help if you struggle! Chapter 7
 is also where you can start if you are already familiar with R **and** the `{tidyverse}`, but not 
 functional programming. If you are familiar with R but not the `{tidyverse}` (or have no clue 
 what the `{tidyverse}` is), then you can start with Chapter 4. If you are familiar with R, the 
@@ -60,7 +75,7 @@ Chapter 9 and 10, which deal with package development and further advanced topic
 This book is first and foremost for myself. This book is the result of years of using and teaching
 R at university and then at my jobs. During my university time, I wrote some notes to help me 
 teach R and which I shared with my students. These are still the basis of Chapter 2. Then, once
-I had left university, and continued using R at my first "real" job, I wrote another book that
+I had left university, and continued using R at my first "real" job, I wrote another book that
 dealt mostly with package development and functional programming. This book is now merged to this
 one and is the basis of Chapters 9 and 10. During these years at my first
 job, I was also tasked with teaching R. By that time, I was already quite familiar with the 
@@ -132,7 +147,7 @@ for and while loops, are relegated to chapter 8. This does not mean that you wil
 are very useful for very specific situations that will be discussed at that point.
 
 In the second part of the book, we are going to move from using R to solve statistical problems to
-developing with R. We are going to learn about creating one's own package. If you do not know what
+developing with R. We are going to learn about creating your own package. If you do not know what
 packages are, don't worry, this will be discussed just below.
 
 ## What is RStudio? {-}
@@ -189,7 +204,7 @@ To install the packages we need, first open RStudio and then copy and paste this
 
 ```{r, eval=FALSE}
 install.packages(c("tidyverse", "rsample", "recipes", "blogdown" ,"yardstick", "parsnip", "plm", "pwt9", 
-                   "checkpoint", "Ecdat", "ggthemes", "ggfortify", "margins", "janitor", "rio", 
+                   "checkpoint", "Ecdat", "ggthemes", "ggfortify", "margins", "janitor", "rio", "stopwords",
                    "colourpicker", "glmnet", "lhs", "mrlMBO", "mlbench", "ranger"))
 ```
 
@@ -208,13 +223,14 @@ knitr::include_graphics("pics/rstudio_install_packages.gif")
 My name is Bruno Rodrigues and I program almost exclusively in R and have been teaching some R
 courses for a few years now. I first started teaching for students at the University of Strasbourg 
 while working on my PhD. I hold a PhD in economics, with a focus on quantitative methods.
-I'm currently working as a manager in the data science team of PwC Luxembourg.
+I'm currently head of the statistics department of the Ministry of Higher education and Research
+in Luxembourg, and before that worked as a manager in the data science team of PWC Luxembourg.
 
 This book is an adaptation of notes I've used in the past during my time as a teacher, but also
 a lot of things I've learned about R since I left academia.
 In my free time I like cooking, working out and [blogging](https://www.brodrigues.co), while listening to
 [Fip](http://www.fipradio.fr/player) or 
-[Chillsky Radio](https://tunein.com/radio/Lofi-HipHop-Radio--Chillsky-s288329/). 
+[Chillsky Radio](https://chillsky.com/listen/). 
 I also like to get my butt handed to me by playing roguelikes
 such as [NetHack](http://nethack.wikia.com/wiki/NetHack), for which I wrote a 
 [package](https://github.com/b-rodrigues/nethack) that contains functions to analyze the data that 

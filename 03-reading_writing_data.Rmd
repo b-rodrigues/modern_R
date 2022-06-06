@@ -166,8 +166,11 @@ would like to save, say, a list containing any arbitrary object? This is possibl
 `saveRDS()` function. Literally anything can be saved with `saveRDS()`:
 
 ```{r}
-my_list <- list("this is a list", list("which contains a list", 12), c(1, 2, 3, 4), matrix(c(2, 4,
-3, 1, 5, 7), nrow = 2))
+my_list <- list("this is a list",
+                list("which contains a list", 12),
+                c(1, 2, 3, 4),
+                matrix(c(2, 4, 3, 1, 5, 7),
+                       nrow = 2))
 
 str(my_list)
 ```
@@ -175,7 +178,7 @@ str(my_list)
 `my_list` is a list containing a string, a list which contains a string and a number, a vector and
 a matrix... Now suppose that computing this list takes a very long time. For example, imagine that
 each element of the list is the result of estimating a very complex model on a simulated
-dataset, which takes hours to simulate. Because this takes so long to compute, you'd want to save
+dataset, which takes hours to run. Because this takes so long to compute, you'd want to save
 it to disk. This is possible with `saveRDS()`:
 
 ```{r}
