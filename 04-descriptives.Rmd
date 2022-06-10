@@ -1939,7 +1939,7 @@ where `n()` is a `dplyr` function that can only be used within `summarise()`, `m
 
 ## Special packages for special kinds of data: `{forcats}`, `{lubridate}`, and `{stringr}`
 
-### 🐈🐈🐈🐈
+### `r paste0(rep(emoji::emoji("cat_face"), 4), collapse = "")`
 
 Factor variables are very useful but not very easy to manipulate. `forcats` contains very useful
 functions that make working on factor variables painless. In my opinion, the four following functions, `fct_recode()`, `fct_relevel()`, `fct_reorder()` and `fct_relabel()`, are the ones you must
@@ -2768,7 +2768,7 @@ contained in the cell is not the seven films, as seven separate characters, but 
 that happens to have seven elements. But it is still only one vector. *Zooming* in into the data
 frame helps understand:
 
-```{r}
+```{r, echo = FALSE}
 knitr::include_graphics("assets/zoom_list_columns.png", dpi = 80)
 ```
 
@@ -2828,7 +2828,7 @@ starwars <- starwars %>%
 `dplyr::rowwise()` is useful when working with list-columns because whatever instructions follow
 get run on the single element contained in the list. The picture below illustrates this:
 
-```{r}
+```{r, echo = FALSE}
 knitr::include_graphics("assets/rowwise.png", dpi = 80)
 ```
 
@@ -2982,14 +2982,25 @@ are the central objects and where the analyst operates over them with functional
 
 ### Exercise 1 {-}
 
-* Combine `mutate()` with `across()` to exponentiate every column of type `double`.
+* Combine `mutate()` with `across()` to exponentiate every column of type `double` of the `gasoline` dataset.
+
+To obtain the `gasoline` dataset, run the following lines:
+
+```{r, eval = FALSE}
+data(Gasoline, package = "plm")
+
+gasoline <- as_tibble(Gasoline)
+
+gasoline <- gasoline %>%
+  mutate(country = tolower(country))
+```
 
 ```{r, eval = FALSE, include = FALSE}
 gasoline %>%
   mutate(across(is.double, exp))
 ```
 
-* Exponeniate columns starting with the character `"l"`.
+* Exponeniate columns starting with the character `"l"` of the `gasoline` dataset.
 
 ```{r, eval = FALSE, include = FALSE}
 gasoline %>%

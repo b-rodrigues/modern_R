@@ -1,7 +1,7 @@
-# Objects, types and useful R functions to get started
+# Objects, their classes and types, and useful R functions to get you started
 
 All objects in R have a given *type*. You already know most of them, as these types are also used
-in mathematics. Integers, floating point numbers, or floats, matrices, etc, are all objects you
+in mathematics. Integers, floating point numbers (floats), matrices, etc, are all objects you
 are already familiar with. But R has other, maybe lesser known data types (that you can find in a
 lot of other programming languages) that you need to become familiar with. But first, we need to
 learn how to assign a value to a variable. This can be done in two ways:
@@ -72,9 +72,23 @@ There is also `is.numeric()` which tests whether a number is of the `numeric` cl
 is.numeric(a)
 ```
 
-These functions are very useful, there is one for any of the supported types in R. Later, we are going
-to learn about the `{purrr}` package, which is a very powerful package for functional programming. This
-package includes further such functions.
+It is also possible to create an integer using `L`:
+
+```{r}
+a <- 5L
+
+class(a)
+```
+
+Another way to convert this integer back to a floating point number is to use `as.double()` instead of
+as numeric:
+
+```{r}
+class(as.double(a))
+```
+
+The functions prefixed with `is.*` and `as.*` are quite useful, there is one for any of the supported types in R, such 
+as `as/is.character()`, `as/is.factor()`, etc...
 
 ## The `character` class
 
@@ -94,7 +108,11 @@ To convert something to a character you can use the `as.character()` function:
 a <- 4.392
 
 class(a)
+```
 
+Now let's convert it:
+
+```{r}
 class(as.character(a))
 ```
 
@@ -142,7 +160,7 @@ called `{lubridate}`. We are going to go over this package in Chapter 4.
 
 ## The `logical` class
 
-This class is the result of logical comparisons, for example, if you type:
+This is the class of predicates, expressions that evaluate to *true* or *false*. For example, if you type:
 
 ```{r}
 4 > 3
@@ -172,7 +190,7 @@ k <- 4 > 3
 ```
 
 The `!` operator indicates negation, so the above expression could be translated as *is k not TRUE?*.
-There are other such operators, namely `&, &&, |, ||`. `&` means *and* and `|` stands for *or*.
+There are other operators for boolean algebra, namely `&, &&, |, ||`. `&` means *and* and `|` stands for *or*.
 You might be wondering what the difference between `&` and `&&` is? Or between `|` and `||`? `&` and
 `|` work on vectors, doing pairwise comparisons:
 
@@ -215,7 +233,7 @@ all(one & two)
 `any()` checks whether any of the vector's elements are `TRUE` and `all()` checks if all elements of the vector are
 `TRUE`.
 
-As a final note, you should know that is possible to use `T` for `TRUE` and `F` for `FALSE` but I 
+As a final note, you should know that is possible to use `T` for `TRUE` and `F` for `FALSE` but I
 would advise against doing this, because it is not very explicit.
 
 ## Vectors and matrices
@@ -408,7 +426,7 @@ knitr::include_graphics("pics/rstudio_environment_list.gif")
 You can also create named lists:
 
 ```{r}
-list4 <- list("a" = 2, "b" = 8, "c" = "this is a named list")
+list4 <- list("name_1" = 2, "name_2" = 8, "name_3" = "this is a named list")
 ```
 
 and you can access the elements in two ways:
@@ -420,11 +438,11 @@ list4[[1]]
 or, for named lists:
 
 ```{r}
-list4$c
+list4$name_3
 ```
 
-The `$` operator is very useful, because it also allows you to access entire columns
-of `data.frame` objects, which we are going to get to know in the next section.
+Take note of the `$` operator, because it is going to be quite useful for `data.frame`s as well, 
+which we are going to get to know in the next section.
 
 Lists are used extensively because they are so flexible. You can build lists of datasets and apply
 functions to all the datasets at once, build lists of models, lists of plots, etc... In the later
@@ -484,15 +502,19 @@ or also to define anonymous functions, but more on this later.
 
 A statistical model is an object like any other in R:
 
-```{r}
+```{r, include = FALSE}
 data(mtcars)
 
 my_model <- lm(mpg ~ hp, mtcars)
+```
 
+Here, I have already a model that I ran on some test data:
+
+```{r}
 class(my_model)
 ```
 
-`my_model` is an object of class `lm`. You can apply different functions to a model object:
+`my_model` is an object of class `lm`, for *linear model*. You can apply different functions to a model object:
 
 ```{r}
 summary(my_model)
@@ -537,8 +559,8 @@ several types of `NA`s:
 * `NA_complex_`
 * `NA_character_`
 
-but these are in principle only used when you need to program your own functions and need to explicitly test for the missingness of, say,
-a character value.
+but these are in principle only used when you need to program your own functions and need
+to explicitly test for the missingness of, say, a character value.
 
 To test whether a value is `NA`, use the `is.na()` function.
 
@@ -646,7 +668,8 @@ paste("Hello", "amigo", sep = "--")
 paste0("Hello", "amigo")
 ```
 
-If you provide a vector of characters, you can also use the `collapse` argument, which places whatever you provide for `collapse` between the
+If you provide a vector of characters, you can also use the `collapse` argument, 
+which places whatever you provide for `collapse` between the
 characters of the vector:
 
 ```{r}

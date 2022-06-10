@@ -12,7 +12,7 @@ plots
 addins
 packages
 exercises
-objects-types-and-useful-r-functions-to-get-started
+objects-their-classes-and-types-and-useful-r-functions-to-get-you-started
 the-numeric-class
 the-character-class
 the-factor-class

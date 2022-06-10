@@ -78,7 +78,7 @@ bind_data <- import_list(paths, rbind = TRUE)
 str(bind_data)
 ```
 
-This also add a further column called `_file` indicating the name of the file that contained the
+This also adds a further column called `_file` indicating the name of the file that contained the
 original data.
 
 If something goes wrong, you might need to take a look at the underlying function `{rio}` is
