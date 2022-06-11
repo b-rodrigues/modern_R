@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2022-06-10" />
+<meta name="date" content="2022-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -427,44 +449,44 @@ in mathematics. Integers, floating point numbers (floats), matrices, etc, are al
 are already familiar with. But R has other, maybe lesser known data types (that you can find in a
 lot of other programming languages) that you need to become familiar with. But first, we need to
 learn how to assign a value to a variable. This can be done in two ways:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb7-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
 <p>or</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb2-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb8-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
 <p>in very practical terms, there is no difference between the two. I prefer using <code>&lt;-</code> for assigning
 values to variables and reserve <code>=</code> for passing arguments to functions, for example:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb3-1" aria-hidden="true" tabindex="-1"></a>spam <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb9-1" aria-hidden="true" tabindex="-1"></a>spam <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div>
 <p>I think this is less confusing than:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb4-1" aria-hidden="true" tabindex="-1"></a>spam <span class="ot">=</span> <span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb10-1" aria-hidden="true" tabindex="-1"></a>spam <span class="ot">=</span> <span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div>
 <p>but as I explained above you can use whatever you feel most comfortable with.</p>
 <div id="the-numeric-class" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> The <code>numeric</code> class<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#the-numeric-class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To define single numbers, you can do the following:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb11-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
 <p>The <code>class()</code> function allows you to check the class of an object:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>Decimals are defined with the character <code>.</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb8-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">3.14</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb14-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">3.14</span></span></code></pre></div>
 <p>R also supports integers. If you find yourself in a situation where you explicitly need an integer
 and not a floating point number, you can use the following:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb9-1" aria-hidden="true" tabindex="-1"></a>a  <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="dv">3</span>)</span>
-<span id="cb9-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb15-1" aria-hidden="true" tabindex="-1"></a>a  <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="dv">3</span>)</span>
+<span id="cb15-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
 <p>The <code>as.integer()</code> function is very useful, because it converts its argument into an integer. There
 is a whole family of <code>as.*()</code> functions. To convert <code>a</code> into a floating point number again:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.numeric</span>(a))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.numeric</span>(a))</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>There is also <code>is.numeric()</code> which tests whether a number is of the <code>numeric</code> class:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(a)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>It is also possible to create an integer using <code>L</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb15-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> 5L</span>
-<span id="cb15-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb21-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> 5L</span>
+<span id="cb21-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
 <p>Another way to convert this integer back to a floating point number is to use <code>as.double()</code> instead of
 as numeric:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.double</span>(a))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.double</span>(a))</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>The functions prefixed with <code>is.*</code> and <code>as.*</code> are quite useful, there is one for any of the supported types in R, such
 as <code>as/is.character()</code>, <code>as/is.factor()</code>, etc…</p>
@@ -472,30 +494,30 @@ as <code>as/is.character()</code>, <code>as/is.factor()</code>, etc…</p>
 <div id="the-character-class" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> The <code>character</code> class<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#the-character-class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Use <code>" "</code> to define characters (called strings in other programming languages):</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb19-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">&quot;this is a string&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">&quot;this is a string&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>To convert something to a character you can use the <code>as.character()</code> function:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb22-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">4.392</span></span>
-<span id="cb22-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">4.392</span></span>
+<span id="cb28-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>Now let’s convert it:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.character</span>(a))</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.character</span>(a))</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>It is also possible to convert a character to a numeric:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb26-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">&quot;4.392&quot;</span></span>
-<span id="cb26-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb32-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">&quot;4.392&quot;</span></span>
+<span id="cb32-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.numeric</span>(a))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.numeric</span>(a))</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>But this only works if it makes sense:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb30-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">&quot;this won&#39;t work, chief&quot;</span></span>
-<span id="cb30-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb36-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">&quot;this won&#39;t work, chief&quot;</span></span>
+<span id="cb36-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(a)</span></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>A very nice package to work with characters is <code>{stringr}</code>, which is also part of the <code>{tidyverse}</code>.</p>
@@ -510,9 +532,9 @@ We are going to learn more about factor variables in Chapter 4, by using the <co
 <div id="the-date-class" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> The <code>Date</code> class<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#the-date-class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Dates also look like characters, but are very different too:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&quot;2019/03/19&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&quot;2019/03/19&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2019-03-19&quot;</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2019/03/19&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2019/03/19&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;Date&quot;</code></pre>
 <p>Manipulating dates and time can be tricky, but thankfully there’s a <code>{tidyverse}</code> package for that,
 called <code>{lubridate}</code>. We are going to go over this package in Chapter 4.</p>
@@ -520,59 +542,59 @@ called <code>{lubridate}</code>. We are going to go over this package in Chapter
 <div id="the-logical-class" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> The <code>logical</code> class<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#the-logical-class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This is the class of predicates, expressions that evaluate to <em>true</em> or <em>false</em>. For example, if you type:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">&gt;</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">&gt;</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>R returns <code>TRUE</code>, which is an object of class <code>logical</code>:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb41-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">&gt;</span> <span class="dv">3</span></span>
-<span id="cb41-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(k)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb47-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">&gt;</span> <span class="dv">3</span></span>
+<span id="cb47-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(k)</span></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 <p>In other programming languages, <code>logical</code>s are often called <code>bool</code>s. A <code>logical</code> variable can only have
 two values, either <code>TRUE</code> or <code>FALSE</code>. You can test the truthiness of a variable with <code>isTRUE()</code>:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb43-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">&gt;</span> <span class="dv">3</span></span>
-<span id="cb43-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isTRUE</span>(k)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb49-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">&gt;</span> <span class="dv">3</span></span>
+<span id="cb49-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isTRUE</span>(k)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>How can you test if a variable is false? There is not a <code>isFALSE()</code> function (at least not without having
 to load a package containing this function), but there is way to do it:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb45-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">&gt;</span> <span class="dv">3</span></span>
-<span id="cb45-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="fu">isTRUE</span>(k)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb51-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">&gt;</span> <span class="dv">3</span></span>
+<span id="cb51-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="fu">isTRUE</span>(k)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>The <code>!</code> operator indicates negation, so the above expression could be translated as <em>is k not TRUE?</em>.
 There are other operators for boolean algebra, namely <code>&amp;, &amp;&amp;, |, ||</code>. <code>&amp;</code> means <em>and</em> and <code>|</code> stands for <em>or</em>.
 You might be wondering what the difference between <code>&amp;</code> and <code>&amp;&amp;</code> is? Or between <code>|</code> and <code>||</code>? <code>&amp;</code> and
 <code>|</code> work on vectors, doing pairwise comparisons:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb47-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb47-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb47-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb47-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb47-3" aria-hidden="true" tabindex="-1"></a>one <span class="sc">&amp;</span> two</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb53-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb53-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb53-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb53-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb53-3" aria-hidden="true" tabindex="-1"></a>one <span class="sc">&amp;</span> two</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE FALSE</code></pre>
 <p>Compare this to the <code>&amp;&amp;</code> operator:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb49-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb49-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb49-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb49-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb49-3" aria-hidden="true" tabindex="-1"></a>one <span class="sc">&amp;&amp;</span> two</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb55-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb55-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb55-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb55-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb55-3" aria-hidden="true" tabindex="-1"></a>one <span class="sc">&amp;&amp;</span> two</span></code></pre></div>
 <pre><code>## Warning in one &amp;&amp; two: &#39;length(x) = 4 &gt; 1&#39; in coercion to &#39;logical(1)&#39;
 
 ## Warning in one &amp;&amp; two: &#39;length(x) = 4 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <p>The <code>&amp;&amp;</code> and <code>||</code> operators only compare the first element of the vectors and stop as soon as a the return
 value can be safely determined. This is called short-circuiting. Consider the following:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb52-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb52-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb52-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb52-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb52-3" aria-hidden="true" tabindex="-1"></a>three <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb52-4"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb52-4" aria-hidden="true" tabindex="-1"></a>one <span class="sc">&amp;&amp;</span> two <span class="sc">&amp;&amp;</span> three</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb58-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb58-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb58-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb58-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb58-3" aria-hidden="true" tabindex="-1"></a>three <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb58-4"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb58-4" aria-hidden="true" tabindex="-1"></a>one <span class="sc">&amp;&amp;</span> two <span class="sc">&amp;&amp;</span> three</span></code></pre></div>
 <pre><code>## Warning in one &amp;&amp; two: &#39;length(x) = 4 &gt; 1&#39; in coercion to &#39;logical(1)&#39;
 
 ## Warning in one &amp;&amp; two: &#39;length(x) = 4 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb55-1" aria-hidden="true" tabindex="-1"></a>one <span class="sc">||</span> two <span class="sc">||</span> three</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb61-1" aria-hidden="true" tabindex="-1"></a>one <span class="sc">||</span> two <span class="sc">||</span> three</span></code></pre></div>
 <pre><code>## Warning in one || two: &#39;length(x) = 4 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>The <code>||</code> operator stops as soon it evaluates to <code>TRUE</code> whereas the <code>&amp;&amp;</code> stops as soon as it evaluates to <code>FALSE</code>.
 Personally, I rarely use <code>||</code> or <code>&amp;&amp;</code> because I get confused. I find using <code>|</code> or <code>&amp;</code> in combination with the
 <code>all()</code> or <code>any()</code> functions much more useful:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb58-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb58-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb58-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb58-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(one <span class="sc">&amp;</span> two)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb64-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb64-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb64-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb64-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(one <span class="sc">&amp;</span> two)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(one <span class="sc">&amp;</span> two)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(one <span class="sc">&amp;</span> two)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p><code>any()</code> checks whether any of the vector’s elements are <code>TRUE</code> and <code>all()</code> checks if all elements of the vector are
 <code>TRUE</code>.</p>
@@ -589,20 +611,20 @@ let’s first focus on vectors and matrices.</p>
 <div id="the-c-function" class="section level3 hasAnchor" number="2.6.1">
 <h3><span class="header-section-number">2.6.1</span> The <code>c()</code> function<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#the-c-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A very important function that allows you to build a vector is <code>c()</code>:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb62-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb68-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span></code></pre></div>
 <p>This creates a vector with elements 1, 2, 3, 4, 5. If you check its class:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>This can be confusing: you where probably expecting a to be of class <em>vector</em> or
 something similar. This is not the case if you use <code>c()</code> to create the vector, because <code>c()</code>
 doesn’t build a vector in the mathematical sense, but a so-called atomic vector.
 Checking its dimension:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(a)</span></code></pre></div>
 <pre><code>## NULL</code></pre>
 <p>returns <code>NULL</code> because an atomic vector doesn’t have a dimension.
 If you want to create a true vector, you need to use <code>cbind()</code> or <code>rbind()</code>.</p>
 <p>But before continuing, be aware that atomic vectors can only contain elements of the same type:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&quot;3&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&quot;3&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;</code></pre>
 <p>because “3” is a character, all the other values get implicitly converted to characters. You have
 to be very careful about this, and if you use atomic vectors in your programming, you have to make
@@ -612,20 +634,20 @@ vector to something you were not expecting.</p>
 <div id="cbind-and-rbind" class="section level3 hasAnchor" number="2.6.2">
 <h3><span class="header-section-number">2.6.2</span> <code>cbind()</code> and <code>rbind()</code><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cbind-and-rbind" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can create a <em>true</em> vector with <code>cbind()</code>:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb69-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb75-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code></pre></div>
 <p>Check its class now:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code></pre></div>
 <pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
 <p>This is exactly what we expected. Let’s check its dimension:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(a)</span></code></pre></div>
 <pre><code>## [1] 1 5</code></pre>
 <p>This returns the dimension of <code>a</code> using the LICO notation (number of LInes first, the number of COlumns).</p>
 <p>It is also possible to bind vectors together to create a matrix.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb74-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb80-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</span></code></pre></div>
 <p>Now let’s put vector <code>a</code> and <code>b</code> into a matrix called <code>matrix_c</code> using <code>rbind()</code>.
 <code>rbind()</code> functions the same way as <code>cbind()</code> but glues the vectors together by rows and not by columns.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb75-1" aria-hidden="true" tabindex="-1"></a>matrix_c <span class="ot">&lt;-</span> <span class="fu">rbind</span>(a,b)</span>
-<span id="cb75-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(matrix_c)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb81-1" aria-hidden="true" tabindex="-1"></a>matrix_c <span class="ot">&lt;-</span> <span class="fu">rbind</span>(a,b)</span>
+<span id="cb81-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(matrix_c)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    1    2    3    4    5
 ## [2,]    6    7    8    9   10</code></pre>
@@ -634,7 +656,7 @@ vector to something you were not expecting.</p>
 <h3><span class="header-section-number">2.6.3</span> The <code>matrix</code> class<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#the-matrix-class" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>R also has support for matrices. For example, you can create a matrix of dimension (5,5) filled
 with 0’s with the <code>matrix()</code> function:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb77-1" aria-hidden="true" tabindex="-1"></a>matrix_a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb83-1" aria-hidden="true" tabindex="-1"></a>matrix_a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code></pre></div>
 <p>If you want to create the following matrix:</p>
 <p><span class="math display">\[
 B = \left(
@@ -644,15 +666,15 @@ B = \left(
 \end{array} \right)
 \]</span></p>
 <p>you would do it like this:</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb78-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb84-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The option <code>byrow = TRUE</code> means that the rows of the matrix will be filled first.</p>
 <p>You can access individual elements of <code>matrix_a</code> like so:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb79-1" aria-hidden="true" tabindex="-1"></a>matrix_a[<span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb85-1" aria-hidden="true" tabindex="-1"></a>matrix_a[<span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>and R returns its value, 0. We can assign a new value to this element if we want. Try:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb81-1" aria-hidden="true" tabindex="-1"></a>matrix_a[<span class="dv">2</span>, <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb87-1" aria-hidden="true" tabindex="-1"></a>matrix_a[<span class="dv">2</span>, <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">7</span></span></code></pre></div>
 <p>and now take a look at <code>matrix_a</code> again.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(matrix_a)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(matrix_a)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    0    0    0    0    0
 ## [2,]    0    0    7    0    0
@@ -660,9 +682,9 @@ B = \left(
 ## [4,]    0    0    0    0    0
 ## [5,]    0    0    0    0    0</code></pre>
 <p>Recall our vector <code>b</code>:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb84-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb90-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</span></code></pre></div>
 <p>To access its third element, you can simply write:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb85-1" aria-hidden="true" tabindex="-1"></a>b[<span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb91-1" aria-hidden="true" tabindex="-1"></a>b[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <p>I have heard many people praising R for being a matrix based language. Matrices are indeed useful,
 and statisticians are used to working with them. However, I very rarely use matrices in my
@@ -678,15 +700,15 @@ the introduction).</p>
 <h2><span class="header-section-number">2.7</span> The <code>list</code> class<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#the-list-class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>list</code> class is a very flexible class, and thus, very useful. You can put anything inside a list,
 such as numbers:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb87-1" aria-hidden="true" tabindex="-1"></a>list1 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb93-1" aria-hidden="true" tabindex="-1"></a>list1 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span></code></pre></div>
 <p>or other lists constructed with <code>c()</code>:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb88-1" aria-hidden="true" tabindex="-1"></a>list2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb94-1" aria-hidden="true" tabindex="-1"></a>list2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
 <p>you can also put objects of different classes in the same list:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb89-1" aria-hidden="true" tabindex="-1"></a>list3 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="st">&quot;lists are amazing!&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb95-1" aria-hidden="true" tabindex="-1"></a>list3 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="st">&quot;lists are amazing!&quot;</span>)</span></code></pre></div>
 <p>and of course create list of lists:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb90-1" aria-hidden="true" tabindex="-1"></a>my_lists <span class="ot">&lt;-</span> <span class="fu">list</span>(list1, list2, list3)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb96-1" aria-hidden="true" tabindex="-1"></a>my_lists <span class="ot">&lt;-</span> <span class="fu">list</span>(list1, list2, list3)</span></code></pre></div>
 <p>To check the contents of a list, you can use the structure function <code>str()</code>:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(my_lists)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(my_lists)</span></code></pre></div>
 <pre><code>## List of 3
 ##  $ :List of 2
 ##   ..$ : num 3
@@ -701,12 +723,12 @@ such as numbers:</p>
 <p>or you can use RStudio’s <em>Environment</em> pane:</p>
 <p><img src="pics/rstudio_environment_list.gif" /><!-- --></p>
 <p>You can also create named lists:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb93-1" aria-hidden="true" tabindex="-1"></a>list4 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;name_1&quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;name_2&quot;</span> <span class="ot">=</span> <span class="dv">8</span>, <span class="st">&quot;name_3&quot;</span> <span class="ot">=</span> <span class="st">&quot;this is a named list&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb99-1" aria-hidden="true" tabindex="-1"></a>list4 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;name_1&quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;name_2&quot;</span> <span class="ot">=</span> <span class="dv">8</span>, <span class="st">&quot;name_3&quot;</span> <span class="ot">=</span> <span class="st">&quot;this is a named list&quot;</span>)</span></code></pre></div>
 <p>and you can access the elements in two ways:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb94-1" aria-hidden="true" tabindex="-1"></a>list4[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb100-1" aria-hidden="true" tabindex="-1"></a>list4[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>or, for named lists:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb96-1" aria-hidden="true" tabindex="-1"></a>list4<span class="sc">$</span>name_3</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb102-1" aria-hidden="true" tabindex="-1"></a>list4<span class="sc">$</span>name_3</span></code></pre></div>
 <pre><code>## [1] &quot;this is a named list&quot;</code></pre>
 <p>Take note of the <code>$</code> operator, because it is going to be quite useful for <code>data.frame</code>s as well,
 which we are going to get to know in the next section.</p>
@@ -728,31 +750,31 @@ a <code>tibble</code> if you wish to inspect it. You can use <code>View(my_data)
 in the <em>View</em> pane of RStudio:</p>
 <p><img src="pics/rstudio_view_data.gif" /><!-- --></p>
 <p>You can also use the <code>str()</code> function:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(my_data)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(my_data)</span></code></pre></div>
 <p>And if you need to access an individual column, you can use the <code>$</code> sign, same as for a list:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb99-1" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>col1</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb105-1" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>col1</span></code></pre></div>
 </div>
 <div id="formulas" class="section level2 hasAnchor" number="2.9">
 <h2><span class="header-section-number">2.9</span> Formulas<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#formulas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We will learn more about formulas later, but because it is an important object, it is useful if you
 already know about them early on. A formula is defined in the following way:</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb100-1" aria-hidden="true" tabindex="-1"></a>my_formula <span class="ot">&lt;-</span> <span class="er">~</span>x</span>
-<span id="cb100-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(my_formula)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb106-1" aria-hidden="true" tabindex="-1"></a>my_formula <span class="ot">&lt;-</span> <span class="er">~</span>x</span>
+<span id="cb106-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(my_formula)</span></code></pre></div>
 <pre><code>## [1] &quot;formula&quot;</code></pre>
 <p>Formula objects are defined using the <code>~</code> symbol. Formulas are useful to define statistical models,
 for example for a linear regression:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <p>or also to define anonymous functions, but more on this later.</p>
 </div>
 <div id="models" class="section level2 hasAnchor" number="2.10">
 <h2><span class="header-section-number">2.10</span> Models<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A statistical model is an object like any other in R:</p>
 <p>Here, I have already a model that I ran on some test data:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(my_model)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(my_model)</span></code></pre></div>
 <pre><code>## [1] &quot;lm&quot;</code></pre>
 <p><code>my_model</code> is an object of class <code>lm</code>, for <em>linear model</em>. You can apply different functions to a model object:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(my_model)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(my_model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ hp, data = mtcars)
@@ -777,7 +799,7 @@ for example for a linear regression:</p>
 <h2><span class="header-section-number">2.11</span> NULL, NA and NaN<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#null-na-and-nan" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>NULL</code>, <code>NA</code> and <code>NaN</code> classes are pretty special. <code>NULL</code> is returned when the result of function is undetermined.
 For example, consider <code>list4</code>:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb107-1" aria-hidden="true" tabindex="-1"></a>list4</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb113-1" aria-hidden="true" tabindex="-1"></a>list4</span></code></pre></div>
 <pre><code>## $name_1
 ## [1] 2
 ## 
@@ -787,14 +809,14 @@ For example, consider <code>list4</code>:</p>
 ## $name_3
 ## [1] &quot;this is a named list&quot;</code></pre>
 <p>if you try to access an element that does not exist, such as <code>d</code>, you will get <code>NULL</code> back:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb109-1" aria-hidden="true" tabindex="-1"></a>list4<span class="sc">$</span>d</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb115-1" aria-hidden="true" tabindex="-1"></a>list4<span class="sc">$</span>d</span></code></pre></div>
 <pre><code>## NULL</code></pre>
 <p><code>NaN</code> means “Not a Number” and is returned when a function return something that is not a number:</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Warning in sqrt(-1): NaNs produced</code></pre>
 <pre><code>## [1] NaN</code></pre>
 <p>or:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span><span class="sc">/</span><span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span><span class="sc">/</span><span class="dv">0</span></span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
 <p>Basically, numbers that cannot be represented as floating point numbers are <code>NaN</code>.</p>
 <p>Finally, there’s <code>NA</code> which is closely related to <code>NaN</code> but is used for missing values. <code>NA</code> stands for <code>Not Available</code>. There are
@@ -815,47 +837,47 @@ to explicitly test for the missingness of, say, a character value.</p>
 <div id="sequences" class="section level3 hasAnchor" number="2.12.1">
 <h3><span class="header-section-number">2.12.1</span> Sequences<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#sequences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are several functions that create sequences, <code>seq()</code>, <code>seq_along()</code> and <code>rep()</code>. <code>rep()</code> is easy enough:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1] 1 1 1 1 1 1 1 1 1 1</code></pre>
 <p>This simply repeats <code>1</code> 10 times. You can repeat other objects too:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="st">&quot;HAHA&quot;</span>, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="st">&quot;HAHA&quot;</span>, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;HAHA&quot; &quot;HAHA&quot; &quot;HAHA&quot; &quot;HAHA&quot; &quot;HAHA&quot; &quot;HAHA&quot; &quot;HAHA&quot; &quot;HAHA&quot; &quot;HAHA&quot; &quot;HAHA&quot;</code></pre>
 <p>To create a sequence, things are not as straightforward. There is <code>seq()</code>:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">80</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">70</span>, <span class="dv">80</span>)</span></code></pre></div>
 <pre><code>##  [1] 70 71 72 73 74 75 76 77 78 79 80</code></pre>
 <p>It is also possible to provide a <code>by</code> argument:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1 3 5 7 9</code></pre>
 <p><code>seq_along()</code> behaves similarly, but returns the length of the object passed to it. So if you pass <code>list4</code> to
 <code>seq_along()</code>, it will return a sequence from 1 to 3:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_along</span>(list4)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_along</span>(list4)</span></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>which is also true for <code>seq()</code> actually:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(list4)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(list4)</span></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>but these two functions behave differently for arguments of length equal to 1:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_along</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_along</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>So be quite careful about that. I would advise you do not use <code>seq()</code>, but only <code>seq_along()</code> and <code>seq_len()</code>. <code>seq_len()</code>
 only takes arguments of length 1:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_len</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_len</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_along</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq_along</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>The problem with <code>seq()</code> is that it is unpredictable; depending on its input, the output will either be an integer or a sequence.
 When programming, it is better to have function that are stricter and fail when confronted to special cases, instead of returning
 some result. This is a bit of a recurrent issue with R, and the functions from the <code>{tidyverse}</code> mitigate this issue by being
 stricter than their base R counterparts. For example, consider the <code>ifelse()</code> function from base R:</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">5</span>, <span class="dv">1</span>, <span class="st">&quot;this is false&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">5</span>, <span class="dv">1</span>, <span class="st">&quot;this is false&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;this is false&quot;</code></pre>
 <p>and compare it to <code>{dplyr}</code>’s implementation, <code>if_else()</code>:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">if_else</span>(<span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">5</span>, <span class="dv">1</span>, <span class="st">&quot;this is false&quot;</span>)</span>
-<span id="cb140-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb140-2" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> <span class="st">`</span><span class="at">false</span><span class="st">`</span> must be type double, not character</span>
-<span id="cb140-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb140-3" aria-hidden="true" tabindex="-1"></a>Call <span class="st">`</span><span class="at">rlang::last_error()</span><span class="st">`</span> to see a backtrace</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">if_else</span>(<span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">5</span>, <span class="dv">1</span>, <span class="st">&quot;this is false&quot;</span>)</span>
+<span id="cb146-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb146-2" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> <span class="st">`</span><span class="at">false</span><span class="st">`</span> must be type double, not character</span>
+<span id="cb146-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb146-3" aria-hidden="true" tabindex="-1"></a>Call <span class="st">`</span><span class="at">rlang::last_error()</span><span class="st">`</span> to see a backtrace</span></code></pre></div>
 <p><code>if_else()</code> fails because the return value when <code>FALSE</code> is not a double (a real number) but a character. This might seem unnecessarily
 strict, but at least it is predictable. This makes debugging easier when used inside functions. In Chapter 8 we are going to learn how
 to write our own functions, and being strict makes programming easier.</p>
@@ -865,23 +887,23 @@ to write our own functions, and being strict makes programming easier.</p>
 <p>For now, we have not closely studied <code>character</code> objects, we only learned how to define them. Later, in Chapter 5 we will learn about the
 <code>{stringr}</code> package which provides useful function to work with strings. However, there are several base R functions that are very
 useful that you might want to know nonetheless, such as <code>paste()</code> and <code>paste0()</code>:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;amigo&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;amigo&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Hello amigo&quot;</code></pre>
 <p>but you can also change the separator if needed:</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;amigo&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;--&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;amigo&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;--&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Hello--amigo&quot;</code></pre>
 <p><code>paste0()</code> is the same as <code>paste()</code> but does not have any <code>sep</code> argument:</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;amigo&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;amigo&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Helloamigo&quot;</code></pre>
 <p>If you provide a vector of characters, you can also use the <code>collapse</code> argument,
 which places whatever you provide for <code>collapse</code> between the
 characters of the vector:</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="fu">c</span>(<span class="st">&quot;Joseph&quot;</span>, <span class="st">&quot;Mary&quot;</span>, <span class="st">&quot;Jesus&quot;</span>), <span class="at">collapse =</span> <span class="st">&quot;, and &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="fu">c</span>(<span class="st">&quot;Joseph&quot;</span>, <span class="st">&quot;Mary&quot;</span>, <span class="st">&quot;Jesus&quot;</span>), <span class="at">collapse =</span> <span class="st">&quot;, and &quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Joseph, and Mary, and Jesus&quot;</code></pre>
 <p>To change the case of characters, you can use <code>toupper()</code> and <code>tolower()</code>:</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tolower</span>(<span class="st">&quot;HAHAHAHAH&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tolower</span>(<span class="st">&quot;HAHAHAHAH&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;hahahahah&quot;</code></pre>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toupper</span>(<span class="st">&quot;hueuehuehuheuhe&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toupper</span>(<span class="st">&quot;hueuehuehuheuhe&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;HUEUEHUEHUHEUHE&quot;</code></pre>
 <p>Finally, there are the classical mathematical functions that you know and love:</p>
 <ul>
@@ -919,7 +941,7 @@ Try to find the right function to get the dot product. Don’t hesitate to googl
 <div id="exercise-4" class="section level3 unnumbered hasAnchor">
 <h3>Exercise 4<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#exercise-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Save your first name in a variable <code>a</code> and your surname in a variable <code>b</code>. What does the function:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(a, b)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(a, b)</span></code></pre></div>
 <p>do? Look at the help for <code>paste()</code> with <code>?paste</code> or using the <em>Help</em> pane in RStudio. What does the
 optional argument <code>sep</code> do?</p>
 </div>
@@ -927,13 +949,13 @@ optional argument <code>sep</code> do?</p>
 <h3>Exercise 5<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#exercise-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Define the following variables: <code>a &lt;- 8</code>, <code>b &lt;- 3</code>, <code>c &lt;- 19</code>. What do the following lines check?
 What do they return?</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb154-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">&gt;</span> b</span>
-<span id="cb154-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb154-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">==</span> b</span>
-<span id="cb154-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb154-3" aria-hidden="true" tabindex="-1"></a>a <span class="sc">!=</span> b</span>
-<span id="cb154-4"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb154-4" aria-hidden="true" tabindex="-1"></a>a <span class="sc">&lt;</span> b</span>
-<span id="cb154-5"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb154-5" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">&gt;</span> b) <span class="sc">&amp;&amp;</span> (a <span class="sc">&lt;</span> c)</span>
-<span id="cb154-6"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb154-6" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">&gt;</span> b) <span class="sc">&amp;&amp;</span> (a <span class="sc">&gt;</span> c)</span>
-<span id="cb154-7"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb154-7" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">&gt;</span> b) <span class="sc">||</span> (a <span class="sc">&lt;</span> b)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb160-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">&gt;</span> b</span>
+<span id="cb160-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb160-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">==</span> b</span>
+<span id="cb160-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb160-3" aria-hidden="true" tabindex="-1"></a>a <span class="sc">!=</span> b</span>
+<span id="cb160-4"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb160-4" aria-hidden="true" tabindex="-1"></a>a <span class="sc">&lt;</span> b</span>
+<span id="cb160-5"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb160-5" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">&gt;</span> b) <span class="sc">&amp;&amp;</span> (a <span class="sc">&lt;</span> c)</span>
+<span id="cb160-6"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb160-6" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">&gt;</span> b) <span class="sc">&amp;&amp;</span> (a <span class="sc">&gt;</span> c)</span>
+<span id="cb160-7"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb160-7" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">&gt;</span> b) <span class="sc">||</span> (a <span class="sc">&lt;</span> b)</span></code></pre></div>
 </div>
 <div id="exercise-6" class="section level3 unnumbered hasAnchor">
 <h3>Exercise 6<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#exercise-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -984,25 +1006,25 @@ t \\
 <h3>Exercise 8<a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#exercise-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Load the <code>mtcars</code> data (<code>mtcars</code> is include in R, so you only need to use the <code>data()</code> function to
 load the data):</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span></code></pre></div>
 <p>if you run <code>class(mtcars)</code>, you get “data.frame”. Try now with <code>typeof(mtcars)</code>. The answer is now
 “list”! This is because the class of an object is an attribute of that object, which can even
 be assigned by the user:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars) <span class="ot">&lt;-</span> <span class="st">&quot;don&#39;t do this&quot;</span></span>
-<span id="cb156-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb156-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb156-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars) <span class="ot">&lt;-</span> <span class="st">&quot;don&#39;t do this&quot;</span></span>
+<span id="cb162-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb162-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars)</span></code></pre></div>
 <pre><code>## [1] &quot;don&#39;t do this&quot;</code></pre>
 <p>The type of an object is R’s internal type of that object, which cannot be manipulated by the user.
 It is always useful to know the type of an object (not just its class). For example, in the particular
 case of data frames, because the type of a data frame is a list, you can use all that you learned
 about lists to manipulate data frames! Recall that <code>$</code> allowed you to select the element of a list
 for instance:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb158-1" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;one&quot;</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">&quot;two&quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;three&quot;</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
-<span id="cb158-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb158-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb158-3" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>one</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb164-1" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;one&quot;</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">&quot;two&quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;three&quot;</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
+<span id="cb164-2"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb164-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb164-3" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>one</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Because data frames are nothing but fancy lists, this is why you can access columns the same way:</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb160-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>mpg</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="objects-their-classes-and-types-and-useful-r-functions-to-get-you-started.html#cb166-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>mpg</span></code></pre></div>
 <pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
 ## [16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
 ## [31] 15.0 21.4</code></pre>

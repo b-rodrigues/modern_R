@@ -2032,7 +2032,23 @@ gss_cat %>%
 
 Much better! In Chapter 6, we are going to learn about `{ggplot2}`.
 
-`{forcats}` contains other very useful functions, so I urge you to go through the documentation.
+The last family of function I'd like to mention are the `fct_lump*()` functions. These make it possible
+to lump several levels of a factor into a new *other* level:
+
+```{r}
+
+gss_cat %>%
+  mutate(
+    # Description of the different functions taken from help(fct_lump)
+    denom_lowfreq = fct_lump_lowfreq(denom), # lumps together the least frequent levels, ensuring that "other" is still the smallest level.
+    denom_min = fct_lump_min(denom, min = 10), # lumps levels that appear fewer than min times.
+    denom_n = fct_lump_n(denom, n = 3), # lumps all levels except for the n most frequent (or least frequent if n < 0)
+    denom_prop = fct_lump_prop(denom, prop = 0.10) # lumps levels that appear in fewer prop * n times.
+         )
+
+```
+
+There's many other, so I'd advise you go through the package's function [reference](https://forcats.tidyverse.org/reference/index.html).
 
 ### Get your dates right with `{lubridate}`
 
@@ -2070,7 +2086,7 @@ independence <- readRDS("datasets/independence.rds")
 ```
 
 This dataset was scraped from the following Wikipedia [page](https://en.wikipedia.org/wiki/Decolonisation_of_Africa#Timeline).
-It shows when African countries gained independence from which colonial powers. In Chapter 11, I
+It shows when African countries gained independence and from which colonial powers. In Chapter 10, I
 will show you how to scrape Wikipedia pages using R. For now, let's take a look at the contents
 of the dataset:
 

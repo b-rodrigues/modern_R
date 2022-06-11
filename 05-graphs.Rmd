@@ -27,7 +27,7 @@ resources that I keep coming back to:
 
 * [ggplot2 extensions](https://exts.ggplot2.tidyverse.org/)
 
-* [ggthemes Vignette](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html)
+* [ggthemes function reference](https://jrnold.github.io/ggthemes/reference/index.html)
 
 * [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
@@ -115,12 +115,34 @@ starwars %>%
     geom_point(aes(height, mass))
 ```
 
-There is a positive correlation between height and mass. Later, we are going to see how we can also plot a regression
-line that goes through the scatter plot, but first, let's discover some other `geom_*()` functions.
+There is a positive correlation between height and mass, by adding `geom_smooth()` with the option `method = "lm"`:
+
+```{r, warning = FALSE}
+starwars %>%
+  filter(!str_detect(name, "Jabba")) %>%
+  ggplot(aes(height, mass)) +
+  geom_point(aes(height, mass)) +
+  geom_smooth(method = "lm")
+```
+
+I've moved the `aes(height, mass)` up to the `ggplot()` function because both `geom_point()` and `geom_smooth()`
+need them, and as explained in the begging of this section, the aesthetics listed in `ggplot()` get passed down
+to the other geoms.
+
+If you omit `method = "lm`, you get a non-parametric curve:
+
+```{r, warning = FALSE}
+starwars %>%
+  filter(!str_detect(name, "Jabba")) %>%
+  ggplot(aes(height, mass)) +
+  geom_point(aes(height, mass)) +
+  geom_smooth()
+```
+
 
 ### Density
 
-`geom_density()` is the *geom* that allows you to get density plots:
+Use `geom_density()` to get density plots:
 
 ```{r}
 ggplot(starwars, aes(height)) +
@@ -173,8 +195,7 @@ ggplot(filtered_data) +
 For the line plots, we are going to use official unemployment data (the same as in the previous
 chapter, but with all the available years). Get it from
 [here](https://github.com/b-rodrigues/modern_R/tree/master/datasets/unemployment/all)
-(downloaded from:
-http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950&IF_Language=eng&MainTheme=2&FldrName=3&RFPath=91).
+(downloaded from the website of the [Luxembourguish national statistical institute](https://lustat.statec.lu/vis?pg=0&df[ds]=release&df[id]=DF_X026&df[ag]=LU1&df[vs]=1.0&pd=2021%2C&dq=..A&ly[rw]=SPECIFICATION&ly[cl]=VARIABLE&lc=en).
 
 Let's plot the unemployment for the canton of Luxembourg only:
 
@@ -666,7 +687,7 @@ There are two ways to save plots on disk; one through the *Plots* plane in RStud
 `ggsave()` function. Using RStudio, navigate to the *Plots* pane and click on *Export*. You can
 then choose where to save the plot and other various options:
 
-```{r}
+```{r, echo = FALSE}
 knitr::include_graphics("pics/rstudio_save_plots.gif")
 ```
 

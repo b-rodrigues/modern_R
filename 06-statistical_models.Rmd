@@ -166,7 +166,8 @@ model3 <- lm(price ~ ., data = Housing)
 summary(model3)
 ```
 
-You can access different elements of `model3` with `$`, because the result of `lm()` is a list:
+You can access different elements of `model3` with `$`, because the result of `lm()` is a list 
+(you can check this claim with `typeof(model3)`:
 
 ```{r}
 print(model3$coefficients)
@@ -215,12 +216,27 @@ The first `.` in the `lm()` function is used to indicate that we wish to use all
 used to *place* the result from the two `dplyr` instructions that preceded is to be placed there.
 The picture below should help you understand:
 
-```{r}
+```{r, echo = FALSE}
 knitr::include_graphics("pics/pipe_to_second_position.png")
 ```
 
 You have to specify this, because by default, when using `%>%` the left hand side argument gets
 passed as the first argument of the function on the right hand side.
+
+Since version 4.2, R now also natively includes a placeholder, `_`:
+
+```{r}
+Housing |>
+  select(-driveway, -stories) |>
+  lm(price ~ ., data = _) |>
+  broom::tidy()
+
+```
+
+For the example above, I've also switched from `%>%` to  `|>`, or else I can't use the `_` placeholder.
+The advantage of the `_` placeholder is that it disambiguates `.`. So here, the `.` is a placeholder for
+all the variables in the dataset, and `_` is a placeholder for the dataset.
+
 
 ## Diagnostics
 
