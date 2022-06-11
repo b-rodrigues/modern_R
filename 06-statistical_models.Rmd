@@ -362,16 +362,33 @@ I will start by interpretability of *classical* statistical models.
 ### Marginal effects
 
 If one wants to know the effect of variable `x` on the dependent variable `y`, 
-marginal effects have to be computed. This is easily done in R with the `{margins}` package, which 
-aims to provide the same functionality as the `margins` command in STATA:
+so-called marginal effects have to be computed. This is easily done in R with the `{marginaleffects}` package.
+Formally, marginal effects are the partial derivative of the regression equation with respect to the variable
+we want to look at.
 
 ```{r}
-library(margins)
+library(marginaleffects)
 
-effects_model3 <- margins(model3)
+effects_model3 <- marginaleffects(model3)
 
 summary(effects_model3)
 ```
+
+Let's go through this: `summary(effects_model3)` shows the average marginal effects for each of the dependent
+variables that were used in `model3`. The way to interpret them is as follows:
+*everything else held constant (often you'll read the Latin ceteris paribus for this), a unit increase in
+`lotize` increases the `price` by 3.546 units, on average.*
+The *everything held constant* part is crucial; with marginal effects, you're looking at just the effect of
+one variable at a time. For discrete variables, like `driveway`, this is simpler: imagine you have two 
+equal houses, exactly the same house, one has a driveway and the other doesn't. The one with the driveway
+is 6687 units more expensive, *on average*.
+
+Now it turns out that in the case of a linear model, the average marginal effects are exactly equal to the 
+coefficients. Just compare `summary(model3)` to `effects_model3` to see
+(and remember, I told you that marginal effects were the partial derivative of the regression equation with
+respect to the variable of interest. So the derivative of $\alpha*X_1 + ....$ with respect to $X_1$ will
+be $\alpha$). But in the case of a more complex, non-linear model, this is not so obvious. This is 
+where `{marginaleffects}` will make your life much easier.
 
 It is also possible to plot the results:
 
@@ -379,31 +396,23 @@ It is also possible to plot the results:
 plot(effects_model3)
 ```
 
-This uses the basic R plotting capabilities, which is useful because it is a simple call to the
-function `plot()` but if you've been using `{ggplot2}` and want this graph to have the same feel as
-the others made with `{ggplot2}` you first need to save the summary in a variable.
-`summary(effects_model3)` is a `data.frame` with many details. Let's overwrite this
-`effects_model3` with its summary:
+`effects_model3` is a data frame containing the effects for each house in the data set. For example,
+let's take a look at the first house:
 
 ```{r}
-effects_model3 <- summary(effects_model3)
+effects_model3 %>%
+  filter(rowid == 1)
 ```
 
-And now it is possible to use `ggplot2` to have the same plot:
+`rowid` is column that identifies the houses in the original data set, so `rowid == 1` filters out
+the first house. This shows you the marginal effects (column `dydx` computed for this house; but
+remember, since we're dealing with a linear model, the values of the marginal effects are constant.
+If you don't see the point of this discussion, don't fret, the next example should make things 
+clearer.
 
-```{r}
-ggplot(data = effects_model3) +
-  geom_point(aes(factor, AME)) +
-  geom_errorbar(aes(x = factor, ymin = lower, ymax = upper)) +
-  geom_hline(yintercept = 0) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45))
-```
-
-Of course for `model3`, the marginal effects are the same as the coefficients, so let's estimate a
-logit model and compute the marginal effects. You might know logit models as *logistic regression*.
-Logit models can be estimated using the `glm()` function, which stands for generalized linear
-models.
+Let's estimate a logit model and compute the marginal effects. You might know logit models as
+*logistic regression*. Logit models can be estimated using the `glm()` function, which stands for
+generalized linear models.
 
 As an example, we are going to use the `Participation` data, also from the `{Ecdat}` package:
 
@@ -484,59 +493,88 @@ broom::tidy(logit_participation)
 ```
 
 From the results above, one can only interpret the sign of the coefficients. To know how much a
-variable influences the labour force participation, one has to use `margins()`:
+variable influences the labour force participation, one has to use `marginaleffects()`:
 
 ```{r}
-effects_logit_participation <- margins(logit_participation) %>%
-  summary()
+effects_logit_participation <- marginaleffects(logit_participation)
 
-print(effects_logit_participation)
+summary(effects_logit_participation)
 ```
 
-We can use the previous code to plot the marginal effects:
+As you can see, the average marginal effects here are not equal to the estimated coefficients of the
+model. Let's take a look at the first row of the data:
 
 ```{r}
-ggplot(data = effects_logit_participation) +
-  geom_point(aes(factor, AME)) +
-  geom_errorbar(aes(x = factor, ymin = lower, ymax = upper)) +
-  geom_hline(yintercept = 0) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45))
+Participation[1, ]
+```
+
+and let's now look at `rowid == 1` in the marginal effects data frame:
+
+```{r}
+effects_logit_participation %>%
+  filter(rowid == 1)
+```
+
+Let's focus on the first row, where `term` is `lnnlinc`. What we see here is the effect of an infinitesimal
+increase in the variable `lnnlinc` on the participation, for an individual who has the following
+characteristics: `lnnlinc = 10.7875`, `age = 3`, `educ = 8`, `nyc = 1`, `noc = 1` and `foreign = no`, which
+are the characteristics of this first individual in our data. 
+
+So let's look at the value of `dydx` for every individual:
+
+```{r}
+dydx_lnnlinc <- effects_logit_participation %>%
+  filter(term == "lnnlinc")
+
+head(dydx_lnnlinc)
+```
+
+`dydx_lnnlinc` is a data frame with all individual marginal effect for the variable `lnnlinc`. 
+What if we compute the mean of this column?
+
+```{r}
+dydx_lnnlinc %>%
+  summarise(mean(dydx))
+```
+
+Let's compare this to the average marginal effects:
+
+```{r}
+summary(effects_logit_participation)
+```
+
+Yep, it's the same! This is why we speak of *average marginal effects*. Now that we know why
+these are called average marginal effects, let's go back to interpreting them. This time,
+let's plot them, because why not:
+
+```{r}
+plot(effects_logit_participation)
 ```
 
 So an infinitesimal increase, in say, non-labour income (`lnnlinc`) of 0.001 is associated with a
 decrease of the probability of labour force participation by 0.001*17 percentage points.
 
-You can also extract the marginal effects of a single variable:
-
-```{r}
-head(dydx(Participation, logit_participation, "lnnlinc"))
-```
-
-Which makes it possible to extract the effect for a list of individuals that you can create yourself:
-
-```{r}
-my_subjects <- tribble(
-    ~lfp,  ~lnnlinc, ~age, ~educ, ~nyc, ~noc, ~foreign,
-    "yes",   10.780,  7.0,     4,    1,   1,     "yes",
-    "no",      1.30,  9.0,     1,    4,   1,     "yes"
-)
-
-dydx(my_subjects, logit_participation, "lnnlinc")
-```
-
-I used the `tribble()` function from the `{tibble}` package to create this test data set, row by row.
-Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these two individuals.
+This is just scratching the surface of interpreting these kinds of models. There are many more
+types of effects that you can compute and look at. I highly recommend you read the documentation
+of `{marginaleffects}` which you can find
+[here](https://vincentarelbundock.github.io/marginaleffects/index.html). The author
+of the package, Vincent Arel-Bundock writes a lot of very helpful documentation for his packages,
+so if model interpretation is important for your job, definitely take a look.
 
 ### Explainability of *black-box* models
 
 Just read Christoph Molnar's 
 [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/).
 
+Seriously, I cannot add anything meaningful to it. His book is brilliant.
+
 
 ## Comparing models
 
-Let's estimate another model on the same data; prices are only positive, so a linear regression
+Consider this section more as an illustration of what is possible with the knowledge you acquired
+at this point. Imagine that the task at hand is to compare two models. We would like to select
+the one which has the best fit to the data. 
+Let's first estimate another model on the same data; prices are only positive, so a linear regression
 might not be the best model, because the model could predict negative prices. Let's look at the
 distribution of prices:
 
@@ -574,26 +612,18 @@ diag_log <- glance(model_log)
 diag_log  <- diag_log %>%
   mutate(model = "log-lin model")
 
-diagnostics_models <- full_join(diag_lm, diag_log)
+diagnostics_models <- full_join(diag_lm, diag_log) %>%
+  select(model, everything()) # put the `model` column first
 
 print(diagnostics_models)
 ```
 
 I saved the diagnostics in two different `data.frame` objects using the `glance()` function and added a
 `model` column to indicate which model the diagnostics come from. Then I merged both datasets using
-`full_join()`, a `{dplyr}` function.
-
-As you can see, the model with the logarithm of the prices as the dependent variable has a higher
-likelihood (and thus lower AIC and BIC) than the simple linear model. Let's take a look at the 
-diagnostics plots:
-
-```{r, include=FALSE}
-summary(model_log)
-```
-
-```{r}
-autoplot(model_log, which = 1:6) + theme_minimal()
-```
+`full_join()`, a `{dplyr}` function. Using this approach, we can easily build a data frame with the
+diagnostics of several models and compare them. The model using the logarithm of prices has lower
+AIC and BIC (and this higher likelihood), so if you're worried about selecting the model with the better
+fit to the data, you'd go for this model.
 
 ## Using a model for prediction
 
@@ -656,12 +686,11 @@ model was trained on... so actually we can't really say if `model_log`'s predict
 Of course, this is the same for `model3`.
 In a later section we are going to learn how to do cross validation to avoid this issue.
 
-Also another problem of what I did before, unrelated to statistics per se, is that I wanted to compute
-the same quantity for two different models, and did so by copy and pasting 3 lines of code. That's not
-much, but if I wanted to compare 10 models, copy and paste mistakes could have sneaked in. Instead,
-it would have been nice to have a function that computes the RMSE and then use it on my models. We
-are going to learn how to write our own function and use it just like if it was another built-in
-R function.
+Just as a side note, notice that I had to copy and paste basically the same lines twice to compute
+the predictions for both models. That's not much, but if I wanted to compare 10 models, copy and
+paste mistakes could have sneaked in. Instead, it would have been nice to have a function that
+computes the RMSE and then use it on my models. We are going to learn how to write our own functions
+and use it just like if it was another built-in R function.
 
 ## Beyond linear regression
 
@@ -683,9 +712,9 @@ K-Means                     `stats`                                             
 PCA                         `stats`                                                           `prcomp(data, scale = TRUE, center = TRUE)`^[`data` must only contain numeric values, or a formula can be provided.]
 Multinomial Logit           `mlogit`                                                           Requires several steps of data pre-processing and formula definition, refer to the [Vignette](https://cran.r-project.org/web/packages/mlogit/vignettes/mlogit.pdf) for more details.
 Cox PH                      `survival`                                                         `coxph(Surv(y_time, y_status) ~ x, data = mydata)`^[`Surv(y_time, y_status)` creates a *survival* object, where `y_time` is the time to event `y_status`. It is possible to create more complex survival objects depending on exactly which data you are dealing with.]
-Time series                 Several, depending on your needs.                                 Time series in R is a vast subject that would require a very thick book to cover. You can get started with the following series of blog articles, [Tidy time-series, part 1](http://www.business-science.io/timeseries-analysis/2017/07/02/tidy-timeseries-analysis.html), [Tidy time-series, part 2](http://www.business-science.io/timeseries-analysis/2017/07/23/tidy-timeseries-analysis-pt-2.html), [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/07/30/tidy-timeseries-analysis-pt-3.html) and [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/08/30/tidy-timeseries-analysis-pt-4.html)
+Time series                 Several, depending on your needs.                                 Time series in R is a vast subject that would require a very thick book to cover. You can get started with the following series of blog articles, [Tidy time-series, part 1](http://www.business-science.io/timeseries-analysis/2017/07/02/tidy-timeseries-analysis.html), [Tidy time-series, part 2](http://www.business-science.io/timeseries-analysis/2017/07/23/tidy-timeseries-analysis-pt-2.html), [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/07/30/tidy-timeseries-analysis-pt-3.html) and [Tidy time-series, part 4](http://www.business-science.io/timeseries-analysis/2017/08/30/tidy-timeseries-analysis-pt-4.html)
 Panel data                  `plm`                                                             `plm(y ~ x, data = mydata, model = "within|random")`
-Neural Networks              Several, depending on your needs.                                 R is a very popular programming language for machine learning. [This blog post](http://ww.rblog.uni-freiburg.de/2017/02/07/deep-learning-in-r) lists and compares some of the most useful packages for Neural nets and deep learning.
+Machine learning              Several, depending on your needs.                                 R is a very popular programming language for machine learning. [This book](https://www.tmwr.org/) is a must read if you need to do machine learning with R.
 Nonparametric regression     `np`                                                              Several functions and options available, refer to the [Vignette](https://cran.r-project.org/web/packages/np/vignettes/np.pdf) for more details.
 
 I put neural networks in the table, but you can also find packages for regression trees, naive
