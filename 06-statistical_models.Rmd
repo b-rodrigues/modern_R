@@ -717,14 +717,12 @@ Panel data                  `plm`                                               
 Machine learning              Several, depending on your needs.                                 R is a very popular programming language for machine learning. [This book](https://www.tmwr.org/) is a must read if you need to do machine learning with R.
 Nonparametric regression     `np`                                                              Several functions and options available, refer to the [Vignette](https://cran.r-project.org/web/packages/np/vignettes/np.pdf) for more details.
 
-I put neural networks in the table, but you can also find packages for regression trees, naive
-bayes, and pretty much any machine learning method out there! The same goes for Bayesian methods.
-Popular packages include `{rstan}`, `{rjags}` which link R to STAN and JAGS (two other pieces of software
-that do the Gibbs sampling for you) which are tools that allow you to fit very general models. It
-is also possible to train models using Bayesian inference without the need of external tools,
-with the `{bayesm}` package which estimates the usual micro-econometric models.
-There really are a lot of packages available for Bayesian inference, and you can find them all in the
-[related CRAN Task View](https://cran.r-project.org/web/views/Bayesian.html).
+This table is far from being complete. Should you be a Bayesian, you'd want to look at packages
+such as `{rstan}`, which uses `STAN`, an external piece of software that must be installed on your
+system. It is also possible to train models using Bayesian inference without the need of external
+tools, with the `{bayesm}` package which estimates the usual micro-econometric models. There really
+are a lot of packages available for Bayesian inference, and you can find them all in the [related
+CRAN Task View](https://cran.r-project.org/web/views/Bayesian.html).
 
 ## Hyper-parameters
 

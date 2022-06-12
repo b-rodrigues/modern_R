@@ -58,14 +58,14 @@ if (c(1, 2, 4) > c(3, 1, 0)) print("yes") else print("no")
 ```
 
 This results in an error (in previous R version, only the first element of the vector would get used).
-Suppose that you want an expression to be evaluated, only if every element is `TRUE`. In this case, you should
-use the `all()` function, as seen previously in Chapter 2:
+We have already discussed this in Chapter 2, remember? If you want to make sure that such an expression
+evaluates to `TRUE`, then you need to use `all()`:
 
 ```{r}
 ifelse(all(c(1,2,4) > c(3, 1, 0)), "all elements are greater", "not all elements are greater")
 ```
 
-You also remember the `any()` function:
+You may also remember the `any()` function:
 
 ```{r}
 ifelse(any(c(1,2,4) > c(3, 1, 0)), "at least one element is greater", "no element greater")
@@ -82,9 +82,9 @@ if (10 %% 3 == 0) {
 }
 ```
 
-10 being obviously divisible by 2 and not 3, it is the second phrase that will be printed. The
-`%%` operator is the modulus operator, which gives the rest of the division of 10 by 2.
-It is easier to use `dplyr::case_when()`:
+10 being obviously divisible by 2 and not 3, it is the second sentence that will be printed. The
+`%%` operator is the modulus operator, which gives the rest of the division of 10 by 2. In such 
+cases, it is easier to use `dplyr::case_when()`:
 
 ```{r}
 case_when(10 %% 3 == 0 ~ "10 is divisible by 3",
@@ -121,18 +121,38 @@ print(result)
 variable called `result` and set it to 0. Then, when the loops starts, `i` equals 1, so we add
 `result` to `1`, which is 1. Then, `i` equals 2, and again, we add `result` to `i`. But this time,
 `result` equals 1 and `i` equals 2, so now `result` equals 3, and we repeat this until `i`
-equals 100. As explained in the introduction, this is not my preferred way of doing something like
-that. I actually use loops very rarely. I would solve the above problem using `purrr::reduce()`:
+equals 100. If you know a programming language like C, this probably looks familiar. However, R is
+not C, and you should, if possible, avoid writing code that looks like this. You should always
+ask yourself the following questions:
+
+- Is there an inbuilt function to achieve what I need? In this case we have `sum()`, so we could use `sum(seq(1, 100))`.
+- Is there a way to use matrix algebra? This can sometimes make things easier, but it depends how comfortable
+you are with matrix algebra. This would be the solution with matrix algebra: `rep(1, 100) %*% seq(1, 100)`.
+- Is there a way to use building blocks that are already available? For instance, suppose that `sum()` 
+would not be a function available in R. Another way to solve this issue would be to use the following
+building blocks: `+`, which computes the sum of two numbers and `Reduce()`, which *reduces* a list
+of elements using an operator. Sounds complicated? Let's see how `Reduce()` works. First, let me show you how
+I combine these two functions to achieve the same result as when using `sum()`:
 
 ```{r}
-reduce(seq(1,100), `+`)
+Reduce(`+`, seq(1, 100))
 ```
 
-This might look more complex, but once you're used to it, you will not use many loops again.
-You might wonder then, why use loops at all in this case? I refer you to the following
-[section](http://adv-r.had.co.nz/Functionals.html#functionals-not) of Hadley Wickham's *Advanced R*
-for an in-depth discussion on situations where loops make more sense than higher-order functions
-such as `purrr::map()` or `purrr::reduce()`.
+We will see how `Reduce()` works in greater detail in the next chapter, but what happened was something like this:
+
+```
+Reduce(`+`, seq(1, 100)) = 
+ 1 + Reduce(`+`, seq(2, 100)) = 
+ 1 + 2 + Reduce(`+`, seq(3, 100)) = 
+ 1 + 2 + 3 + Reduce(`+`, seq(4, 100)) = 
+ ....
+```
+
+If you ask yourself these questions, it turns out that you only rarely actually need to write loops, but loops are
+still important, because sometimes there simply isn't an alternative. Also, there are other situations where loops
+are also important, so I refer you to the following [section](http://adv-r.had.co.nz/Functionals.html#functionals-not) 
+of Hadley Wickham's *Advanced R* for an in-depth discussion on situations where loops make more
+sense than using functions such as `Reduce()`.
 
 ### While loops
 
@@ -151,17 +171,17 @@ print(result)
 ```
 
 Here, we first set `result` and `i` to 0. Then, while `i` is less than, or equal to 100, we add `i`
-to `result`. Notice that there is one more line than in the for loop: we need to increment the value
-of `i`, if not, `i` would stay equal to 1, and the condition would always be fulfilled, and
-the loop would run forever (not really, only until your computer runs out of memory, or until the
-heat death of the universe, whichever comes first).
+to `result`. Notice that there is one more line than in the for loop version of this code: we need
+to increment the value of `i` at each iteration, if not, `i` would stay equal to 1, and the
+condition would always be fulfilled, and the loop would run forever (not really, only until your
+computer runs out of memory, or until the heat death of the universe, whichever comes first).
 
 Now that we know how to write loops, and know about `if...else...` constructs, we have (almost) all
 the ingredients to write our own functions.
 
 ## Writing your own functions
 
-As you have seen by now, R includes a very large amount of preprogrammed functions, but also many
+As you have seen by now, R includes a very large amount of in-built functions, but also many
 more functions are available in packages. However, there will be a lot of situations where you will
 need to write your own. In this section we are going to learn how to write our own functions.
 
@@ -213,7 +233,7 @@ my_function <- function(argument1, argument2 = 10){
 my_function(1)
 ```
 
-This is especially useful for functions with many arguments. Consider also the following, example,
+This is especially useful for functions with many arguments. Consider also the following example,
 where the function has a default method:
 
 ```{r}

@@ -24,7 +24,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2022-06-11" />
+<meta name="date" content="2022-06-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -546,17 +546,17 @@ subfolders and necessary template files so that you do not need to constantly ch
 should be placed or named.</p>
 <p>Let’s start by adding a readme file. This is easily achieved by using the following function from
 <code>{usethis}</code>:</p>
-<div class="sourceCode" id="cb1268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1268-1"><a href="package-development.html#cb1268-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_md</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1274-1"><a href="package-development.html#cb1274-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_md</span>()</span></code></pre></div>
 <p>This creates a template README.md file in the root directory of your package. You can now edit this
 file accordingly, and that’s it.</p>
 <p>The next step could be setting up your package to work with <code>{roxygen2}</code>, which will help write
 the documentation of your package:</p>
-<div class="sourceCode" id="cb1269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1269-1"><a href="package-development.html#cb1269-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_roxygen_md</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="package-development.html#cb1275-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_roxygen_md</span>()</span></code></pre></div>
 <p>The output tells you to run <code>devtools::document()</code>, we will do this later.</p>
 <p>Since you have learned about the tidyverse by reading this book, I am willing to bet that you will
 want to use the <code>%&gt;%</code> operator inside the functions contained in your package. To do this without issues,
 which wil become apparent later, use the following command:</p>
-<div class="sourceCode" id="cb1270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1270-1"><a href="package-development.html#cb1270-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_pipe</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1276-1"><a href="package-development.html#cb1276-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_pipe</span>()</span></code></pre></div>
 <p>This will make the <code>%&gt;%</code> operator available internally to your package’s functions, but also to the
 user that will load the package.</p>
 <p>We are almost done setting up the package. If you plan on distributing data with your package,
@@ -565,20 +565,20 @@ data from your finance department, but this data needs some cleaning before bein
 write a script to do so and then distribute this script also with the package, for reproducibility
 purposes. These scripts, while not central to the package, could still be of interest to the users.
 The directory to place them is called <code>data-raw</code>:</p>
-<div class="sourceCode" id="cb1271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1271-1"><a href="package-development.html#cb1271-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data_raw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1277-1"><a href="package-development.html#cb1277-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data_raw</span>()</span></code></pre></div>
 <p>One final folder is <code>inst</code>. You can add files to this folder, and they will be available to the users
 that install the package. Users can find the files in the folder where packages get installed. On
 GNU+Linux systems, that would be somewhere like: <code>/home/user/R/amd64-linux-gnu-library/3.6</code>. There,
 you will find the installation folders of all the packages. If the package you make is called <code>{spam}</code>,
 you will find the files you put inside the <code>inst</code> folder on the root of the installation folder of
 <code>spam</code>. You can simply create the <code>inst</code> folder yourself, or use the following command:</p>
-<div class="sourceCode" id="cb1272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="package-development.html#cb1272-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_directory</span>(<span class="st">&quot;inst&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1278-1"><a href="package-development.html#cb1278-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_directory</span>(<span class="st">&quot;inst&quot;</span>)</span></code></pre></div>
 <p>Finally, the last step is to give your package a license; this again is only useful if you plan on
 distributing it to the world. If you are writing your own package for yourself, or for purposes
 internal to your company, this is probably superfluous. I won’t discuss the particularities of
 licenses, so let’s just say that for the sake of this example package we are writing, we are going
 to use the MIT license:</p>
-<div class="sourceCode" id="cb1273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="package-development.html#cb1273-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1279-1"><a href="package-development.html#cb1279-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()</span></code></pre></div>
 <p>This again creates the right file at the right spot. There are other interesting functions inside
 the <code>{usethis}</code> package, and we will come back to it later.</p>
 </div>
@@ -588,27 +588,27 @@ the <code>{usethis}</code> package, and we will come back to it later.</p>
 <p>Many packages include data and we are going to learn how to do it. I’ll assume that we already
 have a dataset on hand that we have to share. This is quite simple to do, first let’s simply
 load the data:</p>
-<div class="sourceCode" id="cb1274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1274-1"><a href="package-development.html#cb1274-1" aria-hidden="true" tabindex="-1"></a>arcade <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;~/path/to/data/arcade.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1280-1"><a href="package-development.html#cb1280-1" aria-hidden="true" tabindex="-1"></a>arcade <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;~/path/to/data/arcade.csv&quot;</span>)</span></code></pre></div>
 <p>and then use, once again, <code>{usethis}</code> comes to our rescue:</p>
-<div class="sourceCode" id="cb1275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="package-development.html#cb1275-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(arcade, <span class="at">compress =</span> <span class="st">&quot;xz&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1281-1"><a href="package-development.html#cb1281-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(arcade, <span class="at">compress =</span> <span class="st">&quot;xz&quot;</span>)</span></code></pre></div>
 <p>that’s it! Well almost. We still need to write a little script that will allow users of your
 package to load the data. This script is simply called <code>data.R</code> and contains the following lines:</p>
-<div class="sourceCode" id="cb1276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1276-1"><a href="package-development.html#cb1276-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; List of highest-grossing games</span></span>
-<span id="cb1276-2"><a href="package-development.html#cb1276-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb1276-3"><a href="package-development.html#cb1276-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Source: https://en.wikipedia.org/wiki/Arcade_game#List_of_highest-grossing_games</span></span>
-<span id="cb1276-4"><a href="package-development.html#cb1276-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb1276-5"><a href="package-development.html#cb1276-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 6 variables: \code{game}, \code{release_year},</span></span>
-<span id="cb1276-6"><a href="package-development.html#cb1276-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;   \code{hardware_units_sold}, \code{comment_hardware}, \code{estimated_gross_revenue}, </span></span>
-<span id="cb1276-7"><a href="package-development.html#cb1276-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;   \code{comment_revenue}</span></span>
-<span id="cb1276-8"><a href="package-development.html#cb1276-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
-<span id="cb1276-9"><a href="package-development.html#cb1276-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{game}{The name of the game}</span></span>
-<span id="cb1276-10"><a href="package-development.html#cb1276-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{release_year}{The year the game was released}</span></span>
-<span id="cb1276-11"><a href="package-development.html#cb1276-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{hardware_units_sold}{The amount of hardware units sold}</span></span>
-<span id="cb1276-12"><a href="package-development.html#cb1276-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{comment_hardware}{Comment accompanying the amount of hardware units sold}</span></span>
-<span id="cb1276-13"><a href="package-development.html#cb1276-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{estimated_gross_revenue}{Estimated gross revenue in US$ with 2019 inflation}</span></span>
-<span id="cb1276-14"><a href="package-development.html#cb1276-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{comment_revenue}{Comment accompanying the amount of hardware units sold}</span></span>
-<span id="cb1276-15"><a href="package-development.html#cb1276-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; }</span></span>
-<span id="cb1276-16"><a href="package-development.html#cb1276-16" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;arcade&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="package-development.html#cb1282-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; List of highest-grossing games</span></span>
+<span id="cb1282-2"><a href="package-development.html#cb1282-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb1282-3"><a href="package-development.html#cb1282-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Source: https://en.wikipedia.org/wiki/Arcade_game#List_of_highest-grossing_games</span></span>
+<span id="cb1282-4"><a href="package-development.html#cb1282-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb1282-5"><a href="package-development.html#cb1282-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 6 variables: \code{game}, \code{release_year},</span></span>
+<span id="cb1282-6"><a href="package-development.html#cb1282-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;   \code{hardware_units_sold}, \code{comment_hardware}, \code{estimated_gross_revenue}, </span></span>
+<span id="cb1282-7"><a href="package-development.html#cb1282-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;   \code{comment_revenue}</span></span>
+<span id="cb1282-8"><a href="package-development.html#cb1282-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
+<span id="cb1282-9"><a href="package-development.html#cb1282-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{game}{The name of the game}</span></span>
+<span id="cb1282-10"><a href="package-development.html#cb1282-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{release_year}{The year the game was released}</span></span>
+<span id="cb1282-11"><a href="package-development.html#cb1282-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{hardware_units_sold}{The amount of hardware units sold}</span></span>
+<span id="cb1282-12"><a href="package-development.html#cb1282-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{comment_hardware}{Comment accompanying the amount of hardware units sold}</span></span>
+<span id="cb1282-13"><a href="package-development.html#cb1282-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{estimated_gross_revenue}{Estimated gross revenue in US$ with 2019 inflation}</span></span>
+<span id="cb1282-14"><a href="package-development.html#cb1282-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \item{comment_revenue}{Comment accompanying the amount of hardware units sold}</span></span>
+<span id="cb1282-15"><a href="package-development.html#cb1282-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; }</span></span>
+<span id="cb1282-16"><a href="package-development.html#cb1282-16" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;arcade&quot;</span></span></code></pre></div>
 <p>Basically this is a description of the data, and the name with which the user will invoke the data. To
 conclude this part, remember the <code>data-raw</code> folder? If you used a script to scrape/get the data
 from somewhere, or if you had to write code to prepare the data to make it fit for sharing, this
@@ -625,41 +625,41 @@ Let’s start with the simplest case; one function inside one script.</p>
 <div id="one-function-inside-one-script" class="section level3 hasAnchor" number="9.4.1">
 <h3><span class="header-section-number">9.4.1</span> One function inside one script<a href="package-development.html#one-function-inside-one-script" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Create a new R script, or edit the <code>hello.R</code> file, and add in the following code:</p>
-<div class="sourceCode" id="cb1277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1277-1"><a href="package-development.html#cb1277-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></span>
-<span id="cb1277-2"><a href="package-development.html#cb1277-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
-<span id="cb1277-3"><a href="package-development.html#cb1277-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></span>
-<span id="cb1277-4"><a href="package-development.html#cb1277-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></span>
-<span id="cb1277-5"><a href="package-development.html#cb1277-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; you can add these columns.</span></span>
-<span id="cb1277-6"><a href="package-development.html#cb1277-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import dplyr</span></span>
-<span id="cb1277-7"><a href="package-development.html#cb1277-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
-<span id="cb1277-8"><a href="package-development.html#cb1277-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb1277-9"><a href="package-development.html#cb1277-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb1277-10"><a href="package-development.html#cb1277-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \dontrun{</span></span>
-<span id="cb1277-11"><a href="package-development.html#cb1277-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset)</span></span>
-<span id="cb1277-12"><a href="package-development.html#cb1277-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset, col1, col2)</span></span>
-<span id="cb1277-13"><a href="package-development.html#cb1277-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; }</span></span>
-<span id="cb1277-14"><a href="package-development.html#cb1277-14" aria-hidden="true" tabindex="-1"></a>describe_numeric <span class="ot">&lt;-</span> <span class="cf">function</span>(df, ...){</span>
-<span id="cb1277-15"><a href="package-development.html#cb1277-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1277-16"><a href="package-development.html#cb1277-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nargs</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, ...)</span>
-<span id="cb1277-17"><a href="package-development.html#cb1277-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1277-18"><a href="package-development.html#cb1277-18" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span></span>
-<span id="cb1277-19"><a href="package-development.html#cb1277-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select_if</span>(is.numeric) <span class="sc">%&gt;%</span></span>
-<span id="cb1277-20"><a href="package-development.html#cb1277-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gather</span>(variable, value) <span class="sc">%&gt;%</span></span>
-<span id="cb1277-21"><a href="package-development.html#cb1277-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
-<span id="cb1277-22"><a href="package-development.html#cb1277-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarise_all</span>(<span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-23"><a href="package-development.html#cb1277-23" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sd =</span> <span class="sc">~</span><span class="fu">sd</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-24"><a href="package-development.html#cb1277-24" aria-hidden="true" tabindex="-1"></a>                           <span class="at">nobs =</span> <span class="sc">~</span><span class="fu">length</span>(.),</span>
-<span id="cb1277-25"><a href="package-development.html#cb1277-25" aria-hidden="true" tabindex="-1"></a>                           <span class="at">min =</span> <span class="sc">~</span><span class="fu">min</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-26"><a href="package-development.html#cb1277-26" aria-hidden="true" tabindex="-1"></a>                           <span class="at">max =</span> <span class="sc">~</span><span class="fu">max</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-27"><a href="package-development.html#cb1277-27" aria-hidden="true" tabindex="-1"></a>                           <span class="at">q05 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-28"><a href="package-development.html#cb1277-28" aria-hidden="true" tabindex="-1"></a>                           <span class="at">q25 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-29"><a href="package-development.html#cb1277-29" aria-hidden="true" tabindex="-1"></a>                           <span class="at">mode =</span> <span class="sc">~</span><span class="fu">as.character</span>(brotools<span class="sc">::</span><span class="fu">sample_mode</span>(.), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-30"><a href="package-development.html#cb1277-30" aria-hidden="true" tabindex="-1"></a>                           <span class="at">median =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-31"><a href="package-development.html#cb1277-31" aria-hidden="true" tabindex="-1"></a>                           <span class="at">q75 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-32"><a href="package-development.html#cb1277-32" aria-hidden="true" tabindex="-1"></a>                           <span class="at">q95 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.95</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1277-33"><a href="package-development.html#cb1277-33" aria-hidden="true" tabindex="-1"></a>                           <span class="at">n_missing =</span> <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
-<span id="cb1277-34"><a href="package-development.html#cb1277-34" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">&quot;Numeric&quot;</span>)</span>
-<span id="cb1277-35"><a href="package-development.html#cb1277-35" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="package-development.html#cb1283-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></span>
+<span id="cb1283-2"><a href="package-development.html#cb1283-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
+<span id="cb1283-3"><a href="package-development.html#cb1283-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></span>
+<span id="cb1283-4"><a href="package-development.html#cb1283-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></span>
+<span id="cb1283-5"><a href="package-development.html#cb1283-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; you can add these columns.</span></span>
+<span id="cb1283-6"><a href="package-development.html#cb1283-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import dplyr</span></span>
+<span id="cb1283-7"><a href="package-development.html#cb1283-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
+<span id="cb1283-8"><a href="package-development.html#cb1283-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb1283-9"><a href="package-development.html#cb1283-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb1283-10"><a href="package-development.html#cb1283-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \dontrun{</span></span>
+<span id="cb1283-11"><a href="package-development.html#cb1283-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset)</span></span>
+<span id="cb1283-12"><a href="package-development.html#cb1283-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset, col1, col2)</span></span>
+<span id="cb1283-13"><a href="package-development.html#cb1283-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; }</span></span>
+<span id="cb1283-14"><a href="package-development.html#cb1283-14" aria-hidden="true" tabindex="-1"></a>describe_numeric <span class="ot">&lt;-</span> <span class="cf">function</span>(df, ...){</span>
+<span id="cb1283-15"><a href="package-development.html#cb1283-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1283-16"><a href="package-development.html#cb1283-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nargs</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, ...)</span>
+<span id="cb1283-17"><a href="package-development.html#cb1283-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1283-18"><a href="package-development.html#cb1283-18" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span></span>
+<span id="cb1283-19"><a href="package-development.html#cb1283-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select_if</span>(is.numeric) <span class="sc">%&gt;%</span></span>
+<span id="cb1283-20"><a href="package-development.html#cb1283-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gather</span>(variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb1283-21"><a href="package-development.html#cb1283-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb1283-22"><a href="package-development.html#cb1283-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarise_all</span>(<span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-23"><a href="package-development.html#cb1283-23" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sd =</span> <span class="sc">~</span><span class="fu">sd</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-24"><a href="package-development.html#cb1283-24" aria-hidden="true" tabindex="-1"></a>                           <span class="at">nobs =</span> <span class="sc">~</span><span class="fu">length</span>(.),</span>
+<span id="cb1283-25"><a href="package-development.html#cb1283-25" aria-hidden="true" tabindex="-1"></a>                           <span class="at">min =</span> <span class="sc">~</span><span class="fu">min</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-26"><a href="package-development.html#cb1283-26" aria-hidden="true" tabindex="-1"></a>                           <span class="at">max =</span> <span class="sc">~</span><span class="fu">max</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-27"><a href="package-development.html#cb1283-27" aria-hidden="true" tabindex="-1"></a>                           <span class="at">q05 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-28"><a href="package-development.html#cb1283-28" aria-hidden="true" tabindex="-1"></a>                           <span class="at">q25 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-29"><a href="package-development.html#cb1283-29" aria-hidden="true" tabindex="-1"></a>                           <span class="at">mode =</span> <span class="sc">~</span><span class="fu">as.character</span>(brotools<span class="sc">::</span><span class="fu">sample_mode</span>(.), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-30"><a href="package-development.html#cb1283-30" aria-hidden="true" tabindex="-1"></a>                           <span class="at">median =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-31"><a href="package-development.html#cb1283-31" aria-hidden="true" tabindex="-1"></a>                           <span class="at">q75 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-32"><a href="package-development.html#cb1283-32" aria-hidden="true" tabindex="-1"></a>                           <span class="at">q95 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.95</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1283-33"><a href="package-development.html#cb1283-33" aria-hidden="true" tabindex="-1"></a>                           <span class="at">n_missing =</span> <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
+<span id="cb1283-34"><a href="package-development.html#cb1283-34" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">&quot;Numeric&quot;</span>)</span>
+<span id="cb1283-35"><a href="package-development.html#cb1283-35" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Save the script under the name <code>describe.R</code>.</p>
 <p>This function shows you pretty much you need to know when writing functions for packages. First,
 there’s the comment lines, that start with <code>#'</code> and not with <code>#</code>. These lines will be converted
@@ -683,7 +683,7 @@ not want these examples to run when building the package.</li>
 <p>As explained before, if the function depends on function from other packages, then <code>@import</code> or
 <code>@importFrom</code> must be used. But it is also possible to use the <code>package::function()</code> syntax like
 I did on the following line:</p>
-<div class="sourceCode" id="cb1278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1278-1"><a href="package-development.html#cb1278-1" aria-hidden="true" tabindex="-1"></a>mode <span class="ot">=</span> <span class="er">~</span><span class="fu">as.character</span>(brotools<span class="sc">::</span><span class="fu">sample_mode</span>(.), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span></code></pre></div>
+<div class="sourceCode" id="cb1284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1284-1"><a href="package-development.html#cb1284-1" aria-hidden="true" tabindex="-1"></a>mode <span class="ot">=</span> <span class="er">~</span><span class="fu">as.character</span>(brotools<span class="sc">::</span><span class="fu">sample_mode</span>(.), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span></code></pre></div>
 <p>This function uses the <code>sample_mode()</code> function from my <code>{brotools}</code> package. Since it is the only
 function that I am using, I don’t import the whole package with <code>@import</code>. I could have done the
 same for <code>gather()</code> from <code>{tidyr}</code> instead of using <code>@importFrom</code>, but I wanted to showcase
@@ -697,7 +697,7 @@ cover this here, but you can read more about it <a href="https://cran.r-project.
 What I will cover is how to declare dependencies to other CRAN packages. These dependencies also
 get declared inside the ‘Description’ file, which we will cover in the next section.</p>
 <p>Because I’m doing that in this hacky way, my <code>{brotools}</code> package should be installed:</p>
-<div class="sourceCode" id="cb1280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1280-1"><a href="package-development.html#cb1280-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;b-rodrigues/brotools&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="package-development.html#cb1286-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;b-rodrigues/brotools&quot;</span>)</span></code></pre></div>
 <p>Again, I want to emphasize that this is not the best way of doing it. However, using the “REMOTES”
 field as described in the document I linked above is not complicated.</p>
 <p>Now comes the function itself. The function is written in pretty much the same way as usual, but
@@ -707,13 +707,13 @@ summarise only these columns, instead of all of them, which is the default behav
 I cannot know how many columns the user wants to summarize beforehand, and also because I do not
 want to limit the user to 2 or 3 columns, I use the <code>...</code>.
 But what if the user wants to summarize all the columns? This is taken care of in this line:</p>
-<div class="sourceCode" id="cb1281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1281-1"><a href="package-development.html#cb1281-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nargs</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb1287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1287-1"><a href="package-development.html#cb1287-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nargs</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, ...)</span></code></pre></div>
 <p><code>nargs()</code> counts the number of arguments of the function. If the user calls the function like so:</p>
-<div class="sourceCode" id="cb1282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="package-development.html#cb1282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_numeric</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb1288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1288-1"><a href="package-development.html#cb1288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_numeric</span>(mtcars)</span></code></pre></div>
 <p><code>nargs()</code> will return 1. If, instead, the user calls the function with one or more columns:</p>
-<div class="sourceCode" id="cb1283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="package-development.html#cb1283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_numeric</span>(mtcars, hp, mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb1289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1289-1"><a href="package-development.html#cb1289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe_numeric</span>(mtcars, hp, mpg)</span></code></pre></div>
 <p>then <code>nargs()</code> will return 2 (in this case). And does, this piece of code will be executed:</p>
-<div class="sourceCode" id="cb1284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1284-1"><a href="package-development.html#cb1284-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb1290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1290-1"><a href="package-development.html#cb1290-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, ...)</span></code></pre></div>
 <p>which selects the columns <code>hp</code> and <code>mpg</code> from the <code>mtcars</code> dataset. This reduced data set is then
 the one that is being summarized.</p>
 </div>
@@ -724,76 +724,76 @@ script, or create one script per function. The advantage of writing more than on
 script is that you can keep functions that are conceptually similar in the same place. For instance,
 if you want to add a function called <code>describe_character()</code> to your package, adding it to the same
 script where <code>describe_numeric()</code> is might be a good idea, so let’s do just that:</p>
-<div class="sourceCode" id="cb1285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="package-development.html#cb1285-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></span>
-<span id="cb1285-2"><a href="package-development.html#cb1285-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
-<span id="cb1285-3"><a href="package-development.html#cb1285-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></span>
-<span id="cb1285-4"><a href="package-development.html#cb1285-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></span>
-<span id="cb1285-5"><a href="package-development.html#cb1285-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; you can add these columns.</span></span>
-<span id="cb1285-6"><a href="package-development.html#cb1285-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import dplyr</span></span>
-<span id="cb1285-7"><a href="package-development.html#cb1285-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
-<span id="cb1285-8"><a href="package-development.html#cb1285-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb1285-9"><a href="package-development.html#cb1285-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb1285-10"><a href="package-development.html#cb1285-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \dontrun{</span></span>
-<span id="cb1285-11"><a href="package-development.html#cb1285-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset)</span></span>
-<span id="cb1285-12"><a href="package-development.html#cb1285-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset, col1, col2)</span></span>
-<span id="cb1285-13"><a href="package-development.html#cb1285-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; }</span></span>
-<span id="cb1285-14"><a href="package-development.html#cb1285-14" aria-hidden="true" tabindex="-1"></a>describe_numeric <span class="ot">&lt;-</span> <span class="cf">function</span>(df, ...){</span>
-<span id="cb1285-15"><a href="package-development.html#cb1285-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1285-16"><a href="package-development.html#cb1285-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nargs</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, ...)</span>
-<span id="cb1285-17"><a href="package-development.html#cb1285-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1285-18"><a href="package-development.html#cb1285-18" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
-<span id="cb1285-19"><a href="package-development.html#cb1285-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(is.numeric) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-20"><a href="package-development.html#cb1285-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(),</span>
-<span id="cb1285-21"><a href="package-development.html#cb1285-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-22"><a href="package-development.html#cb1285-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-23"><a href="package-development.html#cb1285-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
-<span id="cb1285-24"><a href="package-development.html#cb1285-24" aria-hidden="true" tabindex="-1"></a>                     tibble<span class="sc">::</span><span class="fu">lst</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-25"><a href="package-development.html#cb1285-25" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sd =</span> <span class="sc">~</span><span class="fu">sd</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-26"><a href="package-development.html#cb1285-26" aria-hidden="true" tabindex="-1"></a>                       <span class="at">nobs =</span> <span class="sc">~</span><span class="fu">length</span>(.),</span>
-<span id="cb1285-27"><a href="package-development.html#cb1285-27" aria-hidden="true" tabindex="-1"></a>                       <span class="at">min =</span> <span class="sc">~</span><span class="fu">min</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-28"><a href="package-development.html#cb1285-28" aria-hidden="true" tabindex="-1"></a>                       <span class="at">max =</span> <span class="sc">~</span><span class="fu">max</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-29"><a href="package-development.html#cb1285-29" aria-hidden="true" tabindex="-1"></a>                       <span class="at">q05 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-30"><a href="package-development.html#cb1285-30" aria-hidden="true" tabindex="-1"></a>                       <span class="at">q25 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-31"><a href="package-development.html#cb1285-31" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mode =</span> <span class="sc">~</span><span class="fu">as.character</span>(brotools<span class="sc">::</span><span class="fu">sample_mode</span>(.), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-32"><a href="package-development.html#cb1285-32" aria-hidden="true" tabindex="-1"></a>                       <span class="at">median =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-33"><a href="package-development.html#cb1285-33" aria-hidden="true" tabindex="-1"></a>                       <span class="at">q75 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-34"><a href="package-development.html#cb1285-34" aria-hidden="true" tabindex="-1"></a>                       <span class="at">q95 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.95</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-35"><a href="package-development.html#cb1285-35" aria-hidden="true" tabindex="-1"></a>                       <span class="at">n_missing =</span> <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.))))) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-36"><a href="package-development.html#cb1285-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">&quot;Numeric&quot;</span>)</span>
-<span id="cb1285-37"><a href="package-development.html#cb1285-37" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1285-38"><a href="package-development.html#cb1285-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1285-39"><a href="package-development.html#cb1285-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compute descriptive statistics for the character or factor columns of a data frame.</span></span>
-<span id="cb1285-40"><a href="package-development.html#cb1285-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
-<span id="cb1285-41"><a href="package-development.html#cb1285-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return A data frame with a description of the character or factor columns.</span></span>
-<span id="cb1285-42"><a href="package-development.html#cb1285-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import dplyr</span></span>
-<span id="cb1285-43"><a href="package-development.html#cb1285-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
-<span id="cb1285-44"><a href="package-development.html#cb1285-44" aria-hidden="true" tabindex="-1"></a>describe_character_or_factors <span class="ot">&lt;-</span> <span class="cf">function</span>(df, type){</span>
-<span id="cb1285-45"><a href="package-development.html#cb1285-45" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
-<span id="cb1285-46"><a href="package-development.html#cb1285-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(),</span>
-<span id="cb1285-47"><a href="package-development.html#cb1285-47" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-48"><a href="package-development.html#cb1285-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-49"><a href="package-development.html#cb1285-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
-<span id="cb1285-50"><a href="package-development.html#cb1285-50" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">funs</span>(<span class="at">mode =</span> brotools<span class="sc">::</span><span class="fu">sample_mode</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1285-51"><a href="package-development.html#cb1285-51" aria-hidden="true" tabindex="-1"></a>                     <span class="at">nobs =</span> <span class="fu">length</span>(value),</span>
-<span id="cb1285-52"><a href="package-development.html#cb1285-52" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(value)),</span>
-<span id="cb1285-53"><a href="package-development.html#cb1285-53" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_unique =</span> <span class="fu">length</span>(<span class="fu">unique</span>(value))))) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-54"><a href="package-development.html#cb1285-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">type =</span> type)</span>
-<span id="cb1285-55"><a href="package-development.html#cb1285-55" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1285-56"><a href="package-development.html#cb1285-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1285-57"><a href="package-development.html#cb1285-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compute descriptive statistics for the character columns of a data frame.</span></span>
-<span id="cb1285-58"><a href="package-development.html#cb1285-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
-<span id="cb1285-59"><a href="package-development.html#cb1285-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return A data frame with a description of the character columns.</span></span>
-<span id="cb1285-60"><a href="package-development.html#cb1285-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import dplyr</span></span>
-<span id="cb1285-61"><a href="package-development.html#cb1285-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb1285-62"><a href="package-development.html#cb1285-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb1285-63"><a href="package-development.html#cb1285-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \dontrun{</span></span>
-<span id="cb1285-64"><a href="package-development.html#cb1285-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset)</span></span>
-<span id="cb1285-65"><a href="package-development.html#cb1285-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; }</span></span>
-<span id="cb1285-66"><a href="package-development.html#cb1285-66" aria-hidden="true" tabindex="-1"></a>describe_character <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
-<span id="cb1285-67"><a href="package-development.html#cb1285-67" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
-<span id="cb1285-68"><a href="package-development.html#cb1285-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">where</span>(is.character)) <span class="sc">%&gt;%</span></span>
-<span id="cb1285-69"><a href="package-development.html#cb1285-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">describe_character_or_factors</span>(<span class="at">type =</span> <span class="st">&quot;Character&quot;</span>)</span>
-<span id="cb1285-70"><a href="package-development.html#cb1285-70" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1291-1"><a href="package-development.html#cb1291-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compute descriptive statistics for the numeric columns of a data frame.</span></span>
+<span id="cb1291-2"><a href="package-development.html#cb1291-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
+<span id="cb1291-3"><a href="package-development.html#cb1291-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param ... Optional. Columns in the data frame</span></span>
+<span id="cb1291-4"><a href="package-development.html#cb1291-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return A data frame with descriptive statistics. If you are only interested in certain columns</span></span>
+<span id="cb1291-5"><a href="package-development.html#cb1291-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; you can add these columns.</span></span>
+<span id="cb1291-6"><a href="package-development.html#cb1291-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import dplyr</span></span>
+<span id="cb1291-7"><a href="package-development.html#cb1291-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
+<span id="cb1291-8"><a href="package-development.html#cb1291-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb1291-9"><a href="package-development.html#cb1291-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb1291-10"><a href="package-development.html#cb1291-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \dontrun{</span></span>
+<span id="cb1291-11"><a href="package-development.html#cb1291-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset)</span></span>
+<span id="cb1291-12"><a href="package-development.html#cb1291-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset, col1, col2)</span></span>
+<span id="cb1291-13"><a href="package-development.html#cb1291-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; }</span></span>
+<span id="cb1291-14"><a href="package-development.html#cb1291-14" aria-hidden="true" tabindex="-1"></a>describe_numeric <span class="ot">&lt;-</span> <span class="cf">function</span>(df, ...){</span>
+<span id="cb1291-15"><a href="package-development.html#cb1291-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1291-16"><a href="package-development.html#cb1291-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nargs</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, ...)</span>
+<span id="cb1291-17"><a href="package-development.html#cb1291-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1291-18"><a href="package-development.html#cb1291-18" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb1291-19"><a href="package-development.html#cb1291-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(is.numeric) <span class="sc">%&gt;%</span></span>
+<span id="cb1291-20"><a href="package-development.html#cb1291-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb1291-21"><a href="package-development.html#cb1291-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1291-22"><a href="package-development.html#cb1291-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb1291-23"><a href="package-development.html#cb1291-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
+<span id="cb1291-24"><a href="package-development.html#cb1291-24" aria-hidden="true" tabindex="-1"></a>                     tibble<span class="sc">::</span><span class="fu">lst</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-25"><a href="package-development.html#cb1291-25" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sd =</span> <span class="sc">~</span><span class="fu">sd</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-26"><a href="package-development.html#cb1291-26" aria-hidden="true" tabindex="-1"></a>                       <span class="at">nobs =</span> <span class="sc">~</span><span class="fu">length</span>(.),</span>
+<span id="cb1291-27"><a href="package-development.html#cb1291-27" aria-hidden="true" tabindex="-1"></a>                       <span class="at">min =</span> <span class="sc">~</span><span class="fu">min</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-28"><a href="package-development.html#cb1291-28" aria-hidden="true" tabindex="-1"></a>                       <span class="at">max =</span> <span class="sc">~</span><span class="fu">max</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-29"><a href="package-development.html#cb1291-29" aria-hidden="true" tabindex="-1"></a>                       <span class="at">q05 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-30"><a href="package-development.html#cb1291-30" aria-hidden="true" tabindex="-1"></a>                       <span class="at">q25 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-31"><a href="package-development.html#cb1291-31" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mode =</span> <span class="sc">~</span><span class="fu">as.character</span>(brotools<span class="sc">::</span><span class="fu">sample_mode</span>(.), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-32"><a href="package-development.html#cb1291-32" aria-hidden="true" tabindex="-1"></a>                       <span class="at">median =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-33"><a href="package-development.html#cb1291-33" aria-hidden="true" tabindex="-1"></a>                       <span class="at">q75 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-34"><a href="package-development.html#cb1291-34" aria-hidden="true" tabindex="-1"></a>                       <span class="at">q95 =</span> <span class="sc">~</span><span class="fu">quantile</span>(., <span class="fl">0.95</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-35"><a href="package-development.html#cb1291-35" aria-hidden="true" tabindex="-1"></a>                       <span class="at">n_missing =</span> <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.))))) <span class="sc">%&gt;%</span></span>
+<span id="cb1291-36"><a href="package-development.html#cb1291-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">&quot;Numeric&quot;</span>)</span>
+<span id="cb1291-37"><a href="package-development.html#cb1291-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1291-38"><a href="package-development.html#cb1291-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1291-39"><a href="package-development.html#cb1291-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compute descriptive statistics for the character or factor columns of a data frame.</span></span>
+<span id="cb1291-40"><a href="package-development.html#cb1291-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
+<span id="cb1291-41"><a href="package-development.html#cb1291-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return A data frame with a description of the character or factor columns.</span></span>
+<span id="cb1291-42"><a href="package-development.html#cb1291-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import dplyr</span></span>
+<span id="cb1291-43"><a href="package-development.html#cb1291-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @importFrom tidyr gather</span></span>
+<span id="cb1291-44"><a href="package-development.html#cb1291-44" aria-hidden="true" tabindex="-1"></a>describe_character_or_factors <span class="ot">&lt;-</span> <span class="cf">function</span>(df, type){</span>
+<span id="cb1291-45"><a href="package-development.html#cb1291-45" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb1291-46"><a href="package-development.html#cb1291-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb1291-47"><a href="package-development.html#cb1291-47" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1291-48"><a href="package-development.html#cb1291-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb1291-49"><a href="package-development.html#cb1291-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
+<span id="cb1291-50"><a href="package-development.html#cb1291-50" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">funs</span>(<span class="at">mode =</span> brotools<span class="sc">::</span><span class="fu">sample_mode</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1291-51"><a href="package-development.html#cb1291-51" aria-hidden="true" tabindex="-1"></a>                     <span class="at">nobs =</span> <span class="fu">length</span>(value),</span>
+<span id="cb1291-52"><a href="package-development.html#cb1291-52" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(value)),</span>
+<span id="cb1291-53"><a href="package-development.html#cb1291-53" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_unique =</span> <span class="fu">length</span>(<span class="fu">unique</span>(value))))) <span class="sc">%&gt;%</span></span>
+<span id="cb1291-54"><a href="package-development.html#cb1291-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">type =</span> type)</span>
+<span id="cb1291-55"><a href="package-development.html#cb1291-55" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1291-56"><a href="package-development.html#cb1291-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1291-57"><a href="package-development.html#cb1291-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compute descriptive statistics for the character columns of a data frame.</span></span>
+<span id="cb1291-58"><a href="package-development.html#cb1291-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df The data frame to summarise.</span></span>
+<span id="cb1291-59"><a href="package-development.html#cb1291-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return A data frame with a description of the character columns.</span></span>
+<span id="cb1291-60"><a href="package-development.html#cb1291-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @import dplyr</span></span>
+<span id="cb1291-61"><a href="package-development.html#cb1291-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb1291-62"><a href="package-development.html#cb1291-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb1291-63"><a href="package-development.html#cb1291-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; \dontrun{</span></span>
+<span id="cb1291-64"><a href="package-development.html#cb1291-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; describe(dataset)</span></span>
+<span id="cb1291-65"><a href="package-development.html#cb1291-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; }</span></span>
+<span id="cb1291-66"><a href="package-development.html#cb1291-66" aria-hidden="true" tabindex="-1"></a>describe_character <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb1291-67"><a href="package-development.html#cb1291-67" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb1291-68"><a href="package-development.html#cb1291-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">where</span>(is.character)) <span class="sc">%&gt;%</span></span>
+<span id="cb1291-69"><a href="package-development.html#cb1291-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">describe_character_or_factors</span>(<span class="at">type =</span> <span class="st">&quot;Character&quot;</span>)</span>
+<span id="cb1291-70"><a href="package-development.html#cb1291-70" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let’s now continue on to the next section, where we will learn to document the package.</p>
 </div>
 </div>
