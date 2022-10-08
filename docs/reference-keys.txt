@@ -122,7 +122,7 @@ functions-that-take-functions-as-arguments-writing-your-own-higher-order-functio
 functions-that-return-functions
 functions-that-take-columns-of-data-as-arguments
 the-enquo---approach
-curly-curly-a-simplified-approach-to-the-enquo-and-framework
+curly-curly-a-simplified-approach-to-enquo-and
 functions-that-use-loops
 anonymous-functions
 exercises-5

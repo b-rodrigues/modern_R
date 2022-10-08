@@ -14,7 +14,7 @@ called `{dplyr}`. `{dplyr}` contains a lot of functions that make manipulating d
 descriptive statistics very easy. To make things easier for now, we are going to use example data
 included with `{dplyr}`. So no need to import an external dataset; this does not change anything to
 the example that we are going to study here; the source of the data does not matter for this. Using
-`dplyr` is possible only if the data you are working with is already in a useful shape. When data
+`{dplyr}` is possible only if the data you are working with is already in a useful shape. When data
 is more messy, you will need to first manipulate it to bring it a *tidy* format. For this, we will
 use `{tidyr}`, which is very useful package to reshape data and to do advanced cleaning of your
 data. All these tidyverse functions are also called *verbs*. However, before getting to know these
@@ -395,11 +395,13 @@ head(starwars)
 ```
 
 `data(starwars)` loads the example dataset called `starwars` that is included in the package
-`dplyr`. As I said earlier, this is just an example; you could have loaded an external dataset,
+`{dplyr}`. As I said earlier, this is just an example; you could have loaded an external dataset,
 from a `.csv` file for instance. This does not matter for what comes next.
 
 Like we saw earlier, R includes a lot of functions for descriptive statistics, such as `mean()`,
-`sd()`, `cov()`, and many more. What `dplyr` brings to the table (among other niceties) is the
+`sd()`, `cov()`, and many more. What `{dplyr}` brings to the table is a grammar of data
+manipulation that makes it very easy to apply descriptive statistics functions, or any other,
+very easily.
 
 Just like before, we are going to compute the average height by `sex`:
 
@@ -809,7 +811,7 @@ gasoline %>%
 ```
 
 Using `mutate()` I've added a column that counts how many times the country appears in the `tibble`,
-using `n()`, another `dplyr` function. There's also `count()` and `tally()`, which we are going to
+using `n()`, another `{dplyr}` function. There's also `count()` and `tally()`, which we are going to
 see further down. It is also possible to rename the column on the fly:
 
 ```{r}
@@ -836,7 +838,7 @@ gasoline %>%
 
 ### Joining `tibble`s with `full_join()`, `left_join()`, `right_join()` and all the others
 
-I will end this section on `dplyr` with the very useful verbs: the `*_join()` verbs. Let's first
+I will end this section on `{dplyr}` with the very useful verbs: the `*_join()` verbs. Let's first
 start by loading another dataset from the `plm` package. `SumHes` and let's convert it to `tibble`
 and rename it:
 
@@ -1699,7 +1701,7 @@ gasoline %>%
 ```
 
 I write `dplyr::contains()` instead of simply `contains()` because there's also a
-`purrr::contains()`. If you load `purrr` after `dplyr`, `contains()` will actually be
+`purrr::contains()`. If you load `purrr` after `{dplyr}`, `contains()` will actually be
 `purrr::contains()` and not `dplyr::contains()` which causes the above code to fail.
 
 There's also a way to *summarise if*:
@@ -1833,7 +1835,7 @@ gasoline %>%
 ### `lead()` and `lag()`
 
 `lead()` and `lag()` are especially useful in econometrics. When I was doing my masters, in 4 B.d.
-(*Before dplyr*) lagging variables in panel data was quite tricky. Now, with `dplyr` it's really
+(*Before dplyr*) lagging variables in panel data was quite tricky. Now, with `{dplyr}` it's really
 very easy:
 
 ```{r}
@@ -1933,7 +1935,7 @@ gasoline %>%
   mutate(n = n())
 ```
 
-where `n()` is a `dplyr` function that can only be used within `summarise()`, `mutate()` and
+where `n()` is a `{dplyr}` function that can only be used within `summarise()`, `mutate()` and
 `filter()`.
 
 

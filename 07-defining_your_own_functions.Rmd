@@ -741,11 +741,14 @@ environment, and not as a column of the data. R does not understand that you are
 column `"dist"` that is inside the dataset. So how can we make R understands what you mean?
 
 To be able to do that, we need to use a framework that was introduced in the `{tidyverse}`,
-called `{tidyeval}`. This discussion can get very technical, so I will spare you the details.
-However, you can read about it [here](http://dplyr.tidyverse.org/articles/programming.html) and
-[here](https://cran.r-project.org/web/packages/rlang/vignettes/tidy-evaluation.html). The
-discussion can get complicated, but using `{tidyeval}` is actually quite easy, and you can have a
-cookbook approach to it. Take a look at the code below:
+called *tidy evaluation*. This framework can be used by installing the `{rlang}` package. 
+`{rlang}` is quite a technical package, so I will spare you the details. But you should at 
+the very least take a look at the following documents 
+[here](http://dplyr.tidyverse.org/articles/programming.html) and
+[here](https://rlang.r-lib.org/reference/topic-data-mask.html). The
+discussion can get complicated, but you don't need to know everything about `{rlang}`. 
+As you will see, knowing some of the capabilities `{rlang}` provides can be incredibly useful.
+Take a look at the code below:
 
 ```{r}
 simple_function <- function(dataset, col_name){
@@ -760,12 +763,13 @@ simple_function(mtcars, cyl)
 ```
 
 As you can see, the previous idea we had, which was using `as.name()` was not very far away from
-the solution. The solution, with `tidyeval`, consists in using `enquo()`, which (for our purposes),
-does something similar to `as.name()`. Now that
-`col_name` is (R programmers call it) quoted, we need to tell `group_by()` to evaluate the input as
-is. This is done with `!!()`, which is another `{tidyeval}` function. I say it again;
-don't worry if you don't understand everything. Just remember to use `enquo()` on your column names
-and then `!!()` inside the `{dplyr}` function you want to use.
+the solution. The solution, with `{rlang}`, consists in using `enquo()`, which (for our purposes),
+does something similar to `as.name()`. Now that `col_name` is (R programmers call it) quoted, or
+*defused*, we need to tell `group_by()` to evaluate the input as is. This is done with `!!()`,
+called the [injection operator](https://rlang.r-lib.org/reference/injection-operator.html), which
+is another `{rlang}` function. I say it again; don't worry if you don't understand everything. Just
+remember to use `enquo()` on your column names and then `!!()` inside the `{dplyr}` function you
+want to use.
 
 Let's see some other examples:
 
@@ -877,7 +881,7 @@ simple_function <- function(dataset, filter_col, mean_col, value){
 
 Pay attention to the `:=` operator in the last line. This is needed when using `as_label()`.
 
-### Curly Curly, a simplified approach to the `enquo()` and `!!()` framework
+### Curly Curly, a simplified approach to `enquo()` and `!!()`
 
 The previous section might have been a bit difficult to grasp, but there is a simplified way of doing it,
 which consists in using `{{}}`, introduced in `{rlang}` version 0.4.0.

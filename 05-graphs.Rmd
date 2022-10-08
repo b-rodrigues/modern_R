@@ -29,7 +29,7 @@ resources that I keep coming back to:
 
 * [ggthemes function reference](https://jrnold.github.io/ggthemes/reference/index.html)
 
-* [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+* [ggplot2 cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
 
 When I first started using `{ggplot2}`, I had a cookbook approach to it; I tried findinge examples
 online that looked like what I needed, copy and paste the code and then adapted it to my case. The above resources

@@ -206,7 +206,7 @@ To install the packages we need, first open RStudio and then copy and paste this
 ```{r, eval=FALSE}
 install.packages(c("tidyverse", "rsample", "recipes", "blogdown" ,"yardstick", "parsnip", "plm", "pwt9", 
                    "checkpoint", "Ecdat", "ggthemes", "ggfortify", "margins", "janitor", "rio", "stopwords",
-                   "colourpicker", "glmnet", "lhs", "mrlMBO", "mlbench", "ranger"))
+                   "colourpicker", "glmnet", "lhs", "mlrMBO", "mlbench", "ranger"))
 ```
 
 ```{r, echo=FALSE}
