@@ -118,7 +118,7 @@
 
 \title{Modern R with the tidyverse}
 \author{Bruno Rodrigues}
-\date{2022-10-08}
+\date{2022-10-13}
 
 \begin{document}
 \maketitle
@@ -3899,6 +3899,9 @@ example, what if we are only interested in columns whose name start with ``l''?
 ## # ... with 332 more rows
 \end{verbatim}
 
+You can read more about these helper functions \href{https://tidyselect.r-lib.org/reference/language.html}{here}, but we're going to look more into
+them in a coming section.
+
 Another verb, similar to \texttt{select()}, is \texttt{pull()}. Let's compare the two:
 
 \begin{Shaded}
@@ -5722,17 +5725,16 @@ quite easily:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{working-on-many-columns-with-across}{%
-\subsection{\texorpdfstring{Working on many columns with \texttt{across()}}{Working on many columns with across()}}\label{working-on-many-columns-with-across}}
+\hypertarget{working-on-many-columns-with-if_any-if_all-and-across}{%
+\subsection{\texorpdfstring{Working on many columns with \texttt{if\_any()}, \texttt{if\_all()} and \texttt{across()}}{Working on many columns with if\_any(), if\_all() and across()}}\label{working-on-many-columns-with-if_any-if_all-and-across}}
 
-Let's start with the most complicated cases, using \texttt{across()} with \texttt{filter()}.
-
-\hypertarget{filter-and-across}{%
-\subsubsection{\texorpdfstring{\texttt{filter()} and \texttt{across()}}{filter() and across()}}\label{filter-and-across}}
+\hypertarget{filtering-rows-where-several-columns-verify-a-condition}{%
+\subsubsection{Filtering rows where several columns verify a condition}\label{filtering-rows-where-several-columns-verify-a-condition}}
 
 Let's go back to the \texttt{gasoline} data from the \texttt{\{Ecdat\}} package.
 
-\texttt{filter()} is not the only \emph{filtering} verb there is. Suppose that we have a condition that we want
+When using \texttt{filter()}, it is only possible to filter one column at a time. For example, you can
+only filter rows where a column equals ``France'' for instance. But suppose that we have a condition that we want
 to use to filter out a lot of columns at once. For example, for every column that is of type
 \texttt{numeric}, keep only the lines where the condition \emph{value \textgreater{} -8} is satisfied. The next line does
 that:
@@ -5740,68 +5742,78 @@ that:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(}\FunctionTok{across}\NormalTok{(is.numeric, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{\textgreater{}}\StringTok{\textasciigrave{}}\NormalTok{(., }\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{)))}
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{if\_any}\NormalTok{(}\FunctionTok{where}\NormalTok{(is.numeric), \textbackslash{}(x)(}\StringTok{\textasciigrave{}}\AttributeTok{\textgreater{}}\StringTok{\textasciigrave{}}\NormalTok{(x, }\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{))))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Warning: Predicate functions must be wrapped in `where()`.
-## 
-##   # Bad
-##   data %>% select(is.numeric)
-## 
-##   # Good
-##   data %>% select(where(is.numeric))
-## 
-## i Please update your code.
-## This message is displayed once per session.
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Using `across()` in `filter()` is deprecated, use `if_any()` or
-## `if_all()`.
-\end{verbatim}
-
-\begin{verbatim}
-## # A tibble: 30 x 6
+## # A tibble: 342 x 6
 ##    country  year lgaspcar lincomep  lrpmg lcarpcap
 ##    <chr>   <int>    <dbl>    <dbl>  <dbl>    <dbl>
-##  1 canada   1972     4.89    -5.44 -1.10     -7.99
-##  2 canada   1973     4.90    -5.41 -1.13     -7.94
-##  3 canada   1974     4.89    -5.42 -1.12     -7.90
-##  4 canada   1975     4.89    -5.38 -1.19     -7.87
-##  5 canada   1976     4.84    -5.36 -1.06     -7.81
-##  6 canada   1977     4.81    -5.34 -1.07     -7.77
-##  7 canada   1978     4.86    -5.31 -1.07     -7.79
-##  8 germany  1978     3.88    -5.56 -0.628    -7.95
-##  9 sweden   1975     3.97    -7.68 -2.77     -7.99
-## 10 sweden   1976     3.98    -7.67 -2.82     -7.96
-## # ... with 20 more rows
+##  1 austria  1960     4.17    -6.47 -0.335    -9.77
+##  2 austria  1961     4.10    -6.43 -0.351    -9.61
+##  3 austria  1962     4.07    -6.41 -0.380    -9.46
+##  4 austria  1963     4.06    -6.37 -0.414    -9.34
+##  5 austria  1964     4.04    -6.32 -0.445    -9.24
+##  6 austria  1965     4.03    -6.29 -0.497    -9.12
+##  7 austria  1966     4.05    -6.25 -0.467    -9.02
+##  8 austria  1967     4.05    -6.23 -0.506    -8.93
+##  9 austria  1968     4.05    -6.21 -0.522    -8.85
+## 10 austria  1969     4.05    -6.15 -0.559    -8.79
+## # ... with 332 more rows
 \end{verbatim}
 
-The above code is using the \texttt{across()} function, which is included since \texttt{\{dplyr\}} version 1.0. You
-can think of \texttt{across()} as a function that helps you select the columns to which to apply the
-verb. You can read the code above like this:
+The above code is using the \texttt{if\_any()} function, included in \texttt{\{dplyr\}}. It also uses
+\texttt{where()}, which must be used for predicate functions like \texttt{is.numeric()}, or \texttt{is.character()}, etc.
+You can think of \texttt{if\_any()} as a function that helps you select the columns to which to apply the
+function. You can read the code above like this:
 
 \emph{Start with the gasoline data, then filter rows that are greater than -8 across the columns
 which are numeric}
 
-or similar. \texttt{across()} makes operations like these very easy to achieve.
+or similar. \texttt{if\_any()}, \texttt{if\_all()} and \texttt{across()} makes operations like these very easy to achieve.
 
 Sometimes, you'd want to filter rows from columns that end their labels with a letter, for instance
-\texttt{"p"}. This can again be achieved using \texttt{across()}:
+\texttt{"p"}. This can again be achieved using another helper, \texttt{ends\_with()}, instead of \texttt{where()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{ends\_with}\NormalTok{(}\StringTok{"p"}\NormalTok{), }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{\textgreater{}}\StringTok{\textasciigrave{}}\NormalTok{(., }\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{)))}
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{if\_any}\NormalTok{(}\FunctionTok{ends\_with}\NormalTok{(}\StringTok{"p"}\NormalTok{), \textbackslash{}(x)(}\StringTok{\textasciigrave{}}\AttributeTok{\textgreater{}}\StringTok{\textasciigrave{}}\NormalTok{(x, }\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{))))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Warning: Using `across()` in `filter()` is deprecated, use `if_any()` or
-## `if_all()`.
+## # A tibble: 340 x 6
+##    country  year lgaspcar lincomep  lrpmg lcarpcap
+##    <chr>   <int>    <dbl>    <dbl>  <dbl>    <dbl>
+##  1 austria  1960     4.17    -6.47 -0.335    -9.77
+##  2 austria  1961     4.10    -6.43 -0.351    -9.61
+##  3 austria  1962     4.07    -6.41 -0.380    -9.46
+##  4 austria  1963     4.06    -6.37 -0.414    -9.34
+##  5 austria  1964     4.04    -6.32 -0.445    -9.24
+##  6 austria  1965     4.03    -6.29 -0.497    -9.12
+##  7 austria  1966     4.05    -6.25 -0.467    -9.02
+##  8 austria  1967     4.05    -6.23 -0.506    -8.93
+##  9 austria  1968     4.05    -6.21 -0.522    -8.85
+## 10 austria  1969     4.05    -6.15 -0.559    -8.79
+## # ... with 330 more rows
 \end{verbatim}
+
+We already know about \texttt{ends\_with()} and \texttt{starts\_with()}. So the above line means ``for the columns
+whose name end with a `p' only keep the lines where, for all the selected columns, the values are
+strictly superior to \texttt{-8}''.
+
+\texttt{if\_all()} works exactly the same way, but think of the \texttt{if} in \texttt{if\_all()} as having the conditions
+separated by \texttt{and} while the \texttt{if} of \texttt{if\_any()} being separated by \texttt{or}. So for example, the
+code above, where \texttt{if\_any()} is replaced by \texttt{if\_all()}, results in a much smaller data frame:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{if\_all}\NormalTok{(}\FunctionTok{ends\_with}\NormalTok{(}\StringTok{"p"}\NormalTok{), \textbackslash{}(x)(}\StringTok{\textasciigrave{}}\AttributeTok{\textgreater{}}\StringTok{\textasciigrave{}}\NormalTok{(x, }\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{))))}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{verbatim}
 ## # A tibble: 30 x 6
@@ -5820,57 +5832,20 @@ Sometimes, you'd want to filter rows from columns that end their labels with a l
 ## # ... with 20 more rows
 \end{verbatim}
 
-We already know about \texttt{ends\_with()} and \texttt{starts\_with()}. So the above line means ``for the columns
-whose name end with a `p' only keep the lines where, for all the selected columns, the values are
-strictly superior to \texttt{-8}''. You can use any of these helper functions inside \texttt{across()}:
+because here, we only keep rows for columns that end with ``p'' where ALL of them are simultaneously
+greater than 8.
+
+\hypertarget{selecting-several-columns-at-once}{%
+\subsubsection{Selecting several columns at once}\label{selecting-several-columns-at-once}}
+
+In a previous section we already played around a little bit with \texttt{select()} and some helpers,
+\texttt{everything()}, \texttt{starts\_with()} and \texttt{ends\_with()}. But there are many ways that you can use
+helper functions to select several columns easily:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(is.numeric) }\SpecialCharTok{\%\textgreater{}\%}  
-  \FunctionTok{filter}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{!=}\StringTok{\textasciigrave{}}\NormalTok{(., }\DecValTok{0}\NormalTok{)))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: Using `across()` in `filter()` is deprecated, use `if_any()` or
-## `if_all()`.
-\end{verbatim}
-
-\begin{verbatim}
-## # A tibble: 342 x 5
-##     year lgaspcar lincomep  lrpmg lcarpcap
-##    <int>    <dbl>    <dbl>  <dbl>    <dbl>
-##  1  1960     4.17    -6.47 -0.335    -9.77
-##  2  1961     4.10    -6.43 -0.351    -9.61
-##  3  1962     4.07    -6.41 -0.380    -9.46
-##  4  1963     4.06    -6.37 -0.414    -9.34
-##  5  1964     4.04    -6.32 -0.445    -9.24
-##  6  1965     4.03    -6.29 -0.497    -9.12
-##  7  1966     4.05    -6.25 -0.467    -9.02
-##  8  1967     4.05    -6.23 -0.506    -8.93
-##  9  1968     4.05    -6.21 -0.522    -8.85
-## 10  1969     4.05    -6.15 -0.559    -8.79
-## # ... with 332 more rows
-\end{verbatim}
-
-This would get you every row where the values are different from 0 for all columns at the
-same time (but first I need to select only columns of type \texttt{numeric}; this will be discussed
-in the next section).
-
-That's basically all there is to it. I think that \texttt{across()} is quite intuitive, and by trying out
-a few examples, I feel confident that you will think the same.
-
-\hypertarget{selecting-and-renaming-with-across}{%
-\subsubsection{\texorpdfstring{Selecting and renaming with \texttt{across()}}{Selecting and renaming with across()}}\label{selecting-and-renaming-with-across}}
-
-In the previous section, the very last example used the following bit of code \texttt{select(is.numeric)}.
-Unlike \texttt{filter()}, \texttt{select()} does not need the help of \texttt{across()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(is.numeric)}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{where}\NormalTok{(is.numeric))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5917,7 +5892,7 @@ Selecting by column position is also possible:
 ## # ... with 332 more rows
 \end{verbatim}
 
-As is selecting columns starting or ending with a certain string of characters:
+As is selecting columns starting or ending with a certain string of characters, as discussed previously:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6066,12 +6041,12 @@ Bulk-renaming can be achieved using \texttt{rename\_with()}
 ## # ... with 332 more rows
 \end{verbatim}
 
-you can also pass formulas to \texttt{rename\_with()}:
+you can also pass functions to \texttt{rename\_with()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}  
-  \FunctionTok{rename\_with}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{paste0}\NormalTok{(}\StringTok{"new\_"}\NormalTok{, .))}
+\NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename\_with}\NormalTok{(\textbackslash{}(x)(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"new\_"}\NormalTok{, x)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6092,36 +6067,73 @@ you can also pass formulas to \texttt{rename\_with()}:
 ## # ... with 332 more rows
 \end{verbatim}
 
-In the above formula I did not select any columns, so every columns gets renamed.
-
-\hypertarget{group_by-and-across}{%
-\subsubsection{\texorpdfstring{\texttt{group\_by()} and \texttt{across()}}{group\_by() and across()}}\label{group_by-and-across}}
-
-To illustrate how \texttt{group\_by()} works with \texttt{across()} I have to first modify the
-\texttt{gasoline} data a little bit. As you can see below, the \texttt{year} column is of type integer:
+The reason I'm talking about renaming in a section about selecting is because you can
+also rename with select:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{gasoline}
+\NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\AttributeTok{YEAR =}\NormalTok{ year)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 342 x 6
-##    country  year lgaspcar lincomep  lrpmg lcarpcap
-##    <chr>   <int>    <dbl>    <dbl>  <dbl>    <dbl>
-##  1 austria  1960     4.17    -6.47 -0.335    -9.77
-##  2 austria  1961     4.10    -6.43 -0.351    -9.61
-##  3 austria  1962     4.07    -6.41 -0.380    -9.46
-##  4 austria  1963     4.06    -6.37 -0.414    -9.34
-##  5 austria  1964     4.04    -6.32 -0.445    -9.24
-##  6 austria  1965     4.03    -6.29 -0.497    -9.12
-##  7 austria  1966     4.05    -6.25 -0.467    -9.02
-##  8 austria  1967     4.05    -6.23 -0.506    -8.93
-##  9 austria  1968     4.05    -6.21 -0.522    -8.85
-## 10 austria  1969     4.05    -6.15 -0.559    -8.79
+## # A tibble: 342 x 1
+##     YEAR
+##    <int>
+##  1  1960
+##  2  1961
+##  3  1962
+##  4  1963
+##  5  1964
+##  6  1965
+##  7  1966
+##  8  1967
+##  9  1968
+## 10  1969
 ## # ... with 332 more rows
 \end{verbatim}
+
+but of course here, you only keep that one column, and you can't rename with a function.
+
+\hypertarget{summarising-with-across}{%
+\subsubsection{\texorpdfstring{Summarising with \texttt{across()}}{Summarising with across()}}\label{summarising-with-across}}
+
+\texttt{across()} is used for summarising data. It allows to aggregations\ldots{} \emph{across} several columns. It
+is especially useful with \texttt{group\_by()}. To illustrate how \texttt{group\_by()} works with \texttt{across()} I have
+to first modify the \texttt{gasoline} data a little bit. As you can see below, the \texttt{year} column is of
+type \texttt{double}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{lapply}\NormalTok{(typeof)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $country
+## [1] "character"
+## 
+## $year
+## [1] "integer"
+## 
+## $lgaspcar
+## [1] "double"
+## 
+## $lincomep
+## [1] "double"
+## 
+## $lrpmg
+## [1] "double"
+## 
+## $lcarpcap
+## [1] "double"
+\end{verbatim}
+
+(we'll discuss \texttt{lapply()} in a later chapter, but just to give you a little taste, \texttt{lapply()} applies
+a function to each element of a list or of a data frame, in this case, \texttt{lapply()} applied the \texttt{typeof()}
+function to each column of the \texttt{gasoline} data set, returning the type of each column)
 
 Let's change that to character:
 
@@ -6138,23 +6150,10 @@ This now allows me to group by type of columns for instance:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(}\FunctionTok{across}\NormalTok{(is.character)) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{mean}\NormalTok{(lincomep))}
+  \FunctionTok{group\_by}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{where}\NormalTok{(is.character))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{mean\_lincomep =} \FunctionTok{mean}\NormalTok{(lincomep))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning: Predicate functions must be wrapped in `where()`.
-## 
-##   # Bad
-##   data %>% select(is.character)
-## 
-##   # Good
-##   data %>% select(where(is.character))
-## 
-## i Please update your code.
-## This message is displayed once per session.
-\end{verbatim}
 
 \begin{verbatim}
 ## `summarise()` has grouped output by 'country'. You can override using the
@@ -6164,18 +6163,18 @@ This now allows me to group by type of columns for instance:
 \begin{verbatim}
 ## # A tibble: 342 x 3
 ## # Groups:   country [18]
-##    country year  `mean(lincomep)`
-##    <chr>   <chr>            <dbl>
-##  1 austria 1960             -6.47
-##  2 austria 1961             -6.43
-##  3 austria 1962             -6.41
-##  4 austria 1963             -6.37
-##  5 austria 1964             -6.32
-##  6 austria 1965             -6.29
-##  7 austria 1966             -6.25
-##  8 austria 1967             -6.23
-##  9 austria 1968             -6.21
-## 10 austria 1969             -6.15
+##    country year  mean_lincomep
+##    <chr>   <chr>         <dbl>
+##  1 austria 1960          -6.47
+##  2 austria 1961          -6.43
+##  3 austria 1962          -6.41
+##  4 austria 1963          -6.37
+##  5 austria 1964          -6.32
+##  6 austria 1965          -6.29
+##  7 austria 1966          -6.25
+##  8 austria 1967          -6.23
+##  9 austria 1968          -6.21
+## 10 austria 1969          -6.15
 ## # ... with 332 more rows
 \end{verbatim}
 
@@ -6185,7 +6184,7 @@ This is faster than having to write:
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{group\_by}\NormalTok{(country, year) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{summarise}\NormalTok{(}\FunctionTok{mean}\NormalTok{(lincomep))}
+    \FunctionTok{summarise}\NormalTok{(}\AttributeTok{mean\_lincomep =} \FunctionTok{mean}\NormalTok{(lincomep))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6197,30 +6196,66 @@ This is faster than having to write:
 \begin{verbatim}
 ## # A tibble: 342 x 3
 ## # Groups:   country [18]
-##    country year  `mean(lincomep)`
-##    <chr>   <chr>            <dbl>
-##  1 austria 1960             -6.47
-##  2 austria 1961             -6.43
-##  3 austria 1962             -6.41
-##  4 austria 1963             -6.37
-##  5 austria 1964             -6.32
-##  6 austria 1965             -6.29
-##  7 austria 1966             -6.25
-##  8 austria 1967             -6.23
-##  9 austria 1968             -6.21
-## 10 austria 1969             -6.15
+##    country year  mean_lincomep
+##    <chr>   <chr>         <dbl>
+##  1 austria 1960          -6.47
+##  2 austria 1961          -6.43
+##  3 austria 1962          -6.41
+##  4 austria 1963          -6.37
+##  5 austria 1964          -6.32
+##  6 austria 1965          -6.29
+##  7 austria 1966          -6.25
+##  8 austria 1967          -6.23
+##  9 austria 1968          -6.21
+## 10 austria 1969          -6.15
 ## # ... with 332 more rows
 \end{verbatim}
 
-You may think that having two write the name of two variables is not a huge hassle, which is true.
-But imagine that you have dozens of character columns that you want to group by. Using \texttt{across()}
-makes this very quick. It is also possible to \texttt{group\_by()} position:
+You may think that having two write the name of two variables is not a huge deal, which is true.
+But imagine that you have dozens of character columns that you want to group by.
+With \texttt{across()} and the helper functions, it doesn't matter if the data frame has 2 columns
+you need to group by or 2000. All that matters is that you can find some commonalities between
+all these columns that make it easy to select them. It can be their type, as we have seen
+before, or their label:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{contains}\NormalTok{(}\StringTok{"y"}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{mean\_licomep =} \FunctionTok{mean}\NormalTok{(lincomep))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'country'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 342 x 3
+## # Groups:   country [18]
+##    country year  mean_licomep
+##    <chr>   <chr>        <dbl>
+##  1 austria 1960         -6.47
+##  2 austria 1961         -6.43
+##  3 austria 1962         -6.41
+##  4 austria 1963         -6.37
+##  5 austria 1964         -6.32
+##  6 austria 1965         -6.29
+##  7 austria 1966         -6.25
+##  8 austria 1967         -6.23
+##  9 austria 1968         -6.21
+## 10 austria 1969         -6.15
+## # ... with 332 more rows
+\end{verbatim}
+
+but it's also possible to \texttt{group\_by()} position:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{group\_by}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{summarise}\NormalTok{(}\FunctionTok{mean}\NormalTok{(lincomep))}
+    \FunctionTok{summarise}\NormalTok{(}\AttributeTok{mean\_licomep =} \FunctionTok{mean}\NormalTok{(lincomep))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6232,18 +6267,18 @@ makes this very quick. It is also possible to \texttt{group\_by()} position:
 \begin{verbatim}
 ## # A tibble: 342 x 3
 ## # Groups:   country [18]
-##    country year  `mean(lincomep)`
-##    <chr>   <chr>            <dbl>
-##  1 austria 1960             -6.47
-##  2 austria 1961             -6.43
-##  3 austria 1962             -6.41
-##  4 austria 1963             -6.37
-##  5 austria 1964             -6.32
-##  6 austria 1965             -6.29
-##  7 austria 1966             -6.25
-##  8 austria 1967             -6.23
-##  9 austria 1968             -6.21
-## 10 austria 1969             -6.15
+##    country year  mean_licomep
+##    <chr>   <chr>        <dbl>
+##  1 austria 1960         -6.47
+##  2 austria 1961         -6.43
+##  3 austria 1962         -6.41
+##  4 austria 1963         -6.37
+##  5 austria 1964         -6.32
+##  6 austria 1965         -6.29
+##  7 austria 1966         -6.25
+##  8 austria 1967         -6.23
+##  9 austria 1968         -6.21
+## 10 austria 1969         -6.15
 ## # ... with 332 more rows
 \end{verbatim}
 
@@ -6253,7 +6288,7 @@ Using a sequence is also possible:
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{mean}\NormalTok{(lincomep))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{mean\_lincomep =} \FunctionTok{mean}\NormalTok{(lincomep))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6265,27 +6300,30 @@ Using a sequence is also possible:
 \begin{verbatim}
 ## # A tibble: 342 x 3
 ## # Groups:   country [18]
-##    country year  `mean(lincomep)`
-##    <chr>   <chr>            <dbl>
-##  1 austria 1960             -6.47
-##  2 austria 1961             -6.43
-##  3 austria 1962             -6.41
-##  4 austria 1963             -6.37
-##  5 austria 1964             -6.32
-##  6 austria 1965             -6.29
-##  7 austria 1966             -6.25
-##  8 austria 1967             -6.23
-##  9 austria 1968             -6.21
-## 10 austria 1969             -6.15
+##    country year  mean_lincomep
+##    <chr>   <chr>         <dbl>
+##  1 austria 1960          -6.47
+##  2 austria 1961          -6.43
+##  3 austria 1962          -6.41
+##  4 austria 1963          -6.37
+##  5 austria 1964          -6.32
+##  6 austria 1965          -6.29
+##  7 austria 1966          -6.25
+##  8 austria 1967          -6.23
+##  9 austria 1968          -6.21
+## 10 austria 1969          -6.15
 ## # ... with 332 more rows
 \end{verbatim}
 
-it is especially useful if you need to group by the first \texttt{N} columns for instance.
+but be careful, selecting by position is dangerous. If the position of columns changes, your code
+will fail. Selecting by type or label is much more robust, especially by label, since types can
+change as well (for example a date column can easily be exported as character column, etc).
 
 \hypertarget{summarise-across-many-columns}{%
 \subsubsection{\texorpdfstring{\texttt{summarise()} across many columns}{summarise() across many columns}}\label{summarise-across-many-columns}}
 
-Just like for \texttt{filter()}, and \texttt{group\_by()}, \texttt{summarise()} supports \texttt{across()}:
+Summarising across many columns is really incredibly useful and in my opinion one of the best
+arguments in favour of switching to a \texttt{\{tidyverse\}} only workflow:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6371,7 +6409,7 @@ As mentioned before, \texttt{across()} works with other helper functions:
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(country) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{across}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{contains}\NormalTok{(}\StringTok{"car"}\NormalTok{), tibble}\SpecialCharTok{::}\FunctionTok{lst}\NormalTok{(mean, sd, max, min), }\AttributeTok{.names =} \StringTok{"\{fn\}\_\{col\}"}\NormalTok{))}
+  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{contains}\NormalTok{(}\StringTok{"car"}\NormalTok{), tibble}\SpecialCharTok{::}\FunctionTok{lst}\NormalTok{(mean, sd, max, min), }\AttributeTok{.names =} \StringTok{"\{fn\}\_\{col\}"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6402,17 +6440,15 @@ As mentioned before, \texttt{across()} works with other helper functions:
 ## #   7: max_lcarpcap, 8: min_lcarpcap
 \end{verbatim}
 
-I write \texttt{dplyr::contains()} instead of simply \texttt{contains()} because there's also a
-\texttt{purrr::contains()}. If you load \texttt{purrr} after \texttt{\{dplyr\}}, \texttt{contains()} will actually be
-\texttt{purrr::contains()} and not \texttt{dplyr::contains()} which causes the above code to fail.
+This is very likely the quickest, most elegant way to summarise that many columns.
 
-There's also a way to \emph{summarise if}:
+There's also a way to \emph{summarise where}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{gasoline }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(country) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{across}\NormalTok{(is.numeric, tibble}\SpecialCharTok{::}\FunctionTok{lst}\NormalTok{(mean, sd, min, max), }\AttributeTok{.names =} \StringTok{"\{fn\}\_\{col\}"}\NormalTok{))}
+  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{where}\NormalTok{(is.numeric), tibble}\SpecialCharTok{::}\FunctionTok{lst}\NormalTok{(mean, sd, min, max), }\AttributeTok{.names =} \StringTok{"\{fn\}\_\{col\}"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6445,7 +6481,7 @@ There's also a way to \emph{summarise if}:
 ## #   5: mean_lincomep, 6: sd_lincomep, 7: min_lincomep, 8: max_lincomep
 \end{verbatim}
 
-This allows you to summarise every column that contain real numbers. The difference between
+This allows you to summarise every column that contains real numbers. The difference between
 \texttt{is.double()} and \texttt{is.numeric()} is that \texttt{is.numeric()} returns \texttt{TRUE} for integers too, whereas
 \texttt{is.double()} returns \texttt{TRUE} for real numbers only (integers are real numbers too, but you know
 what I mean). It is also possible to summarise every column at once:
@@ -7161,7 +7197,7 @@ understand all the code for now:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-326-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-328-1.pdf}
 
 It would be much better if the categories were ordered by frequency. This is easy to do with
 \texttt{fct\_reorder()}:
@@ -7177,7 +7213,7 @@ It would be much better if the categories were ordered by frequency. This is eas
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-327-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-329-1.pdf}
 
 Much better! In Chapter 6, we are going to learn about \texttt{\{ggplot2\}}.
 
@@ -7280,22 +7316,7 @@ that this is a case that \texttt{\{lubridate\}} handles painfully:
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(lubridate)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## 
-## Attaching package: 'lubridate'
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:base':
-## 
-##     date, intersect, setdiff, union
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{independence }\OtherTok{\textless{}{-}}\NormalTok{ independence }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{independence\_date =} \FunctionTok{dmy}\NormalTok{(independence\_date))}
 \end{Highlighting}
@@ -7407,16 +7428,16 @@ two dates, using the \texttt{interval()} column:
 ## # A tibble: 54 x 2
 ##    country      independent_since             
 ##    <chr>        <Interval>                    
-##  1 Liberia      1847-07-26 UTC--2022-10-08 UTC
-##  2 South Africa 1910-05-31 UTC--2022-10-08 UTC
-##  3 Egypt        1922-02-28 UTC--2022-10-08 UTC
-##  4 Eritrea      1947-02-10 UTC--2022-10-08 UTC
-##  5 Libya        1951-12-24 UTC--2022-10-08 UTC
-##  6 Sudan        1956-01-01 UTC--2022-10-08 UTC
-##  7 Tunisia      1956-03-20 UTC--2022-10-08 UTC
+##  1 Liberia      1847-07-26 UTC--2022-10-13 UTC
+##  2 South Africa 1910-05-31 UTC--2022-10-13 UTC
+##  3 Egypt        1922-02-28 UTC--2022-10-13 UTC
+##  4 Eritrea      1947-02-10 UTC--2022-10-13 UTC
+##  5 Libya        1951-12-24 UTC--2022-10-13 UTC
+##  6 Sudan        1956-01-01 UTC--2022-10-13 UTC
+##  7 Tunisia      1956-03-20 UTC--2022-10-13 UTC
 ##  8 Morocco      NA--NA                        
-##  9 Ghana        1957-03-06 UTC--2022-10-08 UTC
-## 10 Guinea       1958-10-02 UTC--2022-10-08 UTC
+##  9 Ghana        1957-03-06 UTC--2022-10-13 UTC
+## 10 Guinea       1958-10-02 UTC--2022-10-13 UTC
 ## # ... with 44 more rows
 \end{verbatim}
 
@@ -7436,16 +7457,16 @@ The \texttt{independent\_since} column now contains an \emph{interval} object th
 ## # A tibble: 54 x 3
 ##    country      independent_since              years_independent
 ##    <chr>        <Interval>                                 <dbl>
-##  1 Liberia      1847-07-26 UTC--2022-10-08 UTC             175. 
-##  2 South Africa 1910-05-31 UTC--2022-10-08 UTC             112. 
-##  3 Egypt        1922-02-28 UTC--2022-10-08 UTC             101. 
-##  4 Eritrea      1947-02-10 UTC--2022-10-08 UTC              75.7
-##  5 Libya        1951-12-24 UTC--2022-10-08 UTC              70.8
-##  6 Sudan        1956-01-01 UTC--2022-10-08 UTC              66.8
-##  7 Tunisia      1956-03-20 UTC--2022-10-08 UTC              66.6
+##  1 Liberia      1847-07-26 UTC--2022-10-13 UTC             175. 
+##  2 South Africa 1910-05-31 UTC--2022-10-13 UTC             112. 
+##  3 Egypt        1922-02-28 UTC--2022-10-13 UTC             101. 
+##  4 Eritrea      1947-02-10 UTC--2022-10-13 UTC              75.7
+##  5 Libya        1951-12-24 UTC--2022-10-13 UTC              70.8
+##  6 Sudan        1956-01-01 UTC--2022-10-13 UTC              66.8
+##  7 Tunisia      1956-03-20 UTC--2022-10-13 UTC              66.6
 ##  8 Morocco      NA--NA                                      NA  
-##  9 Ghana        1957-03-06 UTC--2022-10-08 UTC              65.6
-## 10 Guinea       1958-10-02 UTC--2022-10-08 UTC              64.0
+##  9 Ghana        1957-03-06 UTC--2022-10-13 UTC              65.6
+## 10 Guinea       1958-10-02 UTC--2022-10-13 UTC              64.0
 ## # ... with 44 more rows
 \end{verbatim}
 
@@ -8196,17 +8217,6 @@ to a tibble first:
   \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(V1))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning: `as.tibble()` was deprecated in tibble 2.0.0.
-## Please use `as_tibble()` instead.
-## The signature and semantics have changed, see `?as_tibble`.
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0.
-## Using compatibility `.name_repair`.
-\end{verbatim}
 
 Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
 gets automatically called \texttt{V1}. This is why I filter on this column. Let's take a look at the data:
@@ -8963,7 +8973,7 @@ that by the current value of \texttt{N} column:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-412-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-414-1.pdf}
 
 In the next chapter, we are going to learn all about \texttt{\{ggplot2\}}, the package I used in the lines
 above to create this plot.
@@ -9160,7 +9170,7 @@ and wish to draw a barplot of the gender, the following lines are enough:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-423-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-425-1.pdf}
 
 The first argument of the function is the data (called \texttt{starwars} in this example), and then the
 function \texttt{aes()}. This function is where you list the variables that you want to map to the aesthetics
@@ -9176,7 +9186,7 @@ You can get different kind of plots by using different \texttt{geom\_} functions
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-424-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-426-1.pdf}
 
 The difference between these two approaches is that when you specify the aesthetics in the \texttt{ggplot()} function,
 all the \texttt{geom\_*()} functions that follow will inherited these aesthetics. This is useful if you want to avoid
@@ -9193,7 +9203,7 @@ You can add options to your plots, for instance, you can change the coordinate s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-425-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-427-1.pdf}
 
 This is the basic recipe to create plots using \texttt{\{ggplot2\}}: start with a call to \texttt{ggplot()} where you specify
 the data you want to plot, and optionally the aesthetics. Then, use the \texttt{geom\_*()} function you need; if you
@@ -9215,7 +9225,7 @@ For instance, let's make a scatter plot of height vs weight of Star Wars charact
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-426-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-428-1.pdf}
 
 As you can see there is an outlier; a very heavy character! Star Wars fans already guessed it, it's Jabba the Hut.
 To make the plot easier to read, let's remove this outlier:
@@ -9229,7 +9239,7 @@ To make the plot easier to read, let's remove this outlier:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-427-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-429-1.pdf}
 
 There is a positive correlation between height and mass, by adding \texttt{geom\_smooth()} with the option \texttt{method\ =\ "lm"}:
 
@@ -9247,7 +9257,7 @@ There is a positive correlation between height and mass, by adding \texttt{geom\
 ## `geom_smooth()` using formula 'y ~ x'
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-428-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-430-1.pdf}
 
 I've moved the \texttt{aes(height,\ mass)} up to the \texttt{ggplot()} function because both \texttt{geom\_point()} and \texttt{geom\_smooth()}
 need them, and as explained in the begging of this section, the aesthetics listed in \texttt{ggplot()} get passed down
@@ -9269,7 +9279,7 @@ If you omit \texttt{method\ =\ "lm}, you get a non-parametric curve:
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-429-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-431-1.pdf}
 
 \hypertarget{density}{%
 \subsubsection{Density}\label{density}}
@@ -9287,7 +9297,7 @@ Use \texttt{geom\_density()} to get density plots:
 ## Warning: Removed 6 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-430-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-432-1.pdf}
 
 Let's go into more detail now; what if you would like to plot the densities for feminines and masculines
 only (removing the droids from the data first)? This can be done by first filtering the data using
@@ -9317,7 +9327,7 @@ this dataset to \texttt{ggplot}:
 ## Warning: Removed 5 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-432-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-434-1.pdf}
 
 Let's take a closer look to the \texttt{aes()} function: I've added \texttt{fill\ =\ gender}. This means that
 there will be one density plot for each gender in the data, and each will be coloured accordingly.
@@ -9344,7 +9354,7 @@ the aesthetics inside the \texttt{geom\_density()} function:
 ## Warning: Removed 5 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-433-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-435-1.pdf}
 
 \hypertarget{line-plots}{%
 \subsubsection{Line plots}\label{line-plots}}
@@ -9367,7 +9377,7 @@ Let's plot the unemployment for the canton of Luxembourg only:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-434-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-436-1.pdf}
 
 Because line plots are 2D, you need to specify the y and x axes. There is also another option you
 need to add, \texttt{group\ =\ 1}. This is to tell \texttt{aes()} that the dots have to be connected with a single
@@ -9382,7 +9392,7 @@ line. What if you want to plot more than one commune?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-435-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-437-1.pdf}
 
 This time, I've specified \texttt{group\ =\ division} which means that there has to be one line per as many
 communes as in the variable \texttt{division}. I do the same for colours. I think the next example
@@ -9399,7 +9409,7 @@ colour etc:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-436-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-438-1.pdf}
 
 The three communes get mapped to the colour aesthetic so whatever the number of communes, as long
 as there are enough colours, the communes will each get mapped to one of these colours.
@@ -9428,7 +9438,7 @@ symbol in the code below:
 ## Warning: Removed 5 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-437-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-439-1.pdf}
 
 I first created a factor variable that specifies if a Star Wars character is human or not, and then
 use it for facetting. By changing the formula, you change how the facetting is done:
@@ -9449,7 +9459,7 @@ use it for facetting. By changing the formula, you change how the facetting is d
 ## Warning: Removed 5 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-438-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-440-1.pdf}
 
 Recall the categorical variable \texttt{more\_1} that we computed in the previous chapter? Let's use it as
 a faceting variable:
@@ -9474,7 +9484,7 @@ a faceting variable:
 ## Warning: Removed 5 rows containing non-finite values (stat_density).
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-439-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-441-1.pdf}
 
 \hypertarget{pie-charts}{%
 \subsubsection{Pie Charts}\label{pie-charts}}
@@ -9515,7 +9525,7 @@ Now, let's plot this data, first by creating 3 bar plots:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-442-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-444-1.pdf}
 
 In the code above, I introduce a new option, called \texttt{stat\ =\ "identity"}. By default, \texttt{geom\_bar()} counts
 the number of observations of each category that is plotted, which is a statistical transformation.
@@ -9582,7 +9592,7 @@ To plot the pie chart, we create a barplot again, but specify polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-445-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-447-1.pdf}
 
 As you can see, this typical pie chart is not very easy to read; compared to the barplots above it
 is not easy to distinguish if \texttt{a} has a higher share than \texttt{b} or \texttt{c}. You can change the look of the
@@ -9598,7 +9608,7 @@ pie chart, for example by specifying \texttt{variable} as the \texttt{x}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-446-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-448-1.pdf}
 
 But as a general rule, avoid pie charts if possible. I find that pie charts are only interesting if
 you need to show proportions that are hugely unequal, to really emphasize the difference between
@@ -9618,7 +9628,7 @@ Sometimes you might want to add some text to your plots. This is possible with \
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-447-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-449-1.pdf}
 
 You can put anything after \texttt{label\ =} but in general what you want are the values, so that's what
 I put there. But you can also refine it, imagine the values are actually in euros:
@@ -9857,7 +9867,7 @@ I put there. But you can also refine it, imagine the values are actually in euro
 ## conversion failure on '26.5 €' in 'mbcsToSbcs': dot substituted for <ac>
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-448-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-450-1.pdf}
 
 You can also achieve something similar with \texttt{geom\_label()}:
 
@@ -10545,7 +10555,7 @@ You can also achieve something similar with \texttt{geom\_label()}:
 ## conversion failure on '26.5 €' in 'mbcsToSbcs': dot substituted for <ac>
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-449-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-451-1.pdf}
 
 \hypertarget{customization}{%
 \subsection{Customization}\label{customization}}
@@ -10572,7 +10582,7 @@ you need to pass the names to the \texttt{labs()} function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-450-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-452-1.pdf}
 
 What if you want to make the lines thicker?
 
@@ -10586,7 +10596,7 @@ What if you want to make the lines thicker?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-451-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-453-1.pdf}
 
 Each \texttt{geom\_*()} function has its own options. Notice that the \texttt{size=2} argument is not inside
 an \texttt{aes()} function. This is because I do not want to map a variable of the data to the size
@@ -10604,7 +10614,7 @@ to the birth year of the character:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-452-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-454-1.pdf}
 
 Making the size proportional to the birth year (the age would have been more informative) allows
 us to see a third dimension. It is also possible to ``see'' a fourth dimension, the gender for instance,
@@ -10619,7 +10629,7 @@ by changing the colour of the dots:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-453-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-455-1.pdf}
 
 As I promised above, we are now going to learn how to add a regression line to this scatter plot:
 
@@ -10637,7 +10647,7 @@ As I promised above, we are now going to learn how to add a regression line to t
 ## `geom_smooth()` using formula 'y ~ x'
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-454-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-456-1.pdf}
 
 \texttt{geom\_smooth()} adds a regression line, but only if you specify \texttt{method\ =\ "lm"} (``lm'' stands for
 ``linear model''). What happens if you remove this option?
@@ -10656,7 +10666,7 @@ As I promised above, we are now going to learn how to add a regression line to t
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-455-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-457-1.pdf}
 
 By default, \texttt{geom\_smooth()} does a non-parametric regression called LOESS (locally estimated scatterplot smoothing),
 which is more flexible. It is also possible to have one regression line by gender:
@@ -10675,7 +10685,7 @@ which is more flexible. It is also possible to have one regression line by gende
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-456-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-458-1.pdf}
 
 Because there are only a few observations for feminines and \texttt{NA}s the regression lines are not very informative,
 but this was only an example to show you some options of \texttt{geom\_smooth()}.
@@ -10696,7 +10706,7 @@ theme. This is done with the function \texttt{theme()}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-457-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-459-1.pdf}
 
 What I also like to do is remove the title of the legend, because it is often superfluous:
 
@@ -10711,7 +10721,7 @@ What I also like to do is remove the title of the legend, because it is often su
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-458-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-460-1.pdf}
 
 The legend title has to be an \texttt{element\_text} object.\texttt{element\_text} objects are used with \texttt{theme} to
 specify how text should be displayed. \texttt{element\_blank()} draws nothing and assigns no space (not
@@ -10728,7 +10738,7 @@ even blank space). If you want to keep the legend title but change it, you need 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-459-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-461-1.pdf}
 
 If you want to change the word ``division'' to something else, you can do so by providing the \texttt{colour} argument
 to the \texttt{labs()} function:
@@ -10744,7 +10754,7 @@ to the \texttt{labs()} function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-460-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-462-1.pdf}
 
 You could modify every feature of the theme like that, but there are built-in themes that you can use:
 
@@ -10760,7 +10770,7 @@ You could modify every feature of the theme like that, but there are built-in th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-461-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-463-1.pdf}
 
 For example in the code above, I have used \texttt{theme\_minimal()} which I like quite a lot. You can also
 use themes from the \texttt{ggthemes} package, which even contains a STATA theme, if you like it:
@@ -10776,7 +10786,7 @@ use themes from the \texttt{ggthemes} package, which even contains a STATA theme
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-462-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-464-1.pdf}
 
 As you can see, \texttt{theme\_stata()} has the legend on the bottom by default, because this is how the
 legend position is defined within the theme. However the legend title is still there. Let's remove
@@ -10794,7 +10804,7 @@ it:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-463-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-465-1.pdf}
 
 \texttt{ggthemes} even features an Excel 2003 theme (don't use it though):
 
@@ -10809,7 +10819,7 @@ it:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-464-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-466-1.pdf}
 
 You can create your own theme by using a simple theme, such as \texttt{theme\_minimal()} as a base
 and then add your options. We are going to create one theme after we learn how to create our
@@ -10837,7 +10847,7 @@ functions for discrete variables (so for barplots for example). A colour scheme 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-465-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-467-1.pdf}
 
 An example with a barplot:
 
@@ -10852,7 +10862,7 @@ An example with a barplot:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-466-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-468-1.pdf}
 
 It is also possible to define and use your own palette.
 
@@ -10872,7 +10882,7 @@ the html codes of the colours you want to use.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-467-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-469-1.pdf}
 
 To get html codes of colours you can use \href{http://htmlcolorcodes.com/color-picker/}{this online
 tool}.
@@ -10896,7 +10906,7 @@ For a barplot you would do the same:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-469-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-471-1.pdf}
 
 For countinuous variables, things are a bit different. Let's first create a plot where we map a continuous
 variable to the colour argument of \texttt{aes()}:
@@ -10908,7 +10918,7 @@ variable to the colour argument of \texttt{aes()}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-470-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-472-1.pdf}
 
 To change the colour, we need to use \texttt{scale\_color\_gradient()} and specify a value for low values of the variable,
 and a value for high values of the variable. For example, using the colours of the theme I made for my blog:
@@ -10921,7 +10931,7 @@ and a value for high values of the variable. For example, using the colours of t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-471-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-473-1.pdf}
 
 \hypertarget{saving-plots-to-disk}{%
 \subsection{Saving plots to disk}\label{saving-plots-to-disk}}
@@ -11445,7 +11455,7 @@ You can also plot the usual diagnostics plots using \texttt{ggfortify::autoplot(
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-493-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-495-1.pdf}
 
 \texttt{which=1:6} is an additional option that shows you all the diagnostics plot. If you omit this
 option, you will only get 4 of them.
@@ -11508,7 +11518,7 @@ residuals. Let's plot them:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-498-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-500-1.pdf}
 
 Fitted values are also added to the original data, under the variable \texttt{.fitted}. It would also have
 been possible to get the fitted values with:
@@ -11674,7 +11684,7 @@ It is also possible to plot the results:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-504-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-506-1.pdf}
 
 \texttt{effects\_model3} is a data frame containing the effects for each house in the data set. For example,
 let's take a look at the first house:
@@ -12001,7 +12011,7 @@ let's plot them, because why not:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-515-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-517-1.pdf}
 
 So an infinitesimal increase, in say, non-labour income (\texttt{lnnlinc}) of 0.001 is associated with a
 decrease of the probability of labour force participation by 0.001*17 percentage points.
@@ -12038,7 +12048,7 @@ distribution of prices:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-516-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-518-1.pdf}
 
 it looks like modeling the log of \texttt{price} might provide a better fit:
 
@@ -12107,8 +12117,8 @@ Let's compare these to the ones from the previous model:
 \end{Shaded}
 
 \begin{verbatim}
-## Joining, by = c("r.squared", "adj.r.squared", "sigma", "statistic", "p.value", "df", "logLik", "AIC", "BIC",
-## "deviance", "df.residual", "nobs", "model")
+## Joining, by = c("r.squared", "adj.r.squared", "sigma", "statistic", "p.value", "df", "logLik", "AIC", "BIC", "deviance",
+## "df.residual", "nobs", "model")
 \end{verbatim}
 
 \begin{Shaded}
@@ -13737,7 +13747,7 @@ to execute \texttt{my\_fibo(30)}). Let's try with the recursive version:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   1.435   0.077   1.519
+##   1.463   0.072   1.544
 \end{verbatim}
 
 It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
@@ -13970,7 +13980,7 @@ a function:
 ##          "running_time" = running_time)
 ## 
 ##   }
-## <environment: 0x563131f1e178>
+## <environment: 0x55a89a9f6158>
 \end{verbatim}
 
 This function can now be used like any other function:
@@ -13998,7 +14008,7 @@ the mean of this vector being \texttt{NA}:
 ## [1] NA
 ## 
 ## $running_time
-## Time difference of 0.006758451 secs
+## Time difference of 0.006770611 secs
 \end{verbatim}
 
 But because we use the \texttt{...} in the definition of \texttt{time\_f()}, we can now simply pass \texttt{mean()}'s option down to it:
@@ -14014,7 +14024,7 @@ But because we use the \texttt{...} in the definition of \texttt{time\_f()}, we 
 ## [1] 0
 ## 
 ## $running_time
-## Time difference of 0.01520085 secs
+## Time difference of 0.01325297 secs
 \end{verbatim}
 
 \hypertarget{functions-that-take-columns-of-data-as-arguments}{%
@@ -14215,20 +14225,6 @@ like this:
 \FunctionTok{simple\_function}\NormalTok{(mtcars, am, cyl, mpg)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning: `funs()` was deprecated in dplyr 0.8.0.
-## Please use a list of either functions or lambdas: 
-## 
-##   # Simple named list: 
-##   list(mean = mean, median = median)
-## 
-##   # Auto named with `tibble::lst()`: 
-##   tibble::lst(mean, median)
-## 
-##   # Using lambdas
-##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-\end{verbatim}
 
 \begin{verbatim}
 ##   am_mean cyl_mean mpg_mean     am_sd   cyl_sd   mpg_sd
@@ -16827,12 +16823,12 @@ allows you to generalize a function of two arguments? Let's try it with our list
 \end{Shaded}
 
 \begin{verbatim}
-## Joining, by = c("commune", "total_employed_population", "of_which_wage_earners", "of_which_non_wage_earners",
-## "unemployed", "active_population", "unemployment_rate_in_percent", "year")
-## Joining, by = c("commune", "total_employed_population", "of_which_wage_earners", "of_which_non_wage_earners",
-## "unemployed", "active_population", "unemployment_rate_in_percent", "year")
-## Joining, by = c("commune", "total_employed_population", "of_which_wage_earners", "of_which_non_wage_earners",
-## "unemployed", "active_population", "unemployment_rate_in_percent", "year")
+## Joining, by = c("commune", "total_employed_population", "of_which_wage_earners", "of_which_non_wage_earners", "unemployed",
+## "active_population", "unemployment_rate_in_percent", "year")
+## Joining, by = c("commune", "total_employed_population", "of_which_wage_earners", "of_which_non_wage_earners", "unemployed",
+## "active_population", "unemployment_rate_in_percent", "year")
+## Joining, by = c("commune", "total_employed_population", "of_which_wage_earners", "of_which_non_wage_earners", "unemployed",
+## "active_population", "unemployment_rate_in_percent", "year")
 \end{verbatim}
 
 \begin{Shaded}
@@ -16885,7 +16881,7 @@ commune, you need one unemployment plot, per commune:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-729-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-731-1.pdf}
 
 and then you would write the same for ``Esch-sur-Alzette'' and also for ``Wiltz''. If you only have to
 make to make these 3 plots, copy and pasting the above lines is no big deal:
@@ -16901,7 +16897,7 @@ make to make these 3 plots, copy and pasting the above lines is no big deal:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-730-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-732-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -16914,7 +16910,7 @@ make to make these 3 plots, copy and pasting the above lines is no big deal:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-730-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-732-2.pdf}
 
 But copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
 have to create the above plots for all 108 Luxembourguish communes? That's a lot of copy pasting.
@@ -17125,21 +17121,21 @@ is enough to use \texttt{pull()}:
 ## [[1]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-737-1.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-739-1.pdf}
 
 \begin{verbatim}
 ## 
 ## [[2]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-737-2.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-739-2.pdf}
 
 \begin{verbatim}
 ## 
 ## [[3]]
 \end{verbatim}
 
-\includegraphics{modern_R_files/figure-latex/unnamed-chunk-737-3.pdf}
+\includegraphics{modern_R_files/figure-latex/unnamed-chunk-739-3.pdf}
 
 And if we want to save these plots, we can do so using \texttt{map2()}:
 

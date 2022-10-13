@@ -675,6 +675,9 @@ gasoline %>%
   select(country, year, contains("car"))
 ```
 
+You can read more about these helper functions [here](https://tidyselect.r-lib.org/reference/language.html), but we're going to look more into
+them in a coming section.
+
 Another verb, similar to `select()`, is `pull()`. Let's compare the two:
 
 ```{r}
@@ -1476,68 +1479,67 @@ survey_data_from_hell %>%
     mutate(date = rep(full_seq(c(as.Date("2018-08-01"), as.Date("2018-08-03")), 1), 4))
 ```
 
+## Working on many columns with `if_any()`, `if_all()` and `across()`
 
-
-## Working on many columns with `across()`
-
-Let's start with the most complicated cases, using `across()` with `filter()`.
-
-### `filter()` and `across()`
+### Filtering rows where several columns verify a condition
 
 Let's go back to the `gasoline` data from the `{Ecdat}` package.
 
-`filter()` is not the only *filtering* verb there is. Suppose that we have a condition that we want
+When using `filter()`, it is only possible to filter one column at a time. For example, you can
+only filter rows where a column equals "France" for instance. But suppose that we have a condition that we want
 to use to filter out a lot of columns at once. For example, for every column that is of type
 `numeric`, keep only the lines where the condition *value > -8* is satisfied. The next line does
 that:
 
 ```{r}
 gasoline %>%
-  filter(across(is.numeric, ~`>`(., -8)))
+  filter(if_any(where(is.numeric), \(x)(`>`(x, -8))))
 ```
 
-The above code is using the `across()` function, which is included since `{dplyr}` version 1.0. You
-can think of `across()` as a function that helps you select the columns to which to apply the 
-verb. You can read the code above like this:
+The above code is using the `if_any()` function, included in `{dplyr}`. It also uses
+`where()`, which must be used for predicate functions like `is.numeric()`, or `is.character()`, etc. 
+You can think of `if_any()` as a function that helps you select the columns to which to apply the 
+function. You can read the code above like this:
 
 *Start with the gasoline data, then filter rows that are greater than -8 across the columns 
 which are numeric*
 
-or similar. `across()` makes operations like these very easy to achieve. 
+or similar. `if_any()`, `if_all()` and `across()` makes operations like these very easy to achieve. 
 
 Sometimes, you'd want to filter rows from columns that end their labels with a letter, for instance
-`"p"`. This can again be achieved using `across()`:
+`"p"`. This can again be achieved using another helper, `ends_with()`, instead of `where()`:
 
 ```{r}
 gasoline %>%
-  filter(across(ends_with("p"), ~`>`(., -8)))
+  filter(if_any(ends_with("p"), \(x)(`>`(x, -8))))
 ```
 
 We already know about `ends_with()` and `starts_with()`. So the above line means "for the columns
 whose name end with a 'p' only keep the lines where, for all the selected columns, the values are
-strictly superior to `-8`". You can use any of these helper functions inside `across()`:
+strictly superior to `-8`". 
+
+`if_all()` works exactly the same way, but think of the `if` in `if_all()` as having the conditions
+separated by `and` while the `if` of `if_any()` being separated by `or`. So for example, the
+code above, where `if_any()` is replaced by `if_all()`, results in a much smaller data frame:
 
 ```{r}
 gasoline %>%
-  select(is.numeric) %>%  
-  filter(across(everything(), ~`!=`(., 0)))
+  filter(if_all(ends_with("p"), \(x)(`>`(x, -8))))
 ```
 
-This would get you every row where the values are different from 0 for all columns at the
-same time (but first I need to select only columns of type `numeric`; this will be discussed 
-in the next section). 
+because here, we only keep rows for columns that end with "p" where ALL of them are simultaneously
+greater than 8.
 
-That's basically all there is to it. I think that `across()` is quite intuitive, and by trying out
-a few examples, I feel confident that you will think the same.
 
-### Selecting and renaming with `across()`
+### Selecting several columns at once
 
-In the previous section, the very last example used the following bit of code `select(is.numeric)`.
-Unlike `filter()`, `select()` does not need the help of `across()`:
+In a previous section we already played around a little bit with `select()` and some helpers,
+`everything()`, `starts_with()` and `ends_with()`. But there are many ways that you can use
+helper functions to select several columns easily:
 
 ```{r}
 gasoline %>%
-  select(is.numeric)
+  select(where(is.numeric))
 ```
 
 Selecting by column position is also possible:
@@ -1547,7 +1549,7 @@ gasoline %>%
   select(c(1, 2, 5))
 ```
 
-As is selecting columns starting or ending with a certain string of characters:
+As is selecting columns starting or ending with a certain string of characters, as discussed previously:
 
 ```{r}
 gasoline %>%
@@ -1605,23 +1607,39 @@ gasoline %>%
   rename_with(toupper, is.numeric)
 ```
 
-you can also pass formulas to `rename_with()`:
+you can also pass functions to `rename_with()`:
 
 ```{r}
-gasoline %>%  
-  rename_with(~paste0("new_", .))
+gasoline %>%
+  rename_with(\(x)(paste0("new_", x)))
 ```
 
-In the above formula I did not select any columns, so every columns gets renamed.
-
-### `group_by()` and `across()`
-
-To illustrate how `group_by()` works with `across()` I have to first modify the 
-`gasoline` data a little bit. As you can see below, the `year` column is of type integer:
+The reason I'm talking about renaming in a section about selecting is because you can
+also rename with select:
 
 ```{r}
-gasoline
+gasoline %>%
+  select(YEAR = year)
 ```
+
+but of course here, you only keep that one column, and you can't rename with a function.
+
+
+### Summarising with `across()`
+
+`across()` is used for summarising data. It allows to aggregations... *across* several columns. It
+is especially useful with `group_by()`. To illustrate how `group_by()` works with `across()` I have
+to first modify the `gasoline` data a little bit. As you can see below, the `year` column is of
+type `double`:
+
+```{r}
+gasoline %>%
+  lapply(typeof)
+```
+
+(we'll discuss `lapply()` in a later chapter, but just to give you a little taste, `lapply()` applies
+a function to each element of a list or of a data frame, in this case, `lapply()` applied the `typeof()`
+function to each column of the `gasoline` data set, returning the type of each column)
 
 Let's change that to character:
 
@@ -1635,8 +1653,8 @@ This now allows me to group by type of columns for instance:
 
 ```{r}
 gasoline %>%
-  group_by(across(is.character)) %>%
-  summarise(mean(lincomep))
+  group_by(across(where(is.character))) %>%
+  summarise(mean_lincomep = mean(lincomep))
 ```
 
 This is faster than having to write:
@@ -1644,17 +1662,28 @@ This is faster than having to write:
 ```{r}
 gasoline %>%
     group_by(country, year) %>%
-    summarise(mean(lincomep))
+    summarise(mean_lincomep = mean(lincomep))
 ```
 
-You may think that having two write the name of two variables is not a huge hassle, which is true.
-But imagine that you have dozens of character columns that you want to group by. Using `across()`
-makes this very quick. It is also possible to `group_by()` position:
+You may think that having two write the name of two variables is not a huge deal, which is true.
+But imagine that you have dozens of character columns that you want to group by. 
+With `across()` and the helper functions, it doesn't matter if the data frame has 2 columns
+you need to group by or 2000. All that matters is that you can find some commonalities between
+all these columns that make it easy to select them. It can be their type, as we have seen
+before, or their label:
+
+```{r}
+gasoline %>%
+  group_by(across(contains("y"))) %>%
+  summarise(mean_licomep = mean(lincomep))
+```
+
+but it's also possible to `group_by()` position:
 
 ```{r}
 gasoline %>%
     group_by(across(c(1, 2))) %>%
-    summarise(mean(lincomep))
+    summarise(mean_licomep = mean(lincomep))
 ```
 
 Using a sequence is also possible:
@@ -1662,14 +1691,17 @@ Using a sequence is also possible:
 ```{r}
 gasoline %>%
   group_by(across(seq(1:2))) %>%
-  summarise(mean(lincomep))
+  summarise(mean_lincomep = mean(lincomep))
 ```
 
-it is especially useful if you need to group by the first `N` columns for instance. 
+but be careful, selecting by position is dangerous. If the position of columns changes, your code
+will fail. Selecting by type or label is much more robust, especially by label, since types can 
+change as well (for example a date column can easily be exported as character column, etc).
 
 ### `summarise()` across many columns
 
-Just like for `filter()`, and `group_by()`, `summarise()` supports `across()`:
+Summarising across many columns is really incredibly useful and in my opinion one of the best
+arguments in favour of switching to a `{tidyverse}` only workflow:
 
 ```{r}
 gasoline %>%
@@ -1697,22 +1729,20 @@ As mentioned before, `across()` works with other helper functions:
 ```{r}
 gasoline %>%
   group_by(country) %>%
-  summarise(across(dplyr::contains("car"), tibble::lst(mean, sd, max, min), .names = "{fn}_{col}"))
+  summarise(across(contains("car"), tibble::lst(mean, sd, max, min), .names = "{fn}_{col}"))
 ```
 
-I write `dplyr::contains()` instead of simply `contains()` because there's also a
-`purrr::contains()`. If you load `purrr` after `{dplyr}`, `contains()` will actually be
-`purrr::contains()` and not `dplyr::contains()` which causes the above code to fail.
+This is very likely the quickest, most elegant way to summarise that many columns.
 
-There's also a way to *summarise if*:
+There's also a way to *summarise where*:
 
 ```{r}
 gasoline %>%
   group_by(country) %>%
-  summarise(across(is.numeric, tibble::lst(mean, sd, min, max), .names = "{fn}_{col}"))
+  summarise(across(where(is.numeric), tibble::lst(mean, sd, min, max), .names = "{fn}_{col}"))
 ```
 
-This allows you to summarise every column that contain real numbers. The difference between
+This allows you to summarise every column that contains real numbers. The difference between
 `is.double()` and `is.numeric()` is that `is.numeric()` returns `TRUE` for integers too, whereas
 `is.double()` returns `TRUE` for real numbers only (integers are real numbers too, but you know
 what I mean). It is also possible to summarise every column at once:

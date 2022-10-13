@@ -50,10 +50,10 @@ reshaping-and-sprucing-up-data-with-tidyr
 pivot_wider-and-pivot_longer
 fill-and-full_seq
 put-order-in-your-columns-with-separate-unite-and-in-your-rows-with-separate_rows
-working-on-many-columns-with-across
-filter-and-across
-selecting-and-renaming-with-across
-group_by-and-across
+working-on-many-columns-with-if_any-if_all-and-across
+filtering-rows-where-several-columns-verify-a-condition
+selecting-several-columns-at-once
+summarising-with-across
 summarise-across-many-columns
 other-useful-tidyverse-functions
 if_else-case_when-and-recode
