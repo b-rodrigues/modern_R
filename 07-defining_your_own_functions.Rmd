@@ -524,9 +524,10 @@ quad_root(1, -4, 3) # should return 3 and 1
 
 ## Functions that take functions as arguments: writing your own higher-order functions
 
-Functions that take functions as arguments are very powerful and useful tools. You already know a
-couple, `purrr::map()` and `purrr::reduce()`, discussed briefly in Chapter 4.
-But you can also write your own! A very simple example would be the following:
+Functions that take functions as arguments are very powerful and useful tools. 
+Two very important functions, that we will discuss in chapter 8 are `purrr::map()` 
+and `purrr::reduce()`. But you can also write your own! A very simple example 
+would be the following:
 
 ```{r}
 my_func <- function(x, func){
