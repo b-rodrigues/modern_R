@@ -3137,6 +3137,7 @@ LaborSupply %>%
   summarise(across(starts_with("l"), tibble::lst(mean, sd, n)))
 ```
 
+<!--
 ### Exercise 4 {-}
 
 * In the dataset folder you downloaded at the beginning of the chapter, there is a folder called
@@ -3162,3 +3163,4 @@ This is not an easy exercise; so here are some hints:
 all_datasets %>%
   map(~mutate(., lcommune = tolower(.$commune)))
 ```
+--> 
