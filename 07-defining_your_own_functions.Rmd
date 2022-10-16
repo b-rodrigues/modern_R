@@ -370,9 +370,14 @@ my_sum <- function(a_vector){
 Loading the library inside the function has the advantage that you will be sure that the package
 upon which your function depends will be loaded. If the package is already loaded, it will not be
 loaded again, thus not impact performance, but if you forgot to load it at the beginning of your
-script, then, no worries, your function will load it the first time you use it! However, the very
-best way would be to write your own package and declare the packages upon which your functions
-depend as dependencies. This is something we are going to explore in Chapter 11.
+script, then, no worries, your function will load it the first time you use it! However, you should
+avoid doing this, because the resulting function is now not pure. It has a side effect, which is
+loading a library. This could result in problems, especially if several functions load several
+different packages that have functions with the same name. Depending on which function runs first,
+a function with the same name but coming from the same package will be available in the global
+environment. The very best way would be to write your own package and declare the packages upon
+which your functions depend as dependencies. This is something we are going to explore in Chapter
+9.
 
 You can put a lot of instructions inside a function, such as loops. Let's create the function that
 returns Fionacci numbers.

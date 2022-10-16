@@ -190,7 +190,10 @@ both pieces of software are available free of charge (paid options for RStudio e
 that need technical support). Installation is simple, but operating system dependent. To download
 and install R for Windows, follow [this link](https://cloud.r-project.org/bin/windows/base/).
 For macOS, follow [this one](https://cloud.r-project.org/bin/macosx/). If you run a GNU+Linux
-distribution, you can install R using the system's package manager. On Ubuntu, install `r-base`.
+distribution, you can install R using the system's package manager. If you're running Ubuntu, you
+might want to take a look at [r2u](https://github.com/eddelbuettel/r2u), which provides very
+fast installation of packages, full integration with `apt` (so dependencies get solved automatically)
+and covers the entirety of CRAN.
 
 For RStudio, look for your operating system [here](https://www.rstudio.com/products/rstudio/download/#download).
 

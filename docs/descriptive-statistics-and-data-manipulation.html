@@ -23,7 +23,7 @@
 <meta name="author" content="Bruno Rodrigues" />
 
 
-<meta name="date" content="2022-10-13" />
+<meta name="date" content="2022-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -282,7 +282,6 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-1-2"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-2-1"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-3-1"><i class="fa fa-check"></i>Exercise 3</a></li>
-<li class="chapter" data-level="" data-path="descriptive-statistics-and-data-manipulation.html"><a href="descriptive-statistics-and-data-manipulation.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a>
@@ -365,7 +364,7 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
-<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-4-2"><i class="fa fa-check"></i>Exercise 4</a></li>
+<li class="chapter" data-level="" data-path="defining-your-own-functions.html"><a href="defining-your-own-functions.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functional-programming.html"><a href="functional-programming.html"><i class="fa fa-check"></i><b>8</b> Functional programming</a>
@@ -3550,10 +3549,14 @@ for “year-month-day”. If, however the column is “2012-21-11”, then you w
 a few of these helper functions, and they can handle a lot of different formats for dates. In our case,
 having the name of the month instead of the number might seem quite problematic, but it turns out
 that this is a case that <code>{lubridate}</code> handles painfully:</p>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="descriptive-statistics-and-data-manipulation.html#cb567-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb567-2"><a href="descriptive-statistics-and-data-manipulation.html#cb567-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb567-3"><a href="descriptive-statistics-and-data-manipulation.html#cb567-3" aria-hidden="true" tabindex="-1"></a>independence <span class="ot">&lt;-</span> independence <span class="sc">%&gt;%</span></span>
-<span id="cb567-4"><a href="descriptive-statistics-and-data-manipulation.html#cb567-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">independence_date =</span> <span class="fu">dmy</span>(independence_date))</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="descriptive-statistics-and-data-manipulation.html#cb567-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="descriptive-statistics-and-data-manipulation.html#cb570-1" aria-hidden="true" tabindex="-1"></a>independence <span class="ot">&lt;-</span> independence <span class="sc">%&gt;%</span></span>
+<span id="cb570-2"><a href="descriptive-statistics-and-data-manipulation.html#cb570-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">independence_date =</span> <span class="fu">dmy</span>(independence_date))</span></code></pre></div>
 <pre><code>## Warning: 5 failed to parse.</code></pre>
 <p>Some dates failed to parse, for instance for Morocco. This is because these countries have several
 independence dates; this means that the string to convert looks like:</p>
@@ -3567,7 +3570,7 @@ simplicity’s sake.</p>
 <div id="data-manipulation-with-dates" class="section level4 hasAnchor" number="4.7.2.2">
 <h4><span class="header-section-number">4.7.2.2</span> Data manipulation with dates<a href="descriptive-statistics-and-data-manipulation.html#data-manipulation-with-dates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Let’s take a look at the data now:</p>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="descriptive-statistics-and-data-manipulation.html#cb570-1" aria-hidden="true" tabindex="-1"></a>independence</span></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="descriptive-statistics-and-data-manipulation.html#cb573-1" aria-hidden="true" tabindex="-1"></a>independence</span></code></pre></div>
 <pre><code>## # A tibble: 54 × 6
 ##    country      colonial_name                 colon…¹ independ…² first…³ indep…⁴
 ##    &lt;chr&gt;        &lt;chr&gt;                         &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;  
@@ -3586,9 +3589,9 @@ simplicity’s sake.</p>
 <p>As you can see, we now have a date column in the right format. We can now answer questions such as
 <em>Which countries gained independence before 1960?</em> quite easily, by using the functions <code>year()</code>,
 <code>month()</code> and <code>day()</code>. Let’s see which countries gained independence before 1960:</p>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="descriptive-statistics-and-data-manipulation.html#cb572-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
-<span id="cb572-2"><a href="descriptive-statistics-and-data-manipulation.html#cb572-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(independence_date) <span class="sc">&lt;=</span> <span class="dv">1960</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb572-3"><a href="descriptive-statistics-and-data-manipulation.html#cb572-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(country)</span></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="descriptive-statistics-and-data-manipulation.html#cb575-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
+<span id="cb575-2"><a href="descriptive-statistics-and-data-manipulation.html#cb575-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(independence_date) <span class="sc">&lt;=</span> <span class="dv">1960</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb575-3"><a href="descriptive-statistics-and-data-manipulation.html#cb575-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(country)</span></code></pre></div>
 <pre><code>##  [1] &quot;Liberia&quot;                          &quot;South Africa&quot;                    
 ##  [3] &quot;Egypt&quot;                            &quot;Eritrea&quot;                         
 ##  [5] &quot;Libya&quot;                            &quot;Sudan&quot;                           
@@ -3604,61 +3607,61 @@ simplicity’s sake.</p>
 <p>You guessed it, <code>year()</code> extracts the year of the date column and converts it as a <em>numeric</em> so that we can work
 on it. This is the same for <code>month()</code> or <code>day()</code>. Let’s try to see if countries gained their independence on
 Christmas Eve:</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="descriptive-statistics-and-data-manipulation.html#cb574-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
-<span id="cb574-2"><a href="descriptive-statistics-and-data-manipulation.html#cb574-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(independence_date) <span class="sc">==</span> <span class="dv">12</span>,</span>
-<span id="cb574-3"><a href="descriptive-statistics-and-data-manipulation.html#cb574-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">day</span>(independence_date) <span class="sc">==</span> <span class="dv">24</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb574-4"><a href="descriptive-statistics-and-data-manipulation.html#cb574-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(country)</span></code></pre></div>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="descriptive-statistics-and-data-manipulation.html#cb577-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
+<span id="cb577-2"><a href="descriptive-statistics-and-data-manipulation.html#cb577-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(independence_date) <span class="sc">==</span> <span class="dv">12</span>,</span>
+<span id="cb577-3"><a href="descriptive-statistics-and-data-manipulation.html#cb577-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">day</span>(independence_date) <span class="sc">==</span> <span class="dv">24</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb577-4"><a href="descriptive-statistics-and-data-manipulation.html#cb577-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(country)</span></code></pre></div>
 <pre><code>## [1] &quot;Libya&quot;</code></pre>
 <p>Seems like Libya was the only one! You can also operate on dates. For instance, let’s compute the difference between
 two dates, using the <code>interval()</code> column:</p>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="descriptive-statistics-and-data-manipulation.html#cb576-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
-<span id="cb576-2"><a href="descriptive-statistics-and-data-manipulation.html#cb576-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">today =</span> lubridate<span class="sc">::</span><span class="fu">today</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb576-3"><a href="descriptive-statistics-and-data-manipulation.html#cb576-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">independent_since =</span> <span class="fu">interval</span>(independence_date, today)) <span class="sc">%&gt;%</span></span>
-<span id="cb576-4"><a href="descriptive-statistics-and-data-manipulation.html#cb576-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, independent_since)</span></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="descriptive-statistics-and-data-manipulation.html#cb579-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
+<span id="cb579-2"><a href="descriptive-statistics-and-data-manipulation.html#cb579-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">today =</span> lubridate<span class="sc">::</span><span class="fu">today</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb579-3"><a href="descriptive-statistics-and-data-manipulation.html#cb579-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">independent_since =</span> <span class="fu">interval</span>(independence_date, today)) <span class="sc">%&gt;%</span></span>
+<span id="cb579-4"><a href="descriptive-statistics-and-data-manipulation.html#cb579-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, independent_since)</span></code></pre></div>
 <pre><code>## # A tibble: 54 × 2
 ##    country      independent_since             
 ##    &lt;chr&gt;        &lt;Interval&gt;                    
-##  1 Liberia      1847-07-26 UTC--2022-10-13 UTC
-##  2 South Africa 1910-05-31 UTC--2022-10-13 UTC
-##  3 Egypt        1922-02-28 UTC--2022-10-13 UTC
-##  4 Eritrea      1947-02-10 UTC--2022-10-13 UTC
-##  5 Libya        1951-12-24 UTC--2022-10-13 UTC
-##  6 Sudan        1956-01-01 UTC--2022-10-13 UTC
-##  7 Tunisia      1956-03-20 UTC--2022-10-13 UTC
+##  1 Liberia      1847-07-26 UTC--2022-10-16 UTC
+##  2 South Africa 1910-05-31 UTC--2022-10-16 UTC
+##  3 Egypt        1922-02-28 UTC--2022-10-16 UTC
+##  4 Eritrea      1947-02-10 UTC--2022-10-16 UTC
+##  5 Libya        1951-12-24 UTC--2022-10-16 UTC
+##  6 Sudan        1956-01-01 UTC--2022-10-16 UTC
+##  7 Tunisia      1956-03-20 UTC--2022-10-16 UTC
 ##  8 Morocco      NA--NA                        
-##  9 Ghana        1957-03-06 UTC--2022-10-13 UTC
-## 10 Guinea       1958-10-02 UTC--2022-10-13 UTC
+##  9 Ghana        1957-03-06 UTC--2022-10-16 UTC
+## 10 Guinea       1958-10-02 UTC--2022-10-16 UTC
 ## # … with 44 more rows</code></pre>
 <p>The <code>independent_since</code> column now contains an <em>interval</em> object that we can convert to years:</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="descriptive-statistics-and-data-manipulation.html#cb578-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
-<span id="cb578-2"><a href="descriptive-statistics-and-data-manipulation.html#cb578-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">today =</span> lubridate<span class="sc">::</span><span class="fu">today</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb578-3"><a href="descriptive-statistics-and-data-manipulation.html#cb578-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">independent_since =</span> <span class="fu">interval</span>(independence_date, today)) <span class="sc">%&gt;%</span></span>
-<span id="cb578-4"><a href="descriptive-statistics-and-data-manipulation.html#cb578-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, independent_since) <span class="sc">%&gt;%</span></span>
-<span id="cb578-5"><a href="descriptive-statistics-and-data-manipulation.html#cb578-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">years_independent =</span> <span class="fu">as.numeric</span>(independent_since, <span class="st">&quot;years&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="descriptive-statistics-and-data-manipulation.html#cb581-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
+<span id="cb581-2"><a href="descriptive-statistics-and-data-manipulation.html#cb581-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">today =</span> lubridate<span class="sc">::</span><span class="fu">today</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb581-3"><a href="descriptive-statistics-and-data-manipulation.html#cb581-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">independent_since =</span> <span class="fu">interval</span>(independence_date, today)) <span class="sc">%&gt;%</span></span>
+<span id="cb581-4"><a href="descriptive-statistics-and-data-manipulation.html#cb581-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, independent_since) <span class="sc">%&gt;%</span></span>
+<span id="cb581-5"><a href="descriptive-statistics-and-data-manipulation.html#cb581-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">years_independent =</span> <span class="fu">as.numeric</span>(independent_since, <span class="st">&quot;years&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 54 × 3
 ##    country      independent_since              years_independent
 ##    &lt;chr&gt;        &lt;Interval&gt;                                 &lt;dbl&gt;
-##  1 Liberia      1847-07-26 UTC--2022-10-13 UTC             175. 
-##  2 South Africa 1910-05-31 UTC--2022-10-13 UTC             112. 
-##  3 Egypt        1922-02-28 UTC--2022-10-13 UTC             101. 
-##  4 Eritrea      1947-02-10 UTC--2022-10-13 UTC              75.7
-##  5 Libya        1951-12-24 UTC--2022-10-13 UTC              70.8
-##  6 Sudan        1956-01-01 UTC--2022-10-13 UTC              66.8
-##  7 Tunisia      1956-03-20 UTC--2022-10-13 UTC              66.6
+##  1 Liberia      1847-07-26 UTC--2022-10-16 UTC             175. 
+##  2 South Africa 1910-05-31 UTC--2022-10-16 UTC             112. 
+##  3 Egypt        1922-02-28 UTC--2022-10-16 UTC             101. 
+##  4 Eritrea      1947-02-10 UTC--2022-10-16 UTC              75.7
+##  5 Libya        1951-12-24 UTC--2022-10-16 UTC              70.8
+##  6 Sudan        1956-01-01 UTC--2022-10-16 UTC              66.8
+##  7 Tunisia      1956-03-20 UTC--2022-10-16 UTC              66.6
 ##  8 Morocco      NA--NA                                      NA  
-##  9 Ghana        1957-03-06 UTC--2022-10-13 UTC              65.6
-## 10 Guinea       1958-10-02 UTC--2022-10-13 UTC              64.0
+##  9 Ghana        1957-03-06 UTC--2022-10-16 UTC              65.6
+## 10 Guinea       1958-10-02 UTC--2022-10-16 UTC              64.0
 ## # … with 44 more rows</code></pre>
 <p>We can now see for how long the last country to gain independence has been independent.
 Because the data is not tidy (in some cases, an African country was colonized by two powers,
 see Libya), I will only focus on 4 European colonial powers: Belgium, France, Portugal and the United Kingdom:</p>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="descriptive-statistics-and-data-manipulation.html#cb580-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
-<span id="cb580-2"><a href="descriptive-statistics-and-data-manipulation.html#cb580-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(colonial_power <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Belgium&quot;</span>, <span class="st">&quot;France&quot;</span>, <span class="st">&quot;Portugal&quot;</span>, <span class="st">&quot;United Kingdom&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb580-3"><a href="descriptive-statistics-and-data-manipulation.html#cb580-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">today =</span> lubridate<span class="sc">::</span><span class="fu">today</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb580-4"><a href="descriptive-statistics-and-data-manipulation.html#cb580-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">independent_since =</span> <span class="fu">interval</span>(independence_date, today)) <span class="sc">%&gt;%</span></span>
-<span id="cb580-5"><a href="descriptive-statistics-and-data-manipulation.html#cb580-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">years_independent =</span> <span class="fu">as.numeric</span>(independent_since, <span class="st">&quot;years&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb580-6"><a href="descriptive-statistics-and-data-manipulation.html#cb580-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(colonial_power) <span class="sc">%&gt;%</span></span>
-<span id="cb580-7"><a href="descriptive-statistics-and-data-manipulation.html#cb580-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">last_colony_independent_for =</span> <span class="fu">min</span>(years_independent, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="descriptive-statistics-and-data-manipulation.html#cb583-1" aria-hidden="true" tabindex="-1"></a>independence <span class="sc">%&gt;%</span></span>
+<span id="cb583-2"><a href="descriptive-statistics-and-data-manipulation.html#cb583-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(colonial_power <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Belgium&quot;</span>, <span class="st">&quot;France&quot;</span>, <span class="st">&quot;Portugal&quot;</span>, <span class="st">&quot;United Kingdom&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb583-3"><a href="descriptive-statistics-and-data-manipulation.html#cb583-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">today =</span> lubridate<span class="sc">::</span><span class="fu">today</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb583-4"><a href="descriptive-statistics-and-data-manipulation.html#cb583-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">independent_since =</span> <span class="fu">interval</span>(independence_date, today)) <span class="sc">%&gt;%</span></span>
+<span id="cb583-5"><a href="descriptive-statistics-and-data-manipulation.html#cb583-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">years_independent =</span> <span class="fu">as.numeric</span>(independent_since, <span class="st">&quot;years&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb583-6"><a href="descriptive-statistics-and-data-manipulation.html#cb583-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(colonial_power) <span class="sc">%&gt;%</span></span>
+<span id="cb583-7"><a href="descriptive-statistics-and-data-manipulation.html#cb583-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">last_colony_independent_for =</span> <span class="fu">min</span>(years_independent, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 2
 ##   colonial_power last_colony_independent_for
 ##   &lt;chr&gt;                                &lt;dbl&gt;
@@ -3670,26 +3673,26 @@ see Libya), I will only focus on 4 European colonial powers: Belgium, France, Po
 <div id="arithmetic-with-dates" class="section level4 hasAnchor" number="4.7.2.3">
 <h4><span class="header-section-number">4.7.2.3</span> Arithmetic with dates<a href="descriptive-statistics-and-data-manipulation.html#arithmetic-with-dates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Adding or substracting days to dates is quite easy:</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="descriptive-statistics-and-data-manipulation.html#cb582-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">+</span> <span class="dv">16</span></span></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="descriptive-statistics-and-data-manipulation.html#cb585-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">+</span> <span class="dv">16</span></span></code></pre></div>
 <pre><code>## [1] &quot;2019-01-16&quot;</code></pre>
 <p>It is also possible to be more explicit and use <code>days()</code>:</p>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="descriptive-statistics-and-data-manipulation.html#cb584-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">16</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="descriptive-statistics-and-data-manipulation.html#cb587-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">16</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2019-01-16&quot;</code></pre>
 <p>To add years, you can use <code>years()</code>:</p>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="descriptive-statistics-and-data-manipulation.html#cb586-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">+</span> <span class="fu">years</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="descriptive-statistics-and-data-manipulation.html#cb589-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">+</span> <span class="fu">years</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2019-12-31&quot;</code></pre>
 <p>But you have to be careful with leap years:</p>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="descriptive-statistics-and-data-manipulation.html#cb588-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2016-02-29&quot;</span>) <span class="sc">+</span> <span class="fu">years</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="descriptive-statistics-and-data-manipulation.html#cb591-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2016-02-29&quot;</span>) <span class="sc">+</span> <span class="fu">years</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>Because 2017 is not a leap year, the above computation returns <code>NA</code>. The same goes for months with
 a different number of days:</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="descriptive-statistics-and-data-manipulation.html#cb590-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">+</span> <span class="fu">months</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="descriptive-statistics-and-data-manipulation.html#cb593-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">+</span> <span class="fu">months</span>(<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>The way to solve these issues is to use the special <code>%m+%</code> infix operator:</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="descriptive-statistics-and-data-manipulation.html#cb592-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2016-02-29&quot;</span>) <span class="sc">%m+%</span> <span class="fu">years</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="descriptive-statistics-and-data-manipulation.html#cb595-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2016-02-29&quot;</span>) <span class="sc">%m+%</span> <span class="fu">years</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2017-02-28&quot;</code></pre>
 <p>and for months:</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="descriptive-statistics-and-data-manipulation.html#cb594-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">%m+%</span> <span class="fu">months</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="descriptive-statistics-and-data-manipulation.html#cb597-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">&quot;2018-12-31&quot;</span>) <span class="sc">%m+%</span> <span class="fu">months</span>(<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2019-02-28&quot;</code></pre>
 <p><code>{lubridate}</code> contains many more functions. If you often work with dates, duration or interval
 data, <code>{lubridate}</code> is a package that you have to add to your toolbox.</p>
@@ -3749,21 +3752,21 @@ again, but using complex regular expressions to get all the content in one go.</
 <div id="getting-text-data-into-rstudio" class="section level4 hasAnchor" number="4.7.3.1">
 <h4><span class="header-section-number">4.7.3.1</span> Getting text data into Rstudio<a href="descriptive-statistics-and-data-manipulation.html#getting-text-data-into-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>First of all, let us read in the file:</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="descriptive-statistics-and-data-manipulation.html#cb597-1" aria-hidden="true" tabindex="-1"></a>winchester <span class="ot">&lt;-</span> <span class="fu">read_lines</span>(<span class="st">&quot;https://gist.githubusercontent.com/b-rodrigues/5139560e7d0f2ecebe5da1df3629e015/raw/e3031d894ffb97217ddbad1ade1b307c9937d2c8/gistfile1.txt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="descriptive-statistics-and-data-manipulation.html#cb600-1" aria-hidden="true" tabindex="-1"></a>winchester <span class="ot">&lt;-</span> <span class="fu">read_lines</span>(<span class="st">&quot;https://gist.githubusercontent.com/b-rodrigues/5139560e7d0f2ecebe5da1df3629e015/raw/e3031d894ffb97217ddbad1ade1b307c9937d2c8/gistfile1.txt&quot;</span>)</span></code></pre></div>
 <p>Even though the file is an XML file, I still read it in using <code>read_lines()</code> and not <code>read_xml()</code>
 from the <code>{xml2}</code> package. This is for the purposes of the current exercise, and also because I
 always have trouble with XML files, and prefer to treat them as simple text files, and use regular
 expressions to get what I need.</p>
 <p>Now that the ALTO file is read in and saved in the <code>winchester</code> variable, you might want to print
 the whole thing in the console. Before that, take a look at the structure:</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="descriptive-statistics-and-data-manipulation.html#cb598-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(winchester)</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="descriptive-statistics-and-data-manipulation.html#cb601-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(winchester)</span></code></pre></div>
 <pre><code>##  chr [1:43] &quot;&quot; ...</code></pre>
 <p>So the <code>winchester</code> variable is a character atomic vector with 43 elements. So first, we need to
 understand what these elements are. Let’s start with the first one:</p>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="descriptive-statistics-and-data-manipulation.html#cb600-1" aria-hidden="true" tabindex="-1"></a>winchester[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="descriptive-statistics-and-data-manipulation.html#cb603-1" aria-hidden="true" tabindex="-1"></a>winchester[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;&quot;</code></pre>
 <p>Ok, so it seems like the first element is part of the header of the file. What about the second one?</p>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="descriptive-statistics-and-data-manipulation.html#cb602-1" aria-hidden="true" tabindex="-1"></a>winchester[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="descriptive-statistics-and-data-manipulation.html#cb605-1" aria-hidden="true" tabindex="-1"></a>winchester[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;&lt;meta http-equiv=\&quot;Content-Type\&quot; content=\&quot;text/html; charset=UTF-8\&quot;&gt;&lt;base href=\&quot;https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml\&quot;&gt;&lt;style&gt;body{margin-left:0;margin-right:0;margin-top:0}#bN015htcoyT__google-cache-hdr{background:#f5f5f5;font:13px arial,sans-serif;text-align:left;color:#202020;border:0;margin:0;border-bottom:1px solid #cecece;line-height:16px;padding:16px 28px 24px 28px}#bN015htcoyT__google-cache-hdr *{display:inline;font:inherit;text-align:inherit;color:inherit;line-height:inherit;background:none;border:0;margin:0;padding:0;letter-spacing:0}#bN015htcoyT__google-cache-hdr a{text-decoration:none;color:#1a0dab}#bN015htcoyT__google-cache-hdr a:hover{text-decoration:underline}#bN015htcoyT__google-cache-hdr a:visited{color:#609}#bN015htcoyT__google-cache-hdr div{display:block;margin-top:4px}#bN015htcoyT__google-cache-hdr b{font-weight:bold;display:inline-block;direction:ltr}&lt;/style&gt;&lt;div id=\&quot;bN015htcoyT__google-cache-hdr\&quot;&gt;&lt;div&gt;&lt;span&gt;This is Google&#39;s cache of &lt;a href=\&quot;https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml\&quot;&gt;https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml&lt;/a&gt;.&lt;/span&gt;&amp;nbsp;&lt;span&gt;It is a snapshot of the page as it appeared on 21 Jan 2019 05:18:18 GMT.&lt;/span&gt;&amp;nbsp;&lt;span&gt;The &lt;a href=\&quot;https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml\&quot;&gt;current page&lt;/a&gt; could have changed in the meantime.&lt;/span&gt;&amp;nbsp;&lt;a href=\&quot;http://support.google.com/websearch/bin/answer.py?hl=en&amp;amp;p=cached&amp;amp;answer=1687222\&quot;&gt;&lt;span&gt;Learn more&lt;/span&gt;.&lt;/a&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=\&quot;display:inline-block;margin-top:8px;margin-right:104px;white-space:nowrap\&quot;&gt;&lt;span style=\&quot;margin-right:28px\&quot;&gt;&lt;span style=\&quot;font-weight:bold\&quot;&gt;Full version&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;margin-right:28px\&quot;&gt;&lt;a href=\&quot;http://webcache.googleusercontent.com/search?q=cache:2BVPV8QGj3oJ:https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml&amp;amp;hl=en&amp;amp;gl=lu&amp;amp;strip=1&amp;amp;vwsrc=0\&quot;&gt;&lt;span&gt;Text-only version&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;span style=\&quot;margin-right:28px\&quot;&gt;&lt;a href=\&quot;http://webcache.googleusercontent.com/search?q=cache:2BVPV8QGj3oJ:https://chroniclingamerica.loc.gov/lccn/sn86069133/1910-10-31/ed-1/seq-1/ocr.xml&amp;amp;hl=en&amp;amp;gl=lu&amp;amp;strip=0&amp;amp;vwsrc=1\&quot;&gt;&lt;span&gt;View source&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;span style=\&quot;display:inline-block;margin-top:8px;color:#717171\&quot;&gt;&lt;span&gt;Tip: To quickly find your search term on this page, press &lt;b&gt;Ctrl+F&lt;/b&gt; or &lt;b&gt;⌘-F&lt;/b&gt; (Mac) and use the find bar.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=\&quot;position:relative;\&quot;&gt;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&quot;</code></pre>
 <p>Same. So where is the content? The file is very large, so if you print it in the console, it will
 take quite some time to print, and you will not really be able to make out anything. The best
@@ -3774,8 +3777,8 @@ way would be to try to detect the string <code>CONTENT</code> and work from ther
 <p>When confronted to an atomic vector of strings, you might want to know inside which elements you
 can find certain strings. For example, to know which elements of <code>winchester</code> contain the string
 <code>CONTENT</code>, use <code>str_detect()</code>:</p>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="descriptive-statistics-and-data-manipulation.html#cb604-1" aria-hidden="true" tabindex="-1"></a>winchester <span class="sc">%&gt;%</span></span>
-<span id="cb604-2"><a href="descriptive-statistics-and-data-manipulation.html#cb604-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_detect</span>(<span class="st">&quot;CONTENT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="descriptive-statistics-and-data-manipulation.html#cb607-1" aria-hidden="true" tabindex="-1"></a>winchester <span class="sc">%&gt;%</span></span>
+<span id="cb607-2"><a href="descriptive-statistics-and-data-manipulation.html#cb607-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_detect</span>(<span class="st">&quot;CONTENT&quot;</span>)</span></code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -3786,16 +3789,16 @@ see that the last element contains the string <code>CONTENT</code>. But what if 
 the vector had 24192 elements? And hundreds would contain the string <code>CONTENT</code>? It would be easier
 to instead have the indices of the vector where one can find the word <code>CONTENT</code>. This is possible
 with <code>str_which()</code>:</p>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="descriptive-statistics-and-data-manipulation.html#cb606-1" aria-hidden="true" tabindex="-1"></a>winchester <span class="sc">%&gt;%</span></span>
-<span id="cb606-2"><a href="descriptive-statistics-and-data-manipulation.html#cb606-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_which</span>(<span class="st">&quot;CONTENT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="descriptive-statistics-and-data-manipulation.html#cb609-1" aria-hidden="true" tabindex="-1"></a>winchester <span class="sc">%&gt;%</span></span>
+<span id="cb609-2"><a href="descriptive-statistics-and-data-manipulation.html#cb609-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_which</span>(<span class="st">&quot;CONTENT&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 43</code></pre>
 <p>Here, the result is 43, meaning that the 43rd element of <code>winchester</code> contains the string <code>CONTENT</code>
 somewhere. If we need more precision, we can use <code>str_locate()</code> and <code>str_locate_all()</code>. To explain
 how both these functions work, let’s create a very small example:</p>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="descriptive-statistics-and-data-manipulation.html#cb608-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;aristotle&quot;</span>, <span class="st">&quot;plato&quot;</span>, <span class="st">&quot;epictetus&quot;</span>, <span class="st">&quot;seneca the younger&quot;</span>, <span class="st">&quot;epicurus&quot;</span>, <span class="st">&quot;marcus aurelius&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="descriptive-statistics-and-data-manipulation.html#cb611-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;aristotle&quot;</span>, <span class="st">&quot;plato&quot;</span>, <span class="st">&quot;epictetus&quot;</span>, <span class="st">&quot;seneca the younger&quot;</span>, <span class="st">&quot;epicurus&quot;</span>, <span class="st">&quot;marcus aurelius&quot;</span>)</span></code></pre></div>
 <p>Now suppose I am interested in philosophers whose name ends in <code>us</code>. Let us use <code>str_locate()</code> first:</p>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="descriptive-statistics-and-data-manipulation.html#cb609-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb609-2"><a href="descriptive-statistics-and-data-manipulation.html#cb609-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_locate</span>(<span class="st">&quot;us&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="descriptive-statistics-and-data-manipulation.html#cb612-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb612-2"><a href="descriptive-statistics-and-data-manipulation.html#cb612-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_locate</span>(<span class="st">&quot;us&quot;</span>)</span></code></pre></div>
 <pre><code>##      start end
 ## [1,]    NA  NA
 ## [2,]    NA  NA
@@ -3810,8 +3813,8 @@ string <code>us</code> can be found starting at position 8 of the 3rd element of
 9. Same goes for the other philisophers. However, consider Marcus Aurelius. He has two names, both
 ending with <code>us</code>. However, <code>str_locate()</code> only shows the position of the <code>us</code> in <code>Marcus</code>.</p>
 <p>To get both <code>us</code> strings, you need to use <code>str_locate_all()</code>:</p>
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="descriptive-statistics-and-data-manipulation.html#cb611-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb611-2"><a href="descriptive-statistics-and-data-manipulation.html#cb611-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_locate_all</span>(<span class="st">&quot;us&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="descriptive-statistics-and-data-manipulation.html#cb614-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb614-2"><a href="descriptive-statistics-and-data-manipulation.html#cb614-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_locate_all</span>(<span class="st">&quot;us&quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ##      start end
 ## 
@@ -3838,7 +3841,7 @@ will give use the position of the <code>CONTENT</code> string, but this is not r
 matters is that you know how <code>str_locate()</code> and <code>str_locate_all()</code> work.</p>
 <p>So now that we know what interests us in the 43nd element of <code>winchester</code>, let’s take a closer
 look at it:</p>
-<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="descriptive-statistics-and-data-manipulation.html#cb613-1" aria-hidden="true" tabindex="-1"></a>winchester[<span class="dv">43</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="descriptive-statistics-and-data-manipulation.html#cb616-1" aria-hidden="true" tabindex="-1"></a>winchester[<span class="dv">43</span>]</span></code></pre></div>
 <p>As you can see, it’s a mess:</p>
 <pre><code>&lt;TextLine HEIGHT=\&quot;126.0\&quot; WIDTH=\&quot;1731.0\&quot; HPOS=\&quot;17160.0\&quot; VPOS=\&quot;21252.0\&quot;&gt;&lt;String HEIGHT=\&quot;114.0\&quot; WIDTH=\&quot;354.0\&quot; HPOS=\&quot;17160.0\&quot; VPOS=\&quot;21264.0\&quot; CONTENT=\&quot;0tV\&quot; WC=\&quot;0.8095238\&quot;/&gt;&lt;SP WIDTH=\&quot;131.0\&quot; HPOS=\&quot;17514.0\&quot; VPOS=\&quot;21264.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;111.0\&quot; WIDTH=\&quot;474.0\&quot; HPOS=\&quot;17646.0\&quot; VPOS=\&quot;21258.0\&quot; CONTENT=\&quot;BATES\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;140.0\&quot; HPOS=\&quot;18120.0\&quot; VPOS=\&quot;21258.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;114.0\&quot; WIDTH=\&quot;630.0\&quot; HPOS=\&quot;18261.0\&quot; VPOS=\&quot;21252.0\&quot; CONTENT=\&quot;President\&quot; WC=\&quot;1.0\&quot;&gt;&lt;ALTERNATIVE&gt;Prcideht&lt;/ALTERNATIVE&gt;&lt;ALTERNATIVE&gt;Pride&lt;/ALTERNATIVE&gt;&lt;/String&gt;&lt;/TextLine&gt;&lt;TextLine HEIGHT=\&quot;153.0\&quot; WIDTH=\&quot;1689.0\&quot; HPOS=\&quot;17145.0\&quot; VPOS=\&quot;21417.0\&quot;&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;105.0\&quot; WIDTH=\&quot;258.0\&quot; HPOS=\&quot;17145.0\&quot; VPOS=\&quot;21439.0\&quot; CONTENT=\&quot;WM\&quot; WC=\&quot;0.82539684\&quot;&gt;&lt;TextLine HEIGHT=\&quot;120.0\&quot; WIDTH=\&quot;2211.0\&quot; HPOS=\&quot;16788.0\&quot; VPOS=\&quot;21870.0\&quot;&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;96.0\&quot; WIDTH=\&quot;102.0\&quot; HPOS=\&quot;16788.0\&quot; VPOS=\&quot;21894.0\&quot; CONTENT=\&quot;It\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;72.0\&quot; HPOS=\&quot;16890.0\&quot; VPOS=\&quot;21894.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;96.0\&quot; WIDTH=\&quot;93.0\&quot; HPOS=\&quot;16962.0\&quot; VPOS=\&quot;21885.0\&quot; CONTENT=\&quot;is\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;80.0\&quot; HPOS=\&quot;17055.0\&quot; VPOS=\&quot;21885.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;102.0\&quot; WIDTH=\&quot;417.0\&quot; HPOS=\&quot;17136.0\&quot; VPOS=\&quot;21879.0\&quot; CONTENT=\&quot;seldom\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;80.0\&quot; HPOS=\&quot;17553.0\&quot; VPOS=\&quot;21879.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;96.0\&quot; WIDTH=\&quot;267.0\&quot; HPOS=\&quot;17634.0\&quot; VPOS=\&quot;21873.0\&quot; CONTENT=\&quot;hard\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;81.0\&quot; HPOS=\&quot;17901.0\&quot; VPOS=\&quot;21873.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;87.0\&quot; WIDTH=\&quot;111.0\&quot; HPOS=\&quot;17982.0\&quot; VPOS=\&quot;21879.0\&quot; CONTENT=\&quot;to\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;81.0\&quot; HPOS=\&quot;18093.0\&quot; VPOS=\&quot;21879.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;96.0\&quot; WIDTH=\&quot;219.0\&quot; HPOS=\&quot;18174.0\&quot; VPOS=\&quot;21870.0\&quot; CONTENT=\&quot;find\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;77.0\&quot; HPOS=\&quot;18393.0\&quot; VPOS=\&quot;21870.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;69.0\&quot; WIDTH=\&quot;66.0\&quot; HPOS=\&quot;18471.0\&quot; VPOS=\&quot;21894.0\&quot; CONTENT=\&quot;a\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;77.0\&quot; HPOS=\&quot;18537.0\&quot; VPOS=\&quot;21894.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;78.0\&quot; WIDTH=\&quot;384.0\&quot; HPOS=\&quot;18615.0\&quot; VPOS=\&quot;21888.0\&quot; CONTENT=\&quot;succes\&quot; WC=\&quot;0.82539684\&quot;&gt;&lt;ALTERNATIVE&gt;success&lt;/ALTERNATIVE&gt;&lt;/String&gt;&lt;/TextLine&gt;&lt;TextLine HEIGHT=\&quot;126.0\&quot; WIDTH=\&quot;2316.0\&quot; HPOS=\&quot;16662.0\&quot; VPOS=\&quot;22008.0\&quot;&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;75.0\&quot; WIDTH=\&quot;183.0\&quot; HPOS=\&quot;16662.0\&quot; VPOS=\&quot;22059.0\&quot; CONTENT=\&quot;sor\&quot; WC=\&quot;1.0\&quot;&gt;&lt;ALTERNATIVE&gt;soar&lt;/ALTERNATIVE&gt;&lt;/String&gt;&lt;SP WIDTH=\&quot;72.0\&quot; HPOS=\&quot;16845.0\&quot; VPOS=\&quot;22059.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;90.0\&quot; WIDTH=\&quot;168.0\&quot; HPOS=\&quot;16917.0\&quot; VPOS=\&quot;22035.0\&quot; CONTENT=\&quot;for\&quot; WC=\&quot;1.0\&quot;/&gt;&lt;SP WIDTH=\&quot;72.0\&quot; HPOS=\&quot;17085.0\&quot; VPOS=\&quot;22035.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;69.0\&quot; WIDTH=\&quot;267.0\&quot; HPOS=\&quot;17157.0\&quot; VPOS=\&quot;22050.0\&quot; CONTENT=\&quot;even\&quot; WC=\&quot;1.0\&quot;&gt;&lt;ALTERNATIVE&gt;cen&lt;/ALTERNATIVE&gt;&lt;ALTERNATIVE&gt;cent&lt;/ALTERNATIVE&gt;&lt;/String&gt;&lt;SP WIDTH=\&quot;77.0\&quot; HPOS=\&quot;17434.0\&quot; VPOS=\&quot;22050.0\&quot;/&gt;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;66.0\&quot; WIDTH=\&quot;63.0\&quot; HPOS=\&quot;17502.0\&quot; VPOS=\&quot;22044.0\&quot;</code></pre>
 <p>The file was imported without any newlines. So we need to insert them ourselves, by splitting the
@@ -3850,8 +3853,8 @@ string in a clever way.</p>
 Let’s go back to our ancient philosophers. Two of them, Seneca the Younger and Marcus Aurelius have
 something else in common than both being Roman Stoic philosophers. Their names are composed of several
 words. If we want to split their names at the space character, we can use <code>str_split()</code> like this:</p>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="descriptive-statistics-and-data-manipulation.html#cb615-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb615-2"><a href="descriptive-statistics-and-data-manipulation.html#cb615-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot; &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="descriptive-statistics-and-data-manipulation.html#cb618-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb618-2"><a href="descriptive-statistics-and-data-manipulation.html#cb618-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot; &quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;aristotle&quot;
 ## 
@@ -3870,8 +3873,8 @@ words. If we want to split their names at the space character, we can use <code>
 ## [[6]]
 ## [1] &quot;marcus&quot;   &quot;aurelius&quot;</code></pre>
 <p><code>str_split()</code> also has a <code>simplify = TRUE</code> option:</p>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="descriptive-statistics-and-data-manipulation.html#cb617-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb617-2"><a href="descriptive-statistics-and-data-manipulation.html#cb617-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot; &quot;</span>, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="descriptive-statistics-and-data-manipulation.html#cb620-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb620-2"><a href="descriptive-statistics-and-data-manipulation.html#cb620-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot; &quot;</span>, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##      [,1]        [,2]       [,3]     
 ## [1,] &quot;aristotle&quot; &quot;&quot;         &quot;&quot;       
 ## [2,] &quot;plato&quot;     &quot;&quot;         &quot;&quot;       
@@ -3885,8 +3888,8 @@ to return. For example, you could consider the name “Aurelius” to be the mid
 and the “the younger” to be the middle name of Seneca the younger. This means that you would want
 to split the name only at the first space character, and not at all of them. This is easily achieved
 with <code>str_split_fixed()</code>:</p>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="descriptive-statistics-and-data-manipulation.html#cb619-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb619-2"><a href="descriptive-statistics-and-data-manipulation.html#cb619-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split_fixed</span>(<span class="st">&quot; &quot;</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="descriptive-statistics-and-data-manipulation.html#cb622-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb622-2"><a href="descriptive-statistics-and-data-manipulation.html#cb622-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split_fixed</span>(<span class="st">&quot; &quot;</span>, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      [,1]        [,2]         
 ## [1,] &quot;aristotle&quot; &quot;&quot;           
 ## [2,] &quot;plato&quot;     &quot;&quot;           
@@ -3898,18 +3901,18 @@ with <code>str_split_fixed()</code>:</p>
 <p>So how does this help in our case? Well, if you look at how the ALTO file looks like, at the beginning
 of this section, you will notice that every line ends with the “&gt;” character. So let’s split at
 that character!</p>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="descriptive-statistics-and-data-manipulation.html#cb621-1" aria-hidden="true" tabindex="-1"></a>winchester_text <span class="ot">&lt;-</span> winchester[<span class="dv">43</span>] <span class="sc">%&gt;%</span></span>
-<span id="cb621-2"><a href="descriptive-statistics-and-data-manipulation.html#cb621-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot;&gt;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="descriptive-statistics-and-data-manipulation.html#cb624-1" aria-hidden="true" tabindex="-1"></a>winchester_text <span class="ot">&lt;-</span> winchester[<span class="dv">43</span>] <span class="sc">%&gt;%</span></span>
+<span id="cb624-2"><a href="descriptive-statistics-and-data-manipulation.html#cb624-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot;&gt;&quot;</span>)</span></code></pre></div>
 <p>Let’s take a closer look at <code>winchester_text</code>:</p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="descriptive-statistics-and-data-manipulation.html#cb622-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(winchester_text)</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="descriptive-statistics-and-data-manipulation.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(winchester_text)</span></code></pre></div>
 <pre><code>## List of 1
 ##  $ : chr [1:19706] &quot;&lt;/processingStepSettings&quot; &quot;&lt;processingSoftware&quot; &quot;&lt;softwareCreator&quot; &quot;iArchives&lt;/softwareCreator&quot; ...</code></pre>
 <p>So this is a list of length one, and the first, and only, element of that list is an atomic vector
 with 19706 elements. Since this is a list of only one element, we can simplify it by saving the
 atomic vector in a variable:</p>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="descriptive-statistics-and-data-manipulation.html#cb624-1" aria-hidden="true" tabindex="-1"></a>winchester_text <span class="ot">&lt;-</span> winchester_text[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="descriptive-statistics-and-data-manipulation.html#cb627-1" aria-hidden="true" tabindex="-1"></a>winchester_text <span class="ot">&lt;-</span> winchester_text[[<span class="dv">1</span>]]</span></code></pre></div>
 <p>Let’s now look at some lines:</p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="descriptive-statistics-and-data-manipulation.html#cb625-1" aria-hidden="true" tabindex="-1"></a>winchester_text[<span class="dv">1232</span><span class="sc">:</span><span class="dv">1245</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="descriptive-statistics-and-data-manipulation.html#cb628-1" aria-hidden="true" tabindex="-1"></a>winchester_text[<span class="dv">1232</span><span class="sc">:</span><span class="dv">1245</span>]</span></code></pre></div>
 <pre><code>##  [1] &quot;&lt;SP WIDTH=\&quot;66.0\&quot; HPOS=\&quot;5763.0\&quot; VPOS=\&quot;9696.0\&quot;/&quot;                                                                         
 ##  [2] &quot;&lt;String STYLEREFS=\&quot;ID7\&quot; HEIGHT=\&quot;108.0\&quot; WIDTH=\&quot;612.0\&quot; HPOS=\&quot;5829.0\&quot; VPOS=\&quot;9693.0\&quot; CONTENT=\&quot;Louisville\&quot; WC=\&quot;1.0\&quot;&quot;
 ##  [3] &quot;&lt;ALTERNATIVE&quot;                                                                                                                
@@ -3926,14 +3929,14 @@ atomic vector in a variable:</p>
 ## [14] &quot;WHrchons&lt;/ALTERNATIVE&quot;</code></pre>
 <p>This now looks easier to handle. We can narrow it down to the lines that only contain the string
 we are interested in, “CONTENT”. First, let’s get the indices:</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="descriptive-statistics-and-data-manipulation.html#cb627-1" aria-hidden="true" tabindex="-1"></a>content_winchester_index <span class="ot">&lt;-</span> winchester_text <span class="sc">%&gt;%</span></span>
-<span id="cb627-2"><a href="descriptive-statistics-and-data-manipulation.html#cb627-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_which</span>(<span class="st">&quot;CONTENT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="descriptive-statistics-and-data-manipulation.html#cb630-1" aria-hidden="true" tabindex="-1"></a>content_winchester_index <span class="ot">&lt;-</span> winchester_text <span class="sc">%&gt;%</span></span>
+<span id="cb630-2"><a href="descriptive-statistics-and-data-manipulation.html#cb630-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_which</span>(<span class="st">&quot;CONTENT&quot;</span>)</span></code></pre></div>
 <p>How many lines contain the string “CONTENT”?</p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="descriptive-statistics-and-data-manipulation.html#cb628-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(content_winchester_index)</span></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="descriptive-statistics-and-data-manipulation.html#cb631-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(content_winchester_index)</span></code></pre></div>
 <pre><code>## [1] 4462</code></pre>
 <p>As you can see, this reduces the amount of data we have to work with. Let us save this is a new
 variable:</p>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="descriptive-statistics-and-data-manipulation.html#cb630-1" aria-hidden="true" tabindex="-1"></a>content_winchester <span class="ot">&lt;-</span> winchester_text[content_winchester_index]</span></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="descriptive-statistics-and-data-manipulation.html#cb633-1" aria-hidden="true" tabindex="-1"></a>content_winchester <span class="ot">&lt;-</span> winchester_text[content_winchester_index]</span></code></pre></div>
 </div>
 <div id="matching-strings" class="section level4 hasAnchor" number="4.7.3.4">
 <h4><span class="header-section-number">4.7.3.4</span> Matching strings<a href="descriptive-statistics-and-data-manipulation.html#matching-strings" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -3943,8 +3946,8 @@ order to make this section useful, we are going to learn the easiest, but perhap
 regular expression: <code>.*</code>.</p>
 <p>Let’s go back to our ancient philosophers, and use <code>str_match()</code> and see what happens. Let’s match
 the “us” string:</p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="descriptive-statistics-and-data-manipulation.html#cb631-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb631-2"><a href="descriptive-statistics-and-data-manipulation.html#cb631-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;us&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="descriptive-statistics-and-data-manipulation.html#cb634-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb634-2"><a href="descriptive-statistics-and-data-manipulation.html#cb634-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;us&quot;</span>)</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,] NA  
 ## [2,] NA  
@@ -3953,8 +3956,8 @@ the “us” string:</p>
 ## [5,] &quot;us&quot;
 ## [6,] &quot;us&quot;</code></pre>
 <p>Not very useful, but what about the regular expression <code>.*</code>? How could it help?</p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="descriptive-statistics-and-data-manipulation.html#cb633-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb633-2"><a href="descriptive-statistics-and-data-manipulation.html#cb633-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;.*us&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="descriptive-statistics-and-data-manipulation.html#cb636-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb636-2"><a href="descriptive-statistics-and-data-manipulation.html#cb636-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;.*us&quot;</span>)</span></code></pre></div>
 <pre><code>##      [,1]             
 ## [1,] NA               
 ## [2,] NA               
@@ -3964,8 +3967,8 @@ the “us” string:</p>
 ## [6,] &quot;marcus aurelius&quot;</code></pre>
 <p>That’s already very interesting! So how does <code>.*</code> work? To understand, let’s first start by using
 <code>.</code> alone:</p>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="descriptive-statistics-and-data-manipulation.html#cb635-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb635-2"><a href="descriptive-statistics-and-data-manipulation.html#cb635-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;.us&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="descriptive-statistics-and-data-manipulation.html#cb638-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb638-2"><a href="descriptive-statistics-and-data-manipulation.html#cb638-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;.us&quot;</span>)</span></code></pre></div>
 <pre><code>##      [,1] 
 ## [1,] NA   
 ## [2,] NA   
@@ -3974,8 +3977,8 @@ the “us” string:</p>
 ## [5,] &quot;rus&quot;
 ## [6,] &quot;cus&quot;</code></pre>
 <p>This also matched whatever symbol comes just before the “u” from “us”. What if we use two <code>.</code> instead?</p>
-<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="descriptive-statistics-and-data-manipulation.html#cb637-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb637-2"><a href="descriptive-statistics-and-data-manipulation.html#cb637-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;..us&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="descriptive-statistics-and-data-manipulation.html#cb640-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb640-2"><a href="descriptive-statistics-and-data-manipulation.html#cb640-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;..us&quot;</span>)</span></code></pre></div>
 <pre><code>##      [,1]  
 ## [1,] NA    
 ## [2,] NA    
@@ -3988,8 +3991,8 @@ we now use the <code>*</code>, which matches zero or more of <code>.</code>. So 
 any symbol repeatedly, until there is nothing more to match. Note that there is also <code>+</code>, which works
 similarly to <code>*</code>, but it matches one or more symbols.</p>
 <p>There is also a <code>str_match_all()</code>:</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="descriptive-statistics-and-data-manipulation.html#cb639-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb639-2"><a href="descriptive-statistics-and-data-manipulation.html#cb639-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match_all</span>(<span class="st">&quot;.*us&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="descriptive-statistics-and-data-manipulation.html#cb642-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb642-2"><a href="descriptive-statistics-and-data-manipulation.html#cb642-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match_all</span>(<span class="st">&quot;.*us&quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ##      [,1]
 ## 
@@ -4011,14 +4014,14 @@ similarly to <code>*</code>, but it matches one or more symbols.</p>
 ##      [,1]             
 ## [1,] &quot;marcus aurelius&quot;</code></pre>
 <p>In this particular case it does not change the end result, but keep it in mind for cases like this one:</p>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="descriptive-statistics-and-data-manipulation.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;haha&quot;</span>, <span class="st">&quot;huhu&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb641-2"><a href="descriptive-statistics-and-data-manipulation.html#cb641-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;ha&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="descriptive-statistics-and-data-manipulation.html#cb644-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;haha&quot;</span>, <span class="st">&quot;huhu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb644-2"><a href="descriptive-statistics-and-data-manipulation.html#cb644-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;ha&quot;</span>)</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,] &quot;ha&quot;
 ## [2,] NA</code></pre>
 <p>and:</p>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="descriptive-statistics-and-data-manipulation.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;haha&quot;</span>, <span class="st">&quot;huhu&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb643-2"><a href="descriptive-statistics-and-data-manipulation.html#cb643-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match_all</span>(<span class="st">&quot;ha&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="descriptive-statistics-and-data-manipulation.html#cb646-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;haha&quot;</span>, <span class="st">&quot;huhu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb646-2"><a href="descriptive-statistics-and-data-manipulation.html#cb646-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match_all</span>(<span class="st">&quot;ha&quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ##      [,1]
 ## [1,] &quot;ha&quot;
@@ -4027,8 +4030,8 @@ similarly to <code>*</code>, but it matches one or more symbols.</p>
 ## [[2]]
 ##      [,1]</code></pre>
 <p>What if we want to match names containing the letter “t”? Easy:</p>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="descriptive-statistics-and-data-manipulation.html#cb645-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
-<span id="cb645-2"><a href="descriptive-statistics-and-data-manipulation.html#cb645-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;.*t.*&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="descriptive-statistics-and-data-manipulation.html#cb648-1" aria-hidden="true" tabindex="-1"></a>ancient_philosophers <span class="sc">%&gt;%</span></span>
+<span id="cb648-2"><a href="descriptive-statistics-and-data-manipulation.html#cb648-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;.*t.*&quot;</span>)</span></code></pre></div>
 <pre><code>##      [,1]                
 ## [1,] &quot;aristotle&quot;         
 ## [2,] &quot;plato&quot;             
@@ -4038,22 +4041,27 @@ similarly to <code>*</code>, but it matches one or more symbols.</p>
 ## [6,] NA</code></pre>
 <p>So how does this help us with our historical newspaper? Let’s try to get the strings that come
 after “CONTENT”:</p>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="descriptive-statistics-and-data-manipulation.html#cb647-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_text <span class="sc">%&gt;%</span></span>
-<span id="cb647-2"><a href="descriptive-statistics-and-data-manipulation.html#cb647-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;CONTENT.*&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="descriptive-statistics-and-data-manipulation.html#cb650-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_text <span class="sc">%&gt;%</span></span>
+<span id="cb650-2"><a href="descriptive-statistics-and-data-manipulation.html#cb650-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_match</span>(<span class="st">&quot;CONTENT.*&quot;</span>)</span></code></pre></div>
 <p>Let’s use our faithful <code>str()</code> function to take a look:</p>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="descriptive-statistics-and-data-manipulation.html#cb648-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="sc">%&gt;%</span></span>
-<span id="cb648-2"><a href="descriptive-statistics-and-data-manipulation.html#cb648-2" aria-hidden="true" tabindex="-1"></a>  str</span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="descriptive-statistics-and-data-manipulation.html#cb651-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="sc">%&gt;%</span></span>
+<span id="cb651-2"><a href="descriptive-statistics-and-data-manipulation.html#cb651-2" aria-hidden="true" tabindex="-1"></a>  str</span></code></pre></div>
 <pre><code>##  chr [1:19706, 1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <p>Hum, there’s a lot of <code>NA</code> values! This is because a lot of the lines from the file did not have the
 string “CONTENT”, so there is no match possible. Let’s us remove all these <code>NA</code>s. Because the
 result is a matrix, we cannot use the <code>filter()</code> function from <code>{dplyr}</code>. So we need to convert it
 to a tibble first:</p>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="descriptive-statistics-and-data-manipulation.html#cb650-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span></span>
-<span id="cb650-2"><a href="descriptive-statistics-and-data-manipulation.html#cb650-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb650-3"><a href="descriptive-statistics-and-data-manipulation.html#cb650-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(V1))</span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="descriptive-statistics-and-data-manipulation.html#cb653-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span></span>
+<span id="cb653-2"><a href="descriptive-statistics-and-data-manipulation.html#cb653-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb653-3"><a href="descriptive-statistics-and-data-manipulation.html#cb653-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(V1))</span></code></pre></div>
+<pre><code>## Warning: `as.tibble()` was deprecated in tibble 2.0.0.
+## Please use `as_tibble()` instead.
+## The signature and semantics have changed, see `?as_tibble`.</code></pre>
+<pre><code>## Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0.
+## Using compatibility `.name_repair`.</code></pre>
 <p>Because matrix columns do not have names, when a matrix gets converted into a tibble, the firt column
 gets automatically called <code>V1</code>. This is why I filter on this column. Let’s take a look at the data:</p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="descriptive-statistics-and-data-manipulation.html#cb651-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="descriptive-statistics-and-data-manipulation.html#cb656-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   V1                                  
 ##   &lt;chr&gt;                               
@@ -4069,11 +4077,11 @@ gets automatically called <code>V1</code>. This is why I filter on this column. 
 <p>We are getting close to the final result. We still need to do some cleaning however. Since our data
 is inside a nice tibble, we might as well stick with it. So let’s first rename the column and
 change all the strings to lowercase:</p>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="descriptive-statistics-and-data-manipulation.html#cb653-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb653-2"><a href="descriptive-statistics-and-data-manipulation.html#cb653-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">tolower</span>(V1)) <span class="sc">%&gt;%</span> </span>
-<span id="cb653-3"><a href="descriptive-statistics-and-data-manipulation.html#cb653-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>V1)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="descriptive-statistics-and-data-manipulation.html#cb658-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb658-2"><a href="descriptive-statistics-and-data-manipulation.html#cb658-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">tolower</span>(V1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb658-3"><a href="descriptive-statistics-and-data-manipulation.html#cb658-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>V1)</span></code></pre></div>
 <p>Let’s take a look at the result:</p>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="descriptive-statistics-and-data-manipulation.html#cb654-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="descriptive-statistics-and-data-manipulation.html#cb659-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   content                             
 ##   &lt;chr&gt;                               
@@ -4085,10 +4093,10 @@ change all the strings to lowercase:</p>
 ## 6 &quot;content=\&quot;te1r\&quot; wc=\&quot;0.8095238\&quot;/&quot;</code></pre>
 <p>The second part of the string, “wc=….” is not really interesting. Let’s search and replace this
 with an empty string, using <code>str_replace()</code>:</p>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="descriptive-statistics-and-data-manipulation.html#cb656-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb656-2"><a href="descriptive-statistics-and-data-manipulation.html#cb656-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_replace</span>(content, <span class="st">&quot;wc.*&quot;</span>, <span class="st">&quot;&quot;</span>))</span>
-<span id="cb656-3"><a href="descriptive-statistics-and-data-manipulation.html#cb656-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb656-4"><a href="descriptive-statistics-and-data-manipulation.html#cb656-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="descriptive-statistics-and-data-manipulation.html#cb661-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb661-2"><a href="descriptive-statistics-and-data-manipulation.html#cb661-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_replace</span>(content, <span class="st">&quot;wc.*&quot;</span>, <span class="st">&quot;&quot;</span>))</span>
+<span id="cb661-3"><a href="descriptive-statistics-and-data-manipulation.html#cb661-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb661-4"><a href="descriptive-statistics-and-data-manipulation.html#cb661-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   content            
 ##   &lt;chr&gt;              
@@ -4100,10 +4108,10 @@ with an empty string, using <code>str_replace()</code>:</p>
 ## 6 &quot;content=\&quot;te1r\&quot; &quot;</code></pre>
 <p>We need to use the regular expression from before to replace “wc” and every character that follows.
 The same can be use to remove “content=”:</p>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="descriptive-statistics-and-data-manipulation.html#cb658-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb658-2"><a href="descriptive-statistics-and-data-manipulation.html#cb658-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_replace</span>(content, <span class="st">&quot;content=&quot;</span>, <span class="st">&quot;&quot;</span>))</span>
-<span id="cb658-3"><a href="descriptive-statistics-and-data-manipulation.html#cb658-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb658-4"><a href="descriptive-statistics-and-data-manipulation.html#cb658-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="descriptive-statistics-and-data-manipulation.html#cb663-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb663-2"><a href="descriptive-statistics-and-data-manipulation.html#cb663-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_replace</span>(content, <span class="st">&quot;content=&quot;</span>, <span class="st">&quot;&quot;</span>))</span>
+<span id="cb663-3"><a href="descriptive-statistics-and-data-manipulation.html#cb663-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb663-4"><a href="descriptive-statistics-and-data-manipulation.html#cb663-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   content    
 ##   &lt;chr&gt;      
@@ -4118,8 +4126,8 @@ The same can be use to remove “content=”:</p>
 <div id="exctracting-or-removing-strings" class="section level4 hasAnchor" number="4.7.3.6">
 <h4><span class="header-section-number">4.7.3.6</span> Exctracting or removing strings<a href="descriptive-statistics-and-data-manipulation.html#exctracting-or-removing-strings" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Now, because I now the ALTO spec, I know how to find words that are split between two sentences:</p>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="descriptive-statistics-and-data-manipulation.html#cb660-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb660-2"><a href="descriptive-statistics-and-data-manipulation.html#cb660-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(content, <span class="st">&quot;hyppart&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="descriptive-statistics-and-data-manipulation.html#cb665-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb665-2"><a href="descriptive-statistics-and-data-manipulation.html#cb665-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(content, <span class="st">&quot;hyppart&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 64 × 1
 ##    content                                                               
 ##    &lt;chr&gt;                                                                 
@@ -4141,13 +4149,13 @@ some words were split between two lines, we first need to detect where the strin
 located, and only then can we extract what comes after “subs_content”. Thus, we need to combine
 <code>str_detect()</code> to first detect the string, and then <code>str_extract()</code> to extract what comes after
 “subs_content”:</p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="descriptive-statistics-and-data-manipulation.html#cb662-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb662-2"><a href="descriptive-statistics-and-data-manipulation.html#cb662-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(content, <span class="st">&quot;hyppart1&quot;</span>), </span>
-<span id="cb662-3"><a href="descriptive-statistics-and-data-manipulation.html#cb662-3" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">str_extract_all</span>(content, <span class="st">&quot;content=.*&quot;</span>, <span class="at">simplify =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb662-4"><a href="descriptive-statistics-and-data-manipulation.html#cb662-4" aria-hidden="true" tabindex="-1"></a>                           content))</span></code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="descriptive-statistics-and-data-manipulation.html#cb667-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb667-2"><a href="descriptive-statistics-and-data-manipulation.html#cb667-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(content, <span class="st">&quot;hyppart1&quot;</span>), </span>
+<span id="cb667-3"><a href="descriptive-statistics-and-data-manipulation.html#cb667-3" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">str_extract_all</span>(content, <span class="st">&quot;content=.*&quot;</span>, <span class="at">simplify =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb667-4"><a href="descriptive-statistics-and-data-manipulation.html#cb667-4" aria-hidden="true" tabindex="-1"></a>                           content))</span></code></pre></div>
 <p>Let’s take a look at the result:</p>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="descriptive-statistics-and-data-manipulation.html#cb663-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb663-2"><a href="descriptive-statistics-and-data-manipulation.html#cb663-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(content, <span class="st">&quot;content&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="descriptive-statistics-and-data-manipulation.html#cb668-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb668-2"><a href="descriptive-statistics-and-data-manipulation.html#cb668-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(content, <span class="st">&quot;content&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 64 × 1
 ##    content                                                          
 ##    &lt;chr&gt;                                                            
@@ -4164,11 +4172,11 @@ located, and only then can we extract what comes after “subs_content”. Thus,
 ## # … with 54 more rows</code></pre>
 <p>We still need to get rid of the string “content=” and then of all the strings that contain “hyppart2”,
 which are not needed now:</p>
-<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="descriptive-statistics-and-data-manipulation.html#cb665-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb665-2"><a href="descriptive-statistics-and-data-manipulation.html#cb665-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_replace</span>(content, <span class="st">&quot;content=&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb665-3"><a href="descriptive-statistics-and-data-manipulation.html#cb665-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(content, <span class="st">&quot;hyppart2&quot;</span>), <span class="cn">NA_character_</span>, content))</span>
-<span id="cb665-4"><a href="descriptive-statistics-and-data-manipulation.html#cb665-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb665-5"><a href="descriptive-statistics-and-data-manipulation.html#cb665-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="descriptive-statistics-and-data-manipulation.html#cb670-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb670-2"><a href="descriptive-statistics-and-data-manipulation.html#cb670-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_replace</span>(content, <span class="st">&quot;content=&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb670-3"><a href="descriptive-statistics-and-data-manipulation.html#cb670-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(content, <span class="st">&quot;hyppart2&quot;</span>), <span class="cn">NA_character_</span>, content))</span>
+<span id="cb670-4"><a href="descriptive-statistics-and-data-manipulation.html#cb670-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb670-5"><a href="descriptive-statistics-and-data-manipulation.html#cb670-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   content    
 ##   &lt;chr&gt;      
@@ -4179,10 +4187,10 @@ which are not needed now:</p>
 ## 5 &quot;\&quot;ii\&quot; &quot;  
 ## 6 &quot;\&quot;te1r\&quot; &quot;</code></pre>
 <p>Almost done! We only need to remove the <code>"</code> characters:</p>
-<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="descriptive-statistics-and-data-manipulation.html#cb667-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb667-2"><a href="descriptive-statistics-and-data-manipulation.html#cb667-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_replace_all</span>(content, <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>, <span class="st">&quot;&quot;</span>)) </span>
-<span id="cb667-3"><a href="descriptive-statistics-and-data-manipulation.html#cb667-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb667-4"><a href="descriptive-statistics-and-data-manipulation.html#cb667-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="descriptive-statistics-and-data-manipulation.html#cb672-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb672-2"><a href="descriptive-statistics-and-data-manipulation.html#cb672-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_replace_all</span>(content, <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>, <span class="st">&quot;&quot;</span>)) </span>
+<span id="cb672-3"><a href="descriptive-statistics-and-data-manipulation.html#cb672-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb672-4"><a href="descriptive-statistics-and-data-manipulation.html#cb672-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   content
 ##   &lt;chr&gt;  
@@ -4193,10 +4201,10 @@ which are not needed now:</p>
 ## 5 &quot;ii &quot;  
 ## 6 &quot;te1r &quot;</code></pre>
 <p>Let’s remove space characters with <code>str_trim()</code>:</p>
-<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="descriptive-statistics-and-data-manipulation.html#cb669-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb669-2"><a href="descriptive-statistics-and-data-manipulation.html#cb669-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_trim</span>(content)) </span>
-<span id="cb669-3"><a href="descriptive-statistics-and-data-manipulation.html#cb669-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb669-4"><a href="descriptive-statistics-and-data-manipulation.html#cb669-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="descriptive-statistics-and-data-manipulation.html#cb674-1" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb674-2"><a href="descriptive-statistics-and-data-manipulation.html#cb674-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">content =</span> <span class="fu">str_trim</span>(content)) </span>
+<span id="cb674-3"><a href="descriptive-statistics-and-data-manipulation.html#cb674-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb674-4"><a href="descriptive-statistics-and-data-manipulation.html#cb674-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   content
 ##   &lt;chr&gt;  
@@ -4209,17 +4217,17 @@ which are not needed now:</p>
 <p>To finish off this section, let’s remove stop words (words that do not add any meaning to a sentence,
 such as “as”, “and”…) and words that are composed of less than 3 characters. You can find a dataset
 with stopwords inside the <code>{stopwords}</code> package:</p>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="descriptive-statistics-and-data-manipulation.html#cb671-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stopwords)</span>
-<span id="cb671-2"><a href="descriptive-statistics-and-data-manipulation.html#cb671-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb671-3"><a href="descriptive-statistics-and-data-manipulation.html#cb671-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(data_stopwords_stopwordsiso)</span>
-<span id="cb671-4"><a href="descriptive-statistics-and-data-manipulation.html#cb671-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb671-5"><a href="descriptive-statistics-and-data-manipulation.html#cb671-5" aria-hidden="true" tabindex="-1"></a>eng_stopwords <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;content&quot;</span> <span class="ot">=</span> data_stopwords_stopwordsiso<span class="sc">$</span>en)</span>
-<span id="cb671-6"><a href="descriptive-statistics-and-data-manipulation.html#cb671-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb671-7"><a href="descriptive-statistics-and-data-manipulation.html#cb671-7" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
-<span id="cb671-8"><a href="descriptive-statistics-and-data-manipulation.html#cb671-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(eng_stopwords) <span class="sc">%&gt;%</span> </span>
-<span id="cb671-9"><a href="descriptive-statistics-and-data-manipulation.html#cb671-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">nchar</span>(content) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="descriptive-statistics-and-data-manipulation.html#cb676-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stopwords)</span>
+<span id="cb676-2"><a href="descriptive-statistics-and-data-manipulation.html#cb676-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb676-3"><a href="descriptive-statistics-and-data-manipulation.html#cb676-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(data_stopwords_stopwordsiso)</span>
+<span id="cb676-4"><a href="descriptive-statistics-and-data-manipulation.html#cb676-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb676-5"><a href="descriptive-statistics-and-data-manipulation.html#cb676-5" aria-hidden="true" tabindex="-1"></a>eng_stopwords <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;content&quot;</span> <span class="ot">=</span> data_stopwords_stopwordsiso<span class="sc">$</span>en)</span>
+<span id="cb676-6"><a href="descriptive-statistics-and-data-manipulation.html#cb676-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb676-7"><a href="descriptive-statistics-and-data-manipulation.html#cb676-7" aria-hidden="true" tabindex="-1"></a>winchester_content <span class="ot">&lt;-</span> winchester_content <span class="sc">%&gt;%</span> </span>
+<span id="cb676-8"><a href="descriptive-statistics-and-data-manipulation.html#cb676-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(eng_stopwords) <span class="sc">%&gt;%</span> </span>
+<span id="cb676-9"><a href="descriptive-statistics-and-data-manipulation.html#cb676-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">nchar</span>(content) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Joining, by = &quot;content&quot;</code></pre>
-<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="descriptive-statistics-and-data-manipulation.html#cb673-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="descriptive-statistics-and-data-manipulation.html#cb678-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(winchester_content)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   content   
 ##   &lt;chr&gt;     
@@ -4241,8 +4249,8 @@ some more useful functions.</p>
 <h4><span class="header-section-number">4.7.4.1</span> Creating tibbles<a href="descriptive-statistics-and-data-manipulation.html#creating-tibbles" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>tribble()</code> makes it easy to create tibble row by row, manually:</p>
 <p>It is also possible to create a tibble from a named list:</p>
-<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="descriptive-statistics-and-data-manipulation.html#cb675-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(<span class="fu">list</span>(<span class="st">&quot;combustion&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;oil&quot;</span>, <span class="st">&quot;diesel&quot;</span>, <span class="st">&quot;oil&quot;</span>, <span class="st">&quot;electric&quot;</span>),</span>
-<span id="cb675-2"><a href="descriptive-statistics-and-data-manipulation.html#cb675-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;doors&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="descriptive-statistics-and-data-manipulation.html#cb680-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(<span class="fu">list</span>(<span class="st">&quot;combustion&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;oil&quot;</span>, <span class="st">&quot;diesel&quot;</span>, <span class="st">&quot;oil&quot;</span>, <span class="st">&quot;electric&quot;</span>),</span>
+<span id="cb680-2"><a href="descriptive-statistics-and-data-manipulation.html#cb680-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;doors&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 2
 ##   combustion doors
 ##   &lt;chr&gt;      &lt;dbl&gt;
@@ -4250,7 +4258,7 @@ some more useful functions.</p>
 ## 2 diesel         5
 ## 3 oil            5
 ## 4 electric       5</code></pre>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="descriptive-statistics-and-data-manipulation.html#cb677-1" aria-hidden="true" tabindex="-1"></a><span class="fu">enframe</span>(<span class="fu">list</span>(<span class="st">&quot;combustion&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;doors&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cylinders&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="descriptive-statistics-and-data-manipulation.html#cb682-1" aria-hidden="true" tabindex="-1"></a><span class="fu">enframe</span>(<span class="fu">list</span>(<span class="st">&quot;combustion&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;doors&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cylinders&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##   name       value    
 ##   &lt;chr&gt;      &lt;list&gt;   
@@ -4263,10 +4271,10 @@ some more useful functions.</p>
 <div id="list-columns" class="section level2 hasAnchor" number="4.8">
 <h2><span class="header-section-number">4.8</span> List-columns<a href="descriptive-statistics-and-data-manipulation.html#list-columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To learn about list-columns, let’s first focus on a single character of the <code>starwars</code> dataset:</p>
-<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="descriptive-statistics-and-data-manipulation.html#cb679-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(starwars)</span></code></pre></div>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="descriptive-statistics-and-data-manipulation.html#cb680-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
-<span id="cb680-2"><a href="descriptive-statistics-and-data-manipulation.html#cb680-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">&quot;Luke Skywalker&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb680-3"><a href="descriptive-statistics-and-data-manipulation.html#cb680-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="descriptive-statistics-and-data-manipulation.html#cb684-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(starwars)</span></code></pre></div>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="descriptive-statistics-and-data-manipulation.html#cb685-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb685-2"><a href="descriptive-statistics-and-data-manipulation.html#cb685-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">&quot;Luke Skywalker&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb685-3"><a href="descriptive-statistics-and-data-manipulation.html#cb685-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 1
 ## Columns: 14
 ## $ name       &lt;chr&gt; &quot;Luke Skywalker&quot;
@@ -4286,9 +4294,9 @@ some more useful functions.</p>
 <p>We see that the columns <code>films</code>, <code>vehicles</code> and <code>starships</code> (at the bottom) are all lists, and in
 the case of <code>films</code>, it lists all the films where Luke Skywalker has appeared. What if you want to
 take a closer look at films where Luke Skywalker appeared?</p>
-<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="descriptive-statistics-and-data-manipulation.html#cb682-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
-<span id="cb682-2"><a href="descriptive-statistics-and-data-manipulation.html#cb682-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">&quot;Luke Skywalker&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb682-3"><a href="descriptive-statistics-and-data-manipulation.html#cb682-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(films)</span></code></pre></div>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="descriptive-statistics-and-data-manipulation.html#cb687-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb687-2"><a href="descriptive-statistics-and-data-manipulation.html#cb687-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">&quot;Luke Skywalker&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb687-3"><a href="descriptive-statistics-and-data-manipulation.html#cb687-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(films)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;The Empire Strikes Back&quot; &quot;Revenge of the Sith&quot;    
 ## [3] &quot;Return of the Jedi&quot;      &quot;A New Hope&quot;             
@@ -4296,9 +4304,9 @@ take a closer look at films where Luke Skywalker appeared?</p>
 <p><code>pull()</code> is a <code>{dplyr}</code> function that extract (pulls) the column you’re interested in. It is quite
 useful when you want to inspect a column. Instead of just looking at Luke Skywalker’s films,
 let’s pull the complete <code>films</code> column instead:</p>
-<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="descriptive-statistics-and-data-manipulation.html#cb684-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
-<span id="cb684-2"><a href="descriptive-statistics-and-data-manipulation.html#cb684-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span>  <span class="co"># let&#39;s just look at the first six rows</span></span>
-<span id="cb684-3"><a href="descriptive-statistics-and-data-manipulation.html#cb684-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(films) </span></code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="descriptive-statistics-and-data-manipulation.html#cb689-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb689-2"><a href="descriptive-statistics-and-data-manipulation.html#cb689-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span>  <span class="co"># let&#39;s just look at the first six rows</span></span>
+<span id="cb689-3"><a href="descriptive-statistics-and-data-manipulation.html#cb689-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(films) </span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;The Empire Strikes Back&quot; &quot;Revenge of the Sith&quot;    
 ## [3] &quot;Return of the Jedi&quot;      &quot;A New Hope&quot;             
@@ -4342,40 +4350,40 @@ once you master them.</p>
 <p>As an example, suppose we want to create a numerical variable which counts the number of movies
 in which the characters have appeared. For this we need to compute the length of the list, or count
 the number of elements this list has. Let’s try with <code>length()</code> a base R function:</p>
-<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="descriptive-statistics-and-data-manipulation.html#cb686-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
-<span id="cb686-2"><a href="descriptive-statistics-and-data-manipulation.html#cb686-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">&quot;Luke Skywalker&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb686-3"><a href="descriptive-statistics-and-data-manipulation.html#cb686-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(films) <span class="sc">%&gt;%</span></span>
-<span id="cb686-4"><a href="descriptive-statistics-and-data-manipulation.html#cb686-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="descriptive-statistics-and-data-manipulation.html#cb691-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb691-2"><a href="descriptive-statistics-and-data-manipulation.html#cb691-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">&quot;Luke Skywalker&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb691-3"><a href="descriptive-statistics-and-data-manipulation.html#cb691-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(films) <span class="sc">%&gt;%</span></span>
+<span id="cb691-4"><a href="descriptive-statistics-and-data-manipulation.html#cb691-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>This might be surprising, but remember that a list with only one element, has a length of 1:</p>
-<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="descriptive-statistics-and-data-manipulation.html#cb688-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(</span>
-<span id="cb688-2"><a href="descriptive-statistics-and-data-manipulation.html#cb688-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(words) <span class="co"># this creates a list which one element. This element is a list of 980 words.</span></span>
-<span id="cb688-3"><a href="descriptive-statistics-and-data-manipulation.html#cb688-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="descriptive-statistics-and-data-manipulation.html#cb693-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(</span>
+<span id="cb693-2"><a href="descriptive-statistics-and-data-manipulation.html#cb693-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(words) <span class="co"># this creates a list which one element. This element is a list of 980 words.</span></span>
+<span id="cb693-3"><a href="descriptive-statistics-and-data-manipulation.html#cb693-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Even though <code>words</code> contain a vector of 980 words, if we put this very long vector inside the
 first element of list, <code>length(list(words))</code> will this compute the length of the list. Let’s
 see what happens if we create a more complex list:</p>
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="descriptive-statistics-and-data-manipulation.html#cb690-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>)</span>
-<span id="cb690-2"><a href="descriptive-statistics-and-data-manipulation.html#cb690-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb690-3"><a href="descriptive-statistics-and-data-manipulation.html#cb690-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(</span>
-<span id="cb690-4"><a href="descriptive-statistics-and-data-manipulation.html#cb690-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(words, <span class="co"># this creates a list which one element. This element is a list of 980 words.</span></span>
-<span id="cb690-5"><a href="descriptive-statistics-and-data-manipulation.html#cb690-5" aria-hidden="true" tabindex="-1"></a>       numbers) <span class="co"># numbers contains numbers 1 through 5</span></span>
-<span id="cb690-6"><a href="descriptive-statistics-and-data-manipulation.html#cb690-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="descriptive-statistics-and-data-manipulation.html#cb695-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb695-2"><a href="descriptive-statistics-and-data-manipulation.html#cb695-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb695-3"><a href="descriptive-statistics-and-data-manipulation.html#cb695-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(</span>
+<span id="cb695-4"><a href="descriptive-statistics-and-data-manipulation.html#cb695-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(words, <span class="co"># this creates a list which one element. This element is a list of 980 words.</span></span>
+<span id="cb695-5"><a href="descriptive-statistics-and-data-manipulation.html#cb695-5" aria-hidden="true" tabindex="-1"></a>       numbers) <span class="co"># numbers contains numbers 1 through 5</span></span>
+<span id="cb695-6"><a href="descriptive-statistics-and-data-manipulation.html#cb695-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p><code>list(words, numbers)</code> is now a list of two elements, <code>words</code> and <code>numbers</code>. If we want to compute
 the length of <code>words</code> and <code>numbers</code>, we need to learn about another powerful concept called
 <em>higher-order functions</em>. We are going to learn about this in greater detail in Chapter 8. For now,
 let’s use the fact that our list <code>films</code> is contained inside of a data frame, and use a convenience
 function included in <code>{dplyr}</code> to handle situations like this:</p>
-<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="descriptive-statistics-and-data-manipulation.html#cb692-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
-<span id="cb692-2"><a href="descriptive-statistics-and-data-manipulation.html#cb692-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> <span class="co"># &lt;- Apply the next steps for each row individually</span></span>
-<span id="cb692-3"><a href="descriptive-statistics-and-data-manipulation.html#cb692-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_films =</span> <span class="fu">length</span>(films))</span></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="descriptive-statistics-and-data-manipulation.html#cb697-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
+<span id="cb697-2"><a href="descriptive-statistics-and-data-manipulation.html#cb697-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> <span class="co"># &lt;- Apply the next steps for each row individually</span></span>
+<span id="cb697-3"><a href="descriptive-statistics-and-data-manipulation.html#cb697-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_films =</span> <span class="fu">length</span>(films))</span></code></pre></div>
 <p><code>dplyr::rowwise()</code> is useful when working with list-columns because whatever instructions follow
 get run on the single element contained in the list. The picture below illustrates this:</p>
 <p><img src="assets/rowwise.png" width="528" /></p>
 <p>Let’s take a look at the characters and the number of films they have appeared in:</p>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="descriptive-statistics-and-data-manipulation.html#cb693-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
-<span id="cb693-2"><a href="descriptive-statistics-and-data-manipulation.html#cb693-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, films, n_films)</span></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="descriptive-statistics-and-data-manipulation.html#cb698-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb698-2"><a href="descriptive-statistics-and-data-manipulation.html#cb698-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, films, n_films)</span></code></pre></div>
 <pre><code>## # A tibble: 87 × 3
 ## # Rowwise: 
 ##    name               films     n_films
@@ -4393,29 +4401,29 @@ get run on the single element contained in the list. The picture below illustrat
 ## # … with 77 more rows</code></pre>
 <p>Now we can, for example, create a factor variable that groups characters by asking whether they appeared only in
 1 movie, or more:</p>
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="descriptive-statistics-and-data-manipulation.html#cb695-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
-<span id="cb695-2"><a href="descriptive-statistics-and-data-manipulation.html#cb695-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">more_1 =</span> <span class="fu">case_when</span>(n_films <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Exactly one movie&quot;</span>,</span>
-<span id="cb695-3"><a href="descriptive-statistics-and-data-manipulation.html#cb695-3" aria-hidden="true" tabindex="-1"></a>                            n_films <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;More than 1 movie&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="descriptive-statistics-and-data-manipulation.html#cb700-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
+<span id="cb700-2"><a href="descriptive-statistics-and-data-manipulation.html#cb700-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">more_1 =</span> <span class="fu">case_when</span>(n_films <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Exactly one movie&quot;</span>,</span>
+<span id="cb700-3"><a href="descriptive-statistics-and-data-manipulation.html#cb700-3" aria-hidden="true" tabindex="-1"></a>                            n_films <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;More than 1 movie&quot;</span>))</span></code></pre></div>
 <p>You can also create list-columns with your own datasets, by using <code>tidyr::nest()</code>. Remember the
 fake <code>survey_data</code> I created to illustrate <code>pivot_longer()</code> and <code>pivot_wider()</code>? Let’s go back to that dataset
 again:</p>
-<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="descriptive-statistics-and-data-manipulation.html#cb696-1" aria-hidden="true" tabindex="-1"></a>survey_data <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb696-2"><a href="descriptive-statistics-and-data-manipulation.html#cb696-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>id, <span class="sc">~</span>variable, <span class="sc">~</span>value,</span>
-<span id="cb696-3"><a href="descriptive-statistics-and-data-manipulation.html#cb696-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;var1&quot;</span>, <span class="dv">1</span>,</span>
-<span id="cb696-4"><a href="descriptive-statistics-and-data-manipulation.html#cb696-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">0.2</span>,</span>
-<span id="cb696-5"><a href="descriptive-statistics-and-data-manipulation.html#cb696-5" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>, <span class="st">&quot;var3&quot;</span>, <span class="fl">0.3</span>,</span>
-<span id="cb696-6"><a href="descriptive-statistics-and-data-manipulation.html#cb696-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">1.4</span>,</span>
-<span id="cb696-7"><a href="descriptive-statistics-and-data-manipulation.html#cb696-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">1.9</span>,</span>
-<span id="cb696-8"><a href="descriptive-statistics-and-data-manipulation.html#cb696-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;var3&quot;</span>, <span class="fl">4.1</span>,</span>
-<span id="cb696-9"><a href="descriptive-statistics-and-data-manipulation.html#cb696-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">0.1</span>,</span>
-<span id="cb696-10"><a href="descriptive-statistics-and-data-manipulation.html#cb696-10" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">2.8</span>,</span>
-<span id="cb696-11"><a href="descriptive-statistics-and-data-manipulation.html#cb696-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;var3&quot;</span>, <span class="fl">8.9</span>,</span>
-<span id="cb696-12"><a href="descriptive-statistics-and-data-manipulation.html#cb696-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">1.7</span>,</span>
-<span id="cb696-13"><a href="descriptive-statistics-and-data-manipulation.html#cb696-13" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">1.9</span>,</span>
-<span id="cb696-14"><a href="descriptive-statistics-and-data-manipulation.html#cb696-14" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span>, <span class="st">&quot;var3&quot;</span>, <span class="fl">7.6</span></span>
-<span id="cb696-15"><a href="descriptive-statistics-and-data-manipulation.html#cb696-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb696-16"><a href="descriptive-statistics-and-data-manipulation.html#cb696-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb696-17"><a href="descriptive-statistics-and-data-manipulation.html#cb696-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(survey_data)</span></code></pre></div>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="descriptive-statistics-and-data-manipulation.html#cb701-1" aria-hidden="true" tabindex="-1"></a>survey_data <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb701-2"><a href="descriptive-statistics-and-data-manipulation.html#cb701-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>id, <span class="sc">~</span>variable, <span class="sc">~</span>value,</span>
+<span id="cb701-3"><a href="descriptive-statistics-and-data-manipulation.html#cb701-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;var1&quot;</span>, <span class="dv">1</span>,</span>
+<span id="cb701-4"><a href="descriptive-statistics-and-data-manipulation.html#cb701-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">0.2</span>,</span>
+<span id="cb701-5"><a href="descriptive-statistics-and-data-manipulation.html#cb701-5" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>, <span class="st">&quot;var3&quot;</span>, <span class="fl">0.3</span>,</span>
+<span id="cb701-6"><a href="descriptive-statistics-and-data-manipulation.html#cb701-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">1.4</span>,</span>
+<span id="cb701-7"><a href="descriptive-statistics-and-data-manipulation.html#cb701-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">1.9</span>,</span>
+<span id="cb701-8"><a href="descriptive-statistics-and-data-manipulation.html#cb701-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;var3&quot;</span>, <span class="fl">4.1</span>,</span>
+<span id="cb701-9"><a href="descriptive-statistics-and-data-manipulation.html#cb701-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">0.1</span>,</span>
+<span id="cb701-10"><a href="descriptive-statistics-and-data-manipulation.html#cb701-10" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">2.8</span>,</span>
+<span id="cb701-11"><a href="descriptive-statistics-and-data-manipulation.html#cb701-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;var3&quot;</span>, <span class="fl">8.9</span>,</span>
+<span id="cb701-12"><a href="descriptive-statistics-and-data-manipulation.html#cb701-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">1.7</span>,</span>
+<span id="cb701-13"><a href="descriptive-statistics-and-data-manipulation.html#cb701-13" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">1.9</span>,</span>
+<span id="cb701-14"><a href="descriptive-statistics-and-data-manipulation.html#cb701-14" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span>, <span class="st">&quot;var3&quot;</span>, <span class="fl">7.6</span></span>
+<span id="cb701-15"><a href="descriptive-statistics-and-data-manipulation.html#cb701-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb701-16"><a href="descriptive-statistics-and-data-manipulation.html#cb701-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb701-17"><a href="descriptive-statistics-and-data-manipulation.html#cb701-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(survey_data)</span></code></pre></div>
 <pre><code>## # A tibble: 12 × 3
 ##       id variable value
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
@@ -4431,11 +4439,11 @@ again:</p>
 ## 10     4 var1       1.7
 ## 11    NA var2       1.9
 ## 12     4 var3       7.6</code></pre>
-<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="descriptive-statistics-and-data-manipulation.html#cb698-1" aria-hidden="true" tabindex="-1"></a>nested_data <span class="ot">&lt;-</span> survey_data <span class="sc">%&gt;%</span></span>
-<span id="cb698-2"><a href="descriptive-statistics-and-data-manipulation.html#cb698-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span>  </span>
-<span id="cb698-3"><a href="descriptive-statistics-and-data-manipulation.html#cb698-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>()</span>
-<span id="cb698-4"><a href="descriptive-statistics-and-data-manipulation.html#cb698-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb698-5"><a href="descriptive-statistics-and-data-manipulation.html#cb698-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(nested_data)</span></code></pre></div>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="descriptive-statistics-and-data-manipulation.html#cb703-1" aria-hidden="true" tabindex="-1"></a>nested_data <span class="ot">&lt;-</span> survey_data <span class="sc">%&gt;%</span></span>
+<span id="cb703-2"><a href="descriptive-statistics-and-data-manipulation.html#cb703-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span>  </span>
+<span id="cb703-3"><a href="descriptive-statistics-and-data-manipulation.html#cb703-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>()</span>
+<span id="cb703-4"><a href="descriptive-statistics-and-data-manipulation.html#cb703-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb703-5"><a href="descriptive-statistics-and-data-manipulation.html#cb703-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(nested_data)</span></code></pre></div>
 <pre><code>## Rows: 5
 ## Columns: 2
 ## Groups: id [5]
@@ -4443,9 +4451,9 @@ again:</p>
 ## $ data &lt;list&gt; [&lt;tbl_df[2 x 2]&gt;], [&lt;tbl_df[2 x 2]&gt;], [&lt;tbl_df[3 x 2]&gt;], [&lt;tbl_df…</code></pre>
 <p>This creates a new tibble, with columns <code>id</code> and <code>data</code>. <code>data</code> is a list-column that contains
 tibbles; each tibble is the <code>variable</code> and <code>value</code> for each individual:</p>
-<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="descriptive-statistics-and-data-manipulation.html#cb700-1" aria-hidden="true" tabindex="-1"></a>nested_data <span class="sc">%&gt;%</span></span>
-<span id="cb700-2"><a href="descriptive-statistics-and-data-manipulation.html#cb700-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb700-3"><a href="descriptive-statistics-and-data-manipulation.html#cb700-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="descriptive-statistics-and-data-manipulation.html#cb705-1" aria-hidden="true" tabindex="-1"></a>nested_data <span class="sc">%&gt;%</span></span>
+<span id="cb705-2"><a href="descriptive-statistics-and-data-manipulation.html#cb705-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb705-3"><a href="descriptive-statistics-and-data-manipulation.html#cb705-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(data)</span></code></pre></div>
 <pre><code>## [[1]]
 ## # A tibble: 2 × 2
 ##   variable value
@@ -4455,8 +4463,8 @@ tibbles; each tibble is the <code>variable</code> and <code>value</code> for eac
 <p>As you can see, for individual 1, the column data contains a 2x2 tibble with columns <code>variable</code> and
 <code>value</code>. Because <code>group_by()</code> followed by <code>nest()</code> is so useful, there is a wrapper around these two functions
 called <code>group_nest()</code>:</p>
-<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="descriptive-statistics-and-data-manipulation.html#cb702-1" aria-hidden="true" tabindex="-1"></a>survey_data <span class="sc">%&gt;%</span></span>
-<span id="cb702-2"><a href="descriptive-statistics-and-data-manipulation.html#cb702-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_nest</span>(id)</span></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="descriptive-statistics-and-data-manipulation.html#cb707-1" aria-hidden="true" tabindex="-1"></a>survey_data <span class="sc">%&gt;%</span></span>
+<span id="cb707-2"><a href="descriptive-statistics-and-data-manipulation.html#cb707-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_nest</span>(id)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 2
 ##      id               data
 ##   &lt;dbl&gt; &lt;list&lt;tibble[,2]&gt;&gt;
@@ -4484,20 +4492,20 @@ the following relationship <span class="math inline">\(M = N*\pi/4\)</span>. You
 <p>The more arrows N you throw at the square, the better approximation of <span class="math inline">\(\pi\)</span> you’ll have. Let’s
 try to do this with a tidy Monte Carlo simulation. First, let’s randomly pick some points inside
 the unit square:</p>
-<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="descriptive-statistics-and-data-manipulation.html#cb704-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb704-2"><a href="descriptive-statistics-and-data-manipulation.html#cb704-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb704-3"><a href="descriptive-statistics-and-data-manipulation.html#cb704-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb704-4"><a href="descriptive-statistics-and-data-manipulation.html#cb704-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb704-5"><a href="descriptive-statistics-and-data-manipulation.html#cb704-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019</span>)</span>
-<span id="cb704-6"><a href="descriptive-statistics-and-data-manipulation.html#cb704-6" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;x&quot;</span> <span class="ot">=</span> <span class="fu">runif</span>(n), <span class="st">&quot;y&quot;</span> <span class="ot">=</span> <span class="fu">runif</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="descriptive-statistics-and-data-manipulation.html#cb709-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb709-2"><a href="descriptive-statistics-and-data-manipulation.html#cb709-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb709-3"><a href="descriptive-statistics-and-data-manipulation.html#cb709-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="cb709-4"><a href="descriptive-statistics-and-data-manipulation.html#cb709-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb709-5"><a href="descriptive-statistics-and-data-manipulation.html#cb709-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb709-6"><a href="descriptive-statistics-and-data-manipulation.html#cb709-6" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;x&quot;</span> <span class="ot">=</span> <span class="fu">runif</span>(n), <span class="st">&quot;y&quot;</span> <span class="ot">=</span> <span class="fu">runif</span>(n))</span></code></pre></div>
 <p>Now, to know if a point is inside the unit circle, we need to check wether <span class="math inline">\(x^2 + y^2 &lt; 1\)</span>. Let’s
 add a new column to the <code>points</code> tibble, called <code>inside</code> equal to 1 if the point is inside the
 unit circle and 0 if not:</p>
-<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="descriptive-statistics-and-data-manipulation.html#cb705-1" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> points <span class="sc">%&gt;%</span></span>
-<span id="cb705-2"><a href="descriptive-statistics-and-data-manipulation.html#cb705-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">inside =</span> <span class="fu">map2_dbl</span>(<span class="at">.x =</span> x, <span class="at">.y =</span> y, <span class="sc">~</span><span class="fu">ifelse</span>(.x<span class="sc">**</span><span class="dv">2</span> <span class="sc">+</span> .y<span class="sc">**</span><span class="dv">2</span> <span class="sc">&lt;</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb705-3"><a href="descriptive-statistics-and-data-manipulation.html#cb705-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowid_to_column</span>(<span class="st">&quot;N&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="descriptive-statistics-and-data-manipulation.html#cb710-1" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> points <span class="sc">%&gt;%</span></span>
+<span id="cb710-2"><a href="descriptive-statistics-and-data-manipulation.html#cb710-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">inside =</span> <span class="fu">map2_dbl</span>(<span class="at">.x =</span> x, <span class="at">.y =</span> y, <span class="sc">~</span><span class="fu">ifelse</span>(.x<span class="sc">**</span><span class="dv">2</span> <span class="sc">+</span> .y<span class="sc">**</span><span class="dv">2</span> <span class="sc">&lt;</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb710-3"><a href="descriptive-statistics-and-data-manipulation.html#cb710-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowid_to_column</span>(<span class="st">&quot;N&quot;</span>)</span></code></pre></div>
 <p>Let’s take a look at <code>points</code>:</p>
-<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="descriptive-statistics-and-data-manipulation.html#cb706-1" aria-hidden="true" tabindex="-1"></a>points</span></code></pre></div>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="descriptive-statistics-and-data-manipulation.html#cb711-1" aria-hidden="true" tabindex="-1"></a>points</span></code></pre></div>
 <pre><code>## # A tibble: 5,000 × 4
 ##        N       x      y inside
 ##    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -4515,12 +4523,12 @@ unit circle and 0 if not:</p>
 <p>Now, I can compute the estimation
 of <span class="math inline">\(\pi\)</span> at each row, by computing the cumulative sum of the 1’s in the <code>inside</code> column and dividing
 that by the current value of <code>N</code> column:</p>
-<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="descriptive-statistics-and-data-manipulation.html#cb708-1" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> points <span class="sc">%&gt;%</span></span>
-<span id="cb708-2"><a href="descriptive-statistics-and-data-manipulation.html#cb708-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">estimate =</span> <span class="dv">4</span><span class="sc">*</span><span class="fu">cumsum</span>(inside)<span class="sc">/</span>N)</span></code></pre></div>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="descriptive-statistics-and-data-manipulation.html#cb713-1" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> points <span class="sc">%&gt;%</span></span>
+<span id="cb713-2"><a href="descriptive-statistics-and-data-manipulation.html#cb713-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">estimate =</span> <span class="dv">4</span><span class="sc">*</span><span class="fu">cumsum</span>(inside)<span class="sc">/</span>N)</span></code></pre></div>
 <p><code>cumsum(inside)</code> is the <code>M</code> from the formula. Now, we can finish by plotting the result:</p>
-<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="descriptive-statistics-and-data-manipulation.html#cb709-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(points) <span class="sc">+</span></span>
-<span id="cb709-2"><a href="descriptive-statistics-and-data-manipulation.html#cb709-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate, <span class="at">x =</span> N)) <span class="sc">+</span></span>
-<span id="cb709-3"><a href="descriptive-statistics-and-data-manipulation.html#cb709-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> pi)</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="descriptive-statistics-and-data-manipulation.html#cb714-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(points) <span class="sc">+</span></span>
+<span id="cb714-2"><a href="descriptive-statistics-and-data-manipulation.html#cb714-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate, <span class="at">x =</span> N)) <span class="sc">+</span></span>
+<span id="cb714-3"><a href="descriptive-statistics-and-data-manipulation.html#cb714-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> pi)</span></code></pre></div>
 <p><img src="modern_R_files/figure-html/unnamed-chunk-414-1.png" width="672" /></p>
 <p>In the next chapter, we are going to learn all about <code>{ggplot2}</code>, the package I used in the lines
 above to create this plot.</p>
@@ -4543,12 +4551,12 @@ are the central objects and where the analyst operates over them with functional
 <li>Combine <code>mutate()</code> with <code>across()</code> to exponentiate every column of type <code>double</code> of the <code>gasoline</code> dataset.</li>
 </ul>
 <p>To obtain the <code>gasoline</code> dataset, run the following lines:</p>
-<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="descriptive-statistics-and-data-manipulation.html#cb710-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Gasoline, <span class="at">package =</span> <span class="st">&quot;plm&quot;</span>)</span>
-<span id="cb710-2"><a href="descriptive-statistics-and-data-manipulation.html#cb710-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb710-3"><a href="descriptive-statistics-and-data-manipulation.html#cb710-3" aria-hidden="true" tabindex="-1"></a>gasoline <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(Gasoline)</span>
-<span id="cb710-4"><a href="descriptive-statistics-and-data-manipulation.html#cb710-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb710-5"><a href="descriptive-statistics-and-data-manipulation.html#cb710-5" aria-hidden="true" tabindex="-1"></a>gasoline <span class="ot">&lt;-</span> gasoline <span class="sc">%&gt;%</span></span>
-<span id="cb710-6"><a href="descriptive-statistics-and-data-manipulation.html#cb710-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">tolower</span>(country))</span></code></pre></div>
+<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="descriptive-statistics-and-data-manipulation.html#cb715-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Gasoline, <span class="at">package =</span> <span class="st">&quot;plm&quot;</span>)</span>
+<span id="cb715-2"><a href="descriptive-statistics-and-data-manipulation.html#cb715-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb715-3"><a href="descriptive-statistics-and-data-manipulation.html#cb715-3" aria-hidden="true" tabindex="-1"></a>gasoline <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(Gasoline)</span>
+<span id="cb715-4"><a href="descriptive-statistics-and-data-manipulation.html#cb715-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb715-5"><a href="descriptive-statistics-and-data-manipulation.html#cb715-5" aria-hidden="true" tabindex="-1"></a>gasoline <span class="ot">&lt;-</span> gasoline <span class="sc">%&gt;%</span></span>
+<span id="cb715-6"><a href="descriptive-statistics-and-data-manipulation.html#cb715-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">tolower</span>(country))</span></code></pre></div>
 <ul>
 <li><p>Exponeniate columns starting with the character <code>"l"</code> of the <code>gasoline</code> dataset.</p></li>
 <li><p>Convert all columns’ classes into the character class.</p></li>
@@ -4571,29 +4579,32 @@ are the central objects and where the analyst operates over them with functional
 <ul>
 <li>What does the following code do? Copy and paste it in an R interpreter to find out!</li>
 </ul>
-<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="descriptive-statistics-and-data-manipulation.html#cb711-1" aria-hidden="true" tabindex="-1"></a>LaborSupply <span class="sc">%&gt;%</span></span>
-<span id="cb711-2"><a href="descriptive-statistics-and-data-manipulation.html#cb711-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
-<span id="cb711-3"><a href="descriptive-statistics-and-data-manipulation.html#cb711-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;l&quot;</span>), tibble<span class="sc">::</span><span class="fu">lst</span>(lag, lead)))</span></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="descriptive-statistics-and-data-manipulation.html#cb716-1" aria-hidden="true" tabindex="-1"></a>LaborSupply <span class="sc">%&gt;%</span></span>
+<span id="cb716-2"><a href="descriptive-statistics-and-data-manipulation.html#cb716-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb716-3"><a href="descriptive-statistics-and-data-manipulation.html#cb716-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;l&quot;</span>), tibble<span class="sc">::</span><span class="fu">lst</span>(lag, lead)))</span></code></pre></div>
 <ul>
 <li>Using <code>summarise()</code> and <code>across()</code>, compute the mean, standard deviation and number of individuals of <code>lnhr</code> and <code>lnwg</code> for each individual.</li>
 </ul>
-</div>
-<div id="exercise-4-1" class="section level3 unnumbered hasAnchor">
-<h3>Exercise 4<a href="descriptive-statistics-and-data-manipulation.html#exercise-4-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>In the dataset folder you downloaded at the beginning of the chapter, there is a folder called
-“unemployment”. I used the data in the section about working with lists of datasets. Using
-<code>rio::import_list()</code>, read the 4 datasets into R.</p></li>
-<li><p>Using <code>map()</code>, map the <code>janitor::clean_names()</code> function to each dataset (just like in the example
-in the section on working with lists of datasets). Then, still with <code>map()</code> and <code>mutate()</code> convert
-all commune names in the <code>commune</code> column with the function <code>tolower()</code>, in a new column called <code>lcommune</code>.
-This is not an easy exercise; so here are some hints:</p>
-<ul>
-<li>Remember that <code>all_datasets</code> is a list of datasets. Which function do you use when you want to map a function to each element of a list?</li>
-<li>Each element of <code>all_datasets</code> are <code>data.frame</code> objects. Which function do you use to add a column to a <code>data.frame</code>?</li>
-<li>What symbol can you use to access a column of a <code>data.frame</code>?</li>
-</ul></li>
-</ul>
+<!--
+### Exercise 4 {-}
+
+* In the dataset folder you downloaded at the beginning of the chapter, there is a folder called
+"unemployment". I used the data in the section about working with lists of datasets. Using
+`rio::import_list()`, read the 4 datasets into R.
+
+
+
+* Using `map()`, map the `janitor::clean_names()` function to each dataset (just like in the example
+in the section on working with lists of datasets). Then, still with `map()` and `mutate()` convert
+all commune names in the `commune` column with the function `tolower()`, in a new column called `lcommune`.
+This is not an easy exercise; so here are some hints:
+
+    * Remember that `all_datasets` is a list of datasets. Which function do you use when you want to map a function to each element of a list?
+    * Each element of `all_datasets` are `data.frame` objects. Which function do you use to add a column to a `data.frame`?
+    * What symbol can you use to access a column of a `data.frame`?
+
+
+-->
 
 </div>
 </div>
