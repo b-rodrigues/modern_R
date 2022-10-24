@@ -2111,10 +2111,17 @@ independence <- independence %>%
 saveRDS(independence, "independence.rds")
 ```
 
-Let's load new dataset, called *independence* from the datasets folder:
+Let's load new dataset, called *independence* from the Github repo of the book. The file is in the
+`.rds` format, so I need to use `readRDS()` to read it. I also download it first using `tempfile()`
+to save the file into a temporary file, and then `download.file()` to actually download the file.
+I then read it using `readRDS()`:
 
 ```{r}
-independence <- readRDS("datasets/independence.rds")
+independence_path <- tempfile(fileext = "rds")
+download.file(url = "https://github.com/b-rodrigues/modern_R/blob/master/datasets/independence.rds?raw=true",
+              destfile = independence_path)
+
+independence <- readRDS(independence_path)
 ```
 
 This dataset was scraped from the following Wikipedia [page](https://en.wikipedia.org/wiki/Decolonisation_of_Africa#Timeline).
