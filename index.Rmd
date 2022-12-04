@@ -43,7 +43,7 @@ too and more are coming.
 
 You can purchase an ebook version of this book on [leanpub](https://leanpub.com/modern_tidyverse).
 The version on leanpub is quite out of date, so if you buy it, it's really just to send some money
-my money, so many thanks for that! You can also support me by [buying me a
+my way, so many thanks for that! You can also support me by [buying me a
 coffee](https://www.buymeacoffee.com/brodriguesco) or
 [paypal.me](https://www.paypal.me/brodriguesco).
 
